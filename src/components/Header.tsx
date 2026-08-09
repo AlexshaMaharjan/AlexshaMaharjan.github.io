@@ -1,8 +1,5 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import type { Locale } from "@/lib/i18n";
 import { localeHref } from "@/lib/i18n";
@@ -25,7 +22,7 @@ export default function Header({
   locale: Locale;
   dictionary: Dictionary;
 }) {
-  const pathname = usePathname() ?? "/";
+  const pathname = useLocation().pathname ?? "/";
   const bare = stripLocale(pathname, locale);
   const isPlayground = bare.startsWith("/playground");
   const [scrolled, setScrolled] = useState(false);
@@ -50,7 +47,7 @@ export default function Header({
     >
       <div className="relative flex h-[72px] items-center justify-between px-6 md:px-12">
         <Link
-          href={localeHref(locale, "/")}
+          to={localeHref(locale, "/")}
           className="shrink-0 text-[16px] font-semibold tracking-[-0.01em] text-ink"
         >
           Alexsha Maharjan
@@ -65,16 +62,16 @@ export default function Header({
         <div className="flex items-center gap-7">
           <nav aria-label="Primary" className="hidden items-center gap-7 text-[15px] text-ink nav:flex">
             <Link
-              href={localeHref(locale, "/#work")}
+              to={localeHref(locale, "/#work")}
               className="transition-colors hover:text-accent"
             >
               {dictionary.nav.projects}
             </Link>
-            <Link href={localeHref(locale, "/#about")} className="transition-colors hover:text-accent">
+            <Link to={localeHref(locale, "/#about")} className="transition-colors hover:text-accent">
               {dictionary.nav.about}
             </Link>
             <Link
-              href={localeHref(locale, "/#contact")}
+              to={localeHref(locale, "/#contact")}
               className="transition-colors hover:text-accent"
             >
               {dictionary.nav.contact}

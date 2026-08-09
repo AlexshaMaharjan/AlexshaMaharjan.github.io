@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 
@@ -14,7 +14,7 @@ export default function ContactSection({ dictionary, locale }: { dictionary: Dic
           <p className="mx-auto mt-6 max-w-xl text-[18px] leading-[1.6] text-[#A7ACB4]">{dictionary.contact.copy}</p>
           <div className="mt-11 flex flex-wrap justify-center gap-4">
             <Link
-              href={localeHref(locale, "/resume")}
+              to={localeHref(locale, "/resume")}
               className="flex h-12 items-center rounded-full bg-white px-7 text-[15px] font-medium text-ink transition-colors hover:bg-accent-soft"
             >
               {dictionary.contact.resumeCta}

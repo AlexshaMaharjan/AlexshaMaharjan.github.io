@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import type { PlaygroundProjectContent } from "@/lib/playground/types";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -19,7 +19,7 @@ export default function ProjectPage({
       <section className="pt-[150px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
           <Link
-            href={localeHref(locale, `/playground/${content.categorySlug}`)}
+            to={localeHref(locale, `/playground/${content.categorySlug}`)}
             className="text-[14px] text-ink-secondary transition-colors hover:text-accent"
           >
             ← {content.categoryTitle}
@@ -76,7 +76,7 @@ export default function ProjectPage({
         <section className="pt-[90px] pb-[130px]">
           <div className="mx-auto max-w-[1440px] px-5 md:px-20">
             <Link
-              href={localeHref(
+              to={localeHref(
                 locale,
                 content.nextSlug
                   ? `/playground/${content.nextCategorySlug}/${content.nextSlug}`

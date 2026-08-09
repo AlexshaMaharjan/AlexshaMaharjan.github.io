@@ -368,6 +368,13 @@ const de: Dictionary = {
     tools: "Tools",
     deliverables: "Ergebnisse",
   },
+  notFound: {
+    metaTitle: "Seite nicht gefunden — Alexsha Maharjan",
+    eyebrow: "404",
+    heading: "Diese Seite gibt es nicht.",
+    copy: "Die gesuchte Seite wurde verschoben oder existiert nicht.",
+    backHome: "← Zurück zur Startseite",
+  },
 };
 
 export default de;

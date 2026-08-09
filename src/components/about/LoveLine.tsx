@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useState } from "react";
 
 export default function LoveLine({ intro, words }: { intro: string; words: string[] }) {

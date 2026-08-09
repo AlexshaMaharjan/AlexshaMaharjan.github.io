@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import type { PlaygroundCategoryContent } from "@/lib/playground/types";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -18,7 +18,7 @@ export default function CategoryPage({
       <section className="pt-[150px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
           <Link
-            href={localeHref(locale, "/playground")}
+            to={localeHref(locale, "/playground")}
             className="text-[14px] text-ink-secondary transition-colors hover:text-accent"
           >
             {dictionary.playgroundNav.backToPlayground}
@@ -48,13 +48,13 @@ export default function CategoryPage({
       <nav aria-label="Category navigation" className="border-t border-[rgba(78,96,135,0.18)] py-16">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 md:px-20">
           <Link
-            href={localeHref(locale, "/playground")}
+            to={localeHref(locale, "/playground")}
             className="text-[16px] font-medium text-ink transition-colors hover:text-accent"
           >
             {dictionary.playgroundNav.allCategories}
           </Link>
           <Link
-            href={localeHref(locale, `/playground/${content.nextCategorySlug}`)}
+            to={localeHref(locale, `/playground/${content.nextCategorySlug}`)}
             className="flex items-center gap-2.5 text-right text-[16px] font-medium text-ink transition-colors hover:text-accent"
           >
             {content.nextCategoryTitle}

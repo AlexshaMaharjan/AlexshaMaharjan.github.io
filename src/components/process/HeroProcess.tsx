@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 import { branchLayout } from "./branchData";

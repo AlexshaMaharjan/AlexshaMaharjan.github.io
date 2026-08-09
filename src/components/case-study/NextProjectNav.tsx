@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from "react-router-dom";
+import Image from "@/components/ui/Image";
 import type { ProjectCopy, Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
 
@@ -19,7 +19,7 @@ export default function NextProjectNav({
       <div className="mx-auto max-w-[1440px] px-5 md:px-20">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <Link
-            href={localeHref(locale, `/work/${prev.slug}`)}
+            to={localeHref(locale, `/work/${prev.slug}`)}
             className="block rounded-[10px] border border-[#E4E7EE] p-6 transition-colors hover:border-accent"
           >
             <span className="font-mono text-[12px] text-ink-muted">{dictionary.caseStudy.previousProject}</span>
@@ -30,7 +30,7 @@ export default function NextProjectNav({
             <p className="mt-2 text-[13px] text-ink-secondary">{prev.tags.join(" · ")}</p>
           </Link>
           <Link
-            href={localeHref(locale, `/work/${next.slug}`)}
+            to={localeHref(locale, `/work/${next.slug}`)}
             className="block rounded-[10px] border border-[#E4E7EE] p-6 text-right transition-colors hover:border-accent"
           >
             <span className="font-mono text-[12px] text-ink-muted">{dictionary.caseStudy.nextProject}</span>
@@ -42,7 +42,7 @@ export default function NextProjectNav({
           </Link>
         </div>
         <div className="mt-10 text-center">
-          <Link href={localeHref(locale, "/#work")} className="text-[15px] font-medium text-accent hover:underline">
+          <Link to={localeHref(locale, "/#work")} className="text-[15px] font-medium text-accent hover:underline">
             {dictionary.caseStudy.viewAllWork}
           </Link>
         </div>

@@ -1,8 +1,5 @@
-"use client";
-
-import Link from "next/link";
+import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
-import { usePathname } from "next/navigation";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import LanguageSwitch from "@/components/LanguageSwitch";
@@ -21,7 +18,7 @@ export default function Footer({
   locale: Locale;
   dictionary: Dictionary;
 }) {
-  const pathname = usePathname() ?? "/";
+  const pathname = useLocation().pathname ?? "/";
   const bare = stripLocale(pathname, locale);
   const isPlayground = bare.startsWith("/playground");
 
@@ -42,13 +39,13 @@ export default function Footer({
           </div>
           <div className="flex gap-16 md:col-span-5">
             <nav aria-label="Footer" className="flex flex-col gap-3 text-[14px] text-ink">
-              <Link href={localeHref(locale, "/#about")} className="hover:text-accent transition-colors">
+              <Link to={localeHref(locale, "/#about")} className="hover:text-accent transition-colors">
                 {dictionary.nav.about}
               </Link>
-              <Link href={localeHref(locale, "/playground")} className="hover:text-accent transition-colors">
+              <Link to={localeHref(locale, "/playground")} className="hover:text-accent transition-colors">
                 {dictionary.nav.playground}
               </Link>
-              <Link href={localeHref(locale, "/resume")} className="hover:text-accent transition-colors">
+              <Link to={localeHref(locale, "/resume")} className="hover:text-accent transition-colors">
                 {dictionary.footer.resume}
               </Link>
             </nav>

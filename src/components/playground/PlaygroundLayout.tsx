@@ -1,4 +1,6 @@
-export default function PlaygroundLayout({ children }: { children: React.ReactNode }) {
+import { Outlet } from "react-router-dom";
+
+export default function PlaygroundLayout() {
   return (
     <div
       className="relative min-h-screen bg-page"
@@ -8,7 +10,7 @@ export default function PlaygroundLayout({ children }: { children: React.ReactNo
         backgroundSize: "32px 32px, 32px 32px, 8px 8px, 8px 8px",
       }}
     >
-      {children}
+      <Outlet />
     </div>
   );
 }

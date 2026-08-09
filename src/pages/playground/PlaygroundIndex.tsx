@@ -1,17 +1,19 @@
-import Link from "next/link";
-import { isLocale, defaultLocale, localeHref } from "@/lib/i18n";
+import { Link } from "react-router-dom";
+import { useLocale } from "@/lib/useLocale";
+import { localeHref } from "@/lib/i18n";
 import home from "@/lib/playground/home";
 import { getCategory } from "@/lib/playground/categories";
 import CategoryMarquee from "@/components/playground/CategoryMarquee";
 import PlaceholderImage from "@/components/PlaceholderImage";
+import Seo from "@/components/Seo";
 
-export default async function PlaygroundHomePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+export default function PlaygroundIndex() {
+  const locale = useLocale();
   const content = home[locale];
 
   return (
     <>
+      <Seo title={`${content.heading} — Alexsha Maharjan`} description={content.intro} />
       <section className="pb-24 pt-[168px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
@@ -68,7 +70,7 @@ export default async function PlaygroundHomePage({ params }: { params: Promise<{
                 <h3 className="mt-4 px-0.5 text-[19px] font-semibold tracking-[-0.01em] text-ink">
                   {item.slug ? (
                     <Link
-                      href={localeHref(locale, `/playground/3d-motion/${item.slug}`)}
+                      to={localeHref(locale, `/playground/3d-motion/${item.slug}`)}
                       className="border-b border-[#C9CEDB] hover:text-accent"
                     >
                       {item.caption}
@@ -134,7 +136,7 @@ export default async function PlaygroundHomePage({ params }: { params: Promise<{
       <section className="pb-[130px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
           <Link
-            href={localeHref(locale, "/")}
+            to={localeHref(locale, "/")}
             className="flex items-center justify-between gap-6 border-y border-[rgba(78,96,135,0.2)] py-9 transition-colors hover:text-accent"
           >
             <span className="text-[clamp(1.5rem,2.8vw,2.375rem)] font-semibold tracking-[-0.02em] text-ink">

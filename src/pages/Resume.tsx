@@ -1,20 +1,9 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { isLocale, defaultLocale, localeHref } from "@/lib/i18n";
-import { getDictionary } from "@/lib/dictionaries";
+import { Link } from "react-router-dom";
+import { useLocale, useDictionary } from "@/lib/useLocale";
+import { localeHref } from "@/lib/i18n";
 import type { ResumeEducationEntry, ResumeExperienceEntry, ResumeProjectEntry, ResumeFurtherEntry } from "@/lib/dictionaries";
 import PrintButton from "@/components/resume/PrintButton";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale: rawLocale } = await params;
-  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const dictionary = getDictionary(locale);
-  return { title: dictionary.resume.metaTitle };
-}
+import Seo from "@/components/Seo";
 
 function EntryHeader({ title, period }: { title: string; period: string }) {
   return (
@@ -76,17 +65,17 @@ function FurtherRow({ entry }: { entry: ResumeFurtherEntry }) {
   );
 }
 
-export default async function ResumePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const dictionary = getDictionary(locale);
+export default function Resume() {
+  const locale = useLocale();
+  const dictionary = useDictionary();
   const r = dictionary.resume;
 
   return (
     <section className="pt-[150px] pb-[140px] print:pt-10">
+      <Seo title={r.metaTitle} />
       <div className="mx-auto max-w-[760px] px-5 md:px-0">
         <Link
-          href={localeHref(locale, "/about")}
+          to={localeHref(locale, "/about")}
           className="text-[14px] text-ink-secondary transition-colors hover:text-accent print:hidden"
         >
           {r.backToAbout}

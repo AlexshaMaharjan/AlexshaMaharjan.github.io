@@ -1,21 +1,22 @@
-import Image from "next/image";
-import Link from "next/link";
-import { isLocale, defaultLocale, localeHref } from "@/lib/i18n";
-import { getDictionary } from "@/lib/dictionaries";
+import { Link } from "react-router-dom";
+import { useLocale, useDictionary } from "@/lib/useLocale";
+import { localeHref } from "@/lib/i18n";
+import Image from "@/components/ui/Image";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import LoveLine from "@/components/about/LoveLine";
+import Seo from "@/components/Seo";
 
-export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const dictionary = getDictionary(locale);
+export default function About() {
+  const locale = useLocale();
+  const dictionary = useDictionary();
   const about = dictionary.about;
 
   return (
     <>
+      <Seo title={`${about.heading} — Alexsha Maharjan`} description={dictionary.meta.description} />
       <section className="pt-[150px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
-          <Link href={localeHref(locale, "/")} className="text-[14px] text-ink-secondary transition-colors hover:text-accent">
+          <Link to={localeHref(locale, "/")} className="text-[14px] text-ink-secondary transition-colors hover:text-accent">
             {about.backToHome}
           </Link>
           <p className="mt-10 font-mono text-[13px] text-accent">{about.eyebrow}</p>
@@ -139,7 +140,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
               <div className="mt-12 flex flex-wrap items-center gap-4">
                 <Link
-                  href={localeHref(locale, "/resume")}
+                  to={localeHref(locale, "/resume")}
                   className="flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-colors hover:bg-accent"
                 >
                   {about.resumeLink}
@@ -184,7 +185,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <p className="mx-auto mt-5.5 max-w-[600px] text-[18px] leading-[1.6] text-[#A7ACB4]">{about.resumeCopy}</p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
-              href={localeHref(locale, "/resume")}
+              to={localeHref(locale, "/resume")}
               className="flex h-12 items-center rounded-full bg-white px-7 text-[15px] font-medium text-ink transition-colors hover:bg-accent-soft"
             >
               {about.resumeCta}

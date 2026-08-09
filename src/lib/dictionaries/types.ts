@@ -193,4 +193,11 @@ export interface Dictionary {
     tools: string;
     deliverables: string;
   };
+  notFound: {
+    metaTitle: string;
+    eyebrow: string;
+    heading: string;
+    copy: string;
+    backHome: string;
+  };
 }

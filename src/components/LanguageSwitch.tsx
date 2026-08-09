@@ -1,6 +1,4 @@
-"use client";
-
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 
@@ -21,7 +19,7 @@ export default function LanguageSwitch({
 
   return (
     <Link
-      href={localeHref(target, pathname)}
+      to={localeHref(target, pathname)}
       aria-label={ariaLabel}
       className={`inline-flex items-center rounded-full border border-border px-4 py-2 text-[13px] font-semibold text-ink transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent-focus ${className}`}
     >

@@ -1,21 +1,17 @@
-import { isLocale, defaultLocale } from "@/lib/i18n";
-import { getDictionary } from "@/lib/dictionaries";
+import { useLocale, useDictionary } from "@/lib/useLocale";
+import Seo from "@/components/Seo";
 import HeroProcess from "@/components/process/HeroProcess";
 import SelectedWork from "@/components/SelectedWork";
 import AboutPreview from "@/components/AboutPreview";
 import ContactSection from "@/components/ContactSection";
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale: rawLocale } = await params;
-  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const dictionary = getDictionary(locale);
+export default function Home() {
+  const locale = useLocale();
+  const dictionary = useDictionary();
 
   return (
     <>
+      <Seo title={dictionary.meta.title} description={dictionary.meta.description} />
       <HeroProcess dictionary={dictionary} />
       <SelectedWork dictionary={dictionary} locale={locale} />
       <AboutPreview dictionary={dictionary} locale={locale} />

@@ -1,12 +1,8 @@
 # dependencies
 /node_modules
 
-# next.js
-/.next/
-/out/
-
 # production
-/build
+/dist
 
 # misc
 .DS_Store
@@ -22,7 +18,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # design source reference (raw MCP pulls, not app code)
 /design-reference/

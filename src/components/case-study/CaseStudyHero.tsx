@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from "react-router-dom";
+import Image from "@/components/ui/Image";
 import type { CaseStudyContent } from "@/lib/caseStudies/types";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -18,7 +18,7 @@ export default function CaseStudyHero({
     <section className="pt-[150px]">
       <div className="mx-auto max-w-[1440px] px-5 md:px-20">
         <Link
-          href={localeHref(locale, "/#work")}
+          to={localeHref(locale, "/#work")}
           className="text-[14px] text-ink-secondary transition-colors hover:text-accent"
         >
           {dictionary.caseStudy.backToProjects}

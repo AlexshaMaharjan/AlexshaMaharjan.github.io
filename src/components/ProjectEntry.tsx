@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from "react-router-dom";
+import Image from "@/components/ui/Image";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { ProjectCopy, Dictionary } from "@/lib/dictionaries";
 
@@ -37,7 +37,7 @@ export function FeaturedProject({
   return (
     <article className="mb-32">
       <p className="mb-3.5 font-mono text-[13px] text-accent">{project.projectTag}</p>
-      <Link href={href} aria-label={`${project.name} case study`} className="block">
+      <Link to={href} aria-label={`${project.name} case study`} className="block">
         <div
           className="relative w-full overflow-hidden rounded-[10px] border border-[#E4E7EE] bg-surface"
           style={{ aspectRatio: project.imageAspect }}
@@ -67,7 +67,7 @@ export function FeaturedProject({
           </h4>
           <p className="mt-4.5 max-w-[640px] text-[17px] leading-[1.6] text-ink-secondary">{project.description}</p>
           <Link
-            href={href}
+            to={href}
             className="mt-5.5 inline-block border-b border-ink text-[15px] font-medium text-ink transition-colors hover:border-accent hover:text-accent"
           >
             {dictionary.selectedWork.viewCaseStudy}
@@ -91,7 +91,7 @@ export function GridProject({
   return (
     <article>
       <p className="mb-3.5 font-mono text-[13px] text-accent">{project.projectTag}</p>
-      <Link href={href} aria-label={`${project.name} case study`} className="block">
+      <Link to={href} aria-label={`${project.name} case study`} className="block">
         <div
           className="relative w-full overflow-hidden rounded-[10px] border border-[#E4E7EE] bg-surface"
           style={{ aspectRatio: project.imageAspect }}
@@ -115,7 +115,7 @@ export function GridProject({
         <Tags tags={project.tags} />
       </div>
       <Link
-        href={href}
+        to={href}
         className="mt-4.5 inline-block border-b border-ink text-[15px] font-medium text-ink transition-colors hover:border-accent hover:text-accent"
       >
         {dictionary.selectedWork.viewCaseStudy}

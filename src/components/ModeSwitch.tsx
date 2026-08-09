@@ -1,6 +1,4 @@
-"use client";
-
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 import type { Locale } from "@/lib/i18n";
 import { localeHref } from "@/lib/i18n";
@@ -25,7 +23,7 @@ export default function ModeSwitch({
       )}
     >
       <Link
-        href={localeHref(locale, "/")}
+        to={localeHref(locale, "/")}
         aria-current={!isPlayground ? "page" : undefined}
         className={clsx(
           "flex min-h-[44px] items-center rounded-full px-[22px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-accent-focus",
@@ -35,7 +33,7 @@ export default function ModeSwitch({
         {dictionary.nav.portfolio}
       </Link>
       <Link
-        href={localeHref(locale, "/playground")}
+        to={localeHref(locale, "/playground")}
         aria-current={isPlayground ? "page" : undefined}
         className={clsx(
           "flex min-h-[44px] items-center rounded-full px-[22px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-accent-focus",

@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import { Link } from "react-router-dom";
+import Image from "@/components/ui/Image";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
 
@@ -39,11 +39,11 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
               {dictionary.aboutPreview.copy}
             </p>
             <div className="mt-9 flex flex-wrap gap-8">
-              <Link href={localeHref(locale, "/about")} className="text-[15px] font-medium text-accent hover:underline">
+              <Link to={localeHref(locale, "/about")} className="text-[15px] font-medium text-accent hover:underline">
                 {dictionary.aboutPreview.linkAbout}
               </Link>
               <Link
-                href={localeHref(locale, "/playground")}
+                to={localeHref(locale, "/playground")}
                 className="text-[15px] font-medium text-accent hover:underline"
               >
                 {dictionary.aboutPreview.linkPlayground}

@@ -1,7 +1,5 @@
-"use client";
-
 import { useEffect, useId, useState } from "react";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import LanguageSwitch from "@/components/LanguageSwitch";
@@ -61,7 +59,7 @@ export default function MobileMenu({
             {links.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                to={link.href}
                 onClick={() => setOpen(false)}
                 className="flex min-h-[44px] items-center py-3 text-[20px] font-medium text-ink"
               >

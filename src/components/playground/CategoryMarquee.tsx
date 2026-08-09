@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import type { PlaygroundItem } from "@/lib/playground/types";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -30,7 +30,7 @@ export default function CategoryMarquee({
         <span aria-hidden="true" className="mb-2 block font-mono text-[12px] text-accent">
           {number}
         </span>
-        <Link href={localeHref(locale, `/playground/${slug}`)} className="inline-block">
+        <Link to={localeHref(locale, `/playground/${slug}`)} className="inline-block">
           <h3 className="text-[clamp(1.375rem,2.2vw,1.875rem)] font-semibold tracking-[-0.02em] text-ink transition-colors hover:text-accent">
             {title}
           </h3>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import type { PlaygroundItem } from "@/lib/playground/types";
@@ -33,7 +33,7 @@ export default function PlaygroundCard({
 
   if (item.slug) {
     return (
-      <Link href={localeHref(locale, `/playground/${categorySlug}/${item.slug}`)} className="block">
+      <Link to={localeHref(locale, `/playground/${categorySlug}/${item.slug}`)} className="block">
         {card}
       </Link>
     );
