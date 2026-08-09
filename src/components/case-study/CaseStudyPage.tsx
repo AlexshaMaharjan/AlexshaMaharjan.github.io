@@ -1,0 +1,47 @@
+import type { CaseStudyContent } from "@/lib/caseStudies/types";
+import type { Dictionary, ProjectCopy } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
+import CaseStudyHero from "./CaseStudyHero";
+import FactsStrip from "./FactsStrip";
+import ContentsNav from "./ContentsNav";
+import Section from "./Section";
+import NextProjectNav from "./NextProjectNav";
+
+export default function CaseStudyPage({
+  content,
+  dictionary,
+  locale,
+  prev,
+  next,
+}: {
+  content: CaseStudyContent;
+  dictionary: Dictionary;
+  locale: Locale;
+  prev: ProjectCopy;
+  next: ProjectCopy;
+}) {
+  const [firstSection, ...restSections] = content.sections;
+
+  return (
+    <article>
+      <CaseStudyHero content={content} dictionary={dictionary} locale={locale} />
+      <FactsStrip content={content} dictionary={dictionary} />
+
+      <section id={firstSection?.id} className="pt-[76px] pb-[140px]">
+        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_minmax(0,1fr)]">
+            <ContentsNav sections={content.sections} dictionary={dictionary} />
+            <div className="min-w-0 max-w-[960px]">
+              {firstSection && <Section section={firstSection} dictionary={dictionary} first />}
+              {restSections.map((section) => (
+                <Section key={section.id} section={section} dictionary={dictionary} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <NextProjectNav prev={prev} next={next} dictionary={dictionary} locale={locale} />
+    </article>
+  );
+}
