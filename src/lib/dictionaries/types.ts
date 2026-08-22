@@ -59,7 +59,6 @@ export interface ResumeCopy {
   name: string;
   tagline: string;
   location: string;
-  phone: string;
   email: string;
   portfolio: string;
   portfolioHref: string;

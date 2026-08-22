@@ -90,7 +90,6 @@ export default function Resume() {
             <div className="mt-4 flex flex-col gap-1.5 text-[13.5px] leading-[1.5] text-ink-secondary">
               <span>{r.location}</span>
               <span>
-                {r.phone} ·{" "}
                 <a href={`mailto:${r.email}`} className="text-ink underline decoration-border underline-offset-2 hover:text-accent">
                   {r.email}
                 </a>
