@@ -1,21 +1,25 @@
 # Current State
 
-Snapshot: **2026-08-22**, after SESSION-001 (analysis and documentation only — no
-application code was changed).
+Snapshot: **2026-08-22**, after SESSION-002 (`MILESTONE-001` — navigation repair and
+repository hygiene).
 
 ## Overall
 
 The site is **structurally complete and visually unfinished.** Every page, route and
-content system exists and works; the build is green in ~1 second. What is missing is real
-imagery, a homepage work section that shows work, case-study pages that are pleasant to
-read, and three navigation fixes.
+content system exists and works; the build is green in ~1 second. The three navigation
+defects are fixed, so what remains is presentational: real imagery, a homepage work section
+that shows work, and case-study pages that are pleasant to read.
 
-Roughly: architecture ~85% done, content ~70% drafted, imagery ~5%, polish ~30%.
+Roughly: architecture ~90% done, content ~70% drafted, imagery ~5%, polish ~30%.
 
 ## Working
 
 - All 36 routes (18 paths × 2 locales) render. Unknown slugs fall through to 404.
 - Bilingual EN/DE throughout, with one exception (`ISSUE-005`) and four gaps (`ISSUE-009`).
+- **Navigation** — hash links land on their section from any starting route and on a cold
+  load, route changes start at the top, back/forward restores position, and scroll reveals
+  re-run when only a route param changes. All verified in Chrome against the production
+  build, at 1440px and 390px, both locales, reduced motion on and off.
 - The scroll-pinned process canvas — the site's signature interaction — works on desktop,
   with a proper static fallback for mobile and reduced motion.
 - Six long-form case studies with a shared template, sticky contents rail, facts strip and
@@ -28,12 +32,12 @@ Roughly: architecture ~85% done, content ~70% drafted, imagery ~5%, polish ~30%.
 
 ## Broken or unusable
 
-| What | Issue |
-| --- | --- |
-| Case-study → case-study navigation leaves content invisible | `ISSUE-001` **Critical** |
-| `#work` / `#about` / `#contact` links don't scroll from other pages | `ISSUE-002` |
-| New pages open at the previous page's scroll position | `ISSUE-003` |
-| `/contact` effectively does nothing | `ISSUE-022` |
+**Nothing.** All four entries here — `ISSUE-001` (Critical), `ISSUE-002`, `ISSUE-003` and
+`ISSUE-022` — were fixed in SESSION-002. No `Critical` issue is open.
+
+The nearest thing to a defect left is `ISSUE-015` (Low): below 480px, 42px of an anchored
+section hides behind the taller mobile header. Measured, not fixed — it belongs to
+`MILESTONE-007`.
 
 ## Incomplete
 
@@ -65,22 +69,23 @@ verified (`ISSUE-016`, `SUGGESTION-010`).
 
 ## Repository health
 
-- Only two commits exist. A session's worth of work is uncommitted — including the entire
-  GSAP reveal system and the new bento grid, plus a deletion (`ISSUE-017`).
-- `.next/` is untracked **and** not gitignored (`ISSUE-018`).
+- Clean tree. Five commits. The SESSION-002 work sits on branch
+  **`milestone-001-stabilize`** (`65f2b2d`, `92b63f4`) and has **not** been merged to
+  `master` — that is the owner's call.
+- All Next.js leftovers deleted; `.gitignore` is complete (`ISSUE-018` resolved).
 - `design-reference/` — the authoritative design source — is gitignored and exists only on
   this machine. Key values are mirrored into `docs/reference/design_tokens.md`.
 
 ## Current milestone
 
-**None active.** The roadmap (`MILESTONE-001`–`009`) is `Proposed` and awaiting owner
-review.
+**None active.** `MILESTONE-001` is complete. `MILESTONE-003` is recommended next — see
+`docs/next_session.md`.
 
 ## Blockers
 
 | Blocker | Blocks |
 | --- | --- |
-| Owner approval of the roadmap | everything |
+| Merging `milestone-001-stabilize` into `master` | nothing yet, but it accumulates |
 | `DECISION-010` — keep the bento direction? | `MILESTONE-002` |
 | Owner's real image exports | `MILESTONE-005` |
 | Owner's participation in the copy pass | `MILESTONE-004` |
@@ -88,11 +93,14 @@ review.
 
 ## Highest-priority next work
 
-1. `ISSUE-001` — content invisible on a navigation path visitors will actually take.
-2. `ISSUE-002` + `ISSUE-003` — the rest of the navigation repair.
-3. Commit the uncommitted work (`ISSUE-017`).
+1. `ISSUE-024` — the section model cannot express sub-headings or lists, which is why the
+   case studies read as walls of text. `MILESTONE-003`.
+2. `ISSUE-004` + `ISSUE-005` — the homepage work section. `MILESTONE-002`, blocked on
+   `DECISION-010`.
+3. `ISSUE-006` + `ISSUE-007` — real imagery, blocked on the owner's exports.
 
-All three are `MILESTONE-001`.
+`MILESTONE-003` is the recommended next session: it is the owner's first-named priority and
+the only one of the three with no blocker.
 
 ## Where to read more
 

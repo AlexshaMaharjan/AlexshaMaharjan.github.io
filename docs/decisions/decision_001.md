@@ -31,10 +31,11 @@ for a content site of this shape).
 
 - Dev and build are fast (a full production build takes ~1s).
 - Deployment is any static host with a catch-all rewrite.
-- **Lost:** per-route server-rendered metadata (`ISSUE-013`), automatic hash-anchor
-  scrolling (`ISSUE-002`), automatic scroll restoration (`ISSUE-003`), and `next/image`
-  (replaced by a stub, `DECISION-005`).
-- Next.js artefacts remain in the tree (`ISSUE-018`).
+- **Lost:** per-route server-rendered metadata (`ISSUE-013`, still open), automatic
+  hash-anchor scrolling (`ISSUE-002`) and automatic scroll restoration (`ISSUE-003`) —
+  both rebuilt by hand in SESSION-002 (`DECISION-013`) — and `next/image` (replaced by a
+  stub, `DECISION-005`).
+- ~~Next.js artefacts remain in the tree (`ISSUE-018`).~~ Removed in SESSION-002.
 
 ## Relevant Files
 

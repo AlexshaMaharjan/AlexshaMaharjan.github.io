@@ -19,11 +19,11 @@
 
 | Block | Contents |
 | --- | --- |
-| `@layer base` | `--font-inter` / `--font-caveat` vars, `box-sizing`, `scroll-behavior: smooth`, global reduced-motion kill-switch, `body` classes, `::selection`, `a { color: inherit }`, `section { scroll-margin-top: 104px }`, `:focus-visible` outline |
+| `@layer base` | `--font-inter` / `--font-caveat` vars, `box-sizing`, `scroll-behavior: smooth` (note: this is why `useScrollBehavior` must pass `"instant"` explicitly — `"auto"` defers to it), global reduced-motion kill-switch, `body` classes, `::selection`, `a { color: inherit }`, `section { scroll-margin-top: 104px }`, `:focus-visible` outline |
 | `@layer components` | `.container-page` — **defined but never used**; pages hand-write `mx-auto max-w-[1440px] px-5 md:px-20` |
 | keyframes | `mqA` / `mqB` marquee translations + reduced-motion disable |
 | `@media (max-width: 880px)` | `!important` overrides collapsing `[data-el="bento"]` to a single column |
-| `[data-inview]` | `opacity: 0` at rest, `opacity: 1` under reduced motion — the pre-GSAP guard |
+| `[data-inview]` | **no rule** — removed in SESSION-002. The at-rest state is applied by `useScrollReveals` from a layout effect so it fails safe (`ISSUE-001`) |
 
 ## Fonts
 

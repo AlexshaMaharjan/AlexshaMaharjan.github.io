@@ -1,10 +1,10 @@
 # ISSUE-017 — Substantial work is uncommitted and at risk
 
-Status: Open
+Status: Resolved
 Priority: Medium
 Category: Process / Repository hygiene
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-22 (SESSION-002)
 
 ## Summary
 
@@ -63,3 +63,14 @@ Do this **before** starting `MILESTONE-001` work, so there is a clean base to re
 ## Related
 
 `ARCH-06`, `MILESTONE-001`, `ISSUE-018`, `DECISION-010`.
+
+## Resolution
+
+Already resolved before SESSION-002 began. The re-check `MILESTONE-001` asked for found
+the working tree **clean**: the GSAP reveal system, `BentoGrid.tsx`, the deleted
+`ProjectEntry.tsx` and both guides were committed in `cc6e1c8` ("Add scroll reveal
+animations, BentoGrid component, and project docs"), and `/.next` was already in
+`.gitignore`. The snapshot in this file was stale, as the milestone warned it might be.
+
+`ISSUE-004` / `ISSUE-005` / `DECISION-010` remain open, as intended for a checkpoint
+commit.

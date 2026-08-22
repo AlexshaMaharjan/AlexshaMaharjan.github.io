@@ -30,4 +30,5 @@ layout, correct images, humanised copy, richer animation, design consistency.
 1. `SUGGESTION-004` + `SUGGESTION-003` — the case-study block model and layout. Everything
    the owner said about "case study description pages" runs through these.
 2. `SUGGESTION-002` — 30 minutes of work that unblocks every image task afterwards.
-3. `SUGGESTION-006` — the motion vocabulary, which also fixes `ISSUE-001`.
+3. `SUGGESTION-006` — the motion vocabulary. (`ISSUE-001`, which it was going to fix as a
+   side effect, was resolved in `MILESTONE-001`.)

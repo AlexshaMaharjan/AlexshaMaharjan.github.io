@@ -93,7 +93,8 @@ with the owner.
 - **gsap** (~115 KB in the bundle) — currently pulled into a shared chunk loaded by every
   page that reveals content (`ISSUE-019`).
 - **react-router-dom 7** — data router; note it does *not* restore scroll or handle hash
-  anchors without `<ScrollRestoration />` (`ISSUE-002`, `ISSUE-003`).
+  anchors on its own. Both are handled by `src/lib/useScrollBehavior.ts`, deliberately
+  **not** by `<ScrollRestoration />` — see `DECISION-013`.
 - **tailwindcss 3.4** — `theme.colors` and `theme.screens` are *replaced*, not extended.
 
 ## Related documents

@@ -1,10 +1,10 @@
 # ISSUE-003 — Scroll position is not reset on route change
 
-Status: Open
+Status: Resolved
 Priority: High
 Category: Bug / Navigation
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-22 (SESSION-002)
 
 ## Summary
 
@@ -47,3 +47,18 @@ Implement together with `ISSUE-002`.
 ## Related
 
 `ARCH-01`, `MILESTONE-001`.
+
+## Resolution
+
+Fixed in SESSION-002 (`65f2b2d`), `MILESTONE-001`, in the same
+`src/lib/useScrollBehavior.ts` as `ISSUE-002` so the two cannot fight.
+
+`<ScrollRestoration />` was evaluated and rejected — see `DECISION-013`. The hook records
+`window.scrollY` per `location.key` (persisted to `sessionStorage` on `pagehide`), sets
+`history.scrollRestoration = "manual"`, and on navigation either restores that offset
+(back/forward), lands on the hash (`ISSUE-002`), or jumps to the top.
+
+Measured before the fix: `/work/qis-portal` at 6000px → `/playground` landed at 4466px,
+and every case-study hop arrived ~8000–9500px down the incoming page. After: every route
+change arrives at `scrollY 0`, and back from `/resume` returns to `/about` at 1500px.
+Verified against the production build at 1440px and 390px.

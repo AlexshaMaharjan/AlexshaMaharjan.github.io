@@ -1,6 +1,6 @@
 # DECISION-008 — GSAP for scroll reveals, called per page
 
-Status: Active
+Status: Active — amended in SESSION-002
 Date: Uncommitted working tree, 2026-08 (added after `7fb7755`)
 Scope: Animation
 
@@ -12,9 +12,13 @@ in. The Vite port needed an equivalent.
 ## Decision
 
 Add `gsap` + `ScrollTrigger` and a `useScrollReveals()` hook, **called by each page
-component** rather than once in the layout. `index.css` sets `[data-inview] { opacity: 0 }`
+component** rather than once in the layout. ~~`index.css` sets `[data-inview] { opacity: 0 }`
 so nothing flashes before the first tween, with a reduced-motion override restoring
-visibility.
+visibility.~~
+
+**Amended, SESSION-002:** the CSS guard is gone. The hook now applies the at-rest state
+itself from a `useLayoutEffect` — before the first paint, so it still does not flash — and
+its effects are keyed on the pathname rather than on mount. See the Consequences below.
 
 ## Reasoning
 
@@ -31,9 +35,17 @@ for a fade); a layout-level GSAP context with `ScrollTrigger.refresh()` on navig
 - ~46 KB gzip of GSAP for a fade and an 18px lift (`ISSUE-019`) — justified only if the
   motion work in `MILESTONE-006` actually uses GSAP's range.
 - Every new page must remember to call the hook.
-- The mount-only effect combined with the CSS `opacity: 0` guard produces `ISSUE-001`, a
-  critical bug: content stays invisible when only a route param changes.
-- The CSS guard is a single point of failure — if the hook does not run, content is gone.
+- ~~The mount-only effect combined with the CSS `opacity: 0` guard produces `ISSUE-001`, a
+  critical bug: content stays invisible when only a route param changes.~~ Fixed in
+  SESSION-002 (`92b63f4`).
+- ~~The CSS guard is a single point of failure — if the hook does not run, content is gone.~~
+  Removed: the at-rest state is now owned by the hook, so a page whose script never runs is
+  readable rather than blank.
+- The hook is now coupled to `useScrollBehavior` by effect ordering: the at-rest state is
+  applied in a layout effect (child, so it runs first), the ScrollTriggers are built in a
+  passive effect (after `RootLayout` has finalised the scroll offset), and
+  `ScrollTrigger.update()` is called first so GSAP does not measure against the outgoing
+  page's offset. Changing either hook's effect *kind* will break the other.
 
 ## Relevant Files
 
@@ -41,4 +53,4 @@ for a fade); a layout-level GSAP context with `ScrollTrigger.refresh()` on navig
 
 ## Related Issues / Milestones
 
-`ISSUE-001`, `ISSUE-019`, `MILESTONE-001`, `MILESTONE-006`, `SUGGESTION-006`
+`ISSUE-001` (resolved), `ISSUE-019`, `MILESTONE-001`, `MILESTONE-006`, `SUGGESTION-006`, `DECISION-013`

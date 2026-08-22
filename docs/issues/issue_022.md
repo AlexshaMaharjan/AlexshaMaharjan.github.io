@@ -1,10 +1,10 @@
 # ISSUE-022 — `/contact` redirects to a hash that does not scroll
 
-Status: Open
+Status: Resolved
 Priority: Low
 Category: Bug / Navigation
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-22 (SESSION-002)
 
 ## Summary
 
@@ -45,3 +45,16 @@ Blocked by `ISSUE-002`.
 ## Related
 
 `ISSUE-002`, `MILESTONE-001`.
+
+## Resolution
+
+Fixed in SESSION-002, `MILESTONE-001` — automatically, as predicted, once `ISSUE-002`
+landed. `src/pages/Contact.tsx` was not changed.
+
+Verified in Chrome against the production build: loading `/contact` at both 1440px and
+390px ends with the URL at `/#contact` and the contact section's top at 104px, i.e. exactly
+at its `scroll-margin-top` below the header. The redirect is a `REPLACE`, which the hook
+treats as a normal hash navigation.
+
+The open question the issue raises — whether contact deserves a real page rather than a
+deep link — is untouched and still worth putting to the owner.

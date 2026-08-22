@@ -1,10 +1,10 @@
 # ISSUE-002 — Hash links do not scroll when arriving from another route
 
-Status: Open
+Status: Resolved
 Priority: High
 Category: Bug / Navigation
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-22 (SESSION-002)
 
 ## Summary
 
@@ -23,7 +23,9 @@ section.
 - No `ScrollRestoration`, `scrollIntoView`, or hash-handling effect exists anywhere in
   `src/` (verified by grep).
 
-Same-page hash clicks still work because the browser handles them natively.
+~~Same-page hash clicks still work because the browser handles them natively.~~ **Wrong** — corrected in SESSION-002 by browser testing. The header links are
+react-router `<Link>`s, so a same-page click is a `pushState`, which the browser does
+not scroll for either. Clicking "Contact" *on the homepage* also did nothing.
 
 ## Expected Behavior
 
@@ -57,3 +59,25 @@ Interacts with `ISSUE-003` — implement both in one pass so they do not fight e
 ## Related
 
 `ARCH-01`, `MILESTONE-001`, `ISSUE-003`, `ISSUE-022`, `ISSUE-015`.
+
+## Resolution
+
+Fixed in SESSION-002 (`65f2b2d`), `MILESTONE-001`, by `src/lib/useScrollBehavior.ts`
+called from `RootLayout` — the `useHashScroll()` shape suggested above, with two additions
+found by testing in Chrome:
+
+- **Scroll behaviour must be `"instant"`, not `"auto"`.** `"auto"` means *defer to the CSS*,
+  and `index.css` sets `html { scroll-behavior: smooth }`. Passing `"auto"` left the scroll
+  still in flight on return, which also broke `ISSUE-001`'s fix.
+- **Landing once is not enough.** The target usually does not exist on the first frame
+  (lazy pages), and the page keeps growing after it appears — the homepage gains ~735px a
+  frame or two later, when its hero swaps to the pinned track. The hook re-aims every frame
+  until the target stops moving.
+
+The jump is smooth within a page the visitor can already see, and instant across a route
+change (and always instant under reduced motion).
+
+Verified against the production build at 1440px and 390px, both locales, with and without
+`prefers-reduced-motion`: `/about → "Projects"`, `/de/about → /de/#work`, homepage →
+"Contact", and cold loads of `/#work`, `/#contact`, `/de/#about` all land with the target
+at exactly its 104px `scroll-margin-top`.

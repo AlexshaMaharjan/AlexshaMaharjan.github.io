@@ -18,7 +18,10 @@ A single `src/lib/motion.ts` exporting the vocabulary, then build on it:
 
 - **Tokens:** `duration.fast/base/slow`, `ease.out/inOut`, `distance.sm/md/lg`, one
   `STAGGER`. Every animation uses these.
-- **`useScrollReveals` v2:** re-run on route change (fixes `ISSUE-001`), use
+- ~~**`useScrollReveals` v2:** re-run on route change (fixes `ISSUE-001`)~~ — **done in
+  SESSION-002**, independently of this suggestion. The motion values are now named
+  constants (`AT_REST`, `REVEALED`, `TRIGGER_START`) at the top of the file, which is
+  where this extraction should start. What remains here: use
   `ScrollTrigger.batch` for grids so items stagger as a group, call
   `ScrollTrigger.refresh()` after fonts and images settle, and support opt-in variants via
   `data-inview="up|fade|scale|stagger"`.
@@ -42,7 +45,8 @@ gives every future session a clear place to add animation.
 
 ## Dependencies
 
-Resolve `ISSUE-001` as part of this — same file, same fix.
+~~Resolve `ISSUE-001` as part of this — same file, same fix.~~ `ISSUE-001` was resolved
+in `MILESTONE-001` and no longer gates this.
 
 ## Risks
 
@@ -52,7 +56,7 @@ this — "Motion should guide, not distract").
 
 ## Related Issues
 
-`ISSUE-001`, `ISSUE-012`, `ISSUE-019`.
+`ISSUE-001` (resolved), `ISSUE-012`, `ISSUE-019`.
 
 ## Possible Milestone
 

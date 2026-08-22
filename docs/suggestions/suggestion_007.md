@@ -35,7 +35,8 @@ deliberate rather than broken.
 
 ## Dependencies
 
-`ISSUE-002` + `ISSUE-003` must land first — a transition over a page that opens
+~~`ISSUE-002` + `ISSUE-003` must land first~~ — **both landed in SESSION-002**, so this is
+unblocked. The original reasoning: a transition over a page that opens
 mid-scroll makes things worse, not better.
 
 ## Risks

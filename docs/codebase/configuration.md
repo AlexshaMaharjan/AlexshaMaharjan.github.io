@@ -11,7 +11,7 @@
 | `postcss.config.js` | tailwindcss + autoprefixer | |
 | `tailwind.config.ts` | design tokens — see `styling.md` | |
 | `index.html` | single entry; **static EN meta + OG tags live here** | not per-locale, `ISSUE-013` |
-| `.gitignore` | node_modules, dist, .DS_Store, `*.tsbuildinfo`, `design-reference/` | does **not** ignore `.next/` — `ISSUE-018` |
+| `.gitignore` | node_modules, dist, `/.next`, .DS_Store, `*.tsbuildinfo`, `design-reference/` | complete; `ISSUE-018` resolved |
 
 ## Repo-root documents (not code)
 
@@ -24,17 +24,17 @@
 
 See `docs/reference/index.md` for how to use these without duplicating them.
 
-## Leftovers to clean (`ISSUE-018`)
+## Leftovers to clean (`ISSUE-018`) — resolved
 
-`.next/` (untracked Next.js webpack cache, not gitignored), `tsconfig.tsbuildinfo`
-(114 KB, stale from the Next era), `NewHomePage/` (empty directory).
+`.next/`, `tsconfig.tsbuildinfo` and the empty `NewHomePage/` were deleted in SESSION-002
+after checking each was disposable. `/.next` is in `.gitignore`. Nothing remains from the
+Next.js era.
 
-## Uncommitted working tree (`ISSUE-017`)
+## Uncommitted working tree (`ISSUE-017`) — resolved
 
-13 modified files, 1 deletion (`src/components/ProjectEntry.tsx`), 4 untracked
-(`CONTENT_GUIDE.md`, `ROADMAP.md`, `src/components/BentoGrid.tsx`,
-`src/lib/useScrollReveals.ts`) — plus `.next/`. Verify with `git status` at session start;
-this snapshot is dated 2026-08-22.
+The tree is clean. The work this section described was committed in `cc6e1c8` before
+SESSION-002 started. **Always re-check with `git status` at session start** rather than
+trusting a snapshot in these documents — that is exactly how this one went stale.
 
 ## Related
 

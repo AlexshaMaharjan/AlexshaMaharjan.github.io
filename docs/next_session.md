@@ -2,117 +2,109 @@
 
 ## Status
 
-**Awaiting owner review and approval of the proposed roadmap.**
+`MILESTONE-001` is **complete** (SESSION-002). Navigation works, the repository is clean,
+and the roadmap is approved and under way.
 
-Do **not** begin implementing `MILESTONE-001` or any other milestone until the owner has
-reviewed the roadmap and said to proceed. SESSION-001 was initialization only; no
-application code has been changed.
+Two things need the owner before the next session can be fully planned — neither blocks
+starting:
+
+1. **The work sits on branch `milestone-001-stabilize`, not `master`.** Two commits,
+   `65f2b2d` and `92b63f4`. Merge it, or say where it should go.
+2. **`DECISION-010` — is the bento direction for the homepage being kept?** This is what
+   pushes `MILESTONE-002` behind `MILESTONE-003`; answering it reopens the choice.
 
 ## Objective
 
-There are two possible next sessions. Pick based on what the owner says.
+Begin **`MILESTONE-003` — Case-study layout and content model.**
 
-### A — Owner has not yet reviewed (default)
+`MILESTONE-002` (homepage "Selected Work") ranks higher on the roadmap but is blocked on
+`DECISION-010`, which only the owner can settle. `MILESTONE-003` has no blocker, is the
+owner's own first-named complaint ("case study description pages layout should be
+improved"), and unblocks `MILESTONE-004`.
 
-Nothing to implement. If asked questions about the project, answer from the documents
-below. If the owner wants changes to the roadmap, edit the milestone documents and their
-index, then rewrite this file for the approved plan.
+Read `docs/milestones/milestone_003.md` and follow it.
 
-### B — Owner has approved the roadmap
-
-Begin `MILESTONE-001 — Stabilize the current implementation`.
-Read `docs/milestones/milestone_001.md` and follow it.
-
-## Recommended First Milestone
-
-**MILESTONE-001 — Stabilize the current implementation.**
-Small, purely repair, unblocks everything else, and fixes a Critical bug where case-study
-content is invisible after clicking "Next project". It also commits a session's worth of
-work that currently exists only in the working tree.
-
-Read: `docs/milestones/milestone_001.md`
+**Its own note says to consider splitting it across two sessions — do.** Take the content
+model first and the layout second; that keeps a green build at the end of each.
 
 ## Required Context
 
-Read **only** these before doing anything:
+Read **only** these:
 
-1. `docs/current_state.md` — where the project stands
-2. `docs/milestones/index.md` — the proposed roadmap and what is blocked on the owner
-3. `docs/issues/index.md` — the 25 open issues, ranked
-
-If starting MILESTONE-001, additionally:
-
-4. `docs/milestones/milestone_001.md`
-5. `docs/issues/issue_001.md`, `issue_002.md`, `issue_003.md`, `issue_017.md`
-6. `docs/architecture/architecture_01.md` (routing and shell)
-7. `docs/architecture/architecture_04.md` (motion — explains why the reveal hook is
-   per-page)
+1. `docs/previous_session.md` — what just changed and what it constrains
+2. `docs/milestones/milestone_003.md`
+3. `docs/issues/issue_024.md` (the block union), `issue_008.md`
+4. `docs/suggestions/suggestion_004.md` (model), `suggestion_003.md` (layout),
+   `suggestion_002.md` (figure sources)
+5. `docs/architecture/architecture_02.md` and `architecture_05.md` — content model and
+   images
+6. `docs/codebase/content_data.md` — where the six data files live
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 
 ## Relevant Code
 
-For MILESTONE-001 only:
-
-- `src/lib/useScrollReveals.ts` — the `[]`-deps effect at the heart of ISSUE-001
-- `src/index.css` — the `[data-inview] { opacity: 0 }` rule that makes it fatal
-- `src/components/RootLayout.tsx` — where hash scrolling and scroll restoration belong
-- `src/routes.tsx`, `src/main.tsx` — route registration; no keys on elements today
-- `src/pages/Contact.tsx` — the `/contact` redirect that depends on ISSUE-002
-- `.gitignore` — `.next/` is missing from it
+- `src/lib/caseStudies/types.ts` — where the block union goes
+- `src/lib/caseStudies/*.ts` — the six data files, **both locales in each**
+- `src/components/case-study/Section.tsx` — the single render path (`ISSUE-008`)
+- `src/components/case-study/ContentsNav.tsx` — active-section tracking
+- `CONTENT_GUIDE.md` §5 — its `body[n]` indices become invalid
 
 ## Relevant Issues
 
-- ISSUE-001 (Critical) → `docs/issues/issue_001.md`
-- ISSUE-002 → `docs/issues/issue_002.md`
-- ISSUE-003 → `docs/issues/issue_003.md`
-- ISSUE-017 → `docs/issues/issue_017.md`
-- ISSUE-018 → `docs/issues/issue_018.md`
-- ISSUE-022 → `docs/issues/issue_022.md`
+- `ISSUE-024` (High) — the section model cannot express sub-headings or lists
+- `ISSUE-008` (Medium) — first section lacks number, label and reveal
+- `ISSUE-007` (High) — figures have no source field
 
 ## Relevant Suggestions
 
-None for MILESTONE-001 — it is repair only. The ISSUE-001 fix should anticipate
-`SUGGESTION-006` (a shared motion module) but must not wait for it.
+`SUGGESTION-004`, `SUGGESTION-003`, `SUGGESTION-002`.
 
 ## Constraints
 
-- **The repository is the source of truth.** The `git status` snapshot in `ISSUE-017` is
-  dated 2026-08-22 — re-check it before acting.
-- **ISSUE-001 has not been observed in a browser**, only derived from code. Reproduce it
-  first so the fix can be verified.
+- **The repository is the source of truth.** Re-check `git status` and the current branch
+  before acting — a stale snapshot in these documents is exactly what tripped SESSION-002.
+- **Do not break the two scroll hooks.** `useScrollReveals` and `useScrollBehavior` are
+  coupled by effect ordering (`DECISION-008`, `DECISION-013`). Case-study sections carry
+  `data-inview`, so if `Section.tsx` changes which elements do, re-run the ring check.
+- **Any new `:param` route effect must not be mount-only** — route elements are still not
+  keyed by param (`ARCH-01`). That is what caused `ISSUE-001`.
+- German blocks must migrate alongside the English ones or the build breaks.
 - `prefers-reduced-motion` must keep producing a fully static, fully visible site
-  (`DECISION-008`, `docs/reference/design_tokens.md`).
-- `design-reference/` is gitignored and may not exist. Fall back to
-  `docs/reference/design_tokens.md` and say so if it is missing.
-- Do not touch copy, imagery, layout or the design system during MILESTONE-001.
+  (`DECISION-008`).
+- Do not rewrite prose (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
 
-## Tasks
+## Verification
 
-If the owner has **not** approved: none. Report state, answer questions, adjust the
-roadmap if asked.
+SESSION-002 established that this project's defects hide from code reading. Verify in a
+browser, not by inspection.
 
-If the owner **has** approved, follow the task list in
-`docs/milestones/milestone_001.md`.
+There is no browser automation in `package.json` and none is needed: headless Chrome can be
+driven over the DevTools Protocol with Node's built-in `WebSocket`. SESSION-002's scripts
+were scratch files and are gone, but the approach is a few dozen lines — launch
+`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new
+--remote-debugging-port=…`, read `/json/list`, and drive `Page.navigate` /
+`Runtime.evaluate`. Test against the **production build** (`npm run build && npx vite
+preview`), not only the dev server: StrictMode's double-invoked effects hid a real bug in
+SESSION-002 and can equally hide one from dev-only testing.
 
 ## Completion Criteria
 
-Per `docs/milestones/milestone_001.md`:
+Per `docs/milestones/milestone_003.md`:
 
-- Navigating between two case studies shows fully visible, animated content.
-- Every hash link scrolls to its target from any starting route.
-- Every route change starts at the top; browser back restores position.
-- `npm run lint && npm run build` green; work committed; Next.js artefacts gone.
+- Sub-headings and lists render as sub-headings and lists in all six studies, both locales.
+- Figures can carry real images; captions read as captions.
+- A case study reads with visible rhythm and hierarchy at 375 / 768 / 1024 / 1440.
+- `CONTENT_GUIDE.md` §5 matches the new structure.
+- `npm run lint && npm run build` green; work committed.
 
 ## Required End-of-Session Updates
-
-Before ending the session:
 
 1. Update the documentation whose information actually changed.
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
 3. Update the milestone document and `docs/milestones/index.md`.
 4. Record newly discovered issues / suggestions / decisions **only where genuinely needed**.
-5. Create `docs/sessions/session_002.md` and add it to `docs/sessions/index.md`.
+5. Create `docs/sessions/session_003.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.

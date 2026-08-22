@@ -1,22 +1,18 @@
 # Issues Index
 
-25 issues, all `Open` (one `Investigating`) as of SESSION-001. Nothing has been fixed yet —
-initialization was analysis only.
+25 issues. **6 resolved** in SESSION-002 (`MILESTONE-001`); 19 remain open, one of them
+`Investigating`. No `Critical` issue is open.
 
 Read the summary column first; open a file only when you are going to act on it.
 
 ## Active — Critical
 
-| ID | Title | Status | Priority | Summary | File |
-| --- | --- | --- | --- | --- | --- |
-| ISSUE-001 | Scroll reveals never re-run on same-route navigation | Open | Critical | Case-study → case-study leaves every section invisible | `issue_001.md` |
+_None._
 
 ## Active — High
 
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
-| ISSUE-002 | Hash links don't scroll cross-route | Open | High | `/#work`, `/#about`, `/#contact` land at page top | `issue_002.md` |
-| ISSUE-003 | No scroll reset on route change | Open | High | New pages open mid-scroll | `issue_003.md` |
 | ISSUE-004 | Homepage work grid has no imagery, duplicates projects | Open | High | 11 grey tiles for 6 projects, no images or copy | `issue_004.md` |
 | ISSUE-005 | Work grid is hard-coded English | Open | High | German homepage shows English tiles | `issue_005.md` |
 | ISSUE-006 | 5 of 7 wired images are colour stand-ins | Open | High | Portrait + 4 case-study heroes are flat blocks | `issue_006.md` |
@@ -33,7 +29,6 @@ Read the summary column first; open a file only when you are going to act on it.
 | ISSUE-012 | Process canvas rAF loop never idles | Open | Medium | Continuous per-frame style writes on desktop | `issue_012.md` |
 | ISSUE-013 | No prerendering — crawlers see one English page | Open | Medium | Link previews and SEO are wrong on every route | `issue_013.md` |
 | ISSUE-016 | Header centre control may collide 480–1160px | Investigating | Medium | Needs browser measurement | `issue_016.md` |
-| ISSUE-017 | Substantial work uncommitted | Open | Medium | GSAP + bento + guides exist only in the working tree | `issue_017.md` |
 | ISSUE-019 | Oversized GSAP and case-study chunks | Open | Medium | 115 KB GSAP on every page; 121 KB for one case study | `issue_019.md` |
 | ISSUE-023 | Type scale and colour tokens bypassed | Open | Medium | Five different h1 clamps; named scale unused | `issue_023.md` |
 
@@ -43,20 +38,28 @@ Read the summary column first; open a file only when you are going to act on it.
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-011 | `lg:` overrides `nav:` due to screens order | Open | Low | Latent; nothing broken yet | `issue_011.md` |
 | ISSUE-014 | `Seo` leaks description/OG between routes | Open | Low | Stale meta after navigation | `issue_014.md` |
-| ISSUE-015 | Anchor offset wrong under the taller mobile header | Open | Low | Needs verification <480px | `issue_015.md` |
-| ISSUE-018 | Next.js leftovers (`.next/`, stale tsbuildinfo, empty dir) | Open | Low | `.next/` is not gitignored | `issue_018.md` |
+| ISSUE-015 | Anchor offset wrong under the taller mobile header | Open | Low | **Confirmed**: 146px header vs 104px offset — 42px hidden below 480px | `issue_015.md` |
 | ISSUE-020 | Lazy routes render a blank frame | Open | Low | `Suspense fallback={null}` | `issue_020.md` |
 | ISSUE-021 | `stripLocale` duplicated in Header and Footer | Open | Low | Should live in `lib/i18n.ts` | `issue_021.md` |
-| ISSUE-022 | `/contact` redirects to a hash that doesn't scroll | Open | Low | Resolved by ISSUE-002 | `issue_022.md` |
 | ISSUE-025 | No deployment configuration | Open | Low | Netlify and GH-Pages hints, neither configured | `issue_025.md` |
 
 ## Resolved
 
-_None yet._
+All in SESSION-002 under `MILESTONE-001`, and all verified in Chrome against the
+production build rather than by code reading.
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-001 | Scroll reveals never re-run on same-route navigation | `92b63f4` — effects keyed on pathname; at-rest state moved from CSS into JS so it fails safe | `issue_001.md` |
+| ISSUE-002 | Hash links don't scroll cross-route | `65f2b2d` — `useScrollBehavior` in `RootLayout` | `issue_002.md` |
+| ISSUE-003 | No scroll reset on route change | `65f2b2d` — same hook; back/forward restores position | `issue_003.md` |
+| ISSUE-017 | Substantial work uncommitted | Already committed in `cc6e1c8` before the session; snapshot was stale | `issue_017.md` |
+| ISSUE-018 | Next.js leftovers | `.next/`, `tsconfig.tsbuildinfo`, `NewHomePage/` deleted after inspection | `issue_018.md` |
+| ISSUE-022 | `/contact` redirects to a hash that doesn't scroll | Resolved automatically by `ISSUE-002`, then verified | `issue_022.md` |
 
 ## Grouped by milestone
 
-- **MILESTONE-001** (stabilize): 001, 002, 003, 017, 018, 022
+- **MILESTONE-001** (stabilize): 001, 002, 003, 017, 018, 022 — **all resolved**
 - **MILESTONE-002** (work section): 004, 005
 - **MILESTONE-003** (case-study redesign): 008, 024
 - **MILESTONE-004** (copy pass): 024

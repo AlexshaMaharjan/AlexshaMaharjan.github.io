@@ -4,7 +4,7 @@ Status: Open
 Priority: Low
 Category: UI/UX
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-22 (SESSION-002)
 
 ## Summary
 
@@ -21,8 +21,21 @@ anchored sections land partly underneath it.
   (480px).
 - `src/components/case-study/ContentsNav.tsx:16` also assumes 104px (`sticky top-[104px]`).
 
-**Needs verification** in a browser at <480px — the exact header height was derived from
-class values, not measured.
+~~**Needs verification** in a browser at <480px~~ — **measured in SESSION-002** and
+confirmed, while verifying `ISSUE-002`:
+
+| Viewport | Header height | Section top after an anchor jump | Overlap |
+| --- | --- | --- | --- |
+| 1440px | 73px | 104px | none |
+| 390px | **146px** | 104px | **42px hidden behind the header** |
+
+So the effect is real, and the header is taller than the ~117px estimated from the class
+values. It is also *wider* than the `<480px` this file assumed — the second row is
+`sm:hidden`, so every width below 480px is affected, and the 390px measurement above is
+representative.
+
+Left unfixed deliberately: `MILESTONE-001` was navigation repair only and explicitly
+excluded the design system. The fix belongs with `MILESTONE-007`, which owns this issue.
 
 ## Expected Behavior
 

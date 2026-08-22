@@ -23,7 +23,6 @@ dist/                   build output (gitignored)
 CONTENT_GUIDE.md        ~975 labelled copy fields, mirrors the data modules
 ROADMAP.md              owner-facing content/asset roadmap (pre-dates docs/)
 docs/                   this documentation system
-.next/, NewHomePage/    Next.js leftovers, ISSUE-018
 ```
 
 ## Fastest paths to common tasks
@@ -34,6 +33,7 @@ docs/                   this documentation system
 | Fix a case-study layout | `src/components/case-study/*` + `content_data.md` |
 | Fix the homepage work grid | `src/components/BentoGrid.tsx`, `SelectedWork.tsx` |
 | Touch scroll animation | `src/lib/useScrollReveals.ts` + `ARCH-04` |
+| Touch scroll position, hash links, back button | `src/lib/useScrollBehavior.ts` + `ARCH-01`, `DECISION-013` |
 | Touch the process canvas | `src/components/process/HeroProcess.tsx` + `ARCH-04` |
 | Add a real image | `ARCH-05` + `assets.md` (a type change is usually required) |
 | Add a route | `src/routes.tsx` (`dual()`), then a page in `src/pages/` |

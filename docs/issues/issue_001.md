@@ -1,10 +1,10 @@
 # ISSUE-001 — Scroll reveals never re-run on same-route navigation
 
-Status: Open
+Status: Resolved
 Priority: Critical
 Category: Bug / Navigation
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-22 (SESSION-002)
 
 ## Summary
 
@@ -64,3 +64,35 @@ None.
 ## Related
 
 `ARCH-01`, `ARCH-04`, `MILESTONE-001`. Sibling navigation bugs: `ISSUE-002`, `ISSUE-003`.
+
+## Resolution
+
+Fixed in SESSION-002 (`92b63f4`), `MILESTONE-001`.
+
+**Reproduced in Chrome first**, and the real behaviour was narrower but nastier than the
+code reading predicted. Sections are reused DOM nodes, so those the outgoing page had
+already revealed stayed visible with their inline `opacity: 1`; only sections the incoming
+case study had *beyond* the outgoing one's count fell back to the CSS `opacity: 0` and
+were never tweened. Walking the full six-project prev/next ring left **1–2 whole sections
+permanently invisible on every hop** (`insights` and `testing` accumulated), and no section
+on any incoming page animated at all.
+
+Two changes in `src/lib/useScrollReveals.ts`:
+
+1. Both effects are keyed on `useLocation().pathname` instead of `[]`, so they re-run when
+   only a route param changes. This is Possible Solution 2 above; no change to
+   `routes.tsx` was needed.
+2. The at-rest state moved out of `src/index.css` into a `useLayoutEffect` calling
+   `gsap.set(..., { autoAlpha: 0, y: 18 })`. It runs before the first paint, so nothing
+   flashes, and it **fails safe**: if the script never runs, content is visible rather than
+   blank. The `[data-inview] { opacity: 0 }` rule and its reduced-motion override are gone.
+
+A third change was needed that the issue did not anticipate: the tweens are built in a
+passive effect that runs *after* `RootLayout` has reset the scroll offset, and
+`ScrollTrigger.update()` is called first so GSAP re-reads the scroll position rather than
+measuring every trigger against the offset of the page the visitor came from.
+
+Verified against the production build, walking the whole ring: every hop arrives at
+`scrollY 0` with every section at rest, and after scrolling the full page **0 sections
+remain invisible** — identical to a fresh load. Under `prefers-reduced-motion` nothing is
+ever hidden.

@@ -1,10 +1,10 @@
 # ISSUE-018 — Next.js leftovers still in the repository
 
-Status: Open
+Status: Resolved
 Priority: Low
 Category: Technical debt
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-22 (SESSION-002)
 
 ## Summary
 
@@ -46,3 +46,16 @@ Bundle with `ISSUE-017`.
 ## Related
 
 `ARCH-06`, `MILESTONE-001`.
+
+## Resolution
+
+Fixed in SESSION-002, `MILESTONE-001`. All three artefacts deleted after inspection:
+
+| Path | Confirmed before deleting |
+| --- | --- |
+| `.next/` | 6 files, 24 KB, all under `cache/webpack/`. Already covered by the `/.next` line in `.gitignore` |
+| `tsconfig.tsbuildinfo` | referenced by nothing in the repo; superseded by `tsconfig.app.tsbuildinfo` / `tsconfig.node.tsbuildinfo` |
+| `NewHomePage/` | empty, and `git log --all -- NewHomePage` shows it was never tracked — not a deliberate placeholder |
+
+No commit accompanies this: every path was either gitignored or untracked, so the deletions
+do not appear in `git status`.

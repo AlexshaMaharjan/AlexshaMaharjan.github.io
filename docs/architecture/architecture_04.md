@@ -10,6 +10,8 @@ prerequisite for changing anything that moves.
 ## Relevant files
 
 - `src/lib/useScrollReveals.ts` — GSAP + ScrollTrigger fade/lift for `[data-inview]`
+- `src/lib/useScrollBehavior.ts` — not motion itself, but it sets the scroll offset the
+  reveals are measured against (`DECISION-013`)
 - `src/components/process/HeroProcess.tsx` — the pinned process-canvas choreography
 - `src/components/process/BranchGroup.tsx`, `clusters.tsx`, `branchData.ts`, `icons.tsx`
 - `src/components/playground/CategoryMarquee.tsx` + `@keyframes mqA/mqB` in `index.css`
@@ -25,8 +27,23 @@ the file explains why (lazy pages mean a layout-level effect would run before th
 markup mounts). It collects every `[data-inview]` element and creates one
 `gsap.fromTo(el, {autoAlpha:0, y:18}, {autoAlpha:1, y:0, duration:.7, ease:"power2.out",
 scrollTrigger:{trigger:el, start:"top 88%"}})` per element, killing them on unmount.
-`index.css` sets `[data-inview] { opacity: 0 }` so nothing flashes before GSAP mounts, and
-restores `opacity: 1` under `prefers-reduced-motion`.
+
+Rewritten in SESSION-002 to fix `ISSUE-001`. Three things now matter:
+
+- **Both effects are keyed on `useLocation().pathname`**, not `[]`. React Router reuses one
+  component instance across `/work/a → /work/b` (`ARCH-01`), and a mount-only effect left
+  the incoming page's sections stuck at the outgoing page's inline state.
+- **The at-rest state is applied by the hook, from a `useLayoutEffect`** — before the first
+  paint, so it still does not flash — rather than by `index.css`. That rule and its
+  reduced-motion override are gone. The point is failing safe: a page whose script never
+  runs is now readable rather than blank.
+- **The tweens are built in a passive effect**, which runs after `RootLayout` has finalised
+  the scroll offset, and calls `ScrollTrigger.update()` first so GSAP re-reads the scroll
+  position instead of measuring every trigger against the offset of the page the visitor
+  came from.
+
+That ordering is load-bearing and is spelled out in `DECISION-008`: changing either hook's
+effect *kind* will break the other.
 
 There are 15 `[data-inview]` call sites across the site.
 
@@ -62,9 +79,14 @@ span and transitioning `width` + `opacity`.
 
 ### Reduced motion
 
-Handled in three places: the global `index.css` kill-switch (`animation-duration: .01ms`
-etc.), an early `return` in `useScrollReveals`, the `staticFlow` branch in `HeroProcess`,
-a branch in `LoveLine`, and `Footer`'s back-to-top `behavior` choice.
+Handled in several places: the global `index.css` kill-switch (`animation-duration: .01ms`
+etc.), an early `return` in **both** of `useScrollReveals`' effects — so nothing is hidden
+in the first place — the `staticFlow` branch in `HeroProcess`, a branch in `LoveLine`,
+`Footer`'s back-to-top `behavior` choice, and `useScrollBehavior`, which never scrolls
+smoothly under reduced motion.
+
+Verified in SESSION-002 with Chrome's `--force-prefers-reduced-motion`: across every
+navigation tested, no `[data-inview]` element is ever hidden.
 
 ## Important dependencies
 
@@ -79,10 +101,13 @@ a branch in `LoveLine`, and `Footer`'s back-to-top `behavior` choice.
 
 ## Known weaknesses
 
-- Reveals never re-run when only a route param changes — `ISSUE-001` (critical).
+- ~~Reveals never re-run when only a route param changes — `ISSUE-001` (critical).~~
+  Fixed in SESSION-002.
 - The rAF loop never idles: it runs continuously while the homepage is mounted, even when
   the hero is off-screen — `ISSUE-012`.
-- No `ScrollTrigger.refresh()` after fonts/images load, so trigger positions can be stale.
+- Still no `ScrollTrigger.refresh()` after fonts/images load, so trigger positions can be
+  stale. `useScrollReveals` calls `ScrollTrigger.update()` when it builds its triggers,
+  which re-reads the *scroll position*; it does not re-measure trigger geometry.
 - Motion values (durations, eases, distances) are ad-hoc per call site; there is no shared
   motion token module — `SUGGESTION-006`.
 - No route transitions at all; navigation is an instant swap — `SUGGESTION-007`.
@@ -90,11 +115,12 @@ a branch in `LoveLine`, and `Footer`'s back-to-top `behavior` choice.
 
 ## Related decisions
 
-`DECISION-007` (rAF, not ScrollTrigger, for the canvas), `DECISION-008` (GSAP for reveals).
+`DECISION-007` (rAF, not ScrollTrigger, for the canvas), `DECISION-008` (GSAP for reveals,
+amended), `DECISION-013` (hand-rolled scroll behaviour).
 
 ## Related issues
 
-`ISSUE-001`, `ISSUE-012`, `ISSUE-016`, `ISSUE-019`.
+`ISSUE-001` (resolved), `ISSUE-012`, `ISSUE-016`, `ISSUE-019`.
 
 ## Related suggestions
 

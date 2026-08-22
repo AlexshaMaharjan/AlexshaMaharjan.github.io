@@ -17,9 +17,15 @@ Proportionate to a portfolio site, in priority order:
 
 1. **CI:** a GitHub Actions workflow running `npm ci && npm run lint && npm run build` on
    push.
-2. **Route smoke test:** Playwright visiting all ~36 routes, asserting a 200, an `<h1>`,
-   no console errors, and — critically — that content is visible after a same-route
-   navigation (`ISSUE-001`).
+2. **Route smoke test:** visiting all ~36 routes, asserting a 200, an `<h1>`, no console
+   errors, and — critically — that content is visible after a same-route navigation
+   (`ISSUE-001`).
+
+   SESSION-002 built exactly this check throwaway, driving headless Chrome over the
+   DevTools Protocol with Node's built-in `WebSocket` — no dependency, ~90 lines. It
+   caught three defects that code reading had missed. Playwright is still the better
+   long-term answer, but the cheap version is worth knowing about: this suggestion does
+   not have to wait for a dependency decision.
 3. **Link check:** assert every internal `<Link to>` resolves to a registered route, and
    every `image` / `heroImage.src` string points at a file that exists in `public/images/`.
 4. **Lighthouse budget** on the homepage and one case study.

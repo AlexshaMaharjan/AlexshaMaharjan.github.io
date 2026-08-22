@@ -15,7 +15,9 @@ locale is derived and distributed.
 
 - `src/main.tsx` — `createRoot` + `createBrowserRouter(routes)` inside `StrictMode`
 - `src/routes.tsx` — route table, `dual()` and `dualPlayground()` helpers
-- `src/components/RootLayout.tsx` — header/main/footer frame, `<Suspense>`, sets `<html lang>`
+- `src/components/RootLayout.tsx` — header/main/footer frame, `<Suspense>`, sets `<html lang>`,
+  calls `useScrollBehavior()`
+- `src/lib/useScrollBehavior.ts` — all scroll side effects of a navigation (`DECISION-013`)
 - `src/components/playground/PlaygroundLayout.tsx` — nested layout adding the paper grid
 - `src/lib/i18n.ts` — `Locale`, `defaultLocale`, `localeHref()`
 - `src/lib/useLocale.ts` — `localeFromPathname()`, `useLocale()`, `useDictionary()`
@@ -44,6 +46,14 @@ compute the bare path for the language toggle and the playground/portfolio mode 
 `RootLayout` sets `document.documentElement.lang` in an effect and wraps `<Outlet />` in
 `<Suspense fallback={null}>`.
 
+It also calls `useScrollBehavior()`, which owns every scroll side effect of a navigation:
+a new route starts at the top, a URL with a hash lands on that section (offset by
+`section { scroll-margin-top }`), and back/forward restores the previous offset from a
+`sessionStorage` map keyed by `location.key`. It sets `history.scrollRestoration = "manual"`.
+Because pages are lazy, it re-tries across animation frames until the target exists *and*
+the incoming page has stopped growing. react-router's `<ScrollRestoration />` is
+deliberately not used — `DECISION-013`.
+
 Per-route `<title>`/meta are written imperatively by `src/components/Seo.tsx` on mount.
 
 ## Important dependencies
@@ -59,11 +69,15 @@ Per-route `<title>`/meta are written imperatively by `src/components/Seo.tsx` on
 
 ## Known weaknesses
 
-- No `<ScrollRestoration />` and no hash handling: cross-route hash links do nothing and
-  scroll position carries over between pages — `ISSUE-002`, `ISSUE-003`.
-- Route elements are not keyed by params, so `/work/a → /work/b` re-renders the same
-  component instance without remounting. Mount-only effects (notably `useScrollReveals`)
-  never re-run — `ISSUE-001`.
+- ~~No `<ScrollRestoration />` and no hash handling~~ — fixed in SESSION-002 by
+  `useScrollBehavior` (`ISSUE-002`, `ISSUE-003`, `ISSUE-022`).
+- Route elements are still not keyed by params, so `/work/a → /work/b` re-renders the same
+  component instance without remounting. That is now handled by the affected hooks keying
+  their effects on the pathname rather than by remounting the route (`ISSUE-001`,
+  resolved), so **any new mount-only effect in a `:param` route is a latent repeat of that
+  bug**.
+- The anchor offset is a single fixed 104px against a header that is 146px tall below
+  480px — `ISSUE-015`, confirmed by measurement in SESSION-002.
 - `Suspense fallback={null}` gives a blank frame on first visit to a lazy page — `ISSUE-020`.
 - `Seo` only restores `document.title` on unmount; description/OG tags leak — `ISSUE-014`.
 - No prerendering: crawlers and social scrapers only ever see `index.html`'s static
@@ -72,8 +86,9 @@ Per-route `<title>`/meta are written imperatively by `src/components/Seo.tsx` on
 ## Related decisions
 
 `DECISION-001` (Vite SPA), `DECISION-002` (path-prefix i18n), `DECISION-005` (hand-rolled
-`Image`/`Seo`).
+`Image`/`Seo`), `DECISION-013` (hand-rolled scroll behaviour).
 
 ## Related issues
 
-`ISSUE-001`, `ISSUE-002`, `ISSUE-003`, `ISSUE-013`, `ISSUE-014`, `ISSUE-020`, `ISSUE-021`, `ISSUE-022`.
+Resolved: `ISSUE-001`, `ISSUE-002`, `ISSUE-003`, `ISSUE-022`.
+Open: `ISSUE-013`, `ISSUE-014`, `ISSUE-015`, `ISSUE-020`, `ISSUE-021`.
