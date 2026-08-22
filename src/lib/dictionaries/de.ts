@@ -180,7 +180,6 @@ const de: Dictionary = {
     name: "Alexsha Maharjan",
     tagline: "UX/UI Design · Corporate Design · Frontend",
     location: "Lübeck, Deutschland",
-    phone: "+49 176 2377 5253",
     email: "alexsha.maharjan1@gmail.com",
     portfolio: "alexshamaharjan.myportfolio.com",
     portfolioHref: "https://alexshamaharjan.myportfolio.com",

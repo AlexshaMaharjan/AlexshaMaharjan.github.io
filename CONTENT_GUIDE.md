@@ -471,9 +471,6 @@ EN/DE (same): "UX/UI Design · Corporate Design · Frontend"
 ### resume.location
 EN: "Lübeck, Germany" | DE: "Lübeck, Deutschland"
 
-### resume.phone
-"+49 176 2377 5253"  (same both languages)
-
 ### resume.email
 "alexsha.maharjan1@gmail.com"  (same both languages — also used for the mailto: links site-wide, see Footer/Contact)
 
