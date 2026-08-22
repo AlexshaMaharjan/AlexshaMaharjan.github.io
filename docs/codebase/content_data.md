@@ -1,0 +1,82 @@
+# Codebase — Content and data (`src/lib/`)
+
+Every visible string lives here. Components read; they do not author.
+`CONTENT_GUIDE.md` (repo root) is the field-by-field editing surface — see
+`docs/reference/index.md`.
+
+## Dictionaries — `src/lib/dictionaries/`
+
+| File | Lines | Contents |
+| --- | --- | --- |
+| `types.ts` | 203 | the `Dictionary` contract: `meta`, `nav`, `hero`, `process`, `selectedWork`, `projects[]`, `resume`, `aboutPreview`, `contact`, `footer`, `playgroundNav`, `about`, `caseStudy`, `notFound` |
+| `en.ts` | 380 | full English implementation |
+| `de.ts` | 380 | full German implementation |
+| `index.ts` | 22 | `getDictionary(locale)` + type re-exports |
+
+`ProjectCopy[]` (six entries) still carries `headline`, `description`, `image`,
+`imageAspect`, `projectTag`, `placeholderLabel`, `featured` — most now unused since
+`BentoGrid` replaced `ProjectEntry`. It is still the source of the case-study prev/next
+ring and the preview thumbnails in `NextProjectNav`.
+
+**Inspect when:** changing nav labels, hero copy, About copy, résumé, footer, 404, or any
+shared case-study/playground UI label.
+
+## Case studies — `src/lib/caseStudies/`
+
+| File | Lines | Sections (per locale) |
+| --- | --- | --- |
+| `types.ts` | 46 | `CaseStudyContent`, `CaseStudySection`, `InsightItem`, `TestingStep`, `SectionImage` |
+| `index.ts` | 25 | slug registry + `getCaseStudy(slug, locale)` |
+| `wikimind.ts` | 324 | 8 |
+| `afono.ts` | 348 | 9 — the only one with `heroDisclosure` (EN only, `ISSUE-009`) |
+| `sync-fm.ts` | 282 | 8 |
+| `barrier-free-kitchen.ts` | 350 | 8 |
+| `surugami.ts` | 306 | 9 |
+| `qis-portal.ts` | 388 | 9 |
+
+Each file exports `{ en: CaseStudyContent, de: CaseStudyContent }`. Section `id`s are
+shared vocabulary: `overview`, `challenge`, `research`, `insights`, `direction`,
+`development`, `testing`, `outcome`, `reflection` (exact set varies).
+
+**Known content-shape problem:** sub-headings and bullet lists are being stored as plain
+`body[]` strings and render as paragraphs — see `ISSUE-024`, with a worked example in
+`wikimind.ts` (the "direction" section).
+
+**Inspect when:** editing any case-study copy, adding a section, or changing the section
+model.
+
+## Playground — `src/lib/playground/`
+
+| File | Lines | Contents |
+| --- | --- | --- |
+| `types.ts` | 69 | `PlaygroundItem`, `PlaygroundCategoryContent`, `PlaygroundHomeContent`, `PlaygroundProjectContent` |
+| `home.ts` | 129 | hero, 3 featured, 6 category summaries, exploring/note/return copy |
+| `categories/index.ts` | 29 | registry + `getCategory` / `getAllCategories` |
+| `categories/{digital-art,crafts,editorial,graphic-experiments,3d-motion,interactive}.ts` | 36–37 each | title, intro, 5 items, "more coming" note, next-category ring link |
+| `projects/index.ts` | 15 | registry + `getProject` |
+| `projects/motorbike-study.ts` | 58 | the only built experiment detail page |
+
+Category ring order: `digital-art → crafts → editorial → graphic-experiments → 3d-motion
+→ interactive → digital-art`.
+
+## Helpers
+
+| File | Lines | Purpose |
+| --- | --- | --- |
+| `i18n.ts` | 13 | `Locale`, `defaultLocale`, `isLocale()`, `localeHref()` |
+| `useLocale.ts` | 16 | `localeFromPathname()`, `useLocale()`, `useDictionary()` |
+| `useScrollReveals.ts` | 46 | GSAP reveal hook — **NEW, uncommitted** |
+
+## Adding content — checklist
+
+- **New case study:** create `src/lib/caseStudies/<slug>.ts` with both locales → register
+  in `caseStudies/index.ts` → add a `ProjectCopy` entry to **both** dictionaries (the
+  prev/next ring reads from `dictionary.projects`) → add a tile in `BentoGrid.tsx`.
+- **New playground category:** data file → `categories/index.ts` → a summary entry in
+  `home.ts` → fix the ring links on the neighbouring categories.
+- **New playground experiment:** data file → `projects/index.ts` → give the matching
+  `PlaygroundItem` a `slug`.
+
+## Related
+
+`ARCH-02`. Issues: `ISSUE-007`, `ISSUE-009`, `ISSUE-010`, `ISSUE-024`.

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useLocale, useDictionary } from "@/lib/useLocale";
+import { useScrollReveals } from "@/lib/useScrollReveals";
 import { localeHref } from "@/lib/i18n";
 import Image from "@/components/ui/Image";
 import PlaceholderImage from "@/components/PlaceholderImage";
@@ -10,6 +11,7 @@ export default function About() {
   const locale = useLocale();
   const dictionary = useDictionary();
   const about = dictionary.about;
+  useScrollReveals();
 
   return (
     <>
@@ -28,7 +30,7 @@ export default function About() {
 
       <section className="pt-[90px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
-          <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-16">
+          <div data-inview className="grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-16">
             <div>
               <div className="relative max-w-[460px] pt-[58px]">
                 <div className="relative z-[1] aspect-[3/4] overflow-hidden rounded-[10px] border border-[#E4E7EE] bg-surface">
@@ -95,7 +97,7 @@ export default function About() {
 
       <section className="pt-[110px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
-          <div className="grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2">
+          <div data-inview className="grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2">
             <div>
               <h2 className="mt-2.5 text-[clamp(1.625rem,2.6vw,2.125rem)] font-semibold tracking-[-0.02em]">
                 {about.focusHeading}
@@ -153,7 +155,7 @@ export default function About() {
       </section>
 
       <section className="pt-[110px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
           <h2 className="mt-2.5 text-[clamp(1.625rem,2.6vw,2.125rem)] font-semibold tracking-[-0.02em]">
             {about.carouselHeading}
           </h2>
@@ -171,14 +173,14 @@ export default function About() {
       </section>
 
       <section className="py-[100px] pb-[130px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
           <LoveLine intro={about.loveIntro} words={about.loveWords} />
         </div>
       </section>
 
       <section id="resume" className="bg-near-black py-[120px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
-          <div className="mx-auto flex flex-col items-center text-center">
+          <div data-inview className="mx-auto flex flex-col items-center text-center">
           <h2 className="mx-auto mt-2.5 max-w-[760px] text-[clamp(1.875rem,3.6vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.025em] text-white">
             {about.resumeHeading}
           </h2>

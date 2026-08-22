@@ -33,7 +33,7 @@ export default function ProjectPage({
       </section>
 
       <section className="pt-14">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
           <div className="rounded-lg border border-[#E4E7EE] bg-white p-3">
             <PlaceholderImage aspect={content.mainAspect} caption={`[ ${content.mainCaption} ]`} />
           </div>
@@ -41,7 +41,7 @@ export default function ProjectPage({
       </section>
 
       <section className="pt-[72px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
           <h2 className="mb-6 text-[24px] font-semibold tracking-[-0.015em]">{content.processHeading}</h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             {content.processItems.map((item, i) => (
