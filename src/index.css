@@ -100,14 +100,6 @@
   }
 }
 
-/* GSAP (useScrollReveals) takes over from here once it mounts — this just
-   prevents a flash of fully-visible content before that first tween runs. */
-[data-inview] {
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-inview] {
-    opacity: 1;
-  }
-}
+/* [data-inview] has no at-rest style here on purpose. useScrollReveals hides
+   these elements from a layout effect instead, before the first paint, so that
+   a page whose script never runs stays readable rather than blank (ISSUE-001). */
