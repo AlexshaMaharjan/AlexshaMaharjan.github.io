@@ -1,0 +1,1 @@
+import{j as n,c as o}from"./index-DUnLpVsI.js";function i({src:s,alt:a,className:e,fill:l=!0,priority:t=!1}){return n.jsx("img",{src:s,alt:a,loading:t?"eager":"lazy",decoding:"async",className:o(l&&"absolute inset-0 h-full w-full",e)})}export{i as I};
