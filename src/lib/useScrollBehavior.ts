@@ -1,0 +1,203 @@
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLocation, useNavigationType } from "react-router-dom";
+
+const STORAGE_KEY = "am:scroll-positions";
+
+/** How long to keep waiting for a lazy page to paint before giving up on a scroll target. */
+const SETTLE_TIMEOUT_MS = 2000;
+
+/** Consecutive unchanged frames that count as "the incoming page has stopped moving". */
+const SETTLE_FRAMES = 5;
+
+function readStoredPositions(): Record<string, number> {
+  try {
+    const raw = window.sessionStorage.getItem(STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as Record<string, number>) : {};
+  } catch {
+    // sessionStorage throws in private mode. Restoring after a reload is a
+    // nicety, so an empty map is a perfectly good answer.
+    return {};
+  }
+}
+
+/** Scroll offset per history entry, keyed by `location.key`. */
+const positions: Record<string, number> = readStoredPositions();
+
+function prefersReducedMotion(): boolean {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/**
+ * Scrolls to `top` and reports whether it landed there.
+ *
+ * "instant" is load-bearing, and is not the same as the default "auto": "auto"
+ * means *defer to the CSS*, and index.css sets `html { scroll-behavior:
+ * smooth }`. Under "auto" a route change animates as a long sweep back up the
+ * page the visitor just left, the scroll is still in flight when this returns,
+ * and anything measuring the page afterwards — the scroll reveals, notably —
+ * reads the outgoing offset.
+ */
+function jumpTo(top: number): boolean {
+  window.scrollTo({ top, left: 0, behavior: "instant" });
+  return Math.abs(window.scrollY - top) <= 1;
+}
+
+/**
+ * Runs `attempt` now, then once per frame until it succeeds or the budget runs
+ * out. Pages are lazy (`ARCH-01`), so the element a hash names — or the page
+ * height a restored offset needs — often does not exist on the first frame.
+ */
+function untilReady(attempt: () => boolean, onTimeout?: () => void): () => void {
+  if (attempt()) return () => {};
+
+  const deadline = performance.now() + SETTLE_TIMEOUT_MS;
+  let frame = requestAnimationFrame(function tick(now) {
+    if (attempt()) return;
+    if (now < deadline) {
+      frame = requestAnimationFrame(tick);
+      return;
+    }
+    onTimeout?.();
+  });
+
+  return () => cancelAnimationFrame(frame);
+}
+
+/**
+ * Owns every scroll side effect of a client-side navigation. React Router does
+ * none of this on its own, and the Next.js router this app migrated away from
+ * used to (`DECISION-001`):
+ *
+ * - a new route starts at the top (`ISSUE-003`)
+ * - a URL carrying a hash lands on that section, offset for the fixed header by
+ *   `section { scroll-margin-top }` in index.css (`ISSUE-002`, `ISSUE-022`)
+ * - back and forward return the visitor to where they were (`ISSUE-003`)
+ *
+ * Positioning runs in a layout effect, so it happens before the browser paints
+ * and — because a parent's layout effect runs after its children's — after the
+ * incoming page has put its scroll reveals into their at-rest state.
+ */
+export function useScrollBehavior(): void {
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  const currentKey = useRef(location.key);
+  const previousEntry = useRef<{ key: string; pathname: string } | null>(null);
+
+  // Take scroll restoration off the browser; the effects below own it.
+  useEffect(() => {
+    const browserDefault = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+    return () => {
+      window.history.scrollRestoration = browserDefault;
+    };
+  }, []);
+
+  // Keep the recorder below pointed at the entry being navigated *to*, so the
+  // programmatic scroll further down is filed against the incoming entry rather
+  // than overwriting the outgoing one's saved offset.
+  useLayoutEffect(() => {
+    currentKey.current = location.key;
+  }, [location.key]);
+
+  // Remember where the visitor is, so a later back or forward can return them.
+  useEffect(() => {
+    const record = () => {
+      positions[currentKey.current] = window.scrollY;
+    };
+    const persist = () => {
+      record();
+      try {
+        window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(positions));
+      } catch {
+        // Best effort — see readStoredPositions.
+      }
+    };
+
+    window.addEventListener("scroll", record, { passive: true });
+    window.addEventListener("pagehide", persist);
+    return () => {
+      window.removeEventListener("scroll", record);
+      window.removeEventListener("pagehide", persist);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    // Which page the visitor is arriving *from*, or null if there isn't one.
+    // Comparing history keys rather than keeping a bare "have I run yet?" flag
+    // keeps this idempotent: React re-invokes mount effects in development, and
+    // a second invocation for the same entry has to reach the same conclusion
+    // as the first, or a freshly loaded /#contact gets treated as a back
+    // navigation and never scrolls anywhere.
+    const entry = previousEntry.current;
+    const cameFrom = entry && entry.key !== location.key ? entry.pathname : null;
+    previousEntry.current = { key: location.key, pathname: location.pathname };
+
+    // Back / forward: put the visitor back where they were. A first load is
+    // reported as a POP too, but has no page to have come from.
+    if (navigationType === "POP" && cameFrom !== null) {
+      const restoreTo = positions[location.key] ?? 0;
+      let lastHeight = -1;
+      return untilReady(() => {
+        if (jumpTo(restoreTo)) return true;
+        // The page can still be growing as its lazy chunk paints. Once the
+        // height stops changing, this is as far as the document goes — stop,
+        // rather than fighting the visitor for the rest of the budget.
+        const height = document.documentElement.scrollHeight;
+        const settled = height === lastHeight;
+        lastHeight = height;
+        return settled;
+      });
+    }
+
+    if (!location.hash) {
+      jumpTo(0);
+      return;
+    }
+
+    const id = decodeURIComponent(location.hash.slice(1));
+    // Animate the jump only when the visitor can see where it started from.
+    // Across a route change the page underneath is entirely new, so a sweep
+    // through it reads as a glitch rather than as movement.
+    const smooth = cameFrom === location.pathname && !prefersReducedMotion();
+
+    let found = false;
+    let lastTop: number | null = null;
+    let lastHeight = -1;
+    let stillFrames = 0;
+
+    return untilReady(
+      () => {
+        const target = document.getElementById(id);
+        if (!target) return false;
+        found = true;
+
+        target.scrollIntoView({ behavior: smooth ? "smooth" : "instant", block: "start" });
+
+        // A smooth scroll is still running when this returns, so re-issuing it
+        // every frame would restart it forever. It is only ever used within a
+        // page that is already mounted and settled, so one call is enough.
+        if (smooth) return true;
+
+        // An instant landing lands short surprisingly often, because the
+        // incoming page is usually still growing underneath it — the homepage
+        // alone gains ~700px a frame or two later, when its hero swaps to the
+        // pinned track (ARCH-04) — which pushes the target back down out of
+        // view. Scroll anchoring sometimes absorbs that and sometimes does not,
+        // so re-aim every frame and only stop once nothing has moved for
+        // several frames running.
+        const top = Math.round(target.getBoundingClientRect().top);
+        const height = document.documentElement.scrollHeight;
+        stillFrames = top === lastTop && height === lastHeight ? stillFrames + 1 : 0;
+        lastTop = top;
+        lastHeight = height;
+        return stillFrames >= SETTLE_FRAMES;
+      },
+      // A hash naming nothing should still behave like a normal navigation.
+      // Running out of frames while tracking a target we did find is fine: the
+      // visitor is already on it.
+      () => {
+        if (!found) jumpTo(0);
+      },
+    );
+  }, [location.key, location.pathname, location.hash, navigationType]);
+}
