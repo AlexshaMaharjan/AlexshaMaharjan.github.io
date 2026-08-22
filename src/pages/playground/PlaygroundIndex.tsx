@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useLocale } from "@/lib/useLocale";
+import { useScrollReveals } from "@/lib/useScrollReveals";
 import { localeHref } from "@/lib/i18n";
 import home from "@/lib/playground/home";
 import { getCategory } from "@/lib/playground/categories";
@@ -10,6 +11,7 @@ import Seo from "@/components/Seo";
 export default function PlaygroundIndex() {
   const locale = useLocale();
   const content = home[locale];
+  useScrollReveals();
 
   return (
     <>
@@ -49,7 +51,7 @@ export default function PlaygroundIndex() {
       </section>
 
       <section className="pb-[110px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
           <h2 className="mb-10 text-[clamp(1.625rem,2.6vw,2.25rem)] font-semibold tracking-[-0.02em]">
             {content.featuredHeading}
           </h2>
@@ -92,7 +94,7 @@ export default function PlaygroundIndex() {
       </section>
 
       <section className="pb-[72px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
           <h2 className="mb-3 text-[clamp(1.625rem,2.6vw,2.25rem)] font-semibold tracking-[-0.02em]">
             {content.categoriesHeading}
           </h2>

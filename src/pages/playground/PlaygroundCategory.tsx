@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useLocale, useDictionary } from "@/lib/useLocale";
+import { useScrollReveals } from "@/lib/useScrollReveals";
 import { getCategory } from "@/lib/playground/categories";
 import CategoryPage from "@/components/playground/CategoryPage";
 import NotFound from "@/pages/NotFound";
@@ -9,6 +10,7 @@ export default function PlaygroundCategory() {
   const locale = useLocale();
   const dictionary = useDictionary();
   const { category } = useParams<{ category: string }>();
+  useScrollReveals();
   const content = category ? getCategory(category, locale) : null;
 
   if (!content) return <NotFound />;

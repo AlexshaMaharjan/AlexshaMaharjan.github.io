@@ -1,4 +1,5 @@
 import { useLocale, useDictionary } from "@/lib/useLocale";
+import { useScrollReveals } from "@/lib/useScrollReveals";
 import Seo from "@/components/Seo";
 import HeroProcess from "@/components/process/HeroProcess";
 import SelectedWork from "@/components/SelectedWork";
@@ -8,6 +9,7 @@ import ContactSection from "@/components/ContactSection";
 export default function Home() {
   const locale = useLocale();
   const dictionary = useDictionary();
+  useScrollReveals();
 
   return (
     <>

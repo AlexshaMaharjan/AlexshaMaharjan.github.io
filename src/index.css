@@ -86,3 +86,28 @@
     animation: none !important;
   }
 }
+
+@media (max-width: 880px) {
+  [data-el="bento"] {
+    max-width: 520px !important;
+    aspect-ratio: auto !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: none !important;
+    grid-auto-rows: minmax(140px, auto) !important;
+  }
+  [data-el="bento"] > * {
+    grid-area: auto !important;
+  }
+}
+
+/* GSAP (useScrollReveals) takes over from here once it mounts — this just
+   prevents a flash of fully-visible content before that first tween runs. */
+[data-inview] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-inview] {
+    opacity: 1;
+  }
+}

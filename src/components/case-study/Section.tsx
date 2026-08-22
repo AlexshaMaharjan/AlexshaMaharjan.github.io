@@ -77,7 +77,7 @@ export default function Section({
   }
 
   return (
-    <section id={section.id} className="mt-24">
+    <section id={section.id} data-inview className="mt-24">
       <div className="mb-7">
         <span className="font-mono text-[13px] text-accent">{section.number}</span>
         <span className="mt-1.5 block text-[14px] text-accent">{section.navLabel}</span>

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useLocale, useDictionary } from "@/lib/useLocale";
+import { useScrollReveals } from "@/lib/useScrollReveals";
 import { getCaseStudy } from "@/lib/caseStudies";
 import CaseStudyPage from "@/components/case-study/CaseStudyPage";
 import NotFound from "@/pages/NotFound";
@@ -9,6 +10,7 @@ export default function CaseStudy() {
   const locale = useLocale();
   const dictionary = useDictionary();
   const { slug } = useParams<{ slug: string }>();
+  useScrollReveals();
 
   const content = slug ? getCaseStudy(slug, locale) : null;
   const projects = dictionary.projects;

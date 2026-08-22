@@ -1,11 +1,8 @@
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
-import { FeaturedProject, GridProject } from "@/components/ProjectEntry";
+import BentoGrid from "@/components/BentoGrid";
 
 export default function SelectedWork({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
-  const featured = dictionary.projects.filter((p) => p.featured);
-  const rest = dictionary.projects.filter((p) => !p.featured);
-
   return (
     <section id="work" className="bg-white pb-10 pt-[160px]">
       <div className="mx-auto max-w-[1440px] px-5 md:px-20">
@@ -21,15 +18,7 @@ export default function SelectedWork({ dictionary, locale }: { dictionary: Dicti
           </div>
         </div>
 
-        {featured.map((project) => (
-          <FeaturedProject key={project.slug} project={project} locale={locale} dictionary={dictionary} />
-        ))}
-
-        <div className="grid grid-cols-1 gap-x-6 gap-y-24 pb-10 md:grid-cols-2">
-          {rest.map((project) => (
-            <GridProject key={project.slug} project={project} locale={locale} dictionary={dictionary} />
-          ))}
-        </div>
+        <BentoGrid locale={locale} />
       </div>
     </section>
   );
