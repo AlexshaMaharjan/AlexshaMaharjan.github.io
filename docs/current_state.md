@@ -85,11 +85,9 @@ verified (`ISSUE-016`, `SUGGESTION-010`).
 
 | Blocker | Blocks |
 | --- | --- |
-| Merging `milestone-001-stabilize` into `master` | nothing yet, but it accumulates |
 | `DECISION-010` — keep the bento direction? | `MILESTONE-002` |
 | Owner's real image exports | `MILESTONE-005` |
 | Owner's participation in the copy pass | `MILESTONE-004` |
-| Host and domain decision (`DECISION-012`) | `MILESTONE-008` |
 
 ## Highest-priority next work
 
