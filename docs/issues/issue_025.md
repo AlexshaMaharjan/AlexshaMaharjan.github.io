@@ -1,9 +1,10 @@
 # ISSUE-025 — No deployment configuration; target host unknown
 
-Status: Open
+Status: Resolved
 Priority: Low
 Category: Deployment
 Discovered: 2026-08-22 (SESSION-001)
+Resolved: 2026-08-22 (SESSION-003)
 Last reviewed: 2026-08-22
 
 ## Summary

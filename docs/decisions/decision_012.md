@@ -1,7 +1,7 @@
 # DECISION-012 — Static hosting with a catch-all SPA rewrite
 
-Status: Active (host undecided)
-Date: Commit `7fb7755`
+Status: Decided (GitHub Pages via GitHub Actions)
+Date: 2026-08-22
 Scope: Deployment
 
 ## Context
