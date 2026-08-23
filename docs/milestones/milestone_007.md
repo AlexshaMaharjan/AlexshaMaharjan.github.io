@@ -1,6 +1,6 @@
 # MILESTONE-007 — Design-system consistency, responsive and accessibility
 
-Status: Proposed
+Status: In progress — `ISSUE-015` and `ISSUE-026` done (SESSION-005)
 Priority: Medium
 Goal: Make six differently-built pages read as one designed site, at every viewport, for
 every visitor.
@@ -36,17 +36,18 @@ milestones so pages are not swept twice.
 - [ ] Settle one breakpoint story; document it in `ARCH-03`
 - [ ] Move `BentoGrid` off inline styles; delete the `!important` override
 - [ ] **ISSUE-016** — measure and fix the header at 480–1160px
-- [ ] **ISSUE-015** — publish header height as a CSS variable; use it for
-      `scroll-margin-top` and the sticky rail
-- [ ] **ISSUE-026** — the footer's link columns plus `md:px-20` overflow the viewport
-      between 768px and 839px, so every page scrolls sideways there. Measured; likely a
-      padding-scale fix rather than a footer fix
-- [ ] **ISSUE-027** — a URL-bar hash change on the current page never reaches the router,
-      so the browser's own jump lands on the scroll reveal's at-rest position
+- [x] **ISSUE-015** — the header measures itself into `--header-h`, and both
+      `scroll-margin-top` and the sticky rail derive from it (SESSION-005)
+- [x] **ISSUE-026** — the footer's link columns wrap (SESSION-005). The shared padding
+      scale is still the more general fix and is still untouched, deliberately
+- [ ] **ISSUE-027** — a hash navigation after a client-side route change restores a stale
+      scroll offset. **Diagnosed in SESSION-005**, three candidate fixes tried and
+      reverted; the file now carries the measurements and where to start
 - [ ] Walk every page at 375 / 480 / 768 / 1024 / 1160 / 1440 / 1920
 
-`ISSUE-015`, `ISSUE-026` and `ISSUE-027` are all page-independent and need nothing from
-the owner, which makes them the natural slice to take first — see `docs/next_session.md`.
+`ISSUE-015` and `ISSUE-026` were taken first, in SESSION-005, being page-independent and
+needing nothing from the owner. `ISSUE-027` turned out to be a scroll-position-bookkeeping
+bug rather than an anchor bug, and was left diagnosed rather than half-fixed.
 
 **Accessibility (`SUGGESTION-011`)**
 - [ ] Keyboard-reachable pause for the playground marquees (WCAG 2.2.2)

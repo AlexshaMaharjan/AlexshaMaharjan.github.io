@@ -15,7 +15,7 @@ work section, case studies) → content and imagery → motion → consistency �
 | MILESTONE-004 | English content pass | Proposed — **unblocked** | High | M-003 model ✅, owner | ISSUE-024 ✅ | `milestone_004.md` |
 | MILESTONE-005 | Real imagery | Proposed | High | owner assets | ISSUE-006/007 | `milestone_005.md` |
 | MILESTONE-006 | Motion system and interaction polish | Proposed | Medium | M-001, M-002/003 | ISSUE-012/019/020 | `milestone_006.md` |
-| MILESTONE-007 | Consistency, responsive, accessibility | Proposed | Medium | M-002/003/006 | ISSUE-010/011/015/016/021/023/026/027 | `milestone_007.md` |
+| MILESTONE-007 | Consistency, responsive, accessibility | **In progress** | Medium | M-002/003/006 | ISSUE-015 ✅, ISSUE-026 ✅, ISSUE-010/011/016/021/023/027 | `milestone_007.md` |
 | MILESTONE-008 | Performance, SEO, deployment | Proposed | Medium | content near-final, owner | ISSUE-013/014/019/025 | `milestone_008.md` |
 | MILESTONE-009 | German parity | Proposed | Medium | M-004 | ISSUE-009 | `milestone_009.md` |
 
@@ -37,14 +37,14 @@ measurements.
 ## Recommended next milestone
 
 **`MILESTONE-004` — the English content pass.** Its prerequisite (the block model) is
-done, the layout it will be written into is now settled, and it is the owner's third
-stated priority. It needs the owner in the room: the copy is theirs, and `DECISION-011`
-forbids inventing anything to fill gaps.
+done, the layout it will be written into is settled, and it is the owner's third stated
+priority. It needs the owner in the room: the copy is theirs, and `DECISION-011` forbids
+inventing anything to fill gaps.
 
-If the owner is not available, `MILESTONE-002` (homepage "Selected Work") is the next
-thing worth doing — but it is still blocked on `DECISION-010`, unanswered since
-SESSION-002. `MILESTONE-007`'s responsive work now has three concrete findings waiting
-(`ISSUE-015`, `ISSUE-026`, `ISSUE-027`) and needs nothing from the owner at all.
+If the owner is not available, the rest of `MILESTONE-007` needs nothing from them —
+`ISSUE-023` (type scale and colour tokens bypassed) is the largest remaining piece, and
+`ISSUE-027` is diagnosed and waiting. `MILESTONE-002` is still blocked on `DECISION-010`,
+unanswered since SESSION-002.
 
 ## How the owner's stated priorities map
 

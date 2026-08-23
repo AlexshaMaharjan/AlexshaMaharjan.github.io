@@ -1,9 +1,10 @@
 # Issues Index
 
-27 issues. **9 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
-(`MILESTONE-003`), and `ISSUE-025` by the owner — plus one partially resolved. 18 remain
-open, one of them `Investigating`. No `Critical` issue is open. `ISSUE-026` and
-`ISSUE-027` were found by measurement in SESSION-004 and are both pre-existing.
+27 issues. **11 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+(`MILESTONE-003`), 2 in SESSION-005 (`MILESTONE-007`), and `ISSUE-025` by the owner — plus
+one partially resolved. 16 remain open, one of them `Investigating`. No `Critical` issue is
+open. `ISSUE-027` is open but **diagnosed**: SESSION-005 measured the real mechanism and
+rewrote the file, having found SESSION-004's description of it wrong.
 
 Read the summary column first; open a file only when you are going to act on it.
 
@@ -38,11 +39,9 @@ _None._
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-011 | `lg:` overrides `nav:` due to screens order | Open | Low | Latent; nothing broken yet | `issue_011.md` |
 | ISSUE-014 | `Seo` leaks description/OG between routes | Open | Low | Stale meta after navigation | `issue_014.md` |
-| ISSUE-015 | Anchor offset wrong under the taller mobile header | Open | Low | **Confirmed**: 146px header vs 104px offset — 42px hidden below 480px | `issue_015.md` |
 | ISSUE-020 | Lazy routes render a blank frame | Open | Low | `Suspense fallback={null}` | `issue_020.md` |
 | ISSUE-021 | `stripLocale` duplicated in Header and Footer | Open | Low | Should live in `lib/i18n.ts` | `issue_021.md` |
-| ISSUE-026 | Footer columns overflow the viewport at 768–839px | Open | Low | Every page scrolls sideways up to 24px on tablets | `issue_026.md` |
-| ISSUE-027 | URL-bar hash change bypasses the app's scroll handling | Open | Low | Native fragment jump lands up to 18px off | `issue_027.md` |
+| ISSUE-027 | Hash navigation after a route change restores an offset nobody chose | Open | Low | **Diagnosed, not fixed** — stale entry in the scroll-position map | `issue_027.md` |
 
 ## Resolved
 
@@ -65,6 +64,13 @@ And in SESSION-003 under `MILESTONE-003`:
 | ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
 | ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
 
+And in SESSION-005 under `MILESTONE-007`:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-015 | Anchor offset wrong under the taller mobile header | `f32a45e` — the header measures itself into `--header-h`; `--anchor-offset` derives from it | `issue_015.md` |
+| ISSUE-026 | Footer columns overflow the viewport at 768–839px | `f32a45e` — the footer's link columns wrap | `issue_026.md` |
+
 And by the owner, outside a recorded session:
 
 | ID | Title | Resolved by | File |
@@ -79,6 +85,6 @@ And by the owner, outside a recorded session:
 - **MILESTONE-004** (copy pass): —
 - **MILESTONE-005** (imagery): 006, 007 (Playground + About slots)
 - **MILESTONE-006** (motion): 012, 020
-- **MILESTONE-007** (design system / responsive): 010, 011, 015, 016, 021, 023, 026, 027
+- **MILESTONE-007** (design system / responsive): 010, 011, 015 ✅, 016, 021, 023, 026 ✅, 027
 - **MILESTONE-008** (perf / SEO / deploy): 013, 014, 019, 025 ✅
 - **MILESTONE-009** (German): 009

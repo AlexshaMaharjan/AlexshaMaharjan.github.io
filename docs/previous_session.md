@@ -1,91 +1,94 @@
 # Previous Session
 
-Session: SESSION-004
-Milestone: MILESTONE-003 — Case-study layout and content model (part two of two)
-Objective: Lay the case studies out as editorial pages — varied media widths,
-differentiated set pieces, reading progress, a deliberate ending — on top of SESSION-003's
-content model.
-Outcome: **Complete. `MILESTONE-003` is closed.**
+Session: SESSION-005
+Milestone: MILESTONE-007 — Consistency, responsive, accessibility (first slice)
+Objective: Fix the three measured, page-independent defects — `ISSUE-015` (anchor offset vs
+the mobile header), `ISSUE-026` (footer overflow), `ISSUE-027` (hash navigation landing
+short).
+Outcome: **Two fixed and verified. The third was misdiagnosed in its own file** — it is now
+measured properly and left open, with three attempted fixes reverted rather than shipped.
 
 ## What Changed
 
 | | Before | After |
 | --- | --- | --- |
-| Body text | 960px — about 110 characters a line | 680px — about 70 |
-| Media | one width | three: full column, 2-/3-up grid, hero |
-| Design question | bordered box | tinted accent panel |
-| Key insights | border-top rules | numbered white cards |
-| Testing steps | border-top rules | numbered row under accent rules |
-| Contents rail | passive, from 768px | marks the section being read and fills as a progress track, from 1280px |
-| Reading column at 768px | ~313px, squeezed by the reserved rail | full width; the collapsible list names the current section |
-| Ending | ran into the prev/next cards | its own tinted band, heading beside text |
+| Anchored section below 480px | 42px of it hidden behind the header | clears it by 31px |
+| Anchored section at 480px and up | clears by 31px | unchanged (104px) |
+| Where the offset comes from | `scroll-margin-top: 104px`, a number written down once | `--header-h`, measured by the header itself |
+| Case-study rail and closing heading | `top-[104px]` / `top-[128px]` | derive from the same variable |
+| Footer between 768px and 839px | every page scrolled sideways by up to 24px | columns wrap; nothing scrolls sideways at any width |
 
-Media grouping is derived, not annotated: an image 3:2 or wider takes the full column,
-narrower ones pack into a grid. `SectionImage.wide` overrides where the data wants to.
-
-No copy changed. No case-study data changed except the new optional `wide` field.
+The header measures itself in a layout effect and a `ResizeObserver`, publishing
+`--header-h`; `index.css` derives `--anchor-offset: calc(var(--header-h) + 31px)` and
+declares per-breakpoint fallbacks for the moment before the measurement runs. Measured
+rather than written down twice on purpose — a written-down number is what drifted here, and
+`ISSUE-015`'s own estimate of the mobile header (~117px) was 29px out.
 
 ## Files Changed
 
 | File | Change |
 | --- | --- |
-| `src/components/case-study/Section.tsx` | 680px measure on text; three set-piece treatments; `outro` variant |
-| `src/components/case-study/SectionMedia.tsx` | new — groups `images[]` into wide rows and grids |
-| `src/components/case-study/ContentsNav.tsx` | active-section tracking, progress track, rail at `xl` |
-| `src/components/case-study/CaseStudyPage.tsx` | rail column from `xl`; closing section on its own band |
-| `src/lib/caseStudies/types.ts` | `SectionImage.wide?` |
-| `src/lib/useScrollBehavior.ts` | hash landings aimed at layout position, not the rendered box |
+| `src/components/Header.tsx` | measures itself, publishes `--header-h` |
+| `src/index.css` | the two variables, their fallbacks, and `section { scroll-margin-top }` |
+| `src/components/case-study/ContentsNav.tsx`, `Section.tsx` | sticky offsets read the variable |
+| `src/components/Footer.tsx` | link columns wrap |
 
-Committed as `4e4b5f7` plus a documentation commit, on branch
-**`milestone-003-content-model`** (four commits ahead of `main` now — the branch name is
-from SESSION-003 and covers both halves).
+Committed as `f32a45e` on branch **`milestone-003-content-model`** (six commits ahead of
+`main`, still unpushed — nothing is deployed; the live site is published only by
+`npm run deploy`).
 
-## The bug the layout surfaced
+`src/lib/useScrollBehavior.ts` was changed three times and **ends unchanged**.
 
-Cold-loading a case study with a hash started landing 9–18px high, differently each time.
-`useScrollBehavior` aimed with `scrollIntoView` and judged settling by the target's
-rendered box — and a section that has not revealed yet is translated down 18px by the
-at-rest state (`DECISION-008`), so the landing was short by whatever remained of the tween.
+## ISSUE-027 — diagnosed, not fixed
 
-Confirmed as latent rather than assumed: the pre-session build landed at 104px every run,
-this session's layout build at 93–95px. The layout changed the timing; the flaw was already
-there. Landings are now computed from layout (`offsetTop` chain minus the element's
-`scroll-margin-top`), which does not move while the reveal runs.
+SESSION-004 described it as "a fragment navigation fires `hashchange`, not `popstate`, so
+the router never sees it". Measured: **it fires both**, and the router does see it. A
+listener written against that theory never fired once.
 
-## Decisions Made
+What is actually happening, from an instrumented build: the navigation arrives as a `POP`
+with `cameFrom` set, so the **back/forward branch** runs; `location.key` is `"default"` for
+more than one entry, so the scroll-position map shares a bucket between them; and the
+offset it restores was never chosen by anyone — when a tall page is replaced by a short
+one, the browser clamps the scroll position and the recorder files that as "where the
+visitor was". The 18px error is this page's geometry, not the mechanism.
 
-- **`DECISION-014` extended** with the layout half — the measure, the absence of
-  viewport-wide full-bleed (it collides with the sticky rail), the rail's 1280px
-  breakpoint, the closing band, and the layout-based hash aiming.
-- `quote` and `figure` block kinds kept unused, on the expectation that the copy pass will
-  want a pull quote.
+Three fixes were built, measured, and reverted: the `hashchange` listener, keying positions
+by `key|pathname`, and suppressing the recorder during a landing. None closed the case, and
+unproven complexity in the hook `DECISION-013` exists to protect is worse than a known
+defect. `issue_027.md` now carries the measurements, the branch log, and what each attempt
+did.
 
 ## Validation
 
 - `npm run lint` 0 errors / 3 pre-existing warnings; `npm run build` green.
-- Headless Chrome against the **production build**: both locales × six studies (identical
-  block counts, no duplicate ids, every section with eyebrow and reveal, closing band
-  present); measured widths at 375/768/1024/1280/1440; active-section tracking walked
-  through six sections; the full prev/next ring with nothing left hidden.
-- **Every SESSION-002 navigation journey re-run** at 1440px and 390px, motion on and off,
-  because this session touched `useScrollBehavior`: all landings exactly 104px, route
-  changes start at 0, back restores 5000px.
-- Screenshots at every width and for each set piece.
+- Headless Chrome against the **production build**: anchored sections at eight widths on
+  two pages (31px clearance everywhere); horizontal overflow across seven pages × fourteen
+  widths (none); every SESSION-002 journey at 1440px and 390px with motion on and off,
+  plus contents-rail clicks; the prev/next ring with nothing left hidden; reduced motion
+  clean; and a 390px screenshot showing the eyebrow and heading fully visible.
+
+## A harness bug worth carrying forward
+
+`Page.navigate` to a URL differing from the current one **only by its fragment** does not
+reload the document. Early measurements this session were taken against a stale page — one
+of them appeared to show the CSS fix not working at all. `cdp.mjs` now has `coldGoto`,
+which goes via `about:blank` first; use it for anything claiming to be a cold load.
+
+Part of SESSION-004's "cold hash landing" evidence was affected by the same thing. Those
+journeys were re-measured properly here and are correct.
 
 ## Remaining Concerns
 
-- **`ISSUE-026`** (new, pre-existing) — the footer overflows the viewport by up to 24px
-  between 768px and 839px, on every page.
-- **`ISSUE-027`** (new, pre-existing) — a URL-bar hash change on the current page bypasses
-  the router and lands on the reveal's at-rest position.
-- **No viewport-wide full-bleed media**: it collides with the sticky rail. Reopening it
-  means taking the rail out of the flow first.
-- **Text-only sections leave the right of the column empty** — the measure doing its job,
-  but the most likely thing for the owner to read as unfinished. Worth showing early.
-- The case studies are now as good as they get without real images (`MILESTONE-005`) and
-  the copy pass (`MILESTONE-004`).
-- Nothing enforces `en`/`de` structural parity; still review-only.
+- `ISSUE-027` is open and diagnosed; start by logging every `record()` write with key,
+  value and stack through one reproduction.
+- The shared padding scale (`md:px-20` from 768px up) is what makes tablet widths tight.
+  `ISSUE-026` was fixed at the footer instead, deliberately — changing the scale moves
+  every page's gutters and belongs with `SUGGESTION-009`/`SUGGESTION-010`.
+- The CSS fallbacks for `--header-h` are still written down and can still drift; they only
+  apply before the measurement runs.
+- Nothing here touched content or imagery. `MILESTONE-004` and `MILESTONE-005` are what
+  stand between the case studies and finished.
 
 ## Detailed Session Record
 
-See `docs/sessions/session_004.md`.
+See `docs/sessions/session_005.md`.

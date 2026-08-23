@@ -82,11 +82,16 @@ Per-route `<title>`/meta are written imperatively by `src/components/Seo.tsx` on
   their effects on the pathname rather than by remounting the route (`ISSUE-001`,
   resolved), so **any new mount-only effect in a `:param` route is a latent repeat of that
   bug**.
-- The anchor offset is a single fixed 104px against a header that is 146px tall below
-  480px — `ISSUE-015`, confirmed by measurement in SESSION-002.
-- A fragment navigation that changes only the hash of the current URL fires `hashchange`,
-  not `popstate`, so the router never sees it and this hook never runs — the browser's own
-  jump lands on the reveal's at-rest position instead (`ISSUE-027`).
+- ~~The anchor offset is a single fixed 104px~~ — **fixed in SESSION-005** (`ISSUE-015`).
+  `Header.tsx` measures itself into `--header-h` and `index.css` derives
+  `--anchor-offset: calc(var(--header-h) + 31px)`, which `section { scroll-margin-top }`
+  and the case-study rail both read. 31px of clearance at every width.
+- A hash navigation performed after a client-side route change can restore a scroll offset
+  nobody chose, landing past the anchor. It arrives as a `POP` with `cameFrom` set, so the
+  back/forward branch runs; `location.key` is `"default"` for more than one entry, so the
+  positions map shares a bucket; and the offset it finds was recorded when the browser
+  clamped the scroll position after a tall page was replaced by a short one — `ISSUE-027`,
+  diagnosed in SESSION-005, still open.
 - `Suspense fallback={null}` gives a blank frame on first visit to a lazy page — `ISSUE-020`.
 - `Seo` only restores `document.title` on unmount; description/OG tags leak — `ISSUE-014`.
 - No prerendering: crawlers and social scrapers only ever see `index.html`'s static

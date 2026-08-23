@@ -1,7 +1,7 @@
 # Current State
 
-Snapshot: **2026-08-23**, after SESSION-004 (`MILESTONE-003` complete — the case-study
-content model and layout).
+Snapshot: **2026-08-23**, after SESSION-005 (`MILESTONE-007` — the anchor offset and the
+footer overflow).
 
 ## Overall
 
@@ -41,12 +41,12 @@ Roughly: architecture ~90% done, content ~70% drafted, imagery ~5%, polish ~50%.
 **Nothing.** All four entries here — `ISSUE-001` (Critical), `ISSUE-002`, `ISSUE-003` and
 `ISSUE-022` — were fixed in SESSION-002. No `Critical` issue is open.
 
-Three measured defects remain, all Low and all pre-existing: `ISSUE-015` (below 480px,
-42px of an anchored section hides behind the taller mobile header), `ISSUE-026` (the footer
-overflows the viewport by up to 24px between 768px and 839px, so every page scrolls
-sideways there) and `ISSUE-027` (a URL-bar hash change on the current page bypasses the
-router's scroll handling). They are the next session's objective — see
-`docs/next_session.md`.
+One measured defect remains: `ISSUE-027` (Low) — a hash navigation performed after a
+client-side route change restores a scroll offset nobody chose, landing 18px past the
+anchor. Diagnosed in SESSION-005 with an instrumented build; three candidate fixes were
+tried and reverted rather than shipped unproven. `ISSUE-015` and `ISSUE-026` were fixed in
+the same session: anchored sections now clear the header by 31px at every width, and no
+page scrolls sideways at any width from 320px to 1920px.
 
 ## Incomplete
 
@@ -86,8 +86,12 @@ verified (`ISSUE-016`, `SUGGESTION-010`).
   branches `master` and `milestone-001-stabilize` point at the same commit as `main`
   (`413130b`) — redundant rather than divergent, and deletable whenever the owner is
   ready.
-- SESSION-003 and SESSION-004 sit on branch **`milestone-003-content-model`**, branched
-  from `main` — four commits, covering both halves of the milestone despite the name.
+- SESSION-003 to SESSION-005 sit on branch **`milestone-003-content-model`**, branched
+  from `main` — six commits, and **unpushed**. The branch name predates the last two
+  sessions.
+- **Nothing is deployed.** The live site is served from `gh-pages` and published only by
+  `npm run deploy`; there is no CI workflow. Publishing means merging to `main` and running
+  that, which is the owner's call.
 - One script exists now: `scripts/content-guide-case-studies.mjs`, which regenerates
   `CONTENT_GUIDE.md` §5 from the case-study data.
 - All Next.js leftovers deleted; `.gitignore` is complete (`ISSUE-018` resolved).
@@ -96,9 +100,10 @@ verified (`ISSUE-016`, `SUGGESTION-010`).
 
 ## Current milestone
 
-**None active.** `MILESTONE-001` and `MILESTONE-003` are complete. The next session takes
-three page-independent defects out of `MILESTONE-007`; `MILESTONE-004` is the higher
-priority the moment the owner is available — see `docs/next_session.md`.
+**`MILESTONE-007`, started.** `ISSUE-015` and `ISSUE-026` are done; the design-system
+consolidation (`ISSUE-023`, `ISSUE-011`, `ISSUE-021`) is the next unblocked slice.
+`MILESTONE-004` is the higher priority the moment the owner is available — see
+`docs/next_session.md`.
 
 ## Blockers
 
@@ -120,9 +125,9 @@ Nothing blocks the layout half of `MILESTONE-003`.
 3. `ISSUE-006` + the remaining `ISSUE-007` slots — real imagery, blocked on the owner's
    exports and on `DECISION-006`.
 
-Unblocked and needing nobody: `ISSUE-015`, `ISSUE-026` and `ISSUE-027` — three measured
-defects in the header, footer and scroll offsets. That is what `docs/next_session.md`
-points at.
+Unblocked and needing nobody: the design-system consolidation (`ISSUE-023`, plus
+`ISSUE-011` and `ISSUE-021`), which is what `docs/next_session.md` points at, and
+`ISSUE-027`, which is diagnosed and waiting.
 
 ## Where to read more
 

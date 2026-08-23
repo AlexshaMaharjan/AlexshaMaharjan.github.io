@@ -1,10 +1,11 @@
 # ISSUE-015 — Anchor scroll offset does not match the taller mobile header
 
-Status: Open
+Status: **Resolved** (SESSION-005, `f32a45e`)
 Priority: Low
 Category: UI/UX
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22 (SESSION-002)
+Resolved: 2026-08-23 (SESSION-005)
+Last reviewed: 2026-08-23
 
 ## Summary
 
@@ -36,6 +37,30 @@ representative.
 
 Left unfixed deliberately: `MILESTONE-001` was navigation repair only and explicitly
 excluded the design system. The fix belongs with `MILESTONE-007`, which owns this issue.
+
+## Resolution
+
+The header measures itself — `Math.round(getBoundingClientRect().height)` in a layout
+effect, re-run by a `ResizeObserver` — and publishes `--header-h` on the document element.
+`index.css` derives `--anchor-offset: calc(var(--header-h) + 31px)` from it, and both
+`section { scroll-margin-top }` and the case-study contents rail read that. The CSS also
+declares per-breakpoint fallbacks (146px below 480px, 73px above) for the moment before
+the measurement runs.
+
+Measured rather than written down a second time on purpose: a written-down number is
+exactly what drifted here, and the estimate in this file (~117px) was itself wrong by 29px.
+
+Verified in Chrome against the production build, on a case study and on the homepage's
+`#work` / `#contact`:
+
+| Viewport | Header | Section top | Clearance |
+| --- | --- | --- | --- |
+| 320 / 375 / 390 / 479px | 146px | 177px | **31px** |
+| 480 / 768 / 1024 / 1440px | 73px | 104px | **31px** |
+
+The desktop offset is unchanged at 104px, so nothing above 480px moved. Every SESSION-002
+navigation journey was re-run at both widths with motion on and off, plus contents-rail
+clicks, and all land with the same 31px clearance.
 
 ## Expected Behavior
 

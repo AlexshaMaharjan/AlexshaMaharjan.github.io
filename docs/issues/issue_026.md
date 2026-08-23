@@ -1,9 +1,10 @@
 # ISSUE-026 — Footer columns overflow the viewport between 768px and 839px
 
-Status: Open
+Status: **Resolved** (SESSION-005, `f32a45e`)
 Priority: Low
 Category: Responsive / Layout
 Discovered: 2026-08-23 (SESSION-004, while width-testing the case studies)
+Resolved: 2026-08-23 (SESSION-005)
 Last reviewed: 2026-08-23
 
 ## Summary
@@ -29,6 +30,18 @@ The overflowing element is `src/components/Footer.tsx:40`,
 gap together exceed what is left for the columns, and the flex row refuses to shrink.
 
 It appears exactly at the `md` breakpoint because that is where the 80px padding starts.
+
+## Resolution
+
+The footer's link columns wrap — `flex flex-wrap gap-x-16 gap-y-6` — so they can never
+demand more width than the row has. Verified across seven pages (home, About, résumé, a
+case study, Playground, a Playground category, and the German homepage) at fourteen widths
+from 320px to 1920px: no page scrolls horizontally at any of them.
+
+The shared padding scale (`md:px-20` from 768px up, which is what makes the room so tight)
+was left alone deliberately. Changing it moves the gutters on every page at every width
+between 768px and 1023px — a visual change to the whole site, which belongs with
+`SUGGESTION-009`/`SUGGESTION-010`, not with a defect fix.
 
 ## Expected Behavior
 
