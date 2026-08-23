@@ -45,13 +45,21 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         number: "03",
         heading: "Studying real actions rather than isolated dimensions",
         body: [
-          "An interview with a person affected by cataracts",
-          "Observation of a participant using a kitchen",
-          "Simulated wheelchair-use scenarios",
-          "Simulated visual impairment using cataract glasses",
-          "Task-based testing with three participants",
+          {
+            kind: "list",
+            items: [
+              "An interview with a person affected by cataracts",
+              "Observation of a participant using a kitchen",
+              "Simulated wheelchair-use scenarios",
+              "Simulated visual impairment using cataract glasses",
+              "Task-based testing with three participants",
+            ],
+          },
           "The team examined typical actions including opening cabinets, locating objects, operating appliances, using the sink, reading labels, sitting at a table and identifying controls through touch.",
-          "Research note: Simulation can reveal obvious spatial and perceptual barriers, but it does not reproduce the lived experience of disability.",
+          {
+            kind: "note",
+            text: "Research note: Simulation can reveal obvious spatial and perceptual barriers, but it does not reproduce the lived experience of disability.",
+          },
         ],
         images: [
           { aspect: "4/3", caption: "[ kitchen observation ]" },
@@ -78,10 +86,15 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           },
         ],
         body: [
-          "Key barriers",
-          "Sight — Small labels · weak contrast · transparent containers · thin markings · dark storage · similar containers",
-          "Reach — High cabinets · deep surfaces · inaccessible taps · insufficient clearance · narrow entrances · objects too far back",
-          "Touch — Similar controls · small tactile markers · touch surfaces without feedback · identical handles · unclear induction areas",
+          { kind: "h3", text: "Key barriers" },
+          {
+            kind: "list",
+            items: [
+              "Sight — Small labels · weak contrast · transparent containers · thin markings · dark storage · similar containers",
+              "Reach — High cabinets · deep surfaces · inaccessible taps · insufficient clearance · narrow entrances · objects too far back",
+              "Touch — Similar controls · small tactile markers · touch surfaces without feedback · identical handles · unclear induction areas",
+            ],
+          },
         ],
       },
       {
@@ -92,7 +105,17 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         body: [
           "Wooden blocks were used to explore the general relationship between storage, work surfaces, appliances and movement areas. Lego Serious Play allowed the team to compare different room arrangements and discuss where important actions should occur.",
           "A journey map then connected these spatial decisions to a complete sequence. This prevented the design from focusing on isolated features without considering the complete cooking process.",
-          "Storage or refrigerator → Sink → Work surface → Hob and oven → Dining area",
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "Storage or refrigerator",
+              "Sink",
+              "Work surface",
+              "Hob and oven",
+              "Dining area",
+            ],
+          },
         ],
         images: [
           { aspect: "4/3", caption: "[ wooden blocks ]" },
@@ -142,7 +165,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           },
         ],
         body: [
-          "Translating research into a spatial prototype",
+          { kind: "h3", text: "Translating research into a spatial prototype" },
           "The final design was modelled in Blender and populated with appliances, storage, work surfaces and accessibility features. An animated wheelchair user demonstrates how the kitchen could function across different tasks.",
           "EEVEE was used for the final animation because a Cycles render was estimated to require approximately 26 days. This reduced rendering time but resulted in darker materials and lower visual quality. The compromise is acknowledged rather than hidden.",
         ],
@@ -159,14 +182,19 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         heading: "Formative evidence, not comprehensive validation",
         body: [
           "The process provides useful formative evidence through observation, one interview, three participant tests and full-scale prototyping. It does not represent comprehensive validation with a diverse group of wheelchair users and people with different forms and stages of visual impairment.",
-          "Simulated disability experience",
-          "Small number of participants",
-          "No long-term kitchen use",
-          "No engineering validation and no safety or building-code verification",
-          "No physical production of the adjustable mechanisms",
-          "Reduced final render quality",
+          {
+            kind: "list",
+            items: [
+              "Simulated disability experience",
+              "Small number of participants",
+              "No long-term kitchen use",
+              "No engineering validation and no safety or building-code verification",
+              "No physical production of the adjustable mechanisms",
+              "Reduced final render quality",
+            ],
+          },
           "A future phase should include co-design with disabled participants from the beginning, occupational-therapy expertise and technical feasibility testing.",
-          "What I learned",
+          { kind: "h3", text: "What I learned" },
           "This project showed me that accessibility problems are often created by ordinary design decisions that are treated as neutral. A cabinet height, smooth control surface or low-contrast label may appear minor until it prevents a person from completing a basic action independently.",
           "The most valuable stage was full-scale testing. Several issues only became visible when the environment was experienced through movement rather than viewed as a drawing. The next iteration should involve disabled participants as design partners rather than relying mainly on simulation.",
         ],
@@ -217,13 +245,21 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         number: "03",
         heading: "Reale Handlungen statt isolierter Maße untersuchen",
         body: [
-          "Ein Interview mit einer Person mit Grauem Star",
-          "Beobachtung einer Testperson bei der Küchennutzung",
-          "Simulierte Nutzung aus einer Rollstuhl-Situation",
-          "Simulierte Sehbeeinträchtigung mit einer Grauer-Star-Brille",
-          "Aufgabenbasierte Tests mit drei Teilnehmenden",
+          {
+            kind: "list",
+            items: [
+              "Ein Interview mit einer Person mit Grauem Star",
+              "Beobachtung einer Testperson bei der Küchennutzung",
+              "Simulierte Nutzung aus einer Rollstuhl-Situation",
+              "Simulierte Sehbeeinträchtigung mit einer Grauer-Star-Brille",
+              "Aufgabenbasierte Tests mit drei Teilnehmenden",
+            ],
+          },
           "Untersucht wurden typische Handlungen wie das Öffnen von Schränken, das Finden von Gegenständen, die Bedienung von Geräten, die Nutzung der Spüle, das Lesen von Beschriftungen, das Sitzen am Tisch und das Erkennen von Bedienelementen durch Berührung.",
-          "Hinweis: Simulation kann offensichtliche räumliche und wahrnehmungsbezogene Barrieren sichtbar machen, ersetzt jedoch nicht die gelebte Erfahrung von Behinderung.",
+          {
+            kind: "note",
+            text: "Hinweis: Simulation kann offensichtliche räumliche und wahrnehmungsbezogene Barrieren sichtbar machen, ersetzt jedoch nicht die gelebte Erfahrung von Behinderung.",
+          },
         ],
         images: [
           { aspect: "4/3", caption: "[ küchenbeobachtung ]" },
@@ -250,10 +286,15 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           },
         ],
         body: [
-          "Zentrale Barrieren",
-          "Sehen — Kleine Beschriftungen · schwacher Kontrast · transparente Behälter · dünne Markierungen · dunkler Stauraum · ähnliche Behälter",
-          "Reichweite — Hohe Schränke · tiefe Flächen · unzugängliche Armaturen · fehlende Unterfahrbarkeit · schmale Zugänge · zu weit entfernte Objekte",
-          "Tasten — Ähnliche Bedienelemente · kleine taktile Marker · Touch-Flächen ohne Feedback · identische Griffe · unklare Induktionsbereiche",
+          { kind: "h3", text: "Zentrale Barrieren" },
+          {
+            kind: "list",
+            items: [
+              "Sehen — Kleine Beschriftungen · schwacher Kontrast · transparente Behälter · dünne Markierungen · dunkler Stauraum · ähnliche Behälter",
+              "Reichweite — Hohe Schränke · tiefe Flächen · unzugängliche Armaturen · fehlende Unterfahrbarkeit · schmale Zugänge · zu weit entfernte Objekte",
+              "Tasten — Ähnliche Bedienelemente · kleine taktile Marker · Touch-Flächen ohne Feedback · identische Griffe · unklare Induktionsbereiche",
+            ],
+          },
         ],
       },
       {
@@ -264,7 +305,17 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         body: [
           "Holzklötze wurden verwendet, um die grundlegenden Beziehungen zwischen Stauraum, Arbeitsflächen, Geräten und Bewegungsbereichen zu untersuchen. Lego Serious Play ermöglichte den Vergleich verschiedener Raumaufteilungen und half bei der Diskussion, wo wichtige Handlungen stattfinden sollten.",
           "Eine Journey Map verband diese räumlichen Entscheidungen anschließend zu einer vollständigen Abfolge. Dadurch konzentrierte sich das Design nicht nur auf einzelne Funktionen, sondern auf den vollständigen Kochprozess.",
-          "Stauraum oder Kühlschrank → Spüle → Arbeitsfläche → Herd und Ofen → Essbereich",
+          {
+            kind: "list",
+            ordered: true,
+            items: [
+              "Stauraum oder Kühlschrank",
+              "Spüle",
+              "Arbeitsfläche",
+              "Herd und Ofen",
+              "Essbereich",
+            ],
+          },
         ],
         images: [
           { aspect: "4/3", caption: "[ holzklötze ]" },
@@ -314,7 +365,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           },
         ],
         body: [
-          "Recherche in einen räumlichen Prototyp übersetzen",
+          { kind: "h3", text: "Recherche in einen räumlichen Prototyp übersetzen" },
           "Das finale Design wurde in Blender modelliert und mit Geräten, Stauraum, Arbeitsflächen und barrierearmen Funktionen ergänzt. Eine animierte Rollstuhlnutzerin zeigt, wie die Küche bei unterschiedlichen Aufgaben funktionieren könnte.",
           "Für die finale Animation wurde EEVEE verwendet, da eine Berechnung mit Cycles schätzungsweise etwa 26 Tage benötigt hätte. Dadurch wurde die Renderzeit reduziert, gleichzeitig entstanden jedoch dunklere Materialien und eine geringere visuelle Qualität. Dieser Kompromiss wird transparent dargestellt.",
         ],
@@ -331,14 +382,19 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         heading: "Formative Erkenntnisse, keine umfassende Validierung",
         body: [
           "Der Prozess liefert nützliche formative Erkenntnisse durch Beobachtung, ein Interview, Tests mit drei Personen und Prototyping im Maßstab 1:1. Er stellt keine umfassende Validierung mit einer vielfältigen Gruppe von Rollstuhlnutzern und Personen mit unterschiedlichen Formen visueller Beeinträchtigung dar.",
-          "Simulierte Behinderungserfahrung",
-          "Kleine Anzahl an Teilnehmenden",
-          "Keine langfristige Küchennutzung",
-          "Keine technische Validierung und keine Prüfung von Sicherheits- oder Bauvorschriften",
-          "Keine physische Umsetzung der verstellbaren Mechanismen",
-          "Reduzierte Qualität des finalen Renderings",
+          {
+            kind: "list",
+            items: [
+              "Simulierte Behinderungserfahrung",
+              "Kleine Anzahl an Teilnehmenden",
+              "Keine langfristige Küchennutzung",
+              "Keine technische Validierung und keine Prüfung von Sicherheits- oder Bauvorschriften",
+              "Keine physische Umsetzung der verstellbaren Mechanismen",
+              "Reduzierte Qualität des finalen Renderings",
+            ],
+          },
           "Eine zukünftige Phase sollte Co-Design mit behinderten Teilnehmenden von Beginn an, ergotherapeutische Expertise und technische Machbarkeitstests einbeziehen.",
-          "Was ich gelernt habe",
+          { kind: "h3", text: "Was ich gelernt habe" },
           "Dieses Projekt hat mir gezeigt, dass Barrieren häufig durch alltägliche Designentscheidungen entstehen, die als neutral betrachtet werden. Eine Schrankhöhe, eine glatte Bedienoberfläche oder eine kontrastarme Beschriftung kann unbedeutend erscheinen, bis sie eine selbstständige Handlung verhindert.",
           "Die wertvollste Phase war das Testen im Maßstab 1:1. Mehrere Probleme wurden erst sichtbar, als die Umgebung durch Bewegung erlebt und nicht nur als Zeichnung betrachtet wurde. Die nächste Iteration sollte behinderte Menschen als Designpartner einbeziehen, anstatt sich hauptsächlich auf Simulation zu verlassen.",
         ],

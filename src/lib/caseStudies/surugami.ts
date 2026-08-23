@@ -89,7 +89,7 @@ const surugami: CaseStudyLocaleContent = {
         heading: "From a single fold to a shared community.",
         body: [
           "The central idea transforms folding from a technical action into a metaphor for participation. A single sheet becomes a form through a sequence of decisions. In the same way, individual contributions can become part of a larger creative community. The brand should communicate curiosity, accessibility, transformation, creativity and shared learning.",
-          "Turning folds into a repeatable graphic system",
+          { kind: "h3", text: "Turning folds into a repeatable graphic system" },
           "The identity uses angular shapes, layered planes and directional lines inspired by folded paper. A colour system based on coral, mint, teal and light neutral tones creates a contemporary and approachable character.",
           "The strongest part of the identity is not one individual shape. It is the ability to reconfigure the same visual logic across different formats.",
         ],
@@ -105,7 +105,7 @@ const surugami: CaseStudyLocaleContent = {
         heading: "Extending one identity across physical communication",
         body: [
           "The print system includes posters, flyers, banners and promotional formats. Each application uses the same fold-based visual logic while adapting to different information priorities. Posters can prioritise emotional impact. Flyers need clearer event details. Banners require rapid recognition from a distance.",
-          "Creating a digital home for learning and participation",
+          { kind: "h3", text: "Creating a digital home for learning and participation" },
           "The website brings together the brand's educational and community functions. Its content structure prioritises: discovering origami, finding workshops, following tutorials, viewing community work, learning about the organisation, and joining or contacting the community.",
           "Early wireframes established the main page hierarchy before the visual brand was applied. The final interface translates the folded-paper system into cards, navigation, image masks, transitions and section boundaries without compromising readability.",
         ],
@@ -239,7 +239,7 @@ const surugami: CaseStudyLocaleContent = {
         heading: "Von einer einzelnen Falte zu einer gemeinsamen Community.",
         body: [
           "Die zentrale Idee übersetzt das Falten von einer technischen Handlung in eine Metapher für Teilnahme. Ein einzelnes Blatt wird durch eine Abfolge von Entscheidungen zu einer Form. Auf ähnliche Weise können individuelle Beiträge Teil einer größeren kreativen Community werden. Die Marke sollte Neugier, Zugänglichkeit, Transformation, Kreativität und gemeinsames Lernen vermitteln.",
-          "Faltungen in ein wiederholbares grafisches System übersetzen",
+          { kind: "h3", text: "Faltungen in ein wiederholbares grafisches System übersetzen" },
           "Die Identität verwendet kantige Formen, überlagerte Flächen und gerichtete Linien, die von gefaltetem Papier inspiriert sind. Ein Farbsystem aus Korall, Mint, Petrol und hellen neutralen Tönen schafft einen zeitgemäßen und zugänglichen Charakter.",
           "Die größte Stärke der Identität liegt nicht in einer einzelnen Form. Entscheidend ist die Fähigkeit, dieselbe visuelle Logik über verschiedene Formate hinweg neu zu konfigurieren.",
         ],
@@ -255,7 +255,7 @@ const surugami: CaseStudyLocaleContent = {
         heading: "Eine Identität auf physische Kommunikation übertragen",
         body: [
           "Das Printsystem umfasst Poster, Flyer, Banner und weitere Werbeformate. Jede Anwendung nutzt dieselbe faltbasierte visuelle Logik und passt sie gleichzeitig an unterschiedliche Informationsprioritäten an. Poster können emotionale Wirkung priorisieren. Flyer benötigen klarere Veranstaltungsdetails. Banner müssen aus größerer Entfernung schnell erkennbar sein.",
-          "Ein digitales Zuhause für Lernen und Teilnahme schaffen",
+          { kind: "h3", text: "Ein digitales Zuhause für Lernen und Teilnahme schaffen" },
           "Die Website verbindet die edukativen und gemeinschaftlichen Funktionen der Marke. Die Inhaltsstruktur priorisiert: Origami entdecken, Workshops finden, Tutorials folgen, Arbeiten der Community ansehen, mehr über die Organisation erfahren sowie der Community beitreten oder Kontakt aufnehmen.",
           "Frühe Wireframes definierten die zentrale Seitenhierarchie, bevor die visuelle Marke angewendet wurde. Das finale Interface übersetzt das Faltpapier-System in Karten, Navigation, Bildmasken, Übergänge und Abschnittsgrenzen, ohne die Lesbarkeit zu beeinträchtigen.",
         ],

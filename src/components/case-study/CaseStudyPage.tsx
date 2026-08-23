@@ -20,21 +20,18 @@ export default function CaseStudyPage({
   prev: ProjectCopy;
   next: ProjectCopy;
 }) {
-  const [firstSection, ...restSections] = content.sections;
-
   return (
     <article>
       <CaseStudyHero content={content} dictionary={dictionary} locale={locale} />
       <FactsStrip content={content} dictionary={dictionary} />
 
-      <section id={firstSection?.id} className="pt-[76px] pb-[140px]">
+      <section className="pt-[76px] pb-[140px]">
         <div className="mx-auto max-w-[1440px] px-5 md:px-20">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-[240px_minmax(0,1fr)]">
             <ContentsNav sections={content.sections} dictionary={dictionary} />
             <div className="min-w-0 max-w-[960px]">
-              {firstSection && <Section section={firstSection} dictionary={dictionary} first />}
-              {restSections.map((section) => (
-                <Section key={section.id} section={section} dictionary={dictionary} />
+              {content.sections.map((section, i) => (
+                <Section key={section.id} section={section} dictionary={dictionary} first={i === 0} />
               ))}
             </div>
           </div>

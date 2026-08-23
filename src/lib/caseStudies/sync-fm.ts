@@ -51,10 +51,13 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "The project compared regional and international examples, including AI-generated weather and traffic segments, AI-hosted web radio and AI-supported music recommendations. Existing systems generally use AI to automate presentation or generate content. Their internal selection logic remains largely invisible to listeners.",
           "Sync FM takes a different position. Instead of only automating the host, it exposes selected editorial controls to the user. The listener becomes a form of personal editor who can influence depth, tone and interpretation.",
-          "Exploring different relationships with information",
+          { kind: "h3", text: "Exploring different relationships with information" },
           "Three personas were used to consider different age groups, listening contexts and attitudes towards information. They represented needs such as efficient access to facts, calm background listening, more energetic presentation, greater contextual depth and protection from information overload.",
           "These personas were generated with Gemini and then used as concept-development tools. They are therefore labelled as hypothesis personas, not as direct evidence from primary user research.",
-          "Label: AI-assisted hypothesis persona",
+          {
+            kind: "note",
+            text: "Label: AI-assisted hypothesis persona",
+          },
         ],
         images: [
           { aspect: "16/8", caption: "[ competitor comparison ]" },
@@ -70,9 +73,14 @@ const syncFm: CaseStudyLocaleContent = {
         heading: "Control through a few expressive decisions",
         body: [
           "Rather than providing dozens of settings, the interface concentrates control into three high-level dimensions. These controls affect the ongoing audio flow rather than forcing listeners to select every individual item.",
-          "How much information should be presented?",
-          "How should the presenter sound?",
-          "How much interpretation should be included?",
+          {
+            kind: "list",
+            items: [
+              "How much information should be presented?",
+              "How should the presenter sound?",
+              "How much interpretation should be included?",
+            ],
+          },
           "The radio metaphor provides a familiar mental model. The system behaves like a continuous station, while the controls allow its character to be adjusted.",
         ],
       },
@@ -85,7 +93,7 @@ const syncFm: CaseStudyLocaleContent = {
           "Sync Dial — The central dial adjusts the depth of information. Turning it towards the lower end reduces stories to brief headlines. Turning it towards the higher end introduces longer explanations, context and analysis. A responsive waveform provides visual feedback.",
           "Mood Bar — The Mood Bar adjusts the personality and rhythm of the AI presenter. A calm setting uses slower pacing, neutral language and longer pauses. A more energetic setting increases pace. This changes presentation, not the factual content itself.",
           "Opinion Filter — The Opinion Filter controls the amount of journalistic interpretation. The control is intended to make framing visible. It also introduces an important ethical risk: users may remove uncomfortable perspectives and reinforce an existing worldview.",
-          "Combining the familiarity of radio with a digital AI system",
+          { kind: "h3", text: "Combining the familiarity of radio with a digital AI system" },
           "The visual language uses circular forms, rounded containers and wave-based feedback to connect the interface to audio and radio. Purple creates a distinctive technological identity while remaining less clinical than the blue systems frequently used by technology products. Futura is used for prominent headings, while Segoe UI supports longer interface and news text.",
           "The logo transforms a traditional radio into a simple character-like form. Initial concepts were generated with Gemini and then adjusted and refined by the team into a flat vector system. This AI-assisted stage is disclosed within the process.",
         ],
@@ -116,11 +124,16 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "The interface should be evaluated against three questions: can users understand the effect of each control before activating it, can they adjust the system without interrupting listening, and do they understand when content represents fact, analysis or interpretation?",
           "The opinion control creates the most important unresolved risk. Giving users control over journalistic framing may increase transparency, but it may also create filter bubbles and remove necessary opposing perspectives.",
-          "Visible source information",
-          "Clear labels for fact, context and interpretation",
-          "Limits preventing complete removal of alternative perspectives",
-          "Explanations of why certain stories appear",
-          "A reset to a balanced editorial mode",
+          {
+            kind: "list",
+            items: [
+              "Visible source information",
+              "Clear labels for fact, context and interpretation",
+              "Limits preventing complete removal of alternative perspectives",
+              "Explanations of why certain stories appear",
+              "A reset to a balanced editorial mode",
+            ],
+          },
         ],
         images: [{ aspect: "16/8", caption: "[ ethical-risk diagram ]" }],
       },
@@ -132,7 +145,7 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "The personas were AI-assisted hypotheses rather than findings from interviews. The project documentation does not provide enough evidence for strong claims about long-term usability, trust or listening behaviour. The concept also depends on technology that was not implemented within the prototype, including real-time audio generation, source verification and content moderation.",
           "The case study therefore distinguishes clearly between interaction concept, visual prototype, tested interface elements and future technical behaviour.",
-          "What I learned",
+          { kind: "h3", text: "What I learned" },
           "Sync FM showed me that personalisation becomes more valuable when it is expressed through a small number of understandable controls. Adding every possible setting would have recreated the complexity the concept was intended to remove.",
           "The project also revealed that control is not automatically neutral. Allowing users to shape journalistic framing creates ethical consequences that need to be designed as carefully as the interface itself. A future version should combine interaction testing with research on trust, media literacy and algorithmic transparency.",
         ],
@@ -189,10 +202,13 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "Das Projekt verglich regionale und internationale Beispiele, darunter KI-generierte Wetter- und Verkehrsmeldungen, KI-moderierte Webradios und KI-gestützte Musikempfehlungen. Bestehende Systeme nutzen KI hauptsächlich zur Automatisierung von Moderation oder Inhaltserstellung. Die interne Auswahl- und Aufbereitungslogik bleibt für Hörer weitgehend unsichtbar.",
           "Sync FM nimmt eine andere Position ein. Anstatt ausschließlich die Moderation zu automatisieren, stellt das System ausgewählte redaktionelle Steuerungsmöglichkeiten bereit. Die Hörer werden zu persönlichen Redakteuren und können Tiefe, Tonalität und Interpretation beeinflussen.",
-          "Unterschiedliche Beziehungen zu Informationen untersuchen",
+          { kind: "h3", text: "Unterschiedliche Beziehungen zu Informationen untersuchen" },
           "Drei Personas wurden verwendet, um unterschiedliche Altersgruppen, Hörsituationen und Einstellungen zu Informationen zu betrachten. Sie repräsentierten Bedürfnisse wie effizienten Zugang zu Fakten, ruhiges Hören im Hintergrund, energetischere Präsentation, größere inhaltliche Tiefe und Schutz vor Informationsüberlastung.",
           "Die Personas wurden mit Gemini erstellt und anschließend als Werkzeuge für die Konzeptentwicklung genutzt. Sie werden deshalb als Hypothesen-Personas und nicht als direkte Ergebnisse primärer Nutzerforschung bezeichnet.",
-          "Kennzeichnung: KI-gestützte Hypothesen-Persona",
+          {
+            kind: "note",
+            text: "Kennzeichnung: KI-gestützte Hypothesen-Persona",
+          },
         ],
         images: [
           { aspect: "16/8", caption: "[ competitor comparison ]" },
@@ -208,9 +224,14 @@ const syncFm: CaseStudyLocaleContent = {
         heading: "Kontrolle durch wenige ausdrucksstarke Entscheidungen",
         body: [
           "Anstatt zahlreiche Einstellungen anzubieten, konzentriert das Interface die Steuerung auf drei übergeordnete Dimensionen. Diese Einstellungen beeinflussen den fortlaufenden Audiofluss, anstatt die Hörer zur Auswahl jedes einzelnen Beitrags zu zwingen.",
-          "Wie viele Informationen sollen vermittelt werden?",
-          "Wie soll die Moderation klingen?",
-          "Wie stark sollen Interpretationen einbezogen werden?",
+          {
+            kind: "list",
+            items: [
+              "Wie viele Informationen sollen vermittelt werden?",
+              "Wie soll die Moderation klingen?",
+              "Wie stark sollen Interpretationen einbezogen werden?",
+            ],
+          },
           "Die Radio-Metapher schafft ein vertrautes mentales Modell. Das System verhält sich wie ein kontinuierlicher Sender, während die Steuerungen seinen Charakter anpassbar machen.",
         ],
       },
@@ -223,7 +244,7 @@ const syncFm: CaseStudyLocaleContent = {
           "Sync Dial — Der zentrale Drehregler steuert die Informationstiefe. Eine Bewegung zum unteren Bereich reduziert Beiträge auf kurze Schlagzeilen. Eine Bewegung zum höheren Bereich führt zu ausführlicheren Erklärungen, Kontext und Analyse. Eine reagierende Wellenform gibt visuelles Feedback.",
           "Mood Bar — Die Mood Bar verändert Persönlichkeit und Rhythmus der KI-Moderation. Eine ruhige Einstellung nutzt langsameres Sprechen, neutrale Sprache und längere Pausen. Eine energetischere Einstellung erhöht das Tempo. Dabei verändert sich die Präsentation und nicht der faktische Inhalt.",
           "Opinion Filter — Der Opinion Filter steuert den Anteil journalistischer Interpretation. Die Steuerung soll Framing sichtbar machen. Sie bringt jedoch ein wichtiges ethisches Risiko mit sich: Nutzer könnten unangenehme Perspektiven ausblenden und bestehende Weltbilder verstärken.",
-          "Die Vertrautheit des Radios mit einem digitalen KI-System verbinden",
+          { kind: "h3", text: "Die Vertrautheit des Radios mit einem digitalen KI-System verbinden" },
           "Die visuelle Sprache verwendet kreisförmige Elemente, abgerundete Container und wellenbasierte Rückmeldungen, um eine Verbindung zu Audio und Radio herzustellen. Lila schafft eine eigenständige technologische Identität und wirkt weniger klinisch als viele blaue Technologiesysteme. Futura wird für prominente Überschriften eingesetzt, während Segoe UI längere Interface- und Nachrichtentexte unterstützt.",
           "Das Logo verwandelt ein traditionelles Radio in eine einfache, charakterähnliche Form. Erste Konzepte wurden mit Gemini generiert und anschließend vom Team zu einem flachen Vektorsystem angepasst und verfeinert. Diese KI-gestützte Phase wird im Prozess transparent dargestellt.",
         ],
@@ -254,11 +275,16 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "Das Interface sollte anhand von drei Fragen evaluiert werden: Verstehen Nutzer die Wirkung jeder Steuerung vor ihrer Aktivierung? Können sie das System anpassen, ohne den Hörfluss zu unterbrechen? Erkennen sie, wann Inhalte Fakten, Analyse oder Interpretation darstellen?",
           "Die Meinungssteuerung erzeugt das wichtigste ungelöste Risiko. Kontrolle über journalistisches Framing kann Transparenz erhöhen, aber auch Filterblasen erzeugen und notwendige Gegenperspektiven entfernen.",
-          "Sichtbare Quelleninformationen",
-          "Klare Kennzeichnungen für Fakt, Kontext und Interpretation",
-          "Grenzen, die eine vollständige Entfernung alternativer Perspektiven verhindern",
-          "Erklärungen, warum bestimmte Beiträge erscheinen",
-          "Eine Rückkehr zu einem ausgewogenen redaktionellen Modus",
+          {
+            kind: "list",
+            items: [
+              "Sichtbare Quelleninformationen",
+              "Klare Kennzeichnungen für Fakt, Kontext und Interpretation",
+              "Grenzen, die eine vollständige Entfernung alternativer Perspektiven verhindern",
+              "Erklärungen, warum bestimmte Beiträge erscheinen",
+              "Eine Rückkehr zu einem ausgewogenen redaktionellen Modus",
+            ],
+          },
         ],
         images: [{ aspect: "16/8", caption: "[ ethical-risk diagram ]" }],
       },
@@ -270,7 +296,7 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "Die Personas waren KI-gestützte Hypothesen und keine Ergebnisse aus Interviews. Die Dokumentation bietet nicht genügend Evidenz für starke Aussagen zu langfristiger Benutzerfreundlichkeit, Vertrauen oder Hörverhalten. Das Konzept ist außerdem von Technologien abhängig, die im Prototyp nicht implementiert wurden, darunter Echtzeit-Audiogenerierung, Quellenprüfung und Inhaltsmoderation.",
           "Die Fallstudie unterscheidet deshalb klar zwischen Interaktionskonzept, visuellem Prototyp, getesteten Interface-Elementen und zukünftigem technischen Verhalten.",
-          "Was ich gelernt habe",
+          { kind: "h3", text: "Was ich gelernt habe" },
           "Sync FM hat mir gezeigt, dass Personalisierung wertvoller wird, wenn sie durch wenige verständliche Steuerungen ausgedrückt wird. Das Hinzufügen jeder möglichen Einstellung hätte genau die Komplexität erzeugt, die das Konzept reduzieren sollte.",
           "Das Projekt verdeutlichte außerdem, dass Kontrolle nicht automatisch neutral ist. Wenn Nutzer journalistisches Framing beeinflussen können, entstehen ethische Konsequenzen, die ebenso sorgfältig gestaltet werden müssen wie das Interface selbst. Eine zukünftige Version sollte Interaktionstests mit Forschung zu Vertrauen, Medienkompetenz und algorithmischer Transparenz verbinden.",
         ],
