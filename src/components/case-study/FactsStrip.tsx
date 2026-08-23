@@ -19,7 +19,7 @@ export default function FactsStrip({
 
   return (
     <section className="pt-16">
-      <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+      <div className="container-page">
         <dl className="grid grid-cols-1 gap-x-10 gap-y-[30px] border-t border-surface-2 pt-[30px] sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(190px,1fr))]">
           {facts.map((fact) => (
             <div key={fact.label} className={fact.wide ? "sm:col-span-2" : undefined}>

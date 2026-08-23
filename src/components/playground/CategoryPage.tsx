@@ -16,14 +16,14 @@ export default function CategoryPage({
   return (
     <>
       <section className="pt-[150px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <Link
             to={localeHref(locale, "/playground")}
             className="text-[14px] text-ink-secondary transition-colors hover:text-accent"
           >
             {dictionary.playgroundNav.backToPlayground}
           </Link>
-          <h1 className="mt-9 max-w-[900px] text-[clamp(2.375rem,4.6vw,4.25rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
+          <h1 className="mt-9 max-w-[900px] text-section font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
             {content.title}
           </h1>
           <p className="mt-6 max-w-[640px] text-[18px] leading-[1.6] text-ink-secondary">{content.intro}</p>
@@ -31,12 +31,12 @@ export default function CategoryPage({
       </section>
 
       <section className="pb-10 pt-16">
-        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="container-page">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {content.items.map((item, i) => (
               <PlaygroundCard key={i} item={item} locale={locale} categorySlug={content.slug} />
             ))}
-            <div className="flex min-h-[220px] items-center justify-center rounded-lg border border-dashed border-[#C9CEDB] p-6">
+            <div className="flex min-h-[220px] items-center justify-center rounded-lg border border-dashed border-border-muted p-6">
               <p className="max-w-[240px] text-center font-hand text-[22px] leading-[1.3] text-[#4E6087] [transform:rotate(-1.5deg)]">
                 {content.moreComingNote}
               </p>
@@ -46,7 +46,7 @@ export default function CategoryPage({
       </section>
 
       <nav aria-label="Category navigation" className="border-t border-[rgba(78,96,135,0.18)] py-16">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 md:px-20">
+        <div className="container-page flex items-center justify-between">
           <Link
             to={localeHref(locale, "/playground")}
             className="text-[16px] font-medium text-ink transition-colors hover:text-accent"

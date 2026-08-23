@@ -2,18 +2,11 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import type { Locale } from "@/lib/i18n";
-import { localeHref } from "@/lib/i18n";
+import { localeHref, stripLocale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import ModeSwitch from "@/components/ModeSwitch";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import MobileMenu from "@/components/MobileMenu";
-
-function stripLocale(pathname: string, locale: Locale): string {
-  if (locale === "de" && pathname.startsWith("/de")) {
-    return pathname.slice(3) || "/";
-  }
-  return pathname;
-}
 
 export default function Header({
   locale,

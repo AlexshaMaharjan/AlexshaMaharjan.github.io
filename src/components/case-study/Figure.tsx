@@ -30,7 +30,7 @@ export default function Figure({
   return (
     <figure className={className}>
       <div
-        className="relative overflow-hidden rounded-[10px] border border-[#E4E7EE]"
+        className="relative overflow-hidden rounded-[10px] border border-card-border"
         style={{ aspectRatio: aspect }}
       >
         <Image src={src} alt={alt ?? captionText(caption)} className="object-cover" />

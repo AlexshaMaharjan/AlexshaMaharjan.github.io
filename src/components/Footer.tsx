@@ -1,15 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
-import { localeHref, type Locale } from "@/lib/i18n";
+import { localeHref, stripLocale, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import LanguageSwitch from "@/components/LanguageSwitch";
-
-function stripLocale(pathname: string, locale: Locale): string {
-  if (locale === "de" && pathname.startsWith("/de")) {
-    return pathname.slice(3) || "/";
-  }
-  return pathname;
-}
 
 export default function Footer({
   locale,
@@ -31,7 +24,7 @@ export default function Footer({
 
   return (
     <footer className={clsx("print:hidden", isPlayground ? "border-t border-[rgba(78,96,135,0.18)] bg-page" : "border-t border-surface-2 bg-white")}>
-      <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-20">
+      <div className="container-page py-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
             <p className="text-[16px] font-semibold text-ink">Alexsha Maharjan</p>

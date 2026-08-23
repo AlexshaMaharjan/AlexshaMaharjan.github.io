@@ -5,10 +5,10 @@ import type { Dictionary } from "@/lib/dictionaries";
 export default function ContactSection({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   return (
     <section id="contact" className="bg-near-black py-[140px]">
-      <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+      <div className="container-page">
         <div data-inview className="mx-auto flex flex-col items-center text-center">
-          <span className="block text-[14px] text-[#8FA6FF]">{dictionary.contact.eyebrow}</span>
-          <h2 className="mx-auto mt-6 max-w-3xl text-[clamp(2.125rem,4vw,3.75rem)] font-semibold leading-[1.05] tracking-[-0.025em] text-white">
+          <span className="block text-[14px] text-accent-on-dark">{dictionary.contact.eyebrow}</span>
+          <h2 className="mx-auto mt-6 max-w-3xl text-section font-semibold leading-[1.05] tracking-[-0.025em] text-white">
             {dictionary.contact.heading}
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-[18px] leading-[1.6] text-[#A7ACB4]">{dictionary.contact.copy}</p>

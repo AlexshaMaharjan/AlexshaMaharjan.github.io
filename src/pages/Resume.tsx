@@ -83,7 +83,7 @@ export default function Resume() {
 
         <div className="mt-8 flex flex-wrap items-start justify-between gap-6 border-b border-surface-2 pb-8">
           <div>
-            <h1 className="text-[clamp(2rem,4vw,2.75rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
+            <h1 className="text-heading font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
               {r.name}
             </h1>
             <p className="mt-2 text-[15px] font-medium text-accent">{r.tagline}</p>

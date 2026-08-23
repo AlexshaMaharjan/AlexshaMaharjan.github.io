@@ -45,7 +45,7 @@ export default function LoveLine({ intro, words }: { intro: string; words: strin
   }, [words.join("|")]);
 
   return (
-    <p className="m-0 text-center text-[clamp(1.875rem,3.6vw,3.25rem)] font-semibold tracking-[-0.025em]">
+    <p className="m-0 text-center text-feature font-semibold tracking-[-0.025em]">
       {intro}{" "}
       <span
         ref={wordRef}

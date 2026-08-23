@@ -26,12 +26,12 @@ export default function CategoryMarquee({
 
   return (
     <section className="pb-24">
-      <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+      <div className="container-page">
         <span aria-hidden="true" className="mb-2 block font-mono text-[12px] text-accent">
           {number}
         </span>
         <Link to={localeHref(locale, `/playground/${slug}`)} className="inline-block">
-          <h3 className="text-[clamp(1.375rem,2.2vw,1.875rem)] font-semibold tracking-[-0.02em] text-ink transition-colors hover:text-accent">
+          <h3 className="text-lead font-semibold tracking-[-0.02em] text-ink transition-colors hover:text-accent">
             {title}
           </h3>
         </Link>
@@ -53,7 +53,7 @@ export default function CategoryMarquee({
           {looped.map((item, i) => (
             <figure
               key={i}
-              className="m-0 shrink-0 basis-[280px] rounded-md border border-[#E4E7EE] bg-white p-3 shadow-[0_1px_4px_rgba(20,30,60,0.05)] transition-colors hover:border-[#C9CEDB]"
+              className="m-0 shrink-0 basis-[280px] rounded-md border border-card-border bg-white p-3 shadow-[0_1px_4px_rgba(20,30,60,0.05)] transition-colors hover:border-border-muted"
             >
               <PlaceholderImage aspect="4/3" caption={`[ ${item.caption} ]`} className="rounded-[3px]" />
               <figcaption className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">{item.caption}</figcaption>

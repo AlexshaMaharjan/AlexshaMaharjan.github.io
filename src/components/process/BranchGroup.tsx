@@ -48,7 +48,7 @@ export default function BranchGroup({
       data-branch-group
     >
       <div className="flex items-baseline gap-3">
-        <span className="font-mono text-[12px] text-[#8FA6FF]">{branch.number}</span>
+        <span className="font-mono text-[12px] text-accent-on-dark">{branch.number}</span>
         <h3 className="m-0">
           <button
             type="button"

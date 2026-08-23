@@ -16,7 +16,7 @@ export default function PlaygroundCard({
   const card = (
     <div
       className={clsx(
-        "relative rounded-lg border border-[#E4E7EE] bg-white p-2.5 shadow-[0_1px_3px_rgba(20,24,40,0.05)] transition-transform",
+        "relative rounded-lg border border-card-border bg-white p-2.5 shadow-[0_1px_3px_rgba(20,24,40,0.05)] transition-transform",
         item.rotated && "-rotate-2",
       )}
     >
