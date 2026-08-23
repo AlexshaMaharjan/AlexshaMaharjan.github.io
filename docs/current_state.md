@@ -80,8 +80,9 @@ verified (`ISSUE-016`, `SUGGESTION-010`).
 
 - Clean tree. `main` is the working branch and carries everything through `413130b`,
   including the SESSION-002 navigation work and the GitHub Pages deployment commits. The
-  stale branches `master` and `milestone-001-stabilize` are both behind `main` and can be
-  deleted whenever the owner is ready.
+  branches `master` and `milestone-001-stabilize` point at the same commit as `main`
+  (`413130b`) — redundant rather than divergent, and deletable whenever the owner is
+  ready.
 - SESSION-003 sits on branch **`milestone-003-content-model`**, branched from `main`.
 - One script exists now: `scripts/content-guide-case-studies.mjs`, which regenerates
   `CONTENT_GUIDE.md` §5 from the case-study data.

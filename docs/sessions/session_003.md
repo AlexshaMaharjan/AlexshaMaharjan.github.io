@@ -16,7 +16,8 @@ documentation commit, on branch `milestone-003-content-model`.
 `main`: `65f2b2d` and `92b63f4` are in `main`'s history, along with three later commits
 the docs had never seen (`f8df707`, `7332ad8`, `11930a6` — GitHub Pages deployment, then
 `413130b` removing a phone number from the résumé). `master` and
-`milestone-001-stabilize` both still exist and are behind. Checked before acting, as the
+`milestone-001-stabilize` both still exist and point at the same commit as `main` — they
+are redundant, not divergent. Checked before acting, as the
 constraints require.
 
 The second open question, `DECISION-010`, remains unanswered and remains the blocker on
