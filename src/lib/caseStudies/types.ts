@@ -11,14 +11,36 @@ export interface TestingStep {
 export interface SectionImage {
   aspect: string;
   caption: string;
+  /**
+   * Optional real asset. Without it the slot renders as the hatched
+   * `PlaceholderImage` (DECISION-006); with it, a real `<img>` plus a readable
+   * caption. Optional so no existing data had to change (ISSUE-007).
+   */
+  src?: string;
+  alt?: string;
 }
+
+/**
+ * One piece of section body content.
+ *
+ * A bare string is shorthand for a paragraph, so the pre-block-model data stays
+ * valid and migration can happen one case study at a time (ISSUE-024).
+ */
+export type Block =
+  | string
+  | { kind: "p"; text: string }
+  | { kind: "h3"; text: string }
+  | { kind: "list"; items: string[]; ordered?: boolean }
+  | { kind: "quote"; text: string; attribution?: string }
+  | { kind: "note"; text: string }
+  | ({ kind: "figure" } & SectionImage);
 
 export interface CaseStudySection {
   id: string;
   navLabel: string;
   number: string;
   heading: string;
-  body?: string[];
+  body?: Block[];
   designQuestion?: string;
   insights?: InsightItem[];
   testing?: TestingStep[];

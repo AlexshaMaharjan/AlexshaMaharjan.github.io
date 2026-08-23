@@ -27,7 +27,10 @@ const qisPortal: CaseStudyLocaleContent = {
         number: "01",
         heading: "The project at a glance",
         body: [
-          "287 survey responses · 21 → 14 pages in the architecture · 12 test participants · ≈ 90.6 average SUS score",
+          {
+            kind: "note",
+            text: "287 survey responses · 21 → 14 pages in the architecture · 12 test participants · ≈ 90.6 average SUS score",
+          },
           "QIS is an administrative portal used by students at the Technische Hochschule Lübeck. It supports important tasks such as exam registration and withdrawal, viewing grades and study progress, downloading enrolment certificates, checking semester fees and updating personal information.",
           "Despite the importance of these functions, students experienced the existing portal as visually outdated, difficult to navigate and inefficient. The redesign was developed through two surveys, structural analysis, paper prototyping, high-fidelity design and remote usability testing.",
         ],
@@ -91,7 +94,7 @@ const qisPortal: CaseStudyLocaleContent = {
         body: [
           "The existing portal structure contained 21 pages and several redundant or closely related routes. The redesign reorganised the content by task type and reduced the structure to 14 pages without intentionally removing the existing core functionality.",
           "Related pages were combined, secondary information was deprioritised and navigation was structured around student goals rather than the internal organisation of the university system.",
-          "Testing structure before visual polish",
+          { kind: "h3", text: "Testing structure before visual polish" },
           "Paper prototypes were created for login, dashboard, study administration, exam administration, exam registration, grade history, study progress and fee management. The low-fidelity stage focused on page relationships, content priority and task completion rather than visual style.",
         ],
         images: [
@@ -121,7 +124,10 @@ const qisPortal: CaseStudyLocaleContent = {
         number: "07",
         heading: "Preserving the tested logic, updating the visual layer",
         body: [
-          "Clearly labelled 2026 iteration — research, architecture, task flows and tested structure preserved; the visual layer is modernised.",
+          {
+            kind: "note",
+            text: "Clearly labelled 2026 iteration — research, architecture, task flows and tested structure preserved; the visual layer is modernised.",
+          },
         ],
         insights: [
           {
@@ -179,13 +185,18 @@ const qisPortal: CaseStudyLocaleContent = {
         number: "09",
         heading: "A strong foundation with clear limits",
         body: [
-          "The work was completed by a team",
-          "Testing was remote and the participant sample was limited",
-          "The prototype did not include a production backend",
-          "Accessibility was not validated through disabled participants or assistive technologies",
-          "The original high-fidelity interface needed visual modernisation",
-          "The new 2026 visual iteration will require renewed usability testing",
-          "What I learned",
+          {
+            kind: "list",
+            items: [
+              "The work was completed by a team",
+              "Testing was remote and the participant sample was limited",
+              "The prototype did not include a production backend",
+              "Accessibility was not validated through disabled participants or assistive technologies",
+              "The original high-fidelity interface needed visual modernisation",
+              "The new 2026 visual iteration will require renewed usability testing",
+            ],
+          },
+          { kind: "h3", text: "What I learned" },
           "The QIS project taught me that a visual redesign is most effective when it begins with structure. The largest improvement did not come from colours, images or rounded components. It came from understanding which tasks mattered most and reducing the number of pages students needed to navigate.",
           "The project also showed that good test results do not mean a design is permanently complete. Visual standards, device expectations and accessibility requirements continue to develop. The next iteration preserves the tested logic while updating the visual and responsive system.",
         ],
@@ -218,7 +229,10 @@ const qisPortal: CaseStudyLocaleContent = {
         number: "01",
         heading: "Das Projekt auf einen Blick",
         body: [
-          "287 Umfrage-Antworten · 21 → 14 Seiten in der Architektur · 12 Test-Teilnehmende · ≈ 90,6 durchschnittlicher SUS-Wert",
+          {
+            kind: "note",
+            text: "287 Umfrage-Antworten · 21 → 14 Seiten in der Architektur · 12 Test-Teilnehmende · ≈ 90,6 durchschnittlicher SUS-Wert",
+          },
           "QIS ist ein Verwaltungsportal für Studierende der Technischen Hochschule Lübeck. Es unterstützt wichtige Aufgaben wie Prüfungsanmeldung und -abmeldung, Einsicht in Noten und Studienverlauf, Download von Immatrikulationsbescheinigungen, Prüfung von Semestergebühren und Aktualisierung persönlicher Informationen.",
           "Trotz der Bedeutung dieser Funktionen erlebten Studierende das bestehende Portal als visuell veraltet, schwer navigierbar und ineffizient. Das Redesign entstand durch zwei Umfragen, Strukturanalyse, Paper Prototyping, High-Fidelity-Design und Remote-Usability-Tests.",
         ],
@@ -282,7 +296,7 @@ const qisPortal: CaseStudyLocaleContent = {
         body: [
           "Die bestehende Portalstruktur umfasste 21 Seiten sowie mehrere redundante oder eng verwandte Pfade. Das Redesign ordnete die Inhalte nach Aufgabentyp und reduzierte die Struktur auf 14 Seiten, ohne die bestehenden Kernfunktionen absichtlich zu entfernen.",
           "Verwandte Seiten wurden zusammengeführt, sekundäre Informationen niedriger priorisiert und die Navigation an den Zielen der Studierenden statt an der internen Organisation des Hochschulsystems ausgerichtet.",
-          "Struktur vor visueller Ausarbeitung testen",
+          { kind: "h3", text: "Struktur vor visueller Ausarbeitung testen" },
           "Paper Prototypes wurden für Login, Dashboard, Studienverwaltung, Prüfungsverwaltung, Prüfungsanmeldung, Notenverlauf, Studienverlauf und Gebührenverwaltung erstellt. Die Low-Fidelity-Phase konzentrierte sich auf Seitenbeziehungen, Inhaltspriorität und Aufgabenabschluss und nicht auf visuellen Stil.",
         ],
         images: [
@@ -312,7 +326,10 @@ const qisPortal: CaseStudyLocaleContent = {
         number: "07",
         heading: "Die getestete Logik bewahren, die visuelle Ebene erneuern",
         body: [
-          "Klar gekennzeichnete Iteration 2026 — Recherche, Architektur, Aufgabenabläufe und getestete Struktur bleiben erhalten; die visuelle Ebene wird modernisiert.",
+          {
+            kind: "note",
+            text: "Klar gekennzeichnete Iteration 2026 — Recherche, Architektur, Aufgabenabläufe und getestete Struktur bleiben erhalten; die visuelle Ebene wird modernisiert.",
+          },
         ],
         insights: [
           {
@@ -370,13 +387,18 @@ const qisPortal: CaseStudyLocaleContent = {
         number: "09",
         heading: "Eine starke Grundlage mit klaren Grenzen",
         body: [
-          "Die Arbeit entstand im Team",
-          "Die Tests wurden remote durchgeführt und die Stichprobe war begrenzt",
-          "Der Prototyp enthielt kein produktives Backend",
-          "Barrierefreiheit wurde nicht mit behinderten Teilnehmenden oder assistiven Technologien validiert",
-          "Das ursprüngliche High-Fidelity-Interface benötigte eine visuelle Modernisierung",
-          "Die neue visuelle Iteration von 2026 muss erneut getestet werden",
-          "Was ich gelernt habe",
+          {
+            kind: "list",
+            items: [
+              "Die Arbeit entstand im Team",
+              "Die Tests wurden remote durchgeführt und die Stichprobe war begrenzt",
+              "Der Prototyp enthielt kein produktives Backend",
+              "Barrierefreiheit wurde nicht mit behinderten Teilnehmenden oder assistiven Technologien validiert",
+              "Das ursprüngliche High-Fidelity-Interface benötigte eine visuelle Modernisierung",
+              "Die neue visuelle Iteration von 2026 muss erneut getestet werden",
+            ],
+          },
+          { kind: "h3", text: "Was ich gelernt habe" },
           "Das QIS-Projekt hat mir gezeigt, dass ein visuelles Redesign am wirksamsten ist, wenn es mit der Struktur beginnt. Die größte Verbesserung entstand nicht durch Farben, Bilder oder abgerundete Komponenten. Sie entstand durch das Verständnis der wichtigsten Aufgaben und die Reduzierung der Seiten, durch die Studierende navigieren mussten.",
           "Das Projekt zeigte außerdem, dass gute Testergebnisse nicht bedeuten, dass ein Design dauerhaft abgeschlossen ist. Visuelle Standards, Geräteanforderungen und Barrierefreiheitsanforderungen entwickeln sich weiter. Die nächste Iteration bewahrt die getestete Logik und aktualisiert gleichzeitig das visuelle und responsive System.",
         ],
