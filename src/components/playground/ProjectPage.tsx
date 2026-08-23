@@ -17,7 +17,7 @@ export default function ProjectPage({
   return (
     <>
       <section className="pt-[150px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <Link
             to={localeHref(locale, `/playground/${content.categorySlug}`)}
             className="text-[14px] text-ink-secondary transition-colors hover:text-accent"
@@ -25,7 +25,7 @@ export default function ProjectPage({
             ← {content.categoryTitle}
           </Link>
           <p className="mt-10 font-mono text-[13px] text-accent">{dictionary.playgroundNav.experimentEyebrow}</p>
-          <h1 className="mt-4 max-w-[900px] text-[clamp(2.375rem,4.6vw,4.25rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
+          <h1 className="mt-4 max-w-[900px] text-section font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
             {content.title}
           </h1>
           <p className="mt-6 max-w-[640px] text-[18px] leading-[1.6] text-ink-secondary">{content.intro}</p>
@@ -33,15 +33,15 @@ export default function ProjectPage({
       </section>
 
       <section className="pt-14">
-        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
-          <div className="rounded-lg border border-[#E4E7EE] bg-white p-3">
+        <div data-inview className="container-page">
+          <div className="rounded-lg border border-card-border bg-white p-3">
             <PlaceholderImage aspect={content.mainAspect} caption={`[ ${content.mainCaption} ]`} />
           </div>
         </div>
       </section>
 
       <section className="pt-[72px]">
-        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="container-page">
           <h2 className="mb-6 text-[24px] font-semibold tracking-[-0.015em]">{content.processHeading}</h2>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
             {content.processItems.map((item, i) => (
@@ -52,7 +52,7 @@ export default function ProjectPage({
       </section>
 
       <section className="pt-[72px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
             <div>
               <h2 className="mb-4 text-[24px] font-semibold tracking-[-0.015em]">{content.toolsHeading}</h2>
@@ -74,7 +74,7 @@ export default function ProjectPage({
 
       {content.nextCategorySlug && (
         <section className="pt-[90px] pb-[130px]">
-          <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+          <div className="container-page">
             <Link
               to={localeHref(
                 locale,
@@ -82,7 +82,7 @@ export default function ProjectPage({
                   ? `/playground/${content.nextCategorySlug}/${content.nextSlug}`
                   : `/playground/${content.nextCategorySlug}`,
               )}
-              className="block rounded-[10px] border border-[#E4E7EE] p-6 transition-colors hover:border-accent"
+              className="block rounded-[10px] border border-card-border p-6 transition-colors hover:border-accent"
             >
               <span className="block font-mono text-[12px] text-ink-secondary">{content.nextLabel}</span>
               <span className="mt-2.5 block text-[20px] font-medium text-ink">{content.nextTitle}</span>

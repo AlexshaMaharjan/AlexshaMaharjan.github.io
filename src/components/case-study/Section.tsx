@@ -116,8 +116,8 @@ export default function Section({
       <h2
         className={`m-0 max-w-[900px] font-semibold tracking-[-0.025em] ${
           outro
-            ? "text-[clamp(2.125rem,4.2vw,3.25rem)] leading-[1.05]"
-            : "text-[clamp(1.875rem,3.2vw,2.75rem)] leading-[1.1]"
+            ? "text-feature leading-[1.05]"
+            : "text-heading leading-[1.1]"
         }`}
       >
         {section.heading}
@@ -134,7 +134,7 @@ export default function Section({
           <span className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">
             {dictionary.caseStudy.designQuestion}
           </span>
-          <p className="mt-4 text-[clamp(1.375rem,2.2vw,1.75rem)] font-medium leading-[1.3] tracking-[-0.015em] text-ink">
+          <p className="mt-4 text-lead font-medium leading-[1.3] tracking-[-0.015em] text-ink">
             {section.designQuestion}
           </p>
         </div>

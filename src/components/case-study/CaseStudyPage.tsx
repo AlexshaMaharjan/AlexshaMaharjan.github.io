@@ -32,7 +32,7 @@ export default function CaseStudyPage({
       <FactsStrip content={content} dictionary={dictionary} />
 
       <section className="pt-[76px] pb-[120px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <div className="grid grid-cols-1 gap-10 xl:grid-cols-[240px_minmax(0,1fr)]">
             <ContentsNav sections={content.sections} dictionary={dictionary} />
             <div className="min-w-0 max-w-[960px]">
@@ -46,7 +46,7 @@ export default function CaseStudyPage({
 
       {outro && (
         <section className="border-t border-surface-2 bg-surface py-[104px]">
-          <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+          <div className="container-page">
             <div className="max-w-[1200px]">
               <Section section={outro} dictionary={dictionary} outro />
             </div>

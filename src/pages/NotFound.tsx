@@ -12,7 +12,7 @@ export default function NotFound() {
     <section className="flex min-h-[70svh] flex-col items-center justify-center px-5 pt-[150px] pb-24 text-center">
       <Seo title={n.metaTitle} />
       <p className="font-mono text-[13px] text-accent">{n.eyebrow}</p>
-      <h1 className="mt-4 text-[clamp(2rem,4vw,3rem)] font-semibold tracking-[-0.02em] text-ink">{n.heading}</h1>
+      <h1 className="mt-4 text-feature font-semibold tracking-[-0.02em] text-ink">{n.heading}</h1>
       <p className="mx-auto mt-4 max-w-md text-[16px] leading-[1.6] text-ink-secondary">{n.copy}</p>
       <Link
         to={localeHref(locale, "/")}

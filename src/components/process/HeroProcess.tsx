@@ -299,10 +299,10 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       <div className="sticky top-0 h-svh overflow-hidden bg-white">
         <div
           ref={heroRef}
-          className="mx-auto max-w-[1440px] px-5 pt-[132px] text-center sm:px-10 md:px-20"
+          className="container-page pt-[132px] text-center sm:px-10 md:px-20"
         >
           <p className="mb-5 text-[14px] text-ink-muted">{dictionary.hero.eyebrow}</p>
-          <h1 className="mx-auto text-[clamp(2.625rem,5.8vw,5.5rem)] font-semibold leading-[0.98] tracking-[-0.028em] text-ink">
+          <h1 className="mx-auto text-hero font-semibold leading-[0.98] tracking-[-0.028em] text-ink">
             {dictionary.hero.headlineLines.map((line) => (
               <span key={line} className="block">
                 {line}

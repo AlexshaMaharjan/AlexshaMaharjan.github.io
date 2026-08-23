@@ -5,11 +5,14 @@ const config: Config = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    // Ascending, deliberately: Tailwind emits media queries in declaration
+    // order, so a breakpoint declared out of order loses to the one after it at
+    // widths where both apply (ISSUE-011).
     screens: {
       sm: "480px",
       md: "768px",
-      nav: "1160px",
       lg: "1024px",
+      nav: "1160px",
       xl: "1280px",
       "2xl": "1440px",
     },
@@ -31,6 +34,13 @@ const config: Config = {
       accent: "#1B3FE0",
       "accent-focus": "#1233C4",
       "accent-soft": "#E1E7FF",
+      // Recurring literals that earned a name (ISSUE-023). `card-border` is a
+      // lighter rule than `border` and is what cards, figures and placeholders
+      // use; `border-muted` is the dashed one; `accent-on-dark` is the accent
+      // as it appears on the near-black canvases.
+      "card-border": "#E4E7EE",
+      "border-muted": "#C9CEDB",
+      "accent-on-dark": "#8FA6FF",
     },
     extend: {
       fontFamily: {
@@ -47,9 +57,6 @@ const config: Config = {
         mono: ["ui-monospace", "Menlo", "Consolas", "monospace"],
         hand: ["var(--font-caveat)", "cursive"],
       },
-      maxWidth: {
-        content: "1280px",
-      },
       borderRadius: {
         canvas: "40px",
       },
@@ -61,17 +68,31 @@ const config: Config = {
         "38": "152px",
         "48": "192px",
       },
+      // The fluid display scale, reconciled from what the pages were actually
+      // written with — five different page-h1 clamps, and near-duplicates below
+      // them (ISSUE-023). Fixed px sizes for UI text are left alone on purpose:
+      // 12/13/14/15px are deliberate, not drift.
+      // The fluid display scale, reconciled from what the pages were actually
+      // written with — five different page-h1 clamps, and near-duplicates below
+      // them (ISSUE-023).
+      //
+      // Sizes only. Line-height and letter-spacing stay on the components,
+      // which all set them explicitly today and not always identically for the
+      // same size; folding those in means changing how headings look, which is
+      // a separate decision from naming their sizes.
+      //
+      // Fixed px sizes for UI text are left alone on purpose: 12/13/14/15px are
+      // deliberate, not drift.
       fontSize: {
-        "hero": ["clamp(2.75rem, 2.1rem + 3vw, 6.5rem)", { lineHeight: "0.96", letterSpacing: "-0.02em" }],
-        "section": ["clamp(2.125rem, 1.7rem + 2vw, 4.5rem)", { lineHeight: "1.02", letterSpacing: "-0.015em" }],
-        "case-title": ["clamp(2.625rem, 1.9rem + 3.5vw, 6rem)", { lineHeight: "0.98", letterSpacing: "-0.02em" }],
-        "case-heading": ["clamp(1.75rem, 1.4rem + 1.6vw, 3.5rem)", { lineHeight: "1.05", letterSpacing: "-0.01em" }],
-        "project-title": ["clamp(1.6875rem, 1.4rem + 1.2vw, 2.625rem)", { lineHeight: "1.08" }],
-        "subheading": ["clamp(1.375rem, 1.2rem + 0.7vw, 1.875rem)", { lineHeight: "1.2" }],
-        "body-lg": ["1.1875rem", { lineHeight: "1.6" }],
-        body: ["1.0625rem", { lineHeight: "1.6" }],
-        meta: ["0.875rem", { lineHeight: "1.4", letterSpacing: "0.01em" }],
-        caption: ["0.8125rem", { lineHeight: "1.4" }],
+        hero: "clamp(2.75rem, 5.8vw, 5.5rem)",
+        // Not `page`: `text-page` would collide with the `page` colour token,
+        // and the colour wins — the heading renders near-white on white.
+        "page-title": "clamp(2.5rem, 5.4vw, 5.25rem)",
+        section: "clamp(2.125rem, 4.6vw, 4.25rem)",
+        feature: "clamp(1.875rem, 3.6vw, 3.25rem)",
+        heading: "clamp(1.875rem, 3.2vw, 2.75rem)",
+        subheading: "clamp(1.625rem, 2.6vw, 2.25rem)",
+        lead: "clamp(1.375rem, 2.2vw, 1.875rem)",
       },
     },
   },

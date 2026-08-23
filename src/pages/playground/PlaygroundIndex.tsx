@@ -17,11 +17,11 @@ export default function PlaygroundIndex() {
     <>
       <Seo title={`${content.heading} — Alexsha Maharjan`} description={content.intro} />
       <section className="pb-24 pt-[168px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
             <div className="md:col-span-7">
               <p className="text-[14px] text-ink-secondary">{content.eyebrow}</p>
-              <h1 className="mt-0 max-w-[900px] text-[clamp(2.5rem,5.4vw,5rem)] font-semibold leading-[1] tracking-[-0.028em] text-ink">
+              <h1 className="mt-0 max-w-[900px] text-page-title font-semibold leading-[1] tracking-[-0.028em] text-ink">
                 {content.heading}
               </h1>
               <p className="mt-7 max-w-[520px] text-[19px] leading-[1.6] text-ink-secondary">{content.intro}</p>
@@ -32,12 +32,12 @@ export default function PlaygroundIndex() {
 
             <div className="relative mt-10 hidden h-[440px] md:col-span-5 md:col-start-8 md:mt-0 md:block">
               <div
-                className="absolute right-[36%] top-4 w-[56%] max-w-[300px] rounded-md border border-[#E4E7EE] bg-white p-3 shadow-[0_2px_10px_rgba(20,30,60,0.06)] [transform:rotate(-2.5deg)]"
+                className="absolute right-[36%] top-4 w-[56%] max-w-[300px] rounded-md border border-card-border bg-white p-3 shadow-[0_2px_10px_rgba(20,30,60,0.06)] [transform:rotate(-2.5deg)]"
               >
                 <PlaceholderImage aspect="4/5" caption="[ digital portrait ]" className="rounded-[3px]" />
                 <p className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">digital drawing</p>
               </div>
-              <div className="absolute right-0 top-[110px] w-[52%] max-w-[280px] rounded-md border border-[#E4E7EE] bg-white p-3 shadow-[0_2px_10px_rgba(20,30,60,0.06)] [transform:rotate(1.5deg)]">
+              <div className="absolute right-0 top-[110px] w-[52%] max-w-[280px] rounded-md border border-card-border bg-white p-3 shadow-[0_2px_10px_rgba(20,30,60,0.06)] [transform:rotate(1.5deg)]">
                 <span
                   aria-hidden="true"
                   className="absolute -top-2.5 left-[34px] h-5 w-[68px] rotate-[-4deg] rounded-sm bg-[rgba(120,134,168,0.16)]"
@@ -51,15 +51,15 @@ export default function PlaygroundIndex() {
       </section>
 
       <section className="pb-[110px]">
-        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
-          <h2 className="mb-10 text-[clamp(1.625rem,2.6vw,2.25rem)] font-semibold tracking-[-0.02em]">
+        <div data-inview className="container-page">
+          <h2 className="mb-10 text-subheading font-semibold tracking-[-0.02em]">
             {content.featuredHeading}
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {content.featured.map((item, i) => (
               <article
                 key={i}
-                className="rounded-md border border-[#E4E7EE] bg-white p-3.5 shadow-[0_1px_4px_rgba(20,30,60,0.05)]"
+                className="rounded-md border border-card-border bg-white p-3.5 shadow-[0_1px_4px_rgba(20,30,60,0.05)]"
                 style={item.rotated ? { transform: "rotate(-1deg)", position: "relative" } : undefined}
               >
                 {item.rotated && (
@@ -73,7 +73,7 @@ export default function PlaygroundIndex() {
                   {item.slug ? (
                     <Link
                       to={localeHref(locale, `/playground/3d-motion/${item.slug}`)}
-                      className="border-b border-[#C9CEDB] hover:text-accent"
+                      className="border-b border-border-muted hover:text-accent"
                     >
                       {item.caption}
                     </Link>
@@ -94,8 +94,8 @@ export default function PlaygroundIndex() {
       </section>
 
       <section className="pb-[72px]">
-        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
-          <h2 className="mb-3 text-[clamp(1.625rem,2.6vw,2.25rem)] font-semibold tracking-[-0.02em]">
+        <div data-inview className="container-page">
+          <h2 className="mb-3 text-subheading font-semibold tracking-[-0.02em]">
             {content.categoriesHeading}
           </h2>
           <p className="font-mono text-[12px] text-ink-muted">{content.categoriesCaption}</p>
@@ -122,7 +122,7 @@ export default function PlaygroundIndex() {
       </div>
 
       <section className="pt-8 pb-[110px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <span className="font-mono text-[13px] text-ink-secondary">
             {content.exploringHeading} {content.exploringItems.join(", ")}
           </span>
@@ -130,18 +130,18 @@ export default function PlaygroundIndex() {
       </section>
 
       <section className="pb-[130px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <p className="max-w-[560px] text-[18px] leading-[1.65] text-ink">{content.noteBody}</p>
         </div>
       </section>
 
       <section className="pb-[130px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <Link
             to={localeHref(locale, "/")}
             className="flex items-center justify-between gap-6 border-y border-[rgba(78,96,135,0.2)] py-9 transition-colors hover:text-accent"
           >
-            <span className="text-[clamp(1.5rem,2.8vw,2.375rem)] font-semibold tracking-[-0.02em] text-ink">
+            <span className="text-subheading font-semibold tracking-[-0.02em] text-ink">
               {content.returnCta}
             </span>
             <span aria-hidden="true" className="text-[28px] text-accent">

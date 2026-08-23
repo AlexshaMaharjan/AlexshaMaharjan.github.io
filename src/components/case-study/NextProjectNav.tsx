@@ -16,14 +16,14 @@ export default function NextProjectNav({
 }) {
   return (
     <nav aria-label="Project navigation" className="border-t border-surface-2 py-[72px] pb-[110px]">
-      <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+      <div className="container-page">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <Link
             to={localeHref(locale, `/work/${prev.slug}`)}
-            className="block rounded-[10px] border border-[#E4E7EE] p-6 transition-colors hover:border-accent"
+            className="block rounded-[10px] border border-card-border p-6 transition-colors hover:border-accent"
           >
             <span className="font-mono text-[12px] text-ink-muted">{dictionary.caseStudy.previousProject}</span>
-            <div className="relative mt-4 aspect-[16/7] overflow-hidden rounded-md border border-[#E4E7EE] bg-surface">
+            <div className="relative mt-4 aspect-[16/7] overflow-hidden rounded-md border border-card-border bg-surface">
               <Image src={prev.image} alt={prev.imageAlt} fill sizes="50vw" className="object-cover" />
             </div>
             <h3 className="mt-4 text-[22px] font-semibold tracking-[-0.015em] text-ink">{prev.name}</h3>
@@ -31,10 +31,10 @@ export default function NextProjectNav({
           </Link>
           <Link
             to={localeHref(locale, `/work/${next.slug}`)}
-            className="block rounded-[10px] border border-[#E4E7EE] p-6 text-right transition-colors hover:border-accent"
+            className="block rounded-[10px] border border-card-border p-6 text-right transition-colors hover:border-accent"
           >
             <span className="font-mono text-[12px] text-ink-muted">{dictionary.caseStudy.nextProject}</span>
-            <div className="relative mt-4 aspect-[16/7] overflow-hidden rounded-md border border-[#E4E7EE] bg-surface">
+            <div className="relative mt-4 aspect-[16/7] overflow-hidden rounded-md border border-card-border bg-surface">
               <Image src={next.image} alt={next.imageAlt} fill sizes="50vw" className="object-cover" />
             </div>
             <h3 className="mt-4 text-[22px] font-semibold tracking-[-0.015em] text-ink">{next.name}</h3>

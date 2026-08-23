@@ -17,23 +17,23 @@ export default function About() {
     <>
       <Seo title={`${about.heading} — Alexsha Maharjan`} description={dictionary.meta.description} />
       <section className="pt-[150px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <Link to={localeHref(locale, "/")} className="text-[14px] text-ink-secondary transition-colors hover:text-accent">
             {about.backToHome}
           </Link>
           <p className="mt-10 font-mono text-[13px] text-accent">{about.eyebrow}</p>
-          <h1 className="mt-4 max-w-[1080px] text-[clamp(2.5rem,5.4vw,5.25rem)] font-semibold leading-[1] tracking-[-0.028em] text-ink">
+          <h1 className="mt-4 max-w-[1080px] text-page-title font-semibold leading-[1] tracking-[-0.028em] text-ink">
             {about.heading}
           </h1>
         </div>
       </section>
 
       <section className="pt-[90px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <div data-inview className="grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-16">
             <div>
               <div className="relative max-w-[460px] pt-[58px]">
-                <div className="relative z-[1] aspect-[3/4] overflow-hidden rounded-[10px] border border-[#E4E7EE] bg-surface">
+                <div className="relative z-[1] aspect-[3/4] overflow-hidden rounded-[10px] border border-card-border bg-surface">
                   <Image
                     src="/images/alexsha_photo-mrx9hbwx-nif2.png"
                     alt={about.portraitAlt}
@@ -82,7 +82,7 @@ export default function About() {
             </div>
 
             <div className="max-w-[640px]">
-              <h2 className="mt-2.5 text-[clamp(1.875rem,3vw,2.5rem)] font-semibold tracking-[-0.025em]">
+              <h2 className="mt-2.5 text-heading font-semibold tracking-[-0.025em]">
                 {about.biographyHeading}
               </h2>
               {about.biography.map((p, i) => (
@@ -96,10 +96,10 @@ export default function About() {
       </section>
 
       <section className="pt-[110px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <div data-inview className="grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2">
             <div>
-              <h2 className="mt-2.5 text-[clamp(1.625rem,2.6vw,2.125rem)] font-semibold tracking-[-0.02em]">
+              <h2 className="mt-2.5 text-subheading font-semibold tracking-[-0.02em]">
                 {about.focusHeading}
               </h2>
               <ul className="mt-7 flex max-w-[520px] flex-col text-[17px]">
@@ -114,7 +114,7 @@ export default function About() {
               </ul>
             </div>
             <div>
-              <h2 className="mt-2.5 text-[clamp(1.625rem,2.6vw,2.125rem)] font-semibold tracking-[-0.02em]">
+              <h2 className="mt-2.5 text-subheading font-semibold tracking-[-0.02em]">
                 {about.toolsHeading}
               </h2>
               <div className="mt-7 flex max-w-[520px] flex-wrap gap-2.5">
@@ -132,7 +132,7 @@ export default function About() {
                   {about.aiTags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-dashed border-[#C9CEDB] px-4 py-2 text-[14px] text-ink-body"
+                      className="rounded-full border border-dashed border-border-muted px-4 py-2 text-[14px] text-ink-body"
                     >
                       {tag}
                     </span>
@@ -155,8 +155,8 @@ export default function About() {
       </section>
 
       <section className="pt-[110px]">
-        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
-          <h2 className="mt-2.5 text-[clamp(1.625rem,2.6vw,2.125rem)] font-semibold tracking-[-0.02em]">
+        <div data-inview className="container-page">
+          <h2 className="mt-2.5 text-subheading font-semibold tracking-[-0.02em]">
             {about.carouselHeading}
           </h2>
         </div>
@@ -173,15 +173,15 @@ export default function About() {
       </section>
 
       <section className="py-[100px] pb-[130px]">
-        <div data-inview className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div data-inview className="container-page">
           <LoveLine intro={about.loveIntro} words={about.loveWords} />
         </div>
       </section>
 
       <section id="resume" className="bg-near-black py-[120px]">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-20">
+        <div className="container-page">
           <div data-inview className="mx-auto flex flex-col items-center text-center">
-          <h2 className="mx-auto mt-2.5 max-w-[760px] text-[clamp(1.875rem,3.6vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.025em] text-white">
+          <h2 className="mx-auto mt-2.5 max-w-[760px] text-feature font-semibold leading-[1.05] tracking-[-0.025em] text-white">
             {about.resumeHeading}
           </h2>
           <p className="mx-auto mt-5.5 max-w-[600px] text-[18px] leading-[1.6] text-[#A7ACB4]">{about.resumeCopy}</p>

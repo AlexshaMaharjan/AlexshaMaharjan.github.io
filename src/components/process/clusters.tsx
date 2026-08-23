@@ -424,7 +424,7 @@ export function Cluster3() {
             <span className={monoLabel}>variants</span>
             <div className="grid flex-1 grid-cols-3 gap-[5px]">
               <div className="flex items-end justify-center rounded-[3px] border border-[#2F55F0] bg-[#15192B] pb-0.5">
-                <span className="font-mono text-[7px] text-[#8FA6FF]">A</span>
+                <span className="font-mono text-[7px] text-accent-on-dark">A</span>
               </div>
               <div className="flex items-end justify-center rounded-[3px] border border-white/[0.14] pb-0.5">
                 <span className="font-mono text-[7px] text-[#63666C]">B</span>
@@ -614,14 +614,14 @@ export function Cluster5() {
         className="box-border flex items-center justify-between rounded-lg border border-white/[0.12] bg-[#0A0A0C] p-[10px_12px]"
       >
         <span className="text-[11px] text-[#DDE1E6]">Validated</span>
-        <ValidatedIcon className="h-[17px] w-[17px] text-[#8FA6FF]" strokeWidth={1.6} />
+        <ValidatedIcon className="h-[17px] w-[17px] text-accent-on-dark" strokeWidth={1.6} />
       </div>
       <div
         style={{ width: 158 }}
         className="box-border flex items-center justify-between rounded-lg border border-white/[0.12] bg-[#0A0A0C] p-[10px_12px]"
       >
         <span className="text-[11px] text-[#DDE1E6]">Iterate</span>
-        <LoopIcon className="h-[17px] w-[17px] text-[#8FA6FF]" strokeWidth={1.6} />
+        <LoopIcon className="h-[17px] w-[17px] text-accent-on-dark" strokeWidth={1.6} />
       </div>
     </>
   );
