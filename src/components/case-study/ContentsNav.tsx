@@ -63,7 +63,7 @@ export default function ContentsNav({
           collapsible list below takes over instead. */}
       <nav
         aria-label={dictionary.caseStudy.onThisPage}
-        className="sticky top-[104px] hidden max-w-[240px] flex-col self-start xl:flex"
+        className="sticky top-[var(--anchor-offset)] hidden max-w-[240px] flex-col self-start xl:flex"
       >
         <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-muted">
           {dictionary.caseStudy.onThisPage}

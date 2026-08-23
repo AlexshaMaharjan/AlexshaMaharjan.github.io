@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import type { Locale } from "@/lib/i18n";
@@ -26,6 +26,7 @@ export default function Header({
   const bare = stripLocale(pathname, locale);
   const isPlayground = bare.startsWith("/playground");
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -34,8 +35,36 @@ export default function Header({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Publish the header's real height as --header-h, which index.css turns into
+  // the offset anchored sections and the case-study rail sit below. The header
+  // is 73px tall on desktop and 146px below 480px, where it gains a second row;
+  // a single hard-coded offset hid 42px of every anchored section (ISSUE-015).
+  //
+  // Measured rather than written down twice: this is the number that drifted
+  // from the markup in the first place. Not keyed on the route on purpose — the
+  // header does not remount between routes and its height does not depend on
+  // one (ARCH-01 is about effects that do).
+  useLayoutEffect(() => {
+    const element = headerRef.current;
+    if (!element) return;
+
+    const publish = () => {
+      const height = Math.round(element.getBoundingClientRect().height);
+      if (height > 0) document.documentElement.style.setProperty("--header-h", `${height}px`);
+    };
+
+    publish();
+    const observer = new ResizeObserver(publish);
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.removeProperty("--header-h");
+    };
+  }, []);
+
   return (
     <header
+      ref={headerRef}
       className={clsx(
         "fixed inset-x-0 top-0 z-[200] border-b transition-[background-color,border-color,backdrop-filter] duration-[250ms] ease-out print:hidden",
         scrolled
