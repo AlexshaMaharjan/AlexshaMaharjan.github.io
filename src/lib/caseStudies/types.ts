@@ -18,6 +18,11 @@ export interface SectionImage {
    */
   src?: string;
   alt?: string;
+  /**
+   * Forces the full-column treatment instead of the grid. Left unset, the
+   * aspect ratio decides — anything 3:2 or wider carries a row on its own.
+   */
+  wide?: boolean;
 }
 
 /**
