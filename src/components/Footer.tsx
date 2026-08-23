@@ -37,7 +37,10 @@ export default function Footer({
             <p className="text-[16px] font-semibold text-ink">Alexsha Maharjan</p>
             <p className="mt-2 text-[14px] text-ink-secondary">{dictionary.footer.tagline}</p>
           </div>
-          <div className="flex gap-16 md:col-span-5">
+          {/* Wraps rather than overflows: between 768px and 839px the two
+              columns plus a fixed 64px gap were wider than the space md:px-20
+              leaves them, and every page scrolled sideways (ISSUE-026). */}
+          <div className="flex flex-wrap gap-x-16 gap-y-6 md:col-span-5">
             <nav aria-label="Footer" className="flex flex-col gap-3 text-[14px] text-ink">
               <Link to={localeHref(locale, "/#about")} className="hover:text-accent transition-colors">
                 {dictionary.nav.about}

@@ -5,6 +5,19 @@
 @layer base {
   :root {
     color-scheme: light;
+
+    /*
+     * Height of the fixed header, and the offset an anchored section needs to
+     * clear it. Below 480px the header carries a second row for the mode
+     * switch, which made a single fixed offset hide 42px of every anchored
+     * section (ISSUE-015).
+     *
+     * Header.tsx measures itself and overwrites --header-h, so these values are
+     * only what applies before that runs — keep them close, but the measured
+     * one is what the page ends up using.
+     */
+    --header-h: 146px;
+    --anchor-offset: calc(var(--header-h) + 31px);
     --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial,
       sans-serif;
     --font-caveat: "Caveat", "Segoe Script", "Bradley Hand", cursive;
@@ -46,8 +59,14 @@
     color: inherit;
   }
 
+  @media (min-width: 480px) {
+    :root {
+      --header-h: 73px;
+    }
+  }
+
   section {
-    scroll-margin-top: 104px;
+    scroll-margin-top: var(--anchor-offset);
   }
 
   :focus-visible {

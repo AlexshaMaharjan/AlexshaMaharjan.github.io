@@ -173,7 +173,7 @@ export default function Section({
         // The closing section runs heading beside text, so the ending reads as a
         // spread rather than as one more column of the article.
         <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,680px)] xl:gap-16">
-          <div className="xl:sticky xl:top-[128px] xl:self-start">{header}</div>
+          <div className="xl:sticky xl:top-[calc(var(--anchor-offset)+24px)] xl:self-start">{header}</div>
           <div>{body}</div>
         </div>
       ) : (
