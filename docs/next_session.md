@@ -2,117 +2,123 @@
 
 ## Status
 
-`MILESTONE-003` is **half complete** (SESSION-003). The case-study content model is in
-place and all six studies are migrated in both locales. The layout around that content is
-unchanged and is the other half.
+`MILESTONE-003` is **complete** (SESSION-003 content model, SESSION-004 layout). The case
+studies — the owner's first-named complaint — now have both internal structure and a
+layout built for it. Everything left on them belongs to other milestones: real photographs
+(`MILESTONE-005`), the copy pass (`MILESTONE-004`), scroll-linked motion (`MILESTONE-006`).
 
-Two things want the owner, neither blocking:
+Work sits on branch `milestone-003-content-model`, four commits ahead of `main`
+(`e844ad9`, `36cb023`, `1a15cac`, `4e4b5f7` + docs). **Check `git` before trusting any
+status in these files.**
 
-1. **`DECISION-010` — is the bento direction for the homepage being kept?** Still the
-   only thing blocking `MILESTONE-002`, and still unanswered since SESSION-002.
-2. **`DECISION-006` — which placeholder slots stay stylised?** Now the blocker on the
-   remaining 44 image slots (`ISSUE-007`), and on `MILESTONE-005` generally.
+### What wants the owner
 
-Work sits on branch `milestone-003-content-model`, branched from `main`. `main` already
-carries everything through `413130b`, including the `MILESTONE-001` commits an earlier
-document wrongly described as unmerged — **check `git` before trusting any status in
-these files.**
+1. **Look at a case study.** This is the visible answer to "case study description pages
+   layout should be improved", and the one judgement a session cannot make for them. One
+   thing to point at specifically: body text now stops at 680px, so text-only sections
+   leave the right-hand side of the column empty. That is deliberate — it is what makes
+   media feel wide — but it is the most likely thing to read as unfinished.
+2. **`DECISION-010`** — is the bento direction for the homepage being kept? Still blocking
+   `MILESTONE-002`, unanswered since SESSION-002.
+3. **`DECISION-006`** — which placeholder slots stay stylised? Blocks the last 44 image
+   slots (`ISSUE-007`) and `MILESTONE-005`.
+4. **Real image exports**, and participation in the copy pass.
 
 ## Objective
 
-Finish **`MILESTONE-003` — the case-study layout** (`SUGGESTION-003`, points 1, 2, 3
-and 5).
+**Fix the three measured navigation and responsive defects** — `ISSUE-015`, `ISSUE-026`,
+`ISSUE-027`. They are a coherent slice of `MILESTONE-007`: all three are page-independent
+(header, footer, scroll offsets), all three are measured rather than suspected, and none
+of them waits on the owner or on `MILESTONE-002`.
 
-The content model was its blocker and is done: sections now carry sub-headings, lists,
-notes and figures as distinct things, so there is real hierarchy to lay out. This is the
-owner's first-named complaint and it is now unobstructed.
-
-Read `docs/milestones/milestone_003.md` — its task list is split into the part that is
-done and the part that is not.
+`MILESTONE-004` (the copy pass) is the higher priority on paper and is now unblocked —
+but `DECISION-011` forbids inventing content, so it wants the owner in the room. If they
+are available, do that instead and leave this.
 
 ## Required Context
 
 Read **only** these:
 
 1. `docs/previous_session.md` — what just changed and what it constrains
-2. `docs/milestones/milestone_003.md` — part two of the task list
-3. `docs/suggestions/suggestion_003.md` (the layout brief) — points 1, 2, 3 and 5 remain
-4. `docs/decisions/decision_014.md` (the block model and the departure from `SPEC` §9),
-   `decision_008.md` (the two coupled scroll hooks)
-5. `docs/architecture/architecture_02.md` — the block union, as built
-6. `docs/codebase/components.md` § Case study — the six components and their sizes
+2. `docs/issues/issue_015.md`, `issue_026.md`, `issue_027.md` — the three defects, each
+   with its measurements
+3. `docs/architecture/architecture_01.md` — routing, and how the scroll hook now aims
+4. `docs/decisions/decision_013.md` (why the scroll behaviour is hand-rolled),
+   `decision_008.md` (the two coupled hooks)
+5. `docs/milestones/milestone_007.md` — the milestone these three belong to
+6. `docs/codebase/styling.md` — the token and breakpoint situation, before changing padding
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 
 ## Relevant Code
 
-- `src/components/case-study/Section.tsx` — `BodyBlock` (per-kind treatment) and the
-  single section render path
-- `src/components/case-study/Figure.tsx` — the media component to build on; a `wide` or
-  full-bleed mode belongs here
-- `src/components/case-study/CaseStudyPage.tsx` — the rail + column grid, and where a
-  full-bleed figure has to escape `max-w-[960px]`
-- `src/components/case-study/ContentsNav.tsx` — active-section tracking and progress
-- `src/lib/caseStudies/types.ts` — `Block`, `SectionImage`
+- `src/index.css` — `section { scroll-margin-top: 104px }`, the single fixed offset
+  `ISSUE-015` is about
+- `src/components/Header.tsx` — the 146px mobile header the 104px is wrong against
+- `src/components/Footer.tsx:40` — `flex gap-16 md:col-span-5`, the `ISSUE-026` overflow
+- `src/lib/useScrollBehavior.ts` — `scrollTopFor` already does layout-based aiming;
+  `ISSUE-027` needs a `hashchange` path into the same maths
+- `tailwind.config.ts` — the `screens` order that makes `lg:` beat `nav:` (`ISSUE-011`),
+  worth knowing before adding breakpoints
 
 ## What To Do
 
-- **Vary media width.** `Figure` supports one width today. Full-bleed and wide-two-up
-  treatments need the figure to break the 960px column, which means deciding where that
-  escape happens — inside `Figure`, or by moving `images[]` rendering outside the column.
-- **Differentiate the three set pieces.** The design-question callout, the insights 2-up
-  and the testing 3-up are near-identical bordered blocks today.
-- **Mark the active section in `ContentsNav`** and show progress. The rail is present but
-  passive.
-- **Strengthen the ending** before the prev/next cards.
-- **Fix the mid-width column.** At 768px the reading column is ~313px wide and at 1024px
-  ~569px, because the grid reserves 240px for a rail that is not visible there.
-- Consider whether `quote` earns its place in the union or should be deleted unused.
+- **`ISSUE-015`** — the anchor offset is one fixed 104px against a header that is 146px
+  tall below 480px, so 42px of every anchored section hides behind it. A responsive
+  `scroll-margin-top` is the obvious fix; check it against the real header height rather
+  than assuming 146.
+- **`ISSUE-026`** — the footer's two link columns plus `md:px-20` exceed the viewport
+  between 768px and 839px, so every page scrolls sideways. Consider whether the padding
+  scale is the real fix (it would touch the shared container, not just the footer).
+- **`ISSUE-027`** — a URL-bar hash change on the current page never reaches the router. A
+  `hashchange` listener re-aiming through `scrollTopFor` would close it; watch that it
+  does not fight the router or double-scroll.
 
 ## Constraints
 
-- **The repository is the source of truth.** Re-check `git status` and the current branch
-  before acting.
-- **Do not rewrite prose** (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
-- **Both locales must stay structurally identical, block for block.** Nothing enforces
-  this; the types catch a missing field, not a mismatched structure.
+- **The repository is the source of truth.** Re-check `git status` and the branch first.
 - **Do not break the two scroll hooks.** `useScrollReveals` and `useScrollBehavior` are
-  coupled by effect ordering (`DECISION-008`, `DECISION-013`). Every case-study section
-  now carries `data-inview`, including the first — if a change moves which elements do,
-  re-run the ring check.
+  coupled by effect ordering (`DECISION-008`, `DECISION-013`). SESSION-004 changed how the
+  hash landing aims; if you change it again, re-run the whole journey suite below.
 - **Any new `:param` route effect must not be mount-only** (`ARCH-01`, `ISSUE-001`).
-- `prefers-reduced-motion` must keep producing a fully static, fully visible site
-  (`DECISION-008`).
-- If the layout diverges further from `design-reference/SPEC.md` §9, that is expected —
-  extend `DECISION-014` rather than opening a new decision.
-- If any case-study content or shape changes, rerun
-  `node scripts/content-guide-case-studies.mjs --write`.
+- `prefers-reduced-motion` must keep producing a fully static, fully visible site.
+- Changing shared padding or breakpoints touches every page — verify the homepage, About,
+  résumé and Playground too, not only the surface you were aiming at.
+- Do not rewrite prose (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
 
 ## Verification
 
-Verify in a browser against the **production build**, not by inspection and not only in
-dev — SESSION-002 found a bug that StrictMode's double-invoked effects hid.
+Verify in a browser against the **production build** (`npm run build && npx vite preview`,
+then `http://localhost:4173` — not `127.0.0.1`). Headless Chrome over the DevTools
+Protocol, driven from Node's built-in `WebSocket`: launch with `--headless=new
+--remote-debugging-port=…`, read `/json/list`, drive `Page.navigate` / `Runtime.evaluate`.
+About 40 lines.
 
-There is no browser automation in `package.json` and none is needed: launch
-`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new
---remote-debugging-port=…`, read `/json/list`, and drive `Page.navigate` /
-`Runtime.evaluate` over Node's built-in `WebSocket`. About 40 lines. Serve the build with
-`npm run build && npx vite preview` and use `http://localhost:4173` (not `127.0.0.1`).
+The suite these three defects need, all of which SESSION-004 ran and left passing:
 
-Two things SESSION-003 learned the slow way:
+- Cold loads of `/#work`, `/#contact`, `/contact`, `/de/#about` — section top should equal
+  the header offset exactly, at 1440px **and** at 390px (that second one is `ISSUE-015`).
+- Cross-route hash click, same-page hash click, contents-rail anchor click.
+- Route change from a scrolled page starts at 0; back restores the previous offset.
+- `document.documentElement.scrollWidth` vs `window.innerWidth` at 375 / 740 / **768** /
+  800 / 840 / 1024 / 1280 / 1440, on the homepage, a case study and About — that is how
+  `ISSUE-026` was found and it is how you will know it is gone.
+- The case-study prev/next ring, scrolled end to end at each stop, with nothing left
+  hidden.
 
-- **Give reveals time to settle before measuring position.** A landing measured at 1800ms
-  after navigation read 16px off; at 2500ms it was exact. The tween moves the element
-  under a landing that has already been aimed.
-- **Screenshot as well as measure.** The block rendering was confirmed by numbers first,
-  but only a screenshot showed whether the result actually reads better.
+Two things worth carrying forward:
+
+- **Give reveals time to settle before measuring position** — measure, wait a second,
+  measure again, and compare. A single early reading looks like a bug that is not there,
+  and a single late one hides one that is.
+- **Screenshot as well as measure.** Numbers confirm structure; only a picture shows
+  whether the result reads.
 
 ## Completion Criteria
 
-- A case study reads with visible rhythm and hierarchy at 375 / 768 / 1024 / 1440 — media
-  that varies in width, set pieces that look different from one another, an ending that
-  lands.
-- The contents rail shows where the reader is.
+- No page scrolls horizontally at any width from 320px to 1440px.
+- Every anchor lands its section clear of the header at every width, by every route in —
+  cold load, `<Link>`, rail click, and URL-bar hash edit.
 - Both locales verified; reduced motion still fully static and fully visible.
 - `npm run lint && npm run build` green; work committed.
 
@@ -120,11 +126,10 @@ Two things SESSION-003 learned the slow way:
 
 1. Update the documentation whose information actually changed.
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
-3. Update `docs/milestones/milestone_003.md` and `docs/milestones/index.md` — closing the
-   milestone if the layout half is genuinely done.
+3. Update `docs/milestones/milestone_007.md` and `docs/milestones/index.md`.
 4. Record newly discovered issues / suggestions / decisions **only where genuinely
    needed**.
-5. Create `docs/sessions/session_004.md` and add it to `docs/sessions/index.md`.
+5. Create `docs/sessions/session_005.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.

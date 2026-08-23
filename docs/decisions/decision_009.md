@@ -37,10 +37,12 @@ second row, a standalone `/contact` page and a fuller About outline).
 
 ## Deliberate departures so far
 
-- **`DECISION-014`** (SESSION-003) — the case-study reading column. Sub-headings, bullet
-  lists and bordered notes now render as themselves rather than as the reference's
-  uniform paragraph column. The rest of `SUGGESTION-003`'s layout changes are still
-  ahead, and belong under the same decision.
+- **`DECISION-014`** (SESSION-003, extended SESSION-004) — the case-study reading
+  column. Sub-headings, bullet lists and bordered notes render as themselves rather than
+  as the reference's uniform paragraph column; body text sits at a 680px measure with
+  media running wider; the design question, insights and testing steps get three distinct
+  treatments; and the closing section moves onto its own band. The reference's
+  case-study page is no longer a useful comparison for anything below the facts strip.
 
 ## Relevant Files
 

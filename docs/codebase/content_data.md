@@ -72,7 +72,7 @@ Category ring order: `digital-art → crafts → editorial → graphic-experimen
 | `i18n.ts` | 13 | `Locale`, `defaultLocale`, `isLocale()`, `localeHref()` |
 | `useLocale.ts` | 16 | `localeFromPathname()`, `useLocale()`, `useDictionary()` |
 | `useScrollReveals.ts` | 85 | GSAP reveal hook; effects keyed on pathname, owns the `[data-inview]` at-rest state (`ISSUE-001`) |
-| `useScrollBehavior.ts` | 203 | All scroll side effects of a navigation: top reset, hash landing, back/forward restore (`DECISION-013`) |
+| `useScrollBehavior.ts` | 231 | All scroll side effects of a navigation: top reset, hash landing (aimed at layout position, not the rendered box), back/forward restore (`DECISION-013`, `DECISION-014`) |
 
 ## Adding content — checklist
 

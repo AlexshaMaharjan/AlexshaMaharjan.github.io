@@ -1,7 +1,7 @@
 # DECISION-014 — Case-study body content is a block model, and the reading column departs from the reference
 
 Status: Active
-Date: 2026-08-23 (SESSION-003)
+Date: 2026-08-23 (SESSION-003; extended SESSION-004 with the layout half)
 Scope: Content architecture, case-study layout
 
 ## Context
@@ -62,14 +62,49 @@ changed, not the words.
 - German blocks must keep matching English ones structurally. They do today, block for
   block; nothing enforces it beyond the types, so a restructure that touches only one
   locale would pass the build and read wrong.
-- `quote` and `figure` are implemented and currently unused.
+- `quote` and `figure` are implemented and currently unused. SESSION-004 kept both
+  deliberately: `quote` now has a designed pull-quote treatment and the copy pass
+  (`MILESTONE-004`) is the natural place for one to appear. Delete them if that pass ends
+  without using them.
 - The case-study column no longer matches `design-reference/pages/*.dc.html`. Anyone
   comparing the two should expect the difference.
+
+## The layout half (SESSION-004)
+
+Four further choices, all departures from the reference's single-width column:
+
+1. **Text sits at a 680px measure; media does not.** The reference column ran body text
+   the full 960px — about 110 characters a line, well past comfortable. Text is now
+   capped at ~70 characters and media, set pieces and section headings run wider. That
+   width difference is the page's rhythm, so it is deliberate that text-only sections
+   leave the right-hand side of the column empty.
+2. **No viewport-wide full-bleed.** `SUGGESTION-003` asked for full-bleed media moments.
+   They were not built: the contents rail is `position: sticky` in the left grid column,
+   and anything breaking out leftwards shares its horizontal band and collides with it.
+   The three scales that exist — grid figure, full column, hero image — carry the
+   variation instead. Reopening this means moving the rail out of the flow first.
+3. **The rail appears at 1280px, not 768px.** It was reserving 240px plus a 40px gap from
+   `md` up, which left the reading column ~313px wide at 768px and ~569px at 1024px.
+   Below 1280px the collapsible list takes over and names the current section.
+4. **The closing section leaves the reading column.** It renders on its own tinted band
+   below the grid, heading beside text. It keeps its number, nav label, anchor id and
+   reveal, so the rail, the anchors and `ISSUE-008`'s "one render path" all still hold —
+   `first` and `outro` vary spacing and scale, nothing else.
+
+And one correctness change that came out of building it: **hash landings are aimed at the
+target's layout position, not its rendered box.** A section that has not revealed yet is
+translated down 18px by the at-rest state (`DECISION-008`), so aiming at the rendered box
+left the landing short by whatever remained of the tween. That was latent before; this
+layout's timing made it show up on ordinary cold loads. `useScrollBehavior` now sums
+`offsetTop` and subtracts the element's own `scroll-margin-top`, which is stable while the
+reveal runs. `ISSUE-027` covers the one path that never reaches the hook.
 
 ## Relevant Files
 
 `src/lib/caseStudies/types.ts`, `src/components/case-study/Section.tsx`,
-`src/components/case-study/Figure.tsx`, `scripts/content-guide-case-studies.mjs`,
+`src/components/case-study/Figure.tsx`, `src/components/case-study/SectionMedia.tsx`,
+`src/components/case-study/ContentsNav.tsx`, `src/components/case-study/CaseStudyPage.tsx`,
+`src/lib/useScrollBehavior.ts`, `scripts/content-guide-case-studies.mjs`,
 `CONTENT_GUIDE.md` §5
 
 ## Related Issues / Milestones

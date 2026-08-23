@@ -38,7 +38,15 @@ milestones so pages are not swept twice.
 - [ ] **ISSUE-016** — measure and fix the header at 480–1160px
 - [ ] **ISSUE-015** — publish header height as a CSS variable; use it for
       `scroll-margin-top` and the sticky rail
+- [ ] **ISSUE-026** — the footer's link columns plus `md:px-20` overflow the viewport
+      between 768px and 839px, so every page scrolls sideways there. Measured; likely a
+      padding-scale fix rather than a footer fix
+- [ ] **ISSUE-027** — a URL-bar hash change on the current page never reaches the router,
+      so the browser's own jump lands on the scroll reveal's at-rest position
 - [ ] Walk every page at 375 / 480 / 768 / 1024 / 1160 / 1440 / 1920
+
+`ISSUE-015`, `ISSUE-026` and `ISSUE-027` are all page-independent and need nothing from
+the owner, which makes them the natural slice to take first — see `docs/next_session.md`.
 
 **Accessibility (`SUGGESTION-011`)**
 - [ ] Keyboard-reachable pause for the playground marquees (WCAG 2.2.2)
@@ -50,7 +58,8 @@ milestones so pages are not swept twice.
 
 ## Relevant Issues
 
-`ISSUE-010`, `ISSUE-011`, `ISSUE-015`, `ISSUE-016`, `ISSUE-021`, `ISSUE-023`
+`ISSUE-010`, `ISSUE-011`, `ISSUE-015`, `ISSUE-016`, `ISSUE-021`, `ISSUE-023`,
+`ISSUE-026`, `ISSUE-027`
 
 ## Relevant Suggestions
 

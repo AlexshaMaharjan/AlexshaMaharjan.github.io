@@ -1,6 +1,6 @@
 # MILESTONE-003 — Case-study layout and content model
 
-Status: **In progress** — content model done (SESSION-003), layout still open
+Status: **Complete** — content model (SESSION-003) and layout (SESSION-004)
 Priority: High
 Goal: Turn the six case studies from uniform columns of paragraphs into readable
 editorial pieces — the owner's first-named priority.
@@ -37,15 +37,19 @@ Part one — content model (SESSION-003, `e844ad9`):
       than only WikiMind
 - [x] Verify at 375 / 768 / 1024 / 1440, both locales, reduced motion on and off
 
-Part two — layout (next session):
+Part two — layout (SESSION-004, `4e4b5f7`):
 
-- [ ] **SUGGESTION-003** — rework the layout: varied media widths (including full-bleed),
-      differentiated treatments for the design-question callout / insights grid / testing
-      3-up, and a stronger ending before the prev/next nav
-- [ ] Active-section tracking and progress in `ContentsNav`
-- [ ] Widen the reading column between 768 and 1024, where the 240px rail is reserved but
-      the contents nav inside it is hidden — the column drops to ~313px at 768
-- [ ] Re-verify at all four widths, both locales, reduced motion on and off
+- [x] **SUGGESTION-003** — varied media widths: text at a 680px measure, wide images at
+      the full 960px column, narrower ones in a 2- or 3-up grid. Viewport-wide full-bleed
+      was rejected — it collides with the sticky rail (`DECISION-014`)
+- [x] Differentiated treatments: tinted accent panel for the design question, numbered
+      white cards for insights, a numbered row under accent rules for testing steps
+- [x] A stronger ending — the closing section leaves the reading column for its own
+      tinted band, heading beside text
+- [x] Active-section tracking and progress in `ContentsNav`
+- [x] Fix the squeezed reading column — the rail now appears at 1280px rather than 768px;
+      below that the collapsible list takes over and names the current section
+- [x] Re-verify at 375 / 768 / 1024 / 1280 / 1440, both locales, reduced motion on and off
 
 ## Relevant Issues
 
@@ -73,8 +77,8 @@ it as a new decision)
 
 ## Completion Criteria
 
-- A case study reads with visible rhythm and hierarchy at every viewport. — *partly: the
-  content now has hierarchy, the layout around it is unchanged.*
+- ✅ A case study reads with visible rhythm and hierarchy at every viewport. Three media
+  scales against one text measure, three distinct set pieces, and a closing spread.
 - ✅ Sub-headings and lists render as sub-headings and lists in all six studies, both
   locales. Measured in the browser: 38 sub-headings, 22 lists, 8 notes, both locales
   structurally identical.
@@ -94,9 +98,15 @@ The German blocks must migrate alongside the English ones or the build breaks �
 type applies to both. This is the largest structural change in the roadmap; consider
 splitting it across two sessions (model first, layout second).
 
-**Split as suggested.** SESSION-003 took the content model and left the layout. What the
-next session inherits: sections that carry real internal structure, a `Figure` component
-to build media treatments on, and one render path in `Section.tsx` to vary. What it must
-not break: both locales stay structurally identical block for block, and the first
-section is now inside the reveal set, so the `DECISION-008` ring check applies to any
-change in which elements carry `data-inview`.
+**Split as suggested.** SESSION-003 took the content model, SESSION-004 the layout.
+
+What SESSION-004 found on the way: aiming a hash landing at an element's *rendered* box
+races the scroll reveal, which translates sections down 18px until they play. The landing
+came up short by whatever was left of the tween — invisible until this layout shifted the
+timing. `useScrollBehavior` now aims at the layout position instead, which removed the
+whole class of error (`DECISION-014`, `ISSUE-027` for the one path that still bypasses the
+hook).
+
+What remains for the case studies, and belongs to other milestones: real photographs
+(`MILESTONE-005` — the mechanism is ready, the files are not), the copy pass
+(`MILESTONE-004`), and scroll-linked motion (`MILESTONE-006`).

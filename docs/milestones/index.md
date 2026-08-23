@@ -1,7 +1,7 @@
 # Milestones Index
 
-**Status: approved and under way.** `MILESTONE-001` is complete (SESSION-002).
-`MILESTONE-003` is half done (SESSION-003 — content model). The rest of the roadmap
+**Status: approved and under way.** `MILESTONE-001` (SESSION-002) and `MILESTONE-003`
+(SESSION-003 content model, SESSION-004 layout) are complete. The rest of the roadmap
 remains as proposed; the owner may still reprioritise or re-scope it.
 
 Ordering rationale: repair what is broken → fix the two worst-reading surfaces (homepage
@@ -11,19 +11,22 @@ work section, case studies) → content and imagery → motion → consistency �
 | --- | --- | --- | --- | --- | --- | --- |
 | MILESTONE-001 | Stabilize the current implementation | **Complete** | Critical | — | ISSUE-001/002/003/017/018/022 — all resolved | `milestone_001.md` |
 | MILESTONE-002 | Rebuild homepage "Selected Work" | Proposed | High | M-001, DECISION-010 | ISSUE-004/005 | `milestone_002.md` |
-| MILESTONE-003 | Case-study layout and content model | **In progress** | High | M-001 | ISSUE-024 ✅, ISSUE-008 ✅, ISSUE-007 (case studies ✅) | `milestone_003.md` |
+| MILESTONE-003 | Case-study layout and content model | **Complete** | High | M-001 | ISSUE-024 ✅, ISSUE-008 ✅, ISSUE-007 (case studies ✅) | `milestone_003.md` |
 | MILESTONE-004 | English content pass | Proposed — **unblocked** | High | M-003 model ✅, owner | ISSUE-024 ✅ | `milestone_004.md` |
 | MILESTONE-005 | Real imagery | Proposed | High | owner assets | ISSUE-006/007 | `milestone_005.md` |
 | MILESTONE-006 | Motion system and interaction polish | Proposed | Medium | M-001, M-002/003 | ISSUE-012/019/020 | `milestone_006.md` |
-| MILESTONE-007 | Consistency, responsive, accessibility | Proposed | Medium | M-002/003/006 | ISSUE-010/011/015/016/021/023 | `milestone_007.md` |
+| MILESTONE-007 | Consistency, responsive, accessibility | Proposed | Medium | M-002/003/006 | ISSUE-010/011/015/016/021/023/026/027 | `milestone_007.md` |
 | MILESTONE-008 | Performance, SEO, deployment | Proposed | Medium | content near-final, owner | ISSUE-013/014/019/025 | `milestone_008.md` |
 | MILESTONE-009 | German parity | Proposed | Medium | M-004 | ISSUE-009 | `milestone_009.md` |
 
 ## Completed
 
-**MILESTONE-003, part one** (SESSION-003) — the case-study content model. `body[]` holds
-blocks instead of strings; all six studies migrated in both locales; `ISSUE-024` and
-`ISSUE-008` resolved; case-study figures can take real images. Layout still to come.
+**MILESTONE-003** (SESSION-003 + SESSION-004) — the case studies. Part one replaced
+`body: string[]` with a block model and migrated all six studies in both locales
+(`ISSUE-024`, `ISSUE-008`, and the case-study half of `ISSUE-007`). Part two laid them
+out: a 680px text measure against three media widths, three distinct set pieces, a
+contents rail that tracks the reading position, and a closing band. Both halves verified
+in a browser against the production build.
 
 **MILESTONE-001** (SESSION-002). All six issues resolved and verified in a browser against
 the production build. Navigation is now correct: reveals re-run on same-route navigation,
@@ -33,14 +36,15 @@ measurements.
 
 ## Recommended next milestone
 
-**Finish MILESTONE-003 — the layout half.** The content model landed in SESSION-003, so
-the blocker `SUGGESTION-003` named is gone and the sections now have hierarchy to lay
-out. `MILESTONE-002` is still higher priority on paper and still blocked on
-`DECISION-010`.
+**`MILESTONE-004` — the English content pass.** Its prerequisite (the block model) is
+done, the layout it will be written into is now settled, and it is the owner's third
+stated priority. It needs the owner in the room: the copy is theirs, and `DECISION-011`
+forbids inventing anything to fill gaps.
 
-`MILESTONE-004` (the copy pass) is now unblocked too — the block model was its
-prerequisite — but it needs the owner's participation, and doing it before the layout
-means restructuring text against a layout that is about to change.
+If the owner is not available, `MILESTONE-002` (homepage "Selected Work") is the next
+thing worth doing — but it is still blocked on `DECISION-010`, unanswered since
+SESSION-002. `MILESTONE-007`'s responsive work now has three concrete findings waiting
+(`ISSUE-015`, `ISSUE-026`, `ISSUE-027`) and needs nothing from the owner at all.
 
 ## How the owner's stated priorities map
 

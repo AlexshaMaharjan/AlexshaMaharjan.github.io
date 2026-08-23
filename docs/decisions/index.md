@@ -19,7 +19,7 @@ explicitly rather than inventing one.
 | DECISION-011 | Copy honesty constraint | Active | Content | No invented metrics/clients; collaborators credited | `decision_011.md` |
 | DECISION-012 | Static hosting with SPA rewrite | Active (host TBD) | Deployment | Both Netlify and GH-Pages fallbacks present, neither configured | `decision_012.md` |
 | DECISION-013 | Hand-rolled scroll behaviour, not `<ScrollRestoration />` | Active | Routing, navigation | Built-in cannot see a lazy page's hash target and inherits CSS smooth scrolling | `decision_013.md` |
-| DECISION-014 | Case-study body is a block model; reading column departs from the reference | Active | Content, case studies | Blocks instead of `string[]`; captions only where a real image exists | `decision_014.md` |
+| DECISION-014 | Case-study body is a block model; reading column departs from the reference | Active | Content, case studies | Blocks instead of `string[]`; 680px measure against wider media; no viewport full-bleed while the rail is sticky | `decision_014.md` |
 
 ## Needing an owner decision
 

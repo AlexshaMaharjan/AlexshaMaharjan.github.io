@@ -54,6 +54,12 @@ Because pages are lazy, it re-tries across animation frames until the target exi
 the incoming page has stopped growing. react-router's `<ScrollRestoration />` is
 deliberately not used — `DECISION-013`.
 
+A hash target's position is taken from **layout** — the `offsetTop` chain minus the
+element's own `scroll-margin-top` — not from `getBoundingClientRect` or `scrollIntoView`.
+Sections carry the scroll reveal's at-rest transform until they play, so the rendered box
+is up to 18px below the layout box and aiming at it lands short (SESSION-004,
+`DECISION-014`).
+
 Per-route `<title>`/meta are written imperatively by `src/components/Seo.tsx` on mount.
 
 ## Important dependencies
@@ -78,6 +84,9 @@ Per-route `<title>`/meta are written imperatively by `src/components/Seo.tsx` on
   bug**.
 - The anchor offset is a single fixed 104px against a header that is 146px tall below
   480px — `ISSUE-015`, confirmed by measurement in SESSION-002.
+- A fragment navigation that changes only the hash of the current URL fires `hashchange`,
+  not `popstate`, so the router never sees it and this hook never runs — the browser's own
+  jump lands on the reveal's at-rest position instead (`ISSUE-027`).
 - `Suspense fallback={null}` gives a blank frame on first visit to a lazy page — `ISSUE-020`.
 - `Seo` only restores `document.title` on unmount; description/OG tags leak — `ISSUE-014`.
 - No prerendering: crawlers and social scrapers only ever see `index.html`'s static

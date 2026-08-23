@@ -43,11 +43,12 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 
 | File | Lines | Controls |
 | --- | --- | --- |
-| `CaseStudyPage.tsx` | 44 | assembles hero → facts → `240px` rail + `960px` column → next-project nav. Maps every section through `Section`, `first` on index 0 |
+| `CaseStudyPage.tsx` | 60 | assembles hero → facts → rail + reading column → closing band → next-project nav. The rail column exists from `xl` (1280px) only; the last section is lifted out of the grid onto its own tinted band (`outro`) |
 | `CaseStudyHero.tsx` | 56 | back link, eyebrow, h1, summary, optional disclosure, tags, hero image or placeholder |
 | `FactsStrip.tsx` | 34 | `<dl>` of Role/Contribution/Type/Year/Tools/Deliverables, empties filtered out |
-| `ContentsNav.tsx` | 40 | sticky desktop rail + mobile `<details>` |
-| `Section.tsx` | 152 | one section: number + nav label, heading, `body[]` blocks, `designQuestion` box, `insights` 2-up, `testing` 3-up, `images` grid. One render path for every section; `first` varies only the top margin. `BodyBlock` switches on the block kind — paragraph / `h3` / `list` / `quote` / `note` / `figure` (`DECISION-014`) |
+| `ContentsNav.tsx` | 116 | sticky rail from `xl` + collapsible `<details>` below it, both marking the section being read. `useActiveSection` runs an `IntersectionObserver` rebuilt on every pathname change (never mount-only — `ARCH-01`); the rail's left edge fills as a progress track |
+| `Section.tsx` | 187 | one section: number + nav label, heading, `body[]` blocks, then its set pieces and media. One render path; `first` and `outro` vary only spacing, scale and (for `outro`) heading-beside-text. Text sits at a 680px measure, everything else runs wider. `BodyBlock` switches on the block kind — paragraph / `h3` / `list` / `quote` / `note` / `figure` (`DECISION-014`) |
+| `SectionMedia.tsx` | 55 | groups a section's `images[]` into runs: wide ones (3:2 or wider, or `wide: true`) take the full column, narrower ones pack into a 2- or 3-up grid |
 | `Figure.tsx` | 43 | one image slot: real `<img>` + `<figcaption>` when `src` is set, hatched `PlaceholderImage` with its `[ bracketed label ]` when it is not |
 | `NextProjectNav.tsx` | 52 | prev/next preview cards + "View all work" |
 
