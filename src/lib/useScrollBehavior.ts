@@ -43,6 +43,30 @@ function jumpTo(top: number): boolean {
 }
 
 /**
+ * The scroll offset that puts `target` under the fixed header, taken from
+ * layout rather than from the element's rendered box.
+ *
+ * That distinction matters: a section that has not revealed yet is translated
+ * down by the scroll-reveal at-rest state (`DECISION-008`), so `scrollIntoView`
+ * and `getBoundingClientRect` aim at wherever the reveal animation happens to
+ * be at that instant. The landing then ends up short by however much of the
+ * tween was left — up to 18px, and differently on each load. `offsetTop` is
+ * unaffected by the element's own transform, so this is stable while the
+ * reveal runs.
+ *
+ * The header offset is `section { scroll-margin-top }` in index.css, read back
+ * off the element so the value lives in one place.
+ */
+function scrollTopFor(target: HTMLElement): number {
+  let top = 0;
+  for (let node: HTMLElement | null = target; node; node = node.offsetParent as HTMLElement | null) {
+    top += node.offsetTop;
+  }
+  const headerOffset = parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
+  return Math.max(0, top - headerOffset);
+}
+
+/**
  * Runs `attempt` now, then once per frame until it succeeds or the budget runs
  * out. Pages are lazy (`ARCH-01`), so the element a hash names — or the page
  * height a restored offset needs — often does not exist on the first frame.
@@ -171,21 +195,25 @@ export function useScrollBehavior(): void {
         if (!target) return false;
         found = true;
 
-        target.scrollIntoView({ behavior: smooth ? "smooth" : "instant", block: "start" });
+        const top = Math.round(scrollTopFor(target));
 
         // A smooth scroll is still running when this returns, so re-issuing it
         // every frame would restart it forever. It is only ever used within a
         // page that is already mounted and settled, so one call is enough.
-        if (smooth) return true;
+        if (smooth) {
+          window.scrollTo({ top, left: 0, behavior: "smooth" });
+          return true;
+        }
+
+        jumpTo(top);
 
         // An instant landing lands short surprisingly often, because the
         // incoming page is usually still growing underneath it — the homepage
         // alone gains ~700px a frame or two later, when its hero swaps to the
-        // pinned track (ARCH-04) — which pushes the target back down out of
-        // view. Scroll anchoring sometimes absorbs that and sometimes does not,
-        // so re-aim every frame and only stop once nothing has moved for
-        // several frames running.
-        const top = Math.round(target.getBoundingClientRect().top);
+        // pinned track (ARCH-04) — which pushes the target further down the
+        // document. So re-aim every frame and only stop once neither the
+        // target's position nor the page height has moved for several frames
+        // running.
         const height = document.documentElement.scrollHeight;
         stillFrames = top === lastTop && height === lastHeight ? stillFrames + 1 : 0;
         lastTop = top;
