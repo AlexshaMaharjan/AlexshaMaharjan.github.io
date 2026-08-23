@@ -24,6 +24,9 @@ disagreed, the coded value is recorded — see `DECISION-009`.
 | **Accent** | `#1B3FE0` | `accent` |
 | Focus outline | `#1233C4` | `accent-focus` |
 | Soft accent / selection | `#E1E7FF` | `accent-soft` |
+| Card / figure border | `#E4E7EE` | `card-border` (named in SESSION-006) |
+| Dashed rules | `#C9CEDB` | `border-muted` (named in SESSION-006) |
+| Accent on the dark canvases | `#8FA6FF` | `accent-on-dark` (named in SESSION-006) |
 | Playground grid major (32px) | `rgba(78,96,135,0.055)` | — |
 | Playground grid minor (8px) | `rgba(78,96,135,0.025)` | — |
 | Playground border tint | `rgba(78,96,135,0.18–0.35)` | — |
@@ -50,11 +53,36 @@ Sizes as coded in the reference:
 | Metadata | 12–13px mono |
 | Large-heading letter-spacing | −0.025em to −0.028em |
 
+### As implemented
+
+The reference's sizes were ported as per-component `clamp()` values and drifted into ~20
+near-duplicates. SESSION-006 reconciled them into seven named sizes in
+`tailwind.config.ts` (`ISSUE-023`) — these are the implementation's scale, and the closest
+thing the project has to a canonical one:
+
+| Token | Value |
+| --- | --- |
+| `hero` | `clamp(2.75rem, 5.8vw, 5.5rem)` |
+| `page-title` | `clamp(2.5rem, 5.4vw, 5.25rem)` |
+| `section` | `clamp(2.125rem, 4.6vw, 4.25rem)` |
+| `feature` | `clamp(1.875rem, 3.6vw, 3.25rem)` |
+| `heading` | `clamp(1.875rem, 3.2vw, 2.75rem)` |
+| `subheading` | `clamp(1.625rem, 2.6vw, 2.25rem)` |
+| `lead` | `clamp(1.375rem, 2.2vw, 1.875rem)` |
+
+Sizes only — line-height and letter-spacing are still per component. A font-size token must
+never share a name with a colour token: `text-page` resolved to the *colour* `page` and
+rendered two h1s near-white on white before it was renamed `page-title`.
+
 ## Spacing, width, radius
 
 - Vertical rhythm in round numbers: 56, 64, 72, 76, 90, 96, 100, 110, 120, 130, 140, 150 px.
 - Max widths: 1440px outer, 1280px content, ~960px case-study reading column, 240px rail.
-- Side padding: 80px desktop → 20px mobile.
+  As implemented: `.container-page` is `mx-auto max-w-[1440px] px-5 md:px-20`, i.e. the
+  1280px content width falls out of the outer width minus the padding. The case-study
+  column is 960px for media and 680px for text (`DECISION-014`).
+- Side padding: 80px desktop → 20px mobile. The 80px starts at 768px, which is what makes
+  tablet widths tight (`ISSUE-026`, `ISSUE-028`).
 - Radii: 3px (small thumbs), 6/8px (cards), 10px (portrait/hero images), 40–44px (process
   canvas at rest), 999px (pills).
 

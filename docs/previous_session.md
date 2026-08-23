@@ -1,94 +1,89 @@
 # Previous Session
 
-Session: SESSION-005
-Milestone: MILESTONE-007 — Consistency, responsive, accessibility (first slice)
-Objective: Fix the three measured, page-independent defects — `ISSUE-015` (anchor offset vs
-the mobile header), `ISSUE-026` (footer overflow), `ISSUE-027` (hash navigation landing
-short).
-Outcome: **Two fixed and verified. The third was misdiagnosed in its own file** — it is now
-measured properly and left open, with three attempted fixes reverted rather than shipped.
+Session: SESSION-006
+Milestone: MILESTONE-007 — Consistency, responsive, accessibility (second slice)
+Objective: Consolidate the design system — `ISSUE-023` (type scale, colours, container),
+plus `ISSUE-011` (breakpoint order) and `ISSUE-021` (duplicated helper).
+Outcome: **All three resolved.** One new defect recorded (`ISSUE-028`), and one bug caught
+by the verification before it shipped.
 
 ## What Changed
 
+The config described a design system nobody had adopted: ten named type sizes with zero
+uses, and a `.container-page` describing a container the site does not use. This reconciled
+the config with what the pages were actually written with, then adopted it.
+
 | | Before | After |
 | --- | --- | --- |
-| Anchored section below 480px | 42px of it hidden behind the header | clears it by 31px |
-| Anchored section at 480px and up | clears by 31px | unchanged (104px) |
-| Where the offset comes from | `scroll-margin-top: 104px`, a number written down once | `--header-h`, measured by the header itself |
-| Case-study rail and closing heading | `top-[104px]` / `top-[128px]` | derive from the same variable |
-| Footer between 768px and 839px | every page scrolled sideways by up to 24px | columns wrap; nothing scrolls sideways at any width |
+| Display sizes | ~20 hand-written `clamp()`s, five of them page h1s | 7 named tokens at 24 call sites |
+| `#E4E7EE` / `#C9CEDB` / `#8FA6FF` | 26 raw literals | `card-border`, `border-muted`, `accent-on-dark` |
+| Page container | hand-written 31 times | `.container-page` |
+| `theme.screens` | `nav:1160` declared before `lg:1024` | ascending |
+| `stripLocale` | defined twice, byte-for-byte | once, in `lib/i18n.ts` |
 
-The header measures itself in a layout effect and a `ResizeObserver`, publishing
-`--header-h`; `index.css` derives `--anchor-offset: calc(var(--header-h) + 31px)` and
-declares per-breakpoint fallbacks for the moment before the measurement runs. Measured
-rather than written down twice on purpose — a written-down number is what drifted here, and
-`ISSUE-015`'s own estimate of the mobile header (~117px) was 29px out.
+The scale: `hero` 5.5rem, `page-title` 5.25rem, `section` 4.25rem, `feature` 3.25rem,
+`heading` 2.75rem, `subheading` 2.25rem, `lead` 1.875rem. **Sizes only** — components still
+set line-height and letter-spacing, and they do not always match for the same size, so
+folding those in would change how headings look. **Fixed px UI sizes were left alone** on
+purpose: 173 literals, mostly 12/13/14/15px, which are considered sizes rather than drift.
+
+## Deliberate visual changes
+
+Everything else is unchanged to the pixel — verified by diffing computed styles for every
+h1/h2 on five pages at four widths:
+
+- **The homepage's three section headings were three different sizes** (66 / 48 / 58px at
+  1440) and are now one (66px). Worth the owner's eye.
+- About's sub-headings 34→36px, its biography heading 40→44px.
+- Résumé, 404 and playground category/project h1s move 2–8px mid-range.
+- All six case studies unchanged.
+
+## The bug the verification caught
+
+A font size named `page` collides with the `page` **colour** token — `text-*` serves both,
+and the colour wins. About's and Playground's h1 were rendering near-white on white. The
+computed-style diff caught it on six page/width combinations; a scaled-down screenshot
+would not obviously have. Renamed `page-title`, and the rule is now written down in
+`styling.md` and `design_tokens.md`.
 
 ## Files Changed
 
-| File | Change |
-| --- | --- |
-| `src/components/Header.tsx` | measures itself, publishes `--header-h` |
-| `src/index.css` | the two variables, their fallbacks, and `section { scroll-margin-top }` |
-| `src/components/case-study/ContentsNav.tsx`, `Section.tsx` | sticky offsets read the variable |
-| `src/components/Footer.tsx` | link columns wrap |
+27 files. `tailwind.config.ts` (scale, colours, screens), `src/index.css`
+(`.container-page`), `src/lib/i18n.ts` (`stripLocale`), and 24 components and pages
+adopting the tokens.
 
-Committed as `f32a45e` on branch **`milestone-003-content-model`** (six commits ahead of
-`main`, still unpushed — nothing is deployed; the live site is published only by
-`npm run deploy`).
-
-`src/lib/useScrollBehavior.ts` was changed three times and **ends unchanged**.
-
-## ISSUE-027 — diagnosed, not fixed
-
-SESSION-004 described it as "a fragment navigation fires `hashchange`, not `popstate`, so
-the router never sees it". Measured: **it fires both**, and the router does see it. A
-listener written against that theory never fired once.
-
-What is actually happening, from an instrumented build: the navigation arrives as a `POP`
-with `cameFrom` set, so the **back/forward branch** runs; `location.key` is `"default"` for
-more than one entry, so the scroll-position map shares a bucket between them; and the
-offset it restores was never chosen by anyone — when a tall page is replaced by a short
-one, the browser clamps the scroll position and the recorder files that as "where the
-visitor was". The 18px error is this page's geometry, not the mechanism.
-
-Three fixes were built, measured, and reverted: the `hashchange` listener, keying positions
-by `key|pathname`, and suppressing the recorder during a landing. None closed the case, and
-unproven complexity in the hook `DECISION-013` exists to protect is worse than a known
-defect. `issue_027.md` now carries the measurements, the branch log, and what each attempt
-did.
+Committed as `2880697` on branch **`milestone-003-content-model`** — now eight commits
+ahead of `main` and still unpushed. **Nothing is deployed**: the live site is served from
+`gh-pages` and published only by `npm run deploy`.
 
 ## Validation
 
 - `npm run lint` 0 errors / 3 pre-existing warnings; `npm run build` green.
-- Headless Chrome against the **production build**: anchored sections at eight widths on
-  two pages (31px clearance everywhere); horizontal overflow across seven pages × fourteen
-  widths (none); every SESSION-002 journey at 1440px and 390px with motion on and off,
-  plus contents-rail clicks; the prev/next ring with nothing left hidden; reduced motion
-  clean; and a 390px screenshot showing the eyebrow and heading fully visible.
+- Headless Chrome against the **production build**: computed styles for every h1/h2 on five
+  pages at four widths before and after; full-page screenshots of nine pages at four widths
+  before and after; horizontal overflow across nine pages × twelve widths; anchors still
+  clearing the header by 31px; the `nav:1160` breakpoint still switching exactly at 1160;
+  the case-study ring and reduced motion clean.
 
-## A harness bug worth carrying forward
+## ISSUE-028, found on the way
 
-`Page.navigate` to a URL differing from the current one **only by its fragment** does not
-reload the document. Early measurements this session were taken against a stale page — one
-of them appeared to show the CSS fix not working at all. `cdp.mjs` now has `coldGoto`,
-which goes via `about:blank` first; use it for anything claiming to be a cold load.
+`/de/` scrolls sideways by 39px at 320px — the German header's contents demand 359px.
+Pre-existing, measured identically on the pre-session build. Two lessons with it:
 
-Part of SESSION-004's "cold hash landing" evidence was affected by the same thing. Those
-journeys were re-measured properly here and are correct.
+- **Compare `scrollWidth` against `clientWidth`, not `window.innerWidth`.** `innerWidth`
+  includes the scrollbar and hides up to ~15px of overflow.
+- **Settle before measuring.** At 200ms the page measures clean; from 600ms it does not.
 
 ## Remaining Concerns
 
-- `ISSUE-027` is open and diagnosed; start by logging every `record()` write with key,
-  value and stack through one reproduction.
-- The shared padding scale (`md:px-20` from 768px up) is what makes tablet widths tight.
-  `ISSUE-026` was fixed at the footer instead, deliberately — changing the scale moves
-  every page's gutters and belongs with `SUGGESTION-009`/`SUGGESTION-010`.
-- The CSS fallbacks for `--header-h` are still written down and can still drift; they only
-  apply before the measurement runs.
-- Nothing here touched content or imagery. `MILESTONE-004` and `MILESTONE-005` are what
-  stand between the case studies and finished.
+- `SUGGESTION-009` point 4 — the tag and CTA pill primitives — is still open. Component
+  extraction rather than tokens.
+- Line-height and letter-spacing are still per component, so two headings at the same token
+  size can still differ in leading. That is a design decision, not a refactor.
+- `ISSUE-028` and `ISSUE-027` are the open defects, both Low.
+- `MILESTONE-002` may rebuild the homepage work section, so part of this sweep may be
+  redone there. It was worth doing now for the rest of the site.
 
 ## Detailed Session Record
 
-See `docs/sessions/session_005.md`.
+See `docs/sessions/session_006.md`.

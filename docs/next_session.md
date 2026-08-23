@@ -2,120 +2,120 @@
 
 ## Status
 
-`MILESTONE-003` is complete. `MILESTONE-007` has started: `ISSUE-015` (anchor offset) and
-`ISSUE-026` (footer overflow) are fixed and verified (SESSION-005).
+`MILESTONE-003` is complete. `MILESTONE-007` is well under way: `ISSUE-015` and
+`ISSUE-026` (SESSION-005), `ISSUE-023`, `ISSUE-011` and `ISSUE-021` (SESSION-006).
 
-Work sits on branch `milestone-003-content-model`, **six commits ahead of `main` and
-unpushed** (`e844ad9`, `36cb023`, `1a15cac`, `4e4b5f7`, `776c2e9`, `f32a45e`). **Check
-`git` before trusting any status in these files.**
+Work sits on branch `milestone-003-content-model`, **eight commits ahead of `main` and
+unpushed**. **Check `git` before trusting any status in these files.**
 
 ### Nothing is deployed
 
-The live site is served from the `gh-pages` branch and is published only by running
-`npm run deploy` — there is no CI workflow (it was removed in `11930a6` for lack of a
-workflow token scope). So none of the last three sessions' work is visible anywhere except
-locally, via `npm run build && npx vite preview` at `http://localhost:4173`.
-
-Publishing is the owner's call: merge the branch into `main`, then `npm run deploy`.
+The live site is served from the `gh-pages` branch and published only by `npm run deploy`
+— there is no CI workflow. None of the last four sessions is visible anywhere but locally
+(`npm run build && npx vite preview`, then `http://localhost:4173`). Publishing means
+merging to `main` and running that, which is the owner's call.
 
 ### What wants the owner
 
-1. **Look at a case study** — the visible answer to their first-named complaint. Body text
-   now stops at 680px, so text-only sections leave the right of the column empty; that is
-   deliberate, and it is the thing most likely to read as unfinished.
-2. **`DECISION-010`** — keep the bento direction for the homepage? Blocks `MILESTONE-002`.
+1. **Look at a case study, and at the homepage.** The case studies answer their
+   first-named complaint. On the homepage, the three section headings were three different
+   sizes and are now one — that is the most visible thing SESSION-006 changed.
+2. **`DECISION-010`** — keep the bento direction? Blocks `MILESTONE-002`.
 3. **`DECISION-006`** — which placeholder slots stay stylised? Blocks the last 44 image
    slots and `MILESTONE-005`.
-4. **Real image exports**, and participation in the copy pass.
+4. **Real image exports**, and participation in the copy pass (`MILESTONE-004`).
 
 ## Objective
 
-**Consolidate the design system** — `ISSUE-023`, plus `ISSUE-011` and `ISSUE-021` while
-you are in there. This is the rest of `MILESTONE-007`'s unblocked half, and it maps to the
-owner's "design should be consistent overall".
+**Make the header correct at every width** — `ISSUE-016` and `ISSUE-028`.
 
-`MILESTONE-004` (the copy pass) is the higher priority the moment the owner is available;
-`DECISION-011` forbids inventing content, so it wants them in the room. Do that instead if
-they are.
+Both are about the same component, both are page-independent, and neither needs the owner.
+`ISSUE-016` has been `Investigating` since SESSION-001 and wants a measurement before a
+fix; `ISSUE-028` is measured already.
+
+`MILESTONE-004` (the copy pass) remains the higher priority the moment the owner is
+available. After the header, the largest unblocked piece left in `MILESTONE-007` is the
+accessibility block — marquee pause, contrast audit, heading order, touch targets,
+keyboard access to the process canvas, and an axe/Lighthouse run.
 
 ## Required Context
 
 Read **only** these:
 
-1. `docs/previous_session.md` — what just changed, and the harness bug it describes
-2. `docs/issues/issue_023.md` — the drift, with the five different h1 clamps listed
-3. `docs/issues/issue_011.md` (breakpoint order), `issue_021.md` (`stripLocale` duplicated)
-4. `docs/codebase/styling.md` — what the config actually defines and what is used instead
-5. `docs/milestones/milestone_007.md` — the milestone, and what is already ticked
-6. `docs/suggestions/suggestion_009.md` — the consolidation this implements
+1. `docs/previous_session.md` — what just changed, and the two measurement lessons in it
+2. `docs/issues/issue_016.md` — the suspected collision, with the arithmetic that suggested it
+3. `docs/issues/issue_028.md` — the German header at 320px, measured
+4. `docs/issues/issue_015.md` — the header's height is now published as `--header-h`;
+   anything that changes its height changes every anchor on the site
+5. `docs/codebase/styling.md` — the token scale and breakpoints as they now stand
+6. `docs/milestones/milestone_007.md` — what is ticked and what is left
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 
 ## Relevant Code
 
-- `tailwind.config.ts` — the named type scale (10 sizes, **0 uses**), the 17-colour
-  palette, and the `screens` order that makes `lg:` beat `nav:`
-- `src/index.css` — `.container-page`, defined and never used; the new `--header-h` /
-  `--anchor-offset` variables
-- The five page headings named in `issue_023.md`: `SelectedWork.tsx`, `About.tsx`,
-  `CaseStudyHero.tsx`, `CategoryPage.tsx` / `ProjectPage.tsx`, `PlaygroundIndex.tsx`
-- `src/components/Header.tsx` and `Footer.tsx` — the duplicated `stripLocale`
+- `src/components/Header.tsx` — the 72px row (wordmark · absolutely-centred `ModeSwitch` ·
+  nav/`MobileMenu`), the `sm:hidden` second row below 480px, and the `ResizeObserver` that
+  publishes `--header-h`
+- `src/components/ModeSwitch.tsx` — the centred control `ISSUE-016` is about
+- `src/components/MobileMenu.tsx` — the "Menu" / "Menü" button
+- `src/lib/dictionaries/{en,de}.ts` — `nav.*`, the labels that differ in length
 
 ## What To Do
 
-- **`ISSUE-023`** — decide the real scale from what the pages actually use, then move them
-  onto it. The config's names are a proposal, not scripture: if `text-case-title` does not
-  match any heading anyone wants, change the token rather than the page. Same for the raw
-  hexes (`#E4E7EE` in ~15 places against a `border` token of `#D7DAE0` — check which one
-  is the colour that should survive).
-- **`.container-page`** — adopt it, or delete it. ~20 hand-written repetitions of
-  `mx-auto max-w-[1440px] px-5 md:px-20` is the thing that made `ISSUE-026` hard to fix in
-  one place.
-- **`ISSUE-011`** — reorder `theme.screens` so `nav` sits after `lg`, and check nothing
-  depended on the old order.
-- **`ISSUE-021`** — move `stripLocale` into `src/lib/i18n.ts`.
-- Optional, if there is time: **`ISSUE-027`**, which is now diagnosed. Start by logging
-  every `record()` write with its key, value and stack through one reproduction.
+- **`ISSUE-016`** — measure first: the wordmark's right edge against the mode switch's left
+  edge, and the switch's right edge against the menu button's left edge, at 480 / 520 / 560
+  / 640 / 768 / 900 / 1024 / 1159px, in **both locales** (German is longer, which is what
+  `ISSUE-028` is). Then decide: does the switch move into the flex flow, shrink, or drop to
+  the second row at more widths?
+- **`ISSUE-028`** — the German header needs 359px of content at 320px. Fixing `ISSUE-016`
+  properly may fix this as a side effect; if not, decide whether 320px is supported at all
+  and write that down somewhere.
+- If the header's **height** changes at any width, re-measure anchor clearance — the
+  scroll offset is derived from it now.
 
 ## Constraints
 
 - **The repository is the source of truth.** Re-check `git status` and the branch first.
-- **This is a refactor: nothing should look different afterwards** unless a specific
-  inconsistency is being corrected on purpose. Screenshot before and after — numbers alone
-  will not catch a heading that changed size by 2px on one page.
+- **The header's height is load-bearing.** `--header-h` feeds `--anchor-offset`, which
+  positions every anchored section and the case-study rail. Changing the header's height,
+  or its markup, means re-running the anchor checks at 375px and 1440px.
 - **Do not break the two scroll hooks** (`DECISION-008`, `DECISION-013`), and leave
   `useScrollBehavior` alone unless you are taking on `ISSUE-027` deliberately.
-- `--header-h` and `--anchor-offset` are now load-bearing for every anchor and the
-  case-study rail. If the header's markup changes, re-measure at 375px and 1440px.
+- Use the tokens (`text-*` scale, `card-border`, `.container-page`) rather than adding new
+  literals — and **never name a font size after a colour token** (`styling.md` explains).
 - `prefers-reduced-motion` must keep producing a fully static, fully visible site.
 - Do not rewrite prose (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
 
 ## Verification
 
-Verify against the **production build** (`npm run build && npx vite preview`, then
+Against the **production build** (`npm run build && npx vite preview`, then
 `http://localhost:4173` — not `127.0.0.1`), in headless Chrome over the DevTools Protocol.
 
-**Use a cold load when you mean a cold load.** `Page.navigate` to a URL that differs only
-by its fragment does not reload the document; SESSION-005 lost time to measuring a stale
-page. Go via `about:blank` first.
+Two things SESSION-005 and SESSION-006 learned the hard way:
 
-For a refactor of this shape:
+- **Compare `scrollWidth` against `clientWidth`, not `window.innerWidth`** — `innerWidth`
+  includes the scrollbar and hides up to ~15px of overflow.
+- **Settle before measuring, and use a real cold load.** At 200ms a page can measure clean
+  and at 600ms not; and `Page.navigate` to a URL differing only by its fragment does not
+  reload the document (go via `about:blank`).
 
-- Screenshot every page at 375 / 768 / 1024 / 1440 before and after, and diff them by eye.
-  A token consolidation that changes nothing visually is the goal.
-- Computed styles for the five page headings at each width, before and after.
-- `document.documentElement.scrollWidth` vs `window.innerWidth` across those widths —
-  `ISSUE-026` is fixed and must stay fixed.
-- Anchored sections still clear the header by 31px at 375px and 1440px.
-- The case-study prev/next ring, scrolled end to end, with nothing left hidden.
+The suite to leave passing:
+
+- Element bounding boxes in the header — no overlap — at the widths listed above, in both
+  locales.
+- `scrollWidth` vs `clientWidth` across nine pages × twelve widths from 320px to 1920px.
+- Anchored sections clear the header at 375 / 480 / 768 / 1024 / 1440px (31px today).
+- The case-study prev/next ring with nothing left hidden; reduced motion clean.
+- Screenshots of the header at each width in both locales — overlap is easier to see than
+  to measure.
 
 ## Completion Criteria
 
-- One type scale, one palette, one container — and the pages look the same as before
-  except where a difference was corrected deliberately.
-- `theme.screens` is in ascending order and nothing regressed at 1160px or above.
-- `stripLocale` has one definition.
-- Both locales verified; reduced motion still fully static and fully visible.
+- No overlap in the header at any width, in either locale.
+- No page scrolls horizontally at any supported width — or 320px is documented as out of
+  scope.
+- Anchors still clear the header everywhere.
 - `npm run lint && npm run build` green; work committed.
 
 ## Required End-of-Session Updates
@@ -124,9 +124,8 @@ For a refactor of this shape:
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
 3. Update `docs/milestones/milestone_007.md` and `docs/milestones/index.md`.
 4. Record newly discovered issues / suggestions / decisions **only where genuinely
-   needed** — and if a token's value changes, say so in `docs/reference/design_tokens.md`,
-   which is the only copy of those values that is in version control.
-5. Create `docs/sessions/session_006.md` and add it to `docs/sessions/index.md`.
+   needed** — and if a token's value changes, say so in `docs/reference/design_tokens.md`.
+5. Create `docs/sessions/session_007.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.

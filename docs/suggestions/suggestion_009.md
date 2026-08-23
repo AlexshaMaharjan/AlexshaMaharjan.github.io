@@ -1,6 +1,6 @@
 # SUGGESTION-009 — Consolidate the design system
 
-Status: Proposed
+Status: **Mostly implemented** (SESSION-006, `2880697`) — points 1–3 done, point 4 open
 Priority: Medium
 Impact: High
 Effort: Medium
@@ -25,6 +25,24 @@ clamps and raw hex values instead (`ISSUE-023`).
    pill) and the CTA pill recur in 6+ files — extract them.
 
 Do this as one deliberate sweep, after the layout milestones, so pages are not swept twice.
+
+## What was actually built
+
+Points 1–3, in one sweep as advised, with a before/after screenshot and computed-style
+comparison (`ISSUE-023` carries the detail):
+
+1. **Type** — seven named display sizes, derived from the clamps in use rather than from
+   the config's unused proposal, applied at 24 call sites. Sizes only; line-height and
+   letter-spacing stay on the components for now.
+2. **Colour** — `card-border`, `border-muted` and `accent-on-dark` are tokens. The process
+   canvas's dark sub-palette was left as it is.
+3. **Container** — `.container-page` redefined to what the site actually uses, and adopted
+   at all 31 call sites.
+
+**Point 4 — the card and pill primitives — was not done.** `rounded-full border
+border-border px-3 py-[6px]` and the CTA pill still recur across six or more files. That is
+a component-extraction job rather than a token job, and it wants doing when someone is
+already editing those components.
 
 ## Why
 

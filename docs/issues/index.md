@@ -1,10 +1,11 @@
 # Issues Index
 
-27 issues. **11 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
-(`MILESTONE-003`), 2 in SESSION-005 (`MILESTONE-007`), and `ISSUE-025` by the owner — plus
-one partially resolved. 16 remain open, one of them `Investigating`. No `Critical` issue is
-open. `ISSUE-027` is open but **diagnosed**: SESSION-005 measured the real mechanism and
-rewrote the file, having found SESSION-004's description of it wrong.
+28 issues. **14 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+(`MILESTONE-003`), 2 in SESSION-005 and 3 in SESSION-006 (`MILESTONE-007`), and
+`ISSUE-025` by the owner — plus one partially resolved. 14 remain open, one of them
+`Investigating`. No `Critical` issue is open. `ISSUE-027` is open but **diagnosed**:
+SESSION-005 measured the real mechanism and rewrote the file, having found SESSION-004's
+description of it wrong.
 
 Read the summary column first; open a file only when you are going to act on it.
 
@@ -31,17 +32,15 @@ _None._
 | ISSUE-013 | No prerendering — crawlers see one English page | Open | Medium | Link previews and SEO are wrong on every route | `issue_013.md` |
 | ISSUE-016 | Header centre control may collide 480–1160px | Investigating | Medium | Needs browser measurement | `issue_016.md` |
 | ISSUE-019 | Oversized GSAP and case-study chunks | Open | Medium | 115 KB GSAP on every page; 121 KB for one case study | `issue_019.md` |
-| ISSUE-023 | Type scale and colour tokens bypassed | Open | Medium | Five different h1 clamps; named scale unused | `issue_023.md` |
 
 ## Active — Low
 
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
-| ISSUE-011 | `lg:` overrides `nav:` due to screens order | Open | Low | Latent; nothing broken yet | `issue_011.md` |
 | ISSUE-014 | `Seo` leaks description/OG between routes | Open | Low | Stale meta after navigation | `issue_014.md` |
 | ISSUE-020 | Lazy routes render a blank frame | Open | Low | `Suspense fallback={null}` | `issue_020.md` |
-| ISSUE-021 | `stripLocale` duplicated in Header and Footer | Open | Low | Should live in `lib/i18n.ts` | `issue_021.md` |
 | ISSUE-027 | Hash navigation after a route change restores an offset nobody chose | Open | Low | **Diagnosed, not fixed** — stale entry in the scroll-position map | `issue_027.md` |
+| ISSUE-028 | German header does not fit below ~360px | Open | Low | `/de/` scrolls sideways by 39px at 320px; pre-existing | `issue_028.md` |
 
 ## Resolved
 
@@ -64,6 +63,14 @@ And in SESSION-003 under `MILESTONE-003`:
 | ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
 | ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
 
+And in SESSION-006 under `MILESTONE-007`:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-023 | Type scale and colour tokens bypassed | `2880697` — seven named display sizes, three colour tokens, one container, all adopted | `issue_023.md` |
+| ISSUE-011 | `lg:` overrides `nav:` due to screens order | `2880697` — `theme.screens` in ascending order | `issue_011.md` |
+| ISSUE-021 | `stripLocale` duplicated in Header and Footer | `2880697` — one definition in `lib/i18n.ts` | `issue_021.md` |
+
 And in SESSION-005 under `MILESTONE-007`:
 
 | ID | Title | Resolved by | File |
@@ -85,6 +92,6 @@ And by the owner, outside a recorded session:
 - **MILESTONE-004** (copy pass): —
 - **MILESTONE-005** (imagery): 006, 007 (Playground + About slots)
 - **MILESTONE-006** (motion): 012, 020
-- **MILESTONE-007** (design system / responsive): 010, 011, 015 ✅, 016, 021, 023, 026 ✅, 027
+- **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016, 021 ✅, 023 ✅, 026 ✅, 027, 028
 - **MILESTONE-008** (perf / SEO / deploy): 013, 014, 019, 025 ✅
 - **MILESTONE-009** (German): 009

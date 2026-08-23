@@ -1,6 +1,7 @@
 # MILESTONE-007 — Design-system consistency, responsive and accessibility
 
-Status: In progress — `ISSUE-015` and `ISSUE-026` done (SESSION-005)
+Status: In progress — `ISSUE-015`/`ISSUE-026` (SESSION-005) and
+`ISSUE-023`/`ISSUE-011`/`ISSUE-021` (SESSION-006) done
 Priority: Medium
 Goal: Make six differently-built pages read as one designed site, at every viewport, for
 every visitor.
@@ -29,10 +30,10 @@ milestones so pages are not swept twice.
 - [ ] Adopt `.container-page` (or a `<Container>`); remove ~20 hand-written repetitions
 - [ ] Extract the tag-pill and CTA-pill primitives
 - [ ] **ISSUE-010** — remove whatever content fields are still dead after `MILESTONE-002`
-- [ ] **ISSUE-021** — move `stripLocale` into `src/lib/i18n.ts`
+- [x] **ISSUE-021** — `stripLocale` lives in `src/lib/i18n.ts` (SESSION-006)
 
 **Responsive (`SUGGESTION-010`)**
-- [ ] **ISSUE-011** — reorder `theme.screens`
+- [x] **ISSUE-011** — `theme.screens` is in ascending order (SESSION-006)
 - [ ] Settle one breakpoint story; document it in `ARCH-03`
 - [ ] Move `BentoGrid` off inline styles; delete the `!important` override
 - [ ] **ISSUE-016** — measure and fix the header at 480–1160px
@@ -43,6 +44,8 @@ milestones so pages are not swept twice.
 - [ ] **ISSUE-027** — a hash navigation after a client-side route change restores a stale
       scroll offset. **Diagnosed in SESSION-005**, three candidate fixes tried and
       reverted; the file now carries the measurements and where to start
+- [ ] **ISSUE-028** — the German header does not fit below ~360px (`/de/` scrolls sideways
+      by 39px at 320px). Pre-existing; decide first whether 320px is supported
 - [ ] Walk every page at 375 / 480 / 768 / 1024 / 1160 / 1440 / 1920
 
 `ISSUE-015` and `ISSUE-026` were taken first, in SESSION-005, being page-independent and
@@ -59,8 +62,8 @@ bug rather than an anchor bug, and was left diagnosed rather than half-fixed.
 
 ## Relevant Issues
 
-`ISSUE-010`, `ISSUE-011`, `ISSUE-015`, `ISSUE-016`, `ISSUE-021`, `ISSUE-023`,
-`ISSUE-026`, `ISSUE-027`
+`ISSUE-010`, `ISSUE-011` ✅, `ISSUE-015` ✅, `ISSUE-016`, `ISSUE-021` ✅, `ISSUE-023` ✅,
+`ISSUE-026` ✅, `ISSUE-027`, `ISSUE-028`
 
 ## Relevant Suggestions
 

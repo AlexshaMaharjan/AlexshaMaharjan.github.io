@@ -1,10 +1,17 @@
 # ISSUE-021 — `stripLocale` duplicated in Header and Footer
 
-Status: Open
+Status: **Resolved** (SESSION-006, `2880697`)
 Priority: Low
 Category: Technical debt
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Resolved: 2026-08-23 (SESSION-006)
+Last reviewed: 2026-08-23
+
+## Resolution
+
+`stripLocale` lives in `src/lib/i18n.ts` next to `localeHref`, whose inverse it is, and is
+imported by both `Header` and `Footer`. It is also no longer hard-coded to German: it
+strips whatever non-default locale it is given.
 
 ## Summary
 
