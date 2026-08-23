@@ -2,109 +2,129 @@
 
 ## Status
 
-`MILESTONE-001` is **complete** (SESSION-002). Navigation works, the repository is clean,
-and the roadmap is approved and under way.
+`MILESTONE-003` is **half complete** (SESSION-003). The case-study content model is in
+place and all six studies are migrated in both locales. The layout around that content is
+unchanged and is the other half.
 
-Two things need the owner before the next session can be fully planned — neither blocks
-starting:
+Two things want the owner, neither blocking:
 
-1. **The work sits on branch `milestone-001-stabilize`, not `master`.** Two commits,
-   `65f2b2d` and `92b63f4`. Merge it, or say where it should go.
-2. **`DECISION-010` — is the bento direction for the homepage being kept?** This is what
-   pushes `MILESTONE-002` behind `MILESTONE-003`; answering it reopens the choice.
+1. **`DECISION-010` — is the bento direction for the homepage being kept?** Still the
+   only thing blocking `MILESTONE-002`, and still unanswered since SESSION-002.
+2. **`DECISION-006` — which placeholder slots stay stylised?** Now the blocker on the
+   remaining 44 image slots (`ISSUE-007`), and on `MILESTONE-005` generally.
+
+Work sits on branch `milestone-003-content-model`, branched from `main`. `main` already
+carries everything through `413130b`, including the `MILESTONE-001` commits an earlier
+document wrongly described as unmerged — **check `git` before trusting any status in
+these files.**
 
 ## Objective
 
-Begin **`MILESTONE-003` — Case-study layout and content model.**
+Finish **`MILESTONE-003` — the case-study layout** (`SUGGESTION-003`, points 1, 2, 3
+and 5).
 
-`MILESTONE-002` (homepage "Selected Work") ranks higher on the roadmap but is blocked on
-`DECISION-010`, which only the owner can settle. `MILESTONE-003` has no blocker, is the
-owner's own first-named complaint ("case study description pages layout should be
-improved"), and unblocks `MILESTONE-004`.
+The content model was its blocker and is done: sections now carry sub-headings, lists,
+notes and figures as distinct things, so there is real hierarchy to lay out. This is the
+owner's first-named complaint and it is now unobstructed.
 
-Read `docs/milestones/milestone_003.md` and follow it.
-
-**Its own note says to consider splitting it across two sessions — do.** Take the content
-model first and the layout second; that keeps a green build at the end of each.
+Read `docs/milestones/milestone_003.md` — its task list is split into the part that is
+done and the part that is not.
 
 ## Required Context
 
 Read **only** these:
 
 1. `docs/previous_session.md` — what just changed and what it constrains
-2. `docs/milestones/milestone_003.md`
-3. `docs/issues/issue_024.md` (the block union), `issue_008.md`
-4. `docs/suggestions/suggestion_004.md` (model), `suggestion_003.md` (layout),
-   `suggestion_002.md` (figure sources)
-5. `docs/architecture/architecture_02.md` and `architecture_05.md` — content model and
-   images
-6. `docs/codebase/content_data.md` — where the six data files live
+2. `docs/milestones/milestone_003.md` — part two of the task list
+3. `docs/suggestions/suggestion_003.md` (the layout brief) — points 1, 2, 3 and 5 remain
+4. `docs/decisions/decision_014.md` (the block model and the departure from `SPEC` §9),
+   `decision_008.md` (the two coupled scroll hooks)
+5. `docs/architecture/architecture_02.md` — the block union, as built
+6. `docs/codebase/components.md` § Case study — the six components and their sizes
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 
 ## Relevant Code
 
-- `src/lib/caseStudies/types.ts` — where the block union goes
-- `src/lib/caseStudies/*.ts` — the six data files, **both locales in each**
-- `src/components/case-study/Section.tsx` — the single render path (`ISSUE-008`)
-- `src/components/case-study/ContentsNav.tsx` — active-section tracking
-- `CONTENT_GUIDE.md` §5 — its `body[n]` indices become invalid
+- `src/components/case-study/Section.tsx` — `BodyBlock` (per-kind treatment) and the
+  single section render path
+- `src/components/case-study/Figure.tsx` — the media component to build on; a `wide` or
+  full-bleed mode belongs here
+- `src/components/case-study/CaseStudyPage.tsx` — the rail + column grid, and where a
+  full-bleed figure has to escape `max-w-[960px]`
+- `src/components/case-study/ContentsNav.tsx` — active-section tracking and progress
+- `src/lib/caseStudies/types.ts` — `Block`, `SectionImage`
 
-## Relevant Issues
+## What To Do
 
-- `ISSUE-024` (High) — the section model cannot express sub-headings or lists
-- `ISSUE-008` (Medium) — first section lacks number, label and reveal
-- `ISSUE-007` (High) — figures have no source field
-
-## Relevant Suggestions
-
-`SUGGESTION-004`, `SUGGESTION-003`, `SUGGESTION-002`.
+- **Vary media width.** `Figure` supports one width today. Full-bleed and wide-two-up
+  treatments need the figure to break the 960px column, which means deciding where that
+  escape happens — inside `Figure`, or by moving `images[]` rendering outside the column.
+- **Differentiate the three set pieces.** The design-question callout, the insights 2-up
+  and the testing 3-up are near-identical bordered blocks today.
+- **Mark the active section in `ContentsNav`** and show progress. The rail is present but
+  passive.
+- **Strengthen the ending** before the prev/next cards.
+- **Fix the mid-width column.** At 768px the reading column is ~313px wide and at 1024px
+  ~569px, because the grid reserves 240px for a rail that is not visible there.
+- Consider whether `quote` earns its place in the union or should be deleted unused.
 
 ## Constraints
 
 - **The repository is the source of truth.** Re-check `git status` and the current branch
-  before acting — a stale snapshot in these documents is exactly what tripped SESSION-002.
+  before acting.
+- **Do not rewrite prose** (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
+- **Both locales must stay structurally identical, block for block.** Nothing enforces
+  this; the types catch a missing field, not a mismatched structure.
 - **Do not break the two scroll hooks.** `useScrollReveals` and `useScrollBehavior` are
-  coupled by effect ordering (`DECISION-008`, `DECISION-013`). Case-study sections carry
-  `data-inview`, so if `Section.tsx` changes which elements do, re-run the ring check.
-- **Any new `:param` route effect must not be mount-only** — route elements are still not
-  keyed by param (`ARCH-01`). That is what caused `ISSUE-001`.
-- German blocks must migrate alongside the English ones or the build breaks.
+  coupled by effect ordering (`DECISION-008`, `DECISION-013`). Every case-study section
+  now carries `data-inview`, including the first — if a change moves which elements do,
+  re-run the ring check.
+- **Any new `:param` route effect must not be mount-only** (`ARCH-01`, `ISSUE-001`).
 - `prefers-reduced-motion` must keep producing a fully static, fully visible site
   (`DECISION-008`).
-- Do not rewrite prose (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
+- If the layout diverges further from `design-reference/SPEC.md` §9, that is expected —
+  extend `DECISION-014` rather than opening a new decision.
+- If any case-study content or shape changes, rerun
+  `node scripts/content-guide-case-studies.mjs --write`.
 
 ## Verification
 
-SESSION-002 established that this project's defects hide from code reading. Verify in a
-browser, not by inspection.
+Verify in a browser against the **production build**, not by inspection and not only in
+dev — SESSION-002 found a bug that StrictMode's double-invoked effects hid.
 
-There is no browser automation in `package.json` and none is needed: headless Chrome can be
-driven over the DevTools Protocol with Node's built-in `WebSocket`. SESSION-002's scripts
-were scratch files and are gone, but the approach is a few dozen lines — launch
+There is no browser automation in `package.json` and none is needed: launch
 `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new
 --remote-debugging-port=…`, read `/json/list`, and drive `Page.navigate` /
-`Runtime.evaluate`. Test against the **production build** (`npm run build && npx vite
-preview`), not only the dev server: StrictMode's double-invoked effects hid a real bug in
-SESSION-002 and can equally hide one from dev-only testing.
+`Runtime.evaluate` over Node's built-in `WebSocket`. About 40 lines. Serve the build with
+`npm run build && npx vite preview` and use `http://localhost:4173` (not `127.0.0.1`).
+
+Two things SESSION-003 learned the slow way:
+
+- **Give reveals time to settle before measuring position.** A landing measured at 1800ms
+  after navigation read 16px off; at 2500ms it was exact. The tween moves the element
+  under a landing that has already been aimed.
+- **Screenshot as well as measure.** The block rendering was confirmed by numbers first,
+  but only a screenshot showed whether the result actually reads better.
 
 ## Completion Criteria
 
-Per `docs/milestones/milestone_003.md`:
-
-- Sub-headings and lists render as sub-headings and lists in all six studies, both locales.
-- Figures can carry real images; captions read as captions.
-- A case study reads with visible rhythm and hierarchy at 375 / 768 / 1024 / 1440.
-- `CONTENT_GUIDE.md` §5 matches the new structure.
+- A case study reads with visible rhythm and hierarchy at 375 / 768 / 1024 / 1440 — media
+  that varies in width, set pieces that look different from one another, an ending that
+  lands.
+- The contents rail shows where the reader is.
+- Both locales verified; reduced motion still fully static and fully visible.
 - `npm run lint && npm run build` green; work committed.
 
 ## Required End-of-Session Updates
 
 1. Update the documentation whose information actually changed.
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
-3. Update the milestone document and `docs/milestones/index.md`.
-4. Record newly discovered issues / suggestions / decisions **only where genuinely needed**.
-5. Create `docs/sessions/session_003.md` and add it to `docs/sessions/index.md`.
+3. Update `docs/milestones/milestone_003.md` and `docs/milestones/index.md` — closing the
+   milestone if the layout half is genuinely done.
+4. Record newly discovered issues / suggestions / decisions **only where genuinely
+   needed**.
+5. Create `docs/sessions/session_004.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.

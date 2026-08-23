@@ -43,11 +43,12 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 
 | File | Lines | Controls |
 | --- | --- | --- |
-| `CaseStudyPage.tsx` | 47 | assembles hero → facts → `240px` rail + `960px` column → next-project nav |
+| `CaseStudyPage.tsx` | 44 | assembles hero → facts → `240px` rail + `960px` column → next-project nav. Maps every section through `Section`, `first` on index 0 |
 | `CaseStudyHero.tsx` | 56 | back link, eyebrow, h1, summary, optional disclosure, tags, hero image or placeholder |
 | `FactsStrip.tsx` | 34 | `<dl>` of Role/Contribution/Type/Year/Tools/Deliverables, empties filtered out |
 | `ContentsNav.tsx` | 40 | sticky desktop rail + mobile `<details>` |
-| `Section.tsx` | 88 | one section: heading, body paragraphs, `designQuestion` box, `insights` 2-up, `testing` 3-up, `images` grid. The `first` section renders **without** its number/nav label and without `data-inview` — `ISSUE-008` |
+| `Section.tsx` | 152 | one section: number + nav label, heading, `body[]` blocks, `designQuestion` box, `insights` 2-up, `testing` 3-up, `images` grid. One render path for every section; `first` varies only the top margin. `BodyBlock` switches on the block kind — paragraph / `h3` / `list` / `quote` / `note` / `figure` (`DECISION-014`) |
+| `Figure.tsx` | 43 | one image slot: real `<img>` + `<figcaption>` when `src` is set, hatched `PlaceholderImage` with its `[ bracketed label ]` when it is not |
 | `NextProjectNav.tsx` | 52 | prev/next preview cards + "View all work" |
 
 ## Playground (`src/components/playground/`)

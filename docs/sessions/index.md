@@ -6,6 +6,7 @@ One document per working session. Chronological; IDs are permanent.
 | --- | --- | --- | --- | --- | --- |
 | SESSION-001 | 2026-08-22 | — (initialization) | Full repository analysis; establish the `docs/` system | Complete | `session_001.md` |
 | SESSION-002 | 2026-08-22 | MILESTONE-001 | Fix the three navigation defects; clean the repository | Complete | `session_002.md` |
+| SESSION-003 | 2026-08-23 | MILESTONE-003 | Case-study content model: blocks instead of `string[]`, all six studies migrated | Complete | `session_003.md` |
 
 ## Conventions
 

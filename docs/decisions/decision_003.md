@@ -31,7 +31,9 @@ a headless CMS (overhead unjustified for a single author).
 
 - Every copy edit is a code edit and a rebuild.
 - Content structure is constrained by the types — which is exactly the limitation behind
-  `ISSUE-024`: `body: string[]` cannot express sub-headings or lists.
+  `ISSUE-024`: `body: string[]` could not express sub-headings or lists. Fixed in
+  SESSION-003 by making it a `Block[]` union (`DECISION-014`) — within the typed-module
+  approach, not by abandoning it.
 - All six case studies are statically imported into one registry, so they cannot be
   code-split (`ISSUE-019`).
 - `CONTENT_GUIDE.md` must be regenerated whenever the shape changes, or it misleads.

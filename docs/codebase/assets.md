@@ -27,12 +27,18 @@ them with zero code change.**
 Filenames are opaque design-tool hashes. Consider renaming when real exports land (this
 requires editing the `src` strings in `src/lib/**`).
 
-## The ~115 slots with no file at all
+## The ~115 slots with no file yet
 
-Case-study `sections[].images[]` (71), About `carouselItems[]` (8) and every playground
-`PlaygroundItem` (36) render `PlaceholderImage` because their types carry no `src`.
-Attaching real photos requires a type + call-site change — `ISSUE-007`,
-`SUGGESTION-002`. `CONTENT_GUIDE.md` §10.4 enumerates every slot with its caption.
+- **Case studies — 71 slots, mechanism ready.** Since SESSION-003, `sections[].images[]`
+  takes an optional `src`/`alt` and `case-study/Figure.tsx` renders a real image with a
+  caption when one is set, the hatched placeholder when not (`DECISION-014`). Dropping a
+  photo in is now a data edit.
+- **About `carouselItems[]` (8) and every `PlaygroundItem` (36) — 44 slots, no
+  mechanism.** Their types still carry no `src`, so a real photo needs a type + call-site
+  change — `ISSUE-007`, `SUGGESTION-002`. For the Playground, whether they *should* is
+  still `DECISION-006`'s open question.
+
+`CONTENT_GUIDE.md` §10.4 enumerates every slot with its caption.
 
 ## Missing entirely
 

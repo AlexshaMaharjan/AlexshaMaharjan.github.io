@@ -12,12 +12,13 @@
 | `tailwind.config.ts` | design tokens — see `styling.md` | |
 | `index.html` | single entry; **static EN meta + OG tags live here** | not per-locale, `ISSUE-013` |
 | `.gitignore` | node_modules, dist, `/.next`, .DS_Store, `*.tsbuildinfo`, `design-reference/` | complete; `ISSUE-018` resolved |
+| `scripts/content-guide-case-studies.mjs` | regenerates `CONTENT_GUIDE.md` §5 from the case-study data | `node scripts/content-guide-case-studies.mjs --write`; bundles the TS with esbuild (a vite dependency), not wired into `npm run` |
 
 ## Repo-root documents (not code)
 
 | File | Role |
 | --- | --- |
-| `CONTENT_GUIDE.md` (93 KB, 1355 lines) | every editable text field and image slot with its exact source path; the intended copy-editing surface |
+| `CONTENT_GUIDE.md` (~1855 lines) | every editable text field and image slot with its exact source path; the intended copy-editing surface. §5 is generated — see `scripts/` above |
 | `ROADMAP.md` (2.9 KB) | the owner's content/asset roadmap — phases: EN content → images → animation → German |
 | `design-reference/` | **gitignored.** `SPEC.md` (439 lines, condensed implementation spec), `master-prompt.md` (5095 lines, the design brief), and 16 `.dc.html` coded reference designs — the authoritative visual source |
 | `public/images/MANIFEST.md` | real vs stand-in image status |

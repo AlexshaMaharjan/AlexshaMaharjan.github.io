@@ -1,7 +1,8 @@
 # Issues Index
 
-25 issues. **6 resolved** in SESSION-002 (`MILESTONE-001`); 19 remain open, one of them
-`Investigating`. No `Critical` issue is open.
+25 issues. **9 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+(`MILESTONE-003`), and `ISSUE-025` by the owner — plus one partially resolved. 16 remain
+open, one of them `Investigating`. No `Critical` issue is open.
 
 Read the summary column first; open a file only when you are going to act on it.
 
@@ -16,14 +17,12 @@ _None._
 | ISSUE-004 | Homepage work grid has no imagery, duplicates projects | Open | High | 11 grey tiles for 6 projects, no images or copy | `issue_004.md` |
 | ISSUE-005 | Work grid is hard-coded English | Open | High | German homepage shows English tiles | `issue_005.md` |
 | ISSUE-006 | 5 of 7 wired images are colour stand-ins | Open | High | Portrait + 4 case-study heroes are flat blocks | `issue_006.md` |
-| ISSUE-007 | ~115 image slots have no source field | Open | High | Real photos cannot be attached without a type change | `issue_007.md` |
-| ISSUE-024 | Section model can't express sub-headings or lists | Open | High | Case studies read as walls of text | `issue_024.md` |
+| ISSUE-007 | ~115 image slots have no source field | **Partially resolved** | High | 71 case-study slots take a `src` now; 44 Playground/About slots do not | `issue_007.md` |
 
 ## Active — Medium
 
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
-| ISSUE-008 | First case-study section lacks number, label, reveal | Open | Medium | Inconsistent section treatment | `issue_008.md` |
 | ISSUE-009 | German gaps: 3 untranslated fields + 1 missing | Open | Medium | Visible English on the DE About page | `issue_009.md` |
 | ISSUE-010 | Dead fields across the content types | Open | Medium | ~12 typed fields read by nothing | `issue_010.md` |
 | ISSUE-012 | Process canvas rAF loop never idles | Open | Medium | Continuous per-frame style writes on desktop | `issue_012.md` |
@@ -41,7 +40,6 @@ _None._
 | ISSUE-015 | Anchor offset wrong under the taller mobile header | Open | Low | **Confirmed**: 146px header vs 104px offset — 42px hidden below 480px | `issue_015.md` |
 | ISSUE-020 | Lazy routes render a blank frame | Open | Low | `Suspense fallback={null}` | `issue_020.md` |
 | ISSUE-021 | `stripLocale` duplicated in Header and Footer | Open | Low | Should live in `lib/i18n.ts` | `issue_021.md` |
-| ISSUE-025 | No deployment configuration | Open | Low | Netlify and GH-Pages hints, neither configured | `issue_025.md` |
 
 ## Resolved
 
@@ -57,14 +55,27 @@ production build rather than by code reading.
 | ISSUE-018 | Next.js leftovers | `.next/`, `tsconfig.tsbuildinfo`, `NewHomePage/` deleted after inspection | `issue_018.md` |
 | ISSUE-022 | `/contact` redirects to a hash that doesn't scroll | Resolved automatically by `ISSUE-002`, then verified | `issue_022.md` |
 
+And in SESSION-003 under `MILESTONE-003`:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
+| ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
+
+And by the owner, outside a recorded session:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-025 | No deployment configuration | `f8df707`/`7332ad8`/`11930a6` — GitHub Pages via `npm run deploy` (`gh-pages`) | `issue_025.md` |
+
 ## Grouped by milestone
 
 - **MILESTONE-001** (stabilize): 001, 002, 003, 017, 018, 022 — **all resolved**
 - **MILESTONE-002** (work section): 004, 005
-- **MILESTONE-003** (case-study redesign): 008, 024
-- **MILESTONE-004** (copy pass): 024
-- **MILESTONE-005** (imagery): 006, 007
+- **MILESTONE-003** (case-study redesign): 008 ✅, 024 ✅, 007 (case-study half ✅)
+- **MILESTONE-004** (copy pass): —
+- **MILESTONE-005** (imagery): 006, 007 (Playground + About slots)
 - **MILESTONE-006** (motion): 012, 020
 - **MILESTONE-007** (design system / responsive): 010, 011, 015, 016, 021, 023
-- **MILESTONE-008** (perf / SEO / deploy): 013, 014, 019, 025
+- **MILESTONE-008** (perf / SEO / deploy): 013, 014, 019, 025 ✅
 - **MILESTONE-009** (German): 009

@@ -1,6 +1,6 @@
 # SUGGESTION-003 — Redesign the case-study reading experience
 
-Status: Proposed
+Status: **Partially implemented** (SESSION-003) — points 4 and 6 done, 1/2/3/5 open
 Priority: High
 Impact: High
 Effort: Large
@@ -29,8 +29,12 @@ Treat it as an editorial layout, not a document:
    cards; a deliberate outcome/reflection treatment would land the work better.
 6. **Establish a figure component** with caption, credit and optional full-bleed mode.
 
-This depends on `ISSUE-024` — the layout cannot improve much while sub-headings and lists
-are stored as plain paragraphs.
+This depended on `ISSUE-024` — the layout could not improve much while sub-headings and
+lists were stored as plain paragraphs. **That dependency is now met** (SESSION-003):
+point 4 (`ISSUE-008`) and point 6 (the `Figure` component) are done, and sections now
+have real internal hierarchy to lay out. Points 1, 2, 3 and 5 — varied media width,
+differentiated block treatments, reading progress in the rail, and a stronger ending —
+are the remaining half of `MILESTONE-003`.
 
 ## Why
 

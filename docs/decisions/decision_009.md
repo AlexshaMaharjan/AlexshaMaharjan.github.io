@@ -37,8 +37,10 @@ second row, a standalone `/contact` page and a fuller About outline).
 
 ## Deliberate departures so far
 
-None recorded. If a milestone knowingly diverges from the reference — and
-`SUGGESTION-003` proposes exactly that for case studies — record it as a new decision.
+- **`DECISION-014`** (SESSION-003) — the case-study reading column. Sub-headings, bullet
+  lists and bordered notes now render as themselves rather than as the reference's
+  uniform paragraph column. The rest of `SUGGESTION-003`'s layout changes are still
+  ahead, and belong under the same decision.
 
 ## Relevant Files
 

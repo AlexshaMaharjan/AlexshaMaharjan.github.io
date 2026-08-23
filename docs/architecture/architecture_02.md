@@ -39,7 +39,26 @@ A case study is `CaseStudyContent`: identity fields (`slug`, `name`, `headline`,
 `summary`, `tags`), a facts block (`role`, `contribution`, `type`, `year`, `tools`,
 `deliverables`) rendered by `FactsStrip`, one `heroImage`, and an ordered
 `sections[]`. Each `CaseStudySection` has `id` / `navLabel` / `number` / `heading` plus
-optional `body: string[]`, `designQuestion`, `insights[]`, `testing[]`, `images[]`.
+optional `body: Block[]`, `designQuestion`, `insights[]`, `testing[]`, `images[]`.
+
+`Block` is a discriminated union (`DECISION-014`):
+
+```
+string                                        // shorthand: a paragraph
+{ kind: "h3";    text }                       // sub-heading
+{ kind: "list";  items[]; ordered? }
+{ kind: "quote"; text; attribution? }         // implemented, unused
+{ kind: "note";  text }                       // disclosures, stats lines
+{ kind: "figure"; …SectionImage }             // implemented, unused
+```
+
+`Section.tsx` switches on the kind. Today the six studies use 224 paragraphs, 38
+sub-headings, 22 lists and 8 notes, and **both locales are structurally identical block
+for block** — nothing enforces that beyond review, so a restructure has to touch `en`
+and `de` together.
+
+`SectionImage` is `{ aspect, caption, src?, alt? }`. With a `src` the slot renders a real
+image and a caption; without one it stays a hatched placeholder.
 
 Playground content is thinner: `PlaygroundItem` is `{ caption, aspect, slug?, rotated?,
 subtitle?, description? }` — caption + aspect ratio only, no image source.
@@ -57,15 +76,18 @@ six (both locales) land in one chunk.
   TypeScript fails the build. This is deliberate: it makes missing translations a
   compile error.
 - `CONTENT_GUIDE.md` at the repo root mirrors every field with its exact path and is the
-  intended editing surface for copy work — see `docs/reference/index.md`.
+  intended editing surface for copy work — see `docs/reference/index.md`. Its §5 (the six
+  case studies) is **generated** from these modules by
+  `scripts/content-guide-case-studies.mjs --write`; rerun it after any content or shape
+  change or the guide's `body[n]` indices will lie.
 
 ## Known weaknesses
 
-- `SectionImage`, `PlaygroundItem` and `about.carouselItems[]` carry **no image source
-  field**, so ~115 image slots can only ever render as placeholders — `ISSUE-007`.
-- `CaseStudySection.body` is a flat `string[]`; sub-headings and bullet lists are being
-  smuggled in as ordinary paragraphs (e.g. `wikimind.ts` "direction" section) and render
-  as body text — `ISSUE-024`.
+- `PlaygroundItem` and `about.carouselItems[]` still carry **no image source field**, so
+  44 image slots can only render as placeholders — `ISSUE-007`. `SectionImage` (the 71
+  case-study slots) was fixed in SESSION-003.
+- ~~`CaseStudySection.body` is a flat `string[]`~~ — **resolved in SESSION-003**
+  (`ISSUE-024`); it is a `Block[]` now.
 - Several typed fields are now dead: `ProjectCopy.projectTag`/`placeholderLabel`/
   `imageAspect`/`headline`/`description`, `selectedWork.viewCaseStudy`/`projectLabel`,
   `PlaygroundHomeContent.gallery`/`galleryHeading`/`noteHeading`/`returnHeading`,
@@ -78,7 +100,7 @@ six (both locales) land in one chunk.
 ## Related decisions
 
 `DECISION-003` (typed TS modules over CMS/MDX), `DECISION-002`, `DECISION-011` (copy
-honesty constraint).
+honesty constraint), `DECISION-014` (the block model).
 
 ## Related issues
 

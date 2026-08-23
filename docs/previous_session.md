@@ -1,74 +1,83 @@
 # Previous Session
 
-Session: SESSION-002
-Milestone: MILESTONE-001 — Stabilize the current implementation
-Objective: Fix the three navigation defects that made real journeys unusable, and put the
-repository on a clean footing. Repair only.
-Outcome: **Complete.** All six issues resolved and verified in a browser.
+Session: SESSION-003
+Milestone: MILESTONE-003 — Case-study layout and content model (part one of two)
+Objective: Replace the case-study section model with a block model, migrate all six
+studies in both locales, and regenerate the content guide. Structure only — no rewriting,
+no layout.
+Outcome: **Complete for the content model.** `ISSUE-024` and `ISSUE-008` resolved,
+`ISSUE-007` half resolved. Layout is the next session.
 
 ## What Changed
 
-The site's navigation now works. Before this session, every one of these was broken:
+Case-study sections can express their own structure now. `body[]` holds blocks instead of
+strings, and `Section.tsx` gives each kind its own treatment:
 
-| Journey | Before | After |
+| Content | Before | After |
 | --- | --- | --- |
-| "Next project" between case studies | 1–2 whole sections permanently invisible per hop, arriving ~8000–9500px down the new page | arrives at the top, every section reveals on scroll |
-| `#work` / `#about` / `#contact` from any page | landed at the top of the homepage | lands on the section, 104px below the header |
-| Same-page hash click (e.g. "Contact" on the homepage) | nothing happened | scrolls smoothly to the section |
-| Any route change from a long page | opened mid-scroll | starts at the top |
-| Browser back | position lost | position restored |
-| Cold load of `/#work`, `/#contact`, `/contact` | no scroll at all | lands on the section |
+| 38 sub-headings | 18px body paragraphs, no emphasis | 21px/600 sub-headings with their own spacing |
+| 22 lists (one numbered) | consecutive one-line paragraphs | `<ul>`/`<ol>` with accent markers |
+| 8 disclosures and stats lines | indistinguishable from prose | bordered `note` boxes |
+| 71 figure slots | could never hold an image | optional `src`/`alt`; real image + caption when set |
+| First section | no number, no nav label, no reveal | same treatment as every other section |
+| `CONTENT_GUIDE.md` §5 | WikiMind in full, five studies summarised | all six generated from the data |
 
-Two new/rewritten hooks in `src/lib/`, one call added to `RootLayout`, and four CSS lines
-removed. Nothing visual, textual or structural was changed.
+**No wording changed.** Every string is the one that was there before, moved into the
+shape it was always meant to have. The copy pass is `MILESTONE-004`.
+
+A bare string is still accepted as a paragraph, so the model is additive — nothing in the
+data *had* to change, which is why both locales could move together in one pass.
 
 ## Files Changed
 
 | File | Change |
 | --- | --- |
-| `src/lib/useScrollBehavior.ts` | new — all scroll side effects of a navigation |
-| `src/lib/useScrollReveals.ts` | rewritten — effects keyed on pathname; owns its at-rest state |
-| `src/components/RootLayout.tsx` | one hook call |
-| `src/index.css` | `[data-inview]` at-rest rules removed |
-| `.next/`, `tsconfig.tsbuildinfo`, `NewHomePage/` | deleted (ignored/untracked, so no commit) |
+| `src/lib/caseStudies/types.ts` | `Block` union; `SectionImage` takes optional `src`/`alt` |
+| `src/components/case-study/Section.tsx` | `BodyBlock` switch on kind; one render path for all sections |
+| `src/components/case-study/Figure.tsx` | new — real image + caption, or the hatched placeholder |
+| `src/components/case-study/CaseStudyPage.tsx` | maps all sections through `Section`; wrapper `id` removed |
+| the six `src/lib/caseStudies/*.ts` | migrated, both locales |
+| `scripts/content-guide-case-studies.mjs` | new — generates `CONTENT_GUIDE.md` §5 |
+| `CONTENT_GUIDE.md` | §5 regenerated; §10.4 and the summary corrected |
 
-Committed as `65f2b2d` and `92b63f4` on branch **`milestone-001-stabilize`** — branched
-rather than committed to `master`, which is the default branch. Merging is the owner's call.
+Committed on branch **`milestone-003-content-model`**, branched from `main`.
 
 ## Decisions Made
 
-- **`DECISION-013`** — hand-rolled scroll behaviour rather than react-router's
-  `<ScrollRestoration />`, whose hash branch cannot see a lazy page and whose scroll
-  inherits the CSS smooth behaviour.
-- **`DECISION-008` amended** — its CSS `opacity: 0` guard is gone, and the effect-ordering
-  contract between the two hooks is recorded there.
+- **`DECISION-014`** — the block model; the `note` kind added beyond `SUGGESTION-004`;
+  the knowing departure from `SPEC` §9 that `DECISION-009` asked to have recorded; and the
+  rule that a caption is rendered only where a real image exists, so a placeholder keeps
+  its `[ bracketed label ]` and gains nothing underneath.
 
 ## Validation
 
-- `npm run lint` — 0 errors, the same 3 pre-existing warnings
-- `npm run build` — green, ~0.9s
-- Headless Chrome over the DevTools Protocol against the **production build**, at 1440px
-  and 390px, both locales, with and without `prefers-reduced-motion`. Every journey in the
-  table above was measured, not eyeballed. Numbers are in
-  `docs/milestones/milestone_001.md`.
-- Under reduced motion, no `[data-inview]` element is ever hidden — the site stays fully
-  static and fully visible, as `DECISION-008` requires.
+- `npm run lint` — 0 errors, the same 3 pre-existing warnings.
+- `npm run build` — green, ~0.8s.
+- Headless Chrome over the DevTools Protocol against the **production build**: both
+  locales × six studies (block counts identical between `en` and `de`, no duplicate ids,
+  every section with its eyebrow and reveal), computed styles for headings/lists,
+  375/768/1024/1440 with no horizontal overflow, the full prev/next ring with nothing left
+  hidden and every hop landing at the top, cold hash landings at exactly 104px in both
+  motion modes, and nothing hidden under `prefers-reduced-motion`.
+- The `Figure` `src` path was proved with a real file wired in temporarily and then
+  reverted — no unused file in `public/images/` is a real export.
 
 ## Remaining Concerns
 
-- **`ISSUE-015` is now confirmed, not fixed.** Measured: the mobile header is 146px against
-  a 104px `scroll-margin-top`, so 42px of an anchored section hides behind it at every
-  width below 480px. Out of scope here (design system); it belongs to `MILESTONE-007`.
-- **New mount-only effects in `:param` routes will repeat `ISSUE-001`.** Route elements are
-  still not keyed by param — the fix was to key the affected hooks' effects on the
-  pathname. `ARCH-01` records this.
-- **The two hooks are coupled by effect ordering** — at-rest state in a layout effect,
-  triggers in a passive effect, scroll reset in the parent's layout effect between them.
-  Changing either hook's effect *kind* will break the other. Recorded in `DECISION-008`.
-- Nothing about content, imagery or layout improved; the site is still visually unfinished.
-- The decisions listed under `docs/decisions/index.md` → "Needing an owner decision" are
-  still blocking, and `DECISION-010` now blocks the highest-priority remaining milestone.
+- **The page layout is untouched** — same 240px rail, same 960px column. Sections have
+  internal hierarchy; the composition around them does not. That is part two.
+- **The reading column is ~313px wide at 768px and ~569px at 1024px**, because the grid
+  reserves the rail's 240px at widths where the rail itself is not visible. Pre-existing;
+  fix it in the layout half.
+- **Nothing enforces that `en` and `de` stay structurally identical.** They are today,
+  block for block; the types catch a missing field, not a mismatched structure.
+- `quote` and `figure` block kinds are implemented and unused.
+- `ISSUE-007` is half done — 44 Playground/About slots still have no source field, and
+  that half needs `DECISION-006` answered.
+- The documents were stale at the start of this session: `MILESTONE-001` had already been
+  merged to `main`, along with three deployment commits and a résumé edit the docs had
+  never recorded. Re-checking `git` first is still the right habit.
 
 ## Detailed Session Record
 
-See `docs/sessions/session_002.md`.
+See `docs/sessions/session_003.md`.

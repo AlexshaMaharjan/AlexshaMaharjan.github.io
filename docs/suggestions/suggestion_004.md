@@ -1,9 +1,9 @@
 # SUGGESTION-004 — Replace `body: string[]` with a typed block model
 
-Status: Proposed
+Status: **Implemented** (SESSION-003, `e844ad9`)
 Priority: High
 Impact: High
-Effort: Medium
+Effort: Medium — actual: about half a session, migration included
 
 ## Problem / Opportunity
 
@@ -50,6 +50,18 @@ None technically; do it before the copy pass.
 
 `CONTENT_GUIDE.md` indexes every entry as `body[0]`, `body[1]`… Restructuring invalidates
 those labels, so the guide needs regenerating in the same pass or it will mislead.
+
+## What was actually built
+
+As recommended, plus a `note` kind (`{ kind: "note", text }`) for the disclosure and
+stats lines that were also being carried as paragraphs — the AI-persona label in
+`sync-fm`, the simulation caveat in `barrier-free-kitchen`, and QIS's stats and
+"2026 iteration" lines. `quote` and `figure` are implemented but unused so far.
+
+Migration did not need to be incremental: because only the shape changed and no wording
+did, all six studies moved in both locales in one pass. The `CONTENT_GUIDE.md` risk
+below was handled by generating §5 from the data
+(`scripts/content-guide-case-studies.mjs`) instead of maintaining it by hand.
 
 ## Related Issues
 

@@ -1,10 +1,11 @@
 # ISSUE-024 — Case-study section model cannot express sub-headings or lists
 
-Status: Open
+Status: **Resolved** (SESSION-003, `e844ad9`)
 Priority: High
 Category: Content architecture / UI/UX
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Resolved: 2026-08-23 (SESSION-003)
+Last reviewed: 2026-08-23
 
 ## Summary
 
@@ -61,10 +62,32 @@ content into the new shape as part of the copy pass.
 Migrating the data is the bulk of the work: ~580 content fields across six files × two
 locales. Do English first (`MILESTONE-004`), German after (`MILESTONE-009`).
 
+## Resolution
+
+`src/lib/caseStudies/types.ts` now defines a `Block` union — a bare string (paragraph
+shorthand), or `{ kind: "h3" | "list" | "quote" | "note" | "figure" }` — and
+`Section.tsx` gives each kind its own treatment. `note` was added beyond
+`SUGGESTION-004`'s list for the disclosure and stats lines that were also being smuggled
+in as paragraphs (`DECISION-014`).
+
+All six case studies were migrated in **both** locales in the same pass rather than
+incrementally: 38 sub-headings, 22 lists (one of them numbered) and 8 notes now come out
+of the paragraph stream. Both locales came out structurally identical, block for block.
+No wording changed — this was re-cutting, not rewriting; the copy pass is
+`MILESTONE-004`.
+
+Verified in headless Chrome against the production build, both locales, at
+375/768/1024/1440: sub-headings render at 21px/600 against 18px/400 body, lists render
+with accent markers, the numbered list renders as `decimal`.
+
+The estimate in "Possible Solution" above (~580 fields, English first and German later)
+turned out not to apply: the strings themselves did not need touching, so both locales
+could move together.
+
 ## Dependencies
 
-Prerequisite for a meaningful case-study redesign (`MILESTONE-003`) and for the copy pass
-(`MILESTONE-004`).
+Was a prerequisite for the case-study redesign (`MILESTONE-003`, layout half still open)
+and for the copy pass (`MILESTONE-004`).
 
 ## Related
 

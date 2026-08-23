@@ -1,6 +1,6 @@
 # MILESTONE-004 — English content pass
 
-Status: Proposed
+Status: Proposed — **unblocked** since SESSION-003 (the block model landed)
 Priority: High
 Goal: Make the writing sound like a person talking about their work — and remove what does
 not earn its place.

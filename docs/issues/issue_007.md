@@ -1,10 +1,10 @@
 # ISSUE-007 — ~115 image slots have no image mechanism in the data model
 
-Status: Open
+Status: **Partially resolved** (SESSION-003, `e844ad9`) — case studies done, 44 slots left
 Priority: High
 Category: Architecture / Content
 Discovered: 2026-08-22 (documented earlier in `CONTENT_GUIDE.md` §10.4)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-23
 
 ## Summary
 
@@ -22,6 +22,21 @@ code change, not a content edit.
   `PlaygroundIndex.tsx`. **36 slots**.
 - `src/lib/dictionaries/types.ts` → `about.carouselItems: { alt, caption }[]`. Consumed by
   `src/pages/About.tsx:164`. **8 slots**.
+
+## Progress
+
+**The 71 case-study slots are done.** `SectionImage` now carries optional `src` and
+`alt`, and a new `src/components/case-study/Figure.tsx` renders a real `<img>` with a
+readable caption when `src` is set, falling back to `PlaceholderImage` when it is not.
+Attaching a photo to a case-study figure is now a one-line data edit; verified in the
+browser with a real file wired temporarily into WikiMind's `direction` section (image
+loaded, caption read "moodboard", the other four slots stayed placeholders) and then
+reverted, since none of the spare files in `public/images/` is a real export.
+
+**Still open: 44 slots** — `PlaygroundItem` (36) and `about.carouselItems[]` (8). Both
+still carry caption + aspect only. The Playground ones are also the slots where the
+placeholder may be a deliberate choice rather than a gap (`DECISION-006`), so they need
+the owner's answer before the type changes.
 
 ## Expected Behavior
 

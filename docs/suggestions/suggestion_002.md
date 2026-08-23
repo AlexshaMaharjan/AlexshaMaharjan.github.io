@@ -1,6 +1,6 @@
 # SUGGESTION-002 — Give every image slot an optional real source
 
-Status: Proposed
+Status: **Partially implemented** (SESSION-003, `e844ad9`) — case studies only
 Priority: High
 Impact: High
 Effort: Small
@@ -45,6 +45,20 @@ None. Should land before any bulk image work.
 
 Minimal. Watch that the Playground keeps its intentional placeholder aesthetic where it
 is a design choice rather than a gap.
+
+## What was actually built
+
+`SectionImage` took the `src?` / `alt?` fields and `src/components/case-study/Figure.tsx`
+is the shared component, used by both `section.images[]` and the (as yet unused) `figure`
+block kind. `PlaygroundItem` and `about.carouselItems[]` were left alone: they are
+outside `MILESTONE-003`, and the Playground is exactly where the placeholder may be a
+deliberate choice rather than a gap, which is still `DECISION-006`'s open question for
+the owner.
+
+One departure: `Figure` shows a caption **only** when a real `src` exists. A placeholder
+keeps its `[ bracketed label ]` inside the hatched box, and repeating it underneath as a
+caption would say the same thing twice — the bracket is the site's signal that no asset
+exists yet (`DECISION-014`).
 
 ## Related Issues
 

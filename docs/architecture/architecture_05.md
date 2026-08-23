@@ -45,11 +45,21 @@ with the **same filename** fixes them with no code change.
 
 9 further PNGs sit in `public/images/` referenced by nothing.
 
-### Where no image mechanism exists at all (~115 slots)
+### Case-study figures — a real source is now a data edit (71 slots)
 
-`SectionImage` (case studies, 71 slots), `PlaygroundItem` (36 slots) and
-`about.carouselItems[]` (8 slots) carry only `caption` + `aspect`. Attaching a real photo
-requires a **type change plus a call-site change**, not just a data edit — `ISSUE-007`.
+Since SESSION-003, `SectionImage` is `{ aspect, caption, src?, alt? }` and
+`src/components/case-study/Figure.tsx` decides what to render: `Image` plus a
+`<figcaption>` when `src` is set, `PlaceholderImage` with its `[ bracketed label ]` when
+it is not (`DECISION-014`). All 71 slots still show placeholders today, but filling one
+needs only a line in the data file. `Figure` is also what the `figure` block kind renders,
+so a figure can sit inline in `body[]` rather than only in the trailing `images[]` grid.
+
+### Where no image mechanism exists at all (44 slots)
+
+`PlaygroundItem` (36 slots) and `about.carouselItems[]` (8 slots) carry only `caption` +
+`aspect`. Attaching a real photo there still requires a **type change plus a call-site
+change**, not just a data edit — `ISSUE-007`. These are also the slots where the
+placeholder may be a deliberate choice, which is `DECISION-006`'s open question.
 
 Since the homepage's `SelectedWork` was switched to `BentoGrid`, the six project preview
 images are no longer rendered anywhere on the homepage — `ISSUE-004`.
@@ -69,7 +79,7 @@ images are no longer rendered anywhere on the homepage — `ISSUE-004`.
 
 ## Related decisions
 
-`DECISION-005`, `DECISION-006`.
+`DECISION-005`, `DECISION-006`, `DECISION-014` (captions only where a real image exists).
 
 ## Related issues
 

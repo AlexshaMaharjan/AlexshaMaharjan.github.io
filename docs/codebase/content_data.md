@@ -25,7 +25,7 @@ shared case-study/playground UI label.
 
 | File | Lines | Sections (per locale) |
 | --- | --- | --- |
-| `types.ts` | 46 | `CaseStudyContent`, `CaseStudySection`, `InsightItem`, `TestingStep`, `SectionImage` |
+| `types.ts` | 68 | `CaseStudyContent`, `CaseStudySection`, `Block` (the body union), `InsightItem`, `TestingStep`, `SectionImage` (with optional `src`/`alt`) |
 | `index.ts` | 25 | slug registry + `getCaseStudy(slug, locale)` |
 | `wikimind.ts` | 324 | 8 |
 | `afono.ts` | 348 | 9 — the only one with `heroDisclosure` (EN only, `ISSUE-009`) |
@@ -38,9 +38,15 @@ Each file exports `{ en: CaseStudyContent, de: CaseStudyContent }`. Section `id`
 shared vocabulary: `overview`, `challenge`, `research`, `insights`, `direction`,
 `development`, `testing`, `outcome`, `reflection` (exact set varies).
 
-**Known content-shape problem:** sub-headings and bullet lists are being stored as plain
-`body[]` strings and render as paragraphs — see `ISSUE-024`, with a worked example in
-`wikimind.ts` (the "direction" section).
+**Body content is blocks, not strings** (`DECISION-014`). A bare string is still a
+paragraph; `{ kind: "h3" | "list" | "quote" | "note" | "figure" }` cover the rest. All six
+studies were migrated in SESSION-003 — 38 sub-headings, 22 lists, 8 notes — and `en` and
+`de` are structurally identical block for block. Keep them that way: the types make a
+missing field a compile error, but not a mismatched structure.
+
+After changing any case-study content or shape, rerun
+`node scripts/content-guide-case-studies.mjs --write` so `CONTENT_GUIDE.md` §5 keeps
+matching.
 
 **Inspect when:** editing any case-study copy, adding a section, or changing the section
 model.
@@ -80,4 +86,5 @@ Category ring order: `digital-art → crafts → editorial → graphic-experimen
 
 ## Related
 
-`ARCH-02`. Issues: `ISSUE-007`, `ISSUE-009`, `ISSUE-010`, `ISSUE-024`.
+`ARCH-02`. Decisions: `DECISION-003`, `DECISION-014`. Issues: `ISSUE-007` (Playground and
+About slots), `ISSUE-009`, `ISSUE-010`.

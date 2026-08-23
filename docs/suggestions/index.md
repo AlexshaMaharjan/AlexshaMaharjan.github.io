@@ -1,7 +1,7 @@
 # Suggestions Index
 
-Improvements that are not defects. Nothing here is implemented — the roadmap awaits owner
-approval.
+Improvements that are not defects. Two are implemented and two partially, all in
+SESSION-003; the rest await owner approval.
 
 Items marked ★ map directly to priorities the owner stated at initialization: case-study
 layout, correct images, humanised copy, richer animation, design consistency.
@@ -9,9 +9,9 @@ layout, correct images, humanised copy, richer animation, design consistency.
 | ID | Title | Status | Priority | Impact | Effort | Milestone | File |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | SUGGESTION-001 | ★ Rebuild "Selected Work" image-led, one tile per project | Proposed | High | High | Medium | M-002 | `suggestion_001.md` |
-| SUGGESTION-002 | ★ Give every image slot an optional real source | Proposed | High | High | Small | M-005 | `suggestion_002.md` |
-| SUGGESTION-003 | ★ Redesign the case-study reading experience | Proposed | High | High | Large | M-003 | `suggestion_003.md` |
-| SUGGESTION-004 | ★ Replace `body: string[]` with a typed block model | Proposed | High | High | Medium | M-003 | `suggestion_004.md` |
+| SUGGESTION-002 | ★ Give every image slot an optional real source | **Partial** | High | High | Small | M-003/M-005 | `suggestion_002.md` |
+| SUGGESTION-003 | ★ Redesign the case-study reading experience | **Partial** | High | High | Large | M-003 | `suggestion_003.md` |
+| SUGGESTION-004 | ★ Replace `body: string[]` with a typed block model | **Implemented** | High | High | Medium | M-003 | `suggestion_004.md` |
 | SUGGESTION-005 | ★ Editorial pass — humanise copy, cut redundancy | Proposed | High | High | Large | M-004 | `suggestion_005.md` |
 | SUGGESTION-006 | ★ Establish a shared GSAP motion system | Proposed | High | High | Medium | M-006 | `suggestion_006.md` |
 | SUGGESTION-007 | ★ Page transitions between routes | Proposed | Medium | Medium | Medium | M-006 | `suggestion_007.md` |
@@ -27,8 +27,10 @@ layout, correct images, humanised copy, richer animation, design consistency.
 
 ## If you only do three things
 
-1. `SUGGESTION-004` + `SUGGESTION-003` — the case-study block model and layout. Everything
-   the owner said about "case study description pages" runs through these.
-2. `SUGGESTION-002` — 30 minutes of work that unblocks every image task afterwards.
+1. `SUGGESTION-003` — the case-study layout. Its blocker, `SUGGESTION-004`, is done, so
+   this is now unobstructed and is still the whole of what the owner said about "case
+   study description pages".
+2. `SUGGESTION-005` — the copy pass. The block model makes restructuring possible, not
+   just rewording.
 3. `SUGGESTION-006` — the motion vocabulary. (`ISSUE-001`, which it was going to fix as a
    side effect, was resolved in `MILESTONE-001`.)

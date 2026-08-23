@@ -76,6 +76,9 @@ npm run dev       # Vite dev server
 npm run build     # tsc -b && vite build && cp dist/index.html dist/404.html
 npm run preview   # serve dist/
 npm run lint      # eslint .
+npm run deploy    # gh-pages -d dist (predeploy runs the build)
+
+node scripts/content-guide-case-studies.mjs --write   # regenerate CONTENT_GUIDE.md §5
 ```
 
 Build is currently green; lint emits 3 `react-refresh/only-export-components` warnings,
@@ -83,10 +86,12 @@ Build is currently green; lint emits 3 `react-refresh/only-export-components` wa
 
 ## Deployment
 
-Not configured. `public/_redirects` (`/* /index.html 200`) targets Netlify; the build
-script also copies `index.html` to `404.html`, a GitHub-Pages SPA fallback. No
-`netlify.toml`, `vercel.json` or CI workflow exists. See `ISSUE-025`. **Needs verification**
-with the owner.
+**GitHub Pages**, set up by the owner on 2026-08-22 (`f8df707`, `7332ad8`, `11930a6`):
+`npm run deploy` builds and pushes `dist/` to the `gh-pages` branch via the `gh-pages`
+package. The build copies `index.html` to `404.html` as the SPA fallback. There is no CI
+workflow — the push-time attempt was reverted for lack of a workflow token scope — and
+`public/_redirects` (the Netlify convention) is now a leftover. `ISSUE-025` is resolved;
+the domain question is still open.
 
 ## Significant dependencies
 

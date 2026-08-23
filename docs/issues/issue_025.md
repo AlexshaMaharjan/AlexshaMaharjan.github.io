@@ -4,8 +4,11 @@ Status: Resolved
 Priority: Low
 Category: Deployment
 Discovered: 2026-08-22 (SESSION-001)
-Resolved: 2026-08-22 (SESSION-003)
-Last reviewed: 2026-08-22
+Resolved: 2026-08-22 by the owner, outside a recorded session — GitHub Pages, via
+`predeploy`/`deploy` scripts and `gh-pages` (`f8df707`, `7332ad8`, `11930a6`). The
+"SESSION-003" label originally written here was reused by the case-study content-model
+session; this work is not part of it.
+Last reviewed: 2026-08-23
 
 ## Summary
 

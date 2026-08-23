@@ -1,10 +1,11 @@
 # ISSUE-008 — First case-study section renders without its number, label and reveal
 
-Status: Open
+Status: **Resolved** (SESSION-003, `e844ad9`)
 Priority: Medium
 Category: UI/UX / Consistency
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Resolved: 2026-08-23 (SESSION-003)
+Last reviewed: 2026-08-23
 
 ## Summary
 
@@ -45,6 +46,20 @@ more than intended.
 
 Keep one render path and vary only the top margin, moving the `id` responsibility fully
 into `Section`. Folds naturally into the case-study layout rework.
+
+## Resolution
+
+`Section.tsx` has one render path. `first` now varies only the top margin (`mt-24` on
+every section but the first), so section 01 keeps its number, its nav label and its
+`data-inview` reveal. The `id` moved into `Section` entirely and the compensating
+wrapper `id` in `CaseStudyPage.tsx` is gone — measured in the browser: no duplicate ids
+on any case study, and `#overview` now lands at exactly 104px like every other section
+(it previously anchored to the outer wrapper, which starts 76px higher).
+
+Adding the first section to the reveal set touches the two coupled scroll hooks
+(`DECISION-008`), so the ring check from SESSION-002 was re-run: the whole prev/next ring
+across all six studies, scrolled end to end at each stop — no section left hidden, every
+hop landing at scrollY 0.
 
 ## Dependencies
 
