@@ -31,8 +31,8 @@ export default function CategoryPage({
       </section>
 
       <section className="pb-10 pt-16">
-        <div data-inview className="container-page">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="container-page">
+          <div data-inview="stagger" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {content.items.map((item, i) => (
               <PlaygroundCard key={i} item={item} locale={locale} categorySlug={content.slug} />
             ))}

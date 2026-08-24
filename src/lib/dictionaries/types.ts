@@ -199,6 +199,7 @@ export interface Dictionary {
     resumeCta: string;
     contactCta: string;
   };
+  routeLoading: string;
   caseStudy: {
     backToProjects: string;
     onThisPage: string;

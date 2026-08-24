@@ -366,6 +366,7 @@ const de: Dictionary = {
     resumeCta: "Lebenslauf ansehen",
     contactCta: "Kontakt",
   },
+  routeLoading: "Seite wird geladen…",
   caseStudy: {
     backToProjects: "← Zurück zu den Projekten",
     onThisPage: "Auf dieser Seite",

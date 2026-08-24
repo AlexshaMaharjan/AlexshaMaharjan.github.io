@@ -181,7 +181,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
         });
       }
 
-      rafId = requestAnimationFrame(frame);
+      if (running) rafId = requestAnimationFrame(frame);
     };
 
     measure();
@@ -203,11 +203,38 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       g.style.transform = "translateY(26px)";
     });
 
-    rafId = requestAnimationFrame(frame);
+    /*
+     * The loop only has anything to say while the track is on screen, but it
+     * used to run for as long as the homepage was mounted — a per-frame style
+     * write behind the whole page, forever (ISSUE-012). An observer starts and
+     * stops it instead. The margin is generous so the first frame is computed
+     * before the track scrolls into view rather than on the way in.
+     */
+    let running = false;
+    const start = () => {
+      if (running) return;
+      running = true;
+      measure();
+      rafId = requestAnimationFrame(frame);
+    };
+    const stop = () => {
+      if (!running) return;
+      running = false;
+      cancelAnimationFrame(rafId);
+    };
+
+    const visibility = new IntersectionObserver(
+      ([entry]) => (entry?.isIntersecting ? start() : stop()),
+      { rootMargin: "300px 0px 300px 0px" },
+    );
+    visibility.observe(track);
+
     const onResize = () => measure();
     window.addEventListener("resize", onResize);
 
     return () => {
+      visibility.disconnect();
+      stop();
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", onResize);
     };

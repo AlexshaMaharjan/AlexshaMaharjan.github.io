@@ -2,34 +2,35 @@ import { useEffect, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  atRest,
+  prefersReducedMotion,
+  revealVariant,
+  revealed,
+  stagger,
+  TRIGGER_START,
+  type RevealVariant,
+} from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * The at-rest state a [data-inview] element is held in until it scrolls into
- * view.
- *
- * Deliberately `opacity` rather than GSAP's `autoAlpha`, which also sets
- * `visibility: hidden`: a hidden subtree is removed from the tab order, so any
- * control inside a section that had not been revealed yet was unreachable by
- * keyboard — the playground's pause button was, and it is the kind of thing
- * WCAG 2.1.1 is about (ISSUE-030). At-rest elements are below the fold by
- * definition, so being nominally clickable while invisible costs nothing, and
- * `revealOnFocus` below covers the case where focus reaches one anyway.
+ * The timings live in `@/lib/motion` (`SUGGESTION-006`). What stays here is the
+ * one thing specific to reveals: they hold elements at `opacity`, never at
+ * GSAP's `autoAlpha`, which also sets `visibility: hidden`. A hidden subtree is
+ * removed from the tab order, so a control inside a section that had not been
+ * revealed yet was unreachable by keyboard — the playground's pause button was
+ * (`ISSUE-030`). At-rest elements are below the fold by definition, so being
+ * nominally clickable while invisible costs nothing, and the `focusin` handler
+ * below covers the case where focus reaches one anyway.
  */
-const AT_REST: gsap.TweenVars = { opacity: 0, y: 18 };
-
-/** The reveal itself. Lift this out with AT_REST if a shared motion module lands (SUGGESTION-006). */
-const REVEALED: gsap.TweenVars = { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" };
-
-const TRIGGER_START = "top 88%";
-
-function prefersReducedMotion(): boolean {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
 function revealTargets(): HTMLElement[] {
   return gsap.utils.toArray<HTMLElement>("[data-inview]");
+}
+
+/** What a reveal animates: the element itself, or its children for `stagger`. */
+function subjectsOf(el: HTMLElement, variant: RevealVariant): HTMLElement[] {
+  return variant === "stagger" ? (Array.from(el.children) as HTMLElement[]) : [el];
 }
 
 /**
@@ -59,7 +60,10 @@ export function useScrollReveals(): void {
   // the elements are already at rest when the scroll offset is reset.
   useLayoutEffect(() => {
     if (prefersReducedMotion()) return;
-    gsap.set(revealTargets(), AT_REST);
+    for (const el of revealTargets()) {
+      const variant = revealVariant(el.dataset.inview);
+      gsap.set(subjectsOf(el, variant), atRest(variant));
+    }
   }, [pathname]);
 
   // Build the triggers after paint, by which point RootLayout has put the
@@ -79,12 +83,26 @@ export function useScrollReveals(): void {
     // reveals at once instead of on scroll.
     ScrollTrigger.update();
 
-    const tweens = elements.map((el) =>
-      gsap.fromTo(el, AT_REST, {
-        ...REVEALED,
+    // Triggers are measured against a layout that is still settling: webfonts
+    // reflow the text under them, and an image without width/height (ARCH-05)
+    // resizes its section when it decodes. Re-measure once both have.
+    let refreshed = false;
+    const refresh = () => {
+      if (!refreshed) ScrollTrigger.refresh();
+    };
+    document.fonts?.ready.then(refresh).catch(() => undefined);
+    window.addEventListener("load", refresh);
+
+    const tweens = elements.map((el) => {
+      const variant = revealVariant(el.dataset.inview);
+      return gsap.fromTo(subjectsOf(el, variant), atRest(variant), {
+        ...revealed(variant),
+        // A group arrives as a group: one trigger on the container, its
+        // children following each other in.
+        stagger: variant === "stagger" ? stagger : 0,
         scrollTrigger: { trigger: el, start: TRIGGER_START },
-      }),
-    );
+      });
+    });
 
     /** element → the tween holding it at rest, so focus can complete it. */
     const tweenFor = new Map(elements.map((el, i) => [el, tweens[i]!]));
@@ -105,6 +123,8 @@ export function useScrollReveals(): void {
     document.addEventListener("focusin", onFocusIn);
 
     return () => {
+      refreshed = true;
+      window.removeEventListener("load", refresh);
       document.removeEventListener("focusin", onFocusIn);
       tweens.forEach((tween) => {
         tween.scrollTrigger?.kill();
