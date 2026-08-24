@@ -173,29 +173,12 @@
   }
 }
 
-@keyframes mqA {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-33.3333%);
-  }
-}
-
-@keyframes mqB {
-  from {
-    transform: translateX(-33.3333%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-marquee] {
-    animation: none !important;
-  }
-}
+/*
+ * The marquee rows moved from CSS keyframes to a GSAP tween in SESSION-012, so
+ * that scroll velocity can nudge their `timeScale` without the jump that
+ * changing `animation-duration` mid-flight causes. Under reduced motion the
+ * component creates no tween at all, so there is nothing here to switch off.
+ */
 
 @media (max-width: 880px) {
   [data-el="bento"] {

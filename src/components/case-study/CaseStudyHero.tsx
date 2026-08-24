@@ -1,9 +1,17 @@
+import { useLayoutEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { prefersReducedMotion } from "@/lib/motion";
 import Image from "@/components/ui/Image";
 import type { CaseStudyContent } from "@/lib/caseStudies/types";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
 import PlaceholderImage from "@/components/PlaceholderImage";
+
+// Idempotent, and stated here rather than assumed from whichever module
+// happened to be imported first.
+gsap.registerPlugin(ScrollTrigger);
 
 export default function CaseStudyHero({
   content,
@@ -14,6 +22,39 @@ export default function CaseStudyHero({
   dictionary: Dictionary;
   locale: Locale;
 }) {
+  const mediaRef = useRef<HTMLDivElement>(null);
+
+  /*
+   * The hero image drifts a little slower than the page as it leaves
+   * (SUGGESTION-008). Scrubbed, so it is tied to the scroll position rather
+   * than playing on its own, and transform-only so it cannot cause layout.
+   *
+   * Keyed on the slug, not on mount: React Router reuses this component when
+   * only the `:slug` param changes (ARCH-01), and a mount-only effect would
+   * leave the next case study's hero attached to the previous one's trigger.
+   */
+  useLayoutEffect(() => {
+    const media = mediaRef.current;
+    if (!media || prefersReducedMotion()) return;
+
+    const tween = gsap.fromTo(
+      media,
+      { yPercent: 0, scale: 1 },
+      {
+        yPercent: 6,
+        scale: 1.04,
+        ease: "none",
+        scrollTrigger: { trigger: media, start: "top top", end: "bottom top", scrub: 0.4 },
+      },
+    );
+
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+      gsap.set(media, { clearProps: "transform" });
+    };
+  }, [content.slug]);
+
   return (
     <section className="pt-[var(--page-top)]">
       <div className="container-page">
@@ -41,7 +82,7 @@ export default function CaseStudyHero({
           ))}
         </div>
 
-        <div className="mt-14" style={{ aspectRatio: content.heroImage.aspect }}>
+        <div ref={mediaRef} className="mt-14 will-change-transform" style={{ aspectRatio: content.heroImage.aspect }}>
           {content.heroImage.src ? (
             <div className="relative h-full w-full overflow-hidden rounded-[10px] border border-card-border bg-surface">
               <Image src={content.heroImage.src} alt={content.heroImage.alt} fill sizes="100vw" className="object-cover" />
