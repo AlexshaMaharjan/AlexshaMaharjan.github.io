@@ -15,6 +15,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-009 | 2026-08-24 | MILESTONE-007 | Accessibility: contrast, three keyboard defects, marquee pause control; axe-core clean | Complete | `session_009.md` |
 | SESSION-010 | 2026-08-24 | MILESTONE-008 | Per-route metadata: no more leaking, and each route's head prerendered for scrapers | Complete | `session_010.md` |
 | SESSION-011 | 2026-08-24 | MILESTONE-006 | Motion: one vocabulary, reveal variants, page transitions, a loading state, and the canvas loop finally idling | Complete | `session_011.md` |
+| SESSION-012 | 2026-08-25 | MILESTONE-006 | Scroll-linked: hero drift, figure reveals, velocity-linked marquees — closing the milestone | Complete | `session_012.md` |
 
 ## Conventions
 

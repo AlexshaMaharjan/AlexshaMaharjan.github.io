@@ -20,6 +20,12 @@ visibility.~~
 itself from a `useLayoutEffect` — before the first paint, so it still does not flash — and
 its effects are keyed on the pathname rather than on mount. See the Consequences below.
 
+**Amended, SESSION-012:** nested reveals are allowed, and coherent. A `[data-inview]`
+element inside a section that also carries one is always lower in the flow than its
+section, so its trigger never fires first: while the section is at rest the child is
+invisible with it, and once the section has arrived the child waits for its own turn.
+Case-study media uses this — wide figures `scale`, grids `stagger`.
+
 **Amended, SESSION-011:** the timings moved to `src/lib/motion.ts` (`SUGGESTION-006`) and
 the hook gained `data-inview` variants — `up` (the default), `fade`, `scale` and `stagger`,
 where one trigger animates the element's children. The contract below is unchanged: the

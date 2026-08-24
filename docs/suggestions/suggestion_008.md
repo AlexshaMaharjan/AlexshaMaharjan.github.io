@@ -1,6 +1,7 @@
 # SUGGESTION-008 — Scroll-linked interactions on case studies and media
 
-Status: Proposed
+Status: **Implemented** (SESSION-012, `1f59f04`) — three of the five, and the file says
+which two were left
 Priority: Medium
 Impact: Medium
 Effort: Medium
@@ -25,6 +26,41 @@ Add a small, consistent set — not one effect per page:
   is a natural fit for that section's playful register.
 
 Every one of these must be a no-op under `prefers-reduced-motion`.
+
+## What was actually built
+
+Three effects, not five. `SPEC` §11 and the site's own WikiMind copy both argue that motion
+should guide rather than distract, so the ones that earned their place:
+
+- **Case-study hero drift** — the image moves 6% and grows 4% as the hero leaves, scrubbed
+  to the scroll position. Transform only, so it cannot cause layout. Keyed on the slug
+  rather than on mount (`ARCH-01`): React Router reuses the component when only `:slug`
+  changes, and a mount-only effect would leave the next hero attached to the previous
+  trigger.
+- **Figure reveals** — wide figures scale in, grids stagger, both through the existing
+  `data-inview` variants.
+- **Velocity-linked marquees** — the playground rows speed up with the page, capped at 3×.
+
+**Not built, and why:**
+
+- **Sticky facts.** Merging `FactsStrip` into the contents rail is a layout change, and
+  `MILESTONE-003` closed the case-study layout. It would want its own decision.
+- **Active-section tracking** — already done in `MILESTONE-003`; the rail has marked the
+  current section and shown progress since then.
+
+### Two things worth knowing about the marquee
+
+It moved from CSS keyframes to a GSAP tween. `timeScale` can be nudged and eased without
+restarting, where changing `animation-duration` mid-flight jumps the row instead.
+
+`timeScale` is **set outright** on each scroll event rather than tweened to: the row should
+track the wheel rather than chase it, and there are six rows on the playground index — a
+tween per row per scroll event would allocate hundreds of objects a second to change a
+number. The ease is kept for slowing back down, where it is worth it.
+
+The pause control still stops the rows dead — verified by pausing with the keyboard and
+then scrolling hard: 0.0px of movement. "Paused" has to mean paused for WCAG 2.2.2, whatever
+the velocity is doing.
 
 ## Why
 

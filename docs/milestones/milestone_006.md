@@ -1,7 +1,7 @@
 # MILESTONE-006 — Motion system and interaction polish
 
-Status: **Mostly complete** (SESSION-011) — the vocabulary, the reveals, the transitions
-and the canvas gating are done; `SUGGESTION-008`'s scroll-linked effects are not
+Status: **Complete** (SESSION-011 for the system, SESSION-012 for the scroll-linked
+effects). One task deliberately not done — lazy GSAP — with the reason recorded below.
 Priority: Medium
 Goal: Give the site a coherent, restrained motion vocabulary — and add the scroll and
 interaction animation the owner asked for.
@@ -30,9 +30,10 @@ The motion system, scroll-linked effects, page transitions. Cross-cutting but ad
 - [x] **ISSUE-012** — the canvas loop is gated by an `IntersectionObserver`: 120 fps on
       screen, 0 off screen, measured by instrumenting the loop
 - [x] **SUGGESTION-007** — a 350ms fade on arrival, plus `ISSUE-020`'s loading state
-- [ ] **SUGGESTION-008** — case-study hero parallax, figure scale-ins, velocity-linked
-      marquees. The vocabulary these would use now exists; active-section tracking was
-      already done in `MILESTONE-003`
+- [x] **SUGGESTION-008** — case-study hero drift, figure scale-ins and staggered grids,
+      velocity-linked marquees (SESSION-012). Sticky facts were left: merging `FactsStrip`
+      into the rail is a layout change and `MILESTONE-003` is closed. Active-section
+      tracking was already done there
 - [x] Verify every effect is a no-op under `prefers-reduced-motion` — 38 routes, nothing
       hidden, no running animations
 - [x] Check for jank: the reveals animate opacity and transform only; the page transition
@@ -63,6 +64,12 @@ if it moves to ScrollTrigger), `DECISION-008`
 
 `MILESTONE-001` (the reveal bug), and layout should be settled (`MILESTONE-002`/`003`) —
 animating a layout that is about to change is wasted work.
+
+## Outcome
+
+Met, with one exception recorded rather than quietly dropped: GSAP is still eagerly
+imported (`ISSUE-019`), because the reveals' at-rest state is applied before the first
+paint and an awaited import would put it after.
 
 ## Completion Criteria
 

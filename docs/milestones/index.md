@@ -14,12 +14,19 @@ work section, case studies) → content and imagery → motion → consistency �
 | MILESTONE-003 | Case-study layout and content model | **Complete** | High | M-001 | ISSUE-024 ✅, ISSUE-008 ✅, ISSUE-007 (case studies ✅) | `milestone_003.md` |
 | MILESTONE-004 | English content pass | Proposed — **unblocked** | High | M-003 model ✅, owner | ISSUE-024 ✅ | `milestone_004.md` |
 | MILESTONE-005 | Real imagery | **Unblocked** | High | owner assets | ISSUE-007 ✅, ISSUE-006 | `milestone_005.md` |
-| MILESTONE-006 | Motion system and interaction polish | **Mostly complete** | Medium | M-001, M-002/003 | ISSUE-012/020 ✅, ISSUE-019 | `milestone_006.md` |
+| MILESTONE-006 | Motion system and interaction polish | **Complete** | Medium | M-001, M-002/003 | ISSUE-012/020 ✅, ISSUE-019 (deliberately not done) | `milestone_006.md` |
 | MILESTONE-007 | Consistency, responsive, accessibility | **In progress** | Medium | M-002/003/006 | ISSUE-011/015/016/021/023/026/028/030 ✅, ISSUE-010/027/029 | `milestone_007.md` |
 | MILESTONE-008 | Performance, SEO, deployment | **In progress** | Medium | content near-final, owner | ISSUE-013/014/025 ✅, ISSUE-019 | `milestone_008.md` |
 | MILESTONE-009 | German parity | Proposed | Medium | M-004 | ISSUE-009 | `milestone_009.md` |
 
 ## Completed
+
+**MILESTONE-006** (SESSION-011 + SESSION-012) — the motion work. One vocabulary in
+`src/lib/motion.ts` that the reveals, the page transition and the CSS transitions all read
+from; reveal variants including staggered grids; a 350ms fade on route change; a loading
+state for lazy pages; the process canvas idling when off screen; and three scroll-linked
+effects — hero drift, figure reveals, velocity-linked marquees. Every one of them is a
+no-op under `prefers-reduced-motion`, verified rather than assumed.
 
 **MILESTONE-003** (SESSION-003 + SESSION-004) — the case studies. Part one replaced
 `body: string[]` with a block model and migrated all six studies in both locales

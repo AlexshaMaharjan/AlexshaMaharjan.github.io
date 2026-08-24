@@ -74,7 +74,18 @@ together**.
 
 Reveals are opt-in per element: `data-inview` alone means `up`; `data-inview="fade"`,
 `"scale"` or `"stagger"` pick the others. `stagger` animates the element's *children* under
-one trigger, which is what the homepage bento and the playground category grid use.
+one trigger — the homepage bento, the playground category grid and case-study media grids
+use it. Nesting a reveal inside a section that already has one is fine (`DECISION-008`).
+
+Three things are tied to the scroll position rather than to a trigger: the case-study hero
+drifts as it leaves, and the playground marquee rows speed up with the page. Both are
+transform-only, both are absent entirely under `prefers-reduced-motion` — **not slowed, not
+present**, which is the rule for anything scroll-linked here.
+
+The marquee rows are a GSAP tween rather than a CSS animation, because `timeScale` can be
+nudged without the jump that changing `animation-duration` mid-flight causes. Their pause
+control calls `pause()` on the tween, so paused means stopped whatever the velocity is
+doing (WCAG 2.2.2).
 
 ## Heading hyphenation
 

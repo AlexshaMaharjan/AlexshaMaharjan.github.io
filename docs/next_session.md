@@ -2,89 +2,86 @@
 
 ## Status
 
-`MILESTONE-006` is mostly complete (SESSION-011): the site has one motion vocabulary, the
-reveals have variants, route changes fade in, lazy pages announce themselves, and the
-process canvas finally idles when it is off screen.
+`MILESTONE-006` is complete (SESSION-011 + SESSION-012): one motion vocabulary, reveal
+variants, page transitions, a loading state, the process canvas idling off screen, and
+three scroll-linked effects — every one of them absent rather than slowed under
+`prefers-reduced-motion`.
 
-Work sits on branch `milestone-003-content-model`, **seventeen commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **nineteen commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
 ### Nothing is deployed
 
-Published only by `npm run deploy` — there is no CI, and `predeploy` now runs the prerender,
-which needs Chrome on the machine that deploys. Nine sessions are visible locally only
+Published only by `npm run deploy` — no CI, and `predeploy` runs the prerender, which needs
+Chrome on the machine that deploys. Ten sessions are visible locally only
 (`npm run build && npx vite preview`, then `http://localhost:4173`).
 
 ### What wants the owner
 
-1. **Images — 129 empty slots**, listed with sizes and data paths in
-   `docs/reference/image_manifest.md`. The eleven bento tiles first, and **`og:image`**:
-   every link preview is currently a solid-colour placeholder, so a shared link reads as
-   broken even though its title and description are right.
-2. **The copy pass** (`MILESTONE-004`) — `DECISION-011` forbids inventing anything.
-3. **A custom domain**, if one is wanted (`DECISION-012`).
+1. **A real `og:image`.** Every link preview is a solid-colour placeholder — the title and
+   description are right, the picture is not. It is the highest-value single image on the
+   manifest, because it is what people see *before* they click.
+2. **The other 128 image slots**, listed with sizes and data paths in
+   `docs/reference/image_manifest.md`. The eleven bento tiles first.
+3. **The copy pass** (`MILESTONE-004`) — `DECISION-011` forbids inventing anything.
+4. **A custom domain**, if one is wanted (`DECISION-012`).
 
 ## Objective
 
-**Finish `MILESTONE-006` — `SUGGESTION-008`, the scroll-linked half.** It is the part a
-visitor would call "scroll animation", and the vocabulary it needs now exists.
+**Finish `MILESTONE-008`** — what is left is small, unblocked, and none of it needs the
+owner:
 
-Read `docs/suggestions/suggestion_008.md` and follow it. What it proposes:
+1. **`hreflang` alternates** for every `/x` ↔ `/de/x` pair. The two locales are currently
+   invisible to each other: a search engine has no way to know the German page is the same
+   page. The prerender already walks both, so this is one more pair of tags per file plus
+   the same in `Seo`.
+2. **`ISSUE-019` — the bundle.** GSAP is 46 KB gzip and the case-study chunk is 126 KB
+   because all six studies are statically imported into one registry. Splitting the
+   registry per slug is the tractable half. **Lazy-importing GSAP is the trap**: the
+   reveals apply their at-rest state before the first paint, and an awaited import puts it
+   after — that is the flash SESSION-010 spent its time removing. If the honest answer is
+   "GSAP stays eager", write that down as a decision instead: it now drives five things,
+   not one, which is a different calculation than when `ISSUE-019` was filed.
+3. **Delete `public/_redirects`** — the Netlify convention, dead since `DECISION-012`
+   settled on GitHub Pages.
 
-- case-study hero parallax;
-- figure scale-ins as media enters (the `scale` reveal variant already exists — the
-  question is where it belongs, see the constraint about nesting below);
-- velocity-linked playground marquees — the rows respond to scroll speed;
-- ~~active-section tracking~~ — already done in `MILESTONE-003`.
-
-**Restraint is the brief**, from two directions: `SPEC` §11 says motion should guide, not
-distract, and the site's own WikiMind case study argues the same thing in its copy. Three
-well-judged effects will read better than six.
+If that runs short, `ISSUE-010` (dead content fields, waiting on `MILESTONE-002`) and
+`ISSUE-029` (the About annotation at 768px) are the two loose ends left in the tracker.
 
 ## Required Context
 
 Read **only** these:
 
 1. `docs/previous_session.md` — what just changed and what it constrains
-2. `docs/suggestions/suggestion_008.md`
-3. `docs/milestones/milestone_006.md` — what is ticked, and the one task deliberately not
-   done (lazy GSAP, with the reason)
-4. `docs/decisions/decision_008.md` — the reveal contract, amended three times now; read
-   the amendments before touching `useScrollReveals`
-5. `docs/architecture/architecture_04.md` — the process canvas, and `DECISION-007`, which
-   says it stays hand-written rAF unless a decision says otherwise
-6. `docs/codebase/styling.md` § Motion — the vocabulary as built
+2. `docs/milestones/milestone_008.md` — the task list, now marked up with what is done
+3. `docs/issues/issue_019.md` — the bundle numbers as filed
+4. `docs/issues/issue_013.md` — how the prerender works, and what it deliberately does not do
+5. `docs/suggestions/suggestion_013.md` (SEO) and `suggestion_012.md` (performance)
+6. `docs/decisions/decision_002.md` — path-prefix i18n, which is what `hreflang` describes
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 
 ## Relevant Code
 
-- `src/lib/motion.ts` — the tokens. **Add to these rather than writing new numbers.**
-- `src/lib/useScrollReveals.ts` — variants, the focus handler, the refresh-after-fonts
-- `src/components/case-study/CaseStudyHero.tsx`, `SectionMedia.tsx`, `Figure.tsx`
-- `src/components/playground/CategoryMarquee.tsx` — the rows, and the pause control that
-  must keep working (WCAG 2.2.2)
-- `src/components/process/HeroProcess.tsx` — how scroll-driven animation is already done
-  here, including the visibility gate added in SESSION-011
+- `scripts/prerender.mjs` — walks all 36 routes; where `hreflang` tags belong
+- `src/components/Seo.tsx` — the client half, which must agree with the baked HTML
+- `src/lib/caseStudies/index.ts` — the registry that pulls all six studies into one chunk
+- `src/lib/useScrollReveals.ts` — the layout effect that makes lazy GSAP awkward
+- `vite.config.ts` — where a manual chunk strategy would go
+- `public/_redirects` — delete
 
 ## Constraints
 
 - **The repository is the source of truth.** Re-check `git status` and the branch first.
-- **`prefers-reduced-motion` must produce a completely static, fully visible site.** This
-  is the milestone most likely to break that: parallax and scrubbed animation have to be
-  no-ops, not slower versions.
-- **The marquee pause control must keep stopping the rows.** If they become
-  velocity-linked, "paused" has to mean paused, not "moving differently".
-- **Nested reveals are undecided.** Case-study media grids sit inside sections that already
-  carry `data-inview`; adding a second reveal inside means deciding what nesting should do
-  before writing it.
-- **Do not put a transform on an ancestor of the case-study contents rail** — it becomes the
-  containing block and the rail stops sticking. That is why the page transition is opacity
-  only.
-- **Scrubbed animation must not animate layout properties.** Transform and opacity only, or
-  it will jank.
-- Numbers that clear the fixed header belong in a `calc()` off `--header-h` /
-  `--anchor-offset` / `--page-top`.
+- **The client and the baked HTML must agree.** `Seo` writes every field on every route
+  precisely so nothing leaks; anything added to the prerender needs adding there too, or a
+  client-side navigation will disagree with the file a scraper read.
+- **Do not break the reveals' before-paint contract** (`DECISION-008`, amended three times
+  — read the amendments). If GSAP moves behind an await, the at-rest state lands after the
+  first paint.
+- Splitting the case-study registry must not break `getCaseStudy(slug, locale)`'s contract
+  of returning `null` for an unknown slug — that is what renders the 404.
+- `prefers-reduced-motion` must keep producing a completely static, fully visible site.
 - Do not rewrite prose (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
 
 ## Verification
@@ -94,40 +91,43 @@ Against the **production build** (`npm run build && npx vite preview`, then
 ~50-line driver: `coldGoto` via `about:blank`, overflow as `scrollWidth - clientWidth`, a
 ~1.4s settle.
 
-Four traps this project has already paid for:
+Five traps this project has already paid for, in the order they cost the most time:
 
-- `document.activeElement.textContent` is the whole page when focus is on `body` — test
-  `tagName`.
-- `[].every()` is `true`; an empty selection passes any "all of them" check.
+- **`html { scroll-behavior: smooth }` applies to programmatic scrolls.** `window.scrollBy`
+  in a loop moves the page about a pixel a frame. Drive
+  `document.documentElement.scrollTop` directly, or measure velocity as zero and conclude
+  the wrong thing (SESSION-012).
+- **Measure where the thing actually happens.** A trigger 737px down the page does nothing
+  at 600px of scroll; media inside a section is not on screen when the section's top is.
 - `Page.addScriptToEvaluateOnNewDocument` accumulates across runs — instrumentation that
   survives navigation needs a freshly launched browser per experiment.
-- **A `MutationObserver` cannot see a style write that does not change the value.** To
-  measure a rAF loop, instrument it, build, measure, revert (SESSION-011 did exactly this).
-- For anything cache-sensitive — a lazy chunk, a loading state — disable the cache, or a
-  warm chunk will make the test pass without testing anything.
+- A `MutationObserver` cannot see a style write that does not change the value; to measure
+  a rAF loop, instrument it, build, measure, revert.
+- `document.activeElement.textContent` is the whole page when focus is on `body`, and
+  `[].every()` is `true`.
 
-Leave passing: the 38-route sweep, axe (0 violations), the reveal ring, the scroll journeys
-(cold hash at 104px, route change to 0, back restores), reduced motion, the overflow sweep,
-and the no-JavaScript metadata fetch.
+For this objective specifically: **`hreflang` has to be checked in the served HTML with no
+JavaScript** (`curl`), and bundle claims have to come from the build output, not from
+intent.
+
+Leave passing: the 38-route sweep, axe (0 violations), the reveal ring, the scroll journeys,
+reduced motion, the overflow sweep, and the no-JavaScript metadata fetch.
 
 ## Completion Criteria
 
-- The scroll-linked effects exist and are restrained enough that the owner would not call
-  them busy.
-- `prefers-reduced-motion` still produces a completely static, fully visible site.
-- The marquee pause control still stops the rows dead.
-- No dropped frames while scrolling a case study or the homepage.
+- Every route declares its `hreflang` alternates, in the static HTML and from the client.
+- `ISSUE-019` is either fixed or answered with a recorded decision and measurements.
+- `public/_redirects` is gone.
 - `npm run lint && npm run build` green; work committed.
 
 ## Required End-of-Session Updates
 
 1. Update the documentation whose information actually changed.
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
-3. Update `docs/milestones/milestone_006.md` and `docs/milestones/index.md` — this may
+3. Update `docs/milestones/milestone_008.md` and `docs/milestones/index.md` — this may
    close the milestone.
-4. Record newly discovered issues / suggestions / decisions **only where genuinely
-   needed**.
-5. Create `docs/sessions/session_012.md` and add it to `docs/sessions/index.md`.
+4. Record newly discovered issues / suggestions / decisions **only where genuinely needed**.
+5. Create `docs/sessions/session_013.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.

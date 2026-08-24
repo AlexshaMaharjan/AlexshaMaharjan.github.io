@@ -17,22 +17,31 @@ Build output, metadata, hosting, and a minimal safety net.
 ## Tasks
 
 **Deployment (`SUGGESTION-016`)**
-- [ ] **Ask the owner:** which host, which domain, does this replace
-      `alexshamaharjan.myportfolio.com`?
-- [ ] Configure that host; remove the unused fallback (`_redirects` or the `404.html` copy)
-- [ ] Update `resume.portfolio` / `portfolioHref` in both dictionaries
-- [ ] Document the deploy command in `docs/project_overview.md`
+- [x] **Ask the owner** — answered 2026-08-24: GitHub Pages, and the résumé points here
+      rather than at Adobe Portfolio (`DECISION-012`)
+- [ ] Remove the unused fallback — `public/_redirects` is the Netlify convention and is now
+      dead weight
+- [x] Update `resume.portfolio` / `portfolioHref` in both dictionaries (SESSION-008)
+- [x] Document the deploy command in `docs/project_overview.md`
+- [ ] A custom domain, if the owner wants one — still open, and blocks nothing
 
 **SEO (`SUGGESTION-013`)**
-- [ ] Prerender all ~36 routes at build time with baked per-locale metadata
-- [ ] `hreflang` alternates for every `/x` ↔ `/de/x` pair
-- [ ] `sitemap.xml` generated from the same route list
-- [ ] **ISSUE-014** — fix the `Seo` meta leak so the client path agrees with the baked HTML
-- [ ] A real `og:image`
-- [ ] Verify the homepage's pinned canvas prerenders and hydrates without a flash
+- [x] Prerender all 36 routes with baked per-locale metadata (SESSION-010) — the **head**
+      only, and `ISSUE-013` records what prerendering the body would cost
+- [ ] `hreflang` alternates for every `/x` ↔ `/de/x` pair — not done, and the obvious next
+      thing here: the two locales are currently invisible to each other
+- [x] `sitemap.xml` generated from the same route list (SESSION-010)
+- [x] **ISSUE-014** — the meta leak is fixed and the client path agrees with the baked HTML
+- [ ] **A real `og:image`** — every preview is still a solid-colour placeholder. The owner's
+      to supply; it is the single highest-value image on the manifest
+- [x] Verify the pinned canvas prerenders without a flash — moot for a head-only prerender,
+      and measured either way in SESSION-010
 
 **Performance (`SUGGESTION-012`)**
-- [ ] **ISSUE-019** — lazy-import GSAP; split the case-study chunk per slug
+- [ ] **ISSUE-019** — split the case-study chunk per slug. **Lazy-importing GSAP is not
+      straightforward**: the reveals apply their at-rest state before the first paint, and
+      an awaited import puts it after, which reintroduces the flash (`SUGGESTION-006`).
+      `MILESTONE-006` also changed the calculus — GSAP now drives five things, not one
 - [ ] Confirm the image pipeline from `MILESTONE-005` is producing modern formats
 - [ ] Lighthouse pass on homepage + one case study; set a budget
 
