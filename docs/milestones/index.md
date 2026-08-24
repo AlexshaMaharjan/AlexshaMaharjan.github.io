@@ -15,7 +15,7 @@ work section, case studies) → content and imagery → motion → consistency �
 | MILESTONE-004 | English content pass | Proposed — **unblocked** | High | M-003 model ✅, owner | ISSUE-024 ✅ | `milestone_004.md` |
 | MILESTONE-005 | Real imagery | **Unblocked** | High | owner assets | ISSUE-007 ✅, ISSUE-006 | `milestone_005.md` |
 | MILESTONE-006 | Motion system and interaction polish | Proposed | Medium | M-001, M-002/003 | ISSUE-012/019/020 | `milestone_006.md` |
-| MILESTONE-007 | Consistency, responsive, accessibility | **In progress** | Medium | M-002/003/006 | ISSUE-011/015/016/021/023/026/028 ✅, ISSUE-010/027/029 | `milestone_007.md` |
+| MILESTONE-007 | Consistency, responsive, accessibility | **In progress** | Medium | M-002/003/006 | ISSUE-011/015/016/021/023/026/028/030 ✅, ISSUE-010/027/029 | `milestone_007.md` |
 | MILESTONE-008 | Performance, SEO, deployment | Proposed | Medium | content near-final, owner | ISSUE-013/014/019/025 | `milestone_008.md` |
 | MILESTONE-009 | German parity | Proposed | Medium | M-004 | ISSUE-009 | `milestone_009.md` |
 

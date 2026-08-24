@@ -1,6 +1,7 @@
 # SUGGESTION-011 — Accessibility pass to WCAG 2.2 AA
 
-Status: Proposed
+Status: **Implemented** (SESSION-009, `d9bb612`) — see `ISSUE-030` for what measuring
+found, including two of this file's predictions being wrong
 Priority: Medium
 Impact: Medium
 Effort: Medium

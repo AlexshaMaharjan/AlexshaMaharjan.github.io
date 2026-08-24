@@ -1,8 +1,9 @@
 # MILESTONE-007 — Design-system consistency, responsive and accessibility
 
 Status: In progress — `ISSUE-015`/`ISSUE-026` (SESSION-005),
-`ISSUE-023`/`ISSUE-011`/`ISSUE-021` (SESSION-006) and `ISSUE-016`/`ISSUE-028`
-(SESSION-007) done. The accessibility block is what is left.
+`ISSUE-023`/`ISSUE-011`/`ISSUE-021` (SESSION-006), `ISSUE-016`/`ISSUE-028` (SESSION-007)
+and the accessibility block (SESSION-009) done. What remains needs `MILESTONE-002` to
+finish first: `ISSUE-010`'s dead fields, plus `ISSUE-027` and `ISSUE-029`.
 Priority: Medium
 Goal: Make six differently-built pages read as one designed site, at every viewport, for
 every visitor.
@@ -56,13 +57,16 @@ milestones so pages are not swept twice.
 needing nothing from the owner. `ISSUE-027` turned out to be a scroll-position-bookkeeping
 bug rather than an anchor bug, and was left diagnosed rather than half-fixed.
 
-**Accessibility (`SUGGESTION-011`)**
-- [ ] Keyboard-reachable pause for the playground marquees (WCAG 2.2.2)
-- [ ] Contrast audit — `ink-muted` on `page`, `#6C7078` on `near-black`
-- [ ] Heading-order check on every page
-- [ ] Touch targets: language pill, back-to-top
-- [ ] Verify keyboard access to the process-canvas branches
-- [ ] axe/Lighthouse on every route; record results
+**Accessibility (`SUGGESTION-011`)** — done in SESSION-009, see `ISSUE-030`
+- [x] Keyboard-reachable pause for the playground marquees (WCAG 2.2.2)
+- [x] Contrast audit — `ink-muted` and the near-black greys were both below 4.5:1 and are
+      fixed; the canvas illustration labels too
+- [x] Heading-order check on every page — clean, no changes needed
+- [x] Touch targets — the two suspected here were **fine**; a dozen standalone links were
+      not, and use a `.tap-target` utility now
+- [x] Keyboard access to the process-canvas branches — they were focusable while invisible
+      and inert; the map is `inert` until interactive
+- [x] axe/Lighthouse on every route — axe-core, 8 pages × 2 locales, 0 violations
 
 ## Relevant Issues
 

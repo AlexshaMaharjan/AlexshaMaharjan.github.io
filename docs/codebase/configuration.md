@@ -2,7 +2,7 @@
 
 | File | Purpose | Notes |
 | --- | --- | --- |
-| `package.json` | scripts + deps | `type: module`, private, v0.1.0 |
+| `package.json` | scripts + deps | `type: module`, private, v0.1.0. One dev dependency exists purely for verification: **`axe-core`**, injected into the page by a scratch script during accessibility runs (SESSION-009). It ships in nothing |
 | `vite.config.ts` | React plugin, `@` → `./src`, `outDir: dist`, `sourcemap: false` | |
 | `tsconfig.json` | project references only | |
 | `tsconfig.app.json` | `src` — strict + `noUncheckedIndexedAccess` + `noUnusedLocals`/`Parameters`, `noEmit`, `@/*` paths | |

@@ -12,6 +12,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-006 | 2026-08-23 | MILESTONE-007 | Design-system consolidation: one type scale, three colour tokens, one container | Complete | `session_006.md` |
 | SESSION-007 | 2026-08-24 | MILESTONE-007 | The header at every width: the centred switch, and German headings that overflowed | Complete | `session_007.md` |
 | SESSION-008 | 2026-08-24 | MILESTONE-002 / 005 | The owner's three decisions, acted on: bilingual image-ready bento, every slot fillable from data, image manifest | Complete | `session_008.md` |
+| SESSION-009 | 2026-08-24 | MILESTONE-007 | Accessibility: contrast, three keyboard defects, marquee pause control; axe-core clean | Complete | `session_009.md` |
 
 ## Conventions
 

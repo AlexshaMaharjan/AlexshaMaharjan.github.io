@@ -2,89 +2,96 @@
 
 ## Status
 
-No decision is outstanding. The owner answered all three on 2026-08-24, and SESSION-008
-built what they unblocked: the bento grid is bilingual and image-ready (`ISSUE-005` fixed),
-and **every image slot on the site can be filled by editing data** (`ISSUE-007` closed).
+`MILESTONE-007`'s accessibility block is done (SESSION-009): axe-core reports 0 violations
+across 8 pages × 2 locales, and three keyboard defects that made parts of the site unusable
+without a mouse are fixed. No decision is outstanding — the owner answered all three on
+2026-08-24.
 
-Work sits on branch `milestone-003-content-model`, **eleven commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **thirteen commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
 ### Nothing is deployed
 
 The live site is served from `gh-pages` and published only by `npm run deploy` — there is
-no CI. Six sessions of work are visible only locally (`npm run build && npx vite preview`,
-then `http://localhost:4173`). Publishing means merging to `main` and running that, which
-is the owner's call.
+no CI. Seven sessions of work are visible only locally (`npm run build && npx vite
+preview`, then `http://localhost:4173`). Publishing means merging to `main` and running
+that, which is the owner's call.
 
 ### What wants the owner
 
-1. **Images — 129 empty slots.** Everything needed to make them is in
-   `docs/reference/image_manifest.md`: each slot's aspect ratio, export width and the exact
-   data path. Filling one is two data edits (`en` and `de`) and no code. The eleven
-   homepage bento tiles matter most: until several carry images, the grid's deliberate
-   duplication reads as repetition.
+1. **Images — 129 empty slots.** `docs/reference/image_manifest.md` has every one with its
+   aspect ratio, export width and data path. The eleven homepage bento tiles matter most.
 2. **The copy pass** (`MILESTONE-004`) — `DECISION-011` forbids inventing anything to fill
    a gap, so it needs them in the room.
 3. **A custom domain**, if one is wanted (`DECISION-012`).
 
 ## Objective
 
-**The accessibility block of `MILESTONE-007`** (`SUGGESTION-011`) — unchanged from the last
-hand-off, because it is still the largest piece that needs nobody. `design-reference/SPEC.md`
-§11 states WCAG 2.2 AA as non-negotiable.
+**Make a shared link show the right thing** — `ISSUE-014` and `ISSUE-013`, the SEO and
+link-preview half of `MILESTONE-008`.
 
-Six items, from `docs/milestones/milestone_007.md`:
+This matters the moment the site is published, which is close: every URL currently serves
+the same `index.html` with the same hard-coded English title, description and Open Graph
+tags, copied from the homepage. Paste a case-study link into LinkedIn or Slack today and
+the preview says "Alexsha Maharjan — Designing intuitive digital experiences" with a
+solid-colour placeholder image, whichever page it points at. For a portfolio that is shared
+by link, that is the difference between the work being seen and not.
 
-- Keyboard-reachable pause for the playground marquees (WCAG 2.2.2 — moving content that
-  runs longer than five seconds needs a control).
-- Contrast audit — `ink-muted` on `page` and `#6C7078` on `near-black` are the suspected
-  failures; check the whole palette, including the new gradient scrim on image-bearing
-  bento tiles, where white text sits over a photograph.
-- Heading-order check on every page (no skipped levels, one `h1`).
-- Touch targets: the language pill and back-to-top are the suspected misses; 24×24 CSS px
-  is the 2.2 AA floor, 44×44 comfortable.
-- Keyboard access to the process-canvas branches — the homepage's signature interaction is
-  mouse-driven today.
-- An axe or Lighthouse run on every route, with results recorded per route.
+Two parts, in order:
+
+1. **`ISSUE-014` — stop the meta leaking** (small, self-contained). `Seo` restores only
+   `document.title` on unmount, so `description`, `og:title`, `og:description` and
+   `og:image` persist into the next route. Visit `/work/wikimind` then `/resume` and the
+   résumé still carries WikiMind's description and image.
+2. **`ISSUE-013` — prerendering** (the substantial part). Decide and implement how each
+   route gets real HTML: a build-time prerender of the 19 × 2 routes is the obvious fit for
+   a static host, and the route list already exists in `src/routes.tsx`. **Assess before
+   committing to a tool** — if the answer is "this needs a dependency and a build step",
+   say what it costs in the session record rather than adding it silently.
+
+While there: `index.html`'s `og:image` points at a solid-colour placeholder
+(`ISSUE-006`), and there is no `sitemap.xml`. Both are cheap once the above is settled.
+
+`MILESTONE-006` (motion) is the alternative if this looks wrong-headed — it is the owner's
+own stated priority and needs nobody either.
 
 ## Required Context
 
 Read **only** these:
 
 1. `docs/previous_session.md` — what just changed and what it constrains
-2. `docs/milestones/milestone_007.md` — the accessibility block, and what is already ticked
-3. `docs/suggestions/suggestion_011.md` — the accessibility brief
-4. `docs/reference/design_tokens.md` §"Accessibility rules" — SPEC §11, and the palette
-5. `docs/codebase/styling.md` — tokens, the header variables, heading hyphenation
-6. `docs/architecture/architecture_04.md` — how the process canvas works, before making it
-   keyboard-operable
+2. `docs/issues/issue_013.md`, `issue_014.md` — the two defects
+3. `docs/milestones/milestone_008.md` — the milestone these belong to
+4. `docs/architecture/architecture_01.md` — routing, and how `Seo` writes metadata
+5. `docs/decisions/decision_001.md` (why this is a Vite SPA and not Next.js) and
+   `decision_012.md` (GitHub Pages, manual deploy)
+6. `docs/codebase/configuration.md` — the build, and the one dev dependency that exists
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 
 ## Relevant Code
 
-- `src/components/playground/CategoryMarquee.tsx` + the `mqA`/`mqB` keyframes in
-  `src/index.css` — the marquees needing a pause control
-- `src/components/process/HeroProcess.tsx`, `BranchGroup.tsx`, `clusters.tsx` — the canvas
-- `src/components/LanguageSwitch.tsx`, `src/components/Footer.tsx` — the suspected touch
-  targets
-- `src/components/BentoGrid.tsx` — white text over an image; check its contrast both with
-  and without a `src`
-- `tailwind.config.ts` — the palette
+- `src/components/Seo.tsx` — writes and half-restores the metadata
+- `index.html` — the static English meta every route currently serves
+- `src/routes.tsx` — `dual()` builds both locale branches; the route list a prerender needs
+- `vite.config.ts`, `package.json` — where a prerender step would live
+- `src/lib/dictionaries/{en,de}.ts` → `meta.*`, and each case study's `name`/`summary` —
+  the per-route text a prerender would inline
 
 ## Constraints
 
 - **The repository is the source of truth.** Re-check `git status` and the branch first.
-- **`prefers-reduced-motion` must keep producing a fully static, fully visible site**
-  (`DECISION-008`). The marquees are already disabled under it; the pause control is for
-  people who have not set it.
-- **Do not break the two scroll hooks** (`DECISION-008`, `DECISION-013`).
+- **`DECISION-001` chose a client-rendered SPA deliberately.** Prerendering must not turn
+  this into a framework migration; if the honest answer is "that is the only way", write it
+  down as a recommendation rather than doing it.
+- The build must stay green and fast (`npm run build`, ~0.8s today) — say so in the record
+  if a prerender step changes that materially.
+- **Do not break the two scroll hooks** (`DECISION-008`, `DECISION-013`), and remember the
+  reveal at-rest state is now `opacity` alone (SESSION-009) — prerendered HTML must not
+  ship content stuck at `opacity: 0` for a visitor whose JavaScript fails.
 - Numbers that clear the fixed header belong in a `calc()` off `--header-h` /
-  `--anchor-offset` / `--page-top`, never in a class (`styling.md`).
+  `--anchor-offset` / `--page-top`, never in a class.
 - Use the token scale and `.container-page`; never name a font size after a colour token.
-- Contrast fixes change colours, which is a design decision as much as a compliance one.
-  If a token has to move, record the old and new values in
-  `docs/reference/design_tokens.md` — the only copy in version control.
 - Do not rewrite prose (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
 
 ## Verification
@@ -92,47 +99,45 @@ Do not read the whole `docs/` folder, and do not re-read the repository.
 Against the **production build** (`npm run build && npx vite preview`, then
 `http://localhost:4173` — not `127.0.0.1`), in headless Chrome over the DevTools Protocol.
 
-**The scratchpad does not survive between sessions.** The CDP driver is ~50 lines; rebuild
-it with these already in place:
+**The scratchpad does not survive between sessions.** Rebuild the ~50-line driver with:
 
 - `coldGoto` via `about:blank` — `Page.navigate` to a URL differing only by its fragment
-  does **not** reload the document, and you will measure the previous page.
-- Overflow as `scrollWidth - clientWidth`, never against `window.innerWidth`.
-- Settle ~1.4s before measuring; at 200ms a page can measure clean and at 600ms not.
+  does **not** reload the document.
+- Overflow as `scrollWidth - clientWidth`, never `window.innerWidth`.
+- Settle ~1.4s before measuring.
+- When testing focus, read `document.activeElement.tagName` — its `textContent` is the
+  whole page when focus is on `body`, which will lie to you.
 
 For this objective specifically:
 
-- Contrast is computable — read resolved colours out of the page and compute the WCAG
-  ratio rather than eyeballing. Record every pair below 4.5:1 (3:1 for large text).
-- Keyboard paths are testable: dispatch real keys with `Input.dispatchKeyEvent`, read
-  `document.activeElement`, tab through each page and record the order. Check every
-  interactive element is reachable and has a visible focus style.
-- axe-core can be injected from `node_modules` if you add it as a dev dependency, or
-  fetched once and inlined. Adding a dependency is a judgment call — say so either way.
-- Leave passing: the 38-route sweep (content, no console errors, no broken images, no
-  overflow), anchor clearance, the case-study ring, and reduced motion.
+- **Test the metadata the way a scraper sees it**: `curl` the URL and read the HTML, with
+  no JavaScript. That is the only test that proves `ISSUE-013` is fixed. Doing it in a
+  browser will pass whether or not anything was achieved.
+- Check every route's `<title>`, `description`, `og:title`, `og:description`, `og:image`
+  and `canonical`, in both locales.
+- For `ISSUE-014`, navigate `/work/wikimind` → `/resume` in the browser and assert the
+  résumé's metadata is the résumé's.
+- Leave passing: the 38-route sweep, axe (0 violations), the case-study ring, reduced
+  motion, anchor clearance, and the overflow sweep.
 
 ## Completion Criteria
 
-- Every moving thing has a control, or does not need one.
-- Every interactive element is keyboard-reachable, in a sensible order, with a visible
-  focus style.
-- No contrast pair below AA, or a recorded decision for any that stays.
-- Heading order clean on every route.
-- Results recorded per route, so the next session need not re-run everything.
+- A scraper fetching any route gets that route's title, description and image — or a
+  recorded decision explaining why not, with what it would cost.
+- No metadata leaks between routes.
+- `sitemap.xml` exists and lists both locales, or is recorded as deliberately absent.
 - `npm run lint && npm run build` green; work committed.
 
 ## Required End-of-Session Updates
 
 1. Update the documentation whose information actually changed.
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
-3. Update `docs/milestones/milestone_007.md` and `docs/milestones/index.md` — this may
-   close the milestone.
+3. Update `docs/milestones/milestone_008.md` and `docs/milestones/index.md`.
 4. Record newly discovered issues / suggestions / decisions **only where genuinely
-   needed** — and if a token's value changes, say so in `docs/reference/design_tokens.md`.
-5. Create `docs/sessions/session_009.md` and add it to `docs/sessions/index.md`.
+   needed** — a prerender approach is a `DECISION`, not a footnote.
+5. Create `docs/sessions/session_010.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.
 9. Update any index whose rows changed. If images have landed, rerun
-   `node scripts/image-manifest.mjs --write` so the counts stay true.
+   `node scripts/image-manifest.mjs --write`.

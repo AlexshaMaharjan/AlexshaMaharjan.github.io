@@ -1,8 +1,8 @@
 # Issues Index
 
-29 issues. **19 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
-(`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006, 2 in SESSION-007 (`MILESTONE-007`) and 3 in SESSION-008
-(`MILESTONE-002`/`005`), and `ISSUE-025` by the owner — plus one partially resolved. 10
+30 issues. **20 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+(`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006, 2 in SESSION-007 and 1 in SESSION-009 (`MILESTONE-007`), 3 in
+SESSION-008 (`MILESTONE-002`/`005`), and `ISSUE-025` by the owner — plus one partially resolved. 10
 remain open, none `Investigating`. **The owner answered all three open decisions on
 2026-08-24**, which unblocked the last of these. No `Critical` issue is open. `ISSUE-027` is open but **diagnosed**:
 SESSION-005 measured the real mechanism and rewrote the file, having found SESSION-004's
@@ -61,6 +61,12 @@ And in SESSION-003 under `MILESTONE-003`:
 | ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
 | ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
 
+And in SESSION-009 under `MILESTONE-007`:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-030 | Accessibility gaps found by the WCAG 2.2 AA audit | `d9bb612` — contrast, three keyboard defects, a marquee pause control, touch targets; axe-core clean on 16 route loads | `issue_030.md` |
+
 And in SESSION-008, once the owner answered the decisions that blocked them:
 
 | ID | Title | Resolved by | File |
@@ -105,6 +111,6 @@ And by the owner, outside a recorded session:
 - **MILESTONE-005** (imagery): 006, 007 ✅ — what remains is the images themselves, listed
   in `docs/reference/image_manifest.md`
 - **MILESTONE-006** (motion): 012, 020
-- **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027, 028 ✅, 029
+- **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027, 028 ✅, 029, 030 ✅
 - **MILESTONE-008** (perf / SEO / deploy): 013, 014, 019, 025 ✅
 - **MILESTONE-009** (German): 009

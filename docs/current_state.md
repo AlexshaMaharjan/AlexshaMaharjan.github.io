@@ -33,6 +33,8 @@ Roughly: architecture ~90% done, content ~70% drafted, imagery ~5%, polish ~50%.
   marquees, one experiment detail page.
 - A complete, real résumé page with print styles.
 - `prefers-reduced-motion` honoured consistently.
+- **WCAG 2.2 AA verified** — axe-core reports 0 violations across 8 pages × 2 locales, the
+  site is operable by keyboard throughout, and the palette clears 4.5:1 (`ISSUE-030`).
 - `npm run build` green; `npm run lint` 0 errors, 3 warnings.
 
 ## Broken or unusable
@@ -97,9 +99,10 @@ primitives are still repeated across six or more files (`SUGGESTION-009` point 4
   branches `master` and `milestone-001-stabilize` point at the same commit as `main`
   (`413130b`) — redundant rather than divergent, and deletable whenever the owner is
   ready.
-- SESSION-003 to SESSION-008 sit on branch **`milestone-003-content-model`**, branched
-  from `main` — eleven commits, and **unpushed**. The branch name predates the last five
+- SESSION-003 to SESSION-009 sit on branch **`milestone-003-content-model`**, branched
+  from `main` — thirteen commits, and **unpushed**. The branch name predates the last six
   sessions. **Nothing is deployed**: the live site is published only by `npm run deploy`.
+- One dev dependency exists purely for verification: `axe-core`. It ships in nothing.
 - **Nothing is deployed.** The live site is served from `gh-pages` and published only by
   `npm run deploy`; there is no CI workflow. Publishing means merging to `main` and running
   that, which is the owner's call.
@@ -111,10 +114,11 @@ primitives are still repeated across six or more files (`SUGGESTION-009` point 4
 
 ## Current milestone
 
-**`MILESTONE-007`, well under way.** Seven issues resolved across three sessions; the
-consistency and responsive work is done bar `ISSUE-029`. What remains is the accessibility
-block — see `docs/next_session.md`. `MILESTONE-004` is the higher priority the moment the
-owner is available.
+**`MILESTONE-007`, nearly done.** Eight issues resolved across four sessions: the type
+scale, the palette, the container, the breakpoint order, the header at every width, and now
+the accessibility audit. What is left of it (`ISSUE-010`) waits on `MILESTONE-002`
+finishing, which waits on images. The next objective is `MILESTONE-008`'s link-preview and
+SEO half — see `docs/next_session.md`.
 
 ## Blockers
 
@@ -134,7 +138,10 @@ material, not choices:
    site looks, and it needs no code.
 2. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
-3. `MILESTONE-007`'s accessibility block — the largest piece needing nobody.
+3. **Link previews and SEO** (`ISSUE-013`, `ISSUE-014`) — every URL currently serves the
+   homepage's English metadata to scrapers, which matters the moment the site is shared.
+   That is what `docs/next_session.md` points at. `MILESTONE-006` (motion) is the
+   alternative, and is the owner's own stated priority.
 
 Unblocked and needing nobody: `MILESTONE-007`'s accessibility block, which is what
 `docs/next_session.md` points at, and `ISSUE-027`, which is diagnosed and waiting.

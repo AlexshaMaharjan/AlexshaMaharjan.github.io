@@ -15,7 +15,7 @@ disagreed, the coded value is recorded — see `DECISION-009`.
 | Secondary surface | `#EAECF0` | `surface-2` |
 | Primary text | `#111111` | `ink` |
 | Secondary text | `#62666D` | `ink-secondary` |
-| Muted text (mono captions) | `#858A92` | `ink-muted` |
+| Muted text (mono captions) | `#6A6F78` | `ink-muted` — was `#858A92` until SESSION-009, which is 3.13:1 on the page background and fails WCAG AA |
 | Long-form body text | `#3A3D42` | `ink-body` |
 | Border (tag pills) | `#D7DAE0` | `border` |
 | Near-black (dark bands) | `#0A0A0A` | `near-black` |
@@ -25,6 +25,8 @@ disagreed, the coded value is recorded — see `DECISION-009`.
 | Focus outline | `#1233C4` | `accent-focus` |
 | Soft accent / selection | `#E1E7FF` | `accent-soft` |
 | Card / figure border | `#E4E7EE` | `card-border` (named in SESSION-006) |
+| Text on the near-black bands | `#A7ACB4` | `ink-on-dark` (named in SESSION-009) |
+| Muted text on the near-black bands | `#8A8F98` | `ink-on-dark-muted` — replaced a `#6C7078` literal at 3.98:1 (SESSION-009) |
 | Dashed rules | `#C9CEDB` | `border-muted` (named in SESSION-006) |
 | Accent on the dark canvases | `#8FA6FF` | `accent-on-dark` (named in SESSION-006) |
 | Playground grid major (32px) | `rgba(78,96,135,0.055)` | — |
@@ -94,6 +96,10 @@ rendered two h1s near-white on white before it was renamed `page-title`.
 - `640px` — secondary mobile adjustments
 
 ## Accessibility rules (SPEC §11, stated non-negotiable)
+
+**Verified in SESSION-009** — axe-core over 8 pages × 2 locales against `wcag2a`/`2aa`/
+`21a`/`21aa`/`22aa` plus best-practice: 0 violations. What it took, and what measuring
+disproved, is in `docs/issues/issue_030.md`.
 
 - WCAG 2.2 AA.
 - `:focus-visible { outline: 2px solid #1233C4; outline-offset: 3px; border-radius: 2px }`

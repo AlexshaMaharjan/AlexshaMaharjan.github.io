@@ -20,6 +20,15 @@ visibility.~~
 itself from a `useLayoutEffect` — before the first paint, so it still does not flash — and
 its effects are keyed on the pathname rather than on mount. See the Consequences below.
 
+**Amended, SESSION-009:** the at-rest state is `opacity: 0`, not GSAP's `autoAlpha`.
+`autoAlpha` also sets `visibility: hidden`, and a hidden subtree is removed from the tab
+order — so any control inside a section that had not been revealed yet was unreachable by
+keyboard, which is how the playground's new pause control turned out to be unusable
+(`ISSUE-030`). At-rest elements are below the fold by definition, so being nominally
+clickable while invisible costs nothing. Focus entering a `[data-inview]` section now
+**completes that section's reveal tween** — not `gsap.set`, which would leave the trigger
+armed to replay the reveal and flash the control the visitor is focused on.
+
 ## Reasoning
 
 Recorded in the hook's own docstring: pages are lazy-loaded, so a layout-level effect keyed
@@ -41,6 +50,8 @@ for a fade); a layout-level GSAP context with `ScrollTrigger.refresh()` on navig
 - ~~The CSS guard is a single point of failure — if the hook does not run, content is gone.~~
   Removed: the at-rest state is now owned by the hook, so a page whose script never runs is
   readable rather than blank.
+- A `focusin` listener lives alongside the triggers and is torn down with them. It is a
+  passive listener, so it does not touch the effect-ordering contract below.
 - The hook is now coupled to `useScrollBehavior` by effect ordering: the at-rest state is
   applied in a layout effect (child, so it runs first), the ScrollTriggers are built in a
   passive effect (after `RootLayout` has finalised the scroll offset), and

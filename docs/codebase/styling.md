@@ -54,6 +54,16 @@ Two things that deliberately do *not* use them: `SelectedWork`'s `pt-[160px]` an
 The CSS fallbacks apply only until the measurement runs, and are the one part still written
 by hand — re-check them if the header's markup changes.
 
+## Accessibility rules baked into the CSS
+
+- `.tap-target` (`inline-flex min-h-[24px] items-center`) is the 24×24 floor from WCAG
+  2.5.8. Standalone links were 17–23px — the height of their line box (`ISSUE-030`). Links
+  inline in a sentence are exempt and do not need it.
+- The palette clears 4.5:1 on the grounds each colour is used on. `ink-muted` was `#858A92`
+  (3.13:1) until SESSION-009; `ink-on-dark-muted` replaced a `#6C7078` literal at 3.98:1.
+  **Any new colour needs its contrast computed against the ground it sits on**, not
+  eyeballed — `docs/issues/issue_030.md` records the method.
+
 ## Heading hyphenation
 
 `h1`/`h2`/`h3` carry `overflow-wrap: break-word` at every width — a guard that does nothing
