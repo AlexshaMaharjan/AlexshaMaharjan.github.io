@@ -82,7 +82,9 @@ Per-route `<title>`/meta are written imperatively by `src/components/Seo.tsx` on
   their effects on the pathname rather than by remounting the route (`ISSUE-001`,
   resolved), so **any new mount-only effect in a `:param` route is a latent repeat of that
   bug**.
-- ~~The anchor offset is a single fixed 104px~~ — **fixed in SESSION-005** (`ISSUE-015`).
+- ~~The anchor offset is a single fixed 104px~~ — **fixed in SESSION-005** (`ISSUE-015`),
+  and the same variable now drives where every page's content starts (`--page-top`,
+  SESSION-007). The header is 146px tall below 768px, not 480px (`ISSUE-016`).
   `Header.tsx` measures itself into `--header-h` and `index.css` derives
   `--anchor-offset: calc(var(--header-h) + 31px)`, which `section { scroll-margin-top }`
   and the case-study rail both read. 31px of clearance at every width.

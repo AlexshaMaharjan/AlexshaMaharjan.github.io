@@ -1,7 +1,8 @@
 # MILESTONE-007 — Design-system consistency, responsive and accessibility
 
-Status: In progress — `ISSUE-015`/`ISSUE-026` (SESSION-005) and
-`ISSUE-023`/`ISSUE-011`/`ISSUE-021` (SESSION-006) done
+Status: In progress — `ISSUE-015`/`ISSUE-026` (SESSION-005),
+`ISSUE-023`/`ISSUE-011`/`ISSUE-021` (SESSION-006) and `ISSUE-016`/`ISSUE-028`
+(SESSION-007) done. The accessibility block is what is left.
 Priority: Medium
 Goal: Make six differently-built pages read as one designed site, at every viewport, for
 every visitor.
@@ -36,7 +37,8 @@ milestones so pages are not swept twice.
 - [x] **ISSUE-011** — `theme.screens` is in ascending order (SESSION-006)
 - [ ] Settle one breakpoint story; document it in `ARCH-03`
 - [ ] Move `BentoGrid` off inline styles; delete the `!important` override
-- [ ] **ISSUE-016** — measure and fix the header at 480–1160px
+- [x] **ISSUE-016** — measured (a real 34px overlap at 480px) and fixed: the mode switch
+      appears from `md`, the second row carries it below that (SESSION-007)
 - [x] **ISSUE-015** — the header measures itself into `--header-h`, and both
       `scroll-margin-top` and the sticky rail derive from it (SESSION-005)
 - [x] **ISSUE-026** — the footer's link columns wrap (SESSION-005). The shared padding
@@ -44,8 +46,10 @@ milestones so pages are not swept twice.
 - [ ] **ISSUE-027** — a hash navigation after a client-side route change restores a stale
       scroll offset. **Diagnosed in SESSION-005**, three candidate fixes tried and
       reverted; the file now carries the measurements and where to start
-- [ ] **ISSUE-028** — the German header does not fit below ~360px (`/de/` scrolls sideways
-      by 39px at 320px). Pre-existing; decide first whether 320px is supported
+- [x] **ISSUE-028** — not the header: German compound words in display headings. Fixed
+      with hyphenation scoped to German below `md` (SESSION-007)
+- [ ] **ISSUE-029** — the About page's hand annotation sits on the Biography heading at
+      exactly 768px. Pre-existing, measured
 - [ ] Walk every page at 375 / 480 / 768 / 1024 / 1160 / 1440 / 1920
 
 `ISSUE-015` and `ISSUE-026` were taken first, in SESSION-005, being page-independent and
@@ -62,8 +66,8 @@ bug rather than an anchor bug, and was left diagnosed rather than half-fixed.
 
 ## Relevant Issues
 
-`ISSUE-010`, `ISSUE-011` ✅, `ISSUE-015` ✅, `ISSUE-016`, `ISSUE-021` ✅, `ISSUE-023` ✅,
-`ISSUE-026` ✅, `ISSUE-027`, `ISSUE-028`
+`ISSUE-010`, `ISSUE-011` ✅, `ISSUE-015` ✅, `ISSUE-016` ✅, `ISSUE-021` ✅, `ISSUE-023` ✅,
+`ISSUE-026` ✅, `ISSUE-027`, `ISSUE-028` ✅, `ISSUE-029`
 
 ## Relevant Suggestions
 

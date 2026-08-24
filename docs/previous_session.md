@@ -1,89 +1,81 @@
 # Previous Session
 
-Session: SESSION-006
-Milestone: MILESTONE-007 — Consistency, responsive, accessibility (second slice)
-Objective: Consolidate the design system — `ISSUE-023` (type scale, colours, container),
-plus `ISSUE-011` (breakpoint order) and `ISSUE-021` (duplicated helper).
-Outcome: **All three resolved.** One new defect recorded (`ISSUE-028`), and one bug caught
-by the verification before it shipped.
+Session: SESSION-007
+Milestone: MILESTONE-007 — Consistency, responsive, accessibility (third slice)
+Objective: `ISSUE-016` (the header's centred control may collide between 480 and 1160px)
+and `ISSUE-028` (the German header does not fit below ~360px).
+Outcome: **Both resolved.** `ISSUE-028`'s diagnosis was wrong and has been rewritten; a
+pre-existing overlap on phones was fixed along the way; one new defect recorded
+(`ISSUE-029`).
 
 ## What Changed
 
-The config described a design system nobody had adopted: ten named type sizes with zero
-uses, and a `.container-page` describing a container the site does not use. This reconciled
-the config with what the pages were actually written with, then adopted it.
+**`ISSUE-016` was real, and worse than "tight".** The mode switch is centred on the
+viewport, so it collides with whichever side is wider — the 136px wordmark, not the 49px
+menu button:
 
-| | Before | After |
+| Viewport | wordmark → switch | after |
 | --- | --- | --- |
-| Display sizes | ~20 hand-written `clamp()`s, five of them page h1s | 7 named tokens at 24 call sites |
-| `#E4E7EE` / `#C9CEDB` / `#8FA6FF` | 26 raw literals | `card-border`, `border-muted`, `accent-on-dark` |
-| Page container | hand-written 31 times | `.container-page` |
-| `theme.screens` | `nav:1160` declared before `lg:1024` | ascending |
-| `stripLocale` | defined twice, byte-for-byte | once, in `lib/i18n.ts` |
+| 480px | **−34px (overlapping)** | switch not shown; second row carries it |
+| 520px | **−14px (overlapping)** | same |
+| 560px | 6px | same |
+| 768px | 86px | 86px, unchanged |
 
-The scale: `hero` 5.5rem, `page-title` 5.25rem, `section` 4.25rem, `feature` 3.25rem,
-`heading` 2.75rem, `subheading` 2.25rem, `lead` 1.875rem. **Sizes only** — components still
-set line-height and letter-spacing, and they do not always match for the same size, so
-folding those in would change how headings look. **Fixed px UI sizes were left alone** on
-purpose: 173 literals, mostly 12/13/14/15px, which are considered sizes rather than drift.
+The switch now appears from `md` (768px) instead of `sm` (480px), and the second header row
+carries it below that. One switch at every width, smallest gap anywhere 86px.
 
-## Deliberate visual changes
+**That exposed the same bug as `ISSUE-015`, in a different guise.** With the header now
+146px tall up to 768px, pages that hard-coded where their content starts — 132px, 150px,
+168px, all tuned to the 73px desktop header — started underneath it. Measured before
+touching anything: the homepage hero was already **28px under the header at 375px**, and
+every other page cleared it by **8px**. Page tops now derive from the measured header
+height (`--page-top`), with 40px of air on small screens and 77px from `md` up — which is
+exactly the 150px they used to hard-code. Desktop is unchanged everywhere except the
+playground index, which used 168px where every other page used 150px.
 
-Everything else is unchanged to the pixel — verified by diffing computed styles for every
-h1/h2 on five pages at four widths:
+**`ISSUE-028` was not the header.** Under mobile emulation the header stretches to the
+layout viewport, so on any overflowing page it measures as the widest thing — a symptom
+that looked like a cause. Bisecting the DOM found the real one: German compound words in
+display headings. "Studierendenservice" in the QIS h1 is ~425px wide at the minimum font
+size, which is what pushed `/de/work/qis-portal` 65px too wide at 375px.
 
-- **The homepage's three section headings were three different sizes** (66 / 48 / 58px at
-  1440) and are now one (66px). Worth the owner's eye.
-- About's sub-headings 34→36px, its biography heading 40→44px.
-- Résumé, 404 and playground category/project h1s move 2–8px mid-range.
-- All six case studies unchanged.
-
-## The bug the verification caught
-
-A font size named `page` collides with the `page` **colour** token — `text-*` serves both,
-and the colour wins. About's and Playground's h1 were rendering near-white on white. The
-computed-style diff caught it on six page/width combinations; a scaled-down screenshot
-would not obviously have. Renamed `page-title`, and the rule is now written down in
-`styling.md` and `design_tokens.md`.
+Headings now hyphenate, scoped twice over: to German, so English wraps exactly as it did,
+and to below `md` — with hyphenation at all widths the German QIS h1 at 1440px hyphenated
+"Hoch-schulportal", which is correct German and wrong for a hero.
 
 ## Files Changed
 
-27 files. `tailwind.config.ts` (scale, colours, screens), `src/index.css`
-(`.container-page`), `src/lib/i18n.ts` (`stripLocale`), and 24 components and pages
-adopting the tokens.
+`Header.tsx` (both breakpoints), `index.css` (`--page-air` / `--page-top`, heading
+hyphenation, the `--header-h` fallback boundary), and nine components and pages whose page
+tops now derive from the header height. `SelectedWork`'s padding was reverted after being
+changed — it is rhythm between sections, not header clearance.
 
-Committed as `2880697` on branch **`milestone-003-content-model`** — now eight commits
-ahead of `main` and still unpushed. **Nothing is deployed**: the live site is served from
-`gh-pages` and published only by `npm run deploy`.
+Committed as `53e212e` on branch **`milestone-003-content-model`** — nine commits ahead of
+`main`, still unpushed. **Nothing is deployed.**
 
 ## Validation
 
 - `npm run lint` 0 errors / 3 pre-existing warnings; `npm run build` green.
-- Headless Chrome against the **production build**: computed styles for every h1/h2 on five
-  pages at four widths before and after; full-page screenshots of nine pages at four widths
-  before and after; horizontal overflow across nine pages × twelve widths; anchors still
-  clearing the header by 31px; the `nav:1160` breakpoint still switching exactly at 1160;
-  the case-study ring and reduced motion clean.
-
-## ISSUE-028, found on the way
-
-`/de/` scrolls sideways by 39px at 320px — the German header's contents demand 359px.
-Pre-existing, measured identically on the pre-session build. Two lessons with it:
-
-- **Compare `scrollWidth` against `clientWidth`, not `window.innerWidth`.** `innerWidth`
-  includes the scrollbar and hides up to ~15px of overflow.
-- **Settle before measuring.** At 200ms the page measures clean; from 600ms it does not.
+- Headless Chrome against the **production build**: header element boxes at 18 widths × 2
+  locales with no overlap; horizontal overflow across 9 pages × 12 widths × 2 locales,
+  clean everywhere; anchors clearing by 31px at 8 widths in both locales; page-top
+  clearance measured before and after on 7 pages; English heading geometry unchanged on all
+  9 sampled combinations; the case-study ring and reduced motion clean; screenshots of the
+  two-row band at 500 / 700 / 767 / 768px.
 
 ## Remaining Concerns
 
-- `SUGGESTION-009` point 4 — the tag and CTA pill primitives — is still open. Component
-  extraction rather than tokens.
-- Line-height and letter-spacing are still per component, so two headings at the same token
-  size can still differ in leading. That is a design decision, not a refactor.
-- `ISSUE-028` and `ISSUE-027` are the open defects, both Low.
-- `MILESTONE-002` may rebuild the homepage work section, so part of this sweep may be
-  redone there. It was worth doing now for the rest of the site.
+- **`ISSUE-029`** (new, pre-existing) — the About page's hand annotation sits on the
+  Biography heading at exactly 768px.
+- **The header is 146px tall up to 768px now.** That is a lot of a small screen. It buys a
+  switch that always fits and content that always clears it; if the owner dislikes it, the
+  fix is a narrower switch, not a lower breakpoint.
+- `ISSUE-027` is still open and still diagnosed.
+- `MILESTONE-007`'s accessibility block is the largest unblocked piece left.
+- A note for the next harness: the scratchpad does not survive between sessions. The CDP
+  driver is ~50 lines and worth rebuilding with `coldGoto` and the `clientWidth` rule in it
+  from the start.
 
 ## Detailed Session Record
 
-See `docs/sessions/session_006.md`.
+See `docs/sessions/session_007.md`.

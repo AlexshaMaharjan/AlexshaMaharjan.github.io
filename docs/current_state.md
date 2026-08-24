@@ -1,7 +1,7 @@
 # Current State
 
-Snapshot: **2026-08-24**, after SESSION-006 (`MILESTONE-007` — the design-system
-consolidation).
+Snapshot: **2026-08-24**, after SESSION-007 (`MILESTONE-007` — the header at every
+width).
 
 ## Overall
 
@@ -41,10 +41,8 @@ Roughly: architecture ~90% done, content ~70% drafted, imagery ~5%, polish ~50%.
 **Nothing.** All four entries here — `ISSUE-001` (Critical), `ISSUE-002`, `ISSUE-003` and
 `ISSUE-022` — were fixed in SESSION-002. No `Critical` issue is open.
 
-Two measured defects remain, both Low. `ISSUE-028` — the German header needs 359px of
-content at 320px, so `/de/` scrolls sideways there; pre-existing, and paired with
-`ISSUE-016` (the header's centred control may collide between 480 and 1160px) as the next
-session's objective. And `ISSUE-027` — a hash navigation performed after a
+Two measured defects remain, both Low and both pre-existing. `ISSUE-029` — the About
+page's hand annotation sits on the Biography heading at exactly 768px. And `ISSUE-027` — a hash navigation performed after a
 client-side route change restores a scroll offset nobody chose, landing 18px past the
 anchor. Diagnosed in SESSION-005 with an instrumented build; three candidate fixes were
 tried and reverted rather than shipped unproven. `ISSUE-015` and `ISSUE-026` were fixed in
@@ -73,10 +71,15 @@ seven named sizes in use at 24 call sites, three former raw hexes promoted to to
 one `.container-page` at all 31 page containers (`ISSUE-023`). The homepage's three section
 headings, which were three different sizes, are now one.
 
+Responsive behaviour is now checked rather than assumed: no page scrolls horizontally at
+any width from 320px to 1920px in either locale, the header has no overlapping elements at
+any width, and everything that must clear the fixed header derives from its measured height
+rather than from a hard-coded number.
+
 What is left of the consistency work: line-height and letter-spacing are still written per
 component, so two headings at the same size can differ in leading; the tag and CTA pill
 primitives are still repeated across six or more files (`SUGGESTION-009` point 4); and
-responsive behaviour still has two known gaps in the header (`ISSUE-016`, `ISSUE-028`).
+`ISSUE-029` is one measured collision at 768px.
 
 ## Content and assets still missing
 
@@ -94,8 +97,8 @@ responsive behaviour still has two known gaps in the header (`ISSUE-016`, `ISSUE
   branches `master` and `milestone-001-stabilize` point at the same commit as `main`
   (`413130b`) — redundant rather than divergent, and deletable whenever the owner is
   ready.
-- SESSION-003 to SESSION-006 sit on branch **`milestone-003-content-model`**, branched
-  from `main` — eight commits, and **unpushed**. The branch name predates the last three
+- SESSION-003 to SESSION-007 sit on branch **`milestone-003-content-model`**, branched
+  from `main` — nine commits, and **unpushed**. The branch name predates the last four
   sessions.
 - **Nothing is deployed.** The live site is served from `gh-pages` and published only by
   `npm run deploy`; there is no CI workflow. Publishing means merging to `main` and running
@@ -108,10 +111,10 @@ responsive behaviour still has two known gaps in the header (`ISSUE-016`, `ISSUE
 
 ## Current milestone
 
-**`MILESTONE-007`, well under way.** `ISSUE-015`, `ISSUE-026`, `ISSUE-023`, `ISSUE-011` and
-`ISSUE-021` are done. Next: the header at every width (`ISSUE-016`, `ISSUE-028`), then the
-accessibility block. `MILESTONE-004` is the higher priority the moment the owner is
-available — see `docs/next_session.md`.
+**`MILESTONE-007`, well under way.** Seven issues resolved across three sessions; the
+consistency and responsive work is done bar `ISSUE-029`. What remains is the accessibility
+block — see `docs/next_session.md`. `MILESTONE-004` is the higher priority the moment the
+owner is available.
 
 ## Blockers
 
@@ -133,9 +136,8 @@ Nothing blocks the layout half of `MILESTONE-003`.
 3. `ISSUE-006` + the remaining `ISSUE-007` slots — real imagery, blocked on the owner's
    exports and on `DECISION-006`.
 
-Unblocked and needing nobody: the header at every width (`ISSUE-016`, `ISSUE-028`), which
-is what `docs/next_session.md` points at; then `MILESTONE-007`'s accessibility block; and
-`ISSUE-027`, which is diagnosed and waiting.
+Unblocked and needing nobody: `MILESTONE-007`'s accessibility block, which is what
+`docs/next_session.md` points at, and `ISSUE-027`, which is diagnosed and waiting.
 
 ## Where to read more
 

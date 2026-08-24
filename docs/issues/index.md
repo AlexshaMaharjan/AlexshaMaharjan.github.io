@@ -1,8 +1,8 @@
 # Issues Index
 
-28 issues. **14 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
-(`MILESTONE-003`), 2 in SESSION-005 and 3 in SESSION-006 (`MILESTONE-007`), and
-`ISSUE-025` by the owner — plus one partially resolved. 14 remain open, one of them
+29 issues. **16 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+(`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006 and 2 in SESSION-007 (`MILESTONE-007`),
+and `ISSUE-025` by the owner — plus one partially resolved. 13 remain open, none
 `Investigating`. No `Critical` issue is open. `ISSUE-027` is open but **diagnosed**:
 SESSION-005 measured the real mechanism and rewrote the file, having found SESSION-004's
 description of it wrong.
@@ -30,7 +30,6 @@ _None._
 | ISSUE-010 | Dead fields across the content types | Open | Medium | ~12 typed fields read by nothing | `issue_010.md` |
 | ISSUE-012 | Process canvas rAF loop never idles | Open | Medium | Continuous per-frame style writes on desktop | `issue_012.md` |
 | ISSUE-013 | No prerendering — crawlers see one English page | Open | Medium | Link previews and SEO are wrong on every route | `issue_013.md` |
-| ISSUE-016 | Header centre control may collide 480–1160px | Investigating | Medium | Needs browser measurement | `issue_016.md` |
 | ISSUE-019 | Oversized GSAP and case-study chunks | Open | Medium | 115 KB GSAP on every page; 121 KB for one case study | `issue_019.md` |
 
 ## Active — Low
@@ -40,7 +39,7 @@ _None._
 | ISSUE-014 | `Seo` leaks description/OG between routes | Open | Low | Stale meta after navigation | `issue_014.md` |
 | ISSUE-020 | Lazy routes render a blank frame | Open | Low | `Suspense fallback={null}` | `issue_020.md` |
 | ISSUE-027 | Hash navigation after a route change restores an offset nobody chose | Open | Low | **Diagnosed, not fixed** — stale entry in the scroll-position map | `issue_027.md` |
-| ISSUE-028 | German header does not fit below ~360px | Open | Low | `/de/` scrolls sideways by 39px at 320px; pre-existing | `issue_028.md` |
+| ISSUE-029 | About annotation overlaps the Biography heading at 768px | Open | Low | Decorative hand note sits on text; pre-existing | `issue_029.md` |
 
 ## Resolved
 
@@ -62,6 +61,13 @@ And in SESSION-003 under `MILESTONE-003`:
 | --- | --- | --- | --- |
 | ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
 | ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
+
+And in SESSION-007 under `MILESTONE-007`:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-016 | Header centre control collides between 480 and 560px | `53e212e` — the switch appears from `md`; the second row carries it below that | `issue_016.md` |
+| ISSUE-028 | German compound words in headings overflow at narrow widths | `53e212e` — hyphenation scoped to German below `md`; the original diagnosis was wrong and is corrected in the file | `issue_028.md` |
 
 And in SESSION-006 under `MILESTONE-007`:
 
@@ -92,6 +98,6 @@ And by the owner, outside a recorded session:
 - **MILESTONE-004** (copy pass): —
 - **MILESTONE-005** (imagery): 006, 007 (Playground + About slots)
 - **MILESTONE-006** (motion): 012, 020
-- **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016, 021 ✅, 023 ✅, 026 ✅, 027, 028
+- **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027, 028 ✅, 029
 - **MILESTONE-008** (perf / SEO / deploy): 013, 014, 019, 025 ✅
 - **MILESTONE-009** (German): 009

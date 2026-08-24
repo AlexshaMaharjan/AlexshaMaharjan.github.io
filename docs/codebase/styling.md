@@ -30,17 +30,38 @@
 | `@media (max-width: 880px)` | `!important` overrides collapsing `[data-el="bento"]` to a single column |
 | `[data-inview]` | **no rule** — removed in SESSION-002. The at-rest state is applied by `useScrollReveals` from a layout effect so it fails safe (`ISSUE-001`) |
 
-## Header height (`--header-h`, `--anchor-offset`)
+## Header height (`--header-h`, `--anchor-offset`, `--page-top`)
 
 `Header.tsx` measures its own height in a layout effect and a `ResizeObserver`, and writes
-`--header-h` onto the document element. `index.css` derives
-`--anchor-offset: calc(var(--header-h) + 31px)` from it; `section { scroll-margin-top }`
-and the case-study contents rail both read that, so one measured number positions every
-anchor on the site (`ISSUE-015`).
+`--header-h` onto the document element. `index.css` derives everything that has to clear
+the header from it:
 
-The CSS also declares fallbacks — 146px below 480px, 73px above — which apply only until
-the measurement runs. They are the one part still written down by hand, so re-check them
-if the header's markup changes.
+| Variable | Value | Read by |
+| --- | --- | --- |
+| `--header-h` | measured; CSS falls back to 146px, or 73px from **768px** up | the two below |
+| `--anchor-offset` | `calc(var(--header-h) + 31px)` | `section { scroll-margin-top }`, the case-study rail's sticky offset |
+| `--page-top` | `calc(var(--header-h) + var(--page-air))` — air is 40px, and 77px from `md` up, which is the 150px pages used to hard-code | the first section of every page |
+
+The header is 73px tall from 768px up, and 146px below that, where it carries a second row
+for the mode switch (`ISSUE-016` moved that boundary from 480px). Numbers tuned to the
+desktop header hid 42px of every anchored section on a phone (`ISSUE-015`) and started the
+homepage hero 28px *underneath* the header (`ISSUE-016`). **A number that has to clear the
+header belongs in a `calc()` off these variables, not in a class.**
+
+Two things that deliberately do *not* use them: `SelectedWork`'s `pt-[160px]` and About's
+`pt-[110px]` are rhythm between sections, not header clearance.
+
+The CSS fallbacks apply only until the measurement runs, and are the one part still written
+by hand — re-check them if the header's markup changes.
+
+## Heading hyphenation
+
+`h1`/`h2`/`h3` carry `overflow-wrap: break-word` at every width — a guard that does nothing
+until a word cannot fit — plus `hyphens: auto` scoped to `:root:lang(de)` **below `md`**.
+German compounds are long enough to overflow the page at narrow widths (`ISSUE-028`);
+English is not, and `hyphens: auto` changes line breaking wherever it applies, so it is kept
+off English and off the large display sizes, where a hyphen in an 84px headline reads worse
+than the wrap it replaces.
 
 ## Fonts
 
