@@ -1,6 +1,6 @@
 # SUGGESTION-002 — Give every image slot an optional real source
 
-Status: **Partially implemented** (SESSION-003, `e844ad9`) — case studies only
+Status: **Implemented** (SESSION-003 `e844ad9`, completed SESSION-008 `ee3857f`)
 Priority: High
 Impact: High
 Effort: Small
@@ -54,6 +54,11 @@ block kind. `PlaygroundItem` and `about.carouselItems[]` were left alone: they a
 outside `MILESTONE-003`, and the Playground is exactly where the placeholder may be a
 deliberate choice rather than a gap, which is still `DECISION-006`'s open question for
 the owner.
+
+SESSION-008 finished the rest, once `DECISION-006` was answered: `PlaygroundItem`, the
+About carousel, the playground project image and the two hero collage cards all take a
+`src`/`alt`, and `src/components/ui/Media.tsx` is the one component that chooses between
+the image and the placeholder. `Figure` builds on it.
 
 One departure: `Figure` shows a caption **only** when a real `src` exists. A placeholder
 keeps its `[ bracketed label ]` inside the hatched box, and repeating it underneath as a

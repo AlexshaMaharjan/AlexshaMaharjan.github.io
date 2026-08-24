@@ -1,10 +1,16 @@
 # ISSUE-005 — Homepage work grid is hard-coded English, breaking the German site
 
-Status: Open
+Status: **Resolved** (SESSION-008, `ee3857f`)
 Priority: High
 Category: Bug / i18n
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-24
+
+## Resolution
+
+The tile copy moved from a hard-coded array in `BentoGrid.tsx` into
+`dictionaries/{en,de}.ts` → `selectedWork.bento[]`, so the German homepage shows German
+labels. Measured: all eleven tiles, both locales, with locale-correct `/de/work/...` links.
 
 ## Summary
 

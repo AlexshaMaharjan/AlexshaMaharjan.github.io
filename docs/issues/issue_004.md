@@ -1,10 +1,26 @@
 # ISSUE-004 — Homepage "Selected Work" shows no project imagery and duplicates projects
 
-Status: Open
+Status: **Partially resolved** (SESSION-008, `ee3857f`) — the mechanism is there, the
+images are not
 Priority: High
 Category: UI/UX / Regression
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-24
+
+## Resolution so far
+
+The owner confirmed the bento direction (`DECISION-010`, 2026-08-24) and is making the
+images. SESSION-008 built what that needs:
+
+- each of the eleven tiles takes an optional `src`/`alt`, so an image is a data edit
+- a tile with an image renders it under a gradient scrim, so its label and title stay
+  legible; tiles without one stay the flat grey card, and the two states mix cleanly
+- the tiles moved into the dictionary, which also fixed `ISSUE-005`
+
+**What is left is the images themselves** — eleven of them, listed with sizes in
+`docs/reference/image_manifest.md`. The duplication this issue also raised (five of six
+projects appear twice) is now deliberate: with images the grid reads as a wall of work
+rather than a list of six, and `DECISION-010` records that.
 
 ## Summary
 

@@ -1,9 +1,10 @@
 # Issues Index
 
-29 issues. **16 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
-(`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006 and 2 in SESSION-007 (`MILESTONE-007`),
-and `ISSUE-025` by the owner — plus one partially resolved. 13 remain open, none
-`Investigating`. No `Critical` issue is open. `ISSUE-027` is open but **diagnosed**:
+29 issues. **19 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+(`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006, 2 in SESSION-007 (`MILESTONE-007`) and 3 in SESSION-008
+(`MILESTONE-002`/`005`), and `ISSUE-025` by the owner — plus one partially resolved. 10
+remain open, none `Investigating`. **The owner answered all three open decisions on
+2026-08-24**, which unblocked the last of these. No `Critical` issue is open. `ISSUE-027` is open but **diagnosed**:
 SESSION-005 measured the real mechanism and rewrote the file, having found SESSION-004's
 description of it wrong.
 
@@ -17,10 +18,8 @@ _None._
 
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
-| ISSUE-004 | Homepage work grid has no imagery, duplicates projects | Open | High | 11 grey tiles for 6 projects, no images or copy | `issue_004.md` |
-| ISSUE-005 | Work grid is hard-coded English | Open | High | German homepage shows English tiles | `issue_005.md` |
+| ISSUE-004 | Homepage work grid has no imagery | **Partially resolved** | High | Tiles take images now; the images are being made | `issue_004.md` |
 | ISSUE-006 | 5 of 7 wired images are colour stand-ins | Open | High | Portrait + 4 case-study heroes are flat blocks | `issue_006.md` |
-| ISSUE-007 | ~115 image slots have no source field | **Partially resolved** | High | 71 case-study slots take a `src` now; 44 Playground/About slots do not | `issue_007.md` |
 
 ## Active — Medium
 
@@ -62,6 +61,13 @@ And in SESSION-003 under `MILESTONE-003`:
 | ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
 | ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
 
+And in SESSION-008, once the owner answered the decisions that blocked them:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-005 | Work grid is hard-coded English | `ee3857f` — tiles come from the dictionary | `issue_005.md` |
+| ISSUE-007 | ~115 image slots have no source field | `ee3857f` — the last 44 slots got `src`/`alt`; every slot on the site is fillable from data | `issue_007.md` |
+
 And in SESSION-007 under `MILESTONE-007`:
 
 | ID | Title | Resolved by | File |
@@ -93,10 +99,11 @@ And by the owner, outside a recorded session:
 ## Grouped by milestone
 
 - **MILESTONE-001** (stabilize): 001, 002, 003, 017, 018, 022 — **all resolved**
-- **MILESTONE-002** (work section): 004, 005
+- **MILESTONE-002** (work section): 004 (mechanism ✅, images pending), 005 ✅
 - **MILESTONE-003** (case-study redesign): 008 ✅, 024 ✅, 007 (case-study half ✅)
 - **MILESTONE-004** (copy pass): —
-- **MILESTONE-005** (imagery): 006, 007 (Playground + About slots)
+- **MILESTONE-005** (imagery): 006, 007 ✅ — what remains is the images themselves, listed
+  in `docs/reference/image_manifest.md`
 - **MILESTONE-006** (motion): 012, 020
 - **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027, 028 ✅, 029
 - **MILESTONE-008** (perf / SEO / deploy): 013, 014, 019, 025 ✅

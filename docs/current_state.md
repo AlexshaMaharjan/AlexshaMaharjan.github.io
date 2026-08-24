@@ -1,7 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-24**, after SESSION-007 (`MILESTONE-007` — the header at every
-width).
+Snapshot: **2026-08-24**, after SESSION-008 (the owner's three decisions, acted on).
 
 ## Overall
 
@@ -56,9 +55,10 @@ page scrolls sideways at any width from 320px to 1920px.
 - **Case-study content** — the layout is done; the writing has not been through its pass
   (`MILESTONE-004`), and all 71 figures are still placeholders (`MILESTONE-005`). Those two
   are what stands between the case studies and finished.
-- **Imagery** — 2 real images on the entire site. 5 wired slots are colour stand-ins
-  (`ISSUE-006`). The 71 case-study figure slots now accept a real file from the data alone;
-  44 Playground and About slots still have no source field (`ISSUE-007`).
+- **Imagery** — 136 slots, 7 filled, and 5 of those 7 are colour stand-ins rather than
+  photographs (`ISSUE-006`). **Every slot can now be filled by editing data**
+  (`ISSUE-007`, closed): what each needs is listed in
+  `docs/reference/image_manifest.md`. The owner is making the images.
 - **Motion** — one fade-and-lift effect. No page transitions, no scroll-linked interaction
   outside the process canvas.
 - **German** — 3 untranslated fields and 1 missing field, all visible (`ISSUE-009`).
@@ -97,9 +97,9 @@ primitives are still repeated across six or more files (`SUGGESTION-009` point 4
   branches `master` and `milestone-001-stabilize` point at the same commit as `main`
   (`413130b`) — redundant rather than divergent, and deletable whenever the owner is
   ready.
-- SESSION-003 to SESSION-007 sit on branch **`milestone-003-content-model`**, branched
-  from `main` — nine commits, and **unpushed**. The branch name predates the last four
-  sessions.
+- SESSION-003 to SESSION-008 sit on branch **`milestone-003-content-model`**, branched
+  from `main` — eleven commits, and **unpushed**. The branch name predates the last five
+  sessions. **Nothing is deployed**: the live site is published only by `npm run deploy`.
 - **Nothing is deployed.** The live site is served from `gh-pages` and published only by
   `npm run deploy`; there is no CI workflow. Publishing means merging to `main` and running
   that, which is the owner's call.
@@ -118,23 +118,23 @@ owner is available.
 
 ## Blockers
 
-| Blocker | Blocks |
-| --- | --- |
-| `DECISION-010` — keep the bento direction? | `MILESTONE-002` |
-| `DECISION-006` — which placeholders stay stylised? | the last 44 slots of `ISSUE-007` |
-| Owner's real image exports | `MILESTONE-005` |
-| Owner's participation in the copy pass | `MILESTONE-004` |
+**No decision is outstanding.** All three were answered on 2026-08-24. What remains is
+material, not choices:
 
-Nothing blocks the layout half of `MILESTONE-003`.
+| Waiting on | Blocks |
+| --- | --- |
+| The owner's images — 129 empty slots | `MILESTONE-005`, and the visible half of `MILESTONE-002` |
+| The owner's participation in the copy pass | `MILESTONE-004` |
+| A custom domain, if one is wanted | nothing; the site works without it |
 
 ## Highest-priority next work
 
-1. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
+1. **Images** — 129 slots, all fillable from data, all listed with sizes in
+   `docs/reference/image_manifest.md`. This is the single biggest change left in how the
+   site looks, and it needs no code.
+2. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
-2. `ISSUE-004` + `ISSUE-005` — the homepage work section. `MILESTONE-002`, blocked on
-   `DECISION-010`.
-3. `ISSUE-006` + the remaining `ISSUE-007` slots — real imagery, blocked on the owner's
-   exports and on `DECISION-006`.
+3. `MILESTONE-007`'s accessibility block — the largest piece needing nobody.
 
 Unblocked and needing nobody: `MILESTONE-007`'s accessibility block, which is what
 `docs/next_session.md` points at, and `ISSUE-027`, which is diagnosed and waiting.

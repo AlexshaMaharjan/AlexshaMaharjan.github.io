@@ -475,7 +475,7 @@ EN: "Lübeck, Germany" | DE: "Lübeck, Deutschland"
 "alexsha.maharjan1@gmail.com"  (same both languages — also used for the mailto: links site-wide, see Footer/Contact)
 
 ### resume.portfolio (display text) / resume.portfolioHref (link)
-"alexshamaharjan.myportfolio.com" / "https://alexshamaharjan.myportfolio.com"
+"alexshamaharjan.github.io" / "https://alexshamaharjan.github.io"  (was the Adobe Portfolio site until 2026-08-24 — DECISION-012)
 (Note: this points to what looks like an older/separate Adobe Portfolio-style site, not this one. Confirm whether this should still be listed.)
 
 ### resume.linkedin (display text) / resume.linkedinHref (link)
@@ -1801,10 +1801,11 @@ caption underneath it, brackets stripped; without one it stays the hatched box w
 { aspect: "4/3", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.png", alt: "WikiMind moodboard" }
 ```
 
-The **About carousel** and the **Playground** slots still have no image mechanism at all
-(`carouselItems[]` / `items[]` carry only a caption + aspect ratio), so a real photo
-there still needs a small code change — flag which ones you want and it can be done as a
-follow-up.
+**Every other slot works the same way now** (since 2026-08-24): the About carousel, all
+the Playground cards, the playground project image, the playground hero collage and the
+eleven homepage bento tiles each take an optional `src`/`alt`. No code change is needed
+anywhere — see `docs/reference/image_manifest.md` for all 136 slots with their sizes and
+exact data paths.
 
 - **Case-study inline images** (§5): 71 image slots across the 6 case studies'
   `sections[].images[]` arrays, all still showing placeholders (e.g. WikiMind's "[ moodboard ]", "[ logo
@@ -1855,9 +1856,9 @@ directly (ask if you want any of these changed, they're short):
   playground data files (≈101 fields). This count treats each array item (a bullet, a
   tag, an image caption) as its own field.
 - **2 real images** actually in use (Barrier-Free Kitchen hero, QIS Portal hero).
-- **~120 image slots still needing a real photo**: 5 wired-up files that are currently
-  solid-colour stand-ins (including the portrait — see §10.2), plus ~115 caption-only
-  placeholder boxes (71 in case studies, 8 in the About carousel, 36 in Playground — see
-  §10.4). The 71 case-study slots can be filled from the data files now; the other 44
-  still need a code change first.
+- **136 image slots, 7 filled**: every one can be filled by editing data — see
+  `docs/reference/image_manifest.md`, which lists each with its aspect ratio, export width
+  and data path. 5 of the 7 filled are solid-colour stand-ins rather than photographs
+  (including the portrait — see §10.2) and can be replaced by dropping a real export in
+  under the same filename.
 - **9 unused image files** sitting in `public/images/` with no page referencing them.

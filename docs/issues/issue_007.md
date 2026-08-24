@@ -1,6 +1,7 @@
 # ISSUE-007 — ~115 image slots have no image mechanism in the data model
 
-Status: **Partially resolved** (SESSION-003, `e844ad9`) — case studies done, 44 slots left
+Status: **Resolved** (SESSION-003 `e844ad9` for case studies, SESSION-008 `ee3857f` for
+the rest)
 Priority: High
 Category: Architecture / Content
 Discovered: 2026-08-22 (documented earlier in `CONTENT_GUIDE.md` §10.4)
@@ -33,10 +34,22 @@ browser with a real file wired temporarily into WikiMind's `direction` section (
 loaded, caption read "moodboard", the other four slots stayed placeholders) and then
 reverted, since none of the spare files in `public/images/` is a real export.
 
-**Still open: 44 slots** — `PlaygroundItem` (36) and `about.carouselItems[]` (8). Both
-still carry caption + aspect only. The Playground ones are also the slots where the
-placeholder may be a deliberate choice rather than a gap (`DECISION-006`), so they need
-the owner's answer before the type changes.
+**The remaining 44 are done too** (SESSION-008). The owner answered `DECISION-006` —
+"almost all placeholders are images" — so the hatched box is a fallback, not a
+destination, and every slot got a source:
+
+- `PlaygroundItem` — 36 card slots, plus the project's main image
+- `about.carouselItems[]` — 8 slots
+- the playground hero collage's two cards, which were hard-coded in the page and are
+  content now
+
+One shared component decides: `src/components/ui/Media.tsx` renders the image when a `src`
+exists and `PlaceholderImage` when it does not. `case-study/Figure.tsx` builds its caption
+on top of it rather than repeating the logic.
+
+**Every image slot on the site can now be filled by editing data.** What each one needs —
+aspect ratio, export width, exact data path — is in `docs/reference/image_manifest.md`:
+136 slots, 7 filled.
 
 ## Expected Behavior
 

@@ -1,6 +1,6 @@
 # MILESTONE-005 — Real imagery
 
-Status: Proposed
+Status: **Unblocked** (2026-08-24) — the mechanism is complete; what is missing is files
 Priority: High
 Goal: Replace stand-ins and placeholders with the owner's actual work.
 

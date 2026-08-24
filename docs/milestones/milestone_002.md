@@ -1,6 +1,7 @@
 # MILESTONE-002 — Rebuild the homepage "Selected Work" section
 
-Status: Proposed
+Status: **In progress** — `DECISION-010` answered 2026-08-24 (keep the bento);
+`ISSUE-005` fixed and the tiles are image-ready (SESSION-008)
 Priority: High
 Goal: Make the homepage's central section present six projects, once each, with real
 imagery and enough copy to earn a click — in both languages.

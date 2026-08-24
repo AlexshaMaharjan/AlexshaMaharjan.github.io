@@ -84,6 +84,16 @@ Category ring order: `digital-art → crafts → editorial → graphic-experimen
 - **New playground experiment:** data file → `projects/index.ts` → give the matching
   `PlaygroundItem` a `slug`.
 
+## Images
+
+Every image slot on the site takes an optional `src`/`alt` and falls back to the hatched
+placeholder without one (`ISSUE-007`, closed in SESSION-008): case-study `heroImage` and
+`sections[].images[]`, `selectedWork.bento[]`, `about.carouselItems[]`, `PlaygroundItem`,
+the playground project's `mainSrc`, and the playground home's `heroCards`.
+
+`src/components/ui/Media.tsx` is the single component that chooses between the two.
+`docs/reference/image_manifest.md` lists all 136 slots with the data path that fills each.
+
 ## Related
 
 `ARCH-02`. Decisions: `DECISION-003`, `DECISION-014`. Issues: `ISSUE-007` (Playground and
