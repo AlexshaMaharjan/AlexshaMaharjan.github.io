@@ -1,6 +1,6 @@
 # Issues Index
 
-30 issues. **24 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+30 issues. **25 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
 (`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006, 2 in SESSION-007 and 1 in SESSION-009 (`MILESTONE-007`), 3 in
 SESSION-008 (`MILESTONE-002`/`005`), and `ISSUE-025` by the owner — plus one partially resolved. 10
 remain open, none `Investigating`. **The owner answered all three open decisions on
@@ -27,7 +27,6 @@ _None._
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-009 | German gaps: 3 untranslated fields + 1 missing | Open | Medium | Visible English on the DE About page | `issue_009.md` |
 | ISSUE-010 | Dead fields across the content types | Open | Medium | ~12 typed fields read by nothing | `issue_010.md` |
-| ISSUE-019 | Oversized GSAP and case-study chunks | Open | Medium | 115 KB GSAP on every page; 121 KB for one case study | `issue_019.md` |
 
 ## Active — Low
 
@@ -56,6 +55,12 @@ And in SESSION-003 under `MILESTONE-003`:
 | --- | --- | --- | --- |
 | ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
 | ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
+
+And in SESSION-013 under `MILESTONE-008`:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-019 | Oversized GSAP and case-study chunks | `93aa40b` — the registry is split per slug (126 KB → 13 KB + one study); GSAP staying eager is `DECISION-015` | `issue_019.md` |
 
 And in SESSION-011 under `MILESTONE-006`:
 
@@ -122,5 +127,5 @@ And by the owner, outside a recorded session:
   in `docs/reference/image_manifest.md`
 - **MILESTONE-006** (motion): 012 ✅, 020 ✅
 - **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027, 028 ✅, 029, 030 ✅
-- **MILESTONE-008** (perf / SEO / deploy): 013 ✅, 014 ✅, 019, 025 ✅
+- **MILESTONE-008** (perf / SEO / deploy): 013 ✅, 014 ✅, 019 ✅, 025 ✅
 - **MILESTONE-009** (German): 009

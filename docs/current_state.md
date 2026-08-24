@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-25**, after SESSION-012 (the scroll-linked effects).
+Snapshot: **2026-08-25**, after SESSION-013 (the bundle and `hreflang`).
 
 ## Overall
 
@@ -36,8 +36,11 @@ Roughly: architecture ~90% done, content ~70% drafted, imagery ~5%, polish ~50%.
 - **WCAG 2.2 AA verified** — axe-core reports 0 violations across 8 pages × 2 locales, the
   site is operable by keyboard throughout, and the palette clears 4.5:1 (`ISSUE-030`).
 - **Every route has its own metadata**, in static HTML a scraper can read without running
-  JavaScript: title, description, canonical, Open Graph and language (`ISSUE-013`,
-  `ISSUE-014`). `npm run prerender` writes it and `predeploy` runs it.
+  JavaScript: title, description, canonical, Open Graph, language, and `hreflang`
+  alternates connecting each page to its other locale (`ISSUE-013`, `ISSUE-014`).
+  `npm run prerender` writes it and `predeploy` runs it.
+- **A case study loads only itself** — 13 KB of page shell plus 15–22 KB for that study,
+  where all six used to arrive together (`ISSUE-019`, `DECISION-015`).
 - `npm run build` green; `npm run lint` 0 errors, 3 warnings.
 
 ## Broken or unusable
@@ -105,8 +108,8 @@ primitives are still repeated across six or more files (`SUGGESTION-009` point 4
   branches `master` and `milestone-001-stabilize` point at the same commit as `main`
   (`413130b`) — redundant rather than divergent, and deletable whenever the owner is
   ready.
-- SESSION-003 to SESSION-012 sit on branch **`milestone-003-content-model`**, branched
-  from `main` — nineteen commits, and **unpushed**. The branch name predates the last seven
+- SESSION-003 to SESSION-013 sit on branch **`milestone-003-content-model`**, branched
+  from `main` — twenty-one commits, and **unpushed**. The branch name predates the last seven
   sessions. **Nothing is deployed**: the live site is published only by `npm run deploy`.
 - One dev dependency exists purely for verification: `axe-core`. It ships in nothing.
 - **Nothing is deployed.** The live site is served from `gh-pages` and published only by
@@ -120,9 +123,15 @@ primitives are still repeated across six or more files (`SUGGESTION-009` point 4
 
 ## Current milestone
 
-**`MILESTONE-006` is complete** (SESSION-011 + SESSION-012).
+**`MILESTONE-006` and `MILESTONE-008` are complete** (SESSION-011–013), the latter bar a
+real `og:image`, which is the owner's to supply.
 
-**`MILESTONE-008` started** — `ISSUE-013`, `ISSUE-014` and `ISSUE-025` are done;
+**Every milestone that does not need the owner is now done.** What remains is
+`MILESTONE-004` (the copy pass), `MILESTONE-005` (images), the visible half of
+`MILESTONE-002` (the bento's eleven images), and `MILESTONE-009` (German parity, which
+follows the copy pass).
+
+**`MILESTONE-008` was** — `ISSUE-013`, `ISSUE-014` and `ISSUE-025` are done;
 `ISSUE-019` (bundle size) is what is left of it.
 
 **`MILESTONE-007`, nearly done.** Eight issues resolved across four sessions: the type
@@ -149,9 +158,9 @@ material, not choices:
    site looks, and it needs no code.
 2. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
-3. **`ISSUE-019`** — 46 KB gzip of GSAP and a 126 KB case-study chunk, now that the motion
-   work has made the case for GSAP or failed to. That, and `ISSUE-010`'s dead content
-   fields, are what `MILESTONE-008` has left.
+3. **The two loose ends in the tracker**: `ISSUE-010` (dead content fields, waiting on
+   `MILESTONE-002` finishing) and `ISSUE-029` (the About annotation colliding at 768px).
+   Neither blocks anything.
 
 Unblocked and needing nobody: `MILESTONE-007`'s accessibility block, which is what
 `docs/next_session.md` points at, and `ISSUE-027`, which is diagnosed and waiting.

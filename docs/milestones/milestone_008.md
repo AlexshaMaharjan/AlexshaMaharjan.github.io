@@ -19,8 +19,7 @@ Build output, metadata, hosting, and a minimal safety net.
 **Deployment (`SUGGESTION-016`)**
 - [x] **Ask the owner** — answered 2026-08-24: GitHub Pages, and the résumé points here
       rather than at Adobe Portfolio (`DECISION-012`)
-- [ ] Remove the unused fallback — `public/_redirects` is the Netlify convention and is now
-      dead weight
+- [x] Remove the unused fallback — `public/_redirects` deleted (SESSION-013)
 - [x] Update `resume.portfolio` / `portfolioHref` in both dictionaries (SESSION-008)
 - [x] Document the deploy command in `docs/project_overview.md`
 - [ ] A custom domain, if the owner wants one — still open, and blocks nothing
@@ -28,8 +27,8 @@ Build output, metadata, hosting, and a minimal safety net.
 **SEO (`SUGGESTION-013`)**
 - [x] Prerender all 36 routes with baked per-locale metadata (SESSION-010) — the **head**
       only, and `ISSUE-013` records what prerendering the body would cost
-- [ ] `hreflang` alternates for every `/x` ↔ `/de/x` pair — not done, and the obvious next
-      thing here: the two locales are currently invisible to each other
+- [x] `hreflang` alternates for every `/x` ↔ `/de/x` pair (SESSION-013) — `en`, `de` and
+      `x-default`, in the static HTML and from the client, verified over plain HTTP
 - [x] `sitemap.xml` generated from the same route list (SESSION-010)
 - [x] **ISSUE-014** — the meta leak is fixed and the client path agrees with the baked HTML
 - [ ] **A real `og:image`** — every preview is still a solid-colour placeholder. The owner's
@@ -38,10 +37,8 @@ Build output, metadata, hosting, and a minimal safety net.
       and measured either way in SESSION-010
 
 **Performance (`SUGGESTION-012`)**
-- [ ] **ISSUE-019** — split the case-study chunk per slug. **Lazy-importing GSAP is not
-      straightforward**: the reveals apply their at-rest state before the first paint, and
-      an awaited import puts it after, which reintroduces the flash (`SUGGESTION-006`).
-      `MILESTONE-006` also changed the calculus — GSAP now drives five things, not one
+- [x] **ISSUE-019** — the case-study chunk is split per slug (126 KB → 13 KB + one study).
+      GSAP stays eager, recorded as `DECISION-015` with the alternative it forecloses
 - [ ] Confirm the image pipeline from `MILESTONE-005` is producing modern formats
 - [ ] Lighthouse pass on homepage + one case study; set a budget
 

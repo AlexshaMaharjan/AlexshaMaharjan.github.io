@@ -26,7 +26,7 @@ shared case-study/playground UI label.
 | File | Lines | Sections (per locale) |
 | --- | --- | --- |
 | `types.ts` | 68 | `CaseStudyContent`, `CaseStudySection`, `Block` (the body union), `InsightItem`, `TestingStep`, `SectionImage` (with optional `src`/`alt`) |
-| `index.ts` | 25 | slug registry + `getCaseStudy(slug, locale)` |
+| `index.ts` | 52 | slug registry of **dynamic imports** + `caseStudyPromise(slug)` / `localeContent(content, locale)`. One chunk per study since `DECISION-015`; read with React's `use()` so the page suspends rather than rendering empty |
 | `wikimind.ts` | 324 | 8 |
 | `afono.ts` | 348 | 9 — the only one with `heroDisclosure` (EN only, `ISSUE-009`) |
 | `sync-fm.ts` | 282 | 8 |

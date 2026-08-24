@@ -1,6 +1,7 @@
 # ISSUE-019 — GSAP and all six case studies ship in oversized shared chunks
 
-Status: Open
+Status: **Resolved** (SESSION-013, `93aa40b`) — the registry is split; GSAP staying eager
+is now `DECISION-015` rather than an open ticket
 Priority: Medium
 Category: Performance
 Discovered: 2026-08-22 (SESSION-001, from a real build)
@@ -28,6 +29,30 @@ dist/assets/Home-BMJOcwFb.js              37.94 kB │ gzip  10.23 kB
   of GSAP — that is Home, About, CaseStudy and all three Playground pages.
 - `src/lib/caseStudies/index.ts:3-8` statically imports all six modules, so the registry
   cannot be split. Combined EN+DE source of those six files is ~2000 lines.
+
+## Resolution
+
+The two halves had different answers, both recorded in `DECISION-015`.
+
+**The case-study registry is split per slug.** Each study is a dynamic `import()` behind a
+cached promise, read with React's `use()` so the page suspends into the loading bar rather
+than rendering empty:
+
+| | Before | After |
+| --- | --- | --- |
+| Case-study chunk | 126 KB / 40 KB gzip | 13 KB shell + 15–22 KB for the study being read |
+| JS on a case-study page | ~480 KB | ~474 KB, and it no longer grows with every study added |
+
+Suspending rather than loading in an effect is load-bearing: an effect renders the page
+empty first, and `useScrollReveals` would build its triggers against markup that does not
+exist yet — `ISSUE-001` rebuilt from parts.
+
+**GSAP stays eager.** It is already its own chunk; deferring it puts the reveals' at-rest
+state after the first paint (the flicker `ISSUE-013` describes from the other side); the
+alternative of not hiding what is already on screen was built and reverted in SESSION-011;
+and it now drives five features rather than the single fade it did when this was filed.
+Dropping it altogether would save 46 KB gzip and is a rewrite of five working features —
+`DECISION-015` records that as the alternative it is.
 
 ## Expected Behavior
 

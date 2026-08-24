@@ -19,7 +19,8 @@ All visible copy and content structure live in typed TypeScript modules under
 - `src/lib/dictionaries/en.ts`, `de.ts` — two full implementations, 380 lines each
 - `src/lib/dictionaries/index.ts` — `getDictionary(locale)`
 - `src/lib/caseStudies/types.ts` — `CaseStudyContent`, `CaseStudySection`, `SectionImage`
-- `src/lib/caseStudies/index.ts` — slug → module registry, `getCaseStudy(slug, locale)`
+- `src/lib/caseStudies/index.ts` — slug → **dynamic import** registry,
+  `caseStudyPromise(slug)` + `localeContent(content, locale)` (`DECISION-015`)
 - `src/lib/playground/types.ts`, `home.ts`, `categories/index.ts`, `projects/index.ts`
 
 ## How it currently works
@@ -34,6 +35,11 @@ PlaygroundCategoryLocaleContent  Record<"en"|"de", ...>
 
 Registries are plain `as const` objects keyed by slug; the getters return `null` for an
 unknown slug and the page renders `<NotFound />`.
+
+**Case studies are the exception**: their registry holds one `import()` per slug rather
+than six static imports, so a visitor downloads the study they asked for (`DECISION-015`).
+An unknown slug still resolves to `null` immediately, without a round trip, which is what
+keeps the 404 instant.
 
 A case study is `CaseStudyContent`: identity fields (`slug`, `name`, `headline`,
 `summary`, `tags`), a facts block (`role`, `contribution`, `type`, `year`, `tools`,
@@ -67,8 +73,7 @@ Section `id`s double as anchor targets for `ContentsNav`.
 
 ## Important dependencies
 
-None — pure data modules. Case studies are statically imported by the registry, so all
-six (both locales) land in one chunk.
+None — pure data modules. Case studies are loaded on demand, one chunk each.
 
 ## Constraints
 

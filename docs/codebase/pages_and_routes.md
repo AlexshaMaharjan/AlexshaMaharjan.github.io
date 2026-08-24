@@ -28,7 +28,7 @@ behaviour (`ISSUE-001`–`ISSUE-003` all land here or in `RootLayout`).
 | `Home.tsx` | 23 | `HeroProcess` → `SelectedWork` → `AboutPreview` → `ContactSection` | thin composition shell; calls `useScrollReveals()` |
 | `About.tsx` | 208 | full About page inline (hero, portrait+bio, focus/tools+AI block, carousel, `LoveLine`, résumé CTA) | the only large page component; hand-drawn SVG arrows are inline here |
 | `Resume.tsx` | 179 | print-oriented single column with local `EntryHeader`/`EducationRow`/`ProjectRow`/`ExperienceRow`/`FurtherRow` sub-components | `print:` variants throughout; does **not** call `useScrollReveals` |
-| `CaseStudy.tsx` | 30 | resolves slug → `getCaseStudy`, computes prev/next as a ring over `dictionary.projects`, renders `CaseStudyPage` | returns `<NotFound/>` for unknown slugs |
+| `CaseStudy.tsx` | 36 | reads the study with `use(caseStudyPromise(slug))` — suspending into the loading bar on first visit (`DECISION-015`) — computes prev/next as a ring over `dictionary.projects`, renders `CaseStudyPage` | returns `<NotFound/>` for unknown slugs, without a round trip |
 | `Contact.tsx` | 8 | `<Navigate>` to `/#contact` | broken in practice, `ISSUE-022` |
 | `NotFound.tsx` | 25 | 404 | not lazy — imported directly by `routes.tsx` |
 | `playground/PlaygroundIndex.tsx` | 155 | playground home: hero + two taped cards, featured 3-up, six `CategoryMarquee`s, exploring/note/return blocks | largest playground file |

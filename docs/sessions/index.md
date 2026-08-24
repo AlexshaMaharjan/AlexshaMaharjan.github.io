@@ -16,6 +16,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-010 | 2026-08-24 | MILESTONE-008 | Per-route metadata: no more leaking, and each route's head prerendered for scrapers | Complete | `session_010.md` |
 | SESSION-011 | 2026-08-24 | MILESTONE-006 | Motion: one vocabulary, reveal variants, page transitions, a loading state, and the canvas loop finally idling | Complete | `session_011.md` |
 | SESSION-012 | 2026-08-25 | MILESTONE-006 | Scroll-linked: hero drift, figure reveals, velocity-linked marquees — closing the milestone | Complete | `session_012.md` |
+| SESSION-013 | 2026-08-25 | MILESTONE-008 | Case-study chunk split per slug, hreflang alternates, GSAP decided — closing the milestone | Complete | `session_013.md` |
 
 ## Conventions
 
