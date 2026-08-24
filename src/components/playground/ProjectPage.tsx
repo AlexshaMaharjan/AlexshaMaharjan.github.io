@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import type { PlaygroundProjectContent } from "@/lib/playground/types";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
-import PlaceholderImage from "@/components/PlaceholderImage";
+import Media from "@/components/ui/Media";
 import PlaygroundCard from "./PlaygroundCard";
 
 export default function ProjectPage({
@@ -35,7 +35,7 @@ export default function ProjectPage({
       <section className="pt-14">
         <div data-inview className="container-page">
           <div className="rounded-lg border border-card-border bg-white p-3">
-            <PlaceholderImage aspect={content.mainAspect} caption={`[ ${content.mainCaption} ]`} />
+            <Media src={content.mainSrc} alt={content.mainAlt} aspect={content.mainAspect} caption={`[ ${content.mainCaption} ]`} />
           </div>
         </div>
       </section>

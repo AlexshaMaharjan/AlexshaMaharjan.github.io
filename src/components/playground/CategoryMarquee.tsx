@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import PlaceholderImage from "@/components/PlaceholderImage";
+import Media from "@/components/ui/Media";
 import type { PlaygroundItem } from "@/lib/playground/types";
 import { localeHref, type Locale } from "@/lib/i18n";
 
@@ -55,7 +55,7 @@ export default function CategoryMarquee({
               key={i}
               className="m-0 shrink-0 basis-[280px] rounded-md border border-card-border bg-white p-3 shadow-[0_1px_4px_rgba(20,30,60,0.05)] transition-colors hover:border-border-muted"
             >
-              <PlaceholderImage aspect="4/3" caption={`[ ${item.caption} ]`} className="rounded-[3px]" />
+              <Media src={item.src} alt={item.alt} aspect="4/3" caption={`[ ${item.caption} ]`} className="rounded-[3px]" />
               <figcaption className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">{item.caption}</figcaption>
             </figure>
           ))}

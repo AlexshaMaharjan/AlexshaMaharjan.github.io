@@ -2,6 +2,13 @@ export interface PlaygroundItem {
   slug?: string;
   caption: string;
   aspect: string;
+  /**
+   * Optional real asset. Without it the slot renders as the hatched
+   * placeholder; with it, the image. Optional so no existing data had to
+   * change (ISSUE-007, DECISION-006).
+   */
+  src?: string;
+  alt?: string;
   rotated?: boolean;
   subtitle?: string;
   description?: string;
@@ -24,6 +31,8 @@ export interface PlaygroundCategorySummary {
 }
 
 export interface PlaygroundHomeContent {
+  /** The two tilted cards in the hero collage. */
+  heroCards: PlaygroundItem[];
   eyebrow: string;
   heading: string;
   intro: string;
@@ -52,6 +61,8 @@ export interface PlaygroundProjectContent {
   intro: string;
   mainCaption: string;
   mainAspect: string;
+  mainSrc?: string;
+  mainAlt?: string;
   processHeading: string;
   processItems: PlaygroundItem[];
   toolsHeading: string;

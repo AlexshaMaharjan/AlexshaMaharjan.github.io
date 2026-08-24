@@ -3,7 +3,7 @@ import { useLocale, useDictionary } from "@/lib/useLocale";
 import { useScrollReveals } from "@/lib/useScrollReveals";
 import { localeHref } from "@/lib/i18n";
 import Image from "@/components/ui/Image";
-import PlaceholderImage from "@/components/PlaceholderImage";
+import Media from "@/components/ui/Media";
 import LoveLine from "@/components/about/LoveLine";
 import Seo from "@/components/Seo";
 
@@ -164,7 +164,7 @@ export default function About() {
           <div className="flex w-max gap-4 px-5 md:px-20">
             {about.carouselItems.map((item) => (
               <figure key={item.caption} className="m-0" style={{ scrollSnapAlign: "start" }}>
-                <PlaceholderImage aspect="4/5" caption={`[ ${item.caption} ]`} className="w-60" />
+                <Media src={item.src} alt={item.alt} aspect="4/5" caption={`[ ${item.caption} ]`} className="w-60" />
                 <figcaption className="mt-2.5 font-mono text-[11px] text-ink-muted">{item.caption}</figcaption>
               </figure>
             ))}

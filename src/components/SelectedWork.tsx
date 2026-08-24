@@ -18,7 +18,7 @@ export default function SelectedWork({ dictionary, locale }: { dictionary: Dicti
           </div>
         </div>
 
-        <BentoGrid locale={locale} />
+        <BentoGrid locale={locale} dictionary={dictionary} />
       </div>
     </section>
   );
