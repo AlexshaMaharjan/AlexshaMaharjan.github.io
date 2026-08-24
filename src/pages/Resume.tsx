@@ -76,7 +76,7 @@ export default function Resume() {
       <div className="mx-auto max-w-[760px] px-5 md:px-0">
         <Link
           to={localeHref(locale, "/about")}
-          className="text-[14px] text-ink-secondary transition-colors hover:text-accent print:hidden"
+          className="tap-target text-[14px] text-ink-secondary transition-colors hover:text-accent print:hidden"
         >
           {r.backToAbout}
         </Link>
@@ -90,16 +90,16 @@ export default function Resume() {
             <div className="mt-4 flex flex-col gap-1.5 text-[13.5px] leading-[1.5] text-ink-secondary">
               <span>{r.location}</span>
               <span>
-                <a href={`mailto:${r.email}`} className="text-ink underline decoration-border underline-offset-2 hover:text-accent">
+                <a href={`mailto:${r.email}`} className="tap-target text-ink underline decoration-border underline-offset-2 hover:text-accent">
                   {r.email}
                 </a>
               </span>
               <span>
-                <a href={r.portfolioHref} className="text-ink underline decoration-border underline-offset-2 hover:text-accent">
+                <a href={r.portfolioHref} className="tap-target text-ink underline decoration-border underline-offset-2 hover:text-accent">
                   {r.portfolio}
                 </a>{" "}
                 ·{" "}
-                <a href={r.linkedinHref} className="text-ink underline decoration-border underline-offset-2 hover:text-accent">
+                <a href={r.linkedinHref} className="tap-target text-ink underline decoration-border underline-offset-2 hover:text-accent">
                   {r.linkedin}
                 </a>
               </span>

@@ -31,6 +31,9 @@ export interface PlaygroundCategorySummary {
 }
 
 export interface PlaygroundHomeContent {
+  /** Labels for the marquee pause control (WCAG 2.2.2). */
+  pauseMotion: string;
+  playMotion: string;
   /** The two tilted cards in the hero collage. */
   heroCards: PlaygroundItem[];
   eyebrow: string;

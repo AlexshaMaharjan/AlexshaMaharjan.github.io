@@ -136,6 +136,16 @@
    * It is also the one place to change if the 80px gutters from 768px up ever
    * need to scale; those are what made ISSUE-026 possible.
    */
+  /*
+   * A hit area that clears the 24x24 WCAG 2.2 AA floor (2.5.8). Standalone
+   * links were 17-23px tall — the height of their line box — which is under it
+   * (ISSUE-030). Inline links inside a sentence are exempt and keep their
+   * natural size.
+   */
+  .tap-target {
+    @apply inline-flex min-h-[24px] items-center;
+  }
+
   .container-page {
     @apply mx-auto max-w-[1440px] px-5 md:px-20;
   }

@@ -42,7 +42,7 @@ export default function NextProjectNav({
           </Link>
         </div>
         <div className="mt-10 text-center">
-          <Link to={localeHref(locale, "/#work")} className="text-[15px] font-medium text-accent hover:underline">
+          <Link to={localeHref(locale, "/#work")} className="tap-target text-[15px] font-medium text-accent hover:underline">
             {dictionary.caseStudy.viewAllWork}
           </Link>
         </div>

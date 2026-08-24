@@ -39,12 +39,12 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
               {dictionary.aboutPreview.copy}
             </p>
             <div className="mt-9 flex flex-wrap gap-8">
-              <Link to={localeHref(locale, "/about")} className="text-[15px] font-medium text-accent hover:underline">
+              <Link to={localeHref(locale, "/about")} className="tap-target text-[15px] font-medium text-accent hover:underline">
                 {dictionary.aboutPreview.linkAbout}
               </Link>
               <Link
                 to={localeHref(locale, "/playground")}
-                className="text-[15px] font-medium text-accent hover:underline"
+                className="tap-target text-[15px] font-medium text-accent hover:underline"
               >
                 {dictionary.aboutPreview.linkPlayground}
               </Link>

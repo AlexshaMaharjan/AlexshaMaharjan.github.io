@@ -10,6 +10,8 @@ const home: PlaygroundHomeLocaleContent = {
       { caption: "digital portrait", subtitle: "digital drawing", aspect: "4/5" },
       { caption: "beadwork object", subtitle: "beads & wire", aspect: "4/3" },
     ],
+    pauseMotion: "Pause the rows",
+    playMotion: "Play the rows",
     featuredHeading: "Featured experiments",
     featured: [
       {
@@ -76,6 +78,8 @@ const home: PlaygroundHomeLocaleContent = {
       { caption: "digitales Porträt", subtitle: "digitale Zeichnung", aspect: "4/5" },
       { caption: "Perlenobjekt", subtitle: "Perlen & Draht", aspect: "4/3" },
     ],
+    pauseMotion: "Reihen anhalten",
+    playMotion: "Reihen abspielen",
     featuredHeading: "Ausgewählte Experimente",
     featured: [
       {

@@ -11,6 +11,7 @@ export default function CategoryMarquee({
   slug,
   items,
   locale,
+  paused = false,
 }: {
   index: number;
   number: string;
@@ -19,6 +20,8 @@ export default function CategoryMarquee({
   slug: string;
   items: PlaygroundItem[];
   locale: Locale;
+  /** Driven by the pause control on the playground index (WCAG 2.2.2). */
+  paused?: boolean;
 }) {
   const direction = index % 2 === 0 ? "mqA" : "mqB";
   const duration = 47 + index * 3;
@@ -48,7 +51,10 @@ export default function CategoryMarquee({
         <div
           data-marquee
           className="flex w-max gap-4 px-1 py-0.5 hover:[animation-play-state:paused]"
-          style={{ animation: `${direction} ${duration}s linear infinite` }}
+          style={{
+            animation: `${direction} ${duration}s linear infinite`,
+            animationPlayState: paused ? "paused" : undefined,
+          }}
         >
           {looped.map((item, i) => (
             <figure

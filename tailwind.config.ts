@@ -25,7 +25,9 @@ const config: Config = {
       "surface-2": "#EAECF0",
       ink: "#111111",
       "ink-secondary": "#62666D",
-      "ink-muted": "#858A92",
+      // #858A92 until 2026-08-24: 3.13:1 on the page background, below the 4.5:1
+      // WCAG AA floor, and it carries real content (dates, captions, the footer).
+      "ink-muted": "#6A6F78",
       "ink-body": "#3A3D42",
       border: "#D7DAE0",
       black: "#000000",
@@ -38,6 +40,10 @@ const config: Config = {
       // lighter rule than `border` and is what cards, figures and placeholders
       // use; `border-muted` is the dashed one; `accent-on-dark` is the accent
       // as it appears on the near-black canvases.
+      // Text on the near-black bands. `ink-on-dark-muted` replaces a #6C7078
+      // literal that sat at 3.98:1 (ISSUE-030).
+      "ink-on-dark": "#A7ACB4",
+      "ink-on-dark-muted": "#8A8F98",
       "card-border": "#E4E7EE",
       "border-muted": "#C9CEDB",
       "accent-on-dark": "#8FA6FF",

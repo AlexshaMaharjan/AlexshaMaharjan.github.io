@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocale } from "@/lib/useLocale";
 import { useScrollReveals } from "@/lib/useScrollReveals";
@@ -10,6 +11,11 @@ import Seo from "@/components/Seo";
 
 export default function PlaygroundIndex() {
   const locale = useLocale();
+  // The six rows scroll indefinitely, so WCAG 2.2.2 needs a way to stop them
+  // that does not depend on hovering. Under prefers-reduced-motion the CSS has
+  // already stopped them and this control is beside the point — it is harmless
+  // there, and the rows stay still either way.
+  const [paused, setPaused] = useState(false);
   const content = home[locale];
   useScrollReveals();
 
@@ -111,6 +117,17 @@ export default function PlaygroundIndex() {
             {content.categoriesHeading}
           </h2>
           <p className="font-mono text-[12px] text-ink-muted">{content.categoriesCaption}</p>
+          <button
+            type="button"
+            onClick={() => setPaused((p) => !p)}
+            aria-pressed={paused}
+            className="tap-target mt-5 gap-2 rounded-full border border-border px-4 text-[13px] text-ink-secondary transition-colors hover:border-accent hover:text-accent"
+          >
+            <span aria-hidden="true" className="text-[10px] leading-none">
+              {paused ? "▶" : "❚❚"}
+            </span>
+            {paused ? content.playMotion : content.pauseMotion}
+          </button>
         </div>
       </section>
 
@@ -128,6 +145,7 @@ export default function PlaygroundIndex() {
               slug={cat.slug}
               items={category.items}
               locale={locale}
+              paused={paused}
             />
           );
         })}
