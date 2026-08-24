@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDictionary, useLocale } from "@/lib/useLocale";
 import { absoluteUrl } from "@/lib/site";
+import { stripLocale } from "@/lib/i18n";
 
 function setMeta(attr: "name" | "property", key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
@@ -18,6 +19,20 @@ function setLink(rel: string, href: string) {
   if (!el) {
     el = document.createElement("link");
     el.setAttribute("rel", rel);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("href", href);
+}
+
+/** One `<link rel="alternate">` per language, keyed by `hreflang`. */
+function setAlternate(hreflang: string, href: string) {
+  let el = document.head.querySelector<HTMLLinkElement>(
+    `link[rel="alternate"][hreflang="${hreflang}"]`,
+  );
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", "alternate");
+    el.setAttribute("hreflang", hreflang);
     document.head.appendChild(el);
   }
   el.setAttribute("href", href);
@@ -63,6 +78,16 @@ export default function Seo({
     setMeta("name", "twitter:description", resolvedDescription);
     setMeta("name", "twitter:image", resolvedImage);
     setLink("canonical", url);
+
+    // The two locales are the same page in two languages, and nothing said so:
+    // a search engine had no way to connect /work/x with /de/work/x. The path
+    // prefix is the whole difference (DECISION-002), so the pair is derivable.
+    const bare = stripLocale(pathname, locale);
+    const english = absoluteUrl(bare);
+    const german = absoluteUrl(bare === "/" ? "/de/" : `/de${bare}`);
+    setAlternate("en", english);
+    setAlternate("de", german);
+    setAlternate("x-default", english);
   }, [title, description, image, pathname, locale, dictionary]);
 
   return null;

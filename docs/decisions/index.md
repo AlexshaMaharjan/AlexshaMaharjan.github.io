@@ -20,6 +20,7 @@ explicitly rather than inventing one.
 | DECISION-012 | Static hosting with SPA rewrite | **Decided** | Deployment | GitHub Pages, manual `npm run deploy`; the résumé links here now, not to Adobe. Custom domain still open | `decision_012.md` |
 | DECISION-013 | Hand-rolled scroll behaviour, not `<ScrollRestoration />` | Active | Routing, navigation | Built-in cannot see a lazy page's hash target and inherits CSS smooth scrolling | `decision_013.md` |
 | DECISION-014 | Case-study body is a block model; reading column departs from the reference | Active | Content, case studies | Blocks instead of `string[]`; 680px measure against wider media; no viewport full-bleed while the rail is sticky | `decision_014.md` |
+| DECISION-015 | GSAP stays eager; the case-study registry is split per slug | Active | Performance, motion | 126 KB chunk became 13 KB + one study; deferring GSAP hides content rather than saving time | `decision_015.md` |
 
 ## Needing an owner decision
 

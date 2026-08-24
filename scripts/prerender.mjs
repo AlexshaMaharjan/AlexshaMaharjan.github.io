@@ -123,6 +123,10 @@ function renderShell(head) {
     `<meta name="twitter:title" content="${escape(head.ogTitle)}" />`,
     `<meta name="twitter:description" content="${escape(head.ogDescription)}" />`,
     `<meta name="twitter:image" content="${escape(head.ogImage)}" />`,
+    // The same page in the other language, so the two locales are not strangers.
+    ...head.alternates.map(
+      ([hreflang, href]) => `<link rel="alternate" hreflang="${escape(hreflang)}" href="${escape(href)}" />`,
+    ),
   ].join("\n    ");
 
   return SHELL
@@ -170,6 +174,8 @@ try {
           ogUrl: meta('meta[property="og:url"]'),
           ogLocale: meta('meta[property="og:locale"]'),
           canonical: link("canonical"),
+          alternates: [...document.head.querySelectorAll('link[rel="alternate"][hreflang]')]
+            .map((el) => [el.getAttribute("hreflang"), el.href]),
         });
       })()`,
       returnByValue: true,
