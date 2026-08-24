@@ -1,8 +1,21 @@
 # DECISION-012 — Static hosting with a catch-all SPA rewrite
 
-Status: Decided (GitHub Pages via GitHub Actions)
-Date: 2026-08-22
+Status: Decided (GitHub Pages) — and the résumé now links here, not to Adobe Portfolio
+Date: 2026-08-22; the link answered by the owner 2026-08-24 (SESSION-008)
 Scope: Deployment
+
+## Owner's answer (2026-08-24)
+
+> "dont point at the adobe one. point at this website."
+
+The résumé's portfolio link pointed at `alexshamaharjan.myportfolio.com`, an Adobe
+Portfolio site — i.e. the page that presents this designer's work pointed visitors at a
+different portfolio. It now points at this one, `https://alexshamaharjan.github.io`.
+
+Still open, and smaller: whether a custom domain is wanted. If one is added,
+`dictionaries/{en,de}.ts` (`resume.portfolio` / `resume.portfolioHref`) is the one place to
+change it. Note also that deployment is manual — `npm run deploy` — because the Actions
+workflow was removed for lack of a token scope; nothing publishes on push.
 
 ## Context
 

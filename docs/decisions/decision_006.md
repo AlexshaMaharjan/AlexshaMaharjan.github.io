@@ -1,8 +1,21 @@
 # DECISION-006 — The hatched placeholder is a design element, not just a missing asset
 
-Status: Active
-Date: Inherited from the design reference
+Status: **Superseded in practice** — the owner's answer, 2026-08-24: almost every
+placeholder is meant to become a real image
+Date: Inherited from the design reference; answered 2026-08-24 (SESSION-008)
 Scope: Visual language
+
+## Owner's answer (2026-08-24)
+
+> "almost all placeholders are images"
+
+So the hatched box is a **fallback**, not a destination. It stays in the code because it is
+what renders until a file exists — and it is still the right treatment for a slot with no
+asset — but no slot is planned to keep it permanently. The open question below is
+answered: every image slot on the site should end up carrying a real image.
+
+The consequence for the code is that the remaining 44 slots need a source field, which is
+the rest of `ISSUE-007` and was blocked on exactly this.
 
 ## Context
 
@@ -41,15 +54,11 @@ intended structure).
   exists. A placeholder keeps its `[ bracketed label ]` inside the box and gets no
   caption underneath, so the bracket stays the visible signal that no asset exists yet.
 
-## Open question for the owner
+## ~~Open question for the owner~~ — answered
 
-Which slots keep the placeholder aesthetic permanently (probably: some Playground cards)
-and which must become real photographs (certainly: all 71 case-study figures)?
-
-Still open, and now the thing blocking the last 44 slots: the case-study half of
-`ISSUE-007` was implementable without the answer, because the fallback preserves this
-decision either way. The Playground half is not — whether those 36 slots need a `src`
-field at all *is* this question.
+~~Which slots keep the placeholder aesthetic permanently and which must become real
+photographs?~~ **Answered 2026-08-24: almost all of them are images.** The 44 remaining
+slots got their source fields in SESSION-008, which closes `ISSUE-007`.
 
 ## Relevant Files
 

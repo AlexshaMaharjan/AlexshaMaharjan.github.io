@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import PlaceholderImage from "@/components/PlaceholderImage";
+import Media from "@/components/ui/Media";
 import type { PlaygroundItem } from "@/lib/playground/types";
 import { localeHref, type Locale } from "@/lib/i18n";
 
@@ -26,7 +26,7 @@ export default function PlaygroundCard({
           className="absolute -top-2.5 left-1/2 h-5 w-14 -translate-x-1/2 rotate-[-3deg] bg-[rgba(228,231,238,0.85)]"
         />
       )}
-      <PlaceholderImage aspect={item.aspect} caption={`[ ${item.caption} ]`} />
+      <Media src={item.src} alt={item.alt} aspect={item.aspect} caption={`[ ${item.caption} ]`} />
       <p className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">{item.caption}</p>
     </div>
   );

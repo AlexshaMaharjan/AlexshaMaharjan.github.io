@@ -1,13 +1,29 @@
 # DECISION-010 — Homepage work section replaced with a bento grid
 
-Status: Under review
-Date: Uncommitted working tree, 2026-08
+Status: **Active** — confirmed by the owner, 2026-08-24
+Date: Uncommitted working tree, 2026-08; confirmed 2026-08-24 (SESSION-008)
 Scope: Homepage
 
 ## Context
 
 The homepage originally rendered `dictionary.projects` through `ProjectEntry.tsx` as two
 large editorial features plus a four-item grid, matching `design-reference/SPEC.md` §4/§6.
+
+## Owner's answer (2026-08-24)
+
+**Keep the bento grid**, and the owner will produce the images for it. That settles the
+direction `MILESTONE-002` was blocked on since SESSION-002: the work is no longer "should
+this exist" but "make it carry images, in both languages".
+
+What that leaves to do, in `MILESTONE-002`:
+
+- the eleven tiles need images (`ISSUE-004`) — the owner is making them; the slots and the
+  manifest are in `docs/reference/image_manifest.md`
+- the tile copy has to come from the dictionaries rather than being hard-coded English
+  (`ISSUE-005`)
+- five of six projects appear twice under different category labels. With images that
+  reads as a portfolio of work rather than a duplicate list, so it stays — but it means
+  eleven images, not six.
 
 ## Decision (as implemented, not yet approved)
 

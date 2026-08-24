@@ -1,11 +1,6 @@
 import type { SectionImage } from "@/lib/caseStudies/types";
-import PlaceholderImage from "@/components/PlaceholderImage";
-import Image from "@/components/ui/Image";
-
-/** `[ moodboard ]` → `moodboard`. Captions are still written bracketed in the data. */
-function captionText(caption: string): string {
-  return caption.replace(/^\[\s*|\s*\]$/g, "").trim();
-}
+import Media from "@/components/ui/Media";
+import { captionText } from "@/lib/caption";
 
 /**
  * One case-study image slot.
@@ -24,17 +19,18 @@ export default function Figure({
   className = "",
 }: SectionImage & { className?: string }) {
   if (!src) {
-    return <PlaceholderImage aspect={aspect} caption={caption} className={className} />;
+    return <Media aspect={aspect} caption={caption} className={className} />;
   }
 
   return (
     <figure className={className}>
-      <div
-        className="relative overflow-hidden rounded-[10px] border border-card-border"
-        style={{ aspectRatio: aspect }}
-      >
-        <Image src={src} alt={alt ?? captionText(caption)} className="object-cover" />
-      </div>
+      <Media
+        src={src}
+        alt={alt}
+        aspect={aspect}
+        caption={caption}
+        className="rounded-[10px] border border-card-border"
+      />
       <figcaption className="mt-2.5 text-[13px] leading-[1.5] text-ink-secondary">
         {captionText(caption)}
       </figcaption>

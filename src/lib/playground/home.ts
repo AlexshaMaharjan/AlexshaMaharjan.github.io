@@ -6,6 +6,10 @@ const home: PlaygroundHomeLocaleContent = {
     heading: "Things I make without a brief.",
     intro: "Drawings, objects, experiments and ideas created through curiosity.",
     handNote: "made out of curiosity ↗",
+    heroCards: [
+      { caption: "digital portrait", subtitle: "digital drawing", aspect: "4/5" },
+      { caption: "beadwork object", subtitle: "beads & wire", aspect: "4/3" },
+    ],
     featuredHeading: "Featured experiments",
     featured: [
       {
@@ -68,6 +72,10 @@ const home: PlaygroundHomeLocaleContent = {
     heading: "Dinge, die ich ohne Briefing gestalte.",
     intro: "Zeichnungen, Objekte, Experimente und Ideen, die aus Neugier entstehen.",
     handNote: "aus Neugier gemacht ↗",
+    heroCards: [
+      { caption: "digitales Porträt", subtitle: "digitale Zeichnung", aspect: "4/5" },
+      { caption: "Perlenobjekt", subtitle: "Perlen & Draht", aspect: "4/3" },
+    ],
     featuredHeading: "Ausgewählte Experimente",
     featured: [
       {

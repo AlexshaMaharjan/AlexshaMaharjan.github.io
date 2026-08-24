@@ -5,7 +5,7 @@ import { localeHref } from "@/lib/i18n";
 import home from "@/lib/playground/home";
 import { getCategory } from "@/lib/playground/categories";
 import CategoryMarquee from "@/components/playground/CategoryMarquee";
-import PlaceholderImage from "@/components/PlaceholderImage";
+import Media from "@/components/ui/Media";
 import Seo from "@/components/Seo";
 
 export default function PlaygroundIndex() {
@@ -34,16 +34,28 @@ export default function PlaygroundIndex() {
               <div
                 className="absolute right-[36%] top-4 w-[56%] max-w-[300px] rounded-md border border-card-border bg-white p-3 shadow-[0_2px_10px_rgba(20,30,60,0.06)] [transform:rotate(-2.5deg)]"
               >
-                <PlaceholderImage aspect="4/5" caption="[ digital portrait ]" className="rounded-[3px]" />
-                <p className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">digital drawing</p>
+                <Media
+                  src={content.heroCards[0]?.src}
+                  alt={content.heroCards[0]?.alt}
+                  aspect={content.heroCards[0]?.aspect ?? "4/5"}
+                  caption={`[ ${content.heroCards[0]?.caption ?? ""} ]`}
+                  className="rounded-[3px]"
+                />
+                <p className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">{content.heroCards[0]?.subtitle}</p>
               </div>
               <div className="absolute right-0 top-[110px] w-[52%] max-w-[280px] rounded-md border border-card-border bg-white p-3 shadow-[0_2px_10px_rgba(20,30,60,0.06)] [transform:rotate(1.5deg)]">
                 <span
                   aria-hidden="true"
                   className="absolute -top-2.5 left-[34px] h-5 w-[68px] rotate-[-4deg] rounded-sm bg-[rgba(120,134,168,0.16)]"
                 />
-                <PlaceholderImage aspect="4/3" caption="[ beadwork object ]" className="rounded-[3px]" />
-                <p className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">beads &amp; wire</p>
+                <Media
+                  src={content.heroCards[1]?.src}
+                  alt={content.heroCards[1]?.alt}
+                  aspect={content.heroCards[1]?.aspect ?? "4/3"}
+                  caption={`[ ${content.heroCards[1]?.caption ?? ""} ]`}
+                  className="rounded-[3px]"
+                />
+                <p className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">{content.heroCards[1]?.subtitle}</p>
               </div>
             </div>
           </div>
@@ -68,7 +80,7 @@ export default function PlaygroundIndex() {
                     className="absolute -top-2.5 right-10 h-5 w-[68px] rotate-[3deg] rounded-sm bg-[rgba(120,134,168,0.16)]"
                   />
                 )}
-                <PlaceholderImage aspect="16/10" caption={`[ ${item.caption.toLowerCase()} ]`} className="rounded-[3px]" />
+                <Media src={item.src} alt={item.alt} aspect="16/10" caption={`[ ${item.caption.toLowerCase()} ]`} className="rounded-[3px]" />
                 <h3 className="mt-4 px-0.5 text-[19px] font-semibold tracking-[-0.01em] text-ink">
                   {item.slug ? (
                     <Link
