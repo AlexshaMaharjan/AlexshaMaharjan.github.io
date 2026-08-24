@@ -20,6 +20,13 @@ visibility.~~
 itself from a `useLayoutEffect` — before the first paint, so it still does not flash — and
 its effects are keyed on the pathname rather than on mount. See the Consequences below.
 
+**Amended, SESSION-011:** the timings moved to `src/lib/motion.ts` (`SUGGESTION-006`) and
+the hook gained `data-inview` variants — `up` (the default), `fade`, `scale` and `stagger`,
+where one trigger animates the element's children. The contract below is unchanged: the
+at-rest state is still applied in a layout effect before paint, still `opacity` rather than
+`autoAlpha`, and still consults one reduced-motion guard — which now lives in the motion
+module rather than in this file.
+
 **Amended, SESSION-009:** the at-rest state is `opacity: 0`, not GSAP's `autoAlpha`.
 `autoAlpha` also sets `visibility: hidden`, and a hidden subtree is removed from the tab
 order — so any control inside a section that had not been revealed yet was unreachable by

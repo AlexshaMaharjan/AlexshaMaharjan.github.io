@@ -39,6 +39,9 @@ the uncommitted working tree; recover it with `git show HEAD:src/components/Proj
 
 This is the most intricate area of the codebase. Read `ARCH-04` before changing it.
 
+| `PageTransition.tsx` | 40 | fades a page in on arrival — opacity only, no key on the subtree, and the file says why (`SUGGESTION-007`) |
+| `RouteLoading.tsx` | 18 | the Suspense fallback: a 2px bar and an announced "Loading page…" (`ISSUE-020`) |
+
 ## Case study (`src/components/case-study/`)
 
 | File | Lines | Controls |

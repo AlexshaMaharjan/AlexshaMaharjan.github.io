@@ -1,6 +1,6 @@
 # Issues Index
 
-30 issues. **22 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+30 issues. **24 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
 (`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006, 2 in SESSION-007 and 1 in SESSION-009 (`MILESTONE-007`), 3 in
 SESSION-008 (`MILESTONE-002`/`005`), and `ISSUE-025` by the owner — plus one partially resolved. 10
 remain open, none `Investigating`. **The owner answered all three open decisions on
@@ -27,14 +27,12 @@ _None._
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-009 | German gaps: 3 untranslated fields + 1 missing | Open | Medium | Visible English on the DE About page | `issue_009.md` |
 | ISSUE-010 | Dead fields across the content types | Open | Medium | ~12 typed fields read by nothing | `issue_010.md` |
-| ISSUE-012 | Process canvas rAF loop never idles | Open | Medium | Continuous per-frame style writes on desktop | `issue_012.md` |
 | ISSUE-019 | Oversized GSAP and case-study chunks | Open | Medium | 115 KB GSAP on every page; 121 KB for one case study | `issue_019.md` |
 
 ## Active — Low
 
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
-| ISSUE-020 | Lazy routes render a blank frame | Open | Low | `Suspense fallback={null}` | `issue_020.md` |
 | ISSUE-027 | Hash navigation after a route change restores an offset nobody chose | Open | Low | **Diagnosed, not fixed** — stale entry in the scroll-position map | `issue_027.md` |
 | ISSUE-029 | About annotation overlaps the Biography heading at 768px | Open | Low | Decorative hand note sits on text; pre-existing | `issue_029.md` |
 
@@ -58,6 +56,13 @@ And in SESSION-003 under `MILESTONE-003`:
 | --- | --- | --- | --- |
 | ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
 | ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
+
+And in SESSION-011 under `MILESTONE-006`:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-012 | Process canvas rAF loop never idles | `06afc41` — an IntersectionObserver starts and stops it: 120 fps on screen, 0 off | `issue_012.md` |
+| ISSUE-020 | Lazy routes render a blank frame | `06afc41` — a 2px bar and an announced "Loading page…" | `issue_020.md` |
 
 And in SESSION-010 under `MILESTONE-008`:
 
@@ -115,7 +120,7 @@ And by the owner, outside a recorded session:
 - **MILESTONE-004** (copy pass): —
 - **MILESTONE-005** (imagery): 006, 007 ✅ — what remains is the images themselves, listed
   in `docs/reference/image_manifest.md`
-- **MILESTONE-006** (motion): 012, 020
+- **MILESTONE-006** (motion): 012 ✅, 020 ✅
 - **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027, 028 ✅, 029, 030 ✅
 - **MILESTONE-008** (perf / SEO / deploy): 013 ✅, 014 ✅, 019, 025 ✅
 - **MILESTONE-009** (German): 009

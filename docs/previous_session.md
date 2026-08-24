@@ -1,71 +1,77 @@
 # Previous Session
 
-Session: SESSION-010
-Milestone: `MILESTONE-008` — Performance, SEO, deployment (first slice)
-Objective: `ISSUE-014` (metadata leaking between routes) and `ISSUE-013` (every URL serving
-scrapers the same hard-coded English head).
-Outcome: **Both resolved.** Each route's head is prerendered; the body deliberately is not,
-and that call is the substance of the session.
+Session: SESSION-011
+Milestone: `MILESTONE-006` — Motion system and interaction polish
+Objective: The owner's fourth stated priority — a coherent motion vocabulary, and the
+scroll and interaction animation asked for.
+Outcome: **`SUGGESTION-006` and `SUGGESTION-007` implemented; `ISSUE-012` and `ISSUE-020`
+resolved.** `SUGGESTION-008`'s scroll-linked effects are not done and the milestone stays
+open for them.
 
 ## What Changed
 
-**`ISSUE-014`** — `Seo` restored only `document.title`, so description, `og:title`,
-`og:description` and `og:image` persisted into the next route: the résumé carried
-WikiMind's description and hero image. It now writes the complete set on every route —
-including `og:url`, `og:locale`, `twitter:*` and a canonical — falling back to the site
-defaults. Writing everything is what makes leaking impossible.
+**One vocabulary.** `src/lib/motion.ts` holds `duration`, `ease`, `distance`, `stagger` and
+the single `prefersReducedMotion()` guard everything consults; `index.css` mirrors the same
+numbers as `--duration-*` / `--ease-out` for the transitions written in Tailwind.
+`useScrollReveals` is rebuilt on them.
 
-**`ISSUE-013`** — `npm run prerender` writes each of the 36 routes its own HTML file with
-its own head, plus `sitemap.xml`, with `robots.txt` pointing at it. `predeploy` runs it, so
-publishing cannot forget. **No new dependency**: it serves `dist/` from a 20-line static
-server and drives the same headless Chrome the project already verifies with.
+**Reveals gained variants** — `data-inview="up|fade|scale|stagger"`. `stagger` animates an
+element's children under one trigger; the homepage bento and the playground category grid
+use it, measured mid-flight at `0.42 / 0.22 / 0.00` across the first tiles. Triggers are
+also re-measured once webfonts and images have settled, having been measured against a
+layout still reflowing underneath them.
 
-## The judgment call worth knowing about
+**Page transitions** — a 350ms fade on arrival, with three departures from the original
+sketch, each recorded in `PageTransition.tsx`: enter only (an exit fights the scroll reset
+for the same frame), opacity only (a transform would break the case-study rail's
+stickiness), and no `key` on the subtree (that would remount every page — the behaviour the
+scroll hooks are written around).
 
-Prerendering the **body** as well works — a non-JS crawler gets 1,279 words on a case
-study. It was built, measured, and reverted.
+**`ISSUE-020`** — a first visit to a case study showed header, blank, footer. It now shows a
+2px accent bar and announces "Loading page…".
 
-Pages are lazy, so React hydrates into a null Suspense fallback before the route's chunk
-arrives and empties the markup already on screen: **content at ~110ms, blank from ~150ms,
-back at ~400ms**. That flicker is paid by every human visitor to serve crawlers that do not
-run JavaScript — while the search engines that matter here do, and social scrapers only read
-the head.
+**`ISSUE-012`** — the process canvas's rAF loop ran for as long as the homepage was mounted;
+an `IntersectionObserver` starts and stops it with the track. 120 fps on screen, **0** off
+screen, 120 on return.
 
-Two attempts to remove it, both reverted rather than left in the code: `hydrateRoot` with a
-route preloader (awaiting `import()` primes the module cache but not `React.lazy`'s own
-payload), and skipping the reveal for whatever is already on screen at first load (it hid
-the symptom and quietly changed the site's designed entrance). `ISSUE-013` records what
-making the body safe would take.
+## What was deliberately not done
 
-## A measurement that lied
+- **Lazy-importing GSAP** (`ISSUE-019`), though the milestone lists it. The at-rest state is
+  applied in a layout effect *before paint* so an incoming page never flashes visible;
+  awaiting an import there puts the hide after the first paint and reintroduces the flash.
+  Revisit only alongside whether GSAP earns its 46 KB at all.
+- **`SUGGESTION-008`** — parallax, figure scale-ins, velocity-linked marquees. The
+  vocabulary they need now exists.
 
-Two flicker measurements disagreed with each other. Both were polluted:
-`Page.addScriptToEvaluateOnNewDocument` accumulates across runs in the same browser, so
-observers from earlier experiments were writing to the same globals. Re-measured in a
-freshly launched browser, and only then trusted. **Instrumentation that survives navigation
-needs a fresh browser per experiment.**
+## A measurement that could not see what it was pointed at
+
+A `MutationObserver` on the canvas's style attribute reported zero writes both on and off
+screen — because writing the same value twice is not a mutation, and at rest the loop
+recomputes identical numbers every frame. The honest measure was to instrument the loop with
+a counter, build, measure, revert.
 
 ## Validation
 
-- **The test that proves `ISSUE-013`**: plain HTTP fetches with JavaScript never executed —
-  10 distinct titles across 13 sampled routes, each with its own canonical, description,
-  image and language. A browser test would have passed either way.
-- 38 routes render with no console errors, broken images or overflow; axe-core 0 violations
-  across 8 routes; the reveal ring, anchor clearance and reduced motion unchanged.
-- `npm run lint` 0 errors / 3 pre-existing warnings; `npm run build` green in ~0.8s. The
-  prerender adds ~38s and only to `predeploy`.
+- 38 routes: no console errors, no overflow, and under `prefers-reduced-motion` nothing
+  hidden and no animation running.
+- axe-core 0 violations across 6 routes, with the loading state in the tree.
+- Scroll journeys unchanged: cold hash landings at 104px, route change from a scrolled page
+  starts at 0, back restores 5000px.
+- The case-study reveal ring across three hops: nothing stuck.
+- Prerendered metadata still correct; the loading state verified on a throttled connection
+  **with caching disabled** — a warm chunk never suspends, so the first attempt proved
+  nothing.
 
 ## Remaining Concerns
 
-- **`og:image` is still a solid-colour placeholder** on every route without its own hero
-  (`ISSUE-006`): previews will be right in shape and wrong in substance until real files
-  land. Of everything outstanding, this is the one the owner can fix.
-- `ISSUE-019` (bundle size) is the last open item in `MILESTONE-008`, and is also what
-  would have to move for body prerendering to be worth revisiting.
-- The prerender hard-codes the macOS Chrome path (`CHROME=…` overrides). It runs on a
-  developer machine at deploy time; there is no CI.
-- **Nothing is deployed.** Fifteen commits sit unpushed on `milestone-003-content-model`.
+- **`SUGGESTION-008` is the visible half of what "scroll animations" usually means.** What
+  exists now is the system and three restrained uses of it.
+- `ISSUE-019` (46 KB of GSAP for a fade and a lift) is the open question this milestone
+  raises rather than answers.
+- Case-study media grids are nested inside sections that already reveal, so staggering them
+  means first deciding what a nested reveal should do.
+- **Nothing is deployed.** Seventeen commits sit unpushed on `milestone-003-content-model`.
 
 ## Detailed Session Record
 
-See `docs/sessions/session_010.md`.
+See `docs/sessions/session_011.md`.

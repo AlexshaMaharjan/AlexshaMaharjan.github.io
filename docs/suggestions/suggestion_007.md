@@ -1,6 +1,6 @@
 # SUGGESTION-007 — Page transitions between routes
 
-Status: Proposed
+Status: **Implemented** (SESSION-011, `06afc41`) — enter only, and the file says why
 Priority: Medium
 Impact: Medium
 Effort: Medium
@@ -23,6 +23,24 @@ tokens from `SUGGESTION-006`:
 The prev/next case-study links are the strongest candidate for something more expressive
 later (a shared-element move from the next-project card into the new hero), but that
 should wait until the base transition is solid.
+
+## What was actually built
+
+A 350ms opacity fade on arrival, in `src/components/PageTransition.tsx`, driven by
+`duration.base` from the motion module. **Three deliberate departures from the sketch
+above:**
+
+- **No exit.** Holding the outgoing tree while the incoming one mounts puts the transition
+  in a fight with the scroll reset and the reveals over the same frame (`DECISION-013`,
+  `DECISION-008`).
+- **Opacity only, no lift.** A transform on the wrapper would make it the containing block
+  for the case-study contents rail and break its stickiness.
+- **No `key` on the subtree.** Keying by pathname would remount every page — the exact
+  behaviour the scroll hooks are written around (`ARCH-01`). Animating the wrapper leaves
+  the tree, and the hooks, alone.
+
+The shared-element idea for prev/next case studies is still unbuilt, and still the right
+next thing if more expression is wanted.
 
 ## Why
 

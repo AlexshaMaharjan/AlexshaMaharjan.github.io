@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-24**, after SESSION-010 (per-route metadata and prerendering).
+Snapshot: **2026-08-24**, after SESSION-011 (the motion system).
 
 ## Overall
 
@@ -64,8 +64,10 @@ page scrolls sideways at any width from 320px to 1920px.
   photographs (`ISSUE-006`). **Every slot can now be filled by editing data**
   (`ISSUE-007`, closed): what each needs is listed in
   `docs/reference/image_manifest.md`. The owner is making the images.
-- **Motion** — one fade-and-lift effect. No page transitions, no scroll-linked interaction
-  outside the process canvas.
+- **Motion** — one vocabulary (`src/lib/motion.ts`) that the reveals, the page transition
+  and the CSS transitions all read from; reveal variants including a stagger for grids; a
+  350ms fade on route change; a loading state for lazy pages. Still missing the expressive
+  half: hero parallax, figure scale-ins, velocity-linked marquees (`SUGGESTION-008`).
 - **German** — 3 untranslated fields and 1 missing field, all visible (`ISSUE-009`).
 
 ## Design state
@@ -102,8 +104,8 @@ primitives are still repeated across six or more files (`SUGGESTION-009` point 4
   branches `master` and `milestone-001-stabilize` point at the same commit as `main`
   (`413130b`) — redundant rather than divergent, and deletable whenever the owner is
   ready.
-- SESSION-003 to SESSION-010 sit on branch **`milestone-003-content-model`**, branched
-  from `main` — fifteen commits, and **unpushed**. The branch name predates the last seven
+- SESSION-003 to SESSION-011 sit on branch **`milestone-003-content-model`**, branched
+  from `main` — seventeen commits, and **unpushed**. The branch name predates the last seven
   sessions. **Nothing is deployed**: the live site is published only by `npm run deploy`.
 - One dev dependency exists purely for verification: `axe-core`. It ships in nothing.
 - **Nothing is deployed.** The live site is served from `gh-pages` and published only by
@@ -116,6 +118,10 @@ primitives are still repeated across six or more files (`SUGGESTION-009` point 4
   this machine. Key values are mirrored into `docs/reference/design_tokens.md`.
 
 ## Current milestone
+
+**`MILESTONE-006` mostly complete** — the vocabulary, reveal variants, page transitions and
+the canvas gating landed in SESSION-011; `SUGGESTION-008`'s scroll-linked effects are what
+is left of it.
 
 **`MILESTONE-008` started** — `ISSUE-013`, `ISSUE-014` and `ISSUE-025` are done;
 `ISSUE-019` (bundle size) is what is left of it.
@@ -144,8 +150,9 @@ material, not choices:
    site looks, and it needs no code.
 2. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
-3. **`MILESTONE-006` — motion.** The owner's own stated priority, unblocked, and the
-   largest remaining piece that needs nobody. It is what `docs/next_session.md` points at.
+3. **`SUGGESTION-008`** — the expressive half of the motion work: hero parallax, figure
+   scale-ins, velocity-linked marquees. The vocabulary it needs now exists. That is what
+   `docs/next_session.md` points at.
 
 Unblocked and needing nobody: `MILESTONE-007`'s accessibility block, which is what
 `docs/next_session.md` points at, and `ISSUE-027`, which is diagnosed and waiting.

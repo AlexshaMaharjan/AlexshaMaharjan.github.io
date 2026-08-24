@@ -1,6 +1,6 @@
 # ISSUE-020 — Lazy routes render a blank frame
 
-Status: Open
+Status: **Resolved** (SESSION-011, `06afc41`)
 Priority: Low
 Category: UI/UX
 Discovered: 2026-08-22 (SESSION-001)
@@ -19,6 +19,16 @@ and footer with no indication anything is loading.
 
 The largest lazy chunk is `CaseStudy` at 121 KB (`ISSUE-019`), so the gap is most visible
 opening a case study cold.
+
+## Resolution
+
+`Suspense` renders `src/components/RouteLoading.tsx`: a 2px accent bar under the header,
+with `role="status"` and a screen-reader-only "Loading page…" (`routeLoading` in both
+dictionaries). Under `prefers-reduced-motion` the global kill-switch stops the bar moving,
+which leaves it static and the status text intact.
+
+Verified on a throttled connection **with caching disabled** — the only way to see it, since
+a warm chunk never suspends.
 
 ## Expected Behavior
 

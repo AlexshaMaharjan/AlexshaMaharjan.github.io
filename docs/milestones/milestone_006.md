@@ -1,6 +1,7 @@
 # MILESTONE-006 — Motion system and interaction polish
 
-Status: Proposed
+Status: **Mostly complete** (SESSION-011) — the vocabulary, the reveals, the transitions
+and the canvas gating are done; `SUGGESTION-008`'s scroll-linked effects are not
 Priority: Medium
 Goal: Give the site a coherent, restrained motion vocabulary — and add the scroll and
 interaction animation the owner asked for.
@@ -17,19 +18,25 @@ The motion system, scroll-linked effects, page transitions. Cross-cutting but ad
 
 ## Tasks
 
-- [ ] **SUGGESTION-006** — create `src/lib/motion.ts` with duration / ease / distance /
-      stagger tokens and one reduced-motion guard
-- [ ] Rebuild `useScrollReveals` on those tokens: `ScrollTrigger.batch` for grids,
-      `refresh()` after fonts and images settle, opt-in variants via
-      `data-inview="up|fade|scale|stagger"`
-- [ ] Lazy-import GSAP inside the effect (`ISSUE-019`)
-- [ ] **ISSUE-012** — gate the process-canvas rAF loop with an `IntersectionObserver`;
-      cache viewport dimensions instead of reading per frame
-- [ ] **SUGGESTION-007** — page transitions (~250–350 ms), with `ISSUE-020`'s loading state
-- [ ] **SUGGESTION-008** — case-study hero parallax, figure scale-ins, active-section
-      tracking, velocity-linked playground marquees
-- [ ] Verify every effect is a no-op under `prefers-reduced-motion`
-- [ ] Check for jank: no layout-triggering properties in scrubbed animations
+- [x] **SUGGESTION-006** — `src/lib/motion.ts` holds duration / ease / distance / stagger
+      and the one reduced-motion guard; `index.css` mirrors the numbers for CSS transitions
+- [x] Rebuild `useScrollReveals` on those tokens, with `refresh()` after fonts and images
+      settle and opt-in variants via `data-inview="up|fade|scale|stagger"`. Stagger is one
+      trigger animating the element's children, which is what `ScrollTrigger.batch` was for
+- [ ] ~~Lazy-import GSAP inside the effect (`ISSUE-019`)~~ — **not done, deliberately.**
+      The at-rest state is applied in a layout effect *before paint* so an incoming page
+      never flashes visible; awaiting an import there puts the hide after the first paint
+      and reintroduces the flash. See `SUGGESTION-006`
+- [x] **ISSUE-012** — the canvas loop is gated by an `IntersectionObserver`: 120 fps on
+      screen, 0 off screen, measured by instrumenting the loop
+- [x] **SUGGESTION-007** — a 350ms fade on arrival, plus `ISSUE-020`'s loading state
+- [ ] **SUGGESTION-008** — case-study hero parallax, figure scale-ins, velocity-linked
+      marquees. The vocabulary these would use now exists; active-section tracking was
+      already done in `MILESTONE-003`
+- [x] Verify every effect is a no-op under `prefers-reduced-motion` — 38 routes, nothing
+      hidden, no running animations
+- [x] Check for jank: the reveals animate opacity and transform only; the page transition
+      is opacity only
 
 ## Relevant Issues
 

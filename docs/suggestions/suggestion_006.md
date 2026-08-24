@@ -1,6 +1,6 @@
 # SUGGESTION-006 — Establish a shared GSAP motion system
 
-Status: Proposed
+Status: **Implemented** (SESSION-011, `06afc41`)
 Priority: High
 Impact: High
 Effort: Medium
@@ -31,6 +31,21 @@ A single `src/lib/motion.ts` exporting the vocabulary, then build on it:
 
 Once the vocabulary exists, add the effects the owner asked for: staggered card entrances,
 heading line reveals, image scale-ins, and the parallax/pinning in `SUGGESTION-008`.
+
+## What was actually built
+
+`src/lib/motion.ts` holds `duration`, `ease`, `distance`, `stagger` and the single
+`prefersReducedMotion` guard; `index.css` mirrors the same numbers as `--duration-*` and
+`--ease-out` for the transitions written in Tailwind. `useScrollReveals` is rebuilt on
+them, with `data-inview="up|fade|scale|stagger"` variants — `stagger` animates the
+element's children under one trigger, which is what the bento and the playground category
+grid use. `ScrollTrigger.refresh()` now runs once webfonts and images have settled.
+
+**Not done: lazy-importing GSAP** (`ISSUE-019`). The at-rest state is applied in a *layout
+effect*, before the browser paints, precisely so an incoming page never flashes fully
+visible. Awaiting `import("gsap")` there would put the hide after the first paint and
+reintroduce the flash — the same trap `ISSUE-013` hit from the other direction. Worth
+revisiting only alongside a decision about whether GSAP earns its 46 KB at all.
 
 ## Why
 

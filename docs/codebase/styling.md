@@ -64,6 +64,18 @@ by hand — re-check them if the header's markup changes.
   **Any new colour needs its contrast computed against the ground it sits on**, not
   eyeballed — `docs/issues/issue_030.md` records the method.
 
+## Motion
+
+`src/lib/motion.ts` is the vocabulary: `duration.fast/base/slow`, `ease.out/inOut`,
+`distance.sm/md/lg`, `stagger`, and the single `prefersReducedMotion()` guard everything
+consults. `index.css` mirrors the same numbers as `--duration-fast/base/slow` and
+`--ease-out`, for transitions written in Tailwind rather than GSAP — **change them
+together**.
+
+Reveals are opt-in per element: `data-inview` alone means `up`; `data-inview="fade"`,
+`"scale"` or `"stagger"` pick the others. `stagger` animates the element's *children* under
+one trigger, which is what the homepage bento and the playground category grid use.
+
 ## Heading hyphenation
 
 `h1`/`h2`/`h3` carry `overflow-wrap: break-word` at every width — a guard that does nothing

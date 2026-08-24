@@ -1,6 +1,6 @@
 # ISSUE-012 — Process canvas runs an unconditional requestAnimationFrame loop
 
-Status: Open
+Status: **Resolved** (SESSION-011, `06afc41`)
 Priority: Medium
 Category: Performance
 Discovered: 2026-08-22 (SESSION-001)
@@ -21,6 +21,22 @@ and then writes to `canvas.style`, `hero.style`, `q.style`, `map.style`, plus a 
 five `lineRefs` and, when not interactive, five `groupRefs`.
 
 The static (mobile / reduced-motion) branch has no loop, so this only affects desktop.
+
+## Resolution
+
+An `IntersectionObserver` on the track starts and stops the loop, with a 300px margin so the
+first frame is computed before the canvas scrolls into view. Measured by instrumenting the
+loop itself — a `MutationObserver` could not see it, because writing the same style value
+twice is not a mutation:
+
+| | frames per second |
+| --- | --- |
+| track on screen | 120 |
+| scrolled far past it | **0** |
+| scrolled back | 120 |
+
+The per-frame `window.innerWidth` / `innerHeight` reads are still there; they are cheap
+next to the style writes, and `measure()` already caches the layout values that matter.
 
 ## Expected Behavior
 
