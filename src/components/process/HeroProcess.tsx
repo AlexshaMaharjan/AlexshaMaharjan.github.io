@@ -218,7 +218,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
   if (staticFlow) {
     return (
       <>
-        <section className="flex min-h-[70svh] flex-col items-center justify-center px-5 pt-[104px] pb-10 text-center sm:pt-[118px]">
+        <section className="flex min-h-[70svh] flex-col items-center justify-center px-5 pt-[calc(var(--header-h)+31px)] pb-10 text-center sm:pt-[calc(var(--header-h)+45px)]">
           <p className="mb-5 text-[13px] text-ink-muted sm:mb-6 sm:text-[14px]">{dictionary.hero.eyebrow}</p>
           <h1 className="text-[42px] font-semibold leading-[1.02] tracking-[-0.028em] text-ink sm:text-[54px]">
             {dictionary.hero.headlineLines.map((line) => (
@@ -299,7 +299,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       <div className="sticky top-0 h-svh overflow-hidden bg-white">
         <div
           ref={heroRef}
-          className="container-page pt-[132px] text-center sm:px-10 md:px-20"
+          className="container-page pt-[calc(var(--header-h)+59px)] text-center sm:px-10 md:px-20"
         >
           <p className="mb-5 text-[14px] text-ink-muted">{dictionary.hero.eyebrow}</p>
           <h1 className="mx-auto text-hero font-semibold leading-[0.98] tracking-[-0.028em] text-ink">

@@ -16,7 +16,7 @@ export default function ProjectPage({
 }) {
   return (
     <>
-      <section className="pt-[150px]">
+      <section className="pt-[var(--page-top)]">
         <div className="container-page">
           <Link
             to={localeHref(locale, `/playground/${content.categorySlug}`)}

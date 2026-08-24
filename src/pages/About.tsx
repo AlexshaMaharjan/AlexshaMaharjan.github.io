@@ -16,7 +16,7 @@ export default function About() {
   return (
     <>
       <Seo title={`${about.heading} — Alexsha Maharjan`} description={dictionary.meta.description} />
-      <section className="pt-[150px]">
+      <section className="pt-[var(--page-top)]">
         <div className="container-page">
           <Link to={localeHref(locale, "/")} className="text-[14px] text-ink-secondary transition-colors hover:text-accent">
             {about.backToHome}

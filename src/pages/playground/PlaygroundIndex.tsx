@@ -16,7 +16,7 @@ export default function PlaygroundIndex() {
   return (
     <>
       <Seo title={`${content.heading} — Alexsha Maharjan`} description={content.intro} />
-      <section className="pb-24 pt-[168px]">
+      <section className="pb-24 pt-[var(--page-top)]">
         <div className="container-page">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
             <div className="md:col-span-7">

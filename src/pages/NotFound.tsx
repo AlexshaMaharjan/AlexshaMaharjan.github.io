@@ -9,7 +9,7 @@ export default function NotFound() {
   const n = dictionary.notFound;
 
   return (
-    <section className="flex min-h-[70svh] flex-col items-center justify-center px-5 pt-[150px] pb-24 text-center">
+    <section className="flex min-h-[70svh] flex-col items-center justify-center px-5 pt-[var(--page-top)] pb-24 text-center">
       <Seo title={n.metaTitle} />
       <p className="font-mono text-[13px] text-accent">{n.eyebrow}</p>
       <h1 className="mt-4 text-feature font-semibold tracking-[-0.02em] text-ink">{n.heading}</h1>

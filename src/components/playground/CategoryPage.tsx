@@ -15,7 +15,7 @@ export default function CategoryPage({
 }) {
   return (
     <>
-      <section className="pt-[150px]">
+      <section className="pt-[var(--page-top)]">
         <div className="container-page">
           <Link
             to={localeHref(locale, "/playground")}

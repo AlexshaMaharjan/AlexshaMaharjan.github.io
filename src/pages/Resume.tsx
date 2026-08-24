@@ -71,7 +71,7 @@ export default function Resume() {
   const r = dictionary.resume;
 
   return (
-    <section className="pt-[150px] pb-[140px] print:pt-10">
+    <section className="pt-[var(--page-top)] pb-[140px] print:pt-10">
       <Seo title={r.metaTitle} />
       <div className="mx-auto max-w-[760px] px-5 md:px-0">
         <Link

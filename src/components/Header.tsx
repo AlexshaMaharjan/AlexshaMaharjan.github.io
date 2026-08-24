@@ -75,7 +75,11 @@ export default function Header({
           Alexsha Maharjan
         </Link>
 
-        <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 justify-center sm:flex">
+        {/* Absolutely centred on the viewport, so it collides with whichever side
+            is wider. It only has room from md up: at 480px it overlapped the
+            wordmark by 34px, at 520px by 14px (ISSUE-016). Below that it lives
+            in the second row instead — one switch at every width. */}
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 hidden -translate-y-1/2 justify-center md:flex">
           <div className="pointer-events-auto">
             <ModeSwitch locale={locale} isPlayground={isPlayground} dictionary={dictionary} />
           </div>
@@ -107,7 +111,7 @@ export default function Header({
         </div>
       </div>
 
-      <div className="flex justify-center border-t border-border/70 py-2.5 sm:hidden">
+      <div className="flex justify-center border-t border-border/70 py-2.5 md:hidden">
         <ModeSwitch locale={locale} isPlayground={isPlayground} dictionary={dictionary} />
       </div>
     </header>
