@@ -115,7 +115,12 @@ function studyBlock(n, en, de) {
   return lines;
 }
 
-const { getCaseStudy } = await loadCaseStudies();
+const { caseStudyPromise, localeContent } = await loadCaseStudies();
+
+/** The registry loads each study on demand now (ISSUE-019), so await them here. */
+async function study(slug, locale) {
+  return localeContent(await caseStudyPromise(slug), locale);
+}
 
 const header = [
   "## 5. Case studies (`/work/<slug>`)",
@@ -137,7 +142,10 @@ const header = [
   "content change, rerun `node scripts/content-guide-case-studies.mjs --write` to refresh it.",
 ];
 
-const body = SLUGS.flatMap((slug, i) => studyBlock(i + 1, getCaseStudy(slug, "en"), getCaseStudy(slug, "de")));
+const body = [];
+for (const [i, slug] of SLUGS.entries()) {
+  body.push(...studyBlock(i + 1, await study(slug, "en"), await study(slug, "de")));
+}
 const out = [...header, ...body, "", "---", "", ""].join("\n");
 
 if (process.argv.includes("--write")) {

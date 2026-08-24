@@ -52,7 +52,8 @@ en.selectedWork.bento.forEach((tile, i) => {
 
 // ---- case studies ----
 for (const slug of SLUGS) {
-  const study = cs.getCaseStudy(slug, "en");
+  // Loaded on demand since ISSUE-019 split the registry.
+  const study = cs.localeContent(await cs.caseStudyPromise(slug), "en");
   add(`Case study — ${study.name}`, "hero", study.heroImage.alt, study.heroImage.aspect, 2560,
       Boolean(study.heroImage.src), `caseStudies/${slug}.ts → {en,de}.heroImage.src`);
   study.sections.forEach((section, si) => {
