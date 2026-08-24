@@ -39,11 +39,20 @@ export default function SectionMedia({ images }: { images: SectionImage[] }) {
 
   return (
     <div className="mt-12 flex flex-col gap-12">
+      {/*
+        These sit inside a section that already reveals, which makes them
+        nested reveals — allowed, and coherent, because a child is always lower
+        in the flow than its section, so its trigger never fires before the
+        section's. While the section is at rest the figures are invisible with
+        it; once it has arrived they wait for their own turn (DECISION-008).
+      */}
       {runs.map((run, i) =>
         run.wide ? (
-          <Figure key={i} {...run.items[0]!} />
+          <div key={i} data-inview="scale">
+            <Figure {...run.items[0]!} />
+          </div>
         ) : (
-          <div key={i} className={`grid gap-5 ${columnsFor(run.items.length)}`}>
+          <div key={i} data-inview="stagger" className={`grid gap-5 ${columnsFor(run.items.length)}`}>
             {run.items.map((image, n) => (
               <Figure key={n} {...image} />
             ))}
