@@ -18,6 +18,19 @@
      */
     --header-h: 146px;
     --anchor-offset: calc(var(--header-h) + 31px);
+    /*
+     * Where a page's content starts, clear of the fixed header. Pages used to
+     * hard-code this as a distance from the top of the viewport (132px, 150px,
+     * 168px), all of which assumed the 73px desktop header — so below 768px,
+     * where the header is 146px, content started underneath it. The homepage
+     * hero was 28px under it on a phone.
+     *
+     * The air below the header is smaller on small screens, where the header
+     * itself takes twice the room: 40px there, 77px from md up — which is
+     * exactly the 150px these pages used to hard-code.
+     */
+    --page-air: 40px;
+    --page-top: calc(var(--header-h) + var(--page-air));
     --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial,
       sans-serif;
     --font-caveat: "Caveat", "Segoe Script", "Bradley Hand", cursive;
@@ -59,9 +72,47 @@
     color: inherit;
   }
 
-  @media (min-width: 480px) {
+  @media (min-width: 768px) {
     :root {
       --header-h: 73px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --page-air: 77px;
+    }
+  }
+
+  /*
+   * German compounds are longer than the headings were spaced for, and a word
+   * that cannot fit its line overflows the page: "Studierendenservice" in a
+   * case-study h1 pushed /de/work/qis-portal 65px wide at 375px, and
+   * "Designmöglichkeiten." did the same to the homepage at 320px (ISSUE-028).
+   *
+   * Hyphenation is scoped twice over, because `hyphens: auto` changes line
+   * breaking wherever it applies and both restrictions keep that change to
+   * where it is needed:
+   *
+   * - to German, so English headings wrap exactly as they did;
+   * - to below `md`, because that is where a word can outgrow its line. Above
+   *   it the words fit, and a hyphen in an 84px display headline reads worse
+   *   than the wrap it replaces.
+   *
+   * `overflow-wrap` applies everywhere as the guard of last resort: it does
+   * nothing until a word genuinely cannot fit.
+   */
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: break-word;
+  }
+
+  @media (max-width: 767px) {
+    :root:lang(de) h1,
+    :root:lang(de) h2,
+    :root:lang(de) h3 {
+      hyphens: auto;
     }
   }
 

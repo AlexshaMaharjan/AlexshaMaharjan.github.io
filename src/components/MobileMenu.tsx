@@ -50,7 +50,7 @@ export default function MobileMenu({
       {open && (
         <div
           id={panelId}
-          className="fixed inset-0 z-[190] overflow-y-auto border-b border-[#EAECF0] bg-white px-5 pb-8 pt-[132px]"
+          className="fixed inset-0 z-[190] overflow-y-auto border-b border-[#EAECF0] bg-white px-5 pb-8 pt-[calc(var(--header-h)+59px)]"
         >
           <nav
             aria-label="Menu"
