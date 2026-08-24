@@ -35,21 +35,21 @@ export default function Footer({
               leaves them, and every page scrolled sideways (ISSUE-026). */}
           <div className="flex flex-wrap gap-x-16 gap-y-6 md:col-span-5">
             <nav aria-label="Footer" className="flex flex-col gap-3 text-[14px] text-ink">
-              <Link to={localeHref(locale, "/#about")} className="hover:text-accent transition-colors">
+              <Link to={localeHref(locale, "/#about")} className="tap-target hover:text-accent transition-colors">
                 {dictionary.nav.about}
               </Link>
-              <Link to={localeHref(locale, "/playground")} className="hover:text-accent transition-colors">
+              <Link to={localeHref(locale, "/playground")} className="tap-target hover:text-accent transition-colors">
                 {dictionary.nav.playground}
               </Link>
-              <Link to={localeHref(locale, "/resume")} className="hover:text-accent transition-colors">
+              <Link to={localeHref(locale, "/resume")} className="tap-target hover:text-accent transition-colors">
                 {dictionary.footer.resume}
               </Link>
             </nav>
             <div className="flex flex-col gap-3 font-mono text-[12px] text-ink-muted">
-              <a href={`mailto:${dictionary.footer.email}`} className="transition-colors hover:text-accent">
+              <a href={`mailto:${dictionary.footer.email}`} className="tap-target transition-colors hover:text-accent">
                 {dictionary.footer.email}
               </a>
-              <a href={dictionary.footer.linkedinHref} className="transition-colors hover:text-accent">
+              <a href={dictionary.footer.linkedinHref} className="tap-target transition-colors hover:text-accent">
                 {dictionary.footer.linkedin}
               </a>
             </div>

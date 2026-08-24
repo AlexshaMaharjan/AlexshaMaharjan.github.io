@@ -19,7 +19,7 @@ export default function CaseStudyHero({
       <div className="container-page">
         <Link
           to={localeHref(locale, "/#work")}
-          className="text-[14px] text-ink-secondary transition-colors hover:text-accent"
+          className="tap-target text-[14px] text-ink-secondary transition-colors hover:text-accent"
         >
           {dictionary.caseStudy.backToProjects}
         </Link>

@@ -104,7 +104,7 @@ function DarkPanel({ width, children }: { width?: number; children: ReactNode })
   );
 }
 
-const monoLabel = "font-mono text-[9px] text-[#8A8F98]";
+const monoLabel = "font-mono text-[9px] text-ink-on-dark-muted";
 
 /* ---------- 01 · Understand ---------- */
 
@@ -139,7 +139,7 @@ export function Cluster1() {
         >
           &ldquo;I just want something that actually works for me.&rdquo;
         </p>
-        <p className="mt-[7px] font-mono text-[8px] text-[#6E6A60]">— Interview participant</p>
+        <p className="mt-[7px] font-mono text-[8px] text-[#696559]">— Interview participant</p>
       </Polaroid>
 
       <div className="relative" style={{ width: 178 }}>
@@ -147,7 +147,7 @@ export function Cluster1() {
         <Polaroid variant="b" rotate={1.4} padding="14px 13px 15px" width={178}>
           <div className="flex items-baseline justify-between gap-1.5">
             <p className="m-0 text-xs font-semibold tracking-[-0.01em] text-[#17181A]">SWOT</p>
-            <span className="font-mono text-[8px] text-[#6E6A60]">market view</span>
+            <span className="font-mono text-[8px] text-[#696559]">market view</span>
           </div>
           <div className="mt-[9px] grid grid-cols-2 border border-[#B9B4A8]">
             {["Strengths", "Weaknesses", "Opportunities", "Threats"].map((label, i) => (
@@ -179,7 +179,7 @@ export function Cluster1() {
             />
           ))}
         </div>
-        <div className="mt-1.5 flex gap-[5px] font-mono text-[8px] text-[#63666C]">
+        <div className="mt-1.5 flex gap-[5px] font-mono text-[8px] text-[#7B7E84]">
           {[1, 2, 3, 4, 5].map((n) => (
             <span key={n} className="w-3 text-center">
               {n}
@@ -339,7 +339,7 @@ function CheckItem({ label, checked }: { label: string; checked: boolean }) {
           </svg>
         )}
       </span>
-      <span className={clsx("text-[11px] leading-[1.3]", checked ? "text-[#DDE1E6]" : "text-[#8A8F98]")}>{label}</span>
+      <span className={clsx("text-[11px] leading-[1.3]", checked ? "text-[#DDE1E6]" : "text-ink-on-dark-muted")}>{label}</span>
     </div>
   );
 }
@@ -427,10 +427,10 @@ export function Cluster3() {
                 <span className="font-mono text-[7px] text-accent-on-dark">A</span>
               </div>
               <div className="flex items-end justify-center rounded-[3px] border border-white/[0.14] pb-0.5">
-                <span className="font-mono text-[7px] text-[#63666C]">B</span>
+                <span className="font-mono text-[7px] text-[#7B7E84]">B</span>
               </div>
               <div className="flex items-end justify-center rounded-[3px] border border-white/[0.14] pb-0.5">
-                <span className="font-mono text-[7px] text-[#63666C]">C</span>
+                <span className="font-mono text-[7px] text-[#7B7E84]">C</span>
               </div>
             </div>
           </div>
@@ -465,13 +465,13 @@ export function Cluster4() {
         </span>
         <div>
           <span className="block text-[9.5px] text-[#5C5E62]">Inter Display</span>
-          <span className="block font-mono text-[9px] text-[#8A8A8A]">Mono labels</span>
+          <span className="block font-mono text-[9px] text-[#6C6C6C]">Mono labels</span>
         </div>
       </div>
 
       <div style={{ width: 198 }} className="box-border rounded-lg bg-[#F1EFE9] p-[13px]">
         <div className="flex items-center justify-between">
-          <span className="font-mono text-[9px] text-[#8A8A8A]">Focus</span>
+          <span className="font-mono text-[9px] text-[#6C6C6C]">Focus</span>
           <span aria-hidden="true" className="flex flex-col gap-[3px]">
             <span className="block h-[1.4px] w-[13px] bg-[#5C5E62]" />
             <span className="block h-[1.4px] w-[13px] bg-[#5C5E62]" />
@@ -496,7 +496,7 @@ export function Cluster4() {
             <span className={monoLabel}>states</span>
             <span className="block rounded-full bg-[#1B3FE0] py-[3px] text-center text-[8px] text-white">Default</span>
             <span className="block rounded-full bg-[#2F55F0] py-[3px] text-center text-[8px] text-white">Hover</span>
-            <span className="block rounded-full border border-white/[0.18] py-[3px] text-center text-[8px] text-[#63666C]">
+            <span className="block rounded-full border border-white/[0.18] py-[3px] text-center text-[8px] text-[#7B7E84]">
               Disabled
             </span>
           </div>
@@ -504,13 +504,13 @@ export function Cluster4() {
         <div className="relative" style={{ width: 88 }}>
           <Pin left="54%" />
           <div style={{ height: 76, transform: "rotate(-2deg)", boxShadow: "0 14px 30px rgba(0,0,0,0.5)" }} className="box-border flex flex-col justify-between bg-[#EDEAE3] p-[9px_10px]">
-            <span className="font-mono text-[8px] text-[#6E6A60]">spacing</span>
+            <span className="font-mono text-[8px] text-[#696559]">spacing</span>
             <div className="flex flex-col gap-1">
               <span className="block h-[3px] w-[30%] bg-[#B9B4A8]" />
               <span className="block h-[3px] w-[58%] bg-[#B9B4A8]" />
               <span className="block h-[3px] w-full bg-[#1B3FE0]" />
             </div>
-            <span className="font-mono text-[8px] text-[#6E6A60]">4 · 8 · 16</span>
+            <span className="font-mono text-[8px] text-[#696559]">4 · 8 · 16</span>
           </div>
         </div>
       </div>
@@ -599,7 +599,7 @@ export function Cluster5() {
 
       <div style={{ width: 120 }}>
         <Polaroid variant="b" rotate={1.6} padding="11px 11px 14px">
-          <span className="font-mono text-[9px] text-[#6E6A60]">User testing</span>
+          <span className="font-mono text-[9px] text-[#696559]">User testing</span>
           <div className="mt-2.5 flex">
             <Avatar bg="#DAD4C8" offset={false} />
             <Avatar bg="#CFC9BC" offset />

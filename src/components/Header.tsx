@@ -89,16 +89,16 @@ export default function Header({
           <nav aria-label="Primary" className="hidden items-center gap-7 text-[15px] text-ink nav:flex">
             <Link
               to={localeHref(locale, "/#work")}
-              className="transition-colors hover:text-accent"
+              className="tap-target transition-colors hover:text-accent"
             >
               {dictionary.nav.projects}
             </Link>
-            <Link to={localeHref(locale, "/#about")} className="transition-colors hover:text-accent">
+            <Link to={localeHref(locale, "/#about")} className="tap-target transition-colors hover:text-accent">
               {dictionary.nav.about}
             </Link>
             <Link
               to={localeHref(locale, "/#contact")}
-              className="transition-colors hover:text-accent"
+              className="tap-target transition-colors hover:text-accent"
             >
               {dictionary.nav.contact}
             </Link>

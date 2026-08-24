@@ -19,7 +19,7 @@ export default function CategoryPage({
         <div className="container-page">
           <Link
             to={localeHref(locale, "/playground")}
-            className="text-[14px] text-ink-secondary transition-colors hover:text-accent"
+            className="tap-target text-[14px] text-ink-secondary transition-colors hover:text-accent"
           >
             {dictionary.playgroundNav.backToPlayground}
           </Link>

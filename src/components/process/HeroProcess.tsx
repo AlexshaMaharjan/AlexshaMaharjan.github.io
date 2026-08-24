@@ -235,7 +235,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
 
         <section className="relative w-full overflow-hidden bg-canvas-black py-[72px]">
           <p className="sr-only">{dictionary.process.srSummary}</p>
-          <span className="mb-6 block text-center font-mono text-[12px] text-[#8A8F98]">
+          <span className="mb-6 block text-center font-mono text-[12px] text-ink-on-dark-muted">
             {dictionary.process.label}
           </span>
           <h2 className="mx-auto max-w-[88vw] px-4 text-center text-[26px] font-semibold leading-[1.12] tracking-[-0.02em] text-white">
@@ -325,7 +325,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
           <p className="sr-only">{dictionary.process.srSummary}</p>
           <span
             ref={labelRef}
-            className="absolute left-8 top-6 font-mono text-[12px] text-[#8A8F98]"
+            className="absolute left-8 top-6 font-mono text-[12px] text-ink-on-dark-muted"
           >
             {dictionary.process.label}
           </span>
@@ -343,8 +343,16 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
             {dictionary.process.scrollCue}
           </span>
 
+          {/*
+            `inert` until the track says the map is interactive. Without it the
+            five branch buttons stay in the tab order while the map is
+            invisible (ancestor opacity 0) and inert to activation
+            (pointer-events: none) — a keyboard user tabbed into five controls
+            they could neither see nor use (ISSUE-031).
+          */}
           <div
             ref={mapRef}
+            inert={!interactiveOn}
             className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[1440px] -translate-x-1/2 -translate-y-1/2 opacity-0"
           >
             <svg

@@ -5,11 +5,22 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** The at-rest state a [data-inview] element is held in until it scrolls into view. */
-const AT_REST: gsap.TweenVars = { autoAlpha: 0, y: 18 };
+/**
+ * The at-rest state a [data-inview] element is held in until it scrolls into
+ * view.
+ *
+ * Deliberately `opacity` rather than GSAP's `autoAlpha`, which also sets
+ * `visibility: hidden`: a hidden subtree is removed from the tab order, so any
+ * control inside a section that had not been revealed yet was unreachable by
+ * keyboard — the playground's pause button was, and it is the kind of thing
+ * WCAG 2.1.1 is about (ISSUE-030). At-rest elements are below the fold by
+ * definition, so being nominally clickable while invisible costs nothing, and
+ * `revealOnFocus` below covers the case where focus reaches one anyway.
+ */
+const AT_REST: gsap.TweenVars = { opacity: 0, y: 18 };
 
 /** The reveal itself. Lift this out with AT_REST if a shared motion module lands (SUGGESTION-006). */
-const REVEALED: gsap.TweenVars = { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.out" };
+const REVEALED: gsap.TweenVars = { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" };
 
 const TRIGGER_START = "top 88%";
 
@@ -75,7 +86,26 @@ export function useScrollReveals(): void {
       }),
     );
 
+    /** element → the tween holding it at rest, so focus can complete it. */
+    const tweenFor = new Map(elements.map((el, i) => [el, tweens[i]!]));
+
+    // Keyboard focus can outrun the scroll position — tabbing moves focus into
+    // a section before the trigger for it has fired. Reveal it there and then,
+    // so focus never lands on something invisible (WCAG 2.4.7).
+    const onFocusIn = (event: FocusEvent) => {
+      const target = event.target as HTMLElement | null;
+      const section = target?.closest?.("[data-inview]") as HTMLElement | null;
+      if (!section) return;
+      // Completing the tween rather than setting the properties: the trigger
+      // would otherwise still be armed and would replay the reveal from
+      // opacity 0 the moment the section scrolls past its start, flashing the
+      // control the visitor is focused on.
+      tweenFor.get(section)?.progress(1);
+    };
+    document.addEventListener("focusin", onFocusIn);
+
     return () => {
+      document.removeEventListener("focusin", onFocusIn);
       tweens.forEach((tween) => {
         tween.scrollTrigger?.kill();
         tween.kill();

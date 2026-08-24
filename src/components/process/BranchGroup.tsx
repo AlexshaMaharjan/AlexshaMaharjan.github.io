@@ -63,7 +63,16 @@ export default function BranchGroup({
         </h3>
       </div>
       <p className="mt-[7px] text-[13px] leading-[1.4] text-[#9AA0A8]">{branch.question}</p>
+      {/*
+        The clusters are illustrations — miniature mock interfaces drawn in DOM
+        rather than exported as images. Their labels ("Mono labels",
+        "Disabled", "— Interview participant") are texture, they are hard-coded
+        English on both locales, and a screen reader was reading them out as
+        content. `dictionary.process.srSummary` is the text alternative for
+        this whole canvas (ISSUE-030).
+      */}
       <div
+        aria-hidden="true"
         className={clsx(
           "mt-[18px] flex origin-top-left flex-wrap items-start gap-2.5 transition-transform duration-[350ms] ease-out",
           active && "scale-105",

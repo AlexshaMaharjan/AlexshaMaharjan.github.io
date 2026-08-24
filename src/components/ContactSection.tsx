@@ -11,7 +11,7 @@ export default function ContactSection({ dictionary, locale }: { dictionary: Dic
           <h2 className="mx-auto mt-6 max-w-3xl text-section font-semibold leading-[1.05] tracking-[-0.025em] text-white">
             {dictionary.contact.heading}
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-[18px] leading-[1.6] text-[#A7ACB4]">{dictionary.contact.copy}</p>
+          <p className="mx-auto mt-6 max-w-xl text-[18px] leading-[1.6] text-ink-on-dark">{dictionary.contact.copy}</p>
           <div className="mt-11 flex flex-wrap justify-center gap-4">
             <Link
               to={localeHref(locale, "/resume")}
@@ -26,7 +26,7 @@ export default function ContactSection({ dictionary, locale }: { dictionary: Dic
               {dictionary.contact.contactCta}
             </a>
           </div>
-          <p className="mt-7 font-mono text-[12px] text-[#6C7078]">{dictionary.resume.email}</p>
+          <p className="mt-7 font-mono text-[12px] text-ink-on-dark-muted">{dictionary.resume.email}</p>
         </div>
       </div>
     </section>

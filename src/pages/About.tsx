@@ -18,7 +18,7 @@ export default function About() {
       <Seo title={`${about.heading} — Alexsha Maharjan`} description={dictionary.meta.description} />
       <section className="pt-[var(--page-top)]">
         <div className="container-page">
-          <Link to={localeHref(locale, "/")} className="text-[14px] text-ink-secondary transition-colors hover:text-accent">
+          <Link to={localeHref(locale, "/")} className="tap-target text-[14px] text-ink-secondary transition-colors hover:text-accent">
             {about.backToHome}
           </Link>
           <p className="mt-10 font-mono text-[13px] text-accent">{about.eyebrow}</p>
@@ -160,7 +160,17 @@ export default function About() {
             {about.carouselHeading}
           </h2>
         </div>
-        <div className="mt-8 overflow-x-auto pb-2" style={{ scrollSnapType: "x proximity" }}>
+        {/*
+          A horizontally scrolling region needs to be focusable, or a keyboard
+          user cannot scroll it at all (axe: scrollable-region-focusable).
+        */}
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label={about.carouselHeading}
+          className="mt-8 overflow-x-auto pb-2"
+          style={{ scrollSnapType: "x proximity" }}
+        >
           <div className="flex w-max gap-4 px-5 md:px-20">
             {about.carouselItems.map((item) => (
               <figure key={item.caption} className="m-0" style={{ scrollSnapAlign: "start" }}>
@@ -184,7 +194,7 @@ export default function About() {
           <h2 className="mx-auto mt-2.5 max-w-[760px] text-feature font-semibold leading-[1.05] tracking-[-0.025em] text-white">
             {about.resumeHeading}
           </h2>
-          <p className="mx-auto mt-5.5 max-w-[600px] text-[18px] leading-[1.6] text-[#A7ACB4]">{about.resumeCopy}</p>
+          <p className="mx-auto mt-5.5 max-w-[600px] text-[18px] leading-[1.6] text-ink-on-dark">{about.resumeCopy}</p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link
               to={localeHref(locale, "/resume")}
@@ -199,7 +209,7 @@ export default function About() {
               {about.contactCta}
             </a>
           </div>
-          <p className="mt-6 font-mono text-[12px] text-[#6C7078]">{dictionary.resume.email}</p>
+          <p className="mt-6 font-mono text-[12px] text-ink-on-dark-muted">{dictionary.resume.email}</p>
           </div>
         </div>
       </section>
