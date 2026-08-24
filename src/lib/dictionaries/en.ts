@@ -366,6 +366,7 @@ const en: Dictionary = {
     resumeCta: "View résumé",
     contactCta: "Contact me",
   },
+  routeLoading: "Loading page…",
   caseStudy: {
     backToProjects: "← Back to projects",
     onThisPage: "On this page",

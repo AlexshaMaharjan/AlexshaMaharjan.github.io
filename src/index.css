@@ -31,6 +31,16 @@
      */
     --page-air: 40px;
     --page-top: calc(var(--header-h) + var(--page-air));
+
+    /*
+     * The motion vocabulary, mirrored from `src/lib/motion.ts` for the
+     * transitions written in Tailwind rather than in GSAP. Change them
+     * together (SUGGESTION-006).
+     */
+    --duration-fast: 250ms;
+    --duration-base: 350ms;
+    --duration-slow: 700ms;
+    --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
     --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial,
       sans-serif;
     --font-caveat: "Caveat", "Segoe Script", "Bradley Hand", cursive;
@@ -124,6 +134,18 @@
     outline: 2px solid #1233c4;
     outline-offset: 3px;
     border-radius: 2px;
+  }
+}
+
+/* The bar that shows a lazy page is on its way (ISSUE-020). The global
+   reduced-motion rule in @layer base stops it, leaving a static bar and the
+   screen-reader status text. */
+@keyframes route-loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
   }
 }
 

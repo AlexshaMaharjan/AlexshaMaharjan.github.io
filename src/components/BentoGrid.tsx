@@ -19,6 +19,7 @@ export default function BentoGrid({ locale, dictionary }: { locale: Locale; dict
   return (
     <div
       data-el="bento"
+      data-inview="stagger"
       className="mx-auto"
       style={{
         maxWidth: 1120,
