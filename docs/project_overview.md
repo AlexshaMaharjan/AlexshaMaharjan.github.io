@@ -78,7 +78,10 @@ npm run preview   # serve dist/
 npm run lint      # eslint .
 npm run deploy    # gh-pages -d dist (predeploy runs the build)
 
+npm run prerender # write each route's <head> into dist/ + sitemap.xml (predeploy runs it)
+
 node scripts/content-guide-case-studies.mjs --write   # regenerate CONTENT_GUIDE.md §5
+node scripts/image-manifest.mjs --write               # regenerate the image manifest
 ```
 
 Build is currently green; lint emits 3 `react-refresh/only-export-components` warnings,

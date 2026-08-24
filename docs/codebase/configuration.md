@@ -13,6 +13,8 @@
 | `index.html` | single entry; **static EN meta + OG tags live here** | not per-locale, `ISSUE-013` |
 | `.gitignore` | node_modules, dist, `/.next`, .DS_Store, `*.tsbuildinfo`, `design-reference/` | complete; `ISSUE-018` resolved |
 | `scripts/content-guide-case-studies.mjs` | regenerates `CONTENT_GUIDE.md` §5 from the case-study data | `node scripts/content-guide-case-studies.mjs --write`; bundles the TS with esbuild (a vite dependency), not wired into `npm run` |
+| `scripts/image-manifest.mjs` | regenerates `docs/reference/image_manifest.md` | `node scripts/image-manifest.mjs --write` |
+| `scripts/prerender.mjs` | writes each route's own `<head>` into `dist/`, plus `sitemap.xml` (`ISSUE-013`) | `npm run prerender`, and `predeploy` runs it. Serves `dist` itself and drives headless Chrome — macOS path built in, override with `CHROME=…` |
 
 ## Repo-root documents (not code)
 

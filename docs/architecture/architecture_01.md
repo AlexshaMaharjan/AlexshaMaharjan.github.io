@@ -60,7 +60,15 @@ Sections carry the scroll reveal's at-rest transform until they play, so the ren
 is up to 18px below the layout box and aiming at it lands short (SESSION-004,
 `DECISION-014`).
 
-Per-route `<title>`/meta are written imperatively by `src/components/Seo.tsx` on mount.
+Per-route `<title>` and metadata are written imperatively by `src/components/Seo.tsx`,
+which writes **every** field on every route — description, `og:*`, `twitter:*` and a
+canonical link — falling back to the site defaults. Writing the full set is what stops one
+route inheriting another's (`ISSUE-014`).
+
+Scrapers do not execute that, so `npm run prerender` (run by `predeploy`) writes each of the
+36 routes a static HTML file carrying the same head. The **body** is deliberately not
+prerendered: pages are lazy, and hydrating into a null Suspense fallback empties markup that
+is already on screen — `ISSUE-013` records the measurements.
 
 ## Important dependencies
 

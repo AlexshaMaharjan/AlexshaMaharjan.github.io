@@ -1,10 +1,21 @@
 # ISSUE-014 — `Seo` leaks description and Open Graph tags between routes
 
-Status: Open
+Status: **Resolved** (SESSION-010, `c7bca1d`)
 Priority: Low
 Category: Bug / SEO
 Discovered: 2026-08-22 (SESSION-001)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-24
+
+## Resolution
+
+`Seo` writes **every** field on every route — description, `og:title`,
+`og:description`, `og:image`, `og:url`, `og:locale`, the `twitter:*` trio and a canonical
+link — falling back to the site defaults where a page does not supply one. Writing the full
+set is what makes leaking impossible; there is nothing left to restore, so the partial
+cleanup is gone.
+
+Measured: `/work/wikimind` → `/resume` now leaves the résumé with its own title, the site
+description, the default image and its own canonical.
 
 ## Summary
 
