@@ -28,12 +28,12 @@ export default function CaseStudyIntro({
 }) {
   return (
     <div className="mb-12">
-      <h1 className="m-0 max-w-[860px] text-feature font-semibold leading-[1.08] tracking-[-0.025em] text-ink">
+      <h1 className="m-0 text-feature font-semibold leading-[1.08] tracking-[-0.025em] text-ink">
         {content.headline}
       </h1>
-      <p className="mt-5 max-w-[680px] text-[18px] leading-[1.65] text-ink-secondary">{content.summary}</p>
+      <p className="mt-5 text-[19px] leading-[1.7] text-ink-secondary">{content.summary}</p>
       {content.heroDisclosure && (
-        <p className="mt-3 max-w-[680px] font-mono text-[13px] leading-[1.5] text-ink-muted">
+        <p className="mt-3 font-mono text-[13px] leading-[1.5] text-ink-muted">
           {content.heroDisclosure}
         </p>
       )}

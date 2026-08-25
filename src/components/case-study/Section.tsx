@@ -5,11 +5,21 @@ import Figure from "./Figure";
 import SectionMedia from "./SectionMedia";
 
 /**
- * The reading measure. Body text sits at ~70 characters a line; media and the
- * set pieces run wider, which is where the page gets its rhythm
- * (`SUGGESTION-003`, `DECISION-014`).
+ * The reading measure.
+ *
+ * It used to be 680px against media that ran to the column edge — a deliberate
+ * editorial rhythm (`SUGGESTION-003`, `DECISION-014`). Inside the narrower
+ * reading column that `DECISION-017` introduced it stopped reading as rhythm
+ * and started reading as unfinished: four different widths down one column
+ * (media 960, section heading 900, the design-question band 840, body 680), so
+ * every paragraph ended in mid-air with 280px of empty page beside it.
+ *
+ * Everything in the column now shares the column's width. The line is longer
+ * than the classic 66-character ideal, which is why the body size and leading
+ * went up with it — long lines are hurt most by tight leading (owner,
+ * 2026-08-25; `DECISION-014` amendment 2).
  */
-const MEASURE = "max-w-[680px]";
+const MEASURE = "max-w-full";
 
 /** A bare string in `body[]` is shorthand for a paragraph (ISSUE-024). */
 function normalize(block: Block): Exclude<Block, string> {
@@ -27,7 +37,7 @@ function BodyBlock({ block, first }: { block: Block; first: boolean }) {
   switch (b.kind) {
     case "p":
       return (
-        <p className={`${MEASURE} text-[18px] leading-[1.7] text-ink-body ${first ? "mt-7" : "mt-5"}`}>
+        <p className={`${MEASURE} text-[19px] leading-[1.75] text-ink-body ${first ? "mt-7" : "mt-5"}`}>
           {b.text}
         </p>
       );
@@ -45,7 +55,7 @@ function BodyBlock({ block, first }: { block: Block; first: boolean }) {
       const List = b.ordered ? "ol" : "ul";
       return (
         <List
-          className={`${MEASURE} flex list-outside flex-col gap-3 pl-5 text-[18px] leading-[1.6] text-ink-body marker:text-accent ${
+          className={`${MEASURE} flex list-outside flex-col gap-3 pl-5 text-[19px] leading-[1.7] text-ink-body marker:text-accent ${
             b.ordered ? "list-decimal" : "list-disc"
           } ${first ? "mt-7" : "mt-6"}`}
         >
@@ -60,7 +70,7 @@ function BodyBlock({ block, first }: { block: Block; first: boolean }) {
 
     case "quote":
       return (
-        <blockquote className={`max-w-[760px] ${first ? "mt-8" : "mt-12"}`}>
+        <blockquote className={`max-w-full ${first ? "mt-8" : "mt-12"}`}>
           <p className="border-l-2 border-accent pl-7 text-[24px] font-medium leading-[1.4] tracking-[-0.015em]">
             {b.text}
           </p>
@@ -127,7 +137,7 @@ export default function Section({
           an introduction rather than a chapter title, so it steps down a size —
           otherwise the two compete and the hierarchy reads flat. */}
       <h2
-        className={`m-0 max-w-[900px] font-semibold tracking-[-0.025em] ${
+        className={`m-0 font-semibold tracking-[-0.025em] ${
           outro
             ? "text-feature leading-[1.05]"
             : first
@@ -145,7 +155,7 @@ export default function Section({
       {section.body?.map((block, i) => <BodyBlock key={i} block={block} first={i === 0} />)}
 
       {section.designQuestion && (
-        <div className="mt-14 max-w-[840px] rounded-[14px] bg-accent-soft px-7 py-8 sm:px-9 sm:py-10">
+        <div className="mt-14 rounded-[14px] bg-accent-soft px-7 py-8 sm:px-9 sm:py-10">
           <span className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">
             {dictionary.caseStudy.designQuestion}
           </span>
