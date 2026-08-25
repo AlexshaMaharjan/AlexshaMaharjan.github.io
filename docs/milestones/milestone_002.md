@@ -22,10 +22,10 @@ confirmed.
 - [ ] **Get the owner's decision on `DECISION-010`** — keep the bento direction, or return
       to the editorial layout in `git show HEAD:src/components/ProjectEntry.tsx`
 - [ ] Rebuild the section from `dictionary.projects`: one entry per project
-- [ ] Wire real hero imagery. **The source is known now** — the eleven tiles map to six
-      project documentations, listed in `docs/reference/image_sources.md`. Tiles are *covers*,
-      so they take the darken-and-tint treatment described there; the contrast ceiling
-      (`#80` or darker behind the white label and title) is measured, not a guess
+- [x] **Wire real tile imagery** — all eleven done in SESSION-016 from the six project
+      documentations. Each is cropped, darkened, desaturated and tinted with its own
+      project's colour, and each is *measured* against the contrast ceiling by
+      `scripts/image-treat.mjs`, which fails the run if a tile is too bright
 - [ ] Restore visible headline / description / tags / role / year at an appropriate density
 - [ ] **ISSUE-005** — every string from the dictionary; verify `/de`
 - [ ] Give tiles a hover/focus treatment consistent with the rest of the site

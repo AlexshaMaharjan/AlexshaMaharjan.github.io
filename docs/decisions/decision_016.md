@@ -48,6 +48,23 @@ There is a practical reason too. This portfolio is for job applications. A revie
 recognises a Freepik photograph or a competitor's screenshot presented as original work does
 not raise a query — they stop reading.
 
+## What it found when applied (SESSION-016)
+
+All six documentations cite borrowed material inside themselves — the rule was not
+hypothetical in a single case:
+
+- **Surugami** — Freepik by URL, and five pages from Pinterest.
+- **AFONO** — pages 25–27 are headed *"KI-generierte Modemodelle und Mockups"*, and the
+  document itself calls them placeholders for later real photography. **This one is the
+  owner's call, not a licensing question**, and was left to them.
+- **QIS Portal** — flaticon icons, Freepik illustrations, a login background from a Google
+  image search; and its "Originale" screenshots are the university's live portal.
+- **Kitchen** — three Sketchfab models: the wheelchair figure, a jar, a decor pack.
+- **WikiMind** — no sources page, but unattributed stock portraits in its personas.
+- **Sync FM** — no sources page, but page 38 states three images were AI-made.
+
+Nothing borrowed shipped.
+
 ## Consequences
 
 - Extraction is a **manual, page-by-page** step. `scripts/pdf-page.js` deliberately renders

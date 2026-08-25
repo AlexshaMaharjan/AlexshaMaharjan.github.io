@@ -30,6 +30,34 @@ describe **Hibi** — a mindfulness web application with Gündogdu, Dörfler, Zo
 **Hibi is not on the site.** It is a seventh project with a full documentation behind it, and
 whether it becomes a case study is the owner's call, not a gap to be filled quietly.
 
+## The tools
+
+Two scripts, neither adding a dependency.
+
+**`scripts/pdf-page.js`** renders documentation pages to PNG (below).
+
+**`scripts/image-treat.mjs`** crops, resizes, grades and **measures**, by drawing in the
+Chrome this project already drives for verification:
+
+```bash
+node scripts/image-treat.mjs docs/reference/image_crops.json
+```
+
+It prints the mean luminance of the two bands where `BentoGrid` puts white text and **exits
+non-zero if a tile is too bright**, so a failing export is caught at export rather than in
+review. `docs/reference/image_crops.json` holds the eighteen crops already cut, each against
+its source document and page — copy an entry to start a new one.
+
+Two habits from SESSION-016 worth repeating, because they turned a day into an hour:
+
+- **Contact-sheet a whole document and look once.** A hundred pages at 0.32 scale tiled into
+  one screenshot beats a hundred separate looks.
+- **Overlay a decile grid to pick crops.** Then a crop box is read off rather than guessed.
+  Expect two or three rounds; the first pass usually leads with a German figure caption.
+
+Aspect is never given directly — give a centre, a width fraction and the target ratio, and
+let the height fall out of the source's own pixel size. A crop then cannot distort.
+
 ## Getting a page out
 
 `scripts/pdf-page.js` renders pages to PNG through macOS PDFKit. No install, no dependency:
@@ -55,11 +83,22 @@ their figures are embedded artwork and survive a high-scale render cleanly.
 ## What may not be taken
 
 **Read the sources page of a document before exporting anything from it.** This is not
-optional and it is not a formality — `FInalDesmeth.pdf`'s sources page credits Freepik stock
-photography by URL and states plainly that *"P4, P5, P6, P7, P8: All references were taken
-from Pinterest"*. Those pages are mood and reference material. They are not the owner's work,
-they are not licensed for a commercial portfolio, and putting them on the site would claim
-authorship of someone else's photographs.
+optional and it is not a formality. SESSION-016 read all six, and the answer changed what
+could be used in **every one of them**:
+
+| Document | What its own sources page says |
+| --- | --- |
+| `FInalDesmeth.pdf` (Surugami) | Freepik photographs by URL, and *"P4, P5, P6, P7, P8: All references were taken from Pinterest"* — its moodboards (7–9) and personas (12–13) are out |
+| `DesignProjekt…` (AFONO) | pages 25–27 are headed *"KI-generierte Modemodelle und Mockups"*, and the text says they are placeholders for later real photography — **out, and the owner should decide** |
+| `Usability_SoSe24…` (QIS) | flaticon icons, Freepik illustrations, and a login background from a Google image search. Its "Originale" screenshots are the university's existing portal, not the team's design |
+| `Dokumentation_Kueche…` | three Sketchfab models — the wheelchair figure, a jar, a decor pack. The scene and the kitchen are the team's |
+| `DesPr1…` (WikiMind) | no sources page — but its persona photographs (9–11) are unattributed stock, so leave them |
+| `Enddokumentation.pdf` (Sync FM) | no sources page — but page 38 states three perspective images were made with AI |
+
+Where a page mixes the owner's diagram with borrowed imagery, **crop to the owner's part**.
+That is what SESSION-016 did: AFONO is represented by its logo system and print designs
+rather than by the AI model shots, and QIS by the team's Figma prototype screens rather than
+by the university's portal.
 
 The rule and its reasoning are recorded in `DECISION-016`. In short: **only work the owner
 made ships.** Where a page mixes the owner's diagram with a stock photo, crop the diagram.
@@ -72,15 +111,14 @@ work is fine on a page that says who did what; the case studies already say it.
 
 Value per unit of effort, highest first.
 
-**1. The eleven bento tiles** (`MILESTONE-002`). The homepage is where a visitor decides to
-stay, and it is eleven grey rectangles today. These are the only slots that are *covers*
-rather than evidence, so they take a treatment the others do not — see below.
+**1. ~~The eleven bento tiles~~** — done, SESSION-016.
 
-**2. The six case-study heroes.** One per project, 2560px wide, 16/7.5. Currently flat colour
-blocks with alt text that literally reads "Placeholder:".
+**2. ~~The six case-study heroes~~** — done, SESSION-016, along with six prev/next cards that
+turned out to be live rather than dead (`projects[].image`, rendered by `NextProjectNav`).
 
-**3. `og:image`** (`ISSUE-006`). One file. Every link anyone shares is a blank rectangle until
-it exists.
+**3. `og:image`** (`ISSUE-006`). Still open, and **not a crop**: it is a designed 1200×630
+card with the owner's name on it. Making one out of a documentation page would be inventing a
+brand asset rather than filling a slot.
 
 **4. The 71 case-study section figures.** The bulk of the work, and the most mechanical: the
 manifest names each one (`[ persona 01 ]`, `[ sitemap ]`, `[ ui kit ]`) and the documentation
@@ -130,10 +168,17 @@ Unchanged from `image_manifest.md`, repeated because it is three steps and peopl
 
 Then rerun `node scripts/image-manifest.mjs --write` so the counts stop being anyone's memory.
 
-## What this does not solve
+## Format and weight
 
-The site still has **no responsive image pipeline** (`SUGGESTION-012`) — a file ships at
-whatever size it is. `MILESTONE-005` says to build that *before* bulk importing, and with a
-real import now in view that ordering matters more than it did: 129 full-size PNGs would be
-the largest performance regression this project could give itself. The export widths in the
-manifest are the interim defence.
+**Export WebP.** There is still no responsive image pipeline (`SUGGESTION-012`), so a file
+ships at whatever size it is and format is the only lever available. It is worth roughly 4x
+on this material: the eighteen slots filled in SESSION-016 come to **475 KB in total**, and
+the homepage transfers **203 KB of imagery for eleven tiles**. The case-study pages got
+*lighter*, because the new heroes replaced heavier PNGs.
+
+The pipeline is still the right thing to build **before the remaining 118**. Eighteen files
+were hand-sizable; a hundred and eighteen are not.
+
+**Dead weight to resolve.** Fourteen legacy PNGs in `public/images/` are now referenced by
+nothing and would ship — 811 KB. They are the owner's files and may be source material, so
+they were left in place rather than deleted.

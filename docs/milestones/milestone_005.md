@@ -37,7 +37,10 @@ before every export.
 - [ ] **SUGGESTION-012** — add the build-time image pipeline **before** bulk importing, so
       5000×3750 originals do not ship raw. Note this likely means moving files from
       `public/images/` to `src/assets/` and updating every `src` string
-- [ ] **ISSUE-006** — the five real files, plus a real `og:image`. Highest visible return of
+- [x] **The eleven bento tiles and the six case-study heroes** — filled from the
+      documentations in SESSION-016, plus six `projects[].image` prev/next cards that turned
+      out to be live. 18 of 136 slots, up from 7
+- [ ] **ISSUE-006** — a real `og:image`. **Not a crop**: a designed 1200×630 card. Highest visible return of
       anything in this milestone: every shared link is a blank rectangle until it exists
 - [ ] **The eleven bento tiles** (`MILESTONE-002`) — covers, not evidence, and the only slots
       needing the darken-and-tint treatment. The contrast ceiling is measured and recorded in
@@ -45,13 +48,15 @@ before every export.
       WCAG 1.4.3 on the owner's own homepage
 - [ ] **Decide whether Hibi becomes a seventh case study** — two documentations exist for a
       project that has no page. Owner's call; not a gap to fill quietly
-- [ ] Fix the three alt strings that literally say "Placeholder: …"
+- [x] Fix the three alt strings that literally say "Placeholder: …" — gone (SESSION-016);
+      86 images across 24 route/locale pairs carry real alt text in both locales
 - [ ] About portrait — a real photograph
 - [ ] Case-study section figures — 71 slots, per `CONTENT_GUIDE.md` §5/§10
 - [ ] About carousel — 8 photos
 - [ ] **DECISION-006** — decide with the owner which Playground slots (36) keep the
       stylised placeholder permanently and which become photographs
-- [ ] Resolve the 9 unused files in `public/images/` (delete or wire up)
+- [ ] Resolve the **14** now-unused files in `public/images/` — 811 KB that would ship. The
+      count went up, not down: replacing the old heroes orphaned five more
 - [ ] Give `CaseStudyHero` `priority` so the LCP image is not lazy-loaded
 - [ ] A real `og:image`
 
