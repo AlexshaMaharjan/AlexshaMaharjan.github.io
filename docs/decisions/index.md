@@ -21,13 +21,17 @@ explicitly rather than inventing one.
 | DECISION-013 | Hand-rolled scroll behaviour, not `<ScrollRestoration />` | Active | Routing, navigation | Built-in cannot see a lazy page's hash target and inherits CSS smooth scrolling | `decision_013.md` |
 | DECISION-014 | Case-study body is a block model; reading column departs from the reference | Active | Content, case studies | Blocks instead of `string[]`; 680px measure against wider media; no viewport full-bleed while the rail is sticky | `decision_014.md` |
 | DECISION-015 | GSAP stays eager; the case-study registry is split per slug | Active | Performance, motion | 126 KB chunk became 13 KB + one study; deferring GSAP hides content rather than saving time | `decision_015.md` |
+| DECISION-016 | Image provenance: only the owner's own work ships | Active | Content, images | The project documentations mix the owner's diagrams with Freepik and Pinterest reference material; read each document's sources page before exporting | `decision_016.md` |
 
 ## Needing an owner decision
 
 **All three were answered on 2026-08-24.** What is left is not a decision but material:
 
-- **Images.** The owner is making them. Every slot, with its aspect ratio and where it
-  appears, is listed in `docs/reference/image_manifest.md`.
+- **Images.** Most of them already exist, inside the six project documentations —
+  `docs/reference/image_sources.md` maps each document to its project and its slots. What
+  the owner still has to decide is **whether Hibi becomes a seventh case study**: it has two
+  full documentations behind it and no page on the site.
+  Every slot, with its aspect ratio and where it appears, is in `docs/reference/image_manifest.md`.
 - **A custom domain**, if one is wanted (`DECISION-012`) — the site works without it.
 - **Participation in the copy pass** (`MILESTONE-004`), which `DECISION-011` requires:
   nothing may be invented to fill a gap.

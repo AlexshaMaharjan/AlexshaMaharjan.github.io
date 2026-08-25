@@ -10,10 +10,10 @@ work section, case studies) → content and imagery → motion → consistency �
 | ID | Title | Status | Priority | Depends on | Addresses | File |
 | --- | --- | --- | --- | --- | --- | --- |
 | MILESTONE-001 | Stabilize the current implementation | **Complete** | Critical | — | ISSUE-001/002/003/017/018/022 — all resolved | `milestone_001.md` |
-| MILESTONE-002 | Rebuild homepage "Selected Work" | **In progress** | High | M-001, ~~DECISION-010~~ answered | ISSUE-005 ✅, ISSUE-004 (images pending) | `milestone_002.md` |
+| MILESTONE-002 | Rebuild homepage "Selected Work" | **In progress** | High | M-001, ~~DECISION-010~~ answered | ISSUE-005 ✅, ISSUE-004 (11 tile images, source located) | `milestone_002.md` |
 | MILESTONE-003 | Case-study layout and content model | **Complete** | High | M-001 | ISSUE-024 ✅, ISSUE-008 ✅, ISSUE-007 (case studies ✅) | `milestone_003.md` |
 | MILESTONE-004 | English content pass | Proposed — **unblocked** | High | M-003 model ✅, owner | ISSUE-024 ✅ | `milestone_004.md` |
-| MILESTONE-005 | Real imagery | **Unblocked** | High | owner assets | ISSUE-007 ✅, ISSUE-006 | `milestone_005.md` |
+| MILESTONE-005 | Real imagery | **Unblocked; source material located** | High | owner's time, not owner's assets | ISSUE-007 ✅, ISSUE-006 | `milestone_005.md` |
 | MILESTONE-006 | Motion system and interaction polish | **Complete** | Medium | M-001, M-002/003 | ISSUE-012/020 ✅, ISSUE-019 (deliberately not done) | `milestone_006.md` |
 | MILESTONE-007 | Consistency, responsive, accessibility | **Complete** bar `ISSUE-010`, which waits on the owner's images | Medium | M-002/003/006 | ISSUE-011/015/016/021/023/026/027/028/029/030 ✅, ISSUE-010 | `milestone_007.md` |
 | MILESTONE-008 | Performance, SEO, deployment | **Complete** bar the owner's `og:image` | Medium | content near-final, owner | ISSUE-013/014/019/025 ✅ | `milestone_008.md` |
@@ -50,15 +50,20 @@ owner's **participation in the copy pass**.
 
 ## Recommended next milestone
 
-**`MILESTONE-004` — the English content pass.** Its prerequisite (the block model) is
-done, the layout it will be written into is settled, and it is the owner's third stated
-priority. It needs the owner in the room: the copy is theirs, and `DECISION-011` forbids
-inventing anything to fill gaps.
+**`MILESTONE-005` and `MILESTONE-002` together — the images.** SESSION-015 changed the
+picture here: this work was recorded for months as "blocked on owner-supplied assets", and it
+was not. The six case studies were written from six project documentations, and those
+documents hold most of the 129 missing images. `docs/reference/image_sources.md` maps
+document to project to slot, and `scripts/pdf-page.js` gets a page out without adding a
+dependency.
 
-If the owner is not available, the rest of `MILESTONE-007` needs nothing from them —
-`ISSUE-023` (type scale and colour tokens bypassed) is the largest remaining piece, and
-`ISSUE-027` is diagnosed and waiting. `MILESTONE-002` is still blocked on `DECISION-010`,
-unanswered since SESSION-002.
+Start with the eleven bento tiles: the homepage is where a visitor decides to stay, and it is
+eleven grey rectangles. Then the six case-study heroes, then `og:image` — one file that
+currently makes every shared link a blank rectangle.
+
+`MILESTONE-004` (the English content pass) is the alternative and still needs the owner in
+the room, since `DECISION-011` forbids inventing anything to fill a gap. Every engineering
+milestone that needs nobody is finished.
 
 ## How the owner's stated priorities map
 

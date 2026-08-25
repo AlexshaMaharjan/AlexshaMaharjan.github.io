@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-25**, after SESSION-014 (the last two defects, and the deploy pre-flight).
+Snapshot: **2026-08-25**, after SESSION-015 (the project documentations mapped to the image slots).
 
 ## Overall
 
@@ -66,8 +66,12 @@ page scrolls sideways at any width from 320px to 1920px.
   are what stands between the case studies and finished.
 - **Imagery** — 136 slots, 7 filled, and 5 of those 7 are colour stand-ins rather than
   photographs (`ISSUE-006`). **Every slot can now be filled by editing data**
-  (`ISSUE-007`, closed): what each needs is listed in
-  `docs/reference/image_manifest.md`. The owner is making the images.
+  (`ISSUE-007`, closed): what each needs is listed in `docs/reference/image_manifest.md`.
+  **And most of the missing images already exist** — SESSION-015 mapped the owner's six
+  project documentations (330 pages, in `../../ProjectsDokus/`) to the projects and slots
+  they feed; see `docs/reference/image_sources.md`. `DECISION-016` governs what may be taken
+  from them: only the owner's own work, since these are academic documents that cite stock
+  and Pinterest reference material inside themselves.
 - **Motion** — one vocabulary (`src/lib/motion.ts`) that the reveals, the page transition
   and the CSS transitions all read from; reveal variants including staggered grids; a 350ms
   fade on route change; a loading state for lazy pages; the process canvas idling off
@@ -98,8 +102,12 @@ overflow itself is measured clean at 320/375/768/840/1024/1440 in both locales.
 
 - Real portrait photograph.
 - Real hero exports for WikiMind, AFONO, Surugami, Sync FM.
-- 71 case-study figures (the mechanism exists now — the files do not), 8 About carousel
-  photos, up to 36 Playground images.
+- 71 case-study figures — **the mechanism exists and so does most of the source material**;
+  what is missing is the extraction, cropping and grading (`docs/reference/image_sources.md`).
+- 8 About carousel photos and up to 36 Playground images. These are *not* in the
+  documentations: Playground is personal work and About needs a photograph.
+- A decision on **Hibi** — a seventh project with two full documentations and no page on the
+  site.
 - A decision on the 9 unused files already in `public/images/`.
 - A résumé PDF (currently `window.print()` only) and a real `og:image`.
 
@@ -143,9 +151,15 @@ images. Ten issues resolved across six sessions: the type scale, the palette, th
 the breakpoint order, the header at every width, the accessibility audit, and the last two
 defects.
 
-**Every milestone that does not need the owner is now finished.** What remains of the
-roadmap is content the repository cannot supply for itself — see `docs/next_session.md`,
-which offers the images work if they have landed and a regression suite if they have not.
+**Every milestone that does not need the owner is now finished**, and SESSION-015 changed
+what "needs the owner" means for the biggest of the rest. `MILESTONE-005` was recorded for
+months as "blocked on owner-supplied assets — the largest external dependency in the
+roadmap". It was not: the six case studies were written from six project documentations, and
+those hold most of the 129 missing images. The dependency is the owner's time and judgement —
+which figure represents a section, what may be shown — not material that does not exist.
+
+`docs/next_session.md` points at the eleven bento tiles, the six case-study heroes and the
+`og:image`, in that order.
 
 ## Blockers
 
@@ -154,15 +168,18 @@ material, not choices:
 
 | Waiting on | Blocks |
 | --- | --- |
-| The owner's images — 129 empty slots | `MILESTONE-005`, and the visible half of `MILESTONE-002` |
+| The owner's time to extract and grade 129 images — the source material exists | `MILESTONE-005`, and the visible half of `MILESTONE-002` |
+| A decision on whether Hibi becomes a seventh case study | nothing; it is an addition, not a gap |
 | The owner's participation in the copy pass | `MILESTONE-004` |
 | A custom domain, if one is wanted | nothing; the site works without it |
 
 ## Highest-priority next work
 
 1. **Images** — 129 slots, all fillable from data, all listed with sizes in
-   `docs/reference/image_manifest.md`. This is the single biggest change left in how the
-   site looks, and it needs no code.
+   `docs/reference/image_manifest.md`, and most of them already drawn, in the six project
+   documentations mapped by `docs/reference/image_sources.md`. This is the single biggest
+   change left in how the site looks, and it needs no code — but it does need
+   `SUGGESTION-012`, the responsive image pipeline, **before** any bulk import.
 2. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
 3. **Publishing.** The pre-flight is done and the artifact is sound; the two commands are

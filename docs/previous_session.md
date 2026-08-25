@@ -1,49 +1,49 @@
 # Previous Session
 
-**SESSION-014** — 2026-08-25 — `MILESTONE-007` / `MILESTONE-008` — Complete
-Full record: `docs/sessions/session_014.md`. Commit `a1f4370`.
+**SESSION-015** — 2026-08-25 — `MILESTONE-005` / `MILESTONE-002` — Complete
+Full record: `docs/sessions/session_015.md`. Documentation and one script; no application
+code changed.
 
 ## What changed
 
-**`ISSUE-027` is fixed** — an anchor on the page you are already on now lands exactly.
-Two changes in `useScrollBehavior`:
+**The largest recorded blocker in this project was wrong.** `MILESTONE-005` said "blocked on
+owner-supplied assets — the largest external dependency in the roadmap", and
+`current_state.md` repeated it in three places. The assets exist: six project documentations,
+330 pages, in `../../ProjectsDokus/` beside the repository. They are the documents the six
+case studies were written from, so they contain the personas, sitemaps, wireframes and final
+screens the manifest is asking for.
 
-- A hash that changed while the pathname did not is an explicit request for that anchor,
-  whichever direction history is moving, so the `POP` restore branch yields to it. That
-  sidesteps the question SESSION-005 could not answer — where the stale offset came from —
-  by making it irrelevant. Genuine back/forward still restores.
-- The smooth landing waits for the page to **stop moving** and then corrects a near miss,
-  rather than declaring success on arrival. A fragment navigation makes the browser scroll
-  to the element too; both animate, and ours passed through the right offset while the
-  browser's was still running.
+**`docs/reference/image_sources.md`** is the plan: which document belongs to which project,
+how to render a page out of one, what may not be taken, the order to work in, and the
+treatment the eleven bento tiles need.
 
-**`ISSUE-029` is fixed** — the About annotation is positioned proportionally (`left-[30%]`)
-instead of at a fixed `150px`, so it stays inside its column. Desktop placement is unchanged
-to within two pixels; the collision band was 768–~870px, not just 768.
+**`DECISION-016` — only work the owner made ships.** Surugami's documentation credits Freepik
+photographs and states that five of its pages come from Pinterest. An academic submission may
+quote its references; a portfolio showing the same image beside "I designed this" is making a
+different claim. This is `DECISION-011` applied to images.
 
-**A deploy pre-flight exists and is written down** — `docs/reference/publishing.md`. It runs
-against a server that behaves like GitHub Pages (real file → directory index → `404.html`
-**with a 404 status**). All clean: assets served and absolutely-pathed, `404.html` rescues
-unknown deep links with a real 404, nested routes load only their own chunk, no source or
-sourcemaps ship.
+**`scripts/pdf-page.js`** renders PDF pages to PNG through macOS PDFKit via the ObjC bridge —
+no install, no dependency. It renders whole pages rather than bulk-extracting embedded
+images, deliberately: a bulk extractor would pull the borrowed images out with the owner's
+and lose the distinction `DECISION-016` turns on.
 
-**One thing it caught:** `public/images/MANIFEST.md` was being served at
-`/images/MANIFEST.md` — an internal note about which images are placeholders, published on
-the portfolio. Everything under `public/` ships; that is what `public/` means. Moved to
-`docs/reference/image_files.md`.
+**A seventh project surfaced.** Hibi has two full documentations and no page on the site.
+That is an owner decision, recorded as one.
 
 ## What this constrains
 
-- **`useScrollBehavior` has two more rules to keep.** An explicit anchor beats a stored
-  offset; a smooth landing is judged by stillness, not arrival. Both are load-bearing and
-  both are cheap to break — the journey suite is the only thing that catches it.
-- The previous hand-off's one-line paraphrase of `ISSUE-027` ("a URL-bar hash change
-  bypasses the router, needs a `hashchange` path") was wrong; `issue_027.md`'s own
-  SESSION-005 diagnosis was right. Trust the issue file over a summary of it.
-- `docs/reference/image_files.md` is the manifest's path now. `scripts/image-manifest.mjs`
-  writes there.
+- **Read a document's sources page before exporting anything from it.** Every one of the six
+  has one. This is `DECISION-016` and it is the reason extraction is manual.
+- **Position in a PDF is not the printed page number.** `FInalDesmeth.pdf` puts Sources at
+  position 1; position 60 carries printed page 58.
+- **Build the responsive image pipeline (`SUGGESTION-012`) before the bulk import**, not
+  after. 129 full-size PNGs in `public/images/` would be the largest performance regression
+  this project could hand itself.
+- The eleven bento tiles have a measured contrast ceiling — `#80` or darker behind the white
+  label and title. Most of this source material is light-background UI work, so exports will
+  need grading before they pass.
 
 ## What did not change
 
-Nothing pushed, nothing deployed — still the owner's call. No prose, no photographs.
-`ISSUE-010` and `ISSUE-006` still wait on the owner's images.
+No images extracted, cropped or committed. Nothing pushed, nothing deployed. No application
+code, so the verification battery was not re-run — it was last green in SESSION-014.

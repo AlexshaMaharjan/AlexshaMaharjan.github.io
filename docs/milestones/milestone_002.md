@@ -22,8 +22,10 @@ confirmed.
 - [ ] **Get the owner's decision on `DECISION-010`** — keep the bento direction, or return
       to the editorial layout in `git show HEAD:src/components/ProjectEntry.tsx`
 - [ ] Rebuild the section from `dictionary.projects`: one entry per project
-- [ ] Wire real hero imagery (needs `ISSUE-006` assets; ship with stand-ins if they are
-      not ready, and note it)
+- [ ] Wire real hero imagery. **The source is known now** — the eleven tiles map to six
+      project documentations, listed in `docs/reference/image_sources.md`. Tiles are *covers*,
+      so they take the darken-and-tint treatment described there; the contrast ceiling
+      (`#80` or darker behind the white label and title) is measured, not a guess
 - [ ] Restore visible headline / description / tags / role / year at an appropriate density
 - [ ] **ISSUE-005** — every string from the dictionary; verify `/de`
 - [ ] Give tiles a hover/focus treatment consistent with the rest of the site
@@ -67,6 +69,11 @@ finished — the work can proceed with stand-ins.
 Case-study pages, a `/work` index page (`SUGGESTION-014`), the wider design-system sweep.
 
 ## Notes
+
+Tile 8 (AFONO — Graphic) renders at 224×322 and exports at 400px: it needs a detail crop, not
+a page screenshot. Several projects appear on two tiles under different categories — those
+two images have to be visibly different work, or the wall reads as padding.
+
 
 Do not delete `BentoGrid` before the owner has decided — the asymmetric composition may be
 exactly what they want, just with images in it.

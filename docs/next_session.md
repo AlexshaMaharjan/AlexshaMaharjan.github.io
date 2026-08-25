@@ -2,108 +2,106 @@
 
 ## Status
 
-**Every engineering milestone that does not need the owner is finished.** `MILESTONE-001`,
-`003`, `006`, `007` and `008` are complete — `007` closed in SESSION-014 with `ISSUE-027`
-and `ISSUE-029`, leaving only `ISSUE-010`, which waits on images. The tracker has no open
-defect a session can fix on its own.
+Every engineering milestone that needs nobody is finished (`MILESTONE-001`, `003`, `006`,
+`007`, `008`). SESSION-015 then established that the milestone everyone treated as blocked —
+`MILESTONE-005`, real imagery — was never blocked on missing material. The images exist in
+the owner's six project documentations. What is left is doing the work.
 
-Work sits on branch `milestone-003-content-model`, **twenty-two commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **twenty-three commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
-### Nothing is deployed, and there is now no engineering reason left for that
-
-Twelve sessions of work exist only on a local branch. The pre-flight has been run and
-written down (`docs/reference/publishing.md`): the built artifact is sound, unknown deep
-links 404 properly, nested routes load correctly. The two commands are:
+The site is publishable: the pre-flight is done and written up in
+`docs/reference/publishing.md`. Two commands, both the owner's to run:
 
 ```bash
 git checkout main && git merge milestone-003-content-model
 npm run deploy
 ```
 
-They are the owner's to run. The one thing that will look wrong once live is the link
-preview image (`ISSUE-006`).
-
-### What wants the owner
-
-1. **A real `og:image`.** Every link preview is a solid-colour placeholder. Everything else
-   in the head is correct.
-2. **The 128 image slots** (`docs/reference/image_manifest.md`), the eleven bento tiles first
-   — that is `ISSUE-010`, and `MILESTONE-002` with it.
-3. **The copy pass** (`MILESTONE-004`), then German parity (`MILESTONE-009`).
-4. **A custom domain**, if one is wanted.
-
 ## Objective
 
-There is no defect left to fix and no milestone left to advance without the owner, so the
-next session should **pick one and say so plainly at the start**:
+**Fill the first images.** The plan exists (`docs/reference/image_sources.md`); this session
+executes the top of it. Do not re-derive the plan — read it and work.
 
-**A. If the owner has supplied images** — take `ISSUE-010` and `MILESTONE-002`. Run
-`node scripts/image-manifest.mjs --write` first; it reports which slots are filled. The
-bento tiles are the eleven that matter most, and `DECISION-014` (bent grid) already fixes
-their shape. Then the dead content fields disappear on their own.
+1. **The eleven bento tiles.** The homepage is where a visitor decides whether to stay, and
+   it is eleven grey rectangles. Sources are mapped per tile. These are *covers*, not
+   evidence: crop, darken to the ceiling, desaturate slightly, tint with that project's own
+   colour. Eleven tiles from six palettes have to read as one wall.
+2. **The six case-study heroes.** 2560px, 16/7.5. Their alt text currently says
+   "Placeholder:" out loud.
+3. **`ISSUE-006` — a real `og:image`.** One file. Every link anyone shares is a blank
+   rectangle until it exists, and it is the thing people see before they click.
 
-**B. If the owner has not** — the honest work is **hardening what exists**, and the
-highest-value piece is a regression net. Every session so far has verified by hand through
-CDP, and the scripts are thrown away each time. The journey suite, the 38-route sweep, the
-axe pass and the overflow sweep have each caught a real defect; they should live in the
-repository as one runnable command against the production build, not be rebuilt from
-scratch every session. That is worth more than any remaining polish, because the two scroll
-hooks now carry six amendments between them and nothing in the repository defends them.
+**Before importing in bulk, build `SUGGESTION-012`** — the responsive image pipeline. This is
+an ordering dependency, not a nicety: there is no pipeline today, files ship at whatever size
+they are, and 129 full-size PNGs would be the largest performance regression this project
+could give itself. Twenty tiles and heroes is small enough to hand-size; the other 109 are
+not. Decide which side of that line this session is on and say so.
 
-Do not do both. Option B is the default if the images are not there.
+If the owner is present, the two questions worth their time are **which figure represents
+each section** and **whether Hibi becomes a seventh case study** — it has two full
+documentations and no page.
 
 ## Required Context
 
 Read **only** these:
 
 1. `docs/previous_session.md` — what just changed and what it constrains
-2. For **A**: `docs/issues/issue_010.md`, `docs/decisions/decision_014.md`,
-   `docs/reference/image_manifest.md`, `docs/milestones/milestone_002.md`
-3. For **B**: `docs/decisions/decision_008.md` and `decision_013.md` — the two scroll hooks
-   and every amendment, which are what the suite must defend; `docs/sessions/session_014.md`
-   for the journey suite's shape
-4. `docs/codebase/configuration.md` — the build, the scripts, the one dev dependency
+2. `docs/reference/image_sources.md` — the plan. Document-to-project mapping, the render
+   command, the provenance gate, the bento treatment and its measured contrast ceiling
+3. `docs/decisions/decision_016.md` — what may not ship, and why extraction is manual
+4. `docs/reference/image_manifest.md` — every slot, its aspect ratio, export width and data
+   path
+5. `docs/milestones/milestone_005.md` and `milestone_002.md`
+6. `docs/decisions/decision_006.md` — the hatched placeholder is a designed state, so a
+   half-filled page is presentable rather than broken
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 
 ## Relevant Code
 
-- `src/lib/useScrollBehavior.ts`, `src/lib/useScrollReveals.ts` — the two hooks under test
-- `scripts/prerender.mjs`, `scripts/image-manifest.mjs` — the existing script conventions,
-  worth matching if a check script is added
-- `package.json` — where a `verify` script would go, next to `predeploy`
+- `scripts/pdf-page.js` — renders a documentation page to PNG; no dependency
+- `scripts/image-manifest.mjs` — rerun with `--write` after filling slots
+- `src/lib/dictionaries/{en,de}.ts` → `selectedWork.bento[]` — the eleven tiles
+- `src/components/BentoGrid.tsx` — the scrim and the white label the images sit under
+- `src/lib/caseStudies/*.ts` → `heroImage`, `sections[].images[]`
 
 ## Constraints
 
 - **The repository is the source of truth.** Re-check `git status` and the branch first.
-- **Do not break the two scroll hooks.** Beyond `DECISION-008`/`DECISION-013`: an explicit
-  anchor beats a stored offset, and a smooth landing is judged by stillness, not arrival.
-- `prefers-reduced-motion` must keep producing a completely static, fully visible site.
-- The client and the baked HTML must keep agreeing — anything added to `Seo` needs adding to
-  the prerender, and vice versa.
+- **`DECISION-016`: only the owner's own work ships.** Read a document's sources page before
+  exporting from it. Surugami's names Freepik and Pinterest for five pages.
+- **Nothing from `ProjectsDokus/` is committed** — 673 MB of PDF stays outside the repo. Only
+  finished, cropped, resized exports land in `public/images/`.
+- **Nothing internal may land under `public/`** — it ships. SESSION-014 found a manifest being
+  served publicly.
+- Every `src` goes in **both** the `en` and the `de` object. Same file, translated `alt`.
+- Fix the alt strings that literally say "Placeholder:" as you replace each one.
 - **Do not publish anything.** Merging to `main` and `npm run deploy` are the owner's calls.
-- Do not rewrite prose (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
-- **Nothing internal may land under `public/`** — it ships. SESSION-014 found a manifest
-  being served publicly.
-- If a check script is added it must not add a runtime dependency; `axe-core` stays the only
-  dev dependency, and CDP is driven from Node's built-in `WebSocket`.
+- Do not rewrite prose (`MILESTONE-004`).
+- No new runtime dependency; `axe-core` stays the only dev dependency.
 
 ## Verification
 
-Against the **production build** (`npm run build && npm run preview`), in a real browser.
-For anything about what a host serves, use a plain static server over `dist/`, not
-`vite preview`.
+Against the **production build**, in a real browser.
 
-Five traps this project has already paid for, in the order they cost the most time:
+- **The bento contrast ceiling is the acceptance test for every tile image.** White label and
+  title over the image; the scrim is transparent at the top where the 12px label sits.
+  Measure the composited result rather than trusting the export — anything brighter than
+  about `#B4` behind the title fails WCAG 1.4.3, and most of this source material is
+  light-background interface design.
+- No layout shift: an image whose real ratio differs from the slot's `aspect` is centre-cropped
+  by `object-cover`, so check the subject survives the crop or change the `aspect` in the data.
+- Watch total page weight. Note the homepage's transferred bytes before and after.
+- Rerun `node scripts/image-manifest.mjs --write` so the counts stop being anyone's memory.
+
+Five traps this project has already paid for:
 
 - **`html { scroll-behavior: smooth }` applies to programmatic scrolls.** A test that sets
-  `scrollTop` and acts immediately is acting on a page still in motion — two separate false
-  alarms already (SESSION-012, SESSION-013), and the same physics is why `ISSUE-027` took
-  three attempts.
+  `scrollTop` and acts immediately is acting on a page still in motion — two false alarms
+  already, and the reason `ISSUE-027` took three attempts.
 - **Measure where the thing happens.** A trigger 737px down does nothing at 600px of scroll.
-- `Page.addScriptToEvaluateOnNewDocument` accumulates across runs — instrumentation that
-  survives navigation needs a freshly launched browser per experiment.
+- `Page.addScriptToEvaluateOnNewDocument` accumulates across runs.
 - A `MutationObserver` cannot see a style write that does not change the value.
 - `document.activeElement.textContent` is the whole page when focus is on `body`, and
   `[].every()` is `true`.
@@ -114,10 +112,11 @@ fetch, and `hreflang` on both locales.
 
 ## Completion Criteria
 
-- The chosen option is stated at the start and finished, not half of each.
-- For **B**: one command runs the suite against the production build, it fails loudly on a
-  real regression, and a session that changes a scroll hook has an obvious way to prove it
-  did not break anything.
+- The eleven bento tiles carry real images, every one measured against the contrast ceiling,
+  or the ones deliberately left are named with reasons.
+- Every image shipped is the owner's own work (`DECISION-016`).
+- The pipeline question is answered out loud: built, or explicitly deferred with the count of
+  hand-sized files.
 - `npm run lint && npm run build` green; work committed; **nothing pushed**.
 
 ## Required End-of-Session Updates
@@ -126,9 +125,8 @@ fetch, and `hreflang` on both locales.
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
 3. Update `docs/milestones/index.md` if a milestone moved.
 4. Record newly discovered issues / suggestions / decisions **only where genuinely needed**.
-5. Create `docs/sessions/session_015.md` and add it to `docs/sessions/index.md`.
+5. Create `docs/sessions/session_016.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.
-9. Update any index whose rows changed. If images have landed, rerun
-   `node scripts/image-manifest.mjs --write`.
+9. Update any index whose rows changed, and rerun `node scripts/image-manifest.mjs --write`.

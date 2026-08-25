@@ -11,6 +11,7 @@ because their source is not in version control.
 | `ROADMAP.md` | repo root | 74 lines | you want the owner's own phased plan (EN content → images → animation → German). `docs/milestones/` is the engineering roadmap; this is the owner's |
 | `image_manifest.md` | here | 254 lines | **making images** — every slot on the site with its aspect ratio, export width and the data path that fills it. Generated: `node scripts/image-manifest.mjs --write` |
 | `publishing.md` | here | — | **publishing the site** — the two commands, what a pre-flight on the built artifact found, and what to check afterwards |
+| `image_sources.md` | here | 139 lines | **filling image slots** — which project documentation feeds which case study, how to render a page out of one, and what may not be taken from it |
 | `image_files.md` | here | 2.9 KB | working with image *files* — states which PNGs are real and which are colour stand-ins |
 | `design-reference/SPEC.md` | **gitignored** | 439 lines | implementing or changing any layout — the condensed, authoritative implementation spec |
 | `design-reference/master-prompt.md` | **gitignored** | 5095 lines | you need original design intent that SPEC.md compressed away |
