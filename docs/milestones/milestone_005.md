@@ -34,9 +34,10 @@ before every export.
       renderer that needs no dependency (`scripts/pdf-page.js`). SESSION-015
 - [ ] **`DECISION-016` on every export** — read the document's sources page first. Surugami's
       cites Freepik and Pinterest for five pages; those may not ship
-- [ ] **SUGGESTION-012** — add the build-time image pipeline **before** bulk importing, so
-      5000×3750 originals do not ship raw. Note this likely means moving files from
-      `public/images/` to `src/assets/` and updating every `src` string
+- [x] **SUGGESTION-012** — the responsive pipeline is in (SESSION-019), and **without**
+      moving anything out of `public/images/`: `scripts/image-variants.mjs` writes width
+      variants beside the originals and `ui/Image` builds the `srcset` from a generated map.
+      No new dependency. `predeploy` refuses to build on a stale map
 - [x] **The eleven bento tiles and the six case-study heroes** — filled from the
       documentations in SESSION-016, plus six `projects[].image` prev/next cards that turned
       out to be live. 18 of 136 slots, up from 7
@@ -51,7 +52,9 @@ before every export.
 - [x] Fix the three alt strings that literally say "Placeholder: …" — gone (SESSION-016);
       86 images across 24 route/locale pairs carry real alt text in both locales
 - [ ] About portrait — a real photograph
-- [ ] Case-study section figures — 71 slots, per `CONTENT_GUIDE.md` §5/§10
+- [ ] Case-study section figures — **12 of 71 done** (WikiMind, SESSION-019). Three of its
+      slots are deliberate placeholders: two have no such figure in the documentation, and
+      the moodboard is stock photography (`DECISION-016`)
 - [ ] About carousel — 8 photos
 - [ ] **DECISION-006** — decide with the owner which Playground slots (36) keep the
       stylised placeholder permanently and which become photographs

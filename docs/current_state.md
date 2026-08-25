@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-25**, after SESSION-017 (case studies open with their contents rail).
+Snapshot: **2026-08-25**, after SESSION-019 (responsive image pipeline; WikiMind's figures).
 
 ## Overall
 
@@ -70,7 +70,7 @@ page scrolls sideways at any width from 320px to 1920px.
 - **Imagery** — 136 slots, 7 filled, and 5 of those 7 are colour stand-ins rather than
   photographs (`ISSUE-006`). **Every slot can now be filled by editing data**
   (`ISSUE-007`, closed): what each needs is listed in `docs/reference/image_manifest.md`.
-  **18 of those slots are now filled** (SESSION-016) — the eleven bento tiles, the six
+  **30 of those slots are now filled** (SESSION-016, SESSION-019) — the eleven bento tiles, the six
   case-study heroes and six prev/next cards — cut from the owner's six project
   documentations, which SESSION-015 mapped in `docs/reference/image_sources.md`. All
   seventeen new files together are 475 KB, in WebP. `DECISION-016` governs what may be taken
@@ -176,18 +176,18 @@ material, not choices:
 | Waiting on | Blocks |
 | --- | --- |
 | The owner's time to extract and grade the remaining 118 images — source material and tooling both exist | the rest of `MILESTONE-005` |
-| A responsive image pipeline (`SUGGESTION-012`) — now the blocking item, and it gets harder with every image added | bulk-importing the remaining 118 |
+| ~~A responsive image pipeline~~ — built in SESSION-019 | — |
 | A decision on whether Hibi becomes a seventh case study | nothing; it is an addition, not a gap |
 | The owner's participation in the copy pass | `MILESTONE-004` |
 | A custom domain, if one is wanted | nothing; the site works without it |
 
 ## Highest-priority next work
 
-1. **`SUGGESTION-012`, the responsive image pipeline** — now the blocking item for the
-   remaining 118 slots, and it gets harder with every image added, because it likely means
-   moving files out of `public/images/` and rewriting every `src`. Eighteen were hand-sizable;
-   a hundred and eighteen are not.
-2. **The remaining 118 images** — source material, tooling and crops-so-far are all in place
+1. ~~**`SUGGESTION-012`, the responsive image pipeline**~~ — done in SESSION-019, and
+   without moving anything out of `public/images/`. `scripts/image-variants.mjs` writes
+   variants beside the originals; `ui/Image` builds the `srcset`; `predeploy` refuses a stale
+   map. No new dependency.
+2. **The remaining 106 images** — source material, tooling and crops-so-far are all in place
    (`docs/reference/image_sources.md`, `image_crops.json`).
 3. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.

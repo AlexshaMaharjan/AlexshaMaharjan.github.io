@@ -3,10 +3,11 @@
 ## Status
 
 Every engineering milestone that needs nobody is finished. `MILESTONE-005` is now **in
-progress rather than blocked**: 18 of 136 image slots are filled from the owner's own project
-documentations (SESSION-016), and the homepage reads as a wall of work.
+progress rather than blocked**: 30 of 136 image slots are filled from the owner's own project
+documentations, the homepage reads as a wall of work, and the responsive image pipeline is
+in (SESSION-019) — so the remaining 106 can be imported without making the site heavy.
 
-Work sits on branch `milestone-003-content-model`, **twenty-eight commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **thirty-six commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
 The site is publishable and the pre-flight is written up in `docs/reference/publishing.md`.
@@ -22,53 +23,24 @@ owner plainly.
 
 ## Objective
 
-**Keep filling slots — but build the pipeline first.**
+**Keep filling case-study figures — the pipeline is done and the method is proven.**
 
-1. **`SUGGESTION-012`, the responsive image pipeline.** This is now the blocking item, not a
-   nicety. 118 slots remain; eighteen were hand-sizable and a hundred and eighteen are not.
-   Today a file ships at whatever size it is. Note what `MILESTONE-005` says: this likely
-   means moving files from `public/images/` to `src/assets/` and updating every `src` string
-   — so it gets harder with every image added. Do it now, while eighteen is the number.
-2. **The 71 case-study section figures.** The most mechanical work left and the highest
-   volume. The manifest names each one (`[ persona 01 ]`, `[ sitemap ]`, `[ ui kit ]`) and the
-   documentation usually has exactly that figure. **Work one project end to end**, not one
-   figure type across six — 673 MB of PDF is slow to reopen.
-3. **`ISSUE-006`, the `og:image`.** One file, and the last thing wrong with every shared
-   link. It is **not a crop** — a designed 1200×630 card with the owner's name on it. If the
-   owner is not available to approve one, say so and leave it.
+1. **The remaining five case studies' figures** — 106 slots. AFONO, Sync FM, Surugami, the
+   barrier-free kitchen, QIS Portal. **Work one project end to end.** SESSION-019 did
+   WikiMind in one pass and the method is written down in `image_sources.md`: contact-sheet
+   the document, grid-overlay the finalists, crop, review, recut. Expect two or three rounds.
+2. **`ISSUE-006`, the `og:image`.** One file, the last thing wrong with every shared link,
+   and **not a crop** — a designed 1200×630 card with the owner's name on it. If the owner
+   is not available to approve one, say so and leave it.
+3. **The 14 orphaned PNGs** — 811 KB that ships and that nothing references. They get no
+   variants, but they still deploy. Needs the owner's yes.
 
-Also worth doing, cheap: **resolve the 14 orphaned PNGs** in `public/images/` (811 KB that
-would ship). They need the owner's yes, since they may be source material.
+After every image change, run `npm run images`. `predeploy` refuses to build on a stale
+variant map, because a missing variant is a 404 inside a `srcset` and a browser hides it.
 
-**Before anything else, note what SESSION-017 changed:** `CaseStudyPage` now puts the contents
-rail and the reading column in a grid that starts at the top of the page, and the title,
-description and facts live inside the Overview section (`DECISION-017`). **Nothing may be
-added above that grid** — that is the whole mechanism by which the rail is visible on load.
-
-## Required Context
-
-Read **only** these:
-
-1. `docs/previous_session.md` — what just changed and what it constrains
-2. `docs/decisions/decision_017.md` — the case-study layout, if you touch those pages
-3. `docs/reference/image_sources.md` — the plan, the tools, the two working habits that make
-   this fast, and what each document's sources page forbids
-4. `docs/decisions/decision_016.md` — what may not ship, and why extraction is manual
-5. `docs/reference/image_crops.json` — every crop already cut; copy an entry to start one
-6. `docs/reference/image_manifest.md` — every remaining slot, its aspect, export width and
-   data path
-7. `docs/milestones/milestone_005.md` — including the `SUGGESTION-012` ordering note
-
-Do not read the whole `docs/` folder, and do not re-read the repository.
-
-## Relevant Code
-
-- `scripts/image-treat.mjs` — crop, resize, grade, and measure against the contrast ceiling
-- `scripts/pdf-page.js` — render a documentation page; handles the 407 MB text-less one
-- `scripts/image-manifest.mjs` — rerun with `--write` after filling slots
-- `src/components/ui/Image.tsx` — where a responsive pipeline would land; `sizes` is already
-  accepted and ignored
-- `src/lib/caseStudies/*.ts` → `sections[].images[]` — the 71 remaining figures
+**Two slots per project will not have a source.** WikiMind's competitor analysis and
+wireframes do not exist in its documentation, and its moodboard is stock. Leaving a hatched
+placeholder is a designed state (`DECISION-006`) — say which ones and why, do not invent.
 
 ## Constraints
 
@@ -91,11 +63,13 @@ Do not read the whole `docs/` folder, and do not re-read the repository.
 
 Against the **production build**, in a real browser.
 
-- **Weight is the headline number** for a pipeline session. Today, uncached: `/` 372 KB
-  (203 KB of it imagery), `/de/` 372 KB, `/work/wikimind` 330 KB, `/work/surugami` 292 KB.
-  Report before and after.
+- **Weight, uncached, today:** homepage 254 KB (85 KB imagery) at 1440px/1x and 221 KB
+  (52 KB) at 390px/1x; `/work/wikimind` 432 KB (259 KB) with fifteen images. **Measure at 2x
+  and 3x too** — a 1x-only measurement hid a real bug in SESSION-019.
 - **The contrast ceiling is enforced by the tool** — `scripts/image-treat.mjs` exits non-zero.
   Do not bypass it for a tile.
+- **No failed image request at 1x, 2x and 3x.** A `srcset` candidate that 404s is invisible
+  in a browser; it has to be read off the network.
 - **Sweep every image on every route**: none broken, none missing `alt`, none whose alt still
   says "Placeholder:". SESSION-016's run was 86 images across 24 route/locale pairs, clean.
 - No layout shift: an image whose real ratio differs from the slot's `aspect` is centre-cropped
@@ -132,7 +106,7 @@ fetch, and `hreflang` on both locales.
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
 3. Update `docs/milestones/index.md` if a milestone moved.
 4. Record newly discovered issues / suggestions / decisions **only where genuinely needed**.
-5. Create `docs/sessions/session_017.md` and add it to `docs/sessions/index.md`.
+5. Create `docs/sessions/session_020.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.
