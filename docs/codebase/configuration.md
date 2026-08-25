@@ -23,7 +23,7 @@
 | `CONTENT_GUIDE.md` (~1855 lines) | every editable text field and image slot with its exact source path; the intended copy-editing surface. §5 is generated — see `scripts/` above |
 | `ROADMAP.md` (2.9 KB) | the owner's content/asset roadmap — phases: EN content → images → animation → German |
 | `design-reference/` | **gitignored.** `SPEC.md` (439 lines, condensed implementation spec), `master-prompt.md` (5095 lines, the design brief), and 16 `.dc.html` coded reference designs — the authoritative visual source |
-| `public/images/MANIFEST.md` | real vs stand-in image status |
+| `docs/reference/image_files.md` | real vs stand-in image status |
 
 See `docs/reference/index.md` for how to use these without duplicating them.
 

@@ -1749,7 +1749,7 @@ Two different things can be true of an image on this site, and they matter diffe
    dashed/hatched box with a text caption (`PlaceholderImage` component) because no
    image was ever supplied at all?
 2. **For the files that DO exist** in `public/images/`, is the PNG a genuine exported
-   photo/screenshot, or — per `public/images/MANIFEST.md` (auto-generated when these
+   photo/screenshot, or — per `docs/reference/image_files.md` (auto-generated when these
    assets were pulled from the design tool) — a same-dimension **solid-colour stand-in**
    that was generated because the real export got cut off? These look like a real image
    slot in the code (they have a working `<img src="...">`) but currently show as a flat
@@ -1769,7 +1769,7 @@ Two different things can be true of an image on this site, and they matter diffe
 
 **So: 2 of the 7 wired-up images are real; 5 are same-size colour blocks that need a real
 export dropped in with the exact same filename** (no code change needed — per
-`MANIFEST.md`, dropping a same-named file into `public/images/` is enough).
+`docs/reference/image_files.md`, dropping a same-named file into `public/images/` is enough).
 
 ### 10.3 Files that exist in `public/images/` but aren't used anywhere (9 files)
 

@@ -105,7 +105,7 @@ export function useScrollBehavior(): void {
   const location = useLocation();
   const navigationType = useNavigationType();
   const currentKey = useRef(location.key);
-  const previousEntry = useRef<{ key: string; pathname: string } | null>(null);
+  const previousEntry = useRef<{ key: string; pathname: string; hash: string } | null>(null);
 
   // Take scroll restoration off the browser; the effects below own it.
   useEffect(() => {
@@ -154,11 +154,31 @@ export function useScrollBehavior(): void {
     // navigation and never scrolls anywhere.
     const entry = previousEntry.current;
     const cameFrom = entry && entry.key !== location.key ? entry.pathname : null;
-    previousEntry.current = { key: location.key, pathname: location.pathname };
+
+    /*
+     * Going to an anchor on the page you are already on arrives here as a POP
+     * with `cameFrom` set — the same shape as back/forward — so the restore
+     * branch below would answer it with a stored offset instead of the anchor
+     * (`ISSUE-027`). The offset it finds is not even the visitor's: entries can
+     * share a `location.key` of "default", and a scroll the browser starts
+     * itself when a tall page is replaced by a short one gets recorded as
+     * though someone chose it.
+     *
+     * A hash that changed while the path did not is unambiguous: the visitor
+     * asked for that anchor, whichever direction history is moving. Honour it
+     * and let the hash branch do the work.
+     */
+    const askedForAnAnchor =
+      entry !== null &&
+      entry.pathname === location.pathname &&
+      entry.hash !== location.hash &&
+      location.hash !== "";
+
+    previousEntry.current = { key: location.key, pathname: location.pathname, hash: location.hash };
 
     // Back / forward: put the visitor back where they were. A first load is
     // reported as a POP too, but has no page to have come from.
-    if (navigationType === "POP" && cameFrom !== null) {
+    if (navigationType === "POP" && cameFrom !== null && !askedForAnAnchor) {
       const restoreTo = positions[location.key] ?? 0;
       let lastHeight = -1;
       return untilReady(() => {
@@ -188,6 +208,8 @@ export function useScrollBehavior(): void {
     let lastTop: number | null = null;
     let lastHeight = -1;
     let stillFrames = 0;
+    let smoothIssued = false;
+    let lastY = -1;
 
     return untilReady(
       () => {
@@ -198,10 +220,33 @@ export function useScrollBehavior(): void {
         const top = Math.round(scrollTopFor(target));
 
         // A smooth scroll is still running when this returns, so re-issuing it
-        // every frame would restart it forever. It is only ever used within a
-        // page that is already mounted and settled, so one call is enough.
+        // every frame would restart it forever — issue it once, then watch.
+        //
+        // Watching matters because this is not the only thing scrolling: a
+        // fragment navigation makes the browser jump to the element itself,
+        // aimed at its *rendered* box, which sits 18px low while the section is
+        // still at rest (DECISION-008, ISSUE-027). Whichever of the two lands
+        // last, correct it — but only once everything has stopped moving, so
+        // this never fights the glide or the visitor.
         if (smooth) {
-          window.scrollTo({ top, left: 0, behavior: "smooth" });
+          if (!smoothIssued) {
+            smoothIssued = true;
+            window.scrollTo({ top, left: 0, behavior: "smooth" });
+          }
+
+          // Wait for stillness rather than for arrival: both scrolls are
+          // animated, and ours passes through the right offset on its way while
+          // the browser's is still running. Reaching the target is not evidence
+          // of having finished there.
+          const y = Math.round(window.scrollY);
+          stillFrames = y === lastY ? stillFrames + 1 : 0;
+          lastY = y;
+          if (stillFrames < SETTLE_FRAMES) return false;
+
+          // Everything has stopped. Correct only a near miss — if the visitor
+          // scrolled somewhere else entirely in the meantime, that is their
+          // position, not ours to take back.
+          if (Math.abs(y - top) > 1 && Math.abs(y - top) < 200) jumpTo(top);
           return true;
         }
 

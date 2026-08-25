@@ -1,3 +1,9 @@
+# Image files — what is real and what is a stand-in
+
+> Moved out of `public/images/` in SESSION-014: everything under `public/` ships verbatim,
+> and this was being served at `/images/MANIFEST.md` — an internal note about which of the
+> owner's images are placeholders, published on the owner's portfolio.
+
 # Image asset manifest
 
 Fetched from Claude Design project `363b7dcd-0f5f-4a96-a43e-0f894e0eca6d` via the DesignSync MCP tool.

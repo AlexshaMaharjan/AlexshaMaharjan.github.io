@@ -3,7 +3,7 @@
 Status: Open
 Priority: High
 Category: Content / Assets
-Discovered: 2026-08-22 (documented earlier in `public/images/MANIFEST.md`)
+Discovered: 2026-08-22 (documented earlier in `docs/reference/image_files.md`)
 Last reviewed: 2026-08-22
 
 ## Summary
@@ -14,7 +14,7 @@ case-study heroes — are flat colour blocks at the correct dimensions.
 
 ## Evidence / Current Behavior
 
-Per `public/images/MANIFEST.md`, cross-checked against `src/`:
+Per `docs/reference/image_files.md`, cross-checked against `src/`:
 
 | File | Status | Used by |
 | --- | --- | --- |
@@ -38,7 +38,7 @@ Every wired-up slot shows the real exported artwork, with descriptive alt text.
 
 ## Relevant Files
 
-- `public/images/` + `public/images/MANIFEST.md`
+- `public/images/` + `docs/reference/image_files.md`
 - `src/lib/caseStudies/{wikimind,afono,sync-fm,surugami}.ts` → `heroImage`
 - `src/lib/dictionaries/{en,de}.ts` → `projects[].image` / `imageAlt`
 - `src/pages/About.tsx:39`, `src/components/AboutPreview.tsx:18`

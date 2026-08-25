@@ -249,6 +249,6 @@ in the data to match the export.
 
 ## Also worth replacing
 
-`public/images/MANIFEST.md` lists five files that are wired up but are solid-colour
+`docs/reference/image_files.md` lists five files that are wired up but are solid-colour
 stand-ins, not photographs — four case-study heroes and the portrait. Dropping a real
 export in with **the same filename** replaces them with no data change at all.

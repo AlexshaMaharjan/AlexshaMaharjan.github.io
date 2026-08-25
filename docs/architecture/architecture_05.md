@@ -11,7 +11,7 @@ hatched placeholder boxes instead of work.
 
 - `src/components/ui/Image.tsx` — 32-line `next/image` stand-in
 - `src/components/PlaceholderImage.tsx` — the hatched `role="img"` box
-- `public/images/` — 16 PNGs + `MANIFEST.md`
+- `public/images/` — 16 PNGs + `docs/reference/image_files.md`
 - `public/favicon.svg`, `public/robots.txt`, `public/_redirects`
 
 ## How it currently works
@@ -40,7 +40,7 @@ deliberate part of the visual language (`DECISION-006`), not only a missing-asse
 | `chatgpt-image-…-ms50alwm-za74.png` | ⚠️ stand-in | Sync FM hero |
 
 The stand-ins were generated at the correct pixel dimensions when the original exports
-exceeded a 256 KiB fetch cap — see `public/images/MANIFEST.md`. Dropping a real export in
+exceeded a 256 KiB fetch cap — see `docs/reference/image_files.md`. Dropping a real export in
 with the **same filename** fixes them with no code change.
 
 9 further PNGs sit in `public/images/` referenced by nothing.
