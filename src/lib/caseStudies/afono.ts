@@ -55,7 +55,7 @@ const afono: CaseStudyLocaleContent = {
           "A visual market analysis compared local Nepalese fashion references with international streetwear brands. Local brands often communicated culture more strongly but lacked consistency. International brands presented products more clearly through structured layouts, campaign photography and controlled typography, but offered little cultural relevance to Nepal.",
         ],
         images: [
-          { aspect: "4/3", caption: "[ interview findings ]" },
+          { aspect: "4/3", caption: "[ interview findings ]", src: "/images/afono-personas.webp", alt: "User personas built from the five qualitative interviews, with goals, behaviour and frustrations" },
           { aspect: "4/3", caption: "[ market analysis ]" },
         ],
       },
@@ -105,8 +105,8 @@ const afono: CaseStudyLocaleContent = {
           "The colour system uses red, blue, black and white. Red provides energy and a connection to Nepal’s national visual identity. Blue introduces calmness and references mountain landscapes. Black and white allow the cultural colours to remain controlled and wearable.",
         ],
         images: [
-          { aspect: "4/3", caption: "[ logo sketches ]" },
-          { aspect: "4/3", caption: "[ logo system + colours ]" },
+          { aspect: "4/3", caption: "[ logo sketches ]", src: "/images/afono-logo-sketches.webp", alt: "Logo exploration: dozens of hand and vector studies combining the letters A and F" },
+          { aspect: "4/3", caption: "[ logo system + colours ]", src: "/images/afono-colour-system.webp", alt: "The red, blue, black and white palette with its hex values and the logo colour applications" },
         ],
       },
       {
@@ -130,13 +130,13 @@ const afono: CaseStudyLocaleContent = {
           "The prototype includes homepage, shop and collection pages, product details, lookbook, shopping cart, checkout, user account, collection stories and AI-assisted size guidance. Reusable components support consistent product cards, navigation, filters, buttons, forms and checkout states.",
         ],
         images: [
-          { aspect: "3/4", caption: "[ tee — front ]" },
-          { aspect: "3/4", caption: "[ tee — back print ]" },
-          { aspect: "3/4", caption: "[ print development ]" },
+          { aspect: "3/4", caption: "[ tee — front ]", src: "/images/afono-tee-front.webp", alt: "The small front mark: the AFONO wordmark set vertically in red" },
+          { aspect: "3/4", caption: "[ tee — back print ]", src: "/images/afono-tee-back.webp", alt: "A Himal Series back print: the wordmark over a line-drawn Himalayan peak and suspension bridge" },
+          { aspect: "5/6", caption: "[ print development ]", src: "/images/afono-print-development.webp", alt: "Print development: hand-lettered Kathmandu, Lalitpur and Pokhara studies with Newari mask motifs" },
           { aspect: "4/3", caption: "[ product page ]" },
-          { aspect: "4/3", caption: "[ size finder ]" },
-          { aspect: "4/3", caption: "[ cart ]" },
-          { aspect: "4/3", caption: "[ checkout ]" },
+          { aspect: "7/4", caption: "[ size finder ]", src: "/images/afono-size-finder.webp", alt: "The AI size finder: the measurements step beside the preferred-fit step of the four-step modal" },
+          { aspect: "4/3", caption: "[ cart ]", src: "/images/afono-cart.webp", alt: "The cart summary: promo code, subtotal, shipping and the checkout action" },
+          { aspect: "4/3", caption: "[ checkout ]", src: "/images/afono-checkout.webp", alt: "The checkout: shipping address beside the order summary, with the site footer below" },
         ],
       },
       {
@@ -167,9 +167,9 @@ const afono: CaseStudyLocaleContent = {
           "The final direction brings together naming, visual identity, clothing graphics, online shopping and social-media communication. The restrained front prints keep the products wearable, while collection-based back graphics carry cultural stories. The result is a scalable concept rather than a single logo or clothing graphic.",
         ],
         images: [
-          { aspect: "16/9", caption: "[ final brand system — large showcase ]" },
-          { aspect: "16/10", caption: "[ social media ]" },
-          { aspect: "16/10", caption: "[ e-commerce prototype ]" },
+          { aspect: "16/9", caption: "[ final brand system — large showcase ]", src: "/images/afono-brand-system.webp", alt: "The finished logo system in brand red: the primary lockup above its two secondary variants" },
+          { aspect: "3/4", caption: "[ social media ]", src: "/images/afono-social-system.webp", alt: "The red, blue and white grid system that lays out the Instagram feed" },
+          { aspect: "16/10", caption: "[ e-commerce prototype ]", src: "/images/afono-prototype.webp", alt: "Account, order-history and footer screens from the AFONO Figma prototype" },
         ],
       },
       {
@@ -239,7 +239,7 @@ const afono: CaseStudyLocaleContent = {
           "Eine visuelle Marktanalyse verglich lokale nepalesische Modereferenzen mit internationalen Streetwear-Marken. Lokale Marken vermittelten kulturelle Identität häufig stärker, waren visuell jedoch weniger konsistent. Internationale Marken präsentierten ihre Produkte durch strukturierte Layouts, Kampagnenfotografie und kontrollierte Typografie klarer, boten jedoch kaum kulturelle Relevanz für Nepal.",
         ],
         images: [
-          { aspect: "4/3", caption: "[ interview findings ]" },
+          { aspect: "4/3", caption: "[ interview findings ]", src: "/images/afono-personas.webp", alt: "Nutzer-Personas aus den fünf qualitativen Interviews, mit Zielen, Verhalten und Frustrationen" },
           { aspect: "4/3", caption: "[ market analysis ]" },
         ],
       },
@@ -289,8 +289,8 @@ const afono: CaseStudyLocaleContent = {
           "Das Farbsystem arbeitet mit Rot, Blau, Schwarz und Weiß. Rot vermittelt Energie und stellt eine Verbindung zur visuellen Identität Nepals her. Blau schafft Ruhe und verweist auf Berglandschaften. Schwarz und Weiß halten die kulturellen Farben kontrolliert und tragbar.",
         ],
         images: [
-          { aspect: "4/3", caption: "[ logo sketches ]" },
-          { aspect: "4/3", caption: "[ logo system + colours ]" },
+          { aspect: "4/3", caption: "[ logo sketches ]", src: "/images/afono-logo-sketches.webp", alt: "Logo-Exploration: Dutzende Hand- und Vektorstudien, die die Buchstaben A und F verbinden" },
+          { aspect: "4/3", caption: "[ logo system + colours ]", src: "/images/afono-colour-system.webp", alt: "Die Farbpalette aus Rot, Blau, Schwarz und Weiß mit Hex-Werten und den Logo-Farbanwendungen" },
         ],
       },
       {
@@ -314,13 +314,13 @@ const afono: CaseStudyLocaleContent = {
           "Der Prototyp umfasst Startseite, Shop- und Kollektionsseiten, Produktdetails, Lookbook, Warenkorb, Checkout, Nutzerkonto, Kollektionsgeschichten und eine KI-gestützte Größenberatung. Wiederverwendbare Komponenten unterstützen konsistente Produktkarten, Navigation, Filter, Buttons, Formulare und Checkout-Zustände.",
         ],
         images: [
-          { aspect: "3/4", caption: "[ tee — front ]" },
-          { aspect: "3/4", caption: "[ tee — back print ]" },
-          { aspect: "3/4", caption: "[ print development ]" },
+          { aspect: "3/4", caption: "[ tee — front ]", src: "/images/afono-tee-front.webp", alt: "Das kleine Zeichen für die Vorderseite: die vertikal gesetzte AFONO-Wortmarke in Rot" },
+          { aspect: "3/4", caption: "[ tee — back print ]", src: "/images/afono-tee-back.webp", alt: "Ein Rückendruck der Himal-Serie: die Wortmarke über einem gezeichneten Himalaya-Gipfel mit Hängebrücke" },
+          { aspect: "5/6", caption: "[ print development ]", src: "/images/afono-print-development.webp", alt: "Print-Entwicklung: handgezeichnete Studien zu Kathmandu, Lalitpur und Pokhara mit Newari-Maskenmotiven" },
           { aspect: "4/3", caption: "[ product page ]" },
-          { aspect: "4/3", caption: "[ size finder ]" },
-          { aspect: "4/3", caption: "[ cart ]" },
-          { aspect: "4/3", caption: "[ checkout ]" },
+          { aspect: "7/4", caption: "[ size finder ]", src: "/images/afono-size-finder.webp", alt: "Der KI-Größenfinder: der Maße-Schritt neben dem Passform-Schritt des vierstufigen Modals" },
+          { aspect: "4/3", caption: "[ cart ]", src: "/images/afono-cart.webp", alt: "Die Warenkorb-Übersicht: Gutscheincode, Zwischensumme, Versand und die Checkout-Aktion" },
+          { aspect: "4/3", caption: "[ checkout ]", src: "/images/afono-checkout.webp", alt: "Der Checkout: Lieferadresse neben der Bestellübersicht, darunter der Seitenfuß" },
         ],
       },
       {
@@ -351,9 +351,9 @@ const afono: CaseStudyLocaleContent = {
           "Die finale Richtung verbindet Naming, visuelle Identität, Bekleidungsgrafik, Online-Shopping und Social-Media-Kommunikation. Reduzierte Vorderseitendrucke halten die Produkte alltagstauglich, während kollektionsbasierte Rückengrafiken kulturelle Geschichten vermitteln. Das Ergebnis ist ein skalierbares Konzept und nicht nur ein einzelnes Logo oder Kleidungsdesign.",
         ],
         images: [
-          { aspect: "16/9", caption: "[ final brand system — large showcase ]" },
-          { aspect: "16/10", caption: "[ social media ]" },
-          { aspect: "16/10", caption: "[ e-commerce prototype ]" },
+          { aspect: "16/9", caption: "[ final brand system — large showcase ]", src: "/images/afono-brand-system.webp", alt: "Das fertige Logosystem in Markenrot: die Hauptvariante über ihren zwei Nebenvarianten" },
+          { aspect: "3/4", caption: "[ social media ]", src: "/images/afono-social-system.webp", alt: "Das Rot-Blau-Weiß-Rastersystem, das den Instagram-Feed strukturiert" },
+          { aspect: "16/10", caption: "[ e-commerce prototype ]", src: "/images/afono-prototype.webp", alt: "Konto-, Bestellhistorie- und Footer-Screens aus dem AFONO-Figma-Prototyp" },
         ],
       },
       {

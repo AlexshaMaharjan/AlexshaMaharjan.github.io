@@ -30,8 +30,33 @@
  * fails WCAG 1.4.3 on the homepage. The number is printed for every job so a
  * failing export is caught here rather than in review.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { basename } from "node:path";
 import { connect, evaluate, setViewport } from "./lib/cdp.mjs";
+
+/**
+ * A job may name a PDF plus `page` and `renderScale` instead of a PNG, which is
+ * how `docs/reference/image_crops.json` records every crop already cut — the
+ * source document, not an intermediate file that was never committed. Render it
+ * on demand, and cache it, so that record is re-runnable rather than merely
+ * descriptive. Position in the file is not the printed page number; `page` is
+ * the position, which is what `pdf-page.js` takes.
+ */
+const CACHE = "/tmp/image-treat-pages";
+function resolveSource(job) {
+  if (!/\.pdf$/i.test(job.src)) return job.src;
+  if (!job.page) throw new Error(`${job.out}: a PDF source needs a "page"`);
+  const scale = job.renderScale ?? 4;
+  const dir = `${CACHE}/${basename(job.src, ".pdf")}@${scale}`;
+  const png = `${dir}/p${String(job.page).padStart(3, "0")}.png`;
+  if (!existsSync(png)) {
+    mkdirSync(dir, { recursive: true });
+    execFileSync("osascript", ["-l", "JavaScript", "scripts/pdf-page.js",
+      job.src, String(job.page), dir, String(scale)], { stdio: "pipe" });
+  }
+  return png;
+}
 
 const specPath = process.argv[2];
 if (!specPath) {
@@ -62,7 +87,7 @@ for (const job of jobs) {
     cdp,
     `(async () => {
       const img = new Image();
-      img.src = "data:image/png;base64,${readFileSync(job.src).toString("base64")}";
+      img.src = "data:image/png;base64,${readFileSync(resolveSource(job)).toString("base64")}";
       await img.decode();
       const [cx, cy, cw, ch] = ${JSON.stringify(job.crop ?? [0, 0, 1, 1])};
       const c = document.createElement("canvas");
