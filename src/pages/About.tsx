@@ -43,9 +43,17 @@ export default function About() {
                   />
                 </div>
 
+                {/*
+                  Positioned as a fraction of the portrait column rather than at
+                  a fixed 150px: at the `md` layout the column is less than half
+                  its desktop width, and a fixed offset pushed this note out of
+                  the column and on top of the Biography heading between 768px
+                  and about 870px (ISSUE-029). 30% reproduces the desktop
+                  placement it had.
+                */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-[150px] top-1 z-[3] hidden [transform:rotate(-4deg)] md:block"
+                  className="pointer-events-none absolute left-[30%] top-1 z-[3] hidden [transform:rotate(-4deg)] md:block"
                 >
                   <span className="whitespace-nowrap font-hand text-[28px] font-bold leading-none text-[#2B2D31]">
                     {about.handNoteOrigin}
