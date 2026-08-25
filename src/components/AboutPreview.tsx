@@ -14,7 +14,7 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
                 src="/images/alexsha_photo-mrx9hbwx-nif2.png"
                 alt={dictionary.aboutPreview.portraitAlt}
                 fill
-                sizes="(min-width: 768px) 40vw, 100vw"
+                sizes="(min-width: 1180px) 460px, (min-width: 768px) 40vw, calc(100vw - 40px)"
                 className="object-cover"
               />
             </div>

@@ -24,7 +24,7 @@ export default function NextProjectNav({
           >
             <span className="font-mono text-[12px] text-ink-muted">{dictionary.caseStudy.previousProject}</span>
             <div className="relative mt-4 aspect-[16/7] overflow-hidden rounded-md border border-card-border bg-surface">
-              <Image src={prev.image} alt={prev.imageAlt} fill sizes="50vw" className="object-cover" />
+              <Image src={prev.image} alt={prev.imageAlt} fill sizes="(min-width: 768px) calc(50vw - 90px), calc(100vw - 40px)" className="object-cover" />
             </div>
             <h3 className="mt-4 text-[22px] font-semibold tracking-[-0.015em] text-ink">{prev.name}</h3>
             <p className="mt-2 text-[13px] text-ink-secondary">{prev.tags.join(" · ")}</p>
@@ -35,7 +35,7 @@ export default function NextProjectNav({
           >
             <span className="font-mono text-[12px] text-ink-muted">{dictionary.caseStudy.nextProject}</span>
             <div className="relative mt-4 aspect-[16/7] overflow-hidden rounded-md border border-card-border bg-surface">
-              <Image src={next.image} alt={next.imageAlt} fill sizes="50vw" className="object-cover" />
+              <Image src={next.image} alt={next.imageAlt} fill sizes="(min-width: 768px) calc(50vw - 90px), calc(100vw - 40px)" className="object-cover" />
             </div>
             <h3 className="mt-4 text-[22px] font-semibold tracking-[-0.015em] text-ink">{next.name}</h3>
             <p className="mt-2 text-[13px] text-ink-secondary">{next.tags.join(" · ")}</p>

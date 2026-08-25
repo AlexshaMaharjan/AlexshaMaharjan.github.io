@@ -17,6 +17,7 @@ export default function Media({
   caption,
   className = "",
   priority = false,
+  sizes,
 }: {
   src?: string;
   alt?: string;
@@ -24,6 +25,8 @@ export default function Media({
   caption: string;
   className?: string;
   priority?: boolean;
+  /** The width this slot actually renders at — see `ui/Image`. */
+  sizes?: string;
 }) {
   if (!src) {
     return <PlaceholderImage aspect={aspect} caption={caption} className={className} />;
@@ -34,7 +37,7 @@ export default function Media({
       className={`relative overflow-hidden bg-surface ${className}`}
       style={{ aspectRatio: aspect }}
     >
-      <Image src={src} alt={alt ?? captionText(caption)} className="object-cover" priority={priority} />
+      <Image src={src} alt={alt ?? captionText(caption)} sizes={sizes} className="object-cover" priority={priority} />
     </div>
   );
 }

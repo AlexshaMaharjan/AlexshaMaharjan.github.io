@@ -20,6 +20,16 @@ function columnsFor(count: number): string {
   return "sm:grid-cols-3";
 }
 
+/*
+ * What each run actually renders at, for `srcset` (`SUGGESTION-012`). The
+ * reading column is capped at 960px and sits inside `container-page`, whose
+ * padding is 80px a side from `md` and 20px below it — so these are the column,
+ * not the viewport (`DECISION-017`).
+ */
+const COLUMN = "(min-width: 1280px) 960px, (min-width: 768px) calc(100vw - 160px), calc(100vw - 40px)";
+const HALF = "(min-width: 1280px) 470px, (min-width: 640px) calc((100vw - 180px) / 2), calc(100vw - 40px)";
+const THIRD = "(min-width: 1280px) 307px, (min-width: 640px) calc((100vw - 200px) / 3), calc(100vw - 40px)";
+
 /**
  * A section's image slots, grouped into runs so the page has more than one
  * media width: a wide image gets the full column, while narrower ones pack into
@@ -49,12 +59,12 @@ export default function SectionMedia({ images }: { images: SectionImage[] }) {
       {runs.map((run, i) =>
         run.wide ? (
           <div key={i} data-inview="scale">
-            <Figure {...run.items[0]!} />
+            <Figure {...run.items[0]!} sizes={COLUMN} />
           </div>
         ) : (
           <div key={i} data-inview="stagger" className={`grid gap-5 ${columnsFor(run.items.length)}`}>
             {run.items.map((image, n) => (
-              <Figure key={n} {...image} />
+              <Figure key={n} {...image} sizes={run.items.length === 2 || run.items.length === 4 ? HALF : THIRD} />
             ))}
           </div>
         ),

@@ -57,7 +57,16 @@ export default function CaseStudyHero({ content }: { content: CaseStudyContent }
     <div ref={mediaRef} className="mb-16 will-change-transform" style={{ aspectRatio: content.heroImage.aspect }}>
       {content.heroImage.src ? (
         <div className="relative h-full w-full overflow-hidden rounded-[10px] border border-card-border bg-surface">
-          <Image src={content.heroImage.src} alt={content.heroImage.alt} fill sizes="100vw" priority className="object-cover" />
+          <Image
+            src={content.heroImage.src}
+            alt={content.heroImage.alt}
+            fill
+            /* The reading column, not the viewport — the hero has not been full
+               width since `DECISION-017`. */
+            sizes="(min-width: 1280px) 960px, (min-width: 768px) calc(100vw - 160px), calc(100vw - 40px)"
+            priority
+            className="object-cover"
+          />
         </div>
       ) : (
         <PlaceholderImage aspect={content.heroImage.aspect} caption={content.heroImage.alt} className="h-full w-full" />

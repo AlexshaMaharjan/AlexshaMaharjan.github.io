@@ -17,7 +17,8 @@ export default function Figure({
   aspect,
   caption,
   className = "",
-}: SectionImage & { className?: string }) {
+  sizes,
+}: SectionImage & { className?: string; sizes?: string }) {
   if (!src) {
     return <Media aspect={aspect} caption={caption} className={className} />;
   }
@@ -29,6 +30,7 @@ export default function Figure({
         alt={alt}
         aspect={aspect}
         caption={caption}
+        sizes={sizes}
         className="rounded-[10px] border border-card-border"
       />
       <figcaption className="mt-2.5 text-[13px] leading-[1.5] text-ink-secondary">
