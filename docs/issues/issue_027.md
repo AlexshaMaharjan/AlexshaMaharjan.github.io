@@ -1,6 +1,6 @@
 # ISSUE-027 — A hash navigation after a client-side route change restores a scroll offset nobody chose
 
-Status: Open — **diagnosed in SESSION-005, not fixed.** Three candidate fixes were tried
+Status: **Resolved** (SESSION-014, `a1f4370`) — **diagnosed in SESSION-005, not fixed.** Three candidate fixes were tried
 and reverted; the evidence below is what the next attempt should start from.
 Priority: Low
 Category: Routing / Navigation
@@ -79,6 +79,30 @@ this hook is worse than a known defect (`DECISION-013`):
 3. **Suppressing the recorder while a landing is in flight**, plus a hold after arrival to
    absorb a scroll the browser starts itself — did not stop `stored` being set. Where the
    4267 is recorded was never pinned down; that is the next thing to find out.
+
+## Resolution
+
+Two changes in `useScrollBehavior`, both narrow, after instrumenting the branches exactly as
+this file recommended.
+
+**The restore branch yields to an explicit anchor.** A hash that changed while the pathname
+did not is unambiguous — the visitor asked for that anchor, whichever direction history is
+moving — so the `POP` branch skips its stored offset in that case and lets the hash branch
+run. This did not require untangling where the bogus 4267 came from: the rule makes it
+irrelevant, and a stored offset is still honoured for every genuine back/forward.
+
+**The smooth landing waits for stillness rather than for arrival.** With the hash branch
+running, the anchor was still 18px out, and the trace showed why: a fragment navigation makes
+the *browser* jump to the element too, aimed at its rendered box, which sits 18px low while
+the section is at rest. Both scrolls animate, and ours passed through the correct offset on
+its way while the browser's was still running — so declaring success on arrival was
+declaring it too early. It now watches until the position stops changing, then corrects a
+near miss (within 200px; further than that is the visitor having scrolled somewhere else,
+which is theirs to keep).
+
+Verified across the full journey suite at 1440px and 390px, motion on and off: five cold
+hash loads, cross-route and same-page hash clicks, a contents-rail click, route change to
+the top, and back/forward restore — all exact.
 
 ## Possible Solution
 

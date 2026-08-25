@@ -1,9 +1,10 @@
 # MILESTONE-007 — Design-system consistency, responsive and accessibility
 
-Status: In progress — `ISSUE-015`/`ISSUE-026` (SESSION-005),
-`ISSUE-023`/`ISSUE-011`/`ISSUE-021` (SESSION-006), `ISSUE-016`/`ISSUE-028` (SESSION-007)
-and the accessibility block (SESSION-009) done. What remains needs `MILESTONE-002` to
-finish first: `ISSUE-010`'s dead fields, plus `ISSUE-027` and `ISSUE-029`.
+Status: **Complete bar one issue that waits on the owner.** `ISSUE-015`/`ISSUE-026`
+(SESSION-005), `ISSUE-023`/`ISSUE-011`/`ISSUE-021` (SESSION-006),
+`ISSUE-016`/`ISSUE-028` (SESSION-007), the accessibility block (SESSION-009) and
+`ISSUE-027`/`ISSUE-029` (SESSION-014) are done. Only `ISSUE-010`'s dead fields remain, and
+they need the owner's real images — `MILESTONE-002`, not this one.
 Priority: Medium
 Goal: Make six differently-built pages read as one designed site, at every viewport, for
 every visitor.
@@ -44,18 +45,26 @@ milestones so pages are not swept twice.
       `scroll-margin-top` and the sticky rail derive from it (SESSION-005)
 - [x] **ISSUE-026** — the footer's link columns wrap (SESSION-005). The shared padding
       scale is still the more general fix and is still untouched, deliberately
-- [ ] **ISSUE-027** — a hash navigation after a client-side route change restores a stale
-      scroll offset. **Diagnosed in SESSION-005**, three candidate fixes tried and
-      reverted; the file now carries the measurements and where to start
+- [x] **ISSUE-027** — a hash navigation after a client-side route change restored a stale
+      scroll offset. Diagnosed in SESSION-005, fixed in SESSION-014: the restore branch
+      yields to an explicit anchor, and the smooth landing waits for stillness rather than
+      for arrival, because the browser's own fragment jump is animating alongside ours
 - [x] **ISSUE-028** — not the header: German compound words in display headings. Fixed
       with hyphenation scoped to German below `md` (SESSION-007)
-- [ ] **ISSUE-029** — the About page's hand annotation sits on the Biography heading at
-      exactly 768px. Pre-existing, measured
+- [x] **ISSUE-029** — the About page's hand annotation sat on the Biography heading
+      between 768px and ~870px. Positioned proportionally instead of at a fixed offset
+      (SESSION-014)
 - [ ] Walk every page at 375 / 480 / 768 / 1024 / 1160 / 1440 / 1920
 
 `ISSUE-015` and `ISSUE-026` were taken first, in SESSION-005, being page-independent and
 needing nothing from the owner. `ISSUE-027` turned out to be a scroll-position-bookkeeping
-bug rather than an anchor bug, and was left diagnosed rather than half-fixed.
+bug rather than an anchor bug, and was left diagnosed rather than half-fixed — SESSION-014
+then closed it from those measurements without re-deriving them, which is the case for
+writing a diagnosis down when you decline to guess at the fix.
+
+The width walk is the one item still open, and it is a sweep rather than a defect: the
+routes have been measured for overflow at 320/375/768/840/1024/1440 in English and German,
+but not every page examined at every width by eye.
 
 **Accessibility (`SUGGESTION-011`)** — done in SESSION-009, see `ISSUE-030`
 - [x] Keyboard-reachable pause for the playground marquees (WCAG 2.2.2)
@@ -71,7 +80,7 @@ bug rather than an anchor bug, and was left diagnosed rather than half-fixed.
 ## Relevant Issues
 
 `ISSUE-010`, `ISSUE-011` ✅, `ISSUE-015` ✅, `ISSUE-016` ✅, `ISSUE-021` ✅, `ISSUE-023` ✅,
-`ISSUE-026` ✅, `ISSUE-027`, `ISSUE-028` ✅, `ISSUE-029`
+`ISSUE-026` ✅, `ISSUE-027` ✅, `ISSUE-028` ✅, `ISSUE-029` ✅
 
 ## Relevant Suggestions
 

@@ -1,6 +1,6 @@
 # Issues Index
 
-30 issues. **25 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
+30 issues. **27 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
 (`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006, 2 in SESSION-007 and 1 in SESSION-009 (`MILESTONE-007`), 3 in
 SESSION-008 (`MILESTONE-002`/`005`), and `ISSUE-025` by the owner — plus one partially resolved. 10
 remain open, none `Investigating`. **The owner answered all three open decisions on
@@ -32,8 +32,6 @@ _None._
 
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
-| ISSUE-027 | Hash navigation after a route change restores an offset nobody chose | Open | Low | **Diagnosed, not fixed** — stale entry in the scroll-position map | `issue_027.md` |
-| ISSUE-029 | About annotation overlaps the Biography heading at 768px | Open | Low | Decorative hand note sits on text; pre-existing | `issue_029.md` |
 
 ## Resolved
 
@@ -55,6 +53,13 @@ And in SESSION-003 under `MILESTONE-003`:
 | --- | --- | --- | --- |
 | ISSUE-024 | Section model can't express sub-headings or lists | `e844ad9` — `Block` union in `caseStudies/types.ts`; all six studies migrated in both locales | `issue_024.md` |
 | ISSUE-008 | First case-study section lacks number, label, reveal | `e844ad9` — one render path in `Section.tsx`; `first` varies only the top margin | `issue_008.md` |
+
+And in SESSION-014, closing the tracker's last two defects:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-027 | Hash navigation after a route change restores an offset nobody chose | `a1f4370` — the restore branch yields to an explicit anchor, and the smooth landing waits for stillness before correcting | `issue_027.md` |
+| ISSUE-029 | About annotation overlaps the Biography heading at 768px | `a1f4370` — the note is positioned proportionally, not at a fixed offset | `issue_029.md` |
 
 And in SESSION-013 under `MILESTONE-008`:
 
@@ -126,6 +131,6 @@ And by the owner, outside a recorded session:
 - **MILESTONE-005** (imagery): 006, 007 ✅ — what remains is the images themselves, listed
   in `docs/reference/image_manifest.md`
 - **MILESTONE-006** (motion): 012 ✅, 020 ✅
-- **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027, 028 ✅, 029, 030 ✅
+- **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027 ✅, 028 ✅, 029 ✅, 030 ✅ — only `ISSUE-010` remains, and it waits on `MILESTONE-002`
 - **MILESTONE-008** (perf / SEO / deploy): 013 ✅, 014 ✅, 019 ✅, 025 ✅
 - **MILESTONE-009** (German): 009

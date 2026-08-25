@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-25**, after SESSION-013 (the bundle and `hreflang`).
+Snapshot: **2026-08-25**, after SESSION-014 (the last two defects, and the deploy pre-flight).
 
 ## Overall
 
@@ -48,12 +48,13 @@ Roughly: architecture ~90% done, content ~70% drafted, imagery ~5%, polish ~50%.
 **Nothing.** All four entries here — `ISSUE-001` (Critical), `ISSUE-002`, `ISSUE-003` and
 `ISSUE-022` — were fixed in SESSION-002. No `Critical` issue is open.
 
-Two measured defects remain, both Low and both pre-existing. `ISSUE-029` — the About
-page's hand annotation sits on the Biography heading at exactly 768px. And `ISSUE-027` — a hash navigation performed after a
-client-side route change restores a scroll offset nobody chose, landing 18px past the
-anchor. Diagnosed in SESSION-005 with an instrumented build; three candidate fixes were
-tried and reverted rather than shipped unproven. `ISSUE-015` and `ISSUE-026` were fixed in
-the same session: anchored sections now clear the header by 31px at every width, and no
+**No defect is open.** The last two were closed in SESSION-014: `ISSUE-029`, the About
+page's hand annotation colliding with the Biography heading between 768px and ~870px, now
+positioned proportionally instead of at a fixed offset; and `ISSUE-027`, a hash navigation
+on the current page restoring a scroll offset nobody chose — diagnosed in SESSION-005 with
+an instrumented build and deliberately left rather than half-fixed, then closed from those
+same measurements. `ISSUE-010` is the only tracker item left, and it is a content
+dependency, not a defect. `ISSUE-015` and `ISSUE-026` were fixed in SESSION-005: anchored sections now clear the header by 31px at every width, and no
 page scrolls sideways at any width from 320px to 1920px.
 
 ## Incomplete
@@ -89,8 +90,9 @@ rather than from a hard-coded number.
 
 What is left of the consistency work: line-height and letter-spacing are still written per
 component, so two headings at the same size can differ in leading; the tag and CTA pill
-primitives are still repeated across six or more files (`SUGGESTION-009` point 4); and
-`ISSUE-029` is one measured collision at 768px.
+primitives are still repeated across six or more files (`SUGGESTION-009` point 4). The
+width walk — every page examined by eye at every breakpoint — is the one unticked item;
+overflow itself is measured clean at 320/375/768/840/1024/1440 in both locales.
 
 ## Content and assets still missing
 
@@ -108,8 +110,8 @@ primitives are still repeated across six or more files (`SUGGESTION-009` point 4
   branches `master` and `milestone-001-stabilize` point at the same commit as `main`
   (`413130b`) — redundant rather than divergent, and deletable whenever the owner is
   ready.
-- SESSION-003 to SESSION-013 sit on branch **`milestone-003-content-model`**, branched
-  from `main` — twenty-one commits, and **unpushed**. The branch name predates the last seven
+- SESSION-003 to SESSION-014 sit on branch **`milestone-003-content-model`**, branched
+  from `main` — twenty-two commits, and **unpushed**. The branch name predates the last eight
   sessions. **Nothing is deployed**: the live site is published only by `npm run deploy`.
 - One dev dependency exists purely for verification: `axe-core`. It ships in nothing.
 - **Nothing is deployed.** The live site is served from `gh-pages` and published only by
@@ -131,14 +133,19 @@ real `og:image`, which is the owner's to supply.
 `MILESTONE-002` (the bento's eleven images), and `MILESTONE-009` (German parity, which
 follows the copy pass).
 
-**`MILESTONE-008` was** — `ISSUE-013`, `ISSUE-014` and `ISSUE-025` are done;
-`ISSUE-019` (bundle size) is what is left of it.
+**`MILESTONE-008` is complete** bar the owner's `og:image` — `ISSUE-013`, `ISSUE-014`,
+`ISSUE-019` and `ISSUE-025` are done, and SESSION-014 added a pre-flight on the built
+artifact (`docs/reference/publishing.md`) proving what GitHub Pages will actually serve,
+including a real 404 for unknown deep links.
 
-**`MILESTONE-007`, nearly done.** Eight issues resolved across four sessions: the type
-scale, the palette, the container, the breakpoint order, the header at every width, and now
-the accessibility audit. What is left of it (`ISSUE-010`) waits on `MILESTONE-002`
-finishing, which waits on images. The next objective is `MILESTONE-008`'s link-preview and
-SEO half — see `docs/next_session.md`.
+**`MILESTONE-007` is complete** bar `ISSUE-010`, which waits on `MILESTONE-002` and so on
+images. Ten issues resolved across six sessions: the type scale, the palette, the container,
+the breakpoint order, the header at every width, the accessibility audit, and the last two
+defects.
+
+**Every milestone that does not need the owner is now finished.** What remains of the
+roadmap is content the repository cannot supply for itself — see `docs/next_session.md`,
+which offers the images work if they have landed and a regression suite if they have not.
 
 ## Blockers
 
@@ -158,12 +165,13 @@ material, not choices:
    site looks, and it needs no code.
 2. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
-3. **The two loose ends in the tracker**: `ISSUE-010` (dead content fields, waiting on
-   `MILESTONE-002` finishing) and `ISSUE-029` (the About annotation colliding at 768px).
-   Neither blocks anything.
+3. **Publishing.** The pre-flight is done and the artifact is sound; the two commands are
+   in `docs/reference/publishing.md`. Twelve sessions of work exist only on a local branch,
+   which is now the largest gap between what is built and what anyone can see. The only
+   thing that will look wrong once live is the link-preview image.
 
-Unblocked and needing nobody: `MILESTONE-007`'s accessibility block, which is what
-`docs/next_session.md` points at, and `ISSUE-027`, which is diagnosed and waiting.
+The one tracker item left, `ISSUE-010` (dead content fields), unblocks itself when the
+images land. Nothing else in the repository is waiting on a decision or a fix.
 
 ## Where to read more
 

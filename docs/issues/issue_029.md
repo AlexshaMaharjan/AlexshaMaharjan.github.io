@@ -1,6 +1,6 @@
 # ISSUE-029 — The About page's hand annotation overlaps the Biography heading at 768px
 
-Status: Open
+Status: **Resolved** (SESSION-014, `a1f4370`)
 Priority: Low
 Category: UI/UX / Responsive
 Discovered: 2026-08-24 (SESSION-007, while checking the header at 768px)
@@ -24,6 +24,17 @@ Bounding boxes on `/about`, measured against the production build:
 | 1024px | (477, 460)–(944, 509) | (229, 444)–(411, 491) | clear |
 
 Pre-existing: identical coordinates on the build before SESSION-007.
+
+## Resolution
+
+The annotation was positioned at a fixed `left-[150px]` inside a column that is less than
+half its desktop width at `md`, so it left the column and landed on the heading. It is
+positioned proportionally now — `left-[30%]`, which reproduces the desktop placement to
+within two pixels — and measures clear at 768, 800, 840, 880, 900, 1024, 1160 and 1440.
+
+The collision band was 768–~870px, narrower than "at `md`" suggested; the fix covers all of
+it without hiding the note at any width, which the alternative (`lg:block`) would have done
+between 880 and 1023.
 
 ## Expected Behavior
 

@@ -2,97 +2,105 @@
 
 ## Status
 
-`MILESTONE-008` is complete (SESSION-013), and with it **every milestone that does not need
-the owner**. `MILESTONE-001`, `003`, `006`, `007` and `008` are done; what remains of the
-roadmap is content the repository cannot supply for itself.
+**Every engineering milestone that does not need the owner is finished.** `MILESTONE-001`,
+`003`, `006`, `007` and `008` are complete — `007` closed in SESSION-014 with `ISSUE-027`
+and `ISSUE-029`, leaving only `ISSUE-010`, which waits on images. The tracker has no open
+defect a session can fix on its own.
 
-Work sits on branch `milestone-003-content-model`, **twenty-one commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **twenty-two commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
-### Nothing is deployed — and that is now the biggest single fact about this project
+### Nothing is deployed, and there is now no engineering reason left for that
 
-Eleven sessions of work exist only on a local branch. Publishing is two commands the owner
-has to authorise: merge into `main`, then `npm run deploy` (which runs `predeploy` → build
-+ prerender, and needs Chrome on the machine that deploys).
+Twelve sessions of work exist only on a local branch. The pre-flight has been run and
+written down (`docs/reference/publishing.md`): the built artifact is sound, unknown deep
+links 404 properly, nested routes load correctly. The two commands are:
+
+```bash
+git checkout main && git merge milestone-003-content-model
+npm run deploy
+```
+
+They are the owner's to run. The one thing that will look wrong once live is the link
+preview image (`ISSUE-006`).
 
 ### What wants the owner
 
-1. **A real `og:image`.** Every link preview is a solid-colour placeholder. Titles,
-   descriptions, canonicals and `hreflang` are all correct — the picture is the only thing
-   wrong, and it is the thing people see before they click.
-2. **The other 128 image slots** (`docs/reference/image_manifest.md`), the eleven bento
-   tiles first.
-3. **The copy pass** (`MILESTONE-004`) and then German parity (`MILESTONE-009`).
+1. **A real `og:image`.** Every link preview is a solid-colour placeholder. Everything else
+   in the head is correct.
+2. **The 128 image slots** (`docs/reference/image_manifest.md`), the eleven bento tiles first
+   — that is `ISSUE-010`, and `MILESTONE-002` with it.
+3. **The copy pass** (`MILESTONE-004`), then German parity (`MILESTONE-009`).
 4. **A custom domain**, if one is wanted.
 
 ## Objective
 
-**Close the last two defects, then make publishing boring** — there is no engineering
-milestone left to advance, so the useful work is removing the last surprises.
+There is no defect left to fix and no milestone left to advance without the owner, so the
+next session should **pick one and say so plainly at the start**:
 
-1. **`ISSUE-029`** — the About page's hand annotation sits on the "Biography" heading at
-   exactly 768px. Measured, pre-existing, and the only visual collision left in the tracker.
-2. **`ISSUE-027`** — a URL-bar hash change on the current page bypasses the router, so the
-   browser's own jump lands on the scroll reveal's at-rest position. `useScrollBehavior`
-   already has the layout-based maths; this needs a `hashchange` path into it that does not
-   fight the router.
-3. **A deploy pre-flight on the built artifact.** Everything is verified against
-   `vite preview` and a local static server; nothing has verified what GitHub Pages will
-   actually serve. Check the `dist/` that `predeploy` produces: that `404.html` really
-   rescues an unknown deep link, that every asset path resolves from a subdirectory route,
-   that `sitemap.xml` and `robots.txt` ship, that the per-slug case-study chunks load from a
-   nested path, and that nothing references a file that is not in `dist/`.
+**A. If the owner has supplied images** — take `ISSUE-010` and `MILESTONE-002`. Run
+`node scripts/image-manifest.mjs --write` first; it reports which slots are filled. The
+bento tiles are the eleven that matter most, and `DECISION-014` (bent grid) already fixes
+their shape. Then the dead content fields disappear on their own.
 
-`ISSUE-010` (dead content fields) is the remaining tracker item after those, and it waits on
-`MILESTONE-002` finishing — which waits on images.
+**B. If the owner has not** — the honest work is **hardening what exists**, and the
+highest-value piece is a regression net. Every session so far has verified by hand through
+CDP, and the scripts are thrown away each time. The journey suite, the 38-route sweep, the
+axe pass and the overflow sweep have each caught a real defect; they should live in the
+repository as one runnable command against the production build, not be rebuilt from
+scratch every session. That is worth more than any remaining polish, because the two scroll
+hooks now carry six amendments between them and nothing in the repository defends them.
+
+Do not do both. Option B is the default if the images are not there.
 
 ## Required Context
 
 Read **only** these:
 
 1. `docs/previous_session.md` — what just changed and what it constrains
-2. `docs/issues/issue_029.md`, `issue_027.md` — the two defects, both measured
-3. `docs/decisions/decision_012.md` — GitHub Pages, manual deploy, no CI
-4. `docs/issues/issue_013.md` — what the prerender writes, and what it deliberately does not
-5. `docs/decisions/decision_013.md` and `decision_008.md` — the scroll hooks and the reveal
-   contract, before touching `useScrollBehavior`
-6. `docs/codebase/configuration.md` — the build, the scripts, the one dev dependency
+2. For **A**: `docs/issues/issue_010.md`, `docs/decisions/decision_014.md`,
+   `docs/reference/image_manifest.md`, `docs/milestones/milestone_002.md`
+3. For **B**: `docs/decisions/decision_008.md` and `decision_013.md` — the two scroll hooks
+   and every amendment, which are what the suite must defend; `docs/sessions/session_014.md`
+   for the journey suite's shape
+4. `docs/codebase/configuration.md` — the build, the scripts, the one dev dependency
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 
 ## Relevant Code
 
-- `src/pages/About.tsx` and `src/components/about/*` — the annotation and the two-column
-  layout that squeezes it at `md`
-- `src/lib/useScrollBehavior.ts` — `scrollTopFor` is the maths `ISSUE-027` needs
-- `scripts/prerender.mjs` — what lands in `dist/`
-- `package.json` — `predeploy` / `deploy`
+- `src/lib/useScrollBehavior.ts`, `src/lib/useScrollReveals.ts` — the two hooks under test
+- `scripts/prerender.mjs`, `scripts/image-manifest.mjs` — the existing script conventions,
+  worth matching if a check script is added
+- `package.json` — where a `verify` script would go, next to `predeploy`
 
 ## Constraints
 
 - **The repository is the source of truth.** Re-check `git status` and the branch first.
-- **Do not break the two scroll hooks** (`DECISION-008`, `DECISION-013`, four amendments
-  between them). A `hashchange` listener must not double-scroll with the router, and must
-  not fire on history traversal, where the router is already restoring a position.
-- The client and the baked HTML must keep agreeing — anything added to `Seo` needs adding
-  to the prerender, and vice versa.
+- **Do not break the two scroll hooks.** Beyond `DECISION-008`/`DECISION-013`: an explicit
+  anchor beats a stored offset, and a smooth landing is judged by stillness, not arrival.
 - `prefers-reduced-motion` must keep producing a completely static, fully visible site.
-- **Do not publish anything.** Merging to `main` and running `npm run deploy` are the
-  owner's calls; a pre-flight inspects the artifact, it does not push it.
+- The client and the baked HTML must keep agreeing — anything added to `Seo` needs adding to
+  the prerender, and vice versa.
+- **Do not publish anything.** Merging to `main` and `npm run deploy` are the owner's calls.
 - Do not rewrite prose (`MILESTONE-004`) or supply photographs (`MILESTONE-005`).
+- **Nothing internal may land under `public/`** — it ships. SESSION-014 found a manifest
+  being served publicly.
+- If a check script is added it must not add a runtime dependency; `axe-core` stays the only
+  dev dependency, and CDP is driven from Node's built-in `WebSocket`.
 
 ## Verification
 
-Against the **production build**. For the pre-flight, serve `dist/` with a plain static
-server (`python3 -m http.server --directory dist`) rather than `vite preview` — the point is
-to see what a dumb host does, including the `404.html` fallback path.
+Against the **production build** (`npm run build && npm run preview`), in a real browser.
+For anything about what a host serves, use a plain static server over `dist/`, not
+`vite preview`.
 
 Five traps this project has already paid for, in the order they cost the most time:
 
 - **`html { scroll-behavior: smooth }` applies to programmatic scrolls.** A test that sets
-  `scrollTop` and acts immediately is acting on a page still in motion — that has now
-  produced two separate false alarms (SESSION-012, SESSION-013). Let it settle, or assert
-  on where the page actually is.
+  `scrollTop` and acts immediately is acting on a page still in motion — two separate false
+  alarms already (SESSION-012, SESSION-013), and the same physics is why `ISSUE-027` took
+  three attempts.
 - **Measure where the thing happens.** A trigger 737px down does nothing at 600px of scroll.
 - `Page.addScriptToEvaluateOnNewDocument` accumulates across runs — instrumentation that
   survives navigation needs a freshly launched browser per experiment.
@@ -100,15 +108,16 @@ Five traps this project has already paid for, in the order they cost the most ti
 - `document.activeElement.textContent` is the whole page when focus is on `body`, and
   `[].every()` is `true`.
 
-Leave passing: the 38-route sweep, axe (0 violations), the reveal ring, the scroll journeys,
-reduced motion, the overflow sweep, the no-JavaScript metadata fetch, and `hreflang` on both
-locales.
+Leave passing: the 38-route sweep, axe (0 violations), the reveal ring, the scroll journeys
+(1440/390 × motion on/off), reduced motion, the overflow sweep, the no-JavaScript metadata
+fetch, and `hreflang` on both locales.
 
 ## Completion Criteria
 
-- `ISSUE-029` and `ISSUE-027` are fixed, or recorded as deliberately left with reasons.
-- The pre-flight is written down: what was checked, what it found, and the exact commands
-  the owner runs to publish.
+- The chosen option is stated at the start and finished, not half of each.
+- For **B**: one command runs the suite against the production build, it fails loudly on a
+  real regression, and a session that changes a scroll hook has an obvious way to prove it
+  did not break anything.
 - `npm run lint && npm run build` green; work committed; **nothing pushed**.
 
 ## Required End-of-Session Updates
@@ -117,7 +126,7 @@ locales.
 2. Update the status of any issue you touched, plus `docs/issues/index.md`.
 3. Update `docs/milestones/index.md` if a milestone moved.
 4. Record newly discovered issues / suggestions / decisions **only where genuinely needed**.
-5. Create `docs/sessions/session_014.md` and add it to `docs/sessions/index.md`.
+5. Create `docs/sessions/session_015.md` and add it to `docs/sessions/index.md`.
 6. Rewrite `docs/previous_session.md` to summarize this session.
 7. Rewrite `docs/next_session.md` for the next logical objective.
 8. Update `docs/current_state.md` only if the overall project state materially moved.

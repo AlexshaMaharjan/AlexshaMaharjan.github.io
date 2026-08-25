@@ -1,72 +1,49 @@
 # Previous Session
 
-Session: SESSION-013
-Milestone: `MILESTONE-008` — Performance, SEO, deployment (**closed** bar the owner's
-`og:image`)
-Objective: `hreflang` alternates, `ISSUE-019`'s bundle question, and deleting the dead
-Netlify redirect.
-Outcome: **All three done.** `ISSUE-019` is resolved — half by fixing it, half by
-`DECISION-015` recording why the rest stays as it is.
+**SESSION-014** — 2026-08-25 — `MILESTONE-007` / `MILESTONE-008` — Complete
+Full record: `docs/sessions/session_014.md`. Commit `a1f4370`.
 
-## What Changed
+## What changed
 
-**The case-study registry is split per slug.** It statically imported all six studies in
-both locales, so reading one meant downloading 126 KB / 40 KB gzip of all six. Each is now a
-dynamic `import()` behind a cached promise: a 13 KB shell plus 15–22 KB for the study being
-read.
+**`ISSUE-027` is fixed** — an anchor on the page you are already on now lands exactly.
+Two changes in `useScrollBehavior`:
 
-It is read with React's `use()`, so the page **suspends into the loading bar** from
-SESSION-011 and renders with its content in hand. That is load-bearing rather than stylistic:
-loading in an effect would render the page empty first, and `useScrollReveals` would build
-its triggers against markup that did not exist yet — `ISSUE-001` rebuilt from parts.
+- A hash that changed while the pathname did not is an explicit request for that anchor,
+  whichever direction history is moving, so the `POP` restore branch yields to it. That
+  sidesteps the question SESSION-005 could not answer — where the stale offset came from —
+  by making it irrelevant. Genuine back/forward still restores.
+- The smooth landing waits for the page to **stop moving** and then corrects a near miss,
+  rather than declaring success on arrival. A fragment navigation makes the browser scroll
+  to the element too; both animate, and ours passed through the right offset while the
+  browser's was still running.
 
-**`hreflang` alternates.** The two locales were invisible to each other. Every route now
-declares `en`, `de` and `x-default`, in the static HTML and from the client — they have to
-agree, so `Seo` writes exactly what the prerender bakes.
+**`ISSUE-029` is fixed** — the About annotation is positioned proportionally (`left-[30%]`)
+instead of at a fixed `150px`, so it stays inside its column. Desktop placement is unchanged
+to within two pixels; the collision band was 768–~870px, not just 768.
 
-**`public/_redirects` deleted** — the Netlify convention, dead since `DECISION-012`.
+**A deploy pre-flight exists and is written down** — `docs/reference/publishing.md`. It runs
+against a server that behaves like GitHub Pages (real file → directory index → `404.html`
+**with a 404 status**). All clean: assets served and absolutely-pathed, `404.html` rescues
+unknown deep links with a real 404, nested routes load only their own chunk, no source or
+sourcemaps ship.
 
-## The half that was answered rather than fixed
+**One thing it caught:** `public/images/MANIFEST.md` was being served at
+`/images/MANIFEST.md` — an internal note about which images are placeholders, published on
+the portfolio. Everything under `public/` ships; that is what `public/` means. Moved to
+`docs/reference/image_files.md`.
 
-GSAP stays eagerly imported (`DECISION-015`): it is already its own chunk; deferring it puts
-the reveals' at-rest state after the first paint, which is the flicker SESSION-010 removed;
-the alternative was built and reverted in SESSION-011; and it now drives five features
-rather than one. Dropping it entirely would save 46 KB gzip and is a rewrite of five working
-features — recorded as the alternative it is, rather than left as a ticket implying someone
-should get to it.
+## What this constrains
 
-## A regression that was not one
+- **`useScrollBehavior` has two more rules to keep.** An explicit anchor beats a stored
+  offset; a smooth landing is judged by stillness, not arrival. Both are load-bearing and
+  both are cheap to break — the journey suite is the only thing that catches it.
+- The previous hand-off's one-line paraphrase of `ISSUE-027` ("a URL-bar hash change
+  bypasses the router, needs a `hashchange` path") was wrong; `issue_027.md`'s own
+  SESSION-005 diagnosis was right. Trust the issue file over a summary of it.
+- `docs/reference/image_files.md` is the manifest's path now. `scripts/image-manifest.mjs`
+  writes there.
 
-The battery reported a route change landing at scrollY 41 instead of 0, and back restoring
-3912 instead of 5000 — which looked like the new suspense boundary breaking SESSION-002's
-scroll work. Measured against the previous commit: **identical on both builds**. The cause
-was the harness: `document.documentElement.scrollTop = 5000` is animated by
-`html { scroll-behavior: smooth }`, so the page really was at ~4,300 when the click
-happened, and the restore was correct to the pixel.
+## What did not change
 
-Same trap as SESSION-012's in a new disguise: **a test that scrolls the page must let the
-scroll finish before it acts.**
-
-## Validation
-
-- 38 routes render, nothing hidden, no overflow; an unknown slug still renders the 404
-  rather than a spinner.
-- The prev/next ring across three hops with per-slug chunks: nothing stuck.
-- `hreflang` verified over plain HTTP with no JavaScript, 8 routes, both locales.
-- axe 0 violations; cold hash landings at 104px; back/forward restore A/B'd against the
-  previous commit, twice, warm and cold.
-- `npm run lint` 0 errors / 3 pre-existing warnings; `npm run build` green; prerender 36/36.
-
-## Remaining Concerns
-
-- **`og:image` is the last thing between this and a finished link preview**, and it is the
-  owner's to supply.
-- `ISSUE-010` (dead fields, waiting on `MILESTONE-002`) and `ISSUE-029` (About annotation at
-  768px) are the two loose ends in the tracker.
-- `MILESTONE-004` (copy) and `MILESTONE-005` (images) are what remain of the roadmap, and
-  both need the owner.
-- **Nothing is deployed.** Twenty-one commits sit unpushed on `milestone-003-content-model`.
-
-## Detailed Session Record
-
-See `docs/sessions/session_013.md`.
+Nothing pushed, nothing deployed — still the owner's call. No prose, no photographs.
+`ISSUE-010` and `ISSUE-006` still wait on the owner's images.
