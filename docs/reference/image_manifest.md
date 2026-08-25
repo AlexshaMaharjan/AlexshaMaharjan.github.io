@@ -4,7 +4,7 @@ Generated from the content data by `node scripts/image-manifest.mjs --write`. Re
 after adding content or dropping images in; the counts below come from the data rather
 than from anyone's memory of it.
 
-**136 slots. 7 filled, 129 still empty.**
+**136 slots. 18 filled, 118 still empty.**
 
 ## How to fill one
 
@@ -31,27 +31,27 @@ Aspect ratios are what the layout reserves. An image at a different ratio is cro
 fill, from the centre — so keep the subject away from the edges, or change the `aspect`
 in the data to match the export.
 
-## Homepage — work grid — 11 slots, 11 empty
+## Homepage — work grid — 11 slots, all filled
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
-| 1 | tile 1: WikiMind | Brand & UI/UX | ≈672×322 | 1300px | `dictionaries/{en,de}.ts → selectedWork.bento[0].src` |
-| 2 | tile 2: AFONO | Brand & E-commerce | ≈448×322 | 900px | `dictionaries/{en,de}.ts → selectedWork.bento[1].src` |
-| 3 | tile 3: Sync FM | Interaction Design | ≈448×322 | 900px | `dictionaries/{en,de}.ts → selectedWork.bento[2].src` |
-| 4 | tile 4: Surugami | Brand & Print | ≈448×322 | 900px | `dictionaries/{en,de}.ts → selectedWork.bento[3].src` |
-| 5 | tile 5: QIS Portal | UX Research | ≈672×644 | 1300px | `dictionaries/{en,de}.ts → selectedWork.bento[4].src` |
-| 6 | tile 6: Kitchen | Inclusive Design | ≈560×644 | 1100px | `dictionaries/{en,de}.ts → selectedWork.bento[5].src` |
-| 7 | tile 7: WikiMind | Web Design | ≈560×322 | 1100px | `dictionaries/{en,de}.ts → selectedWork.bento[6].src` |
-| 8 | tile 8: AFONO | Graphic | ≈224×322 | 400px | `dictionaries/{en,de}.ts → selectedWork.bento[7].src` |
-| 9 | tile 9: Sync FM | Mobile UI | ≈336×322 | 700px | `dictionaries/{en,de}.ts → selectedWork.bento[8].src` |
-| 10 | tile 10: Surugami | Poster & Print | ≈784×322 | 1600px | `dictionaries/{en,de}.ts → selectedWork.bento[9].src` |
-| 11 | tile 11: QIS Portal | Product Design | ≈336×322 | 700px | `dictionaries/{en,de}.ts → selectedWork.bento[10].src` |
+| ✅ | tile 1: WikiMind | Brand & UI/UX | ≈672×322 | 1300px | `dictionaries/{en,de}.ts → selectedWork.bento[0].src` |
+| ✅ | tile 2: AFONO | Brand & E-commerce | ≈448×322 | 900px | `dictionaries/{en,de}.ts → selectedWork.bento[1].src` |
+| ✅ | tile 3: Sync FM | Interaction Design | ≈448×322 | 900px | `dictionaries/{en,de}.ts → selectedWork.bento[2].src` |
+| ✅ | tile 4: Surugami | Brand & Print | ≈448×322 | 900px | `dictionaries/{en,de}.ts → selectedWork.bento[3].src` |
+| ✅ | tile 5: QIS Portal | UX Research | ≈672×644 | 1300px | `dictionaries/{en,de}.ts → selectedWork.bento[4].src` |
+| ✅ | tile 6: Kitchen | Inclusive Design | ≈560×644 | 1100px | `dictionaries/{en,de}.ts → selectedWork.bento[5].src` |
+| ✅ | tile 7: WikiMind | Web Design | ≈560×322 | 1100px | `dictionaries/{en,de}.ts → selectedWork.bento[6].src` |
+| ✅ | tile 8: AFONO | Graphic | ≈224×322 | 400px | `dictionaries/{en,de}.ts → selectedWork.bento[7].src` |
+| ✅ | tile 9: Sync FM | Mobile UI | ≈336×322 | 700px | `dictionaries/{en,de}.ts → selectedWork.bento[8].src` |
+| ✅ | tile 10: Surugami | Poster & Print | ≈784×322 | 1600px | `dictionaries/{en,de}.ts → selectedWork.bento[9].src` |
+| ✅ | tile 11: QIS Portal | Product Design | ≈336×322 | 700px | `dictionaries/{en,de}.ts → selectedWork.bento[10].src` |
 
 ## Case study — WikiMind — 16 slots, 15 empty
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
-| ✅ | hero | Placeholder: WikiMind final homepage hero visual | 16/7.5 | 2560px | `caseStudies/wikimind.ts → {en,de}.heroImage.src` |
+| ✅ | hero | The WikiMind mascot presenting a holographic interface | 16/7.5 | 2560px | `caseStudies/wikimind.ts → {en,de}.heroImage.src` |
 | 2 | 03 Research | [ competitor analysis ] | 16/8 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[0].src` |
 | 3 | 03 Research | [ persona 01 ] | 3/4 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[1].src` |
 | 4 | 03 Research | [ persona 02 ] | 3/4 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[2].src` |
@@ -72,7 +72,7 @@ in the data to match the export.
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
-| ✅ | hero | Placeholder: AFONO campaign hero visual | 16/7.5 | 2560px | `caseStudies/afono.ts → {en,de}.heroImage.src` |
+| ✅ | hero | Print lettering from AFONO's HIMAL series | 16/7.5 | 2560px | `caseStudies/afono.ts → {en,de}.heroImage.src` |
 | 2 | 03 Research | [ interview findings ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[2].images[0].src` |
 | 3 | 03 Research | [ market analysis ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[2].images[1].src` |
 | 4 | 05 Strategy & identity | [ logo sketches ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[4].images[0].src` |
@@ -92,7 +92,7 @@ in the data to match the export.
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
-| ✅ | hero | Placeholder: Sync FM mobile interface hero visual | 16/7.5 | 2560px | `caseStudies/sync-fm.ts → {en,de}.heroImage.src` |
+| ✅ | hero | Sync FM's home screen with the news dial and the expanded player | 16/7.5 | 2560px | `caseStudies/sync-fm.ts → {en,de}.heroImage.src` |
 | 2 | 03 Analysis & personas | [ competitor comparison ] | 16/8 | 1900px | `caseStudies/sync-fm.ts → {en,de}.sections[2].images[0].src` |
 | 3 | 03 Analysis & personas | [ persona 01 ] | 3/4 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[2].images[1].src` |
 | 4 | 03 Analysis & personas | [ persona 02 ] | 3/4 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[2].images[2].src` |
@@ -109,7 +109,7 @@ in the data to match the export.
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
-| ✅ | hero | Final kitchen render, full width | 16/7.5 | 2560px | `caseStudies/barrier-free-kitchen.ts → {en,de}.heroImage.src` |
+| ✅ | hero | The barrier-free kitchen modelled in 3D, seen along the counter | 16/7.5 | 2560px | `caseStudies/barrier-free-kitchen.ts → {en,de}.heroImage.src` |
 | 2 | 03 Research | [ kitchen observation ] | 4/3 | 600px | `caseStudies/barrier-free-kitchen.ts → {en,de}.sections[2].images[0].src` |
 | 3 | 03 Research | [ simulation testing ] | 4/3 | 600px | `caseStudies/barrier-free-kitchen.ts → {en,de}.sections[2].images[1].src` |
 | 4 | 05 Concept development | [ wooden blocks ] | 4/3 | 600px | `caseStudies/barrier-free-kitchen.ts → {en,de}.sections[4].images[0].src` |
@@ -125,7 +125,7 @@ in the data to match the export.
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
-| ✅ | hero | Surugami poster and identity hero visual, full width | 16/7.5 | 2560px | `caseStudies/surugami.ts → {en,de}.heroImage.src` |
+| ✅ | hero | Two Surugami posters inviting people to hands-on origami courses | 16/7.5 | 2560px | `caseStudies/surugami.ts → {en,de}.heroImage.src` |
 | 2 | 03 Research | [ research board ] | 4/3 | 600px | `caseStudies/surugami.ts → {en,de}.sections[2].images[0].src` |
 | 3 | 03 Research | [ concept map ] | 4/3 | 600px | `caseStudies/surugami.ts → {en,de}.sections[2].images[1].src` |
 | 4 | 05 Concept & identity | [ logo exploration ] | 4/3 | 600px | `caseStudies/surugami.ts → {en,de}.sections[4].images[0].src` |
@@ -141,7 +141,7 @@ in the data to match the export.
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
-| ✅ | hero | Redesigned QIS dashboard, full width | 16/7.5 | 2560px | `caseStudies/qis-portal.ts → {en,de}.heroImage.src` |
+| ✅ | hero | The redesigned QIS Portal exam pages shown side by side | 16/7.5 | 2560px | `caseStudies/qis-portal.ts → {en,de}.heroImage.src` |
 | 2 | 01 Overview | [ original portal — before ] | 16/8 | 1900px | `caseStudies/qis-portal.ts → {en,de}.sections[0].images[0].src` |
 | 3 | 03 Research | [ survey 01 — 150 responses ] | 4/3 | 600px | `caseStudies/qis-portal.ts → {en,de}.sections[2].images[0].src` |
 | 4 | 03 Research | [ survey 02 — 137 responses ] | 4/3 | 600px | `caseStudies/qis-portal.ts → {en,de}.sections[2].images[1].src` |

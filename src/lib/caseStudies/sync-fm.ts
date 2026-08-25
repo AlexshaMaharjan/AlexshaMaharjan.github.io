@@ -16,8 +16,8 @@ const syncFm: CaseStudyLocaleContent = {
     tools: "",
     deliverables: "",
     heroImage: {
-      src: "/images/chatgpt-image-jul-23-2026-10_31_15-am-ms50alwm-za74.png",
-      alt: "Placeholder: Sync FM mobile interface hero visual",
+      src: "/images/hero-sync-fm.webp",
+      alt: "Sync FM's home screen with the news dial and the expanded player",
       aspect: "16/7.5",
     },
     sections: [
@@ -168,7 +168,7 @@ const syncFm: CaseStudyLocaleContent = {
     deliverables: "",
     heroImage: {
       src: "/images/chatgpt-image-jul-23-2026-10_31_15-am-ms50alwm-za74.png",
-      alt: "Placeholder: Sync FM mobile interface hero visual",
+      alt: "Der Sync-FM-Homescreen mit Nachrichtenregler und erweitertem Player",
       aspect: "16/7.5",
     },
     sections: [

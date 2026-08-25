@@ -16,8 +16,8 @@ const qisPortal: CaseStudyLocaleContent = {
     tools: "",
     deliverables: "",
     heroImage: {
-      src: "/images/screenshot-2026-07-07-at-15-29-39-ms52mvv5-d1vc.png",
-      alt: "Redesigned QIS dashboard, full width",
+      src: "/images/hero-qis-portal.webp",
+      alt: "The redesigned QIS Portal exam pages shown side by side",
       aspect: "16/7.5",
     },
     sections: [
@@ -218,8 +218,8 @@ const qisPortal: CaseStudyLocaleContent = {
     tools: "",
     deliverables: "",
     heroImage: {
-      src: "/images/screenshot-2026-07-07-at-15-29-39-ms52mvv5-d1vc.png",
-      alt: "Neu gestaltetes QIS-Dashboard, volle Breite",
+      src: "/images/hero-qis-portal.webp",
+      alt: "Die überarbeiteten Prüfungsseiten des QIS-Portals nebeneinander",
       aspect: "16/7.5",
     },
     sections: [
