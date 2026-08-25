@@ -18,8 +18,8 @@ const afono: CaseStudyLocaleContent = {
     tools: "Figma · Adobe Illustrator · Adobe Photoshop · AI tools for conceptual campaign imagery",
     deliverables: "Brand strategy · Naming · Logo · Clothing graphics · E-commerce prototype · Social-media system",
     heroImage: {
-      src: "/images/shop-page-1-mrtp117j-zqqp.png",
-      alt: "Placeholder: AFONO campaign hero visual",
+      src: "/images/hero-afono.webp",
+      alt: "Print lettering from AFONO's HIMAL series",
       aspect: "16/7.5",
     },
     sections: [
@@ -203,8 +203,8 @@ const afono: CaseStudyLocaleContent = {
     tools: "Figma · Adobe Illustrator · Adobe Photoshop · KI-Tools für konzeptionelle Kampagnenbilder",
     deliverables: "Markenstrategie · Naming · Logo · Bekleidungsgrafiken · E-Commerce-Prototyp · Social-Media-System",
     heroImage: {
-      src: "/images/shop-page-1-mrtp117j-zqqp.png",
-      alt: "Placeholder: AFONO campaign hero visual",
+      src: "/images/hero-afono.webp",
+      alt: "Schriftzüge aus AFONOs HIMAL-Serie",
       aspect: "16/7.5",
     },
     sections: [

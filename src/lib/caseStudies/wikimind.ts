@@ -16,8 +16,8 @@ const wikimind: CaseStudyLocaleContent = {
     tools: "Figma · Adobe Illustrator",
     deliverables: "Brand identity · Logo system · Mascot · Website design · UI kit · Interactive prototype",
     heroImage: {
-      src: "/images/wikimind-mrx9dhfo-12ys.png",
-      alt: "Placeholder: WikiMind final homepage hero visual",
+      src: "/images/hero-wikimind.webp",
+      alt: "The WikiMind mascot presenting a holographic interface",
       aspect: "16/7.5",
     },
     sections: [
@@ -180,8 +180,8 @@ const wikimind: CaseStudyLocaleContent = {
     tools: "Figma · Adobe Illustrator",
     deliverables: "Markenidentität · Logosystem · Maskottchen · Website-Design · UI-Kit · Interaktiver Prototyp",
     heroImage: {
-      src: "/images/wikimind-mrx9dhfo-12ys.png",
-      alt: "Placeholder: WikiMind final homepage hero visual",
+      src: "/images/hero-wikimind.webp",
+      alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche",
       aspect: "16/7.5",
     },
     sections: [

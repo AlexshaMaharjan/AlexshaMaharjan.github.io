@@ -15,7 +15,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
     year: "",
     tools: "",
     deliverables: "Final rendering by a team member.",
-    heroImage: { src: "/images/frame-6-mrtp0czu-dh8i.png", alt: "Final kitchen render, full width", aspect: "16/7.5" },
+    heroImage: { src: "/images/hero-barrier-free-kitchen.webp", alt: "The barrier-free kitchen modelled in 3D, seen along the counter", aspect: "16/7.5" },
     sections: [
       {
         id: "overview",
@@ -215,7 +215,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
     year: "",
     tools: "",
     deliverables: "Finales Rendering von einem Teammitglied.",
-    heroImage: { src: "/images/frame-6-mrtp0czu-dh8i.png", alt: "Finales Küchen-Rendering, volle Breite", aspect: "16/7.5" },
+    heroImage: { src: "/images/hero-barrier-free-kitchen.webp", alt: "Die barrierefreie Küche als 3D-Modell, entlang der Arbeitsplatte gesehen", aspect: "16/7.5" },
     sections: [
       {
         id: "overview",

@@ -17,8 +17,8 @@ const surugami: CaseStudyLocaleContent = {
     deliverables:
       "Illustration, one poster and mock-ups by Alexsha · Website co-designed · Brand direction collaborative",
     heroImage: {
-      src: "/images/1-ms52o75m-suju.png",
-      alt: "Surugami poster and identity hero visual, full width",
+      src: "/images/hero-surugami.webp",
+      alt: "Two Surugami posters inviting people to hands-on origami courses",
       aspect: "16/7.5",
     },
     sections: [
@@ -167,8 +167,8 @@ const surugami: CaseStudyLocaleContent = {
     deliverables:
       "Illustration, ein Poster und Mock-ups von Alexsha · Website gemeinsam gestaltet · Markenrichtung im Team entwickelt",
     heroImage: {
-      src: "/images/1-ms52o75m-suju.png",
-      alt: "Surugami Poster und Identität, volle Breite",
+      src: "/images/hero-surugami.webp",
+      alt: "Zwei Surugami-Plakate laden zu Origami-Kursen zum Mitmachen ein",
       aspect: "16/7.5",
     },
     sections: [
