@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-25**, after SESSION-015 (the project documentations mapped to the image slots).
+Snapshot: **2026-08-25**, after SESSION-016 (the first eighteen image slots filled).
 
 ## Overall
 
@@ -59,7 +59,8 @@ page scrolls sideways at any width from 320px to 1920px.
 
 ## Incomplete
 
-- **Homepage work section** — 11 grey tiles for 6 projects, no images, no copy, English
+- **Homepage work section** — 11 tiles for 6 projects, **all now carrying real images**
+  (SESSION-016), no copy, English
   only (`ISSUE-004`, `ISSUE-005`). Uncommitted, direction unconfirmed (`DECISION-010`).
 - **Case-study content** — the layout is done; the writing has not been through its pass
   (`MILESTONE-004`), and all 71 figures are still placeholders (`MILESTONE-005`). Those two
@@ -67,9 +68,10 @@ page scrolls sideways at any width from 320px to 1920px.
 - **Imagery** — 136 slots, 7 filled, and 5 of those 7 are colour stand-ins rather than
   photographs (`ISSUE-006`). **Every slot can now be filled by editing data**
   (`ISSUE-007`, closed): what each needs is listed in `docs/reference/image_manifest.md`.
-  **And most of the missing images already exist** — SESSION-015 mapped the owner's six
-  project documentations (330 pages, in `../../ProjectsDokus/`) to the projects and slots
-  they feed; see `docs/reference/image_sources.md`. `DECISION-016` governs what may be taken
+  **18 of those slots are now filled** (SESSION-016) — the eleven bento tiles, the six
+  case-study heroes and six prev/next cards — cut from the owner's six project
+  documentations, which SESSION-015 mapped in `docs/reference/image_sources.md`. All
+  seventeen new files together are 475 KB, in WebP. `DECISION-016` governs what may be taken
   from them: only the owner's own work, since these are academic documents that cite stock
   and Pinterest reference material inside themselves.
 - **Motion** — one vocabulary (`src/lib/motion.ts`) that the reveals, the page transition
@@ -102,8 +104,11 @@ overflow itself is measured clean at 320/375/768/840/1024/1440 in both locales.
 
 - Real portrait photograph.
 - Real hero exports for WikiMind, AFONO, Surugami, Sync FM.
-- 71 case-study figures — **the mechanism exists and so does most of the source material**;
-  what is missing is the extraction, cropping and grading (`docs/reference/image_sources.md`).
+- 71 case-study figures — **the mechanism, the source material and now the tooling all
+  exist**; what is missing is the extraction itself (`scripts/image-treat.mjs`,
+  `docs/reference/image_crops.json`).
+- A real `og:image` — the last thing wrong with every shared link, and the one asset that is
+  **not** a crop: it is a designed 1200×630 card.
 - 8 About carousel photos and up to 36 Playground images. These are *not* in the
   documentations: Playground is personal work and About needs a photograph.
 - A decision on **Hibi** — a seventh project with two full documentations and no page on the
@@ -168,21 +173,23 @@ material, not choices:
 
 | Waiting on | Blocks |
 | --- | --- |
-| The owner's time to extract and grade 129 images — the source material exists | `MILESTONE-005`, and the visible half of `MILESTONE-002` |
+| The owner's time to extract and grade the remaining 118 images — source material and tooling both exist | the rest of `MILESTONE-005` |
+| A responsive image pipeline (`SUGGESTION-012`) — now the blocking item, and it gets harder with every image added | bulk-importing the remaining 118 |
 | A decision on whether Hibi becomes a seventh case study | nothing; it is an addition, not a gap |
 | The owner's participation in the copy pass | `MILESTONE-004` |
 | A custom domain, if one is wanted | nothing; the site works without it |
 
 ## Highest-priority next work
 
-1. **Images** — 129 slots, all fillable from data, all listed with sizes in
-   `docs/reference/image_manifest.md`, and most of them already drawn, in the six project
-   documentations mapped by `docs/reference/image_sources.md`. This is the single biggest
-   change left in how the site looks, and it needs no code — but it does need
-   `SUGGESTION-012`, the responsive image pipeline, **before** any bulk import.
-2. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
+1. **`SUGGESTION-012`, the responsive image pipeline** — now the blocking item for the
+   remaining 118 slots, and it gets harder with every image added, because it likely means
+   moving files out of `public/images/` and rewriting every `src`. Eighteen were hand-sizable;
+   a hundred and eighteen are not.
+2. **The remaining 118 images** — source material, tooling and crops-so-far are all in place
+   (`docs/reference/image_sources.md`, `image_crops.json`).
+3. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
-3. **Publishing.** The pre-flight is done and the artifact is sound; the two commands are
+4. **Publishing.** The pre-flight is done and the artifact is sound; the two commands are
    in `docs/reference/publishing.md`. Twelve sessions of work exist only on a local branch,
    which is now the largest gap between what is built and what anyone can see. The only
    thing that will look wrong once live is the link-preview image.
