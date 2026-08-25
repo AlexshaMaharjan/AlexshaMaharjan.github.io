@@ -153,5 +153,100 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       400,
       640
     ]
+  },
+  "/images/wikimind-colour-type.webp": {
+    "w": 900,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/wikimind-final-screens.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ]
+  },
+  "/images/wikimind-interface.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ]
+  },
+  "/images/wikimind-logo-sketch.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/wikimind-logo-variants.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/wikimind-mascot.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ]
+  },
+  "/images/wikimind-persona-01.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/wikimind-persona-02.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/wikimind-persona-03.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/wikimind-prototype.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ]
+  },
+  "/images/wikimind-sitemap.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ]
+  },
+  "/images/wikimind-ui-kit.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
   }
 };

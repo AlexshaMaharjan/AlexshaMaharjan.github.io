@@ -56,9 +56,9 @@ const wikimind: CaseStudyLocaleContent = {
         ],
         images: [
           { aspect: "16/8", caption: "[ competitor analysis ]" },
-          { aspect: "3/4", caption: "[ persona 01 ]" },
-          { aspect: "3/4", caption: "[ persona 02 ]" },
-          { aspect: "3/4", caption: "[ persona 03 ]" },
+          { aspect: "3/4", caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona one: a logistics managing director, with goals and buying behaviour" },
+          { aspect: "3/4", caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona two: a university professor, with goals and buying behaviour" },
+          { aspect: "3/4", caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona three: an e-commerce customer service lead, with goals and buying behaviour" },
         ],
       },
       {
@@ -112,10 +112,10 @@ const wikimind: CaseStudyLocaleContent = {
         ],
         images: [
           { aspect: "4/3", caption: "[ moodboard ]" },
-          { aspect: "4/3", caption: "[ colour + type system ]" },
-          { aspect: "4/3", caption: "[ logo sketches ]" },
-          { aspect: "4/3", caption: "[ logo variants ]" },
-          { aspect: "16/8", caption: "[ mascot development ]" },
+          { aspect: "6/5", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "The blue palette and gradient beside the Inter weights used across the site" },
+          { aspect: "27/10", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines" },
+          { aspect: "4/3", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "The final WikiMind logo in its gradient and single-colour versions" },
+          { aspect: "16/8", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
         ],
       },
       {
@@ -129,9 +129,9 @@ const wikimind: CaseStudyLocaleContent = {
           "The interface system uses rounded containers, generous spacing and a limited visual hierarchy to soften the technical subject. Reusable components were created for navigation, buttons, content cards, input fields, service sections, icons, footer, hover states and feedback animations. The component approach keeps the website visually consistent while supporting future expansion.",
         ],
         images: [
-          { aspect: "16/8", caption: "[ sitemap ]" },
+          { aspect: "16/8", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "The site structure: a home page over four sections and three sub-pages" },
           { aspect: "4/3", caption: "[ wireframes ]" },
-          { aspect: "4/3", caption: "[ ui kit ]" },
+          { aspect: "4/3", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "The interface kit: type scale, colour, icons, buttons and the footer" },
         ],
       },
       {
@@ -144,9 +144,9 @@ const wikimind: CaseStudyLocaleContent = {
           "The result is an interactive Figma prototype that demonstrates the main page system, navigation behaviour and visual language of WikiMind.",
         ],
         images: [
-          { aspect: "16/9", caption: "[ final screens — large showcase ]" },
-          { aspect: "16/10", caption: "[ prototype video ]" },
-          { aspect: "16/10", caption: "[ interface detail ]" },
+          { aspect: "16/9", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "The services and AI-software pages of the finished site" },
+          { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "The chatbot page shown in the interactive Figma prototype" },
+          { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "The team page and footer of the finished site" },
         ],
       },
       {
@@ -219,9 +219,9 @@ const wikimind: CaseStudyLocaleContent = {
         ],
         images: [
           { aspect: "16/8", caption: "[ competitor analysis ]" },
-          { aspect: "3/4", caption: "[ persona 01 ]" },
-          { aspect: "3/4", caption: "[ persona 02 ]" },
-          { aspect: "3/4", caption: "[ persona 03 ]" },
+          { aspect: "3/4", caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona 1: Geschäftsführer eines Logistikunternehmens, mit Zielen und Kaufverhalten" },
+          { aspect: "3/4", caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona 2: Hochschulprofessorin, mit Zielen und Kaufverhalten" },
+          { aspect: "3/4", caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona 3: Leiterin Kundenservice im E-Commerce, mit Zielen und Kaufverhalten" },
         ],
       },
       {
@@ -275,10 +275,10 @@ const wikimind: CaseStudyLocaleContent = {
         ],
         images: [
           { aspect: "4/3", caption: "[ moodboard ]" },
-          { aspect: "4/3", caption: "[ colour + type system ]" },
-          { aspect: "4/3", caption: "[ logo sketches ]" },
-          { aspect: "4/3", caption: "[ logo variants ]" },
-          { aspect: "16/8", caption: "[ mascot development ]" },
+          { aspect: "6/5", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "Die blaue Farbpalette und der Farbverlauf neben den verwendeten Inter-Schnitten" },
+          { aspect: "27/10", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M" },
+          { aspect: "4/3", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "Das finale WikiMind-Logo in der Verlaufs- und der einfarbigen Version" },
+          { aspect: "16/8", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
         ],
       },
       {
@@ -292,9 +292,9 @@ const wikimind: CaseStudyLocaleContent = {
           "Das Interface-System arbeitet mit abgerundeten Containern, großzügigen Abständen und einer reduzierten visuellen Hierarchie. Wiederverwendbare Komponenten wurden für Navigation, Buttons, Inhaltskarten, Eingabefelder, Leistungsbereiche, Icons, Footer, Hover-Zustände und Feedback-Animationen entwickelt. Der modulare Ansatz hält die Website visuell konsistent und ermöglicht spätere Erweiterungen.",
         ],
         images: [
-          { aspect: "16/8", caption: "[ sitemap ]" },
+          { aspect: "16/8", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
           { aspect: "4/3", caption: "[ wireframes ]" },
-          { aspect: "4/3", caption: "[ ui kit ]" },
+          { aspect: "4/3", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Typoskala, Farben, Icons, Buttons und die Fußzeile" },
         ],
       },
       {
@@ -307,9 +307,9 @@ const wikimind: CaseStudyLocaleContent = {
           "Das Ergebnis ist ein interaktiver Figma-Prototyp, der das zentrale Seitensystem, das Navigationsverhalten und die visuelle Sprache von WikiMind demonstriert.",
         ],
         images: [
-          { aspect: "16/9", caption: "[ final screens — large showcase ]" },
-          { aspect: "16/10", caption: "[ prototype video ]" },
-          { aspect: "16/10", caption: "[ interface detail ]" },
+          { aspect: "16/9", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Die Angebots- und KI-Software-Seiten der fertigen Website" },
+          { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "Die Chatbot-Seite im interaktiven Figma-Prototyp" },
+          { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "Die Team-Seite und die Fußzeile der fertigen Website" },
         ],
       },
       {

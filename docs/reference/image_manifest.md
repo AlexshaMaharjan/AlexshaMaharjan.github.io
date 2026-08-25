@@ -4,7 +4,7 @@ Generated from the content data by `node scripts/image-manifest.mjs --write`. Re
 after adding content or dropping images in; the counts below come from the data rather
 than from anyone's memory of it.
 
-**136 slots. 18 filled, 118 still empty.**
+**136 slots. 30 filled, 106 still empty.**
 
 ## How to fill one
 
@@ -47,26 +47,26 @@ in the data to match the export.
 | ✅ | tile 10: Surugami | Poster & Print | ≈784×322 | 1600px | `dictionaries/{en,de}.ts → selectedWork.bento[9].src` |
 | ✅ | tile 11: QIS Portal | Product Design | ≈336×322 | 700px | `dictionaries/{en,de}.ts → selectedWork.bento[10].src` |
 
-## Case study — WikiMind — 16 slots, 15 empty
+## Case study — WikiMind — 16 slots, 3 empty
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
 | ✅ | hero | The WikiMind mascot presenting a holographic interface | 16/7.5 | 2560px | `caseStudies/wikimind.ts → {en,de}.heroImage.src` |
 | 2 | 03 Research | [ competitor analysis ] | 16/8 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[0].src` |
-| 3 | 03 Research | [ persona 01 ] | 3/4 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[1].src` |
-| 4 | 03 Research | [ persona 02 ] | 3/4 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[2].src` |
-| 5 | 03 Research | [ persona 03 ] | 3/4 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[3].src` |
+| ✅ | 03 Research | [ persona 01 ] | 3/4 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[1].src` |
+| ✅ | 03 Research | [ persona 02 ] | 3/4 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[2].src` |
+| ✅ | 03 Research | [ persona 03 ] | 3/4 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[2].images[3].src` |
 | 6 | 05 Strategy & identity | [ moodboard ] | 4/3 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[0].src` |
-| 7 | 05 Strategy & identity | [ colour + type system ] | 4/3 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[1].src` |
-| 8 | 05 Strategy & identity | [ logo sketches ] | 4/3 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[2].src` |
-| 9 | 05 Strategy & identity | [ logo variants ] | 4/3 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[3].src` |
-| 10 | 05 Strategy & identity | [ mascot development ] | 16/8 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[4].src` |
-| 11 | 06 Structure & system | [ sitemap ] | 16/8 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[5].images[0].src` |
+| ✅ | 05 Strategy & identity | [ colour + type system ] | 6/5 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[1].src` |
+| ✅ | 05 Strategy & identity | [ logo sketches ] | 27/10 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[2].src` |
+| ✅ | 05 Strategy & identity | [ logo variants ] | 4/3 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[3].src` |
+| ✅ | 05 Strategy & identity | [ mascot development ] | 16/8 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[4].images[4].src` |
+| ✅ | 06 Structure & system | [ sitemap ] | 16/8 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[5].images[0].src` |
 | 12 | 06 Structure & system | [ wireframes ] | 4/3 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[5].images[1].src` |
-| 13 | 06 Structure & system | [ ui kit ] | 4/3 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[5].images[2].src` |
-| 14 | 07 Final outcome | [ final screens — large showcase ] | 16/9 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[6].images[0].src` |
-| 15 | 07 Final outcome | [ prototype video ] | 16/10 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[6].images[1].src` |
-| 16 | 07 Final outcome | [ interface detail ] | 16/10 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[6].images[2].src` |
+| ✅ | 06 Structure & system | [ ui kit ] | 4/3 | 600px | `caseStudies/wikimind.ts → {en,de}.sections[5].images[2].src` |
+| ✅ | 07 Final outcome | [ final screens — large showcase ] | 16/9 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[6].images[0].src` |
+| ✅ | 07 Final outcome | [ prototype video ] | 16/10 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[6].images[1].src` |
+| ✅ | 07 Final outcome | [ interface detail ] | 16/10 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[6].images[2].src` |
 
 ## Case study — AFONO — 15 slots, 14 empty
 
