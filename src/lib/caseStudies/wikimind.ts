@@ -11,8 +11,7 @@ const wikimind: CaseStudyLocaleContent = {
     tags: ["Brand Strategy", "Visual Identity", "UI/UX Design", "Web Design", "Prototyping"],
     role: "Brand & UI/UX Designer",
     contribution: "Entire project completed independently.",
-    type: "Independent project",
-    year: "2026",
+    type: "Semester project · solo",
     tools: "Figma · Adobe Illustrator",
     deliverables: "Brand identity · Logo system · Mascot · Website design · UI kit · Interactive prototype",
     heroImage: {
@@ -175,8 +174,7 @@ const wikimind: CaseStudyLocaleContent = {
     tags: ["Brand Strategy", "Visual Identity", "UI/UX Design", "Web Design", "Prototyping"],
     role: "Brand & UI/UX Designerin",
     contribution: "Das gesamte Projekt wurde eigenständig umgesetzt.",
-    type: "Eigenständiges Projekt",
-    year: "2026",
+    type: "Semesterprojekt · allein",
     tools: "Figma · Adobe Illustrator",
     deliverables: "Markenidentität · Logosystem · Maskottchen · Website-Design · UI-Kit · Interaktiver Prototyp",
     heroImage: {

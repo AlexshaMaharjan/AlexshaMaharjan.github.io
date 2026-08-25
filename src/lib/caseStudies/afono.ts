@@ -13,8 +13,7 @@ const afono: CaseStudyLocaleContent = {
     tags: ["Brand Strategy", "Visual Identity", "Fashion Graphics", "UI/UX Design", "E-commerce", "Social Media"],
     role: "Brand, Fashion & UI/UX Designer",
     contribution: "Entire project completed independently.",
-    type: "Independent project",
-    year: "2026",
+    type: "Semester project · solo",
     tools: "Figma · Adobe Illustrator · Adobe Photoshop · AI tools for conceptual campaign imagery",
     deliverables: "Brand strategy · Naming · Logo · Clothing graphics · E-commerce prototype · Social-media system",
     heroImage: {
@@ -198,8 +197,7 @@ const afono: CaseStudyLocaleContent = {
     tags: ["Brand Strategy", "Visual Identity", "Fashion Graphics", "UI/UX Design", "E-commerce", "Social Media"],
     role: "Brand-, Fashion- & UI/UX-Designerin",
     contribution: "Das gesamte Projekt wurde eigenständig umgesetzt.",
-    type: "Eigenständiges Projekt",
-    year: "2026",
+    type: "Semesterprojekt · allein",
     tools: "Figma · Adobe Illustrator · Adobe Photoshop · KI-Tools für konzeptionelle Kampagnenbilder",
     deliverables: "Markenstrategie · Naming · Logo · Bekleidungsgrafiken · E-Commerce-Prototyp · Social-Media-System",
     heroImage: {

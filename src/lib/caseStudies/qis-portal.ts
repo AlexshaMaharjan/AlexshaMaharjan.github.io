@@ -11,8 +11,7 @@ const qisPortal: CaseStudyLocaleContent = {
     tags: ["UX Research", "Information Architecture", "Product Design", "Usability Testing", "Service UX"],
     role: "UX/UI Designer & Researcher",
     contribution: "Led most of the UX, interface and usability work. The team supported the surveys.",
-    type: "Collaborative university project",
-    year: "2024 · 2026 visual iteration",
+    type: "Semester project · team",
     tools: "",
     deliverables: "",
     heroImage: {
@@ -213,8 +212,7 @@ const qisPortal: CaseStudyLocaleContent = {
     tags: ["UX Research", "Information Architecture", "Product Design", "Usability Testing", "Service UX"],
     role: "UX/UI Designerin & Researcherin",
     contribution: "Den Großteil der UX-, Interface- und Usability-Arbeit umgesetzt. Das Team unterstützte die Umfragen.",
-    type: "Gemeinsames Hochschulprojekt",
-    year: "2024 · visuelle Iteration 2026",
+    type: "Semesterprojekt · Team",
     tools: "",
     deliverables: "",
     heroImage: {

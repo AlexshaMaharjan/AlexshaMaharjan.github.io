@@ -62,8 +62,8 @@ export interface CaseStudyContent {
   tags: string[];
   role: string;
   contribution: string;
+  /** e.g. "Semester project · solo". Every project is coursework. */
   type: string;
-  year: string;
   tools: string;
   deliverables: string;
   heroImage: { src: string; alt: string; aspect: string };

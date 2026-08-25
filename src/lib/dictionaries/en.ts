@@ -377,7 +377,6 @@ const en: Dictionary = {
     role: "Role",
     contribution: "Contribution",
     type: "Type",
-    year: "Year",
     tools: "Tools",
     deliverables: "Deliverables",
   },

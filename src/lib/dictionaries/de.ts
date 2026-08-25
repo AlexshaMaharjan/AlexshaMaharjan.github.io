@@ -377,7 +377,6 @@ const de: Dictionary = {
     role: "Rolle",
     contribution: "Beitrag",
     type: "Typ",
-    year: "Jahr",
     tools: "Tools",
     deliverables: "Ergebnisse",
   },

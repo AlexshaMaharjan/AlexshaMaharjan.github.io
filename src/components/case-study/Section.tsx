@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Block, CaseStudySection } from "@/lib/caseStudies/types";
 import type { Dictionary } from "@/lib/dictionaries";
 import Figure from "./Figure";
@@ -94,17 +95,25 @@ function BodyBlock({ block, first }: { block: Block; first: boolean }) {
  * `outro` is the closing section, which `CaseStudyPage` lifts out of the
  * reading column onto its own band so the case study ends deliberately instead
  * of running into the prev/next cards (`SUGGESTION-003`).
+ *
+ * `intro` is rendered between the eyebrow and the heading, and is how the first
+ * section carries the page's title, description and facts (`CaseStudyIntro`).
+ * It sits inside the section rather than above it so that the reading order is
+ * "01 Overview, then what this project is" — and so the contents rail can start
+ * at the top of the page instead of below a hero.
  */
 export default function Section({
   section,
   dictionary,
   first = false,
   outro = false,
+  intro,
 }: {
   section: CaseStudySection;
   dictionary: Dictionary;
   first?: boolean;
   outro?: boolean;
+  intro?: ReactNode;
 }) {
   const header = (
     <>
@@ -113,11 +122,17 @@ export default function Section({
         <span className="font-mono text-[13px] text-accent">{section.number}</span>
         <span className="mt-1.5 block text-[14px] text-accent">{section.navLabel}</span>
       </div>
+      {intro}
+      {/* The first section's heading sits directly under the page's `h1` and is
+          an introduction rather than a chapter title, so it steps down a size —
+          otherwise the two compete and the hierarchy reads flat. */}
       <h2
         className={`m-0 max-w-[900px] font-semibold tracking-[-0.025em] ${
           outro
             ? "text-feature leading-[1.05]"
-            : "text-heading leading-[1.1]"
+            : first
+              ? "text-subheading leading-[1.15]"
+              : "text-heading leading-[1.1]"
         }`}
       >
         {section.heading}

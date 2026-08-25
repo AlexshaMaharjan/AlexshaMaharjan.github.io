@@ -11,8 +11,7 @@ const syncFm: CaseStudyLocaleContent = {
     tags: ["Interaction Design", "AI Concept", "Mobile UI", "Audio Experience", "Prototyping"],
     role: "Interaction & UI Designer",
     contribution: "Co-developed the concept and interface with one teammate.",
-    type: "Collaborative university project",
-    year: "",
+    type: "Semester project · team",
     tools: "",
     deliverables: "",
     heroImage: {
@@ -162,8 +161,7 @@ const syncFm: CaseStudyLocaleContent = {
     tags: ["Interaction Design", "AI Concept", "Mobile UI", "Audio Experience", "Prototyping"],
     role: "Interaction & UI Designerin",
     contribution: "Konzept und Interface gemeinsam mit einem Teammitglied entwickelt.",
-    type: "Gemeinsames Hochschulprojekt",
-    year: "",
+    type: "Semesterprojekt · Team",
     tools: "",
     deliverables: "",
     heroImage: {
