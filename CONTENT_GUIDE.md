@@ -676,13 +676,14 @@ summary — EN: "WikiMind is a brand identity and website concept for an AI comp
 tags[0..4] — EN/DE (same): "Brand Strategy" / "Visual Identity" / "UI/UX Design" / "Web Design" / "Prototyping"
 role — EN: "Brand & UI/UX Designer" | DE: "Brand & UI/UX Designerin"
 contribution — EN: "Entire project completed independently." | DE: "Das gesamte Projekt wurde eigenständig umgesetzt."
-type — EN: "Independent project" | DE: "Eigenständiges Projekt"
-year — EN/DE (same): "2026"
+type — EN: "Semester project · solo" | DE: "Semesterprojekt · allein"
+year — EN/DE (same): undefined
 tools — EN/DE (same): "Figma · Adobe Illustrator"
 deliverables — EN: "Brand identity · Logo system · Mascot · Website design · UI kit · Interactive prototype"
                DE: "Markenidentität · Logosystem · Maskottchen · Website-Design · UI-Kit · Interaktiver Prototyp"
-heroImage.src — /images/wikimind-mrx9dhfo-12ys.png (aspect 16/7.5) — see IMAGES for whether this file is a real export
-heroImage.alt — EN/DE (same): "Placeholder: WikiMind final homepage hero visual"
+heroImage.src — /images/hero-wikimind.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
+heroImage.alt — EN: "The WikiMind mascot presenting a holographic interface"
+                DE: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche"
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
 heading — EN: "The project at a glance" | DE: "Das Projekt auf einen Blick"
@@ -810,14 +811,14 @@ summary — EN: "AFONO is a fictional streetwear brand that combines selected cu
 tags[0..5] — EN/DE (same): "Brand Strategy" / "Visual Identity" / "Fashion Graphics" / "UI/UX Design" / "E-commerce" / "Social Media"
 role — EN: "Brand, Fashion & UI/UX Designer" | DE: "Brand-, Fashion- & UI/UX-Designerin"
 contribution — EN: "Entire project completed independently." | DE: "Das gesamte Projekt wurde eigenständig umgesetzt."
-type — EN: "Independent project" | DE: "Eigenständiges Projekt"
-year — EN/DE (same): "2026"
+type — EN: "Semester project · solo" | DE: "Semesterprojekt · allein"
+year — EN/DE (same): undefined
 tools — EN: "Figma · Adobe Illustrator · Adobe Photoshop · AI tools for conceptual campaign imagery"
         DE: "Figma · Adobe Illustrator · Adobe Photoshop · KI-Tools für konzeptionelle Kampagnenbilder"
 deliverables — EN: "Brand strategy · Naming · Logo · Clothing graphics · E-commerce prototype · Social-media system"
                DE: "Markenstrategie · Naming · Logo · Bekleidungsgrafiken · E-Commerce-Prototyp · Social-Media-System"
-heroImage.src — /images/shop-page-1-mrtp117j-zqqp.png (aspect 16/7.5) — see IMAGES for whether this file is a real export
-heroImage.alt — EN/DE (same): "Placeholder: AFONO campaign hero visual"
+heroImage.src — /images/hero-afono.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
+heroImage.alt — EN: "Print lettering from AFONO's HIMAL series" | DE: "Schriftzüge aus AFONOs HIMAL-Serie"
 heroDisclosure — EN: "Disclosure: The clothing graphics, brand identity and interface design are my original work. AI-generated images were used only as conceptual campaign and product visualisations." | DE: (missing — ISSUE-009)
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
@@ -961,12 +962,13 @@ tags[0..4] — EN/DE (same): "Interaction Design" / "AI Concept" / "Mobile UI" /
 role — EN: "Interaction & UI Designer" | DE: "Interaction & UI Designerin"
 contribution — EN: "Co-developed the concept and interface with one teammate."
                DE: "Konzept und Interface gemeinsam mit einem Teammitglied entwickelt."
-type — EN: "Collaborative university project" | DE: "Gemeinsames Hochschulprojekt"
-year — EN/DE (same): ""
+type — EN: "Semester project · team" | DE: "Semesterprojekt · Team"
+year — EN/DE (same): undefined
 tools — EN/DE (same): ""
 deliverables — EN/DE (same): ""
-heroImage.src — /images/chatgpt-image-jul-23-2026-10_31_15-am-ms50alwm-za74.png (aspect 16/7.5) — see IMAGES for whether this file is a real export
-heroImage.alt — EN/DE (same): "Placeholder: Sync FM mobile interface hero visual"
+heroImage.src — /images/hero-sync-fm.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
+heroImage.alt — EN: "Sync FM's home screen with the news dial and the expanded player"
+                DE: "Der Sync-FM-Homescreen mit Nachrichtenregler und erweitertem Player"
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
 heading — EN: "The project at a glance" | DE: "Das Projekt auf einen Blick"
@@ -1085,12 +1087,13 @@ tags[0..4] — EN/DE (same): "Inclusive Design" / "Design Research" / "Spatial D
 role — EN: "Prototyping & 3D Designer" | DE: "Prototyping & 3D Design"
 contribution — EN: "Created paper and 3D models, materials and textures, and participated in testing."
                DE: "Papier- und 3D-Modelle, Materialien und Texturen erstellt sowie an Tests mitgewirkt."
-type — EN: "Collaborative university project" | DE: "Gemeinsames Hochschulprojekt"
-year — EN/DE (same): ""
+type — EN: "Semester project · team" | DE: "Semesterprojekt · Team"
+year — EN/DE (same): undefined
 tools — EN/DE (same): ""
 deliverables — EN: "Final rendering by a team member." | DE: "Finales Rendering von einem Teammitglied."
-heroImage.src — /images/frame-6-mrtp0czu-dh8i.png (aspect 16/7.5) — see IMAGES for whether this file is a real export
-heroImage.alt — EN: "Final kitchen render, full width" | DE: "Finales Küchen-Rendering, volle Breite"
+heroImage.src — /images/hero-barrier-free-kitchen.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
+heroImage.alt — EN: "The barrier-free kitchen modelled in 3D, seen along the counter"
+                DE: "Die barrierefreie Küche als 3D-Modell, entlang der Arbeitsplatte gesehen"
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
 heading — EN: "The project at a glance" | DE: "Das Projekt auf einen Blick"
@@ -1230,13 +1233,14 @@ tags[0..4] — EN/DE (same): "Brand Identity" / "Graphic Design" / "Print Design
 role — EN: "Illustration, Poster & Web Design" | DE: "Illustration, Poster- & Webdesign"
 contribution — EN: "Created illustrations, one poster, mock-ups and co-designed the website."
                DE: "Illustrationen, ein Poster und Mock-ups gestaltet sowie die Website mitentwickelt."
-type — EN: "Collaborative university project" | DE: "Gemeinsames Hochschulprojekt"
-year — EN/DE (same): ""
+type — EN: "Semester project · team" | DE: "Semesterprojekt · Team"
+year — EN/DE (same): undefined
 tools — EN/DE (same): ""
 deliverables — EN: "Illustration, one poster and mock-ups by Alexsha · Website co-designed · Brand direction collaborative"
                DE: "Illustration, ein Poster und Mock-ups von Alexsha · Website gemeinsam gestaltet · Markenrichtung im Team entwickelt"
-heroImage.src — /images/1-ms52o75m-suju.png (aspect 16/7.5) — see IMAGES for whether this file is a real export
-heroImage.alt — EN: "Surugami poster and identity hero visual, full width" | DE: "Surugami Poster und Identität, volle Breite"
+heroImage.src — /images/hero-surugami.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
+heroImage.alt — EN: "Two Surugami posters inviting people to hands-on origami courses"
+                DE: "Zwei Surugami-Plakate laden zu Origami-Kursen zum Mitmachen ein"
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
 heading — EN: "The project at a glance" | DE: "Das Projekt auf einen Blick"
@@ -1347,12 +1351,13 @@ tags[0..4] — EN/DE (same): "UX Research" / "Information Architecture" / "Produ
 role — EN: "UX/UI Designer & Researcher" | DE: "UX/UI Designerin & Researcherin"
 contribution — EN: "Led most of the UX, interface and usability work. The team supported the surveys."
                DE: "Den Großteil der UX-, Interface- und Usability-Arbeit umgesetzt. Das Team unterstützte die Umfragen."
-type — EN: "Collaborative university project" | DE: "Gemeinsames Hochschulprojekt"
-year — EN: "2024 · 2026 visual iteration" | DE: "2024 · visuelle Iteration 2026"
+type — EN: "Semester project · team" | DE: "Semesterprojekt · Team"
+year — EN/DE (same): undefined
 tools — EN/DE (same): ""
 deliverables — EN/DE (same): ""
-heroImage.src — /images/screenshot-2026-07-07-at-15-29-39-ms52mvv5-d1vc.png (aspect 16/7.5) — see IMAGES for whether this file is a real export
-heroImage.alt — EN: "Redesigned QIS dashboard, full width" | DE: "Neu gestaltetes QIS-Dashboard, volle Breite"
+heroImage.src — /images/hero-qis-portal.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
+heroImage.alt — EN: "The redesigned QIS Portal exam pages shown side by side"
+                DE: "Die überarbeiteten Prüfungsseiten des QIS-Portals nebeneinander"
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
 heading — EN: "The project at a glance" | DE: "Das Projekt auf einen Blick"
@@ -1500,7 +1505,6 @@ viewAllWork — EN: "View all work" | DE: "Alle Projekte ansehen"
 role — EN: "Role" | DE: "Rolle"
 contribution — EN: "Contribution" | DE: "Beitrag"
 type — EN: "Type" | DE: "Typ"
-year — EN: "Year" | DE: "Jahr"
 tools — EN: "Tools" | DE: "Tools"
 deliverables — EN: "Deliverables" | DE: "Ergebnisse"
 ```

@@ -11,8 +11,7 @@ const surugami: CaseStudyLocaleContent = {
     tags: ["Brand Identity", "Graphic Design", "Print Design", "Web Design", "Prototyping"],
     role: "Illustration, Poster & Web Design",
     contribution: "Created illustrations, one poster, mock-ups and co-designed the website.",
-    type: "Collaborative university project",
-    year: "",
+    type: "Semester project · team",
     tools: "",
     deliverables:
       "Illustration, one poster and mock-ups by Alexsha · Website co-designed · Brand direction collaborative",
@@ -161,8 +160,7 @@ const surugami: CaseStudyLocaleContent = {
     tags: ["Brand Identity", "Graphic Design", "Print Design", "Web Design", "Prototyping"],
     role: "Illustration, Poster- & Webdesign",
     contribution: "Illustrationen, ein Poster und Mock-ups gestaltet sowie die Website mitentwickelt.",
-    type: "Gemeinsames Hochschulprojekt",
-    year: "",
+    type: "Semesterprojekt · Team",
     tools: "",
     deliverables:
       "Illustration, ein Poster und Mock-ups von Alexsha · Website gemeinsam gestaltet · Markenrichtung im Team entwickelt",

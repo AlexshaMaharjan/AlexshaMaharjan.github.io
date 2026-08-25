@@ -210,7 +210,6 @@ export interface Dictionary {
     role: string;
     contribution: string;
     type: string;
-    year: string;
     tools: string;
     deliverables: string;
   };

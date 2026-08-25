@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import type { CaseStudyContent } from "@/lib/caseStudies/types";
 import type { Dictionary, ProjectCopy } from "@/lib/dictionaries";
-import type { Locale } from "@/lib/i18n";
+import { localeHref, type Locale } from "@/lib/i18n";
 import CaseStudyHero from "./CaseStudyHero";
-import FactsStrip from "./FactsStrip";
+import CaseStudyIntro from "./CaseStudyIntro";
 import ContentsNav from "./ContentsNav";
 import Section from "./Section";
 import NextProjectNav from "./NextProjectNav";
@@ -28,16 +29,34 @@ export default function CaseStudyPage({
 
   return (
     <article>
-      <CaseStudyHero content={content} dictionary={dictionary} locale={locale} />
-      <FactsStrip content={content} dictionary={dictionary} />
-
-      <section className="pt-[76px] pb-[120px]">
+      {/*
+       * The two-column grid starts at the top of the page, not below a hero.
+       * That is the whole point of the 2026-08-25 layout change: a sticky rail
+       * can only be visible when the page opens if there is nothing above it,
+       * so the hero image and the title block moved inside the right column and
+       * the title block moved inside the Overview section with them.
+       */}
+      <section className="pt-[var(--page-top)] pb-[120px]">
         <div className="container-page">
-          <div className="grid grid-cols-1 gap-10 xl:grid-cols-[240px_minmax(0,1fr)]">
+          <Link
+            to={localeHref(locale, "/#work")}
+            className="tap-target inline-block text-[14px] text-ink-secondary transition-colors hover:text-accent"
+          >
+            {dictionary.caseStudy.backToProjects}
+          </Link>
+
+          <div className="mt-8 grid grid-cols-1 gap-10 xl:grid-cols-[240px_minmax(0,1fr)]">
             <ContentsNav sections={content.sections} dictionary={dictionary} />
             <div className="min-w-0 max-w-[960px]">
+              <CaseStudyHero content={content} />
               {reading.map((section, i) => (
-                <Section key={section.id} section={section} dictionary={dictionary} first={i === 0} />
+                <Section
+                  key={section.id}
+                  section={section}
+                  dictionary={dictionary}
+                  first={i === 0}
+                  intro={i === 0 ? <CaseStudyIntro content={content} dictionary={dictionary} /> : undefined}
+                />
               ))}
             </div>
           </div>
