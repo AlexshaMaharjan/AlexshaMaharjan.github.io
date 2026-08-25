@@ -35,7 +35,7 @@ export default function FactsStrip({
   if (facts.length === 0) return null;
 
   return (
-    <dl className="mt-9 grid max-w-[680px] grid-cols-1 gap-y-3 border-y border-surface-2 py-5 sm:grid-cols-[minmax(0,7.5rem)_minmax(0,1fr)] sm:gap-x-7 sm:gap-y-3.5">
+    <dl className="mt-9 grid grid-cols-1 gap-y-3 border-y border-surface-2 py-5 sm:grid-cols-[minmax(0,9rem)_minmax(0,1fr)] sm:gap-x-8 sm:gap-y-3.5">
       {facts.map((fact) => (
         <Fragment key={fact.label}>
           <dt className="font-mono text-[11px] uppercase leading-[1.5] tracking-[0.08em] text-ink-muted sm:pt-[3px]">
