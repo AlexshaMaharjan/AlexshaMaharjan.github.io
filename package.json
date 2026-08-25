@@ -9,8 +9,9 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "prerender": "node scripts/prerender.mjs",
-    "predeploy": "npm run build && npm run prerender",
-    "deploy": "gh-pages -d dist -b gh-pages --dotfiles"
+    "predeploy": "node scripts/image-variants.mjs --check && npm run build && npm run prerender",
+    "deploy": "gh-pages -d dist -b gh-pages --dotfiles",
+    "images": "node scripts/image-variants.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
