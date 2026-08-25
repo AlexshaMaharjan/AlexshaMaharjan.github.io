@@ -1,45 +1,48 @@
 # Previous Session
 
-**SESSION-016** — 2026-08-25 — `MILESTONE-005` / `MILESTONE-002` — Complete
-Full record: `docs/sessions/session_016.md`. Commits `b83c49a` (images) and the docs commit
-after it.
+**SESSION-017** — 2026-08-25 — owner-directed design change — Complete
+Full record: `docs/sessions/session_017.md`. Commit `a8aa0fd`, plus the docs commit after it.
 
 ## What changed
 
-**18 of 136 image slots are filled, up from 7.** The eleven bento tiles, the six case-study
-heroes, and six prev/next cards. The homepage is a wall of work rather than eleven grey
-rectangles.
+The owner asked for three things on the case-study pages, and they turned out to be one
+change (`DECISION-017`):
 
-**`projects[].image` is live, not dead.** It had been lumped in with `ISSUE-010`'s dead
-fields; `NextProjectNav` renders it at the foot of every case study. Six real slots were
-sitting there showing old placeholder PNGs.
+- **The contents rail is on screen when a case study opens.** It was already `sticky`; it was
+  not *present*, because the grid it lived in only began after a full-width hero and facts
+  strip — close to two screenfuls.
+- **The title, description, tags and facts are inside the Overview section**, through a new
+  optional `intro` slot on `Section`. The page reads `01 Overview` → title → description →
+  tags → facts → the section's own heading → prose.
+- **The headline dropped** from `text-hero` to `text-feature` (84px → 52px at 1440), and the
+  first section's heading from `text-heading` to `text-subheading`, because at 44px under a
+  52px `h1` the two competed.
+- **The facts are a label/value list** at the 680px measure instead of a full-width auto-fit
+  card grid. `year` is gone from the data, the type and the dictionary. `type` now reads
+  "Semester project · solo" / "Semester project · team" in both locales.
 
-**`scripts/image-treat.mjs` is new** — crops, resizes, grades and **measures**, in the Chrome
-this project already drives. It reports the luminance of the two bands where `BentoGrid` puts
-white text and **fails the run if a tile is too bright**, so SESSION-014's measured ceiling is
-now enforced rather than remembered. No dependency; `axe-core` is still the only one.
-
-**The provenance gate did real work.** `DECISION-016` said read each documentation's sources
-page first, and doing so changed what could be used in **all six**. Full table in
-`docs/reference/image_sources.md` and `decision_016.md`. Nothing borrowed shipped.
+All six studies, both locales.
 
 ## What this constrains
 
-- **`DECISION-016` is not a formality — it bites on every document.** Read the sources page.
-- **AFONO's mockups are AI-generated and the owner's own document says so**, calling them
-  placeholders for later real photography. That is a judgement about how they present their
-  work, so it was left to them. AFONO is represented by its logo system and print designs.
-- **Export WebP.** With no responsive pipeline, format is the only lever: eighteen slots came
-  to 475 KB, and the homepage transfers 203 KB of imagery for eleven tiles.
-- **Build `SUGGESTION-012` before the remaining 118.** Eighteen files were hand-sizable; 118
-  are not.
-- **14 legacy PNGs are now orphaned** — 811 KB that would ship. Left in place; they are the
-  owner's files and may be source material.
-- Working method that turned a day into an hour: contact-sheet a whole document and look
-  once; overlay a decile grid to read crop boxes off rather than guess. Expect two or three
-  rounds — the first pass usually leads with a German figure caption.
+- **Nothing may go above the grid in `CaseStudyPage`.** That is the entire mechanism by which
+  the rail is visible on load. Adding a band above it silently undoes `DECISION-017`.
+- **`CaseStudyHero` is the image and nothing else**, rendered inside the reading column at
+  ~960px rather than across the container at ~1280px. That shrink is the price, paid knowingly.
+- **`Section` has an `intro` slot** used only by the first section. It sits between the
+  eyebrow and the heading.
+- The solo/team half of `type` is load-bearing — `DECISION-011` does not allow collaborative
+  work to read as independent.
+- **`npm run build` alone leaves the prerendered heads stale.** `hreflang` reads 0/8 until
+  `npm run prerender` runs. That looked like a regression for a minute and was not.
+
+## What the owner should know
+
+**QIS Portal's year was `"2024 · 2026 visual iteration"`.** Removing the year removed the only
+statement that the project was revisited. If that matters it belongs in prose
+(`MILESTONE-004`).
 
 ## What did not change
 
-`og:image` is still missing (`ISSUE-006`) and is **not a crop** — it is a designed 1200×630
-card. No prose was touched. Nothing pushed, nothing deployed.
+No prose, no images. The rail is still `xl`-and-up, with the collapsible `<details>` below
+1280px. Nothing pushed, nothing deployed.

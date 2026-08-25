@@ -57,7 +57,7 @@ before every export.
       stylised placeholder permanently and which become photographs
 - [ ] Resolve the **14** now-unused files in `public/images/` — 811 KB that would ship. The
       count went up, not down: replacing the old heroes orphaned five more
-- [ ] Give `CaseStudyHero` `priority` so the LCP image is not lazy-loaded
+- [x] Give `CaseStudyHero` `priority` so the LCP image is not lazy-loaded (2026-08-25)
 - [ ] A real `og:image`
 
 ## Relevant Issues

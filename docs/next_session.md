@@ -6,7 +6,7 @@ Every engineering milestone that needs nobody is finished. `MILESTONE-005` is no
 progress rather than blocked**: 18 of 136 image slots are filled from the owner's own project
 documentations (SESSION-016), and the homepage reads as a wall of work.
 
-Work sits on branch `milestone-003-content-model`, **twenty-five commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **twenty-eight commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
 The site is publishable and the pre-flight is written up in `docs/reference/publishing.md`.
@@ -40,18 +40,24 @@ owner plainly.
 Also worth doing, cheap: **resolve the 14 orphaned PNGs** in `public/images/` (811 KB that
 would ship). They need the owner's yes, since they may be source material.
 
+**Before anything else, note what SESSION-017 changed:** `CaseStudyPage` now puts the contents
+rail and the reading column in a grid that starts at the top of the page, and the title,
+description and facts live inside the Overview section (`DECISION-017`). **Nothing may be
+added above that grid** — that is the whole mechanism by which the rail is visible on load.
+
 ## Required Context
 
 Read **only** these:
 
 1. `docs/previous_session.md` — what just changed and what it constrains
-2. `docs/reference/image_sources.md` — the plan, the tools, the two working habits that make
+2. `docs/decisions/decision_017.md` — the case-study layout, if you touch those pages
+3. `docs/reference/image_sources.md` — the plan, the tools, the two working habits that make
    this fast, and what each document's sources page forbids
-3. `docs/decisions/decision_016.md` — what may not ship, and why extraction is manual
-4. `docs/reference/image_crops.json` — every crop already cut; copy an entry to start one
-5. `docs/reference/image_manifest.md` — every remaining slot, its aspect, export width and
+4. `docs/decisions/decision_016.md` — what may not ship, and why extraction is manual
+5. `docs/reference/image_crops.json` — every crop already cut; copy an entry to start one
+6. `docs/reference/image_manifest.md` — every remaining slot, its aspect, export width and
    data path
-6. `docs/milestones/milestone_005.md` — including the `SUGGESTION-012` ordering note
+7. `docs/milestones/milestone_005.md` — including the `SUGGESTION-012` ordering note
 
 Do not read the whole `docs/` folder, and do not re-read the repository.
 

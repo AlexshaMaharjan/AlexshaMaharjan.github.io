@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-25**, after SESSION-016 (the first eighteen image slots filled).
+Snapshot: **2026-08-25**, after SESSION-017 (case studies open with their contents rail).
 
 ## Overall
 
@@ -23,7 +23,9 @@ Roughly: architecture ~90% done, content ~70% drafted, imagery ~5%, polish ~50%.
   build, at 1440px and 390px, both locales, reduced motion on and off.
 - The scroll-pinned process canvas — the site's signature interaction — works on desktop,
   with a proper static fallback for mobile and reduced motion.
-- Six long-form case studies with a shared template, facts strip and prev/next ring.
+- Six long-form case studies with a shared template, a contents rail that is on screen from
+  the moment the page opens, a compact facts list inside Overview (`DECISION-017`) and a
+  prev/next ring.
   Section bodies are a typed block model (`DECISION-014`), so sub-headings, lists and
   editorial notes render distinctly in both locales — 38, 22 and 8 of them respectively.
   The layout is editorial: body text at a 680px measure against media at up to 960px, three

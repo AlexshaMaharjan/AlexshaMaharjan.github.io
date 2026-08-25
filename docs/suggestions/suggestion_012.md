@@ -20,8 +20,8 @@ Separately, GSAP and the case-study bundle are oversized (`ISSUE-019`).
    plus a `srcset` at 3–4 widths, and teach `Image` to use `sizes` properly.
 2. Add explicit `width`/`height` (or keep the existing aspect-ratio wrappers) so nothing
    shifts on load.
-3. Keep `loading="lazy"` everywhere except the LCP hero, which should be `priority`
-   (`Image` already supports this; `CaseStudyHero` currently does **not** pass it).
+3. ~~Keep `loading="lazy"` everywhere except the LCP hero, which should be `priority`~~ —
+   done 2026-08-25: `CaseStudyHero` passes `priority`. The rest of point 3 still stands.
 
 **Bundle:**
 

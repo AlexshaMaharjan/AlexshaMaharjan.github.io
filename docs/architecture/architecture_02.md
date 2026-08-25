@@ -42,7 +42,7 @@ An unknown slug still resolves to `null` immediately, without a round trip, whic
 keeps the 404 instant.
 
 A case study is `CaseStudyContent`: identity fields (`slug`, `name`, `headline`,
-`summary`, `tags`), a facts block (`role`, `contribution`, `type`, `year`, `tools`,
+`summary`, `tags`), a facts block (`type`, `role`, `contribution`, `tools`,
 `deliverables`) rendered by `FactsStrip`, one `heroImage`, and an ordered
 `sections[]`. Each `CaseStudySection` has `id` / `navLabel` / `number` / `heading` plus
 optional `body: Block[]`, `designQuestion`, `insights[]`, `testing[]`, `images[]`.

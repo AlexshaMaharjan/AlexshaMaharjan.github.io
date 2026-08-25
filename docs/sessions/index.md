@@ -20,6 +20,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-014 | 2026-08-25 | MILESTONE-007 / 008 | The last two defects closed, and a deploy pre-flight written down | Complete | `session_014.md` |
 | SESSION-015 | 2026-08-25 | MILESTONE-005 / 002 | The project documentations mapped to the image slots; provenance rule recorded | Complete | `session_015.md` |
 | SESSION-016 | 2026-08-25 | MILESTONE-005 / 002 | The first eighteen image slots filled from the documentations, with a contrast-enforcing treatment tool | Complete | `session_016.md` |
+| SESSION-017 | 2026-08-25 | MILESTONE-003 / 007 | Case studies open with the contents rail; title inside Overview; facts shortened, year removed | Complete | `session_017.md` |
 
 ## Conventions
 

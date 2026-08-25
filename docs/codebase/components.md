@@ -46,11 +46,12 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 
 | File | Lines | Controls |
 | --- | --- | --- |
-| `CaseStudyPage.tsx` | 60 | assembles hero → facts → rail + reading column → closing band → next-project nav. The rail column exists from `xl` (1280px) only; the last section is lifted out of the grid onto its own tinted band (`outro`) |
-| `CaseStudyHero.tsx` | 56 | back link, eyebrow, h1, summary, optional disclosure, tags, hero image or placeholder |
-| `FactsStrip.tsx` | 34 | `<dl>` of Role/Contribution/Type/Year/Tools/Deliverables, empties filtered out |
+| `CaseStudyPage.tsx` | 78 | back link, then **the rail + reading column grid starting at the top of the page**, then the closing band and next-project nav. Nothing sits above the grid, which is what lets the rail be on screen when the page opens (`DECISION-017`). The rail column exists from `xl` (1280px) only; the last section is lifted out onto its own tinted band (`outro`) |
+| `CaseStudyHero.tsx` | 62 | the hero image and nothing else, with the scrubbed drift and `priority` so it is not lazy-loaded. Renders inside the reading column (~960px), not across the container |
+| `CaseStudyIntro.tsx` | 57 | the page's `h1` at `text-feature`, summary, optional disclosure, tags and `FactsStrip`. Rendered *inside* the first section via `Section`'s `intro` slot, so the page reads 01 Overview → title → description → facts → the section's own heading (`DECISION-017`) |
+| `FactsStrip.tsx` | 52 | label/value `<dl>` of Type/Role/Contribution/Tools/Deliverables at the 680px measure, empties filtered out. `year` is gone; `type` carries "Semester project · solo/team" |
 | `ContentsNav.tsx` | 116 | sticky rail from `xl` + collapsible `<details>` below it, both marking the section being read. `useActiveSection` runs an `IntersectionObserver` rebuilt on every pathname change (never mount-only — `ARCH-01`); the rail's left edge fills as a progress track |
-| `Section.tsx` | 187 | one section: number + nav label, heading, `body[]` blocks, then its set pieces and media. One render path; `first` and `outro` vary only spacing, scale and (for `outro`) heading-beside-text. Text sits at a 680px measure, everything else runs wider. `BodyBlock` switches on the block kind — paragraph / `h3` / `list` / `quote` / `note` / `figure` (`DECISION-014`) |
+| `Section.tsx` | 195 | one section: number + nav label, optional `intro` slot, heading, `body[]` blocks, then its set pieces and media. One render path; `first` and `outro` vary only spacing, scale and (for `outro`) heading-beside-text. Text sits at a 680px measure, everything else runs wider. `BodyBlock` switches on the block kind — paragraph / `h3` / `list` / `quote` / `note` / `figure` (`DECISION-014`) |
 | `SectionMedia.tsx` | 62 | groups a section's `images[]` into runs: wide ones (3:2 or wider, or `wide: true`) take the full column and `scale` in, narrower ones pack into a 2- or 3-up grid that staggers. A nested reveal, deliberately (`DECISION-008`) |
 | `Figure.tsx` | 40 | a case-study image slot: `Media` plus a `<figcaption>` when `src` is set |
 | `NextProjectNav.tsx` | 52 | prev/next preview cards + "View all work" |
