@@ -4,7 +4,7 @@ Generated from the content data by `node scripts/image-manifest.mjs --write`. Re
 after adding content or dropping images in; the counts below come from the data rather
 than from anyone's memory of it.
 
-**136 slots. 30 filled, 106 still empty.**
+**136 slots. 42 filled, 94 still empty.**
 
 ## How to fill one
 
@@ -68,25 +68,25 @@ in the data to match the export.
 | ✅ | 07 Final outcome | [ prototype video ] | 16/10 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[6].images[1].src` |
 | ✅ | 07 Final outcome | [ interface detail ] | 16/10 | 1900px | `caseStudies/wikimind.ts → {en,de}.sections[6].images[2].src` |
 
-## Case study — AFONO — 15 slots, 14 empty
+## Case study — AFONO — 15 slots, 2 empty
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
 | ✅ | hero | Print lettering from AFONO's HIMAL series | 16/7.5 | 2560px | `caseStudies/afono.ts → {en,de}.heroImage.src` |
-| 2 | 03 Research | [ interview findings ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[2].images[0].src` |
+| ✅ | 03 Research | [ interview findings ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[2].images[0].src` |
 | 3 | 03 Research | [ market analysis ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[2].images[1].src` |
-| 4 | 05 Strategy & identity | [ logo sketches ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[4].images[0].src` |
-| 5 | 05 Strategy & identity | [ logo system + colours ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[4].images[1].src` |
-| 6 | 06 Collection & e-commerce | [ tee — front ] | 3/4 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[0].src` |
-| 7 | 06 Collection & e-commerce | [ tee — back print ] | 3/4 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[1].src` |
-| 8 | 06 Collection & e-commerce | [ print development ] | 3/4 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[2].src` |
+| ✅ | 05 Strategy & identity | [ logo sketches ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[4].images[0].src` |
+| ✅ | 05 Strategy & identity | [ logo system + colours ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[4].images[1].src` |
+| ✅ | 06 Collection & e-commerce | [ tee — front ] | 3/4 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[0].src` |
+| ✅ | 06 Collection & e-commerce | [ tee — back print ] | 3/4 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[1].src` |
+| ✅ | 06 Collection & e-commerce | [ print development ] | 5/6 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[2].src` |
 | 9 | 06 Collection & e-commerce | [ product page ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[3].src` |
-| 10 | 06 Collection & e-commerce | [ size finder ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[4].src` |
-| 11 | 06 Collection & e-commerce | [ cart ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[5].src` |
-| 12 | 06 Collection & e-commerce | [ checkout ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[6].src` |
-| 13 | 08 Final outcome | [ final brand system — large showcase ] | 16/9 | 1900px | `caseStudies/afono.ts → {en,de}.sections[7].images[0].src` |
-| 14 | 08 Final outcome | [ social media ] | 16/10 | 1900px | `caseStudies/afono.ts → {en,de}.sections[7].images[1].src` |
-| 15 | 08 Final outcome | [ e-commerce prototype ] | 16/10 | 1900px | `caseStudies/afono.ts → {en,de}.sections[7].images[2].src` |
+| ✅ | 06 Collection & e-commerce | [ size finder ] | 7/4 | 1900px | `caseStudies/afono.ts → {en,de}.sections[5].images[4].src` |
+| ✅ | 06 Collection & e-commerce | [ cart ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[5].src` |
+| ✅ | 06 Collection & e-commerce | [ checkout ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[6].src` |
+| ✅ | 08 Final outcome | [ final brand system — large showcase ] | 16/9 | 1900px | `caseStudies/afono.ts → {en,de}.sections[7].images[0].src` |
+| ✅ | 08 Final outcome | [ social media ] | 9/16 | 600px | `caseStudies/afono.ts → {en,de}.sections[7].images[1].src` |
+| ✅ | 08 Final outcome | [ e-commerce prototype ] | 16/10 | 1900px | `caseStudies/afono.ts → {en,de}.sections[7].images[2].src` |
 
 ## Case study — Sync FM — 12 slots, 11 empty
 

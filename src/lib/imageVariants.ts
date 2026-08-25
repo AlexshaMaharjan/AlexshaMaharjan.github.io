@@ -4,6 +4,88 @@
 // beside it as `<stem>-<width>.webp`. `ui/Image` turns this into a `srcset`;
 // anything not listed here renders as a plain `<img>` (`SUGGESTION-012`).
 export const imageVariants: Record<string, { w: number; v: number[] }> = {
+  "/images/afono-brand-system.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ]
+  },
+  "/images/afono-cart.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/afono-checkout.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/afono-colour-system.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/afono-logo-sketches.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/afono-personas.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/afono-print-development.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/afono-prototype.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ]
+  },
+  "/images/afono-size-finder.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/afono-social-system.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-tee-back.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/afono-tee-front.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
   "/images/alexsha_photo-mrx9hbwx-nif2.png": {
     "w": 1720,
     "v": [
