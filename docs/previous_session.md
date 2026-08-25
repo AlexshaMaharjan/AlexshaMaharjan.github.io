@@ -1,12 +1,20 @@
 # Previous Session
 
-**SESSION-017** — 2026-08-25 — owner-directed design change — Complete
-Full record: `docs/sessions/session_017.md`. Commit `a8aa0fd`, plus the docs commit after it.
+**SESSION-018** — 2026-08-25 — owner-directed design change — Complete
+Full record: `docs/sessions/session_018.md` (and `session_017.md` immediately before it).
+Commits `a8aa0fd`, `fecd070`.
 
 ## What changed
 
-The owner asked for three things on the case-study pages, and they turned out to be one
-change (`DECISION-017`):
+**SESSION-018 — one width down the column.** The reading column had four widths running down
+it (media 960, section heading 900, design-question band 840, body 680), so every paragraph
+stopped with 280px of empty page beside it above a figure that ran to the edge. Everything in
+the column now shares the column's width, and body type went to 19px/1.75 to carry the longer
+line. Recorded as `DECISION-014` amendment 2, because it reverses that decision's layout
+point 1.
+
+**SESSION-017 — the layout itself.** The owner asked for three things, and they turned out to
+be one change (`DECISION-017`):
 
 - **The contents rail is on screen when a case study opens.** It was already `sticky`; it was
   not *present*, because the grid it lived in only began after a full-width hero and facts
@@ -23,7 +31,13 @@ change (`DECISION-017`):
 
 All six studies, both locales.
 
-## What this constrains
+## What this constrains — read this before touching a case study
+
+- **The measure is gone on purpose.** `MEASURE` is `max-w-full` and the line is ~101
+  characters at 1440px, past the ~66 that is ideal. SESSION-004's reasoning for 680px was
+  right for its setting; `DECISION-017` changed the setting. **If this is revisited, the lever
+  is the column width, not the measure** — matching them at a comfortable measure means
+  shrinking the media, which the owner explicitly did not want.
 
 - **Nothing may go above the grid in `CaseStudyPage`.** That is the entire mechanism by which
   the rail is visible on load. Adding a band above it silently undoes `DECISION-017`.

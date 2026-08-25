@@ -65,6 +65,12 @@ simply have fewer rows.
 - **`SUGGESTION-008`'s "sticky facts" idea is largely answered.** The facts are no longer a
   band the reader scrolls past and loses; they sit inside Overview, one rail-click away.
 
+## Follow-up, same day
+
+Once the column was narrower, the 680px reading measure inside it read as unfinished rather
+than as rhythm. The owner asked for the text to run to the images, and it now does —
+recorded as `DECISION-014` amendment 2, since that is where the measure was set.
+
 ## Alternatives Rejected
 
 **Leave the hero full-width and start the grid below it.** Keeps the image at 1280px, but at

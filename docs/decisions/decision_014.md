@@ -73,11 +73,11 @@ changed, not the words.
 
 Four further choices, all departures from the reference's single-width column:
 
-1. **Text sits at a 680px measure; media does not.** The reference column ran body text
-   the full 960px — about 110 characters a line, well past comfortable. Text is now
-   capped at ~70 characters and media, set pieces and section headings run wider. That
-   width difference is the page's rhythm, so it is deliberate that text-only sections
-   leave the right-hand side of the column empty.
+1. **~~Text sits at a 680px measure; media does not.~~ — reversed 2026-08-25, see
+   amendment 2 below.** The reference column ran body text the full 960px — about 110
+   characters a line, well past comfortable. Text was capped at ~70 characters while
+   media, set pieces and section headings ran wider, and that width difference was the
+   page's rhythm: text-only sections deliberately left the right of the column empty.
 2. **No viewport-wide full-bleed.** `SUGGESTION-003` asked for full-bleed media moments.
    They were not built: the contents rail is `position: sticky` in the left grid column,
    and anything breaking out leftwards shares its horizontal band and collides with it.
@@ -98,6 +98,32 @@ left the landing short by whatever remained of the tween. That was latent before
 layout's timing made it show up on ordinary cold loads. `useScrollBehavior` now sums
 `offsetTop` and subtracts the element's own `scroll-margin-top`, which is stable while the
 reveal runs. `ISSUE-027` covers the one path that never reaches the hook.
+
+## Amendment 2 — one column width (2026-08-25, owner)
+
+The owner, looking at a case study: *"the size of the images are perfect but why does the
+text end in the middle, and not upto the images?"*
+
+The measure above is reversed. Everything in the reading column — body, lists, quotes, the
+design-question band, section headings, the `h1`, the summary and the facts list — now runs
+the full column width.
+
+**Point 1's reasoning was not wrong; its setting changed.** 680px was chosen in SESSION-004
+when the reading column sat below a full-width hero and beside full-width media, where the
+difference in width read as rhythm. `DECISION-017` moved the hero and the title into the
+column and made it narrower, and in that setting the same gap reads as unfinished — four
+widths down one column (media 960, heading 900, design-question band 840, body 680), every
+paragraph ending with 280px of empty page next to a figure that ran to the edge.
+
+**The cost is real and was accepted knowingly.** The line is now ~101 characters at 1440px,
+against ~76 before and the ~66 that is ideal. Body type went from 18px/1.7 to 19px/1.75,
+because a long line suffers most from tight leading. The alternative — narrowing the column
+so text and media meet at a comfortable measure — costs the image size the owner said was
+right, so it was not taken.
+
+Point 2 (no viewport-wide full-bleed) and point 4 (the closing section leaves the column)
+are unaffected. The closing band's 680px text column is one half of a heading-beside-text
+spread, not a measure cap, and already fills its side.
 
 ## Relevant Files
 
