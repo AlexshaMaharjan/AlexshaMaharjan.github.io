@@ -23,6 +23,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-017 | 2026-08-25 | MILESTONE-003 / 007 | Case studies open with the contents rail; title inside Overview; facts shortened, year removed | Complete | `session_017.md` |
 | SESSION-018 | 2026-08-25 | MILESTONE-003 | One width down the case-study column: text runs to the media edge | Complete | `session_018.md` |
 | SESSION-019 | 2026-08-25 | MILESTONE-005 / SUGGESTION-012 | Responsive image pipeline with no new dependency; WikiMind's twelve section figures | Complete | `session_019.md` |
+| SESSION-020 | 2026-08-25 | MILESTONE-005 | AFONO's twelve section figures; AFONO's sources page re-read and DECISION-016 amended; contact-sheet tooling | Complete | `session_020.md` |
 
 ## Conventions
 

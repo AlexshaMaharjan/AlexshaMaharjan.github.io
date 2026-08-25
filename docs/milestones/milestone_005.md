@@ -1,8 +1,9 @@
 # MILESTONE-005 — Real imagery
 
-Status: **Unblocked, and the files have been located** (2026-08-25) — the mechanism was
-finished on 2026-08-24; SESSION-015 found that most of the missing images already exist,
-inside the owner's six project documentations. See `docs/reference/image_sources.md`.
+Status: **In progress** (2026-08-25) — 42 of 136 slots filled, up from 7 before SESSION-016.
+The mechanism was finished on 2026-08-24; SESSION-015 found that most of the missing images
+already exist inside the owner's six project documentations, and two of the six have now been
+imported end to end. See `docs/reference/image_sources.md`.
 Priority: High
 Goal: Replace stand-ins and placeholders with the owner's actual work.
 
@@ -33,7 +34,9 @@ before every export.
 - [x] **Locate the source material** — six documentations mapped to six projects, with a
       renderer that needs no dependency (`scripts/pdf-page.js`). SESSION-015
 - [ ] **`DECISION-016` on every export** — read the document's sources page first. Surugami's
-      cites Freepik and Pinterest for five pages; those may not ship
+      cites Freepik and Pinterest for five pages; those may not ship. AFONO's turned out to
+      name three borrowed mockup templates the summary in `image_sources.md` had compressed
+      away (`DECISION-016` Amendment 1) — **re-read the page, not the row**
 - [x] **SUGGESTION-012** — the responsive pipeline is in (SESSION-019), and **without**
       moving anything out of `public/images/`: `scripts/image-variants.mjs` writes width
       variants beside the originals and `ui/Image` builds the `srcset` from a generated map.
@@ -49,18 +52,35 @@ before every export.
       WCAG 1.4.3 on the owner's own homepage
 - [ ] **Decide whether Hibi becomes a seventh case study** — two documentations exist for a
       project that has no page. Owner's call; not a gap to fill quietly
-- [x] Fix the three alt strings that literally say "Placeholder: …" — gone (SESSION-016);
-      86 images across 24 route/locale pairs carry real alt text in both locales
+- [ ] **Decide whether AFONO's AI-generated product imagery may be shown.** Its sources page
+      calls it a placeholder for later real photography, and the case study already discloses
+      it in two places. Until it is answered, `[ product page ]` stays hatched — every
+      product screen in the prototype is carried by it
+- [x] Fix the three alt strings that literally say "Placeholder: …" in the case studies —
+      gone (SESSION-016). **134 images across 36 routes carry real alt text in both locales**,
+      verified at 1x, 2x and 3x (SESSION-020)
+- [ ] Eight `about.carouselItems` alt strings still begin "Placeholder: " in both
+      dictionaries. Harmless today because those slots have no `src` and render as the
+      hatched placeholder — but they must not gain one while the string says that
 - [ ] About portrait — a real photograph
-- [ ] Case-study section figures — **12 of 71 done** (WikiMind, SESSION-019). Three of its
-      slots are deliberate placeholders: two have no such figure in the documentation, and
-      the moodboard is stock photography (`DECISION-016`)
+- [ ] Case-study section figures — **24 of 71 done**: WikiMind (SESSION-019) and AFONO
+      (SESSION-020), 12 slots each. Five of those 30 are deliberate placeholders rather than
+      gaps — WikiMind's competitor analysis and wireframes do not exist in its documentation
+      and its moodboard is stock; AFONO's market analysis is competitors' photography, and
+      its product page waits on the owner's AI decision. **Sync FM, Surugami, the
+      barrier-free kitchen and QIS Portal remain** — 47 slots
 - [ ] About carousel — 8 photos
 - [ ] **DECISION-006** — decide with the owner which Playground slots (36) keep the
       stylised placeholder permanently and which become photographs
-- [ ] Resolve the **14** now-unused files in `public/images/` — 811 KB that would ship. The
-      count went up, not down: replacing the old heroes orphaned five more
+- [ ] Resolve the **15** now-unused files in `public/images/` — 817 KB that would ship. The
+      count keeps going up, not down: each replaced file orphans its predecessor, and
+      SESSION-020 added the Sync FM colour stand-in to the pile. Generated *variants* are no
+      longer part of this — `image-variants.mjs` reaps its own output now; these fifteen are
+      the owner's hand-made originals and need their yes
 - [x] Give `CaseStudyHero` `priority` so the LCP image is not lazy-loaded (2026-08-25)
+- [x] **Sync FM's German hero** — was still the 6.9 KB colour stand-in four sessions after
+      the English one was fixed. `scripts/image-manifest.mjs` now diffs `en` against `de` and
+      exits non-zero, which is the only check that can see this class of defect (SESSION-020)
 - [ ] A real `og:image`
 
 ## Relevant Issues

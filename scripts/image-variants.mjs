@@ -22,8 +22,14 @@
  *
  * `--check` regenerates nothing and exits non-zero if the map is out of date,
  * which is what CI would run if this project had any.
+ *
+ * Variants whose source is no longer referenced are **deleted**. They are this
+ * script's own output, so reaping them needs nobody's permission — unlike the
+ * hand-made originals in `public/images/`, which are the owner's files and are
+ * left alone. Without this, re-pointing one `src` silently leaves five orphaned
+ * WebPs behind that still ship (SESSION-020, the Sync FM hero).
  */
-import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { connect, evaluate, setViewport } from "./lib/cdp.mjs";
 
@@ -67,6 +73,19 @@ await cdp.send("Runtime.enable");
 await setViewport(cdp, 400, 300);
 await cdp.send("Page.navigate", { url: "about:blank" });
 await new Promise((r) => setTimeout(r, 300));
+
+/*
+ * Anything matching the generated naming convention whose base is not in
+ * `sources` is this script's own leftovers — reap it before writing.
+ */
+const keep = new Set(sources.map((f) => f.replace(/\.(webp|png|jpe?g)$/i, "")));
+const orphans = readdirSync(DIR).filter(
+  (f) => isVariant(f) && !keep.has(f.replace(/-\d{3,4}\.webp$/, "")),
+);
+if (orphans.length && !check) {
+  for (const f of orphans) unlinkSync(`${DIR}/${f}`);
+  console.log(`removed ${orphans.length} orphaned variant(s): ${orphans.join(", ")}`);
+}
 
 const map = {};
 let written = 0;

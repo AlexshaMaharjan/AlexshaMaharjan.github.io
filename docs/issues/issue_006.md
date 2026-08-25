@@ -1,10 +1,29 @@
-# ISSUE-006 — Five of seven wired-up images are solid-colour stand-ins
+# ISSUE-006 — Wired-up images that are solid-colour stand-ins
 
-Status: Open
+Status: **Mostly resolved** — one stand-in left (the About portrait) plus the `og:image`
 Priority: High
 Category: Content / Assets
 Discovered: 2026-08-22 (documented earlier in `docs/reference/image_files.md`)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-25 (SESSION-020)
+
+## Where this stands (2026-08-25)
+
+The body below describes 2026-08-22 and is kept as the record of what was found. Four
+sessions have changed most of it:
+
+| Then | Now |
+| --- | --- |
+| 4 of 6 case-study heroes were colour blocks | **All six are real**, from the owner's documentations (SESSION-016) |
+| 3 alt strings began "Placeholder: " | Gone from the case studies (SESSION-016). Eight remain in `about.carouselItems` in both dictionaries — those slots have no `src`, so nothing is read aloud today, but they must not gain one while the string says that |
+| The Sync FM hero | English was fixed in SESSION-016; **German was missed and still pointed at the 6.9 KB stand-in until SESSION-020**. `scripts/image-manifest.mjs` now diffs `en` against `de` and exits non-zero, because no browser-side check can see this |
+| 9 unused PNGs | **15**, 817 KB, still shipping — the count keeps rising as replaced files are orphaned. Needs the owner's yes to delete |
+| The About portrait | **Still a stand-in.** `alexsha_photo-mrx9hbwx-nif2.png`, 14 KB at 1720×2150, on `/about` and the homepage. Needs a photograph; nothing in the documentations substitutes |
+| `og:image` | Still absent, so every shared link previews as a blank rectangle. **Not a crop** — a designed 1200×630 card. The single highest-visibility item left in `MILESTONE-005` |
+
+What is left is exactly the part that needs the owner: **a photograph of them, and an
+approved `og:image`.** Neither can be extracted from a project documentation.
+
+---
 
 ## Summary
 

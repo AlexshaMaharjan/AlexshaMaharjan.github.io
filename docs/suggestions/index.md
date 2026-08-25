@@ -24,6 +24,7 @@ layout, correct images, humanised copy, richer animation, design consistency.
 | SUGGESTION-014 | Strengthen the portfolio narrative | Proposed | Medium | High | Medium | M-004 | `suggestion_014.md` |
 | SUGGESTION-015 | Add a validation harness (CI + smoke tests) | Proposed | Low | Medium | Small | M-008 | `suggestion_015.md` |
 | SUGGESTION-016 | Decide and configure deployment | Proposed | Low | Medium | Small | M-008 | `suggestion_016.md` |
+| SUGGESTION-017 | A lone narrow figure should not take the full reading column | Proposed | Low | Medium | Small | M-005 | `suggestion_017.md` |
 
 ## If you only do three things
 

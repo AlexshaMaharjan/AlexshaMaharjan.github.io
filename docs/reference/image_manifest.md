@@ -24,8 +24,9 @@ the images are made and the two states can mix on a page.
 ## Sizes
 
 The width column is the rendered width at a 1440px viewport, doubled for retina screens.
-Exporting wider than that costs load time and gains nothing — there is no responsive
-image pipeline yet (`SUGGESTION-012`), so the file ships at whatever size it is.
+Export at least that wide: `scripts/image-variants.mjs` generates the smaller widths and
+`ui/Image` picks between them, so a larger original costs nothing at display time — but
+nothing can invent detail that was never exported. Run `npm run images` afterwards.
 
 Aspect ratios are what the layout reserves. An image at a different ratio is cropped to
 fill, from the centre — so keep the subject away from the edges, or change the `aspect`
@@ -85,7 +86,7 @@ in the data to match the export.
 | ✅ | 06 Collection & e-commerce | [ cart ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[5].src` |
 | ✅ | 06 Collection & e-commerce | [ checkout ] | 4/3 | 600px | `caseStudies/afono.ts → {en,de}.sections[5].images[6].src` |
 | ✅ | 08 Final outcome | [ final brand system — large showcase ] | 16/9 | 1900px | `caseStudies/afono.ts → {en,de}.sections[7].images[0].src` |
-| ✅ | 08 Final outcome | [ social media ] | 9/16 | 600px | `caseStudies/afono.ts → {en,de}.sections[7].images[1].src` |
+| ✅ | 08 Final outcome | [ social media ] | 3/4 | 600px | `caseStudies/afono.ts → {en,de}.sections[7].images[1].src` |
 | ✅ | 08 Final outcome | [ e-commerce prototype ] | 16/10 | 1900px | `caseStudies/afono.ts → {en,de}.sections[7].images[2].src` |
 
 ## Case study — Sync FM — 12 slots, 11 empty

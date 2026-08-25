@@ -7,6 +7,10 @@
  *
  * Rerun after adding content or dropping images in: the counts and the
  * "still empty" column come from the data, not from a memory of it.
+ *
+ * It also diffs the `en` and `de` image sources against each other, which is the
+ * one image defect a browser sweep cannot see — see the note above
+ * `compareLocales`. Exits non-zero if they disagree.
  */
 import { build } from "esbuild";
 import { mkdtempSync, writeFileSync } from "node:fs";
@@ -88,6 +92,43 @@ for (const category of cats.getAllCategories("en")) {
     add(`Playground — ${category.title}`, "card", item.caption, item.aspect, px(300), Boolean(item.src),
         `playground/categories/${category.slug}.ts → {en,de}.items[${i}].src`));
 }
+/*
+ * Every `src` has to be written into both the `en` and the `de` object, and the
+ * manifest above reads only `en` — so a slot filled in one locale and missed in
+ * the other reports as filled and looks fine in a browser. That is not
+ * hypothetical: SESSION-016 gave Sync FM a real hero in English and left the
+ * German one pointing at a 6.9 KB colour stand-in, and it survived four sessions
+ * of verification because the file loads, has alt text, and is the right shape.
+ * Nothing that checks for broken images can see it. This can.
+ */
+const localeMismatches = [];
+function compareLocales(label, dataPath, enSrcs, deSrcs) {
+  const n = Math.max(enSrcs.length, deSrcs.length);
+  for (let i = 0; i < n; i++) {
+    if (enSrcs[i] !== deSrcs[i]) {
+      localeMismatches.push({ label, dataPath: dataPath(i),
+        en: enSrcs[i] ?? "(missing)", de: deSrcs[i] ?? "(missing)" });
+    }
+  }
+}
+for (const slug of SLUGS) {
+  const loaded = await cs.caseStudyPromise(slug);
+  const [e, d] = ["en", "de"].map((l) => cs.localeContent(loaded, l));
+  const srcs = (c) => [c.heroImage.src,
+    ...(c.sections ?? []).flatMap((sec) => (sec.images ?? []).map((im) => im.src))];
+  compareLocales(`caseStudies/${slug}`, (i) =>
+    i === 0 ? "heroImage.src" : `sections[…].images[…].src (#${i})`, srcs(e), srcs(d));
+}
+{
+  const [e, d] = ["en", "de"].map((l) => dict.getDictionary(l));
+  compareLocales("dictionaries — bento", (i) => `selectedWork.bento[${i}].src`,
+    e.selectedWork.bento.map((t) => t.src), d.selectedWork.bento.map((t) => t.src));
+  compareLocales("dictionaries — about carousel", (i) => `about.carouselItems[${i}].src`,
+    (e.about.carouselItems ?? []).map((c) => c.src), (d.about.carouselItems ?? []).map((c) => c.src));
+  compareLocales("dictionaries — projects", (i) => `projects[${i}].image`,
+    (e.projects ?? []).map((x) => x.image), (d.projects ?? []).map((x) => x.image));
+}
+
 const project = projects.getProject("motorbike-study", "en");
 if (project) {
   add("Playground — Motorbike Study", "main", project.mainCaption, project.mainAspect, px(960), Boolean(project.mainSrc),
@@ -98,6 +139,15 @@ if (project) {
 }
 
 // ---- render ----
+if (localeMismatches.length) {
+  console.error(`\n${localeMismatches.length} image src(es) differ between en and de:`);
+  for (const m of localeMismatches)
+    console.error(`  ✗ ${m.label} → ${m.dataPath}\n      en: ${m.en}\n      de: ${m.de}`);
+  console.error("\nSame file, translated alt. Fix these before trusting the counts below.\n");
+} else {
+  console.error("en/de image srcs match across every case study and dictionary slot.");
+}
+
 const empty = rows.filter((r) => !r.filled).length;
 const bySurface = new Map();
 for (const row of rows) {
@@ -132,8 +182,9 @@ const lines = [
   "## Sizes",
   "",
   "The width column is the rendered width at a 1440px viewport, doubled for retina screens.",
-  "Exporting wider than that costs load time and gains nothing — there is no responsive",
-  "image pipeline yet (`SUGGESTION-012`), so the file ships at whatever size it is.",
+  "Export at least that wide: `scripts/image-variants.mjs` generates the smaller widths and",
+  "`ui/Image` picks between them, so a larger original costs nothing at display time — but",
+  "nothing can invent detail that was never exported. Run `npm run images` afterwards.",
   "",
   "Aspect ratios are what the layout reserves. An image at a different ratio is cropped to",
   "fill, from the centre — so keep the subject away from the edges, or change the `aspect`",
@@ -164,3 +215,4 @@ if (process.argv.includes("--write")) {
 } else {
   process.stdout.write(out);
 }
+if (localeMismatches.length) process.exit(1);

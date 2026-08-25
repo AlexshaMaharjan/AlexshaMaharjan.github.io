@@ -95,15 +95,6 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       1280
     ]
   },
-  "/images/chatgpt-image-jul-23-2026-10_31_15-am-ms50alwm-za74.png": {
-    "w": 1586,
-    "v": [
-      400,
-      640,
-      960,
-      1280
-    ]
-  },
   "/images/hero-afono.webp": {
     "w": 2000,
     "v": [

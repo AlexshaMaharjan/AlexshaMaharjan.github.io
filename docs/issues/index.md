@@ -19,7 +19,7 @@ _None._
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-004 | Homepage work grid has no imagery | **Partially resolved** | High | Tiles take images now; the images are being made | `issue_004.md` |
-| ISSUE-006 | 5 of 7 wired images are colour stand-ins | Open | High | Portrait + 4 case-study heroes are flat blocks | `issue_006.md` |
+| ISSUE-006 | Wired images that are colour stand-ins | Mostly resolved | High | Heroes all real since SESSION-016; German Sync FM fixed SESSION-020. Left: the About portrait, and the `og:image` | `issue_006.md` |
 
 ## Active — Medium
 
