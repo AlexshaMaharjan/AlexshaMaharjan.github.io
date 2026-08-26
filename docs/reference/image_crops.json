@@ -487,5 +487,89 @@
     "aspect": "16/10",
     "page": 42,
     "renderScale": 6
+  },
+  {
+    "src": "../../ProjectsDokus/Enddokumentation.pdf",
+    "out": "public/images/sync-fm-dial.webp",
+    "crop": [
+      0.5932,
+      0.263,
+      0.2939,
+      0.2078
+    ],
+    "width": 600,
+    "aspect": "1/1",
+    "page": 32,
+    "renderScale": 6
+  },
+  {
+    "src": "../../ProjectsDokus/Enddokumentation.pdf",
+    "out": "public/images/sync-fm-mood-bar.webp",
+    "crop": [
+      0.1299,
+      0.617,
+      0.3303,
+      0.2335
+    ],
+    "width": 600,
+    "aspect": "1/1",
+    "page": 23,
+    "renderScale": 6
+  },
+  {
+    "src": "../../ProjectsDokus/Enddokumentation.pdf",
+    "out": "public/images/sync-fm-opinion-filter.webp",
+    "crop": [
+      0.5194,
+      0.3899,
+      0.3682,
+      0.2602
+    ],
+    "width": 600,
+    "aspect": "1/1",
+    "page": 23,
+    "renderScale": 6
+  },
+  {
+    "src": "../../ProjectsDokus/Enddokumentation.pdf",
+    "out": "public/images/sync-fm-logo-system.webp",
+    "crop": [
+      0.1183,
+      0.7307,
+      0.4339,
+      0.1534
+    ],
+    "width": 1200,
+    "aspect": "16/8",
+    "page": 12,
+    "renderScale": 6
+  },
+  {
+    "src": "../../ProjectsDokus/Enddokumentation.pdf",
+    "out": "public/images/sync-fm-components.webp",
+    "crop": [
+      0.6275,
+      0.2693,
+      0.3273,
+      0.1736
+    ],
+    "width": 900,
+    "aspect": "4/3",
+    "page": 34,
+    "renderScale": 6
+  },
+  {
+    "src": "../../ProjectsDokus/Enddokumentation.pdf",
+    "out": "public/images/sync-fm-final-screens.webp",
+    "crop": [
+      0.0223,
+      0.4019,
+      0.963,
+      0.3829
+    ],
+    "width": 1900,
+    "aspect": "16/9",
+    "page": 20,
+    "renderScale": 6
   }
 ]

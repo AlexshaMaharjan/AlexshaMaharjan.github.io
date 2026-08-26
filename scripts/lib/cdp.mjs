@@ -5,13 +5,27 @@ export async function connect(port = 9333) {
   const ws = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise((r, j) => { ws.onopen = r; ws.onerror = j; });
   let id = 0; const pending = new Map();
-  ws.onmessage = (m) => { const msg = JSON.parse(m.data); if (msg.id && pending.has(msg.id)) { pending.get(msg.id)(msg); pending.delete(msg.id); } };
+  // Event subscribers, keyed by CDP method. Needed because a failed request is
+  // only ever an event — `Network.loadingFailed` — and it is the only reliable
+  // way to see a `srcset` candidate that 404s: the browser hides it, and
+  // `img.complete` cannot tell a lazy image mid-load from a broken one.
+  const listeners = new Map();
+  ws.onmessage = (m) => {
+    const msg = JSON.parse(m.data);
+    if (msg.id && pending.has(msg.id)) { pending.get(msg.id)(msg); pending.delete(msg.id); return; }
+    if (msg.method && listeners.has(msg.method)) for (const fn of listeners.get(msg.method)) fn(msg.params);
+  };
   const send = (method, params = {}) => new Promise((resolve, reject) => {
     const myId = ++id;
     pending.set(myId, (msg) => (msg.error ? reject(new Error(method + ": " + JSON.stringify(msg.error))) : resolve(msg.result)));
     ws.send(JSON.stringify({ id: myId, method, params }));
   });
-  return { send, close: () => ws.close() };
+  const on = (method, fn) => {
+    if (!listeners.has(method)) listeners.set(method, new Set());
+    listeners.get(method).add(fn);
+    return () => listeners.get(method).delete(fn);
+  };
+  return { send, on, close: () => ws.close() };
 }
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 export async function evaluate(cdp, expression) {

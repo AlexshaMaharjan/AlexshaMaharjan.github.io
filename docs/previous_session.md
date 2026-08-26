@@ -1,87 +1,90 @@
 # Previous Session
 
-**SESSION-020** — 2026-08-25/26. Full record: `docs/sessions/session_020.md`.
+**SESSION-021** — 2026-08-26. Full record: `docs/sessions/session_021.md`.
 
 ## What it did
 
-**AFONO's section figures, one project end to end** — twelve of its fourteen empty slots,
-cut from the 52-page `DesignProjekt_Dokumentation_Maharjan.pdf`. **136 slots, 42 filled**,
-up from 30. WikiMind and AFONO are now both complete; four case studies remain.
+**Sync FM's figures, one project end to end.** Six of its eleven empty slots filled from
+`Enddokumentation.pdf`; four left hatched on purpose. **136 slots, 48 filled**, up from 42.
+Three case studies are now complete: WikiMind, AFONO, Sync FM.
 
-**Re-read AFONO's sources page before exporting, and it changed the plan.** The row in
-`image_sources.md` said "pages 25–27 are AI-generated". The page itself also names a
-graphicgata iMac template, a pixelbuddha tee mockup, a Behance oversized-tee PSD and five
-fashion brands used as market-analysis references. So the tee mockups on pages 20–21 are
-someone else's garment renders with the owner's print on them, and the market-analysis figure
-is competitors' photography.
+**Reading the sources page moved four slots, not one.** The document has no page headed
+*Quellen* — it has **"Tools und KI"** on page 43, which is the same thing. It says ChatGPT
+wrote the **personas**, Gemini generated the **first logo drafts** and the **3D perspective
+views** of the team's own flat illustrations. `image_sources.md`'s row named only the
+perspective images. That is the second consecutive session where the document said more than
+the index row summarising it — `DECISION-016` Amendment 2.
 
-The tees are therefore represented by **the print artwork itself** rather than by a mockup
-render — the stricter reading of `DECISION-016`, and the better figure: the copy says "a
-small front mark, larger back prints carry the narrative", and the artwork shows exactly that.
-Recorded as `DECISION-016` Amendment 1, with the general point that **the row is an index,
-not a substitute for the page**.
+**The refined-from-generated case.** Page 12 is the clearest example yet of a page that must
+be cropped rather than taken or rejected whole: its top half is a reference photograph plus
+three Gemini drafts, its bottom half is *"Wir haben die KI-generierten Entwürfe eigenständig
+angepasst und verfeinert"* and the two marks that resulted. **The refined vectors ship; the
+drafts and the photo do not.**
 
-**Two slots stay hatched, deliberately** (`DECISION-006`): `[ market analysis ]`, whose figure
-is competitors' photography with no substitute in the document; and `[ product page ]`,
-because every product screen in the prototype is carried by the AI-generated imagery the
-sources page calls a placeholder — **an open owner decision, not a gap.**
+**Four slots stay hatched, and only one for a provenance reason.** `[ competitor comparison ]`
+is prose on page 5 with no figure; `[ persona 01–03 ]` are running text on pages 9–11 with no
+card, portrait or layout to export; `[ ethical-risk diagram ]` has nothing behind it. Section
+03 therefore reads as four hatched panels, which is sparse and true. **A slot is a question
+the manifest asks, not a promise the documentation made.**
 
-## What the verification caught, unrelated to the figures
+## The harness moved into the repository
 
-**Sync FM's German hero was still a 6.9 KB colour stand-in.** SESSION-016 fixed the English
-one and missed the German one, and it survived four sessions of checking because the file
-loads, has proper alt text and is the right aspect. Every browser-side check passes on it.
+Every hand-off has described the checks in prose, and every session has rebuilt them by hand
+in a scratch directory that does not survive. This session's scratchpad was empty again, so
+they are now in the repo:
 
-`scripts/image-manifest.mjs` now diffs `en` against `de` across every case study and
-dictionary slot and exits non-zero when they disagree — proved by putting the defect back.
-The hand-off has repeated *every `src` goes in both objects* every session; it is now checked
-rather than remembered.
+- **`npm run verify`** — `scripts/verify/run.mjs` (`routes`, `images`, `a11y`, `weight`) and
+  `scripts/verify/serve.mjs`, which gzips and implements GitHub Pages' resolution order.
+- **`scripts/ink-box.mjs`** — measures the bounding box of non-white pixels in a band and
+  prints the `crop` for each candidate aspect. SESSION-020 lost three rounds to coordinates
+  read off the decile grid by eye; this settled every Sync FM crop in one pass.
+- **`scripts/contact-sheet.mjs`** was already in from SESSION-020 and did the picking.
+- `docs/reference/verification.md` — what each check knows that a person would forget.
 
-**`image-variants.mjs` never reaped its own output.** Re-pointing that one `src` orphaned four
-generated WebPs that still shipped. It now deletes variants whose source is unreferenced —
-its own files only; the owner's originals are untouched. Orphan count is now 15 files, 817 KB.
+### Two things worth knowing about that harness
 
-## Tooling
+**Its first version could not fail.** `run.mjs`'s header claimed it read failed image
+requests — the signal the hand-off says to trust — and it did not: the listener was declared
+and never subscribed, because `lib/cdp.mjs` had no way to subscribe to CDP events at all.
+`connect()` now returns `on(method, fn)`. Proved by adding a variant to the map that did not
+exist on disk: the page rendered perfectly and the check caught
+`HTTP 404 — /images/sync-fm-dial-640.webp`.
 
-- **`scripts/contact-sheet.mjs`** (new) — `sheet` tiles a rendered document into one labelled
-  image; `grid` overlays a decile grid on a page. Both habits were recommended since
-  SESSION-016 and still done by hand each time. No dependency.
-- **`scripts/image-treat.mjs`** renders a PDF page on demand from `page` + `renderScale`, so
-  `image_crops.json` — which records the source document — is re-runnable, not just descriptive.
+**Every confusing result it produced was self-inflicted.** Two rebuilds landed on top of
+running sweeps and wiped `dist/` under them; an ad-hoc counting script drove the same Chrome
+as a running sweep and made route counts look wildly unstable (`/work/sync-fm` reporting 0
+images it plainly has). Both hazards were already written into the harness's own header.
+Run one thing at a time.
 
-## Verified, against the production build in Chrome
+## Verified
 
-36/36 routes 200/titled/hreflang, driven from the generated `sitemap.xml`. 134 images across
-36 routes at 1x, 2x **and** 3x: 0 broken, 0 missing `alt`, 0 "Placeholder:", 0 failed image
-requests. axe 0 violations, 0 overflow, 0 stuck reveals at 1440 and 390. Journeys green
-across 1440/390 × motion on/off × both locales, rail click included. Reduced motion fully
-static and visible. Lint 0 errors; build and prerender clean.
+Against the production build, through the gzipping Pages-like server.
 
-Weight, whole page, uncached, gzipped: homepage 259 KB (88 img) at 1440/1x; `/work/afono`
-484 KB (309 img); `/work/wikimind` 438 KB (264 img).
+- **36/36 routes** — 200, titled, `hreflang`, driven from the generated `sitemap.xml`.
+  `/work` and `/de/work` correctly 404.
+- **Images at dpr 1, 2 and 3** — 146 images across 36 routes on every pass: 0 broken,
+  0 missing `alt`, 0 `"Placeholder:"`, 0 failed image requests, and per-route counts
+  identical between passes.
+- axe 0 violations; 0 horizontal overflow; 0 stuck reveals at 1440 and 390.
+- Reduced motion: every revealed element visible and untransformed.
+- `en`/`de` image sources identical; variant map current.
+- Lint 0 errors (3 pre-existing warnings); build and prerender clean.
 
-## Worth knowing
+Weight, gzipped: homepage 255 KB (85 img) at 1440/1x, 354 KB (184 img) at 390/3x;
+`/work/sync-fm` 296 KB (124 img) and 406 KB (233 img).
 
-- **Read crop boxes, do not estimate them.** Three rounds were spent recutting crops
-  eyeballed off the decile grid — it read consistently ~0.1 short and every one clipped a
-  figure's right edge. Measuring the non-white bounding box in a band of the page settled
-  each remaining crop in one pass.
-- **A scroll step with no pause never lets `IntersectionObserver` fire**, so 34 images
-  reported broken that were simply never fetched. The signal to trust is *failed requests*,
-  not `img.complete`.
-- **Wait for the page, not for a duration**, before running axe: it hit the Suspense
-  fallback on `/work/surugami` and reported `landmark-one-main` twice.
-- `/work` and `/de/work` return 404 **correctly** — there is no work index route, the
-  homepage bento is the work listing, and nothing links to it.
+## Recorded
 
-## New
-
-`SUGGESTION-017` — a lone narrow figure is given the full 960px reading column, so AFONO's
-social layout system rendered 1700px tall at its true 3/5. Worked around in the crop (four
-of five rows, 3/4, 1280px), but it is a weight bug as well as a layout one and the next
-portrait figure will hit it again.
+- `DECISION-016` Amendment 2 — Tools und KI, the refined-from-generated case, and the
+  "no figure exists" case.
+- `ISSUE-031` — the case study credits **Gemini** with the personas; the documentation says
+  **ChatGPT**. One word per locale, left for the owner under `MILESTONE-004`.
+- `SUGGESTION-017` — hit and worked around a second time. `[ components ]` at 1/1 rendered
+  960×960, three times its size in the app. The crop is now being chosen by what the layout
+  will do with it rather than by what the figure is, which is backwards.
 
 ## Not done
 
-`ISSUE-006`'s remainder — the About portrait and the `og:image`, both of which need the
-owner. The 15 orphaned PNGs. 47 section figures across four case studies.
+`ISSUE-006`'s remainder — the About portrait and the `og:image`, both needing the owner.
+The 15 orphaned PNGs. 41 section figures across the barrier-free kitchen, QIS Portal and
+Surugami.

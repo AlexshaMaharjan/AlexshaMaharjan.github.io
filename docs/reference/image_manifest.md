@@ -4,7 +4,7 @@ Generated from the content data by `node scripts/image-manifest.mjs --write`. Re
 after adding content or dropping images in; the counts below come from the data rather
 than from anyone's memory of it.
 
-**136 slots. 42 filled, 94 still empty.**
+**136 slots. 48 filled, 88 still empty.**
 
 ## How to fill one
 
@@ -89,7 +89,7 @@ in the data to match the export.
 | ✅ | 08 Final outcome | [ social media ] | 3/4 | 600px | `caseStudies/afono.ts → {en,de}.sections[7].images[1].src` |
 | ✅ | 08 Final outcome | [ e-commerce prototype ] | 16/10 | 1900px | `caseStudies/afono.ts → {en,de}.sections[7].images[2].src` |
 
-## Case study — Sync FM — 12 slots, 11 empty
+## Case study — Sync FM — 12 slots, 5 empty
 
 | # | Where | Caption / subject | Aspect | Export width | Data path |
 | --- | --- | --- | --- | --- | --- |
@@ -98,12 +98,12 @@ in the data to match the export.
 | 3 | 03 Analysis & personas | [ persona 01 ] | 3/4 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[2].images[1].src` |
 | 4 | 03 Analysis & personas | [ persona 02 ] | 3/4 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[2].images[2].src` |
 | 5 | 03 Analysis & personas | [ persona 03 ] | 3/4 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[2].images[3].src` |
-| 6 | 05 The three controls | [ sync dial ] | 1/1 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[0].src` |
-| 7 | 05 The three controls | [ mood bar ] | 1/1 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[1].src` |
-| 8 | 05 The three controls | [ opinion filter ] | 1/1 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[2].src` |
-| 9 | 05 The three controls | [ logo + visual system ] | 4/3 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[3].src` |
-| 10 | 05 The three controls | [ components ] | 4/3 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[4].src` |
-| 11 | 06 Final experience | [ final mobile screens — large showcase ] | 16/9 | 1900px | `caseStudies/sync-fm.ts → {en,de}.sections[5].images[0].src` |
+| ✅ | 05 The three controls | [ sync dial ] | 1/1 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[0].src` |
+| ✅ | 05 The three controls | [ mood bar ] | 1/1 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[1].src` |
+| ✅ | 05 The three controls | [ opinion filter ] | 1/1 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[2].src` |
+| ✅ | 05 The three controls | [ logo + visual system ] | 16/8 | 1900px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[3].src` |
+| ✅ | 05 The three controls | [ components ] | 4/3 | 600px | `caseStudies/sync-fm.ts → {en,de}.sections[4].images[4].src` |
+| ✅ | 06 Final experience | [ final mobile screens — large showcase ] | 16/9 | 1900px | `caseStudies/sync-fm.ts → {en,de}.sections[5].images[0].src` |
 | 12 | 07 Evaluation & ethics | [ ethical-risk diagram ] | 16/8 | 1900px | `caseStudies/sync-fm.ts → {en,de}.sections[6].images[0].src` |
 
 ## Case study — Barrier-Free Kitchen — 11 slots, 10 empty

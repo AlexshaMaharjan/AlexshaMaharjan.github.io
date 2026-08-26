@@ -124,3 +124,47 @@ An incidental thumbnail *inside* a screenshot of the owner's own interface — t
 product image in AFONO's order summary — is not covered by this. It is illegible, it is part
 of a UI the owner built, and the existing clause about stock inside a mockup already allows
 it.
+## Amendment 2 — Sync FM, and the case where the figure does not exist (SESSION-021)
+
+`Enddokumentation.pdf` has no page headed *Quellen*. It has one headed **"Tools und KI"**,
+which is the same thing under a different name, and re-reading it moved four slots rather
+than one:
+
+| What page 43 says | What it costs |
+| --- | --- |
+| *"Mit **ChatGPT** haben wir **Personas** für die App erstellt"* | The three persona slots are AI-authored content |
+| *"**Gemini 3 (Nano Banana)** wurde für die **erste Logo-Ideen** verwendet"* | The three logo drafts on page 12 are generated |
+| *"Gemini … um **Perspektivansichten** unserer selbst gestalteten Illustrationen zu generieren"* | The 3D "Geons" renders on pages 36–38 are generated views of the team's own flat artwork |
+| *ElevenLabs as KI-Audio-Generator* | Audio only — no visual consequence |
+
+The row in `image_sources.md` said "page 38 states three perspective images were made with
+AI". That was true and it was not enough: the personas were the bigger exclusion, and they
+are named on a different line of the same page.
+
+### The refined-from-generated case
+
+Page 12 is the clearest example so far of a page that has to be cropped rather than taken or
+rejected whole. Its top half is an uploaded reference photograph of a vintage radio plus
+three Gemini drafts. Its bottom half is the sentence **"Wir haben die KI-generierten Entwürfe
+eigenständig angepasst und verfeinert, um einen klaren flachen Vektorstil mit schwarzem
+Umriss zu erreichen"** — and the two refined marks that resulted.
+
+**The refined vectors ship; the drafts and the reference photo do not.** Redrawing something
+as your own artwork is authorship, and the documentation states it plainly. What ships is
+the part the owner drew.
+
+### When there is no figure at all
+
+Four Sync FM slots were left hatched, and only one of them for a provenance reason:
+
+- `[ competitor comparison ]` — page 5 analyses bigGPT, RadioGPT and Spotify's AI DJ **in
+  prose**. There is no comparison figure to crop.
+- `[ persona 01–03 ]` — pages 9–11 are running text. There is no persona card, no portrait,
+  no layout. Even setting the ChatGPT authorship aside, **there is nothing to export.**
+- `[ ethical-risk diagram ]` — the case study's ethics section is the strongest writing in
+  it, and the documentation has no diagram behind it.
+
+This is worth stating because it is a different failure mode from the ones above, and the
+honest response is the same: leave the hatch, say why. `DECISION-006` already establishes
+that a placeholder is a designed state rather than a defect. **A slot is a question the
+manifest asks, not a promise the documentation made.**

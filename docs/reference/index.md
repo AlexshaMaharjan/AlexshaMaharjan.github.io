@@ -11,9 +11,10 @@ because their source is not in version control.
 | `ROADMAP.md` | repo root | 74 lines | you want the owner's own phased plan (EN content → images → animation → German). `docs/milestones/` is the engineering roadmap; this is the owner's |
 | `image_manifest.md` | here | 254 lines | **making images** — every slot on the site with its aspect ratio, export width and the data path that fills it. Generated: `node scripts/image-manifest.mjs --write` |
 | `publishing.md` | here | — | **publishing the site** — the two commands, what a pre-flight on the built artifact found, and what to check afterwards |
-| `image_crops.json` | here | 17 entries | you are cutting a new image, or re-cutting one — every crop already made, against its source documentation and page. Feed it to `node scripts/image-treat.mjs` |
+| `image_crops.json` | here | 35 entries | you are cutting a new image, or re-cutting one — every crop already made, against its source documentation and page. Feed it to `node scripts/image-treat.mjs` |
 | `image_sources.md` | here | ~170 lines | **filling image slots** — which project documentation feeds which case study, how to render a page out of one, and what may not be taken from it |
 | `image_files.md` | here | 2.9 KB | working with image *files* — states which PNGs are real and which are colour stand-ins |
+| `verification.md` | here | ~90 lines | **verifying any change** — the checks as commands (`npm run verify`), what each one knows that a person would forget, and the traps that are not in the harness |
 | `design-reference/SPEC.md` | **gitignored** | 439 lines | implementing or changing any layout — the condensed, authoritative implementation spec |
 | `design-reference/master-prompt.md` | **gitignored** | 5095 lines | you need original design intent that SPEC.md compressed away |
 | `design-reference/pages/*.dc.html` | **gitignored** | 16 files | you need the exact coded design for one page. `Playground.dc.html` (101 KB) and `Portfolio Home.dc.html` are the largest and most detailed |

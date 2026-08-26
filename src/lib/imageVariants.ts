@@ -155,6 +155,49 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       1600
     ]
   },
+  "/images/sync-fm-components.webp": {
+    "w": 900,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/sync-fm-dial.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/sync-fm-final-screens.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ]
+  },
+  "/images/sync-fm-logo-system.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/sync-fm-mood-bar.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
+  "/images/sync-fm-opinion-filter.webp": {
+    "w": 600,
+    "v": [
+      400
+    ]
+  },
   "/images/tile-afono-brand.webp": {
     "w": 900,
     "v": [

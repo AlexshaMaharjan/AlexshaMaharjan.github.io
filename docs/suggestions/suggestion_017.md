@@ -64,3 +64,18 @@ chosen by looking at the pages, not picked here.
 `DECISION-017` settled case-study layout deliberately and recently. This is a refinement
 inside it, not a reopening of it, and it should be verified the same way: the 1440/390 ×
 motion-on/off journeys, and the reveal ring.
+
+## Hit again, SESSION-021
+
+Sync FM's `[ components ]` figure — four navigation cards, naturally 778×877 in the source —
+was cut at 1/1 and rendered **960×960**, blowing the cards up to roughly three times their
+size in the app. Same cause, same workaround: crop to a wider aspect (back to the declared
+4/3, 960×720) until the height is reasonable.
+
+That is twice in two sessions, and the workaround is getting less honest each time. The crop
+is now being chosen by what the layout will do with it rather than by what the figure is,
+which is backwards. Two of Sync FM's five figures in that section had their aspect decided
+this way.
+
+**The remaining three case studies will hit it too** — the kitchen and QIS both have portrait
+figures in their manifests. Worth fixing before them rather than after.

@@ -81,6 +81,11 @@ before every export.
 - [x] **Sync FM's German hero** — was still the 6.9 KB colour stand-in four sessions after
       the English one was fixed. `scripts/image-manifest.mjs` now diffs `en` against `de` and
       exits non-zero, which is the only check that can see this class of defect (SESSION-020)
+- [x] **WikiMind, AFONO and Sync FM's section figures** — 30 of the 71, done one project at a
+      time (SESSION-019, 020, 021). Roughly one session per project
+- [ ] **The last three case studies' figures** — the barrier-free kitchen (10), QIS Portal
+      (11), Surugami (10). Surugami is the hard one: 407 MB, no text layer, and its sources
+      page puts the moodboards and personas out of reach
 - [ ] A real `og:image`
 
 ## Relevant Issues

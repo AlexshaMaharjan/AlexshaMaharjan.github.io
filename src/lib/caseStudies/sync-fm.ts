@@ -97,11 +97,11 @@ const syncFm: CaseStudyLocaleContent = {
           "The logo transforms a traditional radio into a simple character-like form. Initial concepts were generated with Gemini and then adjusted and refined by the team into a flat vector system. This AI-assisted stage is disclosed within the process.",
         ],
         images: [
-          { aspect: "1/1", caption: "[ sync dial ]" },
-          { aspect: "1/1", caption: "[ mood bar ]" },
-          { aspect: "1/1", caption: "[ opinion filter ]" },
-          { aspect: "4/3", caption: "[ logo + visual system ]" },
-          { aspect: "4/3", caption: "[ components ]" },
+          { aspect: "1/1", caption: "[ sync dial ]", src: "/images/sync-fm-dial.webp", alt: "The sync dial, segmented into the six news categories it turns between" },
+          { aspect: "1/1", caption: "[ mood bar ]", src: "/images/sync-fm-mood-bar.webp", alt: "The three sliders in the app: news type from negative to positive, location from local to global, and truth level" },
+          { aspect: "1/1", caption: "[ opinion filter ]", src: "/images/sync-fm-opinion-filter.webp", alt: "The expanded player, with the truth-level scale reading 75 out of 100 beneath the headline" },
+          { aspect: "16/8", caption: "[ logo + visual system ]", src: "/images/sync-fm-logo-system.webp", alt: "The two refined Sync FM marks: the outlined radio and the filled robot" },
+          { aspect: "4/3", caption: "[ components ]", src: "/images/sync-fm-components.webp", alt: "Navigation cards for the general, voice, topic and model settings" },
         ],
       },
       {
@@ -113,7 +113,7 @@ const syncFm: CaseStudyLocaleContent = {
           "The final prototype presents a mobile radio experience centred on the current audio stream. The Sync Dial remains visually dominant because it controls the broadest change. Secondary controls adjust presenter tone and interpretation without interrupting listening.",
           "The result is not a complete functioning AI-radio service. It is an interaction prototype demonstrating how editorial control could be introduced without requiring a complex settings dashboard.",
         ],
-        images: [{ aspect: "16/9", caption: "[ final mobile screens — large showcase ]" }],
+        images: [{ aspect: "16/9", caption: "[ final mobile screens — large showcase ]", src: "/images/sync-fm-final-screens.webp", alt: "Three screens: the news dial, the dial with its filters set, and the expanded player" }],
       },
       {
         id: "testing",
@@ -247,11 +247,11 @@ const syncFm: CaseStudyLocaleContent = {
           "Das Logo verwandelt ein traditionelles Radio in eine einfache, charakterähnliche Form. Erste Konzepte wurden mit Gemini generiert und anschließend vom Team zu einem flachen Vektorsystem angepasst und verfeinert. Diese KI-gestützte Phase wird im Prozess transparent dargestellt.",
         ],
         images: [
-          { aspect: "1/1", caption: "[ sync dial ]" },
-          { aspect: "1/1", caption: "[ mood bar ]" },
-          { aspect: "1/1", caption: "[ opinion filter ]" },
-          { aspect: "4/3", caption: "[ logo + visual system ]" },
-          { aspect: "4/3", caption: "[ components ]" },
+          { aspect: "1/1", caption: "[ sync dial ]", src: "/images/sync-fm-dial.webp", alt: "Der Drehregler, segmentiert in die sechs Nachrichtenkategorien, zwischen denen er wechselt" },
+          { aspect: "1/1", caption: "[ mood bar ]", src: "/images/sync-fm-mood-bar.webp", alt: "Die drei Regler der App: Nachrichtentyp von negativ bis positiv, Standort von lokal bis global und Wahrheitsgrad" },
+          { aspect: "1/1", caption: "[ opinion filter ]", src: "/images/sync-fm-opinion-filter.webp", alt: "Der erweiterte Player mit der Wahrheitsgrad-Skala bei 75 von 100 unter der Schlagzeile" },
+          { aspect: "16/8", caption: "[ logo + visual system ]", src: "/images/sync-fm-logo-system.webp", alt: "Die zwei verfeinerten Sync-FM-Marken: das umrissene Radio und der ausgefüllte Roboter" },
+          { aspect: "4/3", caption: "[ components ]", src: "/images/sync-fm-components.webp", alt: "Navigationskarten für die Einstellungen zu Allgemein, Stimme, Themen und Modell" },
         ],
       },
       {
@@ -263,7 +263,7 @@ const syncFm: CaseStudyLocaleContent = {
           "Der finale Prototyp zeigt ein mobiles Radioerlebnis, das sich auf den aktuellen Audiofluss konzentriert. Der Sync Dial bleibt visuell dominant, da er die umfassendste Veränderung steuert. Sekundäre Steuerungen verändern Moderationston und Interpretation, ohne das Zuhören zu unterbrechen.",
           "Das Ergebnis ist kein vollständig funktionierender KI-Radiosender. Es handelt sich um einen Interaktionsprototyp, der zeigt, wie redaktionelle Kontrolle eingeführt werden könnte, ohne ein komplexes Einstellungs-Dashboard zu erzeugen.",
         ],
-        images: [{ aspect: "16/9", caption: "[ final mobile screens — large showcase ]" }],
+        images: [{ aspect: "16/9", caption: "[ final mobile screens — large showcase ]", src: "/images/sync-fm-final-screens.webp", alt: "Drei Screens: der Nachrichtenregler, der Regler mit gesetzten Filtern und der erweiterte Player" }],
       },
       {
         id: "testing",

@@ -60,12 +60,28 @@ non-zero if a tile is too bright**, so a failing export is caught at export rath
 review. `docs/reference/image_crops.json` holds the eighteen crops already cut, each against
 its source document and page — copy an entry to start a new one.
 
-Two habits from SESSION-016 worth repeating, because they turned a day into an hour:
+**`scripts/contact-sheet.mjs`** and **`scripts/ink-box.mjs`** are the two habits from
+SESSION-016 and SESSION-020, made into commands in SESSION-021 rather than redone by hand
+each time:
 
-- **Contact-sheet a whole document and look once.** A hundred pages at 0.32 scale tiled into
-  one screenshot beats a hundred separate looks.
-- **Overlay a decile grid to pick crops.** Then a crop box is read off rather than guessed.
-  Expect two or three rounds; the first pass usually leads with a German figure caption.
+```bash
+osascript -l JavaScript scripts/pdf-page.js "<pdf>" "1-43" /tmp/doc 0.5
+node scripts/contact-sheet.mjs sheet /tmp/doc /tmp/sheet.png --cols 8 --cell 300
+node scripts/contact-sheet.mjs grid /tmp/doc/p032.png /tmp/grid.png --width 1000
+node scripts/ink-box.mjs /tmp/doc/p032.png --band 0.25,0.47 --cols 0.57,0.95
+```
+
+- **Contact-sheet a whole document and look once.** A hundred pages tiled into one screenshot
+  beats a hundred separate looks.
+- **Grid-overlay to choose *what* to crop**, then **`ink-box` to decide *where*.** The grid
+  is for picking the figure; reading coordinates off it by eye is what cost SESSION-020 three
+  rounds — it reads short, and every crop clipped a figure's right edge. `ink-box` measures
+  the bounding box of non-white pixels in a band and prints the `crop` for each candidate
+  aspect, computed from that box's own centre.
+- **Narrow the band until the number stops moving.** A band that reaches into the purple
+  page header, or a column limit that clips the body text mid-word, silently widens the box —
+  both happened in SESSION-021, and both showed up as a stray `en` in the export. Sweeping
+  the limit (`0.57`, `0.59`, `0.61`) until the answer stabilises takes seconds and settles it.
 
 Aspect is never given directly — give a centre, a width fraction and the target ratio, and
 let the height fall out of the source's own pixel size. A crop then cannot distort.
@@ -118,7 +134,7 @@ page is the source.
 | `Usability_SoSe24…` (QIS) | flaticon icons, Freepik illustrations, and a login background from a Google image search. Its "Originale" screenshots are the university's existing portal, not the team's design |
 | `Dokumentation_Kueche…` | three Sketchfab models — the wheelchair figure, a jar, a decor pack. The scene and the kitchen are the team's |
 | `DesPr1…` (WikiMind) | no sources page — but its persona photographs (9–11) are unattributed stock, so leave them |
-| `Enddokumentation.pdf` (Sync FM) | no sources page — but page 38 states three perspective images were made with AI |
+| `Enddokumentation.pdf` (Sync FM) | no page headed *Quellen* — but page 43, **"Tools und KI"**, is one: ChatGPT wrote the **personas**, Gemini generated the **first logo drafts** and the **3D perspective views** of the team's flat illustrations. Read it in full; the summary that used to sit in this row named only the perspective images and missed the personas |
 
 Where a page mixes the owner's diagram with borrowed imagery, **crop to the owner's part**.
 That is what SESSION-016 did: AFONO is represented by its logo system and print designs
@@ -140,6 +156,8 @@ Value per unit of effort, highest first.
 
 **2. ~~The six case-study heroes~~** — done, SESSION-016, along with six prev/next cards that
 turned out to be live rather than dead (`projects[].image`, rendered by `NextProjectNav`).
+Sync FM's German hero was still a colour stand-in until SESSION-020; `image-manifest.mjs`
+now diffs `en` against `de` and exits non-zero, so that cannot recur silently.
 
 **3. `og:image`** (`ISSUE-006`). Still open, and **not a crop**: it is a designed 1200×630
 card with the owner's name on it. Making one out of a documentation page would be inventing a

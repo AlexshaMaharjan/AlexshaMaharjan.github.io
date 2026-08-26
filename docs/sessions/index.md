@@ -24,6 +24,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-018 | 2026-08-25 | MILESTONE-003 | One width down the case-study column: text runs to the media edge | Complete | `session_018.md` |
 | SESSION-019 | 2026-08-25 | MILESTONE-005 / SUGGESTION-012 | Responsive image pipeline with no new dependency; WikiMind's twelve section figures | Complete | `session_019.md` |
 | SESSION-020 | 2026-08-25 | MILESTONE-005 | AFONO's twelve section figures; AFONO's sources page re-read and DECISION-016 amended; contact-sheet tooling | Complete | `session_020.md` |
+| SESSION-021 | 2026-08-26 | Sync FM's figures (6 of 11, 4 hatched with reasons); DECISION-016 Amendment 2; the verification harness moves into the repository | `session_021.md` |
 
 ## Conventions
 

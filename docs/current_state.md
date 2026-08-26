@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-08-26**, after SESSION-020 (AFONO's figures; DECISION-016 amended; en/de image parity now checked).
+Snapshot: **2026-08-26**, after SESSION-021 (Sync FM's figures; the verification harness moved into the repository).
 
 ## Overall
 
@@ -11,7 +11,7 @@ both structured and laid out. What remains is mostly content the repository cann
 for itself: real photographs, and a copy pass. Plus one homepage section that still shows
 grey tiles.
 
-Roughly: architecture ~90% done, content ~70% drafted, imagery ~31% (42 of 136 slots), polish ~50%.
+Roughly: architecture ~90% done, content ~70% drafted, imagery ~35% (48 of 136 slots), polish ~50%.
 
 ## Working
 
@@ -43,6 +43,10 @@ Roughly: architecture ~90% done, content ~70% drafted, imagery ~31% (42 of 136 s
   `npm run prerender` writes it and `predeploy` runs it.
 - **A case study loads only itself** — 13 KB of page shell plus 15–22 KB for that study,
   where all six used to arrive together (`ISSUE-019`, `DECISION-015`).
+- **The verification harness is in the repository** (`npm run verify`, `docs/reference/verification.md`).
+  Routes, images at 1x/2x/3x, axe, overflow, stuck reveals, reduced motion and page weight,
+  against the production build through a gzipping server that behaves like GitHub Pages. It
+  had been rebuilt by hand from prose every session; SESSION-021 moved it in.
 - `npm run build` green; `npm run lint` 0 errors, 3 warnings.
 
 ## Broken or unusable
@@ -65,19 +69,21 @@ page scrolls sideways at any width from 320px to 1920px.
   (SESSION-016), no copy, English
   only (`ISSUE-004`, `ISSUE-005`). Uncommitted, direction unconfirmed (`DECISION-010`).
 - **Case-study content** — the layout is done; the writing has not been through its pass
-  (`MILESTONE-004`), and **24 of the 71 section figures are filled** — WikiMind and AFONO,
-  end to end. Sync FM, Surugami, the barrier-free kitchen and QIS Portal are still hatched
-  (`MILESTONE-005`). Those two are what stands between the case studies and finished.
-- **Imagery — 42 of 136 slots filled**, up from 7 before SESSION-016. The eleven bento tiles,
-  all six case-study heroes, six prev/next cards, and the section figures for WikiMind and
-  AFONO (12 each). All cut from the owner's six project documentations, which SESSION-015
+  (`MILESTONE-004`), and **30 of the 71 section figures are filled** — WikiMind, AFONO and
+  Sync FM, end to end, at roughly one session each. Surugami, the barrier-free kitchen and
+  QIS Portal are still hatched (`MILESTONE-005`). Those two are what stands between the case
+  studies and finished.
+- **Imagery — 48 of 136 slots filled**, up from 7 before SESSION-016. The eleven bento tiles,
+  all six case-study heroes, six prev/next cards, and the section figures for WikiMind (12),
+  AFONO (12) and Sync FM (6). All cut from the owner's six project documentations, which SESSION-015
   mapped in `docs/reference/image_sources.md`, and served responsively: variants beside each
   original, a generated `srcset` map, and `predeploy` refusing to build on a stale one.
   Verified at 1x, 2x and 3x — 134 images across 36 routes, none broken, none missing `alt`.
   `DECISION-016` governs what may be taken: only the owner's own work, since these are
-  academic documents that cite stock, Pinterest and licensed mockup templates inside
-  themselves. **Read the document's sources page, not this file's summary of it** — Amendment 1
-  records what re-reading AFONO's found.
+  academic documents that cite stock, Pinterest, licensed mockup templates and generative AI
+  inside themselves. **Read the document's sources page, not this file's summary of it** —
+  Amendments 1 and 2 record what re-reading AFONO's and Sync FM's found, which in both cases
+  moved slots the index row would have left alone.
   The remaining stand-in is the About portrait (`ISSUE-006`), and there is still no
   `og:image`.
 - **Motion** — one vocabulary (`src/lib/motion.ts`) that the reveals, the page transition
@@ -179,7 +185,7 @@ material, not choices:
 
 | Waiting on | Blocks |
 | --- | --- |
-| The owner's time to extract and grade the remaining 94 slots — source material and tooling both exist | the rest of `MILESTONE-005` |
+| The owner's time to extract and grade the remaining 88 slots — source material and tooling both exist | the rest of `MILESTONE-005` |
 | **Whether AFONO's AI-generated product imagery may be shown** | 1 AFONO slot, and better options for 2 more |
 | ~~A responsive image pipeline~~ — built in SESSION-019 | — |
 | A decision on whether Hibi becomes a seventh case study | nothing; it is an addition, not a gap |
@@ -192,14 +198,14 @@ material, not choices:
    without moving anything out of `public/images/`. `scripts/image-variants.mjs` writes
    variants beside the originals; `ui/Image` builds the `srcset`; `predeploy` refuses a stale
    map. No new dependency.
-2. **The remaining 47 case-study figures** — Sync FM, Surugami, the barrier-free kitchen,
-   QIS Portal. Source material, tooling and the method are all in place
-   (`docs/reference/image_sources.md`, `image_crops.json`, `scripts/contact-sheet.mjs`).
-   Two projects have gone through end to end at roughly one session each.
+2. **The remaining 41 case-study figures** — the barrier-free kitchen, QIS Portal, Surugami.
+   Source material, tooling and the method are all in place (`image_sources.md`,
+   `image_crops.json`, `scripts/contact-sheet.mjs`, `scripts/ink-box.mjs`). Three projects
+   have gone through end to end at roughly one session each; Surugami is the hard one.
 3. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
 4. **Publishing.** The pre-flight is done and the artifact is sound; the two commands are
-   in `docs/reference/publishing.md`. **Thirty-eight commits exist only on a local branch**,
+   in `docs/reference/publishing.md`. **Thirty-nine commits exist only on a local branch**,
    which is now the largest gap between what is built and what anyone can see — and this
    would be the first publish showing real imagery on two full case studies. The only thing
    that will look wrong once live is the link-preview image.
