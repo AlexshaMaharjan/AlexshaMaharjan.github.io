@@ -103,8 +103,8 @@ const en: Dictionary = {
       year: "2026",
       image: "/images/hero-wikimind.webp",
       placeholderLabel: "[ wikimind — final homepage ]",
-      imageAlt: "The WikiMind mascot presenting a holographic interface",
-      imageAspect: "16/7.5",
+      imageAlt: "The WikiMind homepage shown on a laptop, beside the case-study title",
+      imageAspect: "1900/1066",
       featured: true,
     },
     {
