@@ -16,8 +16,8 @@ const wikimind: CaseStudyLocaleContent = {
     deliverables: "Brand identity · Logo system · Mascot · Website design · UI kit · Interactive prototype",
     heroImage: {
       src: "/images/hero-wikimind.webp",
-      alt: "The WikiMind mascot presenting a holographic interface",
-      aspect: "16/7.5",
+      alt: "The WikiMind homepage shown on a laptop, beside the case-study title",
+      aspect: "1900/1066",
     },
     sections: [
       {
@@ -56,9 +56,9 @@ const wikimind: CaseStudyLocaleContent = {
         ],
         images: [
           { aspect: "16/8", caption: "[ competitor analysis ]" },
-          { aspect: "3/4", caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona one: a logistics managing director, with goals and buying behaviour" },
-          { aspect: "3/4", caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona two: a university professor, with goals and buying behaviour" },
-          { aspect: "3/4", caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona three: an e-commerce customer service lead, with goals and buying behaviour" },
+          { aspect: "1600/1131", wide: true, caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona one: a logistics managing director, with his personality, responsibilities and online behaviour" },
+          { aspect: "1600/1131", wide: true, caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona two: a university dean, with her personality, responsibilities and online behaviour" },
+          { aspect: "1600/1131", wide: true, caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona three: an e-commerce customer service lead, with her personality, responsibilities and online behaviour" },
         ],
       },
       {
@@ -111,11 +111,12 @@ const wikimind: CaseStudyLocaleContent = {
           "A dolphin was introduced as a controlled brand character. Dolphins are commonly associated with intelligence, curiosity and social behaviour, which supported the desired perception of WikiMind. The mascot is used selectively in the hero, educational explanations and transitional moments rather than across every section of the website.",
         ],
         images: [
-          { aspect: "4/3", caption: "[ moodboard ]" },
-          { aspect: "6/5", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "The blue palette and gradient beside the Inter weights used across the site" },
-          { aspect: "27/10", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines" },
-          { aspect: "4/3", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "The final WikiMind logo in its gradient and single-colour versions" },
-          { aspect: "16/8", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
+          { aspect: "1400/1153", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.webp", alt: "The visual reference board: blue tones, dolphin imagery, interface examples and the gradient wordmark" },
+          { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
+          { aspect: "1600/515", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "The five brand colours with their hex values, beside the four Inter weights" },
+          { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines" },
+          { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "The WikiMind logo in gradient, in solid black and in its horizontal lockups" },
+          { aspect: "1600/1317", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
         ],
       },
       {
@@ -129,9 +130,10 @@ const wikimind: CaseStudyLocaleContent = {
           "The interface system uses rounded containers, generous spacing and a limited visual hierarchy to soften the technical subject. Reusable components were created for navigation, buttons, content cards, input fields, service sections, icons, footer, hover states and feedback animations. The component approach keeps the website visually consistent while supporting future expansion.",
         ],
         images: [
-          { aspect: "16/8", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "The site structure: a home page over four sections and three sub-pages" },
+          { aspect: "1600/485", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "The site structure: a home page over four sections and three sub-pages" },
           { aspect: "4/3", caption: "[ wireframes ]" },
-          { aspect: "4/3", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "The interface kit: type scale, colour, icons, buttons and the footer" },
+          { aspect: "1400/1369", caption: "[ component library ]", src: "/images/wikimind-components.webp", alt: "The component library: navigation, buttons, the logo strip, team cards and the footer" },
+          { aspect: "1600/1034", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "The interface kit: logo, navigation, mascot, type scale, colour, icons, buttons and the footer" },
         ],
       },
       {
@@ -144,7 +146,7 @@ const wikimind: CaseStudyLocaleContent = {
           "The result is an interactive Figma prototype that demonstrates the main page system, navigation behaviour and visual language of WikiMind.",
         ],
         images: [
-          { aspect: "16/9", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "The services and AI-software pages of the finished site" },
+          { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Five pages of the finished site shown side by side" },
           { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "The chatbot page shown in the interactive Figma prototype" },
           { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "The team page and footer of the finished site" },
         ],
@@ -179,8 +181,8 @@ const wikimind: CaseStudyLocaleContent = {
     deliverables: "Markenidentität · Logosystem · Maskottchen · Website-Design · UI-Kit · Interaktiver Prototyp",
     heroImage: {
       src: "/images/hero-wikimind.webp",
-      alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche",
-      aspect: "16/7.5",
+      alt: "Die WikiMind-Startseite auf einem Laptop, neben dem Titel der Fallstudie",
+      aspect: "1900/1066",
     },
     sections: [
       {
@@ -219,9 +221,9 @@ const wikimind: CaseStudyLocaleContent = {
         ],
         images: [
           { aspect: "16/8", caption: "[ competitor analysis ]" },
-          { aspect: "3/4", caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona 1: Geschäftsführer eines Logistikunternehmens, mit Zielen und Kaufverhalten" },
-          { aspect: "3/4", caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona 2: Hochschulprofessorin, mit Zielen und Kaufverhalten" },
-          { aspect: "3/4", caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona 3: Leiterin Kundenservice im E-Commerce, mit Zielen und Kaufverhalten" },
+          { aspect: "1600/1131", wide: true, caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona 1: Geschäftsführer eines Logistikunternehmens, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
+          { aspect: "1600/1131", wide: true, caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona 2: Dekanin einer Hochschule, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
+          { aspect: "1600/1131", wide: true, caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona 3: Leiterin Kundenservice im E-Commerce, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
         ],
       },
       {
@@ -274,11 +276,12 @@ const wikimind: CaseStudyLocaleContent = {
           "Ein Delfin wurde als gezielt eingesetzter Markencharakter entwickelt. Delfine werden häufig mit Intelligenz, Neugier und sozialem Verhalten verbunden und unterstützen damit die gewünschte Wahrnehmung von WikiMind. Das Maskottchen wird selektiv im Hero-Bereich, in erklärenden Inhalten und bei Übergängen eingesetzt, nicht auf jeder Website-Sektion.",
         ],
         images: [
-          { aspect: "4/3", caption: "[ moodboard ]" },
-          { aspect: "6/5", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "Die blaue Farbpalette und der Farbverlauf neben den verwendeten Inter-Schnitten" },
-          { aspect: "27/10", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M" },
-          { aspect: "4/3", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "Das finale WikiMind-Logo in der Verlaufs- und der einfarbigen Version" },
-          { aspect: "16/8", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
+          { aspect: "1400/1153", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.webp", alt: "Das visuelle Referenzboard: Blautöne, Delfin-Motive, Interface-Beispiele und die Wortmarke mit Farbverlauf" },
+          { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
+          { aspect: "1600/515", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "Die fünf Markenfarben mit ihren Hex-Werten, neben den vier Inter-Schnitten" },
+          { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M" },
+          { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "Das WikiMind-Logo mit Farbverlauf, in Schwarz und in den horizontalen Varianten" },
+          { aspect: "1600/1317", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
         ],
       },
       {
@@ -292,9 +295,10 @@ const wikimind: CaseStudyLocaleContent = {
           "Das Interface-System arbeitet mit abgerundeten Containern, großzügigen Abständen und einer reduzierten visuellen Hierarchie. Wiederverwendbare Komponenten wurden für Navigation, Buttons, Inhaltskarten, Eingabefelder, Leistungsbereiche, Icons, Footer, Hover-Zustände und Feedback-Animationen entwickelt. Der modulare Ansatz hält die Website visuell konsistent und ermöglicht spätere Erweiterungen.",
         ],
         images: [
-          { aspect: "16/8", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
+          { aspect: "1600/485", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
           { aspect: "4/3", caption: "[ wireframes ]" },
-          { aspect: "4/3", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Typoskala, Farben, Icons, Buttons und die Fußzeile" },
+          { aspect: "1400/1369", caption: "[ component library ]", src: "/images/wikimind-components.webp", alt: "Die Komponentenbibliothek: Navigation, Buttons, Logoleiste, Teamkarten und Fußzeile" },
+          { aspect: "1600/1034", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Logo, Navigation, Maskottchen, Typoskala, Farben, Icons, Buttons und Fußzeile" },
         ],
       },
       {
@@ -307,7 +311,7 @@ const wikimind: CaseStudyLocaleContent = {
           "Das Ergebnis ist ein interaktiver Figma-Prototyp, der das zentrale Seitensystem, das Navigationsverhalten und die visuelle Sprache von WikiMind demonstriert.",
         ],
         images: [
-          { aspect: "16/9", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Die Angebots- und KI-Software-Seiten der fertigen Website" },
+          { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
           { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "Die Chatbot-Seite im interaktiven Figma-Prototyp" },
           { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "Die Team-Seite und die Fußzeile der fertigen Website" },
         ],

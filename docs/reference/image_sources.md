@@ -18,7 +18,7 @@ finished, cropped, resized exports land in `public/images/`.
 
 | Document | Pages | Project | Slug | Slots it feeds |
 | --- | --- | --- | --- | --- |
-| `DesPr1_Alexsha_Maharjan_Doku.pdf` | 24 | Design Projekt I — Corporate Identity & Webdesign | `wikimind` | 15 |
+| `DesPr1_Alexsha_Maharjan_Doku.pdf` | 24 | Design Projekt I — Corporate Identity & Webdesign | `wikimind` | 2 (superseded — see below) |
 | `DesignProjekt_Dokumentation_Maharjan.pdf` | 52 | Markenidentität und Website-Design | `afono` | 14 |
 | `Enddokumentation.pdf` | 43 | Interaktionsdesign — SYNC FM | `sync-fm` | 11 |
 | `FInalDesmeth.pdf` | 100 | Design Methods — origami community | `surugami` | 10 |
@@ -133,7 +133,7 @@ page is the source.
 | `DesignProjekt…` (AFONO) | **more than the AI pages.** *"KI-generierte Mockups (ChatGPT) — Mode- und Produktmockups"* covers every product visual in the prototype, not only pages 25–27; plus a graphicgata iMac template, a pixelbuddha tee mockup, a Behance oversized-tee PSD, and Zara/Mango/H&M/Noah NYC/Awake NY as the market-analysis references. See `DECISION-016` Amendment 1 |
 | `Usability_SoSe24…` (QIS) | flaticon icons, Freepik illustrations, and a login background from a Google image search. Its "Originale" screenshots are the university's existing portal, not the team's design |
 | `Dokumentation_Kueche…` | three Sketchfab models — the wheelchair figure, a jar, a decor pack. The scene and the kitchen are the team's |
-| `DesPr1…` (WikiMind) | no sources page — but its persona photographs (9–11) are unattributed stock, so leave them |
+| `DesPr1…` (WikiMind) | no sources page. Its persona portraits (9–11) are unattributed stock or AI, and its moodboard is a board of references. SESSION-022 ships the owner's own full-frame exports, portraits and all — flagged as `ISSUE-032`, which is the owner's call |
 | `Enddokumentation.pdf` (Sync FM) | no page headed *Quellen* — but page 43, **"Tools und KI"**, is one: ChatGPT wrote the **personas**, Gemini generated the **first logo drafts** and the **3D perspective views** of the team's flat illustrations. Read it in full; the summary that used to sit in this row named only the perspective images and missed the personas |
 
 Where a page mixes the owner's diagram with borrowed imagery, **crop to the owner's part**.
@@ -163,11 +163,20 @@ now diffs `en` against `de` and exits non-zero, so that cannot recur silently.
 card with the owner's name on it. Making one out of a documentation page would be inventing a
 brand asset rather than filling a slot.
 
-**4. The 71 case-study section figures — 24 done, 47 to go.** The bulk of the work, and the
+**4. The 73 case-study section figures — 33 done, 40 to go.** The bulk of the work, and the
 most mechanical: the manifest names each one (`[ persona 01 ]`, `[ sitemap ]`, `[ ui kit ]`)
 and the documentation almost always has exactly that figure. Do one project end to end rather
-than one figure type across six. WikiMind (SESSION-019) and AFONO (SESSION-020) are done, 12
-slots each; Sync FM, Surugami, the barrier-free kitchen and QIS Portal remain.
+than one figure type across six. WikiMind (SESSION-019, re-shot from supplied originals in
+SESSION-022), AFONO (SESSION-020) and Sync FM (SESSION-021) are done; Surugami, the
+barrier-free kitchen and QIS Portal remain.
+
+**A documentation is not the only source.** WikiMind's figures now come from
+`Images/wikimind/` — PNGs the owner exported from the design files themselves, which are
+sharper, uncropped and in some cases show figures the PDF never contained. Where such
+originals exist, prefer them: a page render is a photograph of a document, and an export is
+the artefact. `image_crops.json` records the two kinds identically, by source path, so both
+stay re-runnable. The originals are ignored by git for the same reason `ProjectsDokus/` is —
+only finished exports ship.
 
 **5. About and Playground** (46 slots). These are not in the documentations — Playground is
 personal work and About needs a photograph. `DECISION-006` says almost all of them are meant

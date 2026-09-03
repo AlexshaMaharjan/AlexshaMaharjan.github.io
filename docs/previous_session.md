@@ -1,90 +1,62 @@
 # Previous Session
 
-**SESSION-021** — 2026-08-26. Full record: `docs/sessions/session_021.md`.
+**SESSION-022** — 2026-09-03. Full record: `docs/sessions/session_022.md`.
 
 ## What it did
 
-**Sync FM's figures, one project end to end.** Six of its eleven empty slots filled from
-`Enddokumentation.pdf`; four left hatched on purpose. **136 slots, 48 filled**, up from 42.
-Three case studies are now complete: WikiMind, AFONO, Sync FM.
+**Re-shot WikiMind's figures from originals the owner supplied**, in `Images/wikimind/` —
+fourteen files exported from the design files themselves rather than rendered from
+`DesPr1_Alexsha_Maharjan_Doku.pdf`. Every one is placed at **its own aspect ratio**, which is
+what the session was asked for: the placeholder changes shape to fit the image, never the
+reverse.
 
-**Reading the sources page moved four slots, not one.** The document has no page headed
-*Quellen* — it has **"Tools und KI"** on page 43, which is the same thing. It says ChatGPT
-wrote the **personas**, Gemini generated the **first logo drafts** and the **3D perspective
-views** of the team's own flat illustrations. `image_sources.md`'s row named only the
-perspective images. That is the second consecutive session where the document said more than
-the index row summarising it — `DECISION-016` Amendment 2.
+**138 slots, 51 filled** (was 136 / 48). WikiMind went from 16 slots with 3 hatched to **18
+with 2** — the moodboard slot had been hatched since the manifest was written and is now
+filled, and two images had no slot at all: `[ initial sketches ]` and `[ component library ]`.
 
-**The refined-from-generated case.** Page 12 is the clearest example yet of a page that must
-be cropped rather than taken or rejected whole: its top half is a reference photograph plus
-three Gemini drafts, its bottom half is *"Wir haben die KI-generierten Entwürfe eigenständig
-angepasst und verfeinert"* and the two marks that resulted. **The refined vectors ship; the
-drafts and the photo do not.**
+## The thing worth carrying forward
 
-**Four slots stay hatched, and only one for a provenance reason.** `[ competitor comparison ]`
-is prose on page 5 with no figure; `[ persona 01–03 ]` are running text on pages 9–11 with no
-card, portrait or layout to export; `[ ethical-risk diagram ]` has nothing behind it. Section
-03 therefore reads as four hatched panels, which is sparse and true. **A slot is a question
-the manifest asks, not a promise the documentation made.**
+**An owner-supplied export beats a page render, every time.** A PDF page is a photograph of a
+document — its margins, its compression, whatever crop the layout imposed. These PNGs are the
+artefacts. They are sharper, they are uncropped, and three of them show figures the PDF never
+contained. **Before exporting anything from a documentation, ask whether an export already
+exists.** The remaining three projects have not been asked this question.
 
-## The harness moved into the repository
+**Every declared aspect ratio was wrong.** Not approximately — none of the fourteen matched the
+file it was about to hold. They were designers' round numbers (`3/4`, `16/8`, `27/10`), and
+`ui/Media` paints with `object-cover`, so each mismatch was a silent crop waiting to happen.
+The personas were declared `3/4` portrait and are actually landscape: 40% of every card would
+have been thrown away. Aspects now carry exact pixel ratios — `1600/1131`, `1200/1805` — because
+a number measured from the file cannot drift from it.
 
-Every hand-off has described the checks in prose, and every session has rebuilt them by hand
-in a scratch directory that does not survive. This session's scratchpad was empty again, so
-they are now in the repo:
+**Aspect drives layout, so changing aspects re-arranged the page.** `SectionMedia` gives the
+full column to anything ≥ 1.5 and grids everything else. Six slots crossed that line; figure
+order was re-ordered to suit, and the three personas carry `wide: true` — the project's first
+use of that flag — because at a third of the column a persona card is 217px tall and nothing
+on it can be read.
 
-- **`npm run verify`** — `scripts/verify/run.mjs` (`routes`, `images`, `a11y`, `weight`) and
-  `scripts/verify/serve.mjs`, which gzips and implements GitHub Pages' resolution order.
-- **`scripts/ink-box.mjs`** — measures the bounding box of non-white pixels in a band and
-  prints the `crop` for each candidate aspect. SESSION-020 lost three rounds to coordinates
-  read off the decile grid by eye; this settled every Sync FM crop in one pass.
-- **`scripts/contact-sheet.mjs`** was already in from SESSION-020 and did the picking.
-- `docs/reference/verification.md` — what each check knows that a person would forget.
+## What it left for the owner
 
-### Two things worth knowing about that harness
-
-**Its first version could not fail.** `run.mjs`'s header claimed it read failed image
-requests — the signal the hand-off says to trust — and it did not: the listener was declared
-and never subscribed, because `lib/cdp.mjs` had no way to subscribe to CDP events at all.
-`connect()` now returns `on(method, fn)`. Proved by adding a variant to the map that did not
-exist on disk: the page rendered perfectly and the check caught
-`HTTP 404 — /images/sync-fm-dial-640.webp`.
-
-**Every confusing result it produced was self-inflicted.** Two rebuilds landed on top of
-running sweeps and wiped `dist/` under them; an ad-hoc counting script drove the same Chrome
-as a running sweep and made route counts look wildly unstable (`/work/sync-fm` reporting 0
-images it plainly has). Both hazards were already written into the harness's own header.
-Run one thing at a time.
+- **`ISSUE-032`** — the persona cards ship their stock/AI portraits, and the moodboard is half
+  other people's images. `DECISION-016` makes this the owner's call; four options are written up.
+- **`/work/wikimind` is now the heaviest page on the site** — 637 KB, 463 KB of it imagery, at
+  1440/1x. Re-encoding the photographic figures at q0.78–0.82 took 390/3x from 904 to 796 KB.
+  Dropping `wide: true` from the personas would save ~120 KB and make them unreadable. That is a
+  trade, so it is reported, not taken.
+- **`[ prototype video ]` and `[ interface detail ]` still use SESSION-019's PDF crops** — the
+  folder had no replacement. Next to the new exports they are visibly softer. If originals exist
+  for those two, they are the cheapest remaining win on this page.
 
 ## Verified
 
-Against the production build, through the gzipping Pages-like server.
+Against the production build through `scripts/verify/serve.mjs`: routes 36/36; **152 images
+across 36 routes at dpr 1, 2 and 3**, 0 broken, 0 missing `alt`, 0 failed requests, per-route
+counts identical at all three densities; axe 0 violations; 0 overflow; reduced motion static;
+`tsc` clean; lint 0 errors (3 pre-existing warnings); `image-manifest.mjs` exits 0 on en/de
+parity. All four changed sections screenshotted at 1440px and read.
 
-- **36/36 routes** — 200, titled, `hreflang`, driven from the generated `sitemap.xml`.
-  `/work` and `/de/work` correctly 404.
-- **Images at dpr 1, 2 and 3** — 146 images across 36 routes on every pass: 0 broken,
-  0 missing `alt`, 0 `"Placeholder:"`, 0 failed image requests, and per-route counts
-  identical between passes.
-- axe 0 violations; 0 horizontal overflow; 0 stuck reveals at 1440 and 390.
-- Reduced motion: every revealed element visible and untransformed.
-- `en`/`de` image sources identical; variant map current.
-- Lint 0 errors (3 pre-existing warnings); build and prerender clean.
+## One mistake
 
-Weight, gzipped: homepage 255 KB (85 img) at 1440/1x, 354 KB (184 img) at 390/3x;
-`/work/sync-fm` 296 KB (124 img) and 406 KB (233 img).
-
-## Recorded
-
-- `DECISION-016` Amendment 2 — Tools und KI, the refined-from-generated case, and the
-  "no figure exists" case.
-- `ISSUE-031` — the case study credits **Gemini** with the personas; the documentation says
-  **ChatGPT**. One word per locale, left for the owner under `MILESTONE-004`.
-- `SUGGESTION-017` — hit and worked around a second time. `[ components ]` at 1/1 rendered
-  960×960, three times its size in the app. The crop is now being chosen by what the layout
-  will do with it rather than by what the figure is, which is backwards.
-
-## Not done
-
-`ISSUE-006`'s remainder — the About portrait and the `og:image`, both needing the owner.
-The 15 orphaned PNGs. 41 section figures across the barrier-free kitchen, QIS Portal and
-Surugami.
+The first image sweep ran **without `serve.mjs` started**, so 36 routes navigated to a refused
+connection and timed out silently for twenty minutes. `run.mjs` neither starts the server nor
+checks it is there. One `fetch` of the base URL before the sweep would make that failure legible.

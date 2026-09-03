@@ -25,6 +25,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-019 | 2026-08-25 | MILESTONE-005 / SUGGESTION-012 | Responsive image pipeline with no new dependency; WikiMind's twelve section figures | Complete | `session_019.md` |
 | SESSION-020 | 2026-08-25 | MILESTONE-005 | AFONO's twelve section figures; AFONO's sources page re-read and DECISION-016 amended; contact-sheet tooling | Complete | `session_020.md` |
 | SESSION-021 | 2026-08-26 | Sync FM's figures (6 of 11, 4 hatched with reasons); DECISION-016 Amendment 2; the verification harness moves into the repository | `session_021.md` |
+| SESSION-022 | 2026-09-03 | WikiMind re-shot from owner-supplied originals — 14 figures at their true aspect ratios, 2 new slots, 1 previously hatched slot filled; ISSUE-032 | `session_022.md` |
 
 ## Conventions
 

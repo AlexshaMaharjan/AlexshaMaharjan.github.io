@@ -2,12 +2,12 @@
 
 ## Status
 
-`MILESTONE-005` is **in progress and moving steadily**: 48 of 136 image slots filled, up from
+`MILESTONE-005` is **in progress and moving steadily**: 51 of 138 image slots filled, up from
 7 before SESSION-016. **Three case studies are complete end to end** — WikiMind, AFONO,
 Sync FM — at roughly one session each. Every engineering milestone that needs nobody is
 finished.
 
-Work sits on branch `milestone-003-content-model`, **thirty-nine commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **forty commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
 The site is publishable; the pre-flight is in `docs/reference/publishing.md`. Two commands,
@@ -23,7 +23,14 @@ between what is built and what anyone can see is the largest thing on this list.
 
 ## Objective
 
-**Finish the case-study figures. Three projects, 41 slots, one project end to end.**
+**Finish the case-study figures. Three projects, 40 slots, one project end to end.**
+
+**Ask the owner for their own exports before rendering a single PDF page.** SESSION-022
+replaced all of WikiMind's figures with PNGs the owner had exported straight from the design
+files, and they beat the page renders on every axis: sharper, uncropped, and three of them
+showed figures the PDF did not contain at all. That question has not been asked about the
+barrier-free kitchen, QIS Portal or Surugami — and Surugami especially, at 407 MB with no text
+layer, would be transformed by it. **It costs one sentence and can save a session.**
 
 Suggested order — easiest first, hardest last:
 
@@ -48,6 +55,11 @@ Then:
 5. **The 15 orphaned PNGs** — 817 KB that ships and that nothing references. Owner's yes.
 6. **`SUGGESTION-017`** — see below. It is now the thing most likely to distort the remaining
    work.
+7. **`ISSUE-032`** — WikiMind's persona portraits and moodboard tiles are not the owner's work.
+   Four options are written up; all of them need the owner.
+8. **WikiMind's last two soft figures** — `[ prototype video ]` and `[ interface detail ]` still
+   carry SESSION-019's PDF crops and sit next to thirteen sharp exports. If the owner has
+   originals, this is minutes of work.
 
 ## Read this before cutting anything
 
@@ -77,7 +89,21 @@ node scripts/contact-sheet.mjs grid /tmp/doc/p012.png /tmp/grid.png --width 1000
 node scripts/ink-box.mjs /tmp/doc/p012.png --band 0.72,0.95 --cols 0.08,0.58
 node scripts/image-treat.mjs <spec.json>     # a job names the PDF + page + renderScale
 npm run images                                # after ANY image change
+
+# verification needs its server started first — run.mjs does NOT start or check it
+node scripts/verify/serve.mjs dist 8099 &
+npm run verify -- images                      # one check at a time; the server is single-threaded
 ```
+
+**Start `serve.mjs` before any `verify` subcommand.** SESSION-022 forgot, and 36 routes
+navigated to a refused connection and timed out silently for twenty minutes. It looks exactly
+like a hang. `run.mjs` defaults its base to `127.0.0.1:8099` and never checks anything is there.
+
+**An aspect ratio in the content data is a crop instruction.** `ui/Media` sets `aspectRatio`
+from the data and paints with `object-cover`, so a declared aspect that does not match the file
+silently throws away the difference — and `SectionMedia` also reads it to decide full-column
+versus grid, so it moves the layout too. Declare the exported file's exact pixel ratio
+(`1600/1131`), never a round number chosen by eye. All fourteen of WikiMind's were wrong.
 
 **The grid picks *what* to crop; `ink-box` decides *where*.** Reading coordinates off the grid
 by eye cost SESSION-020 three rounds — it reads short, and every crop clipped a figure's right

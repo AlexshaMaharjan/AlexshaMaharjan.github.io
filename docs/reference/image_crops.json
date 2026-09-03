@@ -231,21 +231,6 @@
     "renderScale": 5
   },
   {
-    "src": "../../ProjectsDokus/DesPr1_Alexsha_Maharjan_Doku.pdf",
-    "out": "public/images/hero-wikimind.webp",
-    "crop": [
-      0.18,
-      0.2568,
-      0.68,
-      0.2463
-    ],
-    "width": 2000,
-    "aspect": "16/7.5",
-    "quality": 0.82,
-    "page": 16,
-    "renderScale": 5
-  },
-  {
     "src": "../../ProjectsDokus/DesignProjekt_Dokumentation_Maharjan.pdf",
     "out": "public/images/hero-afono.webp",
     "crop": [
@@ -571,5 +556,187 @@
     "aspect": "16/9",
     "page": 20,
     "renderScale": 6
+  },
+  {
+    "src": "Images/wikimind/Hero image.png",
+    "out": "public/images/hero-wikimind.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1900,
+    "height": 1066,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/wikimind/Persona1.png",
+    "out": "public/images/wikimind-persona-01.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1131,
+    "quality": 0.78
+  },
+  {
+    "src": "Images/wikimind/Persona2.png",
+    "out": "public/images/wikimind-persona-02.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1131,
+    "quality": 0.78
+  },
+  {
+    "src": "Images/wikimind/Persona3.png",
+    "out": "public/images/wikimind-persona-03.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1131,
+    "quality": 0.78
+  },
+  {
+    "src": "Images/wikimind/Moodboard.png",
+    "out": "public/images/wikimind-moodboard.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1400,
+    "height": 1153,
+    "quality": 0.8
+  },
+  {
+    "src": "Images/wikimind/InitialSketches.png",
+    "out": "public/images/wikimind-initial-sketches.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1805,
+    "quality": 0.78
+  },
+  {
+    "src": "Images/wikimind/TypographyColor.png",
+    "out": "public/images/wikimind-colour-type.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 515,
+    "quality": 0.9
+  },
+  {
+    "src": "Images/wikimind/LogoSketch.png",
+    "out": "public/images/wikimind-logo-sketch.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1420,
+    "height": 516,
+    "quality": 0.9
+  },
+  {
+    "src": "Images/wikimind/LogoVarients.png",
+    "out": "public/images/wikimind-logo-variants.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 460,
+    "quality": 0.9
+  },
+  {
+    "src": "Images/wikimind/Mascot.png",
+    "out": "public/images/wikimind-mascot.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1317,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/wikimind/Sitemap.png",
+    "out": "public/images/wikimind-sitemap.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 485,
+    "quality": 0.9
+  },
+  {
+    "src": "Images/wikimind/Components.png",
+    "out": "public/images/wikimind-components.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1400,
+    "height": 1369,
+    "quality": 0.8
+  },
+  {
+    "src": "Images/wikimind/Visualle Baukasten.png",
+    "out": "public/images/wikimind-ui-kit.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1034,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/wikimind/Screens.png",
+    "out": "public/images/wikimind-final-screens.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 714,
+    "quality": 0.82
   }
 ]

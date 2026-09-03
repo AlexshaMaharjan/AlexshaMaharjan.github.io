@@ -146,7 +146,7 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/hero-wikimind.webp": {
-    "w": 2000,
+    "w": 1900,
     "v": [
       400,
       640,
@@ -271,20 +271,37 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/wikimind-colour-type.webp": {
-    "w": 900,
-    "v": [
-      400,
-      640
-    ]
-  },
-  "/images/wikimind-final-screens.webp": {
-    "w": 1900,
+    "w": 1600,
     "v": [
       400,
       640,
       960,
-      1280,
-      1600
+      1280
+    ]
+  },
+  "/images/wikimind-components.webp": {
+    "w": 1400,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/wikimind-final-screens.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/wikimind-initial-sketches.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
     ]
   },
   "/images/wikimind-interface.webp": {
@@ -298,7 +315,7 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/wikimind-logo-sketch.webp": {
-    "w": 1200,
+    "w": 1420,
     "v": [
       400,
       640,
@@ -306,37 +323,56 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/wikimind-logo-variants.webp": {
-    "w": 600,
-    "v": [
-      400
-    ]
-  },
-  "/images/wikimind-mascot.webp": {
-    "w": 1900,
+    "w": 1600,
     "v": [
       400,
       640,
       960,
-      1280,
-      1600
+      1280
+    ]
+  },
+  "/images/wikimind-mascot.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/wikimind-moodboard.webp": {
+    "w": 1400,
+    "v": [
+      400,
+      640,
+      960
     ]
   },
   "/images/wikimind-persona-01.webp": {
-    "w": 600,
+    "w": 1600,
     "v": [
-      400
+      400,
+      640,
+      960,
+      1280
     ]
   },
   "/images/wikimind-persona-02.webp": {
-    "w": 600,
+    "w": 1600,
     "v": [
-      400
+      400,
+      640,
+      960,
+      1280
     ]
   },
   "/images/wikimind-persona-03.webp": {
-    "w": 600,
+    "w": 1600,
     "v": [
-      400
+      400,
+      640,
+      960,
+      1280
     ]
   },
   "/images/wikimind-prototype.webp": {
@@ -350,19 +386,21 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/wikimind-sitemap.webp": {
-    "w": 1900,
+    "w": 1600,
     "v": [
       400,
       640,
       960,
-      1280,
-      1600
+      1280
     ]
   },
   "/images/wikimind-ui-kit.webp": {
-    "w": 600,
+    "w": 1600,
     "v": [
-      400
+      400,
+      640,
+      960,
+      1280
     ]
   }
 };
