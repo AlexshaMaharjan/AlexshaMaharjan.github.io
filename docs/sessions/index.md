@@ -27,6 +27,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-021 | 2026-08-26 | Sync FM's figures (6 of 11, 4 hatched with reasons); DECISION-016 Amendment 2; the verification harness moves into the repository | `session_021.md` |
 | SESSION-022 | 2026-09-03 | WikiMind re-shot from owner-supplied originals — 14 figures at their true aspect ratios, 2 new slots, 1 previously hatched slot filled; ISSUE-032 | `session_022.md` |
 | SESSION-023 | 2026-09-04 | Figures move inline to their prose (`figures` block); SUGGESTION-017 implemented; full-screen figure viewer for mobile legibility (DECISION-018); ISSUE-033 | `session_023.md` |
+| SESSION-024 | 2026-09-04 | Surugami built entirely from supplied exports — 8 figures plus a new hero, 3 slots deliberately hatched; ISSUE-034 | `session_024.md` |
 
 ## Conventions
 

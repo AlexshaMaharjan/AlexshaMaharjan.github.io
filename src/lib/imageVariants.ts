@@ -126,7 +126,7 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/hero-surugami.webp": {
-    "w": 2000,
+    "w": 1900,
     "v": [
       400,
       640,
@@ -153,6 +153,76 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       960,
       1280,
       1600
+    ]
+  },
+  "/images/surugami-brand-system.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/surugami-concept-map.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/surugami-flyer.webp": {
+    "w": 1400,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/surugami-posters.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/surugami-research-board.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/surugami-sitemap.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/surugami-website.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/surugami-wireframes.webp": {
+    "w": 1400,
+    "v": [
+      400,
+      640,
+      960
     ]
   },
   "/images/sync-fm-components.webp": {

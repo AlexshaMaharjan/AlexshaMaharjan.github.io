@@ -129,7 +129,7 @@ page is the source.
 
 | Document | What its own sources page says |
 | --- | --- |
-| `FInalDesmeth.pdf` (Surugami) | Freepik photographs by URL, and *"P4, P5, P6, P7, P8: All references were taken from Pinterest"* — its moodboards (7–9) and personas (12–13) are out |
+| `FInalDesmeth.pdf` (Surugami) | Freepik photographs by URL, and *"P4, P5, P6, P7, P8: All references were taken from Pinterest"* — its moodboards (7–9) and personas (12–13) are out. **Superseded in SESSION-024**: the owner supplied nine exports in `Images/Surugami/`, none of which touch those pages. The poster board's mock-up environments are the remaining question (`ISSUE-034`) |
 | `DesignProjekt…` (AFONO) | **more than the AI pages.** *"KI-generierte Mockups (ChatGPT) — Mode- und Produktmockups"* covers every product visual in the prototype, not only pages 25–27; plus a graphicgata iMac template, a pixelbuddha tee mockup, a Behance oversized-tee PSD, and Zara/Mango/H&M/Noah NYC/Awake NY as the market-analysis references. See `DECISION-016` Amendment 1 |
 | `Usability_SoSe24…` (QIS) | flaticon icons, Freepik illustrations, and a login background from a Google image search. Its "Originale" screenshots are the university's existing portal, not the team's design |
 | `Dokumentation_Kueche…` | three Sketchfab models — the wheelchair figure, a jar, a decor pack. The scene and the kitchen are the team's |
@@ -163,12 +163,13 @@ now diffs `en` against `de` and exits non-zero, so that cannot recur silently.
 card with the owner's name on it. Making one out of a documentation page would be inventing a
 brand asset rather than filling a slot.
 
-**4. The 73 case-study section figures — 34 done, 39 to go.** The bulk of the work, and the
+**4. The 74 case-study section figures — 43 done, 31 to go.** The bulk of the work, and the
 most mechanical: the manifest names each one (`[ persona 01 ]`, `[ sitemap ]`, `[ ui kit ]`)
 and the documentation almost always has exactly that figure. Do one project end to end rather
 than one figure type across six. WikiMind (SESSION-019, re-shot from supplied originals in
-SESSION-022), AFONO (SESSION-020) and Sync FM (SESSION-021) are done; Surugami, the
-barrier-free kitchen and QIS Portal remain.
+SESSION-022), AFONO (SESSION-020), Sync FM (SESSION-021) and Surugami (SESSION-024, entirely
+from supplied exports) are done; the barrier-free kitchen and QIS Portal remain, and the owner
+is supplying folders for both.
 
 **A documentation is not the only source.** WikiMind's figures now come from
 `Images/wikimind/` — PNGs the owner exported from the design files themselves, which are

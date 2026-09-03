@@ -124,6 +124,7 @@ And by the owner, outside a recorded session:
 | ISSUE-031 | Sync FM's copy credits the wrong AI tool | Open | Low | Says Gemini made the personas; the documentation says ChatGPT did | `issue_031.md` |
 | ISSUE-032 | WikiMind's personas and moodboard ship third-party imagery | Open | Medium | The persona portraits and half the moodboard tiles are not the owner's; `DECISION-016` makes this their call | `issue_032.md` |
 | ISSUE-033 | `/work/wikimind` is the heaviest page on the site | Open | Medium | 706 KB at 1440/1x across 17 figures; the levers left all trade quality or figure size | `issue_033.md` |
+| ISSUE-034 | Which Surugami poster is the owner's? | Open | Medium | The supplied board carries the whole team's campaign; `[ poster — by alexsha ]` stays hatched rather than over-claim | `issue_034.md` |
 
 ## Grouped by milestone
 

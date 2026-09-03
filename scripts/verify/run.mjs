@@ -212,7 +212,7 @@ async function checkA11y() {
 
 // ---------------------------------------------------------------- weight
 async function checkWeight() {
-  const pages = ["/", "/work/sync-fm", "/work/afono", "/work/wikimind"];
+  const pages = ["/", "/work/sync-fm", "/work/afono", "/work/surugami", "/work/wikimind"];
   console.log("whole page, uncached, gzipped:");
   for (const p of pages) {
     for (const [w, dpr, mobile] of [[1440, 1, false], [390, 3, true]]) {

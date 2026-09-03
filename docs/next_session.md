@@ -2,11 +2,11 @@
 
 ## Status
 
-`MILESTONE-005` is **waiting on the owner, not on work**: 52 of 138 image slots filled, up from
-7 before SESSION-016. **Three case studies are complete end to end** — WikiMind, AFONO,
-Sync FM. Every engineering milestone that needs nobody is finished.
+`MILESTONE-005` is **waiting on the owner, not on work**: 60 of 139 image slots filled, up from
+7 before SESSION-016. **Four case studies now carry real imagery** — WikiMind, AFONO, Sync FM
+and Surugami. Every engineering milestone that needs nobody is finished.
 
-Work sits on branch `milestone-003-content-model`, **forty-one commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **forty-two commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
 The site is publishable; the pre-flight is in `docs/reference/publishing.md`. Two commands,
@@ -23,10 +23,13 @@ npm run deploy
 answer was that the remaining case studies and the playground will get **their own export
 folders**, the way `Images/wikimind/` did. That is the right call — those PNGs beat PDF page
 renders on every axis, and three of WikiMind's showed figures the document never contained — but
-it means **do not cut the remaining 31 slots out of the PDFs.** That work would be thrown away
-the moment the folders land.
+it means **do not cut the remaining 21 slots out of the PDFs.** That work would be thrown away
+the moment the folders land. **SESSION-024 proved the point**: `Images/Surugami/` arrived and
+Surugami was built without opening `FInalDesmeth.pdf` once — 407 MB, no text layer, and not
+needed.
 
-**So: check `Images/` first.** If new folders are there, that is the session.
+**So: check `Images/` first.** If new folders are there, that is the session. What is still
+missing is **the barrier-free kitchen (10 slots), QIS Portal (11) and the playground (39)**.
 
 ```bash
 find Images -type f \( -name '*.png' -o -name '*.jpg' \) | sort
@@ -34,7 +37,12 @@ find Images -type f \( -name '*.png' -o -name '*.jpg' \) | sort
 
 The method is `docs/sessions/session_022.md`, and it is now well-worn:
 
-1. Look at every image before mapping it. Filenames lie; `Wireframe.png` was a board of eight.
+1. **Open every image before mapping it.** Filenames are a guess, not a label: WikiMind's
+   `Wireframe.png` was a board of eight pages, and Surugami's `BrandPallete.png` was the entire
+   identity board rather than a palette — three of Surugami's nine were not what they were
+   called. **Rename the caption when the figure disagrees with it** (`[ logo exploration ]`
+   became `[ brand system ]`), and **split a slot when two artefacts arrive for it**, as
+   `[ sitemap + wireframes ]` did.
 2. **Measure the aspect from the file** — `sips -g pixelWidth -g pixelHeight` — and declare that
    exact ratio (`1600/1131`). Never a round number. `ui/Media` paints with `object-cover`, so a
    mismatch is a silent crop; all fourteen of WikiMind's declared aspects were wrong.
@@ -60,8 +68,10 @@ Then:
    owner's pick, not a defect to fix quietly.
 7. **`ISSUE-032`** — WikiMind's persona portraits and moodboard tiles are not the owner's work.
    Four options are written up; all of them need the owner.
-8. **WikiMind's last two soft figures** — `[ prototype video ]` and `[ interface detail ]` still
-   carry SESSION-019's PDF crops and sit next to thirteen sharp exports. If the owner has
+8. **`ISSUE-034`** — which Surugami poster is the owner's. One sentence from them fills a slot
+   that is hatched only because guessing authorship is not allowed.
+9. **WikiMind's last two soft figures** — `[ prototype video ]` and `[ interface detail ]` still
+   carry SESSION-019's PDF crops and sit next to fifteen sharp exports. If the owner has
    originals, this is minutes of work.
 
 ## Read this before cutting anything

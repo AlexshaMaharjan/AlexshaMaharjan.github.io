@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-04**, after SESSION-023 (figures moved inline to their prose; a figure can now be opened full screen).
+Snapshot: **2026-09-04**, after SESSION-024 (Surugami built entirely from the owner's own exports).
 
 ## Overall
 
@@ -11,7 +11,7 @@ both structured and laid out. What remains is mostly content the repository cann
 for itself: real photographs, and a copy pass. Plus one homepage section that still shows
 grey tiles.
 
-Roughly: architecture ~90% done, content ~70% drafted, imagery ~38% (52 of 138 slots), polish ~55%.
+Roughly: architecture ~90% done, content ~70% drafted, imagery ~43% (60 of 139 slots), polish ~55%.
 
 ## Working
 
@@ -73,15 +73,17 @@ page scrolls sideways at any width from 320px to 1920px.
   Sync FM, end to end, at roughly one session each. Surugami, the barrier-free kitchen and
   QIS Portal are still hatched (`MILESTONE-005`). Those two are what stands between the case
   studies and finished.
-- **Imagery — 52 of 138 slots filled**, up from 7 before SESSION-016. The eleven bento tiles,
+- **Imagery — 60 of 139 slots filled**, up from 7 before SESSION-016. The eleven bento tiles,
   all six case-study heroes, six prev/next cards, and the section figures for WikiMind (17),
-  AFONO (12) and Sync FM (6). Most were cut from the owner's six project documentations, which
+  AFONO (12), Surugami (8) and Sync FM (6). **Four of the six case studies now carry real
+  imagery**; the barrier-free kitchen and QIS Portal are waiting on export folders the owner is
+  supplying, and until those land there is no image work to do. Most were cut from the owner's six project documentations, which
   SESSION-015 mapped in `docs/reference/image_sources.md`; **WikiMind's are not** — SESSION-022
   re-shot all of them from PNGs the owner exported from the design files themselves, which are
   sharper than any page render and carry figures the PDF never had. Where such originals exist,
   prefer them. Served responsively: variants beside each original, a generated `srcset` map,
   and `predeploy` refusing to build on a stale one.
-  Verified at 1x, 2x and 3x — 154 images across 36 routes, none broken, none missing `alt`,
+  Verified at 1x, 2x and 3x — 170 images across 36 routes, none broken, none missing `alt`,
   per-route counts identical at all three densities.
   **A figure opens full screen** (`DECISION-018`): fitted, then tap for natural size in a
   pannable scroller. That is a mobile fix rather than a flourish — at 350px a persona card's

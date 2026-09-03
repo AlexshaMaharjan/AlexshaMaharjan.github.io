@@ -1,70 +1,63 @@
 # Previous Session
 
-**SESSION-023** — 2026-09-04. Full record: `docs/sessions/session_023.md`.
+**SESSION-024** — 2026-09-04. Full record: `docs/sessions/session_024.md`.
 
-## What it did, and what it could not
+## What it did
 
-The owner asked for five things: real images across all the case studies, rearranged image
-placement, a mobile fix on the case-study page, playground edits, and a docs pass.
+`Images/Surugami/` had landed — nine PNGs — so this was the session `next_session.md` described.
+**Surugami is the first case study built entirely from supplied exports**; `FInalDesmeth.pdf`
+(407 MB, no text layer) was never opened, and did not need to be.
 
-**Two were blocked, and the owner chose how.** Asked whether the other five case studies would
-get their own export folders like `Images/wikimind/`, the answer was **yes — they are coming**.
-The playground answer was the same: **fill it with images they will supply.** Cutting the
-remaining 31 slots out of the PDFs would have produced work thrown away the moment those folders
-land, so it was not done. What was done is everything those folders will inherit.
-
-**One image did arrive.** `Images/wikimind/Wireframe.png` — a board of eight page wireframes —
-so `[ wireframes ]` is filled. **138 slots, 52 filled.** WikiMind is 18 slots with 1 empty, and
-that one is `[ competitor analysis ]`, which has no figure in the documentation.
-
-## The mobile fix, and why it was not what the harness was looking for
-
-Horizontal overflow was already zero and had been for sessions. The actual defect: a figure
-renders at `calc(100vw - 40px)` — **350px** on a 390px phone — and most of WikiMind's figures are
-dense artefacts rather than pictures. A persona card at 350px has roughly 3px type. **The figure
-was on the page and none of it could be read.**
-
-The column cannot widen (`DECISION-017`), so the figure opens instead — `DECISION-018`,
-`ui/Lightbox`, ~140 lines, no dependency. Fitted on open; tap toggles natural size in a pannable
-scroller; Escape closes; focus starts on Close and returns to the figure.
-
-Two things it got wrong first, both found by looking rather than by any check: `z-[100]` put it
-**under** the header's `z-[200]`, which painted the site wordmark over the dialog's Close button;
-and a 95% backdrop still ghosted that header onto the caption. Now `z-[210]` and opaque.
-
-## Placement — two changes that compound
-
-- **`SUGGESTION-017` is implemented.** A lone narrow figure gets `min(960, 800 × aspect)`,
-  centred, with a `sizes` string that follows the cap. `[ initial sketches ]` went from 960×1444
-  to 532×800 and dropped a variant rung. Near-square figures are untouched, as predicted.
-- **A `figures` block.** `sections[].images[]` renders after the *whole* section; this one sits
-  inside `body` and hands its array to the same `SectionMedia`, so grouping, the ceiling and
-  `sizes` behave identically and only the position changes. All 17 WikiMind figures moved into
-  eleven groups at the prose they illustrate. Every other case study still uses `images[]`.
+**139 slots, 60 filled.** Surugami went from 11 slots with 10 empty to **12 with 3**. Four of the
+six case studies now carry real imagery.
 
 ## The thing worth carrying forward
 
-**A content-model change quietly narrowed a check, for the second time.** `image-manifest.mjs`
-walked `section.images` only, so the moment figures moved inline it reported *"WikiMind — 1 slot,
-all filled"* and its `en`/`de` diff stopped covering 16 of them — the same diff that caught Sync
-FM's German hero. It now walks body blocks through one `sectionImages()` helper used by both the
-count and the diff.
+**Open every file before mapping it — filenames are a guess, not a label.** Three of the nine
+were not what they were called:
 
-Both times the symptom was **a number that looked plausible**. When the shape of the data
-changes, check what the checks still see.
+- `CreationMatrixControlWHeel.png` is two research artefacts side by side, not one diagram.
+- `BrandPallete.png` is the entire identity board — palette, type, the swan mark's construction
+  grid, colourways and both lockups — not a palette.
+- `HeroImage.png` is a title card carrying four website screens.
+
+`BrandPallete.png` is why `[ logo exploration ]` became **`[ brand system ]`**: the logo is the
+largest part of that board but not all of it, and a caption naming two thirds of a figure is
+wrong the moment anyone looks.
+
+**A slot can turn out to be two.** `[ sitemap + wireframes ]` was one slot; two separate boards
+arrived, so it is now `[ sitemap ]` and `[ wireframes ]`. The site total went 138 → 139. Splitting
+is cheap now that the manifest counts inline figures.
+
+## What it deliberately did not do
+
+**`[ poster — by alexsha ]` stays hatched — `ISSUE-034`.** The credit line says the owner made
+"illustrations, **one poster**, mock-ups and co-designed the website", which is why two poster
+slots exist. The supplied `Poster.png` is a single board of the **whole team's** campaign, and
+nothing on it says which poster is whose.
+
+The board went to `[ posters — team credit ]`. Captioning teammates' posters "by alexsha" would
+claim other people's work; leaving the owner's own poster uncredited is smaller and reversible.
+**A guess was available and was not taken** — the corridor poster is the only one shown alone and
+at scale, which suggests it is theirs, and a hunch about authorship is not something to assert.
+
+Also hatched: `[ illustration — by alexsha ]` (no illustration board supplied) and
+`[ final system — large showcase ]` (nothing shows print and web together).
 
 ## What it left for the owner
 
-- **`ISSUE-033`** — `/work/wikimind` is the heaviest page on the site: 706 KB at 1440/1x, 995 KB
-  at 390/3x, across seventeen figures. Every remaining lever trades something real; the biggest
-  is dropping `wide: true` from the personas (~120 KB, and they become thumbnails). Weaker now
-  that any figure can be opened, but still a design call.
-- **`ISSUE-032`** — the persona portraits and moodboard tiles that are not the owner's work.
+- **`ISSUE-034`** — name the poster, or export it on its own into `Images/Surugami/`. One minute
+  of work at their end. The same issue records that the poster mock-up environments are very
+  likely licensed templates, as AFONO's were — worth knowing before publishing, not a blocker.
+- **The kitchen and QIS folders** — 21 slots, and the playground's 39. Nothing else can proceed
+  on imagery until they land.
 
 ## Verified
 
-Production build, `serve.mjs` started first: routes 36/36; **154 images across 36 routes at dpr
+Production build, `serve.mjs` started first: routes 36/36; **170 images across 36 routes at dpr
 1, 2 and 3**, 0 broken, 0 missing `alt`, 0 failed requests, counts identical at all densities;
-axe 0 violations with every figure now a button; 0 overflow; reduced motion static; `tsc` clean;
-lint 0 errors; `image-manifest.mjs` exits 0. The lightbox was driven through CDP end to end, and
-`currentSrc` was read off the built page to confirm the capped figures fetch the right rung.
+axe 0 violations; 0 overflow; reduced motion static; `tsc` clean; lint 0 errors;
+`image-manifest.mjs` exits 0 on en/de parity.
+
+`/work/surugami` was added to the weight check, since it is now one of the three fullest pages:
+**440 KB at 1440/1x, 712 KB at 390/3x** — comfortably under WikiMind's 707 KB / 995 KB.
