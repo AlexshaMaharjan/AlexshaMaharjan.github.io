@@ -402,5 +402,13 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       960,
       1280
     ]
+  },
+  "/images/wikimind-wireframes.webp": {
+    "w": 1400,
+    "v": [
+      400,
+      640,
+      960
+    ]
   }
 };

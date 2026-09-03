@@ -50,15 +50,23 @@ const wikimind: CaseStudyLocaleContent = {
         body: [
           "I conducted a qualitative visual and structural analysis of existing AI and technology websites. The comparison focused on visual tone, information hierarchy, content structure, language, navigation, animation and methods of establishing trust.",
           "The analysis revealed a common tension. Dark and highly technical interfaces often appeared modern, but they could also feel cold or exclusive. Clearer layouts and restrained animation made information easier to follow and helped services feel more understandable.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/8", caption: "[ competitor analysis ]" },
+            ],
+          },
           { kind: "h3", text: "Translating the audience into design needs" },
           "Three working personas represented different professional contexts: a business decision-maker looking for practical automation, an academic leader seeking understandable AI education and a customer-service manager needing reliable operational support.",
           "Although their responsibilities differed, their needs shared a consistent pattern. They required clear explanations, visible credibility and practical value before they could trust an AI provider.",
-        ],
-        images: [
-          { aspect: "16/8", caption: "[ competitor analysis ]" },
-          { aspect: "1600/1131", wide: true, caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona one: a logistics managing director, with his personality, responsibilities and online behaviour" },
-          { aspect: "1600/1131", wide: true, caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona two: a university dean, with her personality, responsibilities and online behaviour" },
-          { aspect: "1600/1131", wide: true, caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona three: an e-commerce customer service lead, with her personality, responsibilities and online behaviour" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1131", wide: true, caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona one: a logistics managing director, with his personality, responsibilities and online behaviour" },
+              { aspect: "1600/1131", wide: true, caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona two: a university dean, with her personality, responsibilities and online behaviour" },
+              { aspect: "1600/1131", wide: true, caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona three: an e-commerce customer service lead, with her personality, responsibilities and online behaviour" },
+            ],
+          },
         ],
       },
       {
@@ -105,18 +113,31 @@ const wikimind: CaseStudyLocaleContent = {
           "The verbal tone avoids unnecessary terminology and prioritises user benefits over technical specifications.",
           { kind: "h3", text: "A light and structured visual language" },
           "The visual direction combines a white and neutral background with several blue tones and restrained gradients. Blue supports associations with trust, intelligence and technology, while the lighter environment prevents the brand from feeling heavy or intimidating. Inter was selected for its screen readability and neutral character.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1400/1153", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.webp", alt: "The visual reference board: blue tones, dolphin imagery, interface examples and the gradient wordmark" },
+              { aspect: "1600/515", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "The five brand colours with their hex values, beside the four Inter weights" },
+            ],
+          },
           { kind: "h3", text: "A symbol for connected knowledge" },
           "The WikiMind symbol combines the initials W and M with the continuous form of an infinity sign. The mark represents connected knowledge, continuous learning and the open-ended potential of artificial intelligence. Rounded forms make the identity more approachable, while sharper details prevent the wordmark from appearing overly playful.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
+              { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines" },
+              { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "The WikiMind logo in gradient, in solid black and in its horizontal lockups" },
+            ],
+          },
           { kind: "h3", text: "A controlled human element" },
           "A dolphin was introduced as a controlled brand character. Dolphins are commonly associated with intelligence, curiosity and social behaviour, which supported the desired perception of WikiMind. The mascot is used selectively in the hero, educational explanations and transitional moments rather than across every section of the website.",
-        ],
-        images: [
-          { aspect: "1400/1153", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.webp", alt: "The visual reference board: blue tones, dolphin imagery, interface examples and the gradient wordmark" },
-          { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
-          { aspect: "1600/515", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "The five brand colours with their hex values, beside the four Inter weights" },
-          { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines" },
-          { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "The WikiMind logo in gradient, in solid black and in its horizontal lockups" },
-          { aspect: "1600/1317", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1317", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
+            ],
+          },
         ],
       },
       {
@@ -126,14 +147,22 @@ const wikimind: CaseStudyLocaleContent = {
         heading: "Turning multiple services into a guided journey",
         body: [
           "After establishing the brand direction, the website content was organised into a sitemap and reusable page system. The structure was designed to help visitors understand what WikiMind offers, identify the service relevant to them and move towards a clear next action.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/485", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "The site structure: a home page over four sections and three sub-pages" },
+              { aspect: "1400/1311", caption: "[ wireframes ]", src: "/images/wikimind-wireframes.webp", alt: "Wireframes for eight pages: home, the three service pages, team, contact and the legal pages" },
+            ],
+          },
           { kind: "h3", text: "Building consistency through reusable components" },
           "The interface system uses rounded containers, generous spacing and a limited visual hierarchy to soften the technical subject. Reusable components were created for navigation, buttons, content cards, input fields, service sections, icons, footer, hover states and feedback animations. The component approach keeps the website visually consistent while supporting future expansion.",
-        ],
-        images: [
-          { aspect: "1600/485", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "The site structure: a home page over four sections and three sub-pages" },
-          { aspect: "4/3", caption: "[ wireframes ]" },
-          { aspect: "1400/1369", caption: "[ component library ]", src: "/images/wikimind-components.webp", alt: "The component library: navigation, buttons, the logo strip, team cards and the footer" },
-          { aspect: "1600/1034", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "The interface kit: logo, navigation, mascot, type scale, colour, icons, buttons and the footer" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1400/1369", caption: "[ component library ]", src: "/images/wikimind-components.webp", alt: "The component library: navigation, buttons, the logo strip, team cards and the footer" },
+              { aspect: "1600/1034", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "The interface kit: logo, navigation, mascot, type scale, colour, icons, buttons and the footer" },
+            ],
+          },
         ],
       },
       {
@@ -143,12 +172,20 @@ const wikimind: CaseStudyLocaleContent = {
         heading: "A calmer entry point into artificial intelligence",
         body: [
           "The final concept brings the brand identity, service communication and interface system together in a light and structured website. Large headings establish a clear hierarchy. Service cards divide complex topics into understandable entry points. The mascot introduces a human and recognisable element.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Five pages of the finished site shown side by side" },
+              { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "The team page and footer of the finished site" },
+            ],
+          },
           "The result is an interactive Figma prototype that demonstrates the main page system, navigation behaviour and visual language of WikiMind.",
-        ],
-        images: [
-          { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Five pages of the finished site shown side by side" },
-          { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "The chatbot page shown in the interactive Figma prototype" },
-          { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "The team page and footer of the finished site" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "The chatbot page shown in the interactive Figma prototype" },
+            ],
+          },
         ],
       },
       {
@@ -215,15 +252,23 @@ const wikimind: CaseStudyLocaleContent = {
         body: [
           "Ich führte eine qualitative visuelle und strukturelle Analyse bestehender KI- und Technologie-Websites durch. Untersucht wurden visuelle Tonalität, Informationshierarchie, Inhaltsstruktur, Sprache, Navigation, Animation und Methoden zum Aufbau von Vertrauen.",
           "Die Analyse zeigte ein wiederkehrendes Spannungsfeld. Dunkle und stark technische Oberflächen wirkten häufig modern, konnten jedoch gleichzeitig kühl oder exklusiv erscheinen. Klarere Layouts und zurückhaltende Animationen erleichterten die Orientierung und machten Leistungen verständlicher.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/8", caption: "[ competitor analysis ]" },
+            ],
+          },
           { kind: "h3", text: "Zielgruppen in konkrete Designanforderungen übersetzen" },
           "Drei Arbeits-Personas repräsentierten unterschiedliche berufliche Kontexte: eine Führungskraft auf der Suche nach praktischer Automatisierung, eine akademische Leitung mit Bedarf an verständlicher KI-Vermittlung und eine Kundenservice-Leitung mit Bedarf an verlässlicher operativer Unterstützung.",
           "Trotz unterschiedlicher Verantwortungsbereiche zeigten sich gemeinsame Bedürfnisse. Die Nutzer benötigten verständliche Erklärungen, sichtbare Glaubwürdigkeit und einen klaren praktischen Nutzen, bevor sie einem KI-Anbieter vertrauen konnten.",
-        ],
-        images: [
-          { aspect: "16/8", caption: "[ competitor analysis ]" },
-          { aspect: "1600/1131", wide: true, caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona 1: Geschäftsführer eines Logistikunternehmens, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
-          { aspect: "1600/1131", wide: true, caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona 2: Dekanin einer Hochschule, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
-          { aspect: "1600/1131", wide: true, caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona 3: Leiterin Kundenservice im E-Commerce, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1131", wide: true, caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona 1: Geschäftsführer eines Logistikunternehmens, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
+              { aspect: "1600/1131", wide: true, caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona 2: Dekanin einer Hochschule, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
+              { aspect: "1600/1131", wide: true, caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona 3: Leiterin Kundenservice im E-Commerce, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
+            ],
+          },
         ],
       },
       {
@@ -270,18 +315,31 @@ const wikimind: CaseStudyLocaleContent = {
           "Die sprachliche Tonalität vermeidet unnötige Fachbegriffe und stellt den Nutzen für die Anwender vor technische Spezifikationen.",
           { kind: "h3", text: "Eine helle und strukturierte visuelle Sprache" },
           "Die visuelle Richtung kombiniert einen weißen und neutralen Hintergrund mit mehreren Blautönen und zurückhaltenden Farbverläufen. Blau unterstützt Assoziationen mit Vertrauen, Intelligenz und Technologie. Die helle Umgebung verhindert gleichzeitig, dass die Marke schwer oder einschüchternd wirkt. Inter wurde aufgrund der guten Lesbarkeit am Bildschirm und des neutralen Charakters ausgewählt.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1400/1153", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.webp", alt: "Das visuelle Referenzboard: Blautöne, Delfin-Motive, Interface-Beispiele und die Wortmarke mit Farbverlauf" },
+              { aspect: "1600/515", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "Die fünf Markenfarben mit ihren Hex-Werten, neben den vier Inter-Schnitten" },
+            ],
+          },
           { kind: "h3", text: "Ein Symbol für vernetztes Wissen" },
           "Das WikiMind-Symbol verbindet die Initialen W und M mit der kontinuierlichen Form eines Unendlichkeitszeichens. Die Marke steht für vernetztes Wissen, fortlaufendes Lernen und das offene Potenzial künstlicher Intelligenz. Abgerundete Formen machen die Identität zugänglicher, präzisere Details verhindern, dass die Wortmarke zu verspielt wirkt.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
+              { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M" },
+              { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "Das WikiMind-Logo mit Farbverlauf, in Schwarz und in den horizontalen Varianten" },
+            ],
+          },
           { kind: "h3", text: "Ein gezielt eingesetztes menschliches Element" },
           "Ein Delfin wurde als gezielt eingesetzter Markencharakter entwickelt. Delfine werden häufig mit Intelligenz, Neugier und sozialem Verhalten verbunden und unterstützen damit die gewünschte Wahrnehmung von WikiMind. Das Maskottchen wird selektiv im Hero-Bereich, in erklärenden Inhalten und bei Übergängen eingesetzt, nicht auf jeder Website-Sektion.",
-        ],
-        images: [
-          { aspect: "1400/1153", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.webp", alt: "Das visuelle Referenzboard: Blautöne, Delfin-Motive, Interface-Beispiele und die Wortmarke mit Farbverlauf" },
-          { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
-          { aspect: "1600/515", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "Die fünf Markenfarben mit ihren Hex-Werten, neben den vier Inter-Schnitten" },
-          { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M" },
-          { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "Das WikiMind-Logo mit Farbverlauf, in Schwarz und in den horizontalen Varianten" },
-          { aspect: "1600/1317", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1317", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
+            ],
+          },
         ],
       },
       {
@@ -291,14 +349,22 @@ const wikimind: CaseStudyLocaleContent = {
         heading: "Unterschiedliche Leistungen in eine geführte Nutzerreise übersetzen",
         body: [
           "Nach der Definition der Markenrichtung wurden die Inhalte der Website in einer Sitemap und einem wiederverwendbaren Seitensystem organisiert. Die Struktur hilft Besuchern dabei, das Angebot von WikiMind zu verstehen, eine relevante Leistung zu finden und zu einer klaren nächsten Handlung zu gelangen.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/485", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
+              { aspect: "1400/1311", caption: "[ wireframes ]", src: "/images/wikimind-wireframes.webp", alt: "Wireframes für acht Seiten: Startseite, die drei Leistungsseiten, Team, Kontakt und die Rechtsseiten" },
+            ],
+          },
           { kind: "h3", text: "Konsistenz durch wiederverwendbare Komponenten schaffen" },
           "Das Interface-System arbeitet mit abgerundeten Containern, großzügigen Abständen und einer reduzierten visuellen Hierarchie. Wiederverwendbare Komponenten wurden für Navigation, Buttons, Inhaltskarten, Eingabefelder, Leistungsbereiche, Icons, Footer, Hover-Zustände und Feedback-Animationen entwickelt. Der modulare Ansatz hält die Website visuell konsistent und ermöglicht spätere Erweiterungen.",
-        ],
-        images: [
-          { aspect: "1600/485", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
-          { aspect: "4/3", caption: "[ wireframes ]" },
-          { aspect: "1400/1369", caption: "[ component library ]", src: "/images/wikimind-components.webp", alt: "Die Komponentenbibliothek: Navigation, Buttons, Logoleiste, Teamkarten und Fußzeile" },
-          { aspect: "1600/1034", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Logo, Navigation, Maskottchen, Typoskala, Farben, Icons, Buttons und Fußzeile" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1400/1369", caption: "[ component library ]", src: "/images/wikimind-components.webp", alt: "Die Komponentenbibliothek: Navigation, Buttons, Logoleiste, Teamkarten und Fußzeile" },
+              { aspect: "1600/1034", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Logo, Navigation, Maskottchen, Typoskala, Farben, Icons, Buttons und Fußzeile" },
+            ],
+          },
         ],
       },
       {
@@ -308,12 +374,20 @@ const wikimind: CaseStudyLocaleContent = {
         heading: "Ein ruhigerer Einstieg in künstliche Intelligenz",
         body: [
           "Das finale Konzept verbindet Markenidentität, Leistungsbeschreibung und Interface-System in einer hellen und klar strukturierten Website. Große Überschriften schaffen eine deutliche Hierarchie. Leistungskarten teilen komplexe Themen in verständliche Einstiegspunkte. Das Maskottchen bringt ein menschliches und wiedererkennbares Element ein.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
+              { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "Die Team-Seite und die Fußzeile der fertigen Website" },
+            ],
+          },
           "Das Ergebnis ist ein interaktiver Figma-Prototyp, der das zentrale Seitensystem, das Navigationsverhalten und die visuelle Sprache von WikiMind demonstriert.",
-        ],
-        images: [
-          { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
-          { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "Die Chatbot-Seite im interaktiven Figma-Prototyp" },
-          { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "Die Team-Seite und die Fußzeile der fertigen Website" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "Die Chatbot-Seite im interaktiven Figma-Prototyp" },
+            ],
+          },
         ],
       },
       {

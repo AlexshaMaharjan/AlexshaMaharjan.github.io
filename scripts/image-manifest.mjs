@@ -54,6 +54,23 @@ en.selectedWork.bento.forEach((tile, i) => {
       `dictionaries/{en,de}.ts → selectedWork.bento[${i}].src`);
 });
 
+/**
+ * Every image slot a section owns, in the order it renders.
+ *
+ * Figures live in two places since SESSION-023: `section.images` renders after
+ * the whole section, and `{ kind: "figures" }` blocks sit inside `body` at the
+ * prose they illustrate. Both are real slots. Walking only `images` made this
+ * file report WikiMind as **one slot, all filled** the moment its figures moved
+ * inline — and it would have quietly stopped diffing 16 of them across `en` and
+ * `de`, which is the check that caught Sync FM's German hero.
+ */
+function sectionImages(section) {
+  const inBody = (section.body ?? []).flatMap((block) =>
+    block && typeof block === "object" && block.kind === "figures" ? (block.items ?? []) : [],
+  );
+  return [...inBody, ...(section.images ?? [])];
+}
+
 // ---- case studies ----
 for (const slug of SLUGS) {
   // Loaded on demand since ISSUE-019 split the registry.
@@ -61,12 +78,12 @@ for (const slug of SLUGS) {
   add(`Case study — ${study.name}`, "hero", study.heroImage.alt, study.heroImage.aspect, 2560,
       Boolean(study.heroImage.src), `caseStudies/${slug}.ts → {en,de}.heroImage.src`);
   study.sections.forEach((section, si) => {
-    (section.images ?? []).forEach((img, ii) => {
+    sectionImages(section).forEach((img, ii) => {
       const [w, h] = img.aspect.split("/").map(Number);
       const wide = img.wide ?? (w && h ? w / h >= 1.5 : false);
       add(`Case study — ${study.name}`, `${section.number} ${section.navLabel}`, img.caption, img.aspect,
           px(wide ? 960 : 310), Boolean(img.src),
-          `caseStudies/${slug}.ts → {en,de}.sections[${si}].images[${ii}].src`);
+          `caseStudies/${slug}.ts → {en,de}.sections[${si}] figure ${ii + 1}`);
     });
   });
 }
@@ -115,9 +132,9 @@ for (const slug of SLUGS) {
   const loaded = await cs.caseStudyPromise(slug);
   const [e, d] = ["en", "de"].map((l) => cs.localeContent(loaded, l));
   const srcs = (c) => [c.heroImage.src,
-    ...(c.sections ?? []).flatMap((sec) => (sec.images ?? []).map((im) => im.src))];
+    ...(c.sections ?? []).flatMap((sec) => sectionImages(sec).map((im) => im.src))];
   compareLocales(`caseStudies/${slug}`, (i) =>
-    i === 0 ? "heroImage.src" : `sections[…].images[…].src (#${i})`, srcs(e), srcs(d));
+    i === 0 ? "heroImage.src" : `section figure #${i}`, srcs(e), srcs(d));
 }
 {
   const [e, d] = ["en", "de"].map((l) => dict.getDictionary(l));
