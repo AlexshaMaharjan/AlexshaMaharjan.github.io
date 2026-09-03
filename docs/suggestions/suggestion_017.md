@@ -1,6 +1,6 @@
 # SUGGESTION-017 — A lone narrow figure should not take the full reading column
 
-Status: Proposed
+Status: **Implemented** (SESSION-023)
 Priority: Low
 Impact: Medium
 Effort: Small
@@ -79,3 +79,29 @@ this way.
 
 **The remaining three case studies will hit it too** — the kitchen and QIS both have portrait
 figures in their manifests. Worth fixing before them rather than after.
+
+
+## Implemented, SESSION-023
+
+`SectionMedia` now gives a run of one narrow figure a width of
+`min(960, 800 × aspect)`, centred, with a `sizes` string that follows the cap.
+`MAX_FIGURE_HEIGHT` is 800px, the number this file proposed.
+
+What it changed on the pages, measured:
+
+| Figure | Was | Now |
+| --- | --- | --- |
+| `wikimind-initial-sketches` (1200/1805) | 960×1444, fetching the 960 variant | **532×800**, fetching the 640 |
+| `wikimind-wireframes` (1400/1311) | — (new figure) | 854×800 |
+| `wikimind-components` (1400/1369) | 960×939 | 818×800 |
+| `wikimind-mascot` (1600/1317), `wikimind-moodboard` (1400/1153) | 960 | unchanged — a 1.2 aspect wants 972px and the ceiling never bites |
+
+The prediction that near-square figures would be untouched held exactly. The
+`sizes` warning in this file was worth heeding: the capped figures were verified
+by reading `currentSrc` off the built page rather than by assuming, and the
+sketch page does drop a rung.
+
+**The constraint it removes is the point.** Two crops in SESSION-020 and
+SESSION-021 were chosen to work around this rather than to suit the artwork. The
+kitchen and QIS both have portrait figures still to import, and they can now be
+cut at their own proportions.

@@ -1,62 +1,70 @@
 # Previous Session
 
-**SESSION-022** — 2026-09-03. Full record: `docs/sessions/session_022.md`.
+**SESSION-023** — 2026-09-04. Full record: `docs/sessions/session_023.md`.
 
-## What it did
+## What it did, and what it could not
 
-**Re-shot WikiMind's figures from originals the owner supplied**, in `Images/wikimind/` —
-fourteen files exported from the design files themselves rather than rendered from
-`DesPr1_Alexsha_Maharjan_Doku.pdf`. Every one is placed at **its own aspect ratio**, which is
-what the session was asked for: the placeholder changes shape to fit the image, never the
-reverse.
+The owner asked for five things: real images across all the case studies, rearranged image
+placement, a mobile fix on the case-study page, playground edits, and a docs pass.
 
-**138 slots, 51 filled** (was 136 / 48). WikiMind went from 16 slots with 3 hatched to **18
-with 2** — the moodboard slot had been hatched since the manifest was written and is now
-filled, and two images had no slot at all: `[ initial sketches ]` and `[ component library ]`.
+**Two were blocked, and the owner chose how.** Asked whether the other five case studies would
+get their own export folders like `Images/wikimind/`, the answer was **yes — they are coming**.
+The playground answer was the same: **fill it with images they will supply.** Cutting the
+remaining 31 slots out of the PDFs would have produced work thrown away the moment those folders
+land, so it was not done. What was done is everything those folders will inherit.
+
+**One image did arrive.** `Images/wikimind/Wireframe.png` — a board of eight page wireframes —
+so `[ wireframes ]` is filled. **138 slots, 52 filled.** WikiMind is 18 slots with 1 empty, and
+that one is `[ competitor analysis ]`, which has no figure in the documentation.
+
+## The mobile fix, and why it was not what the harness was looking for
+
+Horizontal overflow was already zero and had been for sessions. The actual defect: a figure
+renders at `calc(100vw - 40px)` — **350px** on a 390px phone — and most of WikiMind's figures are
+dense artefacts rather than pictures. A persona card at 350px has roughly 3px type. **The figure
+was on the page and none of it could be read.**
+
+The column cannot widen (`DECISION-017`), so the figure opens instead — `DECISION-018`,
+`ui/Lightbox`, ~140 lines, no dependency. Fitted on open; tap toggles natural size in a pannable
+scroller; Escape closes; focus starts on Close and returns to the figure.
+
+Two things it got wrong first, both found by looking rather than by any check: `z-[100]` put it
+**under** the header's `z-[200]`, which painted the site wordmark over the dialog's Close button;
+and a 95% backdrop still ghosted that header onto the caption. Now `z-[210]` and opaque.
+
+## Placement — two changes that compound
+
+- **`SUGGESTION-017` is implemented.** A lone narrow figure gets `min(960, 800 × aspect)`,
+  centred, with a `sizes` string that follows the cap. `[ initial sketches ]` went from 960×1444
+  to 532×800 and dropped a variant rung. Near-square figures are untouched, as predicted.
+- **A `figures` block.** `sections[].images[]` renders after the *whole* section; this one sits
+  inside `body` and hands its array to the same `SectionMedia`, so grouping, the ceiling and
+  `sizes` behave identically and only the position changes. All 17 WikiMind figures moved into
+  eleven groups at the prose they illustrate. Every other case study still uses `images[]`.
 
 ## The thing worth carrying forward
 
-**An owner-supplied export beats a page render, every time.** A PDF page is a photograph of a
-document — its margins, its compression, whatever crop the layout imposed. These PNGs are the
-artefacts. They are sharper, they are uncropped, and three of them show figures the PDF never
-contained. **Before exporting anything from a documentation, ask whether an export already
-exists.** The remaining three projects have not been asked this question.
+**A content-model change quietly narrowed a check, for the second time.** `image-manifest.mjs`
+walked `section.images` only, so the moment figures moved inline it reported *"WikiMind — 1 slot,
+all filled"* and its `en`/`de` diff stopped covering 16 of them — the same diff that caught Sync
+FM's German hero. It now walks body blocks through one `sectionImages()` helper used by both the
+count and the diff.
 
-**Every declared aspect ratio was wrong.** Not approximately — none of the fourteen matched the
-file it was about to hold. They were designers' round numbers (`3/4`, `16/8`, `27/10`), and
-`ui/Media` paints with `object-cover`, so each mismatch was a silent crop waiting to happen.
-The personas were declared `3/4` portrait and are actually landscape: 40% of every card would
-have been thrown away. Aspects now carry exact pixel ratios — `1600/1131`, `1200/1805` — because
-a number measured from the file cannot drift from it.
-
-**Aspect drives layout, so changing aspects re-arranged the page.** `SectionMedia` gives the
-full column to anything ≥ 1.5 and grids everything else. Six slots crossed that line; figure
-order was re-ordered to suit, and the three personas carry `wide: true` — the project's first
-use of that flag — because at a third of the column a persona card is 217px tall and nothing
-on it can be read.
+Both times the symptom was **a number that looked plausible**. When the shape of the data
+changes, check what the checks still see.
 
 ## What it left for the owner
 
-- **`ISSUE-032`** — the persona cards ship their stock/AI portraits, and the moodboard is half
-  other people's images. `DECISION-016` makes this the owner's call; four options are written up.
-- **`/work/wikimind` is now the heaviest page on the site** — 637 KB, 463 KB of it imagery, at
-  1440/1x. Re-encoding the photographic figures at q0.78–0.82 took 390/3x from 904 to 796 KB.
-  Dropping `wide: true` from the personas would save ~120 KB and make them unreadable. That is a
-  trade, so it is reported, not taken.
-- **`[ prototype video ]` and `[ interface detail ]` still use SESSION-019's PDF crops** — the
-  folder had no replacement. Next to the new exports they are visibly softer. If originals exist
-  for those two, they are the cheapest remaining win on this page.
+- **`ISSUE-033`** — `/work/wikimind` is the heaviest page on the site: 706 KB at 1440/1x, 995 KB
+  at 390/3x, across seventeen figures. Every remaining lever trades something real; the biggest
+  is dropping `wide: true` from the personas (~120 KB, and they become thumbnails). Weaker now
+  that any figure can be opened, but still a design call.
+- **`ISSUE-032`** — the persona portraits and moodboard tiles that are not the owner's work.
 
 ## Verified
 
-Against the production build through `scripts/verify/serve.mjs`: routes 36/36; **152 images
-across 36 routes at dpr 1, 2 and 3**, 0 broken, 0 missing `alt`, 0 failed requests, per-route
-counts identical at all three densities; axe 0 violations; 0 overflow; reduced motion static;
-`tsc` clean; lint 0 errors (3 pre-existing warnings); `image-manifest.mjs` exits 0 on en/de
-parity. All four changed sections screenshotted at 1440px and read.
-
-## One mistake
-
-The first image sweep ran **without `serve.mjs` started**, so 36 routes navigated to a refused
-connection and timed out silently for twenty minutes. `run.mjs` neither starts the server nor
-checks it is there. One `fetch` of the base URL before the sweep would make that failure legible.
+Production build, `serve.mjs` started first: routes 36/36; **154 images across 36 routes at dpr
+1, 2 and 3**, 0 broken, 0 missing `alt`, 0 failed requests, counts identical at all densities;
+axe 0 violations with every figure now a button; 0 overflow; reduced motion static; `tsc` clean;
+lint 0 errors; `image-manifest.mjs` exits 0. The lightbox was driven through CDP end to end, and
+`currentSrc` was read off the built page to confirm the capped figures fetch the right rung.

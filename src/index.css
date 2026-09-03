@@ -149,6 +149,18 @@
   }
 }
 
+/* The figure lightbox arriving (`Figure` -> `Lightbox`). Applied as an inline
+   style and guarded in JS by `prefersReducedMotion`, so under reduced motion the
+   overlay simply appears. */
+@keyframes figure-zoom-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @layer components {
   /*
    * The page container, written out by hand ~30 times before this

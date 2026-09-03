@@ -39,7 +39,10 @@ shared vocabulary: `overview`, `challenge`, `research`, `insights`, `direction`,
 `development`, `testing`, `outcome`, `reflection` (exact set varies).
 
 **Body content is blocks, not strings** (`DECISION-014`). A bare string is still a
-paragraph; `{ kind: "h3" | "list" | "quote" | "note" | "figure" }` cover the rest. All six
+paragraph; `{ kind: "h3" | "list" | "quote" | "note" | "figure" | "figures" }` cover the rest.
+`figures` carries an array and hands it to the same `SectionMedia` as `sections[].images[]`,
+so a run of figures can sit at the prose it illustrates instead of after the whole section —
+WikiMind uses it for all 17 of its figures. All seven
 studies were migrated in SESSION-003 — 38 sub-headings, 22 lists, 8 notes — and `en` and
 `de` are structurally identical block for block. Keep them that way: the types make a
 missing field a compile error, but not a mismatched structure.

@@ -23,6 +23,7 @@ explicitly rather than inventing one.
 | DECISION-015 | GSAP stays eager; the case-study registry is split per slug | Active | Performance, motion | 126 KB chunk became 13 KB + one study; deferring GSAP hides content rather than saving time | `decision_015.md` |
 | DECISION-016 | Image provenance: only the owner's own work ships | Active | Content, images | The project documentations mix the owner's diagrams with Freepik and Pinterest reference material; read each document's sources page before exporting | `decision_016.md` |
 | DECISION-017 | Case study opens with the contents rail; title inside Overview | **Active** | Case studies, layout | Owner, 2026-08-25: rail visible on load, smaller title under Overview, no year, every project says "Semester project" | `decision_017.md` |
+| DECISION-018 | A figure opens full screen | **Active** | Case-study figures | A dense figure is unreadable at 350px on a phone, and the column cannot widen — so the figure opens instead | `decision_018.md` |
 
 ## Needing an owner decision
 

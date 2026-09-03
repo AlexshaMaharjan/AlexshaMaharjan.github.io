@@ -163,7 +163,7 @@ now diffs `en` against `de` and exits non-zero, so that cannot recur silently.
 card with the owner's name on it. Making one out of a documentation page would be inventing a
 brand asset rather than filling a slot.
 
-**4. The 73 case-study section figures — 33 done, 40 to go.** The bulk of the work, and the
+**4. The 73 case-study section figures — 34 done, 39 to go.** The bulk of the work, and the
 most mechanical: the manifest names each one (`[ persona 01 ]`, `[ sitemap ]`, `[ ui kit ]`)
 and the documentation almost always has exactly that figure. Do one project end to end rather
 than one figure type across six. WikiMind (SESSION-019, re-shot from supplied originals in

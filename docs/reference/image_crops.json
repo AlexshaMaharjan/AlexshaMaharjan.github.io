@@ -738,5 +738,18 @@
     "width": 1600,
     "height": 714,
     "quality": 0.82
+  },
+  {
+    "src": "Images/wikimind/Wireframe.png",
+    "out": "public/images/wikimind-wireframes.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1400,
+    "height": 1311,
+    "quality": 0.85
   }
 ]

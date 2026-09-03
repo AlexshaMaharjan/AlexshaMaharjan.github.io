@@ -38,7 +38,19 @@ export type Block =
   | { kind: "list"; items: string[]; ordered?: boolean }
   | { kind: "quote"; text: string; attribution?: string }
   | { kind: "note"; text: string }
-  | ({ kind: "figure" } & SectionImage);
+  | ({ kind: "figure" } & SectionImage)
+  /**
+   * A run of figures placed *inside* the prose rather than in `images[]`.
+   *
+   * `images[]` renders after everything else in a section, which is right when
+   * the figures are a gallery of outcomes and wrong when each one illustrates a
+   * particular passage — a section with four sub-headings and six figures ends
+   * up explaining things hundreds of pixels above the picture of them. This
+   * carries the same array and hands it to the same `SectionMedia`, so grouping,
+   * the lone-figure ceiling and `sizes` all behave identically; only the
+   * position on the page changes.
+   */
+  | { kind: "figures"; items: SectionImage[] };
 
 export interface CaseStudySection {
   id: string;

@@ -116,3 +116,23 @@ total and drowns the number being watched.
 - **`Page.addScriptToEvaluateOnNewDocument` accumulates across runs.** Nothing here uses it.
 - **Assert an anchor against the element's own `scroll-margin-top`**, never a fixed number:
   the header is 73px at 1440 and 146px at 390.
+
+## Two traps this harness cannot see on its own
+
+**`run.mjs` does not start the server, and does not check it is there.** It takes its base from
+`--base`, defaulting to `127.0.0.1:8099`. Started without `serve.mjs`, all 36 routes navigate to
+a refused connection and sit out their timeouts — SESSION-022 lost twenty minutes to what looked
+exactly like a hang, with no output at all. Start the server first:
+
+```bash
+node scripts/verify/serve.mjs dist 8099 &
+```
+
+**`image-manifest.mjs` only sees the slots it knows how to walk.** It counts case-study figures
+and diffs `en` against `de` — the check that caught Sync FM's German colour stand-in. When
+SESSION-023 moved WikiMind's figures from `sections[].images[]` into inline `{ kind: "figures" }`
+blocks, it reported *"WikiMind — 1 slot, all filled"* and silently stopped diffing 16 sources. It
+now walks body blocks too, through one `sectionImages()` helper shared by the count and the diff.
+
+If the content model grows another home for images, **that helper is the place to teach it**, and
+the symptom of forgetting is a slot count that looks plausible.

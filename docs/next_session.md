@@ -2,12 +2,11 @@
 
 ## Status
 
-`MILESTONE-005` is **in progress and moving steadily**: 51 of 138 image slots filled, up from
+`MILESTONE-005` is **waiting on the owner, not on work**: 52 of 138 image slots filled, up from
 7 before SESSION-016. **Three case studies are complete end to end** — WikiMind, AFONO,
-Sync FM — at roughly one session each. Every engineering milestone that needs nobody is
-finished.
+Sync FM. Every engineering milestone that needs nobody is finished.
 
-Work sits on branch `milestone-003-content-model`, **forty commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **forty-one commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
 The site is publishable; the pre-flight is in `docs/reference/publishing.md`. Two commands,
@@ -18,34 +17,37 @@ git checkout main && git merge milestone-003-content-model
 npm run deploy
 ```
 
-**Half the case studies now carry real imagery.** Worth saying to the owner plainly — the gap
-between what is built and what anyone can see is the largest thing on this list.
-
 ## Objective
 
-**Finish the case-study figures. Three projects, 40 slots, one project end to end.**
+**The images are blocked on the owner, and they know it.** SESSION-023 asked directly, and the
+answer was that the remaining case studies and the playground will get **their own export
+folders**, the way `Images/wikimind/` did. That is the right call — those PNGs beat PDF page
+renders on every axis, and three of WikiMind's showed figures the document never contained — but
+it means **do not cut the remaining 31 slots out of the PDFs.** That work would be thrown away
+the moment the folders land.
 
-**Ask the owner for their own exports before rendering a single PDF page.** SESSION-022
-replaced all of WikiMind's figures with PNGs the owner had exported straight from the design
-files, and they beat the page renders on every axis: sharper, uncropped, and three of them
-showed figures the PDF did not contain at all. That question has not been asked about the
-barrier-free kitchen, QIS Portal or Surugami — and Surugami especially, at 407 MB with no text
-layer, would be transformed by it. **It costs one sentence and can save a session.**
+**So: check `Images/` first.** If new folders are there, that is the session.
 
-Suggested order — easiest first, hardest last:
+```bash
+find Images -type f \( -name '*.png' -o -name '*.jpg' \) | sort
+```
 
-1. **The barrier-free kitchen** — `Dokumentation_Kueche_Haaks_Kocak_Maharjan.pdf`, 26 pages,
-   10 slots. Its sources page names **three Sketchfab models** — the wheelchair figure, a jar,
-   a decor pack. The scene, the kitchen and the renders are the team's.
-2. **QIS Portal** — `Usability_SoSe24_…pdf`, 85 pages, 11 slots. flaticon icons, Freepik
-   illustrations, a Google-sourced login background — and note that its **"Originale"
-   screenshots are the university's live portal, not the team's design.** Represent it by the
-   team's Figma screens.
-3. **Surugami** — `FInalDesmeth.pdf`, 100 pages, 10 slots. **The hard one**: 407 MB with **no
-   text layer at all**, so every page is a flat image and there is no embedded artwork to
-   extract — you render and crop. Its sources page rules out the moodboards (7–9) and personas
-   (12–13): Freepik by URL, and *"P4, P5, P6, P7, P8: All references were taken from
-   Pinterest"*.
+The method is `docs/sessions/session_022.md`, and it is now well-worn:
+
+1. Look at every image before mapping it. Filenames lie; `Wireframe.png` was a board of eight.
+2. **Measure the aspect from the file** — `sips -g pixelWidth -g pixelHeight` — and declare that
+   exact ratio (`1600/1131`). Never a round number. `ui/Media` paints with `object-cover`, so a
+   mismatch is a silent crop; all fourteen of WikiMind's declared aspects were wrong.
+3. Export WebP through `scripts/image-treat.mjs` with `crop: [0,0,1,1]`. Photographic material
+   takes q0.78–0.82; flat vector boards stay at 0.9 and cost 6–31 KB anyway.
+4. Place the figures **in the prose** with `{ kind: "figures", items: [...] }`, not in
+   `sections[].images[]`. Group them at the passage each illustrates.
+5. Record every export in `docs/reference/image_crops.json` by source path, width, height and
+   quality, so it is reproducible.
+6. `npm run images`, then the full verification.
+
+**If the folders are not there yet, say so and do not invent work.** The remaining non-image
+items are below, and they are small.
 
 Then:
 
@@ -53,8 +55,9 @@ Then:
    still the last thing wrong with every shared link) and the About portrait. Both need the
    owner; if they are not available, say so and leave them.
 5. **The 15 orphaned PNGs** — 817 KB that ships and that nothing references. Owner's yes.
-6. **`SUGGESTION-017`** — see below. It is now the thing most likely to distort the remaining
-   work.
+6. **`ISSUE-033`** — `/work/wikimind` is the heaviest page on the site, 706 KB at 1440/1x
+   across seventeen figures. Every lever left trades quality or figure size, so it is the
+   owner's pick, not a defect to fix quietly.
 7. **`ISSUE-032`** — WikiMind's persona portraits and moodboard tiles are not the owner's work.
    Four options are written up; all of them need the owner.
 8. **WikiMind's last two soft figures** — `[ prototype video ]` and `[ interface detail ]` still
@@ -115,9 +118,15 @@ text mid-word, silently widens the box. Both happened in SESSION-021 and both su
 stray `en` in the export. Sweep the limit — `0.57`, `0.59`, `0.61` — until the answer
 stabilises. It takes seconds.
 
-**Change the declared aspect when the artwork disagrees with it** — but see `SUGGESTION-017`
-first. Eight slots have had their aspect changed across three sessions. Some were the honest
-call; two in SESSION-021 were the layout forcing the crop's hand, which is backwards.
+**Cut the crop the artwork wants, not the one the layout tolerates.** `SUGGESTION-017` is
+implemented, so a lone narrow figure is held to 800px tall and centred rather than stretched to
+the column. Portrait figures — the kitchen and QIS both have them — no longer need their aspect
+bent to keep the page sane.
+
+**When the shape of the content data changes, check what the checks still see.** Twice now a
+model change has quietly *narrowed* a check instead of breaking it: SESSION-023's inline
+`figures` block made `image-manifest.mjs` report "WikiMind — 1 slot, all filled" and stop diffing
+16 sources across `en` and `de`. Both times the symptom was a plausible-looking number.
 
 ## Constraints
 

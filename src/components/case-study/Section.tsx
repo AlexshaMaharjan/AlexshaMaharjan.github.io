@@ -93,6 +93,11 @@ function BodyBlock({ block, first }: { block: Block; first: boolean }) {
 
     case "figure":
       return <Figure {...b} className={first ? "mt-8" : "mt-12"} />;
+
+    case "figures":
+      // `SectionMedia` already carries its own top margin, so this only has to
+      // hand over the array.
+      return <SectionMedia images={b.items} />;
   }
 }
 

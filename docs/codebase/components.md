@@ -52,8 +52,8 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 | `FactsStrip.tsx` | 52 | label/value `<dl>` of Type/Role/Contribution/Tools/Deliverables at the 680px measure, empties filtered out. `year` is gone; `type` carries "Semester project · solo/team" |
 | `ContentsNav.tsx` | 116 | sticky rail from `xl` + collapsible `<details>` below it, both marking the section being read. `useActiveSection` runs an `IntersectionObserver` rebuilt on every pathname change (never mount-only — `ARCH-01`); the rail's left edge fills as a progress track |
 | `Section.tsx` | 195 | one section: number + nav label, optional `intro` slot, heading, `body[]` blocks, then its set pieces and media. One render path; `first` and `outro` vary only spacing, scale and (for `outro`) heading-beside-text. Text sits at a 680px measure, everything else runs wider. `BodyBlock` switches on the block kind — paragraph / `h3` / `list` / `quote` / `note` / `figure` (`DECISION-014`) |
-| `SectionMedia.tsx` | 62 | groups a section's `images[]` into runs: wide ones (3:2 or wider, or `wide: true`) take the full column and `scale` in, narrower ones pack into a 2- or 3-up grid that staggers. A nested reveal, deliberately (`DECISION-008`) |
-| `Figure.tsx` | 40 | a case-study image slot: `Media` plus a `<figcaption>` when `src` is set |
+| `SectionMedia.tsx` | 96 | groups figures into runs: wide ones (3:2 or wider, or `wide: true`) take the full column and `scale` in, narrower ones pack into a 2- or 3-up grid that staggers. A **lone** narrow figure is held to `MAX_FIGURE_HEIGHT` (800px) and centred rather than stretched, with a `sizes` string that matches (`SUGGESTION-017`). A nested reveal, deliberately (`DECISION-008`) |
+| `Figure.tsx` | 72 | a case-study image slot: `Media` plus a `<figcaption>` when `src` is set. A real figure is also the button that opens `ui/Lightbox`; a placeholder is not |
 | `NextProjectNav.tsx` | 52 | prev/next preview cards + "View all work" |
 
 ## Playground (`src/components/playground/`)
@@ -70,7 +70,8 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 
 | File | Lines | Controls |
 | --- | --- | --- |
-| `ui/Image.tsx` | 32 | `<img>` wrapper, `fill` only, `sizes` ignored |
+| `ui/Image.tsx` | 32 | `<img>` wrapper, `fill` only, builds a `srcset` from `imageVariants` |
+| `ui/Lightbox.tsx` | 141 | full-screen view of one figure, portalled to `body` at `z-[210]` (over the header's `z-[200]`). Opens fitted, tap toggles the image's natural size inside a pannable scroller. Escape closes, focus starts on Close and returns to the figure. Exists because a dense figure is unreadable at 350px on a phone |
 | `PlaceholderImage.tsx` | 23 | hatched `role="img"` box with bracketed caption |
 | `about/LoveLine.tsx` | 65 | cycling word with measured width transition |
 | `resume/PrintButton.tsx` | 11 | `window.print()` |
