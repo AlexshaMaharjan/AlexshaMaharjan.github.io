@@ -1,6 +1,6 @@
 # SUGGESTION-017 — A lone narrow figure should not take the full reading column
 
-Status: **Implemented** (SESSION-023)
+Status: **Implemented** (SESSION-023), then **superseded by `DECISION-019`** (SESSION-027)
 Priority: Low
 Impact: Medium
 Effort: Small
@@ -105,3 +105,19 @@ sketch page does drop a rung.
 SESSION-021 were chosen to work around this rather than to suit the artwork. The
 kitchen and QIS both have portrait figures still to import, and they can now be
 cut at their own proportions.
+
+## Superseded, SESSION-027
+
+The ceiling was the right instinct on the wrong axis.
+
+Capping a lone figure's *width* at `800 × aspect` gave a different bespoke width to every aspect
+— nine of them across the site — and did nothing at all for rows, which is where the raggedness
+actually lived. AFONO's collection row held a 0.375 cart drawer, a 0.545 product page and a 4/3
+checkout: at equal widths those are 819px, 563px and 230px tall.
+
+`DECISION-019` inverts it. **Height is the governing dimension** — 640px for everything — and
+width follows from each figure's own aspect, so a row can be justified and every figure in it
+shares one height. Wide figures are unaffected: anything 1.5 or wider fits its full 960px inside
+640px of height, so the rule turns out to be uniform rather than special-cased.
+
+The constraint this file was written to remove is still removed, and now for rows too.

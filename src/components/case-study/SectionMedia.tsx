@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { SectionImage } from "@/lib/caseStudies/types";
 import Figure from "./Figure";
 
@@ -5,6 +6,9 @@ import Figure from "./Figure";
  * Wide enough to carry a section on its own? `wide` in the data wins; otherwise
  * the aspect ratio decides, so existing content gets sensible treatment without
  * every slot having to be annotated.
+ *
+ * This only decides **grouping** — whether a figure shares its row. How big it
+ * renders is decided further down, by height, for everything alike.
  */
 function isWide(image: SectionImage): boolean {
   if (image.wide !== undefined) return image.wide;
@@ -13,62 +17,103 @@ function isWide(image: SectionImage): boolean {
   return w / h >= 1.5;
 }
 
-/** 2 or 4 images read better paired; anything else goes three across. */
-function columnsFor(count: number): string {
-  if (count === 1) return "";
-  if (count === 2 || count === 4) return "sm:grid-cols-2";
-  return "sm:grid-cols-3";
-}
-
-/**
- * The tallest a figure is allowed to be (`SUGGESTION-017`).
- *
- * A run of one narrow figure used to fill the whole 960px column, because
- * `columnsFor(1)` returns no grid classes and the single child stretches. For a
- * 4/3 that is 720px and unremarkable; for a 3/5 it is 1700px, which does not
- * read as emphasis but as a mistake. Worse, it was silently deciding crops:
- * three figures across SESSION-020 and SESSION-021 had their aspect chosen to
- * work around this rather than to suit the artwork.
- *
- * 800px leaves every existing near-square figure exactly where it was — a 6/5
- * wants 960px and gets it — and only bites on genuinely tall ones.
- */
-const MAX_FIGURE_HEIGHT = 800;
-
-/** The reading column, in px — what a full-width figure renders at. */
-const COLUMN_PX = 960;
-
-/**
- * How wide a lone narrow figure should render, and the `sizes` that matches.
- * `null` means "no ceiling applies", so the figure keeps the full column and
- * the plain `COLUMN` string.
- */
-function loneWidth(image: SectionImage): number | null {
+/** The declared aspect as a number. 4/3 is the fallback so a malformed string cannot divide by zero. */
+function ratioOf(image: SectionImage): number {
   const [w, h] = image.aspect.split("/").map(Number);
-  if (!w || !h) return null;
-  const capped = Math.round(MAX_FIGURE_HEIGHT * (w / h));
-  return capped < COLUMN_PX ? capped : null;
+  return w && h ? w / h : 4 / 3;
 }
 
 /*
- * What each run actually renders at, for `srcset` (`SUGGESTION-012`). The
- * reading column is capped at 960px and sits inside `container-page`, whose
- * padding is 80px a side from `md` and 20px below it — so these are the column,
- * not the viewport (`DECISION-017`).
+ * ---------------------------------------------------------------------------
+ * Figures are sized by HEIGHT, not width (SESSION-027).
+ * ---------------------------------------------------------------------------
+ *
+ * Every figure keeps its own true aspect — nothing is ever cropped to fit, and
+ * `SESSION-022` onwards depends on that. But a row of equal-width figures with
+ * different aspects has wildly different heights: AFONO's collection row held
+ * a 0.375 cart drawer, a 0.545 product page and a 4/3 checkout, which at 307px
+ * wide render 819px, 563px and 230px tall. Three figures, one row, and no two
+ * bottoms within 300px of each other.
+ *
+ * So a row is justified instead, the way a photo gallery is: every figure in it
+ * gets the **same height**, and its width follows from its own aspect.
+ *
+ * The whole layout is two CSS lines and no arithmetic in the markup. Give each
+ * item `flex-grow: <its ratio>` against `flex-basis: 0`, and the widths come out
+ * proportional to the ratios; because each figure's box is `aspect-ratio: ratio`,
+ * width ∝ ratio means every height is identical. The browser does the
+ * justification.
+ *
+ * What is computed here is only what CSS cannot know: the row's height, so the
+ * row can be capped and centred, and the `sizes` string for each figure.
  */
-const COLUMN = "(min-width: 1280px) 960px, (min-width: 768px) calc(100vw - 160px), calc(100vw - 40px)";
-const HALF = "(min-width: 1280px) 470px, (min-width: 640px) calc((100vw - 180px) / 2), calc(100vw - 40px)";
-const THIRD = "(min-width: 1280px) 307px, (min-width: 640px) calc((100vw - 200px) / 3), calc(100vw - 40px)";
 
-/** `COLUMN`, but never wider than a lone figure's ceiling. */
-const loneSizes = (cap: number) =>
-  `(min-width: 1280px) ${cap}px, (min-width: 768px) min(${cap}px, calc(100vw - 160px)), min(${cap}px, calc(100vw - 40px))`;
+/** The reading column, in px (`DECISION-017`). */
+const COLUMN_PX = 960;
+
+/** `gap-5`, in px — needed because the gaps come out of the row's width. */
+const GAP = 20;
 
 /**
- * A section's image slots, grouped into runs so the page has more than one
- * media width: a wide image gets the full column, while narrower ones pack into
- * a grid at roughly a third of it (`SUGGESTION-003`). Runs preserve the order
- * the images are written in.
+ * The tallest any figure gets.
+ *
+ * This is the single number that makes the page consistent. A lone portrait, a
+ * lone near-square and a lone landscape all render exactly this tall, so they
+ * differ in width rather than in presence — and it replaces `SUGGESTION-017`'s
+ * width ceiling, which produced a different bespoke width for every aspect.
+ *
+ * A figure only comes out shorter when the column is the binding constraint:
+ * anything 1.5 or wider fits its full 960px inside this height, which is why
+ * wide figures still take the whole column and nothing about them changed.
+ */
+const MAX_FIGURE_HEIGHT = 640;
+
+/**
+ * How many figures share a row.
+ *
+ * Three across is the busiest that stays legible in a 960px column. Four splits
+ * two-and-two rather than going four across, which is the pairing the grid used
+ * to produce and the reason a run of four reads as two comparisons.
+ */
+function rowsOf(items: SectionImage[]): SectionImage[][] {
+  if (items.length === 4) return [items.slice(0, 2), items.slice(2)];
+  const rows: SectionImage[][] = [];
+  for (let i = 0; i < items.length; i += 3) rows.push(items.slice(i, i + 3));
+  return rows;
+}
+
+/** The height a row lands at, and therefore how wide the row is allowed to be. */
+function rowMetrics(items: SectionImage[]) {
+  const ratios = items.map(ratioOf);
+  const sum = ratios.reduce((a, b) => a + b, 0);
+  const gaps = GAP * (items.length - 1);
+  const height = Math.min(MAX_FIGURE_HEIGHT, (COLUMN_PX - gaps) / sum);
+  return { ratios, sum, gaps, height, width: Math.round(height * sum + gaps) };
+}
+
+/**
+ * What a figure actually renders at, for `srcset` (`SUGGESTION-012`).
+ *
+ * Below `md` a row stacks, so every figure is the full viewport column whatever
+ * its aspect — that branch is the one that matters most, because it is the one
+ * a 3x phone uses.
+ *
+ * The row turns horizontal at 768px rather than 640px: at 640 a three-figure row
+ * put the narrowest figure at 140px, which is a thumbnail of a thumbnail.
+ */
+function sizesFor(px: number): string {
+  return [
+    `(min-width: 1280px) ${px}px`,
+    `(min-width: 768px) min(${px}px, calc(100vw - 160px))`,
+    `calc(100vw - 40px)`,
+  ].join(", ");
+}
+
+/**
+ * A section's figures, grouped into runs and then justified into rows.
+ *
+ * Runs preserve the order the figures are written in, so where a figure sits in
+ * the data is where it sits on the page.
  */
 export default function SectionMedia({ images }: { images: SectionImage[] }) {
   if (images.length === 0) return null;
@@ -81,6 +126,8 @@ export default function SectionMedia({ images }: { images: SectionImage[] }) {
     else runs.push({ wide, items: [image] });
   }
 
+  const rows = runs.flatMap((run) => (run.wide ? [run.items] : rowsOf(run.items)));
+
   return (
     <div className="mt-12 flex flex-col gap-12">
       {/*
@@ -90,33 +137,19 @@ export default function SectionMedia({ images }: { images: SectionImage[] }) {
         section's. While the section is at rest the figures are invisible with
         it; once it has arrived they wait for their own turn (DECISION-008).
       */}
-      {runs.map((run, i) => {
-        if (run.wide) {
-          return (
-            <div key={i} data-inview="scale">
-              <Figure {...run.items[0]!} sizes={COLUMN} />
-            </div>
-          );
-        }
-
-        // A lone narrow figure: hold it to `MAX_FIGURE_HEIGHT` and centre it,
-        // rather than letting it stretch to the column (`SUGGESTION-017`). The
-        // `sizes` string has to follow the cap or the browser keeps fetching
-        // the column-width variant for a figure displayed at half of it, which
-        // is the same bug wearing a different hat.
-        if (run.items.length === 1) {
-          const cap = loneWidth(run.items[0]!);
-          return (
-            <div key={i} data-inview="scale" className="mx-auto w-full" style={cap ? { maxWidth: cap } : undefined}>
-              <Figure {...run.items[0]!} sizes={cap ? loneSizes(cap) : COLUMN} />
-            </div>
-          );
-        }
-
+      {rows.map((items, i) => {
+        const { ratios, height, width } = rowMetrics(items);
         return (
-          <div key={i} data-inview="stagger" className={`grid gap-5 ${columnsFor(run.items.length)}`}>
-            {run.items.map((image, n) => (
-              <Figure key={n} {...image} sizes={run.items.length === 2 || run.items.length === 4 ? HALF : THIRD} />
+          <div
+            key={i}
+            data-inview={items.length === 1 ? "scale" : "stagger"}
+            className="mx-auto flex w-full flex-col gap-5 md:flex-row"
+            style={{ maxWidth: width }}
+          >
+            {items.map((image, n) => (
+              <div key={n} style={{ flex: `${ratios[n]} 1 0%` } as CSSProperties}>
+                <Figure {...image} sizes={sizesFor(Math.round(height * ratios[n]!))} />
+              </div>
             ))}
           </div>
         );

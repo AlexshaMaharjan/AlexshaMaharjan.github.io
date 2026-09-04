@@ -11,7 +11,7 @@ took the last of the actionable non-image queue with it.
 this project: it is not short of engineering, it is short of two photographs, a poster's name,
 three judgement calls and three folders of images.
 
-Work sits on branch `milestone-003-content-model`, **forty-four commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **forty-five commits ahead of `main` and
 unpushed**. **The live site shows none of the last twenty-odd sessions.** That gap is now the
 largest single thing on this list — say so plainly to the owner before proposing anything else. **Check `git` before trusting any status in these files.**
 

@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-04**, after SESSION-026 (AFONO and Sync FM re-shot from the owner's own exports).
+Snapshot: **2026-09-04**, after SESSION-027 (figures sized by height; rows justified).
 
 ## Overall
 
@@ -92,10 +92,12 @@ page scrolls sideways at any width from 320px to 1920px.
   per-route counts identical at all three densities.
   **A figure opens full screen** (`DECISION-018`): fitted, then tap for natural size in a
   pannable scroller. That is a mobile fix rather than a flourish — at 350px a persona card's
-  type is about 3px, so the artefact was on the page and unreadable. **Figures also sit inside
-  the prose now**, via a `figures` block, instead of stacking after the whole section; and a
-  lone narrow figure is held to 800px tall rather than stretched to the column
-  (`SUGGESTION-017`).
+  type is about 3px, so the artefact was on the page and unreadable. **Figures sit inside the
+  prose**, via a `figures` block, rather than stacking after the whole section — all four
+  finished case studies now do this. **And figures are sized by height, not width**
+  (`DECISION-019`): 640px for everything, with rows justified so every figure in a row shares
+  one height and the widths absorb the difference in aspect. Nothing is cropped to achieve it,
+  which is the whole constraint.
   `DECISION-016` governs what may be taken: only the owner's own work, since these are
   academic documents that cite stock, Pinterest, licensed mockup templates and generative AI
   inside themselves. **Read the document's sources page, not this file's summary of it** —
