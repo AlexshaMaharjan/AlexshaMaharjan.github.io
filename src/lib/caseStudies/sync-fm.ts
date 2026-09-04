@@ -15,8 +15,8 @@ const syncFm: CaseStudyLocaleContent = {
     deliverables: "",
     heroImage: {
       src: "/images/hero-sync-fm.webp",
-      alt: "Sync FM's home screen with the news dial and the expanded player",
-      aspect: "16/7.5",
+      alt: "Five Sync FM screens beside the case-study title",
+      aspect: "1578/1088",
     },
     sections: [
       {
@@ -49,6 +49,12 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "The project compared regional and international examples, including AI-generated weather and traffic segments, AI-hosted web radio and AI-supported music recommendations. Existing systems generally use AI to automate presentation or generate content. Their internal selection logic remains largely invisible to listeners.",
           "Sync FM takes a different position. Instead of only automating the host, it exposes selected editorial controls to the user. The listener becomes a form of personal editor who can influence depth, tone and interpretation.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/8", caption: "[ competitor comparison ]" },
+            ],
+          },
           { kind: "h3", text: "Exploring different relationships with information" },
           "Three personas were used to consider different age groups, listening contexts and attitudes towards information. They represented needs such as efficient access to facts, calm background listening, more energetic presentation, greater contextual depth and protection from information overload.",
           "These personas were generated with Gemini and then used as concept-development tools. They are therefore labelled as hypothesis personas, not as direct evidence from primary user research.",
@@ -56,12 +62,12 @@ const syncFm: CaseStudyLocaleContent = {
             kind: "note",
             text: "Label: AI-assisted hypothesis persona",
           },
-        ],
-        images: [
-          { aspect: "16/8", caption: "[ competitor comparison ]" },
-          { aspect: "3/4", caption: "[ persona 01 ]" },
-          { aspect: "3/4", caption: "[ persona 02 ]" },
-          { aspect: "3/4", caption: "[ persona 03 ]" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/738", caption: "[ personas ]", src: "/images/sync-fm-personas.webp", alt: "The three hypothesis personas: Leo, 19, the explorer; Sarah, 42, the fact-seeker; and Walter, 73, the traditional listener" },
+            ],
+          },
         ],
       },
       {
@@ -91,16 +97,32 @@ const syncFm: CaseStudyLocaleContent = {
           "Sync Dial — The central dial adjusts the depth of information. Turning it towards the lower end reduces stories to brief headlines. Turning it towards the higher end introduces longer explanations, context and analysis. A responsive waveform provides visual feedback.",
           "Mood Bar — The Mood Bar adjusts the personality and rhythm of the AI presenter. A calm setting uses slower pacing, neutral language and longer pauses. A more energetic setting increases pace. This changes presentation, not the factual content itself.",
           "Opinion Filter — The Opinion Filter controls the amount of journalistic interpretation. The control is intended to make framing visible. It also introduces an important ethical risk: users may remove uncomfortable perspectives and reinforce an existing worldview.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1/1", caption: "[ sync dial ]", src: "/images/sync-fm-dial.webp", alt: "The sync dial, segmented into the six news categories it turns between" },
+              { aspect: "1/1", caption: "[ mood bar ]", src: "/images/sync-fm-mood-bar.webp", alt: "The three sliders in the app: news type from negative to positive, location from local to global, and truth level" },
+              { aspect: "1/1", caption: "[ opinion filter ]", src: "/images/sync-fm-opinion-filter.webp", alt: "The expanded player, with the truth-level scale reading 75 out of 100 beneath the headline" },
+            ],
+          },
           { kind: "h3", text: "Combining the familiarity of radio with a digital AI system" },
           "The visual language uses circular forms, rounded containers and wave-based feedback to connect the interface to audio and radio. Purple creates a distinctive technological identity while remaining less clinical than the blue systems frequently used by technology products. Futura is used for prominent headings, while Segoe UI supports longer interface and news text.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1014", caption: "[ colour palette ]", src: "/images/sync-fm-colour.webp", alt: "The five-step purple palette with its hex values, from near-black to off-white" },
+              { aspect: "1600/586", caption: "[ typography ]", src: "/images/sync-fm-typography.webp", alt: "Futura TP for headings, Segoe UI for body text" },
+            ],
+          },
           "The logo transforms a traditional radio into a simple character-like form. Initial concepts were generated with Gemini and then adjusted and refined by the team into a flat vector system. This AI-assisted stage is disclosed within the process.",
-        ],
-        images: [
-          { aspect: "1/1", caption: "[ sync dial ]", src: "/images/sync-fm-dial.webp", alt: "The sync dial, segmented into the six news categories it turns between" },
-          { aspect: "1/1", caption: "[ mood bar ]", src: "/images/sync-fm-mood-bar.webp", alt: "The three sliders in the app: news type from negative to positive, location from local to global, and truth level" },
-          { aspect: "1/1", caption: "[ opinion filter ]", src: "/images/sync-fm-opinion-filter.webp", alt: "The expanded player, with the truth-level scale reading 75 out of 100 beneath the headline" },
-          { aspect: "16/8", caption: "[ logo + visual system ]", src: "/images/sync-fm-logo-system.webp", alt: "The two refined Sync FM marks: the outlined radio and the filled robot" },
-          { aspect: "4/3", caption: "[ components ]", src: "/images/sync-fm-components.webp", alt: "Navigation cards for the general, voice, topic and model settings" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/557", caption: "[ logo iterations ]", src: "/images/sync-fm-logo-system.webp", alt: "Four logo iterations, from a teal robot to an outlined radio, beside the final purple mark" },
+              { aspect: "820/598", caption: "[ wireframes ]", src: "/images/sync-fm-wireframes.webp", alt: "Low-fidelity wireframes for the home, expanded home and preferences screens" },
+              { aspect: "1600/1664", caption: "[ components ]", src: "/images/sync-fm-components.webp", alt: "The component library: voice pickers, model list, menu bar, dial states light and dark, sliders and speed controls" },
+            ],
+          },
         ],
       },
       {
@@ -112,7 +134,7 @@ const syncFm: CaseStudyLocaleContent = {
           "The final prototype presents a mobile radio experience centred on the current audio stream. The Sync Dial remains visually dominant because it controls the broadest change. Secondary controls adjust presenter tone and interpretation without interrupting listening.",
           "The result is not a complete functioning AI-radio service. It is an interaction prototype demonstrating how editorial control could be introduced without requiring a complex settings dashboard.",
         ],
-        images: [{ aspect: "16/9", caption: "[ final mobile screens — large showcase ]", src: "/images/sync-fm-final-screens.webp", alt: "Three screens: the news dial, the dial with its filters set, and the expanded player" }],
+        images: [{ aspect: "1600/2548", caption: "[ final mobile screens — large showcase ]", src: "/images/sync-fm-final-screens.webp", alt: "Every screen of the Figma prototype: home and expanded home in light and dark, registration, the preference flow, and the profile and settings screens" }],
       },
       {
         id: "testing",
@@ -164,8 +186,8 @@ const syncFm: CaseStudyLocaleContent = {
     deliverables: "",
     heroImage: {
       src: "/images/hero-sync-fm.webp",
-      alt: "Der Sync-FM-Homescreen mit Nachrichtenregler und erweitertem Player",
-      aspect: "16/7.5",
+      alt: "Fünf Sync-FM-Screens neben dem Titel der Fallstudie",
+      aspect: "1578/1088",
     },
     sections: [
       {
@@ -198,6 +220,12 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "Das Projekt verglich regionale und internationale Beispiele, darunter KI-generierte Wetter- und Verkehrsmeldungen, KI-moderierte Webradios und KI-gestützte Musikempfehlungen. Bestehende Systeme nutzen KI hauptsächlich zur Automatisierung von Moderation oder Inhaltserstellung. Die interne Auswahl- und Aufbereitungslogik bleibt für Hörer weitgehend unsichtbar.",
           "Sync FM nimmt eine andere Position ein. Anstatt ausschließlich die Moderation zu automatisieren, stellt das System ausgewählte redaktionelle Steuerungsmöglichkeiten bereit. Die Hörer werden zu persönlichen Redakteuren und können Tiefe, Tonalität und Interpretation beeinflussen.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/8", caption: "[ competitor comparison ]" },
+            ],
+          },
           { kind: "h3", text: "Unterschiedliche Beziehungen zu Informationen untersuchen" },
           "Drei Personas wurden verwendet, um unterschiedliche Altersgruppen, Hörsituationen und Einstellungen zu Informationen zu betrachten. Sie repräsentierten Bedürfnisse wie effizienten Zugang zu Fakten, ruhiges Hören im Hintergrund, energetischere Präsentation, größere inhaltliche Tiefe und Schutz vor Informationsüberlastung.",
           "Die Personas wurden mit Gemini erstellt und anschließend als Werkzeuge für die Konzeptentwicklung genutzt. Sie werden deshalb als Hypothesen-Personas und nicht als direkte Ergebnisse primärer Nutzerforschung bezeichnet.",
@@ -205,12 +233,12 @@ const syncFm: CaseStudyLocaleContent = {
             kind: "note",
             text: "Kennzeichnung: KI-gestützte Hypothesen-Persona",
           },
-        ],
-        images: [
-          { aspect: "16/8", caption: "[ competitor comparison ]" },
-          { aspect: "3/4", caption: "[ persona 01 ]" },
-          { aspect: "3/4", caption: "[ persona 02 ]" },
-          { aspect: "3/4", caption: "[ persona 03 ]" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/738", caption: "[ personas ]", src: "/images/sync-fm-personas.webp", alt: "Die drei Hypothesen-Personas: Leo, 19, der Entdecker; Sarah, 42, die Fakten-Sucherin; und Walter, 73, der traditionelle Hörer" },
+            ],
+          },
         ],
       },
       {
@@ -240,16 +268,32 @@ const syncFm: CaseStudyLocaleContent = {
           "Sync Dial — Der zentrale Drehregler steuert die Informationstiefe. Eine Bewegung zum unteren Bereich reduziert Beiträge auf kurze Schlagzeilen. Eine Bewegung zum höheren Bereich führt zu ausführlicheren Erklärungen, Kontext und Analyse. Eine reagierende Wellenform gibt visuelles Feedback.",
           "Mood Bar — Die Mood Bar verändert Persönlichkeit und Rhythmus der KI-Moderation. Eine ruhige Einstellung nutzt langsameres Sprechen, neutrale Sprache und längere Pausen. Eine energetischere Einstellung erhöht das Tempo. Dabei verändert sich die Präsentation und nicht der faktische Inhalt.",
           "Opinion Filter — Der Opinion Filter steuert den Anteil journalistischer Interpretation. Die Steuerung soll Framing sichtbar machen. Sie bringt jedoch ein wichtiges ethisches Risiko mit sich: Nutzer könnten unangenehme Perspektiven ausblenden und bestehende Weltbilder verstärken.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1/1", caption: "[ sync dial ]", src: "/images/sync-fm-dial.webp", alt: "Der Drehregler, segmentiert in die sechs Nachrichtenkategorien, zwischen denen er wechselt" },
+              { aspect: "1/1", caption: "[ mood bar ]", src: "/images/sync-fm-mood-bar.webp", alt: "Die drei Regler der App: Nachrichtentyp von negativ bis positiv, Standort von lokal bis global und Wahrheitsgrad" },
+              { aspect: "1/1", caption: "[ opinion filter ]", src: "/images/sync-fm-opinion-filter.webp", alt: "Der erweiterte Player mit der Wahrheitsgrad-Skala bei 75 von 100 unter der Schlagzeile" },
+            ],
+          },
           { kind: "h3", text: "Die Vertrautheit des Radios mit einem digitalen KI-System verbinden" },
           "Die visuelle Sprache verwendet kreisförmige Elemente, abgerundete Container und wellenbasierte Rückmeldungen, um eine Verbindung zu Audio und Radio herzustellen. Lila schafft eine eigenständige technologische Identität und wirkt weniger klinisch als viele blaue Technologiesysteme. Futura wird für prominente Überschriften eingesetzt, während Segoe UI längere Interface- und Nachrichtentexte unterstützt.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1014", caption: "[ colour palette ]", src: "/images/sync-fm-colour.webp", alt: "Die fünfstufige Lila-Palette mit Hex-Werten, von Fast-Schwarz bis Off-White" },
+              { aspect: "1600/586", caption: "[ typography ]", src: "/images/sync-fm-typography.webp", alt: "Futura TP für Überschriften, Segoe UI für Fließtext" },
+            ],
+          },
           "Das Logo verwandelt ein traditionelles Radio in eine einfache, charakterähnliche Form. Erste Konzepte wurden mit Gemini generiert und anschließend vom Team zu einem flachen Vektorsystem angepasst und verfeinert. Diese KI-gestützte Phase wird im Prozess transparent dargestellt.",
-        ],
-        images: [
-          { aspect: "1/1", caption: "[ sync dial ]", src: "/images/sync-fm-dial.webp", alt: "Der Drehregler, segmentiert in die sechs Nachrichtenkategorien, zwischen denen er wechselt" },
-          { aspect: "1/1", caption: "[ mood bar ]", src: "/images/sync-fm-mood-bar.webp", alt: "Die drei Regler der App: Nachrichtentyp von negativ bis positiv, Standort von lokal bis global und Wahrheitsgrad" },
-          { aspect: "1/1", caption: "[ opinion filter ]", src: "/images/sync-fm-opinion-filter.webp", alt: "Der erweiterte Player mit der Wahrheitsgrad-Skala bei 75 von 100 unter der Schlagzeile" },
-          { aspect: "16/8", caption: "[ logo + visual system ]", src: "/images/sync-fm-logo-system.webp", alt: "Die zwei verfeinerten Sync-FM-Marken: das umrissene Radio und der ausgefüllte Roboter" },
-          { aspect: "4/3", caption: "[ components ]", src: "/images/sync-fm-components.webp", alt: "Navigationskarten für die Einstellungen zu Allgemein, Stimme, Themen und Modell" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/557", caption: "[ logo iterations ]", src: "/images/sync-fm-logo-system.webp", alt: "Vier Logo-Iterationen, vom türkisen Roboter bis zum umrissenen Radio, neben der finalen lila Marke" },
+              { aspect: "820/598", caption: "[ wireframes ]", src: "/images/sync-fm-wireframes.webp", alt: "Low-Fidelity-Wireframes für Home, erweitertes Home und Präferenzen" },
+              { aspect: "1600/1664", caption: "[ components ]", src: "/images/sync-fm-components.webp", alt: "Die Komponentenbibliothek: Stimmauswahl, Modell-Liste, Menüleiste, Regler-Zustände hell und dunkel, Slider und Geschwindigkeit" },
+            ],
+          },
         ],
       },
       {
@@ -261,7 +305,7 @@ const syncFm: CaseStudyLocaleContent = {
           "Der finale Prototyp zeigt ein mobiles Radioerlebnis, das sich auf den aktuellen Audiofluss konzentriert. Der Sync Dial bleibt visuell dominant, da er die umfassendste Veränderung steuert. Sekundäre Steuerungen verändern Moderationston und Interpretation, ohne das Zuhören zu unterbrechen.",
           "Das Ergebnis ist kein vollständig funktionierender KI-Radiosender. Es handelt sich um einen Interaktionsprototyp, der zeigt, wie redaktionelle Kontrolle eingeführt werden könnte, ohne ein komplexes Einstellungs-Dashboard zu erzeugen.",
         ],
-        images: [{ aspect: "16/9", caption: "[ final mobile screens — large showcase ]", src: "/images/sync-fm-final-screens.webp", alt: "Drei Screens: der Nachrichtenregler, der Regler mit gesetzten Filtern und der erweiterte Player" }],
+        images: [{ aspect: "1600/2548", caption: "[ final mobile screens — large showcase ]", src: "/images/sync-fm-final-screens.webp", alt: "Alle Screens des Figma-Prototyps: Home und erweitertes Home in Hell und Dunkel, Registrierung, der Präferenz-Flow sowie Profil- und Einstellungsseiten" }],
       },
       {
         id: "testing",
