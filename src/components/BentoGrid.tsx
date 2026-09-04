@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -29,8 +30,8 @@ import Image from "@/components/ui/Image";
  * - from 1160px the grid is capped at 1120px, so a tile is a fixed pixel width;
  * - from 881px it is fluid at ten columns, so a tile is a `vw` share;
  * - below 881px `index.css` collapses it to a single column capped at 520px
- *   (`!important`, and the reason this cannot be read off `gridArea` alone), so
- *   every tile is the full width whatever its span.
+ *   (the reason this cannot be read off `gridArea` alone), so every tile is the
+ *   full width whatever its span.
  *
  * That last one is not a rounding detail. Describing a 4-of-10 tile as `40vw`
  * on a phone where it actually renders at 350px told a 3x screen it needed
@@ -47,27 +48,17 @@ function sizesFor(gridArea: string): string {
   ].join(", ");
 }
 export default function BentoGrid({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
+  // The grid itself lives in `index.css` so the phone layout can override it on
+  // cascade order rather than with `!important` (`MILESTONE-002`).
   return (
-    <div
-      data-el="bento"
-      data-inview="stagger"
-      className="mx-auto"
-      style={{
-        maxWidth: 1120,
-        aspectRatio: "0.58",
-        display: "grid",
-        gridTemplateColumns: "repeat(10, 1fr)",
-        gridTemplateRows: "1.05fr 1fr 0.95fr 1fr 0.97fr 1fr",
-        gap: 14,
-      }}
-    >
+    <div data-el="bento" data-inview="stagger" className="mx-auto">
       {dictionary.selectedWork.bento.map((tile, i) => (
         <Link
           key={i}
           to={localeHref(locale, `/work/${tile.slug}`)}
           aria-label={`${tile.title} — ${tile.category}`}
           className="group relative flex items-center justify-center overflow-hidden rounded-[14px] bg-[#E6E7E9] transition-colors duration-[250ms] ease-out hover:bg-[#DCDEE1]"
-          style={{ gridArea: tile.gridArea, padding: "38px 18px 18px" }}
+          style={{ "--bento-area": tile.gridArea, padding: "38px 18px 18px" } as CSSProperties}
         >
           {tile.src && (
             <>

@@ -4,7 +4,6 @@ const surugami: CaseStudyLocaleContent = {
   en: {
     slug: "surugami",
     name: "Surugami",
-    projectTag: "Surugami",
     headline: "Making origami feel social, contemporary and easy to enter.",
     summary:
       "Surugami is an origami-inspired brand and digital experience that connects learning, workshops, visual storytelling and community participation through one coherent identity.",
@@ -173,7 +172,6 @@ const surugami: CaseStudyLocaleContent = {
   de: {
     slug: "surugami",
     name: "Surugami",
-    projectTag: "Surugami",
     headline: "Origami sozial, zeitgemäß und leicht zugänglich gestalten.",
     summary:
       "Surugami ist eine von Origami inspirierte Marke und digitale Erfahrung, die Lernen, Workshops, visuelles Storytelling und Community-Teilnahme in einer konsistenten Identität verbindet.",

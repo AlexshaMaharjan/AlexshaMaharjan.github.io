@@ -87,7 +87,6 @@ function studyBlock(n, en, de) {
     "```",
     `### ${en.slug}.en / .de`,
     pair("name", en.name, de.name),
-    pair("projectTag", en.projectTag, de.projectTag),
     pair("headline", en.headline, de.headline),
     pair("summary", en.summary, de.summary),
     ...(() => {

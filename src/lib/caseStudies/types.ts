@@ -67,7 +67,6 @@ export interface CaseStudySection {
 export interface CaseStudyContent {
   slug: string;
   name: string;
-  projectTag: string;
   headline: string;
   summary: string;
   heroDisclosure?: string;

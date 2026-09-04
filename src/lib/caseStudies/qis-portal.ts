@@ -4,7 +4,6 @@ const qisPortal: CaseStudyLocaleContent = {
   en: {
     slug: "qis-portal",
     name: "QIS Portal Redesign",
-    projectTag: "QIS Portal Redesign · 2024",
     headline: "Turning a fragmented university portal into a clearer student service.",
     summary:
       "The QIS redesign reorganises essential university-administration tasks around how students search for exams, certificates, grades, fees and personal information.",
@@ -205,7 +204,6 @@ const qisPortal: CaseStudyLocaleContent = {
   de: {
     slug: "qis-portal",
     name: "QIS Portal Redesign",
-    projectTag: "QIS Portal Redesign · 2024",
     headline: "Ein fragmentiertes Hochschulportal in einen klareren Studierendenservice verwandeln.",
     summary:
       "Das QIS-Redesign strukturiert zentrale Hochschulverwaltungsaufgaben danach, wie Studierende Prüfungen, Bescheinigungen, Noten, Gebühren und persönliche Informationen suchen und bearbeiten.",

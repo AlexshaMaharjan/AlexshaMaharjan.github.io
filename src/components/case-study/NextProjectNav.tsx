@@ -15,7 +15,7 @@ export default function NextProjectNav({
   locale: Locale;
 }) {
   return (
-    <nav aria-label="Project navigation" className="border-t border-surface-2 py-[72px] pb-[110px]">
+    <nav aria-label={dictionary.landmarks.projectNav} className="border-t border-surface-2 py-[72px] pb-[110px]">
       <div className="container-page">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <Link

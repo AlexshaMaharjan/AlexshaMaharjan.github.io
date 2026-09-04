@@ -59,14 +59,10 @@ const home: PlaygroundHomeLocaleContent = {
         caption: "A Unity game, small apps and code-based prototypes — design that responds.",
       },
     ],
-    galleryHeading: "",
-    gallery: [],
     exploringHeading: "Currently exploring —",
     exploringItems: ["Unreal animation", "beadwork", "motion studies"],
-    noteHeading: "",
     noteBody:
       "Not every idea needs to become a case study. This is where I collect experiments, unfinished directions and things I make simply because I enjoy making them.",
-    returnHeading: "",
     returnCta: "Back to Portfolio",
   },
   de: {
@@ -126,14 +122,10 @@ const home: PlaygroundHomeLocaleContent = {
         caption: "Ein Unity-Game, kleine Apps und Code-Prototypen — Design, das reagiert.",
       },
     ],
-    galleryHeading: "",
-    gallery: [],
     exploringHeading: "Aktuell am Entdecken —",
     exploringItems: ["Unreal animation", "Perlenkunst", "Motion-Studien"],
-    noteHeading: "",
     noteBody:
       "Nicht jede Idee muss zu einer Fallstudie werden. Hier sammle ich Experimente, unfertige Richtungen und Dinge, die ich einfach gestalte, weil mir das Gestalten Freude macht.",
-    returnHeading: "",
     returnCta: "Zurück zum Portfolio",
   },
 };

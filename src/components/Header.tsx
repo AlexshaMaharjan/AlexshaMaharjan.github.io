@@ -86,7 +86,7 @@ export default function Header({
         </div>
 
         <div className="flex items-center gap-7">
-          <nav aria-label="Primary" className="hidden items-center gap-7 text-[15px] text-ink nav:flex">
+          <nav aria-label={dictionary.landmarks.primaryNav} className="hidden items-center gap-7 text-[15px] text-ink nav:flex">
             <Link
               to={localeHref(locale, "/#work")}
               className="tap-target transition-colors hover:text-accent"

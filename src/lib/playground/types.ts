@@ -45,13 +45,9 @@ export interface PlaygroundHomeContent {
   categoriesHeading: string;
   categoriesCaption: string;
   categories: PlaygroundCategorySummary[];
-  galleryHeading: string;
-  gallery: PlaygroundItem[];
   exploringHeading: string;
   exploringItems: string[];
-  noteHeading: string;
   noteBody: string;
-  returnHeading: string;
   returnCta: string;
 }
 
@@ -59,7 +55,6 @@ export interface PlaygroundProjectContent {
   slug: string;
   categorySlug: string;
   categoryTitle: string;
-  eyebrow: string;
   title: string;
   intro: string;
   mainCaption: string;

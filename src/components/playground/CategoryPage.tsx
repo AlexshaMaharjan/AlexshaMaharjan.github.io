@@ -45,7 +45,7 @@ export default function CategoryPage({
         </div>
       </section>
 
-      <nav aria-label="Category navigation" className="border-t border-[rgba(78,96,135,0.18)] py-16">
+      <nav aria-label={dictionary.landmarks.categoryNav} className="border-t border-[rgba(78,96,135,0.18)] py-16">
         <div className="container-page flex items-center justify-between">
           <Link
             to={localeHref(locale, "/playground")}

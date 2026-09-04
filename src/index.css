@@ -192,16 +192,42 @@
  * component creates no tween at all, so there is nothing here to switch off.
  */
 
+/*
+ * The homepage bento grid (`DECISION-010`).
+ *
+ * These used to be inline styles on the component, which is why every rule in
+ * the media query below carried `!important`: a stylesheet cannot outrank a
+ * `style` attribute. Moving the grid here lets the phone layout win on ordinary
+ * cascade order instead (`MILESTONE-002`).
+ *
+ * Each tile's placement is still per-tile data, so it arrives as a custom
+ * property rather than as `grid-area` directly — a variable set inline can be
+ * *used* by a stylesheet rule, and that rule can then be overridden by a later
+ * one. That is the whole trick, and it is why nothing here needs `!important`.
+ */
+[data-el="bento"] {
+  max-width: 1120px;
+  aspect-ratio: 0.58;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 1.05fr 1fr 0.95fr 1fr 0.97fr 1fr;
+  gap: 14px;
+}
+
+[data-el="bento"] > * {
+  grid-area: var(--bento-area);
+}
+
 @media (max-width: 880px) {
   [data-el="bento"] {
-    max-width: 520px !important;
-    aspect-ratio: auto !important;
-    grid-template-columns: 1fr !important;
-    grid-template-rows: none !important;
-    grid-auto-rows: minmax(140px, auto) !important;
+    max-width: 520px;
+    aspect-ratio: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-rows: minmax(140px, auto);
   }
   [data-el="bento"] > * {
-    grid-area: auto !important;
+    grid-area: auto;
   }
 }
 

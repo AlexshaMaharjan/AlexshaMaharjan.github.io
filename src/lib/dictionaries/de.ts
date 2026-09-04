@@ -15,8 +15,16 @@ const de: Dictionary = {
     menu: "Menü",
     close: "Schließen",
     modeSwitchLabel: "Ansichtsmodus",
-    switchToGerman: "Switch to German",
+    switchToGerman: "Zu Deutsch wechseln",
     switchToEnglish: "Zu Englisch wechseln",
+  },
+  landmarks: {
+    primaryNav: "Hauptnavigation",
+    menu: "Menü",
+    footerNav: "Fußzeile",
+    categoryNav: "Kategorie-Navigation",
+    projectNav: "Projekt-Navigation",
+    processCanvas: "Mein Designprozess",
   },
   hero: {
     eyebrow: "Digital Designerin aus Lübeck, Deutschland",
@@ -74,8 +82,6 @@ const de: Dictionary = {
     eyebrow: "Ausgewählte Projekte",
     heading: "Durchdachtes Design, bedeutungsvolle Wirkung",
     copy: "Meine Arbeit konzentriert sich auf die Entwicklung visueller Identitäten und digitaler Erlebnisse, die klar, ansprechend und zielgerichtet sind. Von Markensystemen über User Interfaces bis hin zu experimentellen Projekten erforsche ich, wie Design Ideen vermittelt, Probleme löst und bessere Erlebnisse für Nutzer schafft.",
-    viewCaseStudy: "Fallstudie ansehen →",
-    projectLabel: "Projekt",
     bento: [
       { slug: "wikimind", category: "Brand & UI/UX", title: "WikiMind", gridArea: "1 / 1 / 2 / 7", fontSize: "clamp(26px,3.6vw,60px)", src: "/images/tile-wikimind-brand.webp", alt: "Die WikiMind-Wortmarke in ihren zwei Farbvarianten" },
       { slug: "afono", category: "Marke & E-Commerce", title: "AFONO", gridArea: "1 / 7 / 2 / 11", fontSize: "clamp(22px,2.8vw,44px)", src: "/images/tile-afono-brand.webp", alt: "AFONO-Logovarianten im Markenrot" },
@@ -93,7 +99,6 @@ const de: Dictionary = {
   projects: [
     {
       slug: "wikimind",
-      projectTag: "Projekt-01",
       name: "WikiMind",
       headline: "Künstliche Intelligenz klar, nützlich und zugänglich gestalten.",
       description:
@@ -102,14 +107,10 @@ const de: Dictionary = {
       role: "Brand & UI/UX Designerin",
       year: "2026",
       image: "/images/hero-wikimind.webp",
-      placeholderLabel: "[ wikimind — finale startseite ]",
       imageAlt: "Die WikiMind-Startseite auf einem Laptop, neben dem Titel der Fallstudie",
-      imageAspect: "1900/1066",
-      featured: true,
     },
     {
       slug: "afono",
-      projectTag: "Projekt-02",
       name: "AFONO",
       headline: "Nepalesische Identität in moderne Streetwear übersetzen.",
       description:
@@ -118,14 +119,10 @@ const de: Dictionary = {
       role: "Brand-, Fashion- & UI/UX-Designerin",
       year: "2026",
       image: "/images/hero-afono.webp",
-      placeholderLabel: "[ afono — kampagnen-hero ]",
       imageAlt: "Schriftzüge aus AFONOs HIMAL-Serie",
-      imageAspect: "16/7.5",
-      featured: true,
     },
     {
       slug: "sync-fm",
-      projectTag: "Projekt-03",
       name: "Sync FM",
       headline: "Hörerinnen und Hörern Kontrolle geben, ohne Radio in ein weiteres Dashboard zu verwandeln.",
       description:
@@ -134,14 +131,10 @@ const de: Dictionary = {
       role: "Interaction & UI Designerin",
       year: "",
       image: "/images/hero-sync-fm.webp",
-      placeholderLabel: "[ sync fm — mobile ui ]",
       imageAlt: "Der Sync-FM-Homescreen mit dem Nachrichtenregler",
-      imageAspect: "16/7.5",
-      featured: false,
     },
     {
       slug: "barrier-free-kitchen",
-      projectTag: "Projekt-04",
       name: "Barrierefreie Küche",
       headline: "Eine Küche durch Reichweite, Sehen und Berührung gestalten.",
       description:
@@ -150,14 +143,10 @@ const de: Dictionary = {
       role: "Prototyping & 3D Design",
       year: "",
       image: "/images/hero-barrier-free-kitchen.webp",
-      placeholderLabel: "[ küche — finales rendering ]",
       imageAlt: "Die barrierefreie Küche als 3D-Modell",
-      imageAspect: "16/7.5",
-      featured: false,
     },
     {
       slug: "surugami",
-      projectTag: "Projekt-05",
       name: "Surugami",
       headline: "Origami sozial, zeitgemäß und leicht zugänglich gestalten.",
       description:
@@ -166,14 +155,10 @@ const de: Dictionary = {
       role: "Illustration, Poster- & Webdesign",
       year: "",
       image: "/images/hero-surugami.webp",
-      placeholderLabel: "[ surugami — poster & identität ]",
       imageAlt: "Ein Surugami-Plakat lädt zum Falten ein",
-      imageAspect: "16/7.5",
-      featured: false,
     },
     {
       slug: "qis-portal",
-      projectTag: "Projekt-06",
       name: "QIS Portal Redesign",
       headline: "Ein fragmentiertes Hochschulportal in einen klareren Studierendenservice verwandeln.",
       description:
@@ -182,10 +167,7 @@ const de: Dictionary = {
       role: "UX/UI Designerin & Researcherin",
       year: "2024",
       image: "/images/hero-qis-portal.webp",
-      placeholderLabel: "[ qis — neues dashboard ]",
       imageAlt: "Die überarbeitete Prüfungsseite des QIS-Portals",
-      imageAspect: "16/7.5",
-      featured: false,
     },
   ],
   resume: {
@@ -329,8 +311,8 @@ const de: Dictionary = {
     eyebrow: "Über mich",
     heading: "Gestalten mit Neugier, Klarheit und Sorgfalt.",
     portraitAlt: "Porträt von Alexsha.",
-    handNoteOrigin: "Nepal → Germany",
-    handNoteMaking: "always making something!",
+    handNoteOrigin: "Nepal → Deutschland",
+    handNoteMaking: "immer am Gestalten!",
     portraitTags: ["UI/UX-Design", "Branding", "Visual Design"],
     biographyHeading: "Biografie",
     biography: [

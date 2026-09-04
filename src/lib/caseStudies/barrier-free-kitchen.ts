@@ -4,7 +4,6 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
   en: {
     slug: "barrier-free-kitchen",
     name: "Barrier-Free Kitchen",
-    projectTag: "Barrier-Free Kitchen",
     headline: "Designing a kitchen through reach, sight and touch.",
     summary:
       "This inclusive-design project explores how a kitchen can better support wheelchair users and people with cataracts. The concept was developed through observation, an interview, embodied testing, physical prototypes and a final animated Blender environment.",
@@ -203,7 +202,6 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
   de: {
     slug: "barrier-free-kitchen",
     name: "Barrierefreie Küche",
-    projectTag: "Barrierefreie Küche",
     headline: "Eine Küche durch Reichweite, Sehen und Berührung gestalten.",
     summary:
       "Dieses Inclusive-Design-Projekt untersucht, wie eine Küche Menschen im Rollstuhl und Personen mit Grauem Star besser unterstützen kann. Das Konzept entstand durch Beobachtung, ein Interview, Selbsterfahrung, physische Prototypen und eine abschließende animierte Blender-Umgebung.",
