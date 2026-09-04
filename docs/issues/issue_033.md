@@ -1,4 +1,4 @@
-# ISSUE-033 — `/work/wikimind` is the heaviest page on the site
+# ISSUE-033 — The figure-dense case studies are heavy on mobile
 
 Status: Open
 Priority: Medium
@@ -64,3 +64,40 @@ look like. Picking one silently would repeat that mistake in the other direction
 - `DECISION-018` — the full-screen viewer, which weakens the case for `wide: true`
 - `SUGGESTION-017` — the lone-figure ceiling
 - `SUGGESTION-012` — the responsive pipeline this all runs through
+
+
+## Widened after SESSION-026 — AFONO now leads
+
+Re-shooting AFONO from its supplied folder took it from 13 figures to 22, and it is now the
+heaviest page on the site by a clear margin:
+
+| Page | 1440/1x | 390/3x | Figures |
+| --- | --- | --- | --- |
+| `/work/afono` | **694 KB** (518 img) | **1544 KB** (1368 img) | 22 |
+| `/work/wikimind` | 710 KB (535) | 1007 KB (832) | 17 |
+| `/work/surugami` | 440 KB (267) | 713 KB (540) | 8 |
+| `/work/sync-fm` | 421 KB (247) | 654 KB (479) | 10 |
+
+**The mobile number is the one that matters, and it has a structural cause.** Grid runs are
+`sm:grid-cols-3` — below 640px every figure collapses to full width. So a phone renders 22
+figures at 350px each, and at DPR 3 asks for ~1050px of each, landing on the 1280 variant. The
+lone-figure ceiling (`SUGGESTION-017`) does not help here: it is a `max-width`, and at 350px
+nothing is capped.
+
+Nothing is malfunctioning. `sizes` is correct, the right variant is being chosen, and the images
+genuinely need that many pixels to be sharp at 3x. The page is simply large because the case
+study is thorough.
+
+### What would actually move it
+
+1. **Lower the variant ladder's quality.** `image-variants.mjs` re-encodes every variant at a
+   fixed 0.82. Dropping it affects every page at once and is the single biggest lever. Needs a
+   look at the result before adopting — it should be judged on the 960 and 1280 rungs, which are
+   what phones and laptops actually fetch.
+2. **Serve fewer figures on small screens.** A real option and a real cost: it means deciding
+   which of the owner's work a phone visitor does not get to see.
+3. **Accept it.** There is still no documented weight budget. 694 KB gzipped on desktop for a
+   22-figure case study is defensible; 1.5 MB on a 3x phone is the number worth a second opinion.
+
+Option 1 is the only one that costs nothing but a judgement about image quality, which is why it
+is listed first — and why it is still the owner's call rather than a change made quietly.

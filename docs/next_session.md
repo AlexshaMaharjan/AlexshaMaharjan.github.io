@@ -2,17 +2,18 @@
 
 ## Status
 
-`MILESTONE-005` is **waiting on the owner, not on work**: 60 of 139 image slots filled, up from
-7 before SESSION-016. **Four case studies now carry real imagery** — WikiMind, AFONO, Sync FM
-and Surugami. **`MILESTONE-002` closed in SESSION-025**, and with `ISSUE-009` and `ISSUE-010` it
+`MILESTONE-005` is **waiting on the owner, not on work**: 73 of 148 image slots filled, up from
+7 before SESSION-016. **Four case studies are complete, and all four run on the owner's own
+exports rather than PDF page renders** — WikiMind, AFONO, Sync FM and Surugami. **`MILESTONE-002` closed in SESSION-025**, and with `ISSUE-009` and `ISSUE-010` it
 took the last of the actionable non-image queue with it.
 
 **Six issues are open and five of them need the owner, not work.** That is the real state of
 this project: it is not short of engineering, it is short of two photographs, a poster's name,
 three judgement calls and three folders of images.
 
-Work sits on branch `milestone-003-content-model`, **forty-three commits ahead of `main` and
-unpushed**. **Check `git` before trusting any status in these files.**
+Work sits on branch `milestone-003-content-model`, **forty-four commits ahead of `main` and
+unpushed**. **The live site shows none of the last twenty-odd sessions.** That gap is now the
+largest single thing on this list — say so plainly to the owner before proposing anything else. **Check `git` before trusting any status in these files.**
 
 The site is publishable; the pre-flight is in `docs/reference/publishing.md`. Two commands,
 both the owner's to run:
@@ -29,12 +30,19 @@ answer was that the remaining case studies and the playground will get **their o
 folders**, the way `Images/wikimind/` did. That is the right call — those PNGs beat PDF page
 renders on every axis, and three of WikiMind's showed figures the document never contained — but
 it means **do not cut the remaining 21 slots out of the PDFs.** That work would be thrown away
-the moment the folders land. **SESSION-024 proved the point**: `Images/Surugami/` arrived and
-Surugami was built without opening `FInalDesmeth.pdf` once — 407 MB, no text layer, and not
-needed.
+the moment the folders land. **SESSION-024 and SESSION-026 proved the point three times over**:
+Surugami, AFONO and Sync FM were all built or rebuilt from supplied folders, and twelve PDF crops
+were superseded in SESSION-026 alone.
 
 **So: check `Images/` first.** If new folders are there, that is the session. What is still
-missing is **the barrier-free kitchen (10 slots), QIS Portal (11) and the playground (39)**.
+missing is **the barrier-free kitchen (10 slots), QIS Portal (11) and the playground (39)** —
+`Images/BarrierFreeKitchen/`, `Images/QIS/`, `Images/Playground/` or whatever the owner names
+them.
+
+**A supplied folder outranks the manifest.** Sync FM's three persona slots became one because one
+board arrived; Surugami's `[ sitemap + wireframes ]` became two because two did. Match the slots
+to the artefacts, not the artefacts to the slots — and rename a caption when the figure disagrees
+with it.
 
 ```bash
 find Images -type f \( -name '*.png' -o -name '*.jpg' \) | sort
@@ -84,6 +92,8 @@ Then:
    Four options are written up; all of them need the owner.
 8. **`ISSUE-034`** — which Surugami poster is the owner's. One sentence from them fills a slot
    that is hatched only because guessing authorship is not allowed.
+9. **`ISSUE-035`** — AFONO's empty `Wireframe.png`, the cropped-out inspiration board, and the
+   AI-imagery inference that was read from the folder rather than stated. Worth confirming.
 9. **WikiMind's last two soft figures** — `[ prototype video ]` and `[ interface detail ]` still
    carry SESSION-019's PDF crops and sit next to fifteen sharp exports. If the owner has
    originals, this is minutes of work.

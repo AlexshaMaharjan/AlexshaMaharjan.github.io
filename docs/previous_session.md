@@ -1,70 +1,69 @@
 # Previous Session
 
-**SESSION-025** — 2026-09-04. Full record: `docs/sessions/session_025.md`.
+**SESSION-026** — 2026-09-04. Full record: `docs/sessions/session_026.md`.
 
 ## What it did
 
-No image folders had arrived, and the hand-off said not to invent work — so this session took
-the non-image queue. It held more than it looked like: one real user-facing defect, a milestone
-that was closer to done than its own file said, and an index that had drifted out of true.
+`Images/Afono/` (30 files) and `Images/SyncFM/` (8) had arrived — not the kitchen and QIS the
+hand-off was waiting for, but a re-shoot of the two case studies that still ran on PDF crops.
 
-**`MILESTONE-002` is complete.** **`ISSUE-009` and `ISSUE-010` are closed.** Six issues remain
-open and **five of them need the owner rather than work.**
+**148 slots, 73 filled.** AFONO went 15 → **23 slots with 1 empty**; Sync FM 12 → **13 with 2**.
+**Four of the six case studies are now complete and all four run on the owner's own exports.**
+Twelve PDF crops were superseded in one session.
 
 ## The thing worth carrying forward
 
-**A defect the harness structurally cannot see.** Six landmark `aria-label`s were hard-coded
-English — "Primary", "Footer", "Menu", "Category navigation", "Project navigation", "My design
-process" — so a German visitor jumping between page regions heard English structure around
-German content.
+**A supplied folder can answer a question the documentation could not.** SESSION-021 left three
+Sync FM persona slots hatched on the grounds that pages 9–11 of the documentation are running
+text with no card to export (`DECISION-016` Amendment 2). `Persona.png` **is** that card — Leo,
+Sarah and Walter on one board.
 
-**axe checks that a landmark has an accessible name, never that the name is in the page's
-language.** Zero violations, every run, for the entire life of the project. Nothing was broken
-enough to notice by looking either. They now come from a `landmarks` dictionary group, read back
-off the built German pages to confirm.
+So the three slots became **one**. A single board is one figure; cropping it into thirds to match
+a manifest written before the file existed would invent a layout the owner never made. **When the
+artefact disagrees with the slot count, the artefact wins** — the same call as Surugami's
+`[ sitemap + wireframes ]` splitting in two, run in the opposite direction.
 
-`ISSUE-009` had listed these as an afterthought under four content fields. The afterthought was
-the larger half. **And the one question it actually asked was already answered**: it wanted a
-decision on translating the process collage's labels, which `ISSUE-030` had since made moot by
-wrapping the whole canvas in `aria-hidden` with a text alternative. The issue was stale, not open.
+## Two files that were not used, and why
 
-## Two judgement calls worth knowing about
+- **`Wireframe.png` is empty.** 14,299 × 8,794, 496 KB, entirely white; `ink-box` finds no ink
+  anywhere on the canvas. Not a judgement — the export captured nothing. Re-export it if a real
+  wireframe board exists.
+- **`InstaInspiration.png` is two thirds other brands' Instagram feeds.** `DECISION-016` says
+  crop to the owner's part; `ink-box` puts their grid panel at `[0.6196, 0.1694, 0.3673, 0.8124]`
+  if it is ever wanted. It was not placed because `[ social media ]` now shows the finished posts,
+  which are a better figure than the grid that laid them out.
 
-**Two `MILESTONE-002` tasks were marked superseded, not done.** Its task list predates
-`DECISION-010`, which deliberately kept the eleven-tile wall and specified "a category label and
-a title" over each image. "One entry per project" and "restore headline / description / role /
-year on the tiles" would both undo the composition the owner approved. Marked superseded with
-the quote rather than quietly ticked.
+**`[ market analysis ]` is AFONO's last empty slot** and stays that way: the only thing supplied
+for it was the material being compared, not the owner's comparison of it.
 
-**`ISSUE-010` kept four fields it was asked to delete.** `headline`, `description`, `role` and
-`year` render nowhere, and they stay: 48 authored strings across two locales, and precisely what
-a `/work` index needs (`SUGGESTION-014`). Deleting the owner's copy to tidy a type is the wrong
-trade. Eleven genuinely structural fields did go, and the bundle dropped 1.4 KB. One field on the
-issue's list turned out to be **live** — checking each individually was worth the minutes.
+## One inference the owner should check
 
-## Also
+The open decision *"may AFONO's AI-generated product imagery be shown?"* was **read as answered by
+the folder** — the AI try-on preview, product page, shop page and tee mockups were all supplied
+and are all now placed. That is an inference from a file drop, not a stated decision. It is
+recorded in `ISSUE-035` and is one line to reverse.
 
-The `!important` on the bento grid is gone. It existed because the grid was inline `style`, which
-no stylesheet can outrank; the placement now arrives as a custom property that a CSS rule
-consumes, so the phone layout wins on ordinary cascade order. Verified at six widths including
-**both sides of the 880px boundary**, which is the only part that could have broken.
+## What the layout work bought
 
-The issues index claimed "30 issues, 27 resolved, 10 open" and called a SESSION-005 fix open;
-four issues had been appended into a table headed "resolved by the owner". Rebuilt. Three
-suggestions marked `Proposed` while largely built now say what is actually left —
-including that `SUGGESTION-016` recommended Netlify and **the owner chose GitHub Pages**.
+Several supplied files are very tall — a cart drawer at 0.375, a product page at 0.545, Sync FM's
+prototype board at 0.628. `SUGGESTION-017`'s ceiling holds each to 800px and `DECISION-018` lets
+any of them open full screen, so **not one crop this session was chosen to suit the layout.** That
+is precisely what those two changes existed to stop, and this is the first session where it was
+load-bearing.
 
-## What it left for the owner
-
-Nothing new. The five standing decisions — `ISSUE-006`, `ISSUE-031`, `ISSUE-032`, `ISSUE-033`,
-`ISSUE-034` — plus the image folders for the kitchen, QIS Portal and the playground.
-
-Worth a glance: the German wording is mine. Translations of copy already approved in English
-rather than new prose, but "immer am Gestalten!" has more than one idiomatic reading.
+`Landing Page.png` (2845 × 12972, a 0.219 ratio → 175px wide) is the one the ceiling could not
+rescue; left aside rather than forced into a shape it is not.
 
 ## Verified
 
-Production build: routes 36/36; 170 images across 36 routes at dpr 1, 2 and 3, 0 broken, 0
-missing `alt`, 0 failed requests, counts identical at all densities; axe 0 violations; 0
-overflow; reduced motion static; `tsc` clean; lint 0 errors; `image-manifest.mjs` exits 0;
-variant map up to date. German fixes and the bento breakpoints read off the built pages.
+Production build: routes 36/36; **196 images across 36 routes at dpr 1, 2 and 3** — exactly the
+expected 170 + 13 new filled slots × 2 locales — 0 broken, 0 missing `alt`, 0 failed requests,
+counts identical at all densities; axe 0 violations; reduced motion static; `tsc` clean; lint 0
+errors; `image-manifest.mjs` exits 0 on en/de parity across both rewritten case studies.
+
+## What it left for the owner
+
+- **The kitchen and QIS folders** (21 slots) and the playground's 39.
+- `ISSUE-035`, plus the five standing decisions.
+- **Nothing pushed.** 43 commits ahead of `main` before this one, and the live site still shows
+  none of it.

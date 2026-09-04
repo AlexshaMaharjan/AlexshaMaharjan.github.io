@@ -29,6 +29,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-023 | 2026-09-04 | Figures move inline to their prose (`figures` block); SUGGESTION-017 implemented; full-screen figure viewer for mobile legibility (DECISION-018); ISSUE-033 | `session_023.md` |
 | SESSION-024 | 2026-09-04 | Surugami built entirely from supplied exports — 8 figures plus a new hero, 3 slots deliberately hatched; ISSUE-034 | `session_024.md` |
 | SESSION-025 | 2026-09-04 | No images to place: ISSUE-009 (German landmarks axe cannot see) and ISSUE-010 closed, MILESTONE-002 complete, `!important` removed, doc accuracy pass | `session_025.md` |
+| SESSION-026 | 2026-09-04 | AFONO and Sync FM re-shot from supplied folders — 12 PDF crops superseded, 9 new slots, Sync FM's three persona slots merged into the one board that exists; ISSUE-035 | `session_026.md` |
 
 ## Conventions
 

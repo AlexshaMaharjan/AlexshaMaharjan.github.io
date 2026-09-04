@@ -15,9 +15,10 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/afono-cart.webp": {
-    "w": 600,
+    "w": 768,
     "v": [
-      400
+      400,
+      640
     ]
   },
   "/images/afono-checkout.webp": {
@@ -26,14 +27,48 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       400
     ]
   },
-  "/images/afono-colour-system.webp": {
-    "w": 600,
+  "/images/afono-colour-palette.webp": {
+    "w": 1190,
     "v": [
-      400
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-colour-system.webp": {
+    "w": 1228,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-components.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/afono-logo-lockups.webp": {
+    "w": 1160,
+    "v": [
+      400,
+      640,
+      960
     ]
   },
   "/images/afono-logo-sketches.webp": {
-    "w": 600,
+    "w": 1042,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/afono-moodboard.webp": {
+    "w": 595,
     "v": [
       400
     ]
@@ -44,34 +79,52 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       400
     ]
   },
-  "/images/afono-print-development.webp": {
-    "w": 600,
-    "v": [
-      400
-    ]
-  },
-  "/images/afono-prototype.webp": {
-    "w": 1900,
-    "v": [
-      400,
-      640,
-      960,
-      1280,
-      1600
-    ]
-  },
-  "/images/afono-size-finder.webp": {
-    "w": 600,
-    "v": [
-      400
-    ]
-  },
-  "/images/afono-social-system.webp": {
-    "w": 1200,
+  "/images/afono-print-artwork.webp": {
+    "w": 1162,
     "v": [
       400,
       640,
       960
+    ]
+  },
+  "/images/afono-print-development.webp": {
+    "w": 1164,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-product-page.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/afono-prototype.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/afono-size-finder.webp": {
+    "w": 896,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/afono-social-system.webp": {
+    "w": 800,
+    "v": [
+      400,
+      640
     ]
   },
   "/images/afono-tee-back.webp": {
@@ -86,6 +139,30 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       400
     ]
   },
+  "/images/afono-tee-mockups.webp": {
+    "w": 1274,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-typography.webp": {
+    "w": 1226,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-wordmark-studies.webp": {
+    "w": 1140,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
   "/images/alexsha_photo-mrx9hbwx-nif2.png": {
     "w": 1720,
     "v": [
@@ -96,7 +173,7 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/hero-afono.webp": {
-    "w": 2000,
+    "w": 1900,
     "v": [
       400,
       640,
@@ -136,13 +213,12 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/hero-sync-fm.webp": {
-    "w": 2000,
+    "w": 1578,
     "v": [
       400,
       640,
       960,
-      1280,
-      1600
+      1280
     ]
   },
   "/images/hero-wikimind.webp": {
@@ -225,11 +301,22 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       960
     ]
   },
-  "/images/sync-fm-components.webp": {
-    "w": 900,
+  "/images/sync-fm-colour.webp": {
+    "w": 1600,
     "v": [
       400,
-      640
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/sync-fm-components.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
     ]
   },
   "/images/sync-fm-dial.webp": {
@@ -239,21 +326,21 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/sync-fm-final-screens.webp": {
-    "w": 1900,
+    "w": 1600,
     "v": [
       400,
       640,
       960,
-      1280,
-      1600
+      1280
     ]
   },
   "/images/sync-fm-logo-system.webp": {
-    "w": 1200,
+    "w": 1600,
     "v": [
       400,
       640,
-      960
+      960,
+      1280
     ]
   },
   "/images/sync-fm-mood-bar.webp": {
@@ -266,6 +353,31 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     "w": 600,
     "v": [
       400
+    ]
+  },
+  "/images/sync-fm-personas.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/sync-fm-typography.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/sync-fm-wireframes.webp": {
+    "w": 820,
+    "v": [
+      400,
+      640
     ]
   },
   "/images/tile-afono-brand.webp": {
