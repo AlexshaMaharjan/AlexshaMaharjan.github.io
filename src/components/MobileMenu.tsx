@@ -53,7 +53,7 @@ export default function MobileMenu({
           className="fixed inset-0 z-[190] overflow-y-auto border-b border-[#EAECF0] bg-white px-5 pb-8 pt-[calc(var(--header-h)+59px)]"
         >
           <nav
-            aria-label="Menu"
+            aria-label={dictionary.landmarks.menu}
             className="flex flex-col items-center gap-1 text-center"
           >
             {links.map((link) => (

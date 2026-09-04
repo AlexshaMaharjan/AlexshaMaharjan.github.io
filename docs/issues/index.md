@@ -1,12 +1,15 @@
 # Issues Index
 
-30 issues. **27 resolved** — 6 in SESSION-002 (`MILESTONE-001`), 2 in SESSION-003
-(`MILESTONE-003`), 2 in SESSION-005 3 in SESSION-006, 2 in SESSION-007 and 1 in SESSION-009 (`MILESTONE-007`), 3 in
-SESSION-008 (`MILESTONE-002`/`005`), and `ISSUE-025` by the owner — plus one partially resolved. 10
-remain open, none `Investigating`. **The owner answered all three open decisions on
-2026-08-24**, which unblocked the last of these. No `Critical` issue is open. `ISSUE-027` is open but **diagnosed**:
-SESSION-005 measured the real mechanism and rewrote the file, having found SESSION-004's
-description of it wrong.
+34 issues. **28 resolved**, plus `ISSUE-004` and `ISSUE-006` partially. **6 remain open**,
+none `Investigating` and none `Critical`.
+
+Of the six, **five need the owner and cannot be closed by work**: two are provenance judgements
+(`ISSUE-032`, `ISSUE-034`), one is a weight trade-off (`ISSUE-033`), one is a word of copy
+(`ISSUE-031`), and `ISSUE-006` needs a photograph and a designed card. Only `ISSUE-004` waits on
+images that are coming.
+
+`ISSUE-009` and `ISSUE-010` closed in SESSION-025 — the German landmark labels and the dead
+content fields.
 
 Read the summary column first; open a file only when you are going to act on it.
 
@@ -25,13 +28,15 @@ _None._
 
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
-| ISSUE-009 | German gaps: 3 untranslated fields + 1 missing | Open | Medium | Visible English on the DE About page | `issue_009.md` |
-| ISSUE-010 | Dead fields across the content types | Open | Medium | ~12 typed fields read by nothing | `issue_010.md` |
+| ISSUE-032 | WikiMind's personas and moodboard ship third-party imagery | Open | Medium | The persona portraits and half the moodboard tiles are not the owner's; `DECISION-016` makes this their call | `issue_032.md` |
+| ISSUE-033 | `/work/wikimind` is the heaviest page on the site | Open | Medium | 706 KB at 1440/1x across 17 figures; the levers left all trade quality or figure size | `issue_033.md` |
+| ISSUE-034 | Which Surugami poster is the owner's? | Open | Medium | The supplied board carries the whole team's campaign; `[ poster — by alexsha ]` stays hatched rather than over-claim | `issue_034.md` |
 
 ## Active — Low
 
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
+| ISSUE-031 | Sync FM's copy credits the wrong AI tool | Open | Low | Says Gemini made the personas; the documentation says ChatGPT did | `issue_031.md` |
 
 ## Resolved
 
@@ -121,20 +126,23 @@ And by the owner, outside a recorded session:
 | ID | Title | Resolved by | File |
 | --- | --- | --- | --- |
 | ISSUE-025 | No deployment configuration | `f8df707`/`7332ad8`/`11930a6` — GitHub Pages via `npm run deploy` (`gh-pages`) | `issue_025.md` |
-| ISSUE-031 | Sync FM's copy credits the wrong AI tool | Open | Low | Says Gemini made the personas; the documentation says ChatGPT did | `issue_031.md` |
-| ISSUE-032 | WikiMind's personas and moodboard ship third-party imagery | Open | Medium | The persona portraits and half the moodboard tiles are not the owner's; `DECISION-016` makes this their call | `issue_032.md` |
-| ISSUE-033 | `/work/wikimind` is the heaviest page on the site | Open | Medium | 706 KB at 1440/1x across 17 figures; the levers left all trade quality or figure size | `issue_033.md` |
-| ISSUE-034 | Which Surugami poster is the owner's? | Open | Medium | The supplied board carries the whole team's campaign; `[ poster — by alexsha ]` stays hatched rather than over-claim | `issue_034.md` |
+
+And in SESSION-025, closing `MILESTONE-002`'s last two dependencies:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-009 | German gaps: untranslated and missing fields | The four listed fields, **plus six landmark `aria-label`s** that were the larger half and are actually announced. A new `landmarks` dictionary group; verified on the built German pages | `issue_009.md` |
+| ISSUE-010 | Dead fields across the content types | `DECISION-010` ended the "they'll come back" premise. Eleven structural fields removed; `headline`/`description`/`role`/`year` kept for `SUGGESTION-014` and the type now says why | `issue_010.md` |
 
 ## Grouped by milestone
 
 - **MILESTONE-001** (stabilize): 001, 002, 003, 017, 018, 022 — **all resolved**
-- **MILESTONE-002** (work section): 004 (mechanism ✅, images pending), 005 ✅
+- **MILESTONE-002** (work section): 004 (mechanism ✅, images pending), 005 ✅, 010 ✅ — **milestone complete**, SESSION-025
 - **MILESTONE-003** (case-study redesign): 008 ✅, 024 ✅, 007 (case-study half ✅)
 - **MILESTONE-004** (copy pass): —
 - **MILESTONE-005** (imagery): 006, 007 ✅ — what remains is the images themselves, listed
   in `docs/reference/image_manifest.md`
 - **MILESTONE-006** (motion): 012 ✅, 020 ✅
-- **MILESTONE-007** (design system / responsive): 010, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027 ✅, 028 ✅, 029 ✅, 030 ✅ — only `ISSUE-010` remains, and it waits on `MILESTONE-002`
+- **MILESTONE-007** (design system / responsive): 010 ✅, 011 ✅, 015 ✅, 016 ✅, 021 ✅, 023 ✅, 026 ✅, 027 ✅, 028 ✅, 029 ✅, 030 ✅ — **all resolved**
 - **MILESTONE-008** (perf / SEO / deploy): 013 ✅, 014 ✅, 019 ✅, 025 ✅
-- **MILESTONE-009** (German): 009
+- **MILESTONE-009** (German): 009 ✅ — the dictionary gaps and the landmark labels are closed; what remains is a copy pass, not a bug

@@ -4,9 +4,14 @@
 
 `MILESTONE-005` is **waiting on the owner, not on work**: 60 of 139 image slots filled, up from
 7 before SESSION-016. **Four case studies now carry real imagery** — WikiMind, AFONO, Sync FM
-and Surugami. Every engineering milestone that needs nobody is finished.
+and Surugami. **`MILESTONE-002` closed in SESSION-025**, and with `ISSUE-009` and `ISSUE-010` it
+took the last of the actionable non-image queue with it.
 
-Work sits on branch `milestone-003-content-model`, **forty-two commits ahead of `main` and
+**Six issues are open and five of them need the owner, not work.** That is the real state of
+this project: it is not short of engineering, it is short of two photographs, a poster's name,
+three judgement calls and three folders of images.
+
+Work sits on branch `milestone-003-content-model`, **forty-three commits ahead of `main` and
 unpushed**. **Check `git` before trusting any status in these files.**
 
 The site is publishable; the pre-flight is in `docs/reference/publishing.md`. Two commands,
@@ -54,8 +59,17 @@ The method is `docs/sessions/session_022.md`, and it is now well-worn:
    quality, so it is reproducible.
 6. `npm run images`, then the full verification.
 
-**If the folders are not there yet, say so and do not invent work.** The remaining non-image
-items are below, and they are small.
+**If the folders are not there yet, say so and do not invent work.** SESSION-025 took the last
+of the non-image queue that could be done without the owner. What is left below is either a
+decision only they can make, or work that assumes the repository is pushed.
+
+**Two things could be done without anyone**, if a session genuinely has nothing else:
+
+- **Re-cut the two Surugami bento tiles.** `tile-surugami-brand` and `tile-surugami-poster` are
+  still PDF crops from SESSION-016, and `Images/Surugami/` now holds sharper sources for both.
+  The tiles must pass `image-treat.mjs`'s bento contrast ceiling, which is the fiddly part.
+- **CI** (`SUGGESTION-015`) — a workflow running lint and build. It only earns its keep once the
+  branch is pushed, which is the owner's call.
 
 Then:
 

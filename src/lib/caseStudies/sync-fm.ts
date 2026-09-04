@@ -4,7 +4,6 @@ const syncFm: CaseStudyLocaleContent = {
   en: {
     slug: "sync-fm",
     name: "Sync FM",
-    projectTag: "Sync FM",
     headline: "Giving listeners control without turning radio into another dashboard.",
     summary:
       "Sync FM is an interactive AI-radio concept that combines the continuous experience of traditional radio with selected controls from personalised streaming. Listeners can adjust information depth, presenter tone and journalistic interpretation without having to assemble every programme manually.",
@@ -154,7 +153,6 @@ const syncFm: CaseStudyLocaleContent = {
   de: {
     slug: "sync-fm",
     name: "Sync FM",
-    projectTag: "Sync FM",
     headline: "Hörerinnen und Hörern Kontrolle geben, ohne Radio in ein weiteres Dashboard zu verwandeln.",
     summary:
       "Sync FM ist ein interaktives KI-Radio, das das kontinuierliche Erlebnis des klassischen Radios mit ausgewählten Steuerungsmöglichkeiten personalisierter Streaming-Dienste verbindet. Nutzer können Informationstiefe, Moderationston und journalistische Einordnung anpassen, ohne jedes Programm manuell zusammenstellen zu müssen.",

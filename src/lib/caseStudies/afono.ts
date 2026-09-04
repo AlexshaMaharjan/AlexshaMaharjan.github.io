@@ -4,7 +4,6 @@ const afono: CaseStudyLocaleContent = {
   en: {
     slug: "afono",
     name: "AFONO",
-    projectTag: "AFONO · 2026",
     headline: "Translating Nepali identity into contemporary streetwear.",
     summary:
       "AFONO is a fictional streetwear brand that combines selected cultural references from Nepal with a restrained visual identity, an oversized clothing collection and a complete e-commerce experience.",
@@ -190,10 +189,11 @@ const afono: CaseStudyLocaleContent = {
   de: {
     slug: "afono",
     name: "AFONO",
-    projectTag: "AFONO · 2026",
     headline: "Nepalesische Identität in moderne Streetwear übersetzen.",
     summary:
       "AFONO ist eine fiktive Streetwear-Marke, die ausgewählte kulturelle Bezüge aus Nepal mit einer reduzierten visuellen Identität, einer Oversized-Kollektion und einem vollständigen E-Commerce-Erlebnis verbindet.",
+    heroDisclosure:
+      "Offenlegung: Die Textilgrafiken, die Markenidentität und das Interface-Design sind meine eigene Arbeit. KI-generierte Bilder wurden ausschließlich als konzeptionelle Kampagnen- und Produktvisualisierungen eingesetzt.",
     tags: ["Brand Strategy", "Visual Identity", "Fashion Graphics", "UI/UX Design", "E-commerce", "Social Media"],
     role: "Brand-, Fashion- & UI/UX-Designerin",
     contribution: "Das gesamte Projekt wurde eigenständig umgesetzt.",

@@ -5,7 +5,6 @@ const motorbikeStudy: PlaygroundProjectLocaleContent = {
     slug: "motorbike-study",
     categorySlug: "3d-motion",
     categoryTitle: "3D and Motion",
-    eyebrow: "Playground experiment",
     title: "Motorbike Study",
     intro:
       "A 3D modelling and motion experiment exploring surface detail, lighting and cinematic presentation.",
@@ -31,7 +30,6 @@ const motorbikeStudy: PlaygroundProjectLocaleContent = {
     slug: "motorbike-study",
     categorySlug: "3d-motion",
     categoryTitle: "3D und Motion",
-    eyebrow: "Playground-Experiment",
     title: "Motorradstudie",
     intro:
       "Ein 3D- und Motion-Experiment zu Oberflächendetails, Licht und filmischer Präsentation.",

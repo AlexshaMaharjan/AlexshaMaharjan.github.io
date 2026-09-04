@@ -34,7 +34,7 @@ export default function Footer({
               columns plus a fixed 64px gap were wider than the space md:px-20
               leaves them, and every page scrolled sideways (ISSUE-026). */}
           <div className="flex flex-wrap gap-x-16 gap-y-6 md:col-span-5">
-            <nav aria-label="Footer" className="flex flex-col gap-3 text-[14px] text-ink">
+            <nav aria-label={dictionary.landmarks.footerNav} className="flex flex-col gap-3 text-[14px] text-ink">
               <Link to={localeHref(locale, "/#about")} className="tap-target hover:text-accent transition-colors">
                 {dictionary.nav.about}
               </Link>

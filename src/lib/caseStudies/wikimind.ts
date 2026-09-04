@@ -4,7 +4,6 @@ const wikimind: CaseStudyLocaleContent = {
   en: {
     slug: "wikimind",
     name: "WikiMind",
-    projectTag: "WikiMind · 2026",
     headline: "Making artificial intelligence feel clear, useful and approachable.",
     summary:
       "WikiMind is a brand identity and website concept for an AI company offering workshops, chatbots and software solutions. The project translates complex services into a friendly and structured experience for people with limited technical knowledge.",
@@ -206,7 +205,6 @@ const wikimind: CaseStudyLocaleContent = {
   de: {
     slug: "wikimind",
     name: "WikiMind",
-    projectTag: "WikiMind · 2026",
     headline: "Künstliche Intelligenz klar, nützlich und zugänglich gestalten.",
     summary:
       "WikiMind ist ein Marken- und Website-Konzept für ein KI-Unternehmen, das Workshops, Chatbots und Softwarelösungen anbietet. Das Projekt übersetzt komplexe Leistungen in eine freundliche und klar strukturierte Erfahrung für Menschen mit wenig technischem Vorwissen.",

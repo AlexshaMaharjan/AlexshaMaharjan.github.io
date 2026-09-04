@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-04**, after SESSION-024 (Surugami built entirely from the owner's own exports).
+Snapshot: **2026-09-04**, after SESSION-025 (`MILESTONE-002` closed; the German landmark labels fixed).
 
 ## Overall
 
@@ -11,12 +11,15 @@ both structured and laid out. What remains is mostly content the repository cann
 for itself: real photographs, and a copy pass. Plus one homepage section that still shows
 grey tiles.
 
-Roughly: architecture ~90% done, content ~70% drafted, imagery ~43% (60 of 139 slots), polish ~55%.
+Roughly: architecture ~92% done, content ~70% drafted, imagery ~43% (60 of 139 slots), polish ~60%.
 
 ## Working
 
 - All 36 routes (18 paths × 2 locales) render. Unknown slugs fall through to 404.
-- Bilingual EN/DE throughout, with one exception (`ISSUE-005`) and four gaps (`ISSUE-009`).
+- Bilingual EN/DE throughout. `ISSUE-009` closed in SESSION-025: the four dictionary gaps **and
+  six landmark `aria-label`s** that were hard-coded English, so a German visitor heard "Primary",
+  "Footer" and "My design process" around German content. **axe never reported it** — it checks
+  that a landmark has a name, not that the name is in the page's language.
 - **Navigation** — hash links land on their section from any starting route and on a cold
   load, route changes start at the top, back/forward restores position, and scroll reveals
   re-run when only a route param changes. All verified in Chrome against the production
@@ -168,18 +171,19 @@ overflow itself is measured clean at 320/375/768/840/1024/1440 in both locales.
 **`MILESTONE-006` and `MILESTONE-008` are complete** (SESSION-011–013), the latter bar a
 real `og:image`, which is the owner's to supply.
 
-**Every milestone that does not need the owner is now done.** What remains is
-`MILESTONE-004` (the copy pass), `MILESTONE-005` (images), the visible half of
-`MILESTONE-002` (the bento's eleven images), and `MILESTONE-009` (German parity, which
-follows the copy pass).
+**Every milestone that does not need the owner is now done.** `MILESTONE-002` closed in
+SESSION-025. What remains is `MILESTONE-004` (the copy pass), `MILESTONE-005` (images) and
+`MILESTONE-009` (German parity, which follows the copy pass — its *defects* are fixed,
+`ISSUE-009`).
 
 **`MILESTONE-008` is complete** bar the owner's `og:image` — `ISSUE-013`, `ISSUE-014`,
 `ISSUE-019` and `ISSUE-025` are done, and SESSION-014 added a pre-flight on the built
 artifact (`docs/reference/publishing.md`) proving what GitHub Pages will actually serve,
 including a real 404 for unknown deep links.
 
-**`MILESTONE-007` is complete** bar `ISSUE-010`, which waits on `MILESTONE-002` and so on
-images. Ten issues resolved across six sessions: the type scale, the palette, the container,
+**`MILESTONE-007` is complete.** `ISSUE-010` was its last open item and closed in
+SESSION-025, once `DECISION-010` ended the premise that the dead fields would come back.
+Eleven issues resolved across seven sessions: the type scale, the palette, the container,
 the breakpoint order, the header at every width, the accessibility audit, and the last two
 defects.
 

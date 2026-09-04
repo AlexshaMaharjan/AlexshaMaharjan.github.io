@@ -13,10 +13,16 @@ Every visible string lives here. Components read; they do not author.
 | `de.ts` | 380 | full German implementation |
 | `index.ts` | 22 | `getDictionary(locale)` + type re-exports |
 
-`ProjectCopy[]` (six entries) still carries `headline`, `description`, `image`,
-`imageAspect`, `projectTag`, `placeholderLabel`, `featured` — most now unused since
-`BentoGrid` replaced `ProjectEntry`. It is still the source of the case-study prev/next
-ring and the preview thumbnails in `NextProjectNav`.
+`ProjectCopy[]` (six entries) is read by exactly one component — `NextProjectNav`, the
+case-study prev/next ring — which uses `slug`, `name`, `tags`, `image` and `imageAlt`.
+
+`imageAspect`, `projectTag`, `placeholderLabel` and `featured` were removed in SESSION-025
+once `DECISION-010` settled the homepage as a category label plus a title, which ended any
+prospect of the editorial fields coming back (`ISSUE-010`).
+
+`headline`, `description`, `role` and `year` are **kept although nothing renders them**: 48
+authored strings across two locales, and what a `/work` index page would need
+(`SUGGESTION-014`). The type says so at the declaration.
 
 **Inspect when:** changing nav labels, hero copy, About copy, résumé, footer, 404, or any
 shared case-study/playground UI label.

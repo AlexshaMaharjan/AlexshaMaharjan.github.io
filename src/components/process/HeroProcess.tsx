@@ -345,7 +345,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
         <div
           ref={canvasRef}
           role="region"
-          aria-label="My design process"
+          aria-label={dictionary.landmarks.processCanvas}
           className="absolute left-1/2 -translate-x-1/2 overflow-hidden bg-canvas-black"
           style={{ top: "70svh", width: "min(92vw,1320px)", height: "78svh", borderRadius: 44 }}
         >

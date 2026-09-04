@@ -18,6 +18,14 @@ const en: Dictionary = {
     switchToGerman: "Switch to German",
     switchToEnglish: "Switch to English",
   },
+  landmarks: {
+    primaryNav: "Primary",
+    menu: "Menu",
+    footerNav: "Footer",
+    categoryNav: "Category navigation",
+    projectNav: "Project navigation",
+    processCanvas: "My design process",
+  },
   hero: {
     eyebrow: "Digital Designer from Lübeck, Germany",
     headlineLines: ["Designing intuitive", "digital experiences and", "unique brands"],
@@ -74,8 +82,6 @@ const en: Dictionary = {
     eyebrow: "Selected Projects",
     heading: "Thoughtful design, meaningful impact",
     copy: "My work focuses on creating visual identities and digital experiences that are clear, engaging, and purposeful. From brand systems to user interfaces and experimental projects, I explore how design can communicate ideas, solve problems, and create better experiences for users.",
-    viewCaseStudy: "View case study →",
-    projectLabel: "Project",
     bento: [
       { slug: "wikimind", category: "Brand & UI/UX", title: "WikiMind", gridArea: "1 / 1 / 2 / 7", fontSize: "clamp(26px,3.6vw,60px)", src: "/images/tile-wikimind-brand.webp", alt: "The WikiMind wordmark in its two colourways" },
       { slug: "afono", category: "Brand & E-commerce", title: "AFONO", gridArea: "1 / 7 / 2 / 11", fontSize: "clamp(22px,2.8vw,44px)", src: "/images/tile-afono-brand.webp", alt: "AFONO logo lockups in the brand's red" },
@@ -93,7 +99,6 @@ const en: Dictionary = {
   projects: [
     {
       slug: "wikimind",
-      projectTag: "Project-01",
       name: "WikiMind",
       headline: "Making artificial intelligence feel clear, useful and approachable.",
       description:
@@ -102,14 +107,10 @@ const en: Dictionary = {
       role: "Brand & UI/UX Designer",
       year: "2026",
       image: "/images/hero-wikimind.webp",
-      placeholderLabel: "[ wikimind — final homepage ]",
       imageAlt: "The WikiMind homepage shown on a laptop, beside the case-study title",
-      imageAspect: "1900/1066",
-      featured: true,
     },
     {
       slug: "afono",
-      projectTag: "Project-02",
       name: "AFONO",
       headline: "Translating Nepali identity into contemporary streetwear.",
       description:
@@ -118,14 +119,10 @@ const en: Dictionary = {
       role: "Brand, Fashion & UI/UX Designer",
       year: "2026",
       image: "/images/hero-afono.webp",
-      placeholderLabel: "[ afono — campaign hero ]",
       imageAlt: "Print lettering from AFONO's HIMAL series",
-      imageAspect: "16/7.5",
-      featured: true,
     },
     {
       slug: "sync-fm",
-      projectTag: "Project-03",
       name: "Sync FM",
       headline: "Giving listeners control without turning radio into another dashboard.",
       description:
@@ -134,14 +131,10 @@ const en: Dictionary = {
       role: "Interaction & UI Designer",
       year: "",
       image: "/images/hero-sync-fm.webp",
-      placeholderLabel: "[ sync fm — mobile ui ]",
       imageAlt: "Sync FM's home screen with the news dial",
-      imageAspect: "16/7.5",
-      featured: false,
     },
     {
       slug: "barrier-free-kitchen",
-      projectTag: "Project-04",
       name: "Barrier-Free Kitchen",
       headline: "Designing a kitchen through reach, sight and touch.",
       description:
@@ -150,14 +143,10 @@ const en: Dictionary = {
       role: "Prototyping & 3D Designer",
       year: "",
       image: "/images/hero-barrier-free-kitchen.webp",
-      placeholderLabel: "[ kitchen — final render ]",
       imageAlt: "The barrier-free kitchen modelled in 3D",
-      imageAspect: "16/7.5",
-      featured: false,
     },
     {
       slug: "surugami",
-      projectTag: "Project-05",
       name: "Surugami",
       headline: "Making origami feel social, contemporary and easy to enter.",
       description:
@@ -166,14 +155,10 @@ const en: Dictionary = {
       role: "Illustration, Poster & Web Design",
       year: "",
       image: "/images/hero-surugami.webp",
-      placeholderLabel: "[ surugami — poster & identity ]",
       imageAlt: "A Surugami poster inviting people to fold",
-      imageAspect: "16/7.5",
-      featured: false,
     },
     {
       slug: "qis-portal",
-      projectTag: "Project-06",
       name: "QIS Portal Redesign",
       headline: "Turning a fragmented university portal into a clearer student service.",
       description:
@@ -182,10 +167,7 @@ const en: Dictionary = {
       role: "UX/UI Designer & Researcher",
       year: "2024",
       image: "/images/hero-qis-portal.webp",
-      placeholderLabel: "[ qis — new dashboard ]",
       imageAlt: "The redesigned QIS Portal exam page",
-      imageAspect: "16/7.5",
-      featured: false,
     },
   ],
   resume: {

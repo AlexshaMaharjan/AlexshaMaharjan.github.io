@@ -1,6 +1,19 @@
+/**
+ * A project, as the case-study prev/next ring needs it.
+ *
+ * `NextProjectNav` is the only reader, and it uses `slug`, `name`, `tags`,
+ * `image` and `imageAlt` — nothing else. `projectTag`, `placeholderLabel`,
+ * `imageAspect` and `featured` were left over from the editorial homepage that
+ * `DECISION-010` replaced with the bento, and were removed once that decision
+ * settled the section as a category label plus a title (`ISSUE-010`).
+ *
+ * `headline`, `description`, `role` and `year` are **deliberately kept** though
+ * nothing renders them: they are 48 authored strings across two locales, and
+ * they are exactly what a `/work` index page would need (`SUGGESTION-014`).
+ * Deleting authored copy to satisfy a type is the wrong trade.
+ */
 export interface ProjectCopy {
   slug: string;
-  projectTag: string;
   name: string;
   headline: string;
   description: string;
@@ -8,10 +21,7 @@ export interface ProjectCopy {
   role: string;
   year: string;
   image: string;
-  placeholderLabel: string;
   imageAlt: string;
-  imageAspect: string;
-  featured: boolean;
 }
 
 export interface ProcessBranchCopy {
@@ -111,6 +121,21 @@ export interface Dictionary {
     switchToGerman: string;
     switchToEnglish: string;
   };
+  /**
+   * Names for the page's landmarks. These are announced — a screen reader reads
+   * "Primary, navigation" when the user jumps between regions — so leaving them
+   * hard-coded meant a German visitor heard English structure round German
+   * content (`ISSUE-009`). Unlike the process collage's labels, which sit inside
+   * an `aria-hidden` subtree and are inert, these reach the user.
+   */
+  landmarks: {
+    primaryNav: string;
+    menu: string;
+    footerNav: string;
+    categoryNav: string;
+    projectNav: string;
+    processCanvas: string;
+  };
   hero: {
     eyebrow: string;
     headlineLines: string[];
@@ -129,8 +154,6 @@ export interface Dictionary {
     eyebrow: string;
     heading: string;
     copy: string;
-    viewCaseStudy: string;
-    projectLabel: string;
     /**
      * The bento tiles, in grid order. Kept here rather than in the component so
      * the German homepage is not English (ISSUE-005), and so an image is a data

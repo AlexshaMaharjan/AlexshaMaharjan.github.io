@@ -1,6 +1,6 @@
 # SUGGESTION-016 — Decide and configure deployment
 
-Status: Proposed
+Status: **Mostly implemented** — the owner configured GitHub Pages (`ISSUE-025`); the domain and preview items remain
 Priority: Low
 Impact: Medium
 Effort: Small
@@ -48,3 +48,21 @@ Prerendering (`SUGGESTION-013`) changes what gets deployed — settle the host f
 ## Possible Milestone
 
 `MILESTONE-008`.
+
+## Where it stands (reviewed SESSION-025)
+
+1. **Which host** — decided by the owner, and **not** the recommendation below. This file
+   argued for Netlify; the owner chose **GitHub Pages** and configured it themselves
+   (`ISSUE-025`, commits `f8df707`/`7332ad8`/`11930a6`). `npm run deploy` publishes via
+   `gh-pages`, and `predeploy` gates it behind the variant-map check, the build and the
+   prerender.
+2. **Configure that host** — done. The `404.html` copy this file called a "hack" is one line in
+   the build script, and `scripts/verify/serve.mjs` reproduces the same resolution order
+   locally so the fallback is actually tested rather than assumed.
+3. **Update `resume.portfolio` / `portfolioHref`** — **still open**; there is no domain yet.
+4. **Preview deploys per branch** — **still open**, and it needs CI (`SUGGESTION-015`).
+5. **Document the deploy command** — done: `docs/reference/publishing.md`.
+
+Recorded here rather than silently closed because the file recommends Netlify and the project
+went the other way. The reasoning above was not wrong, it was outvoted by the person who has
+to run it.

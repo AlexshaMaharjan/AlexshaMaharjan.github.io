@@ -1,10 +1,10 @@
 # ISSUE-009 — German dictionary has untranslated and missing fields
 
-Status: Open
+Status: **Resolved** (SESSION-025)
 Priority: Medium
 Category: Content / i18n
 Discovered: 2026-08-22 (partly flagged in `ROADMAP.md`)
-Last reviewed: 2026-08-22
+Last reviewed: 2026-09-04 (SESSION-025)
 
 ## Summary
 
@@ -54,3 +54,59 @@ Belongs to the German pass; the owner's roadmap puts German after English is fin
 ## Related
 
 `ARCH-02`, `MILESTONE-009`, `ROADMAP.md` Phase 4.
+
+
+## Resolved, SESSION-025
+
+**All four listed fields fixed**, and the two questions the file left open turned out to have
+different answers from the ones it expected.
+
+| Field | Now |
+| --- | --- |
+| `de.about.handNoteOrigin` | "Nepal → Deutschland" |
+| `de.about.handNoteMaking` | "immer am Gestalten!" |
+| `de.nav.switchToGerman` | "Zu Deutsch wechseln" |
+| `afono.de.heroDisclosure` | added — a faithful translation of the English disclosure |
+
+Verified in Chrome against the production build: `/de/about` renders both annotations in
+German, and `/de/work/afono` shows the disclosure line the German page used to drop silently.
+
+### The `clusters.tsx` question was already answered
+
+This file asked for a decision on whether the process collage's decorative labels should be
+translated. **They are already inert.** `BranchGroup.tsx` wraps the whole cluster area in
+`aria-hidden="true"` and gives the canvas `dictionary.process.srSummary` as its text
+alternative — that was `ISSUE-030`'s fix, and it landed after this issue was written. The
+English labels inside are texture on an illustration no screen reader reads, in either locale.
+No decision needed; the code comment already states the reasoning.
+
+### The structural `aria-label`s were the real defect
+
+This file listed them as an afterthought. They were the larger half of the problem: six
+landmark names were hard-coded English and, unlike the collage labels, they **are** announced.
+A German visitor tabbing between regions heard "Primary", "Footer", "Menu", "Category
+navigation", "Project navigation" and "My design process" around German content.
+
+They now come from a new `landmarks` group in the dictionary:
+
+| | EN | DE |
+| --- | --- | --- |
+| `primaryNav` | Primary | Hauptnavigation |
+| `menu` | Menu | Menü |
+| `footerNav` | Footer | Fußzeile |
+| `categoryNav` | Category navigation | Kategorie-Navigation |
+| `projectNav` | Project navigation | Projekt-Navigation |
+| `processCanvas` | My design process | Mein Designprozess |
+
+Read off the built German pages: `/de` announces Hauptnavigation, Mein Designprozess, Fußzeile;
+`/de/work/surugami` announces Hauptnavigation, Auf dieser Seite, Projekt-Navigation, Fußzeile.
+
+**axe does not catch this.** It checks that a landmark has an accessible name, not that the
+name is in the page's language — so nothing in the harness would ever have reported it.
+
+### A note on who wrote the German
+
+The four translations are mine, not the owner's. They are translations of copy the owner
+already approved in English rather than new prose, which is why they were not held back under
+`MILESTONE-004` — but the wording is worth a glance, particularly "immer am Gestalten!", where
+a hand-written annotation has more than one idiomatic reading.

@@ -181,19 +181,22 @@ DE: "Durchdachtes Design, bedeutungsvolle Wirkung"
 EN: "My work focuses on creating visual identities and digital experiences that are clear, engaging, and purposeful. From brand systems to user interfaces and experimental projects, I explore how design can communicate ideas, solve problems, and create better experiences for users."
 DE: "Meine Arbeit konzentriert sich auf die Entwicklung visueller Identitäten und digitaler Erlebnisse, die klar, ansprechend und zielgerichtet sind. Von Markensystemen über User Interfaces bis hin zu experimentellen Projekten erforsche ich, wie Design Ideen vermittelt, Probleme löst und bessere Erlebnisse für Nutzer schafft."
 
-### selectedWork.viewCaseStudy
-EN: "View case study →" | DE: "Fallstudie ansehen →"
-
-### selectedWork.projectLabel
-EN: "Project" | DE: "Projekt"  (used as generic label, e.g. in aria text)
 ```
 
-The 6 project cards shown here (2 large "featured" cards + 4 grid cards) — `[…dictionaries → projects[0..5]]`:
+The six projects — `[…dictionaries → projects[0..5]]`.
+
+**Only `name`, `tags`, `imageAlt` and `image` are rendered**, and only by the case-study
+prev/next ring (`NextProjectNav`). The homepage is the bento grid (`DECISION-010`), whose copy
+lives in `selectedWork.bento[]` below, not here.
+
+`headline`, `description`, `role` and `year` are kept because they are yours and a future
+`/work` index would use them (`SUGGESTION-014`) — editing them changes nothing on the site
+today. `projectTag`, `placeholderLabel`, `imageAspect` and `featured` were removed in
+SESSION-025 (`ISSUE-010`):
 
 ```
 ### projects[0] — WikiMind
 slug: "wikimind"  (do not change — it's the URL /work/wikimind)
-projectTag — EN: "Project-01" | DE: "Projekt-01"
 name: "WikiMind"  (same both languages)
 headline — EN: "Making artificial intelligence feel clear, useful and approachable."
           DE: "Künstliche Intelligenz klar, nützlich und zugänglich gestalten."
@@ -202,14 +205,10 @@ description — EN: "Making complex AI services easier to understand through an 
 tags[0..2]: "Branding" / "UI/UX" / "Web Design"  (same both languages)
 role — EN: "Brand & UI/UX Designer" | DE: "Brand & UI/UX Designerin"
 year: "2026"
-placeholderLabel (mono caption shown if no image) — EN: "[ wikimind — final homepage ]" | DE: "[ wikimind — finale startseite ]"
 imageAlt — EN: "WikiMind final homepage" | DE: "WikiMind Startseite"
-imageAspect: "16/8.4"  (layout value, not really "content")
-featured: true
 
 ### projects[1] — AFONO
 slug: "afono"
-projectTag — EN: "Project-02" | DE: "Projekt-02"
 name: "AFONO"
 headline — EN: "Translating Nepali identity into contemporary streetwear."
           DE: "Nepalesische Identität in moderne Streetwear übersetzen."
@@ -218,14 +217,10 @@ description — EN: "A culturally rooted streetwear identity connecting brand st
 tags[0..2]: "Branding" / "E-commerce" / "Graphic Design"
 role — EN: "Brand, Fashion & UI/UX Designer" | DE: "Brand-, Fashion- & UI/UX-Designerin"
 year: "2026"
-placeholderLabel — EN: "[ afono — campaign hero ]" | DE: "[ afono — kampagnen-hero ]"
 imageAlt — EN: "AFONO campaign hero" | DE: "AFONO Kampagnen-Hero"
-imageAspect: "16/8.4"
-featured: true
 
 ### projects[2] — Sync FM
 slug: "sync-fm"
-projectTag — EN/DE: "Project-03" / "Projekt-03"
 name: "Sync FM"
 headline — EN: "Giving listeners control without turning radio into another dashboard."
           DE: "Hörerinnen und Hörern Kontrolle geben, ohne Radio in ein weiteres Dashboard zu verwandeln."
@@ -234,14 +229,10 @@ description — EN: "An interactive AI-radio concept that lets listeners shape i
 tags[0..2]: "Interaction Design" / "Mobile UI" / "AI Concept"
 role — EN: "Interaction & UI Designer" | DE: "Interaction & UI Designerin"
 year: "" (empty — no year shown for this project)
-placeholderLabel — EN: "[ sync fm — mobile ui ]" | DE: "[ sync fm — mobile ui ]"
 imageAlt — EN: "Sync FM mobile interface" | DE: "Sync FM mobile Oberfläche"
-imageAspect: "4/3"
-featured: false  (appears in the smaller 4-card grid, not the large featured slot)
 
 ### projects[3] — Barrier-Free Kitchen
 slug: "barrier-free-kitchen"
-projectTag: "Project-04" / "Projekt-04"
 name — EN: "Barrier-Free Kitchen" | DE: "Barrierefreie Küche"
 headline — EN: "Designing a kitchen through reach, sight and touch."
           DE: "Eine Küche durch Reichweite, Sehen und Berührung gestalten."
@@ -250,14 +241,10 @@ description — EN: "An inclusive kitchen developed through observation, full-sc
 tags[0..2]: "Inclusive Design" / "Design Research" / "3D"
 role — EN: "Prototyping & 3D Designer" | DE: "Prototyping & 3D Design"
 year: ""
-placeholderLabel — EN: "[ kitchen — final render ]" | DE: "[ küche — finales rendering ]"
 imageAlt — EN: "Barrier-Free Kitchen final render" | DE: "Barrierefreie Küche, finales Rendering"
-imageAspect: "4/3"
-featured: false
 
 ### projects[4] — Surugami
 slug: "surugami"
-projectTag: "Project-05" / "Projekt-05"
 name: "Surugami"
 headline — EN: "Making origami feel social, contemporary and easy to enter."
           DE: "Origami sozial, zeitgemäß und leicht zugänglich gestalten."
@@ -266,14 +253,10 @@ description — EN: "An origami-inspired identity translated into a coherent pri
 tags[0..2]: "Branding" / "Print Design" / "Web Design"
 role — EN: "Illustration, Poster & Web Design" | DE: "Illustration, Poster- & Webdesign"
 year: ""
-placeholderLabel — EN: "[ surugami — poster & identity ]" | DE: "[ surugami — poster & identität ]"
 imageAlt — EN: "Surugami poster and identity" | DE: "Surugami Poster und Markenidentität"
-imageAspect: "4/3"
-featured: false
 
 ### projects[5] — QIS Portal Redesign
 slug: "qis-portal"
-projectTag: "Project-06" / "Projekt-06"
 name: "QIS Portal Redesign"  (same both languages)
 headline — EN: "Turning a fragmented university portal into a clearer student service."
           DE: "Ein fragmentiertes Hochschulportal in einen klareren Studierendenservice verwandeln."
@@ -282,10 +265,7 @@ description — EN: "A research-led redesign simplifying essential university-ad
 tags[0..2]: "UX Research" / "Information Architecture" / "Product Design"
 role — EN: "UX/UI Designer & Researcher" | DE: "UX/UI Designerin & Researcherin"
 year: "2024"
-placeholderLabel — EN: "[ qis — new dashboard ]" | DE: "[ qis — neues dashboard ]"
 imageAlt — EN: "QIS redesigned dashboard" | DE: "Neu gestaltetes QIS-Dashboard"
-imageAspect: "4/3"
-featured: false
 ```
 
 ### 2.4 About-preview section (short teaser on the homepage, not the full About page)
@@ -668,7 +648,6 @@ content change, rerun `node scripts/content-guide-case-studies.mjs --write` to r
 ```
 ### wikimind.en / .de
 name — EN/DE (same): "WikiMind"
-projectTag — EN/DE (same): "WikiMind · 2026"
 headline — EN: "Making artificial intelligence feel clear, useful and approachable."
            DE: "Künstliche Intelligenz klar, nützlich und zugänglich gestalten."
 summary — EN: "WikiMind is a brand identity and website concept for an AI company offering workshops, chatbots and software solutions. The project translates complex services into a friendly and structured experience for people with limited technical knowledge."
@@ -681,9 +660,9 @@ year — EN/DE (same): undefined
 tools — EN/DE (same): "Figma · Adobe Illustrator"
 deliverables — EN: "Brand identity · Logo system · Mascot · Website design · UI kit · Interactive prototype"
                DE: "Markenidentität · Logosystem · Maskottchen · Website-Design · UI-Kit · Interaktiver Prototyp"
-heroImage.src — /images/hero-wikimind.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
-heroImage.alt — EN: "The WikiMind mascot presenting a holographic interface"
-                DE: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche"
+heroImage.src — /images/hero-wikimind.webp (aspect 1900/1066) — see IMAGES for whether this file is a real export
+heroImage.alt — EN: "The WikiMind homepage shown on a laptop, beside the case-study title"
+                DE: "Die WikiMind-Startseite auf einem Laptop, neben dem Titel der Fallstudie"
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
 heading — EN: "The project at a glance" | DE: "Das Projekt auf einen Blick"
@@ -708,15 +687,13 @@ body[0] paragraph — EN: "I conducted a qualitative visual and structural analy
                     DE: "Ich führte eine qualitative visuelle und strukturelle Analyse bestehender KI- und Technologie-Websites durch. Untersucht wurden visuelle Tonalität, Informationshierarchie, Inhaltsstruktur, Sprache, Navigation, Animation und Methoden zum Aufbau von Vertrauen."
 body[1] paragraph — EN: "The analysis revealed a common tension. Dark and highly technical interfaces often appeared modern, but they could also feel cold or exclusive. Clearer layouts and restrained animation made information easier to follow and helped services feel more understandable."
                     DE: "Die Analyse zeigte ein wiederkehrendes Spannungsfeld. Dunkle und stark technische Oberflächen wirkten häufig modern, konnten jedoch gleichzeitig kühl oder exklusiv erscheinen. Klarere Layouts und zurückhaltende Animationen erleichterten die Orientierung und machten Leistungen verständlicher."
-body[2] sub-heading — EN: "Translating the audience into design needs" | DE: "Zielgruppen in konkrete Designanforderungen übersetzen"
-body[3] paragraph — EN: "Three working personas represented different professional contexts: a business decision-maker looking for practical automation, an academic leader seeking understandable AI education and a customer-service manager needing reliable operational support."
+body[2] figures
+body[3] sub-heading — EN: "Translating the audience into design needs" | DE: "Zielgruppen in konkrete Designanforderungen übersetzen"
+body[4] paragraph — EN: "Three working personas represented different professional contexts: a business decision-maker looking for practical automation, an academic leader seeking understandable AI education and a customer-service manager needing reliable operational support."
                     DE: "Drei Arbeits-Personas repräsentierten unterschiedliche berufliche Kontexte: eine Führungskraft auf der Suche nach praktischer Automatisierung, eine akademische Leitung mit Bedarf an verständlicher KI-Vermittlung und eine Kundenservice-Leitung mit Bedarf an verlässlicher operativer Unterstützung."
-body[4] paragraph — EN: "Although their responsibilities differed, their needs shared a consistent pattern. They required clear explanations, visible credibility and practical value before they could trust an AI provider."
+body[5] paragraph — EN: "Although their responsibilities differed, their needs shared a consistent pattern. They required clear explanations, visible credibility and practical value before they could trust an AI provider."
                     DE: "Trotz unterschiedlicher Verantwortungsbereiche zeigten sich gemeinsame Bedürfnisse. Die Nutzer benötigten verständliche Erklärungen, sichtbare Glaubwürdigkeit und einen klaren praktischen Nutzen, bevor sie einem KI-Anbieter vertrauen konnten."
-images[0] — aspect 16/8 · caption EN/DE (same) "[ competitor analysis ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 3/4 · caption EN/DE (same) "[ persona 01 ]" · no src — renders as a hatched placeholder box
-images[2] — aspect 3/4 · caption EN/DE (same) "[ persona 02 ]" · no src — renders as a hatched placeholder box
-images[3] — aspect 3/4 · caption EN/DE (same) "[ persona 03 ]" · no src — renders as a hatched placeholder box
+body[6] figures
 
 ### sections[3] — id "insights" · number "04" · navLabel EN "Key insights" | DE "Zentrale Erkenntnisse"
 heading — EN: "Key insights" | DE: "Zentrale Erkenntnisse"
@@ -751,39 +728,35 @@ body[2] paragraph — EN: "The verbal tone avoids unnecessary terminology and pr
 body[3] sub-heading — EN: "A light and structured visual language" | DE: "Eine helle und strukturierte visuelle Sprache"
 body[4] paragraph — EN: "The visual direction combines a white and neutral background with several blue tones and restrained gradients. Blue supports associations with trust, intelligence and technology, while the lighter environment prevents the brand from feeling heavy or intimidating. Inter was selected for its screen readability and neutral character."
                     DE: "Die visuelle Richtung kombiniert einen weißen und neutralen Hintergrund mit mehreren Blautönen und zurückhaltenden Farbverläufen. Blau unterstützt Assoziationen mit Vertrauen, Intelligenz und Technologie. Die helle Umgebung verhindert gleichzeitig, dass die Marke schwer oder einschüchternd wirkt. Inter wurde aufgrund der guten Lesbarkeit am Bildschirm und des neutralen Charakters ausgewählt."
-body[5] sub-heading — EN: "A symbol for connected knowledge" | DE: "Ein Symbol für vernetztes Wissen"
-body[6] paragraph — EN: "The WikiMind symbol combines the initials W and M with the continuous form of an infinity sign. The mark represents connected knowledge, continuous learning and the open-ended potential of artificial intelligence. Rounded forms make the identity more approachable, while sharper details prevent the wordmark from appearing overly playful."
+body[5] figures
+body[6] sub-heading — EN: "A symbol for connected knowledge" | DE: "Ein Symbol für vernetztes Wissen"
+body[7] paragraph — EN: "The WikiMind symbol combines the initials W and M with the continuous form of an infinity sign. The mark represents connected knowledge, continuous learning and the open-ended potential of artificial intelligence. Rounded forms make the identity more approachable, while sharper details prevent the wordmark from appearing overly playful."
                     DE: "Das WikiMind-Symbol verbindet die Initialen W und M mit der kontinuierlichen Form eines Unendlichkeitszeichens. Die Marke steht für vernetztes Wissen, fortlaufendes Lernen und das offene Potenzial künstlicher Intelligenz. Abgerundete Formen machen die Identität zugänglicher, präzisere Details verhindern, dass die Wortmarke zu verspielt wirkt."
-body[7] sub-heading — EN: "A controlled human element" | DE: "Ein gezielt eingesetztes menschliches Element"
-body[8] paragraph — EN: "A dolphin was introduced as a controlled brand character. Dolphins are commonly associated with intelligence, curiosity and social behaviour, which supported the desired perception of WikiMind. The mascot is used selectively in the hero, educational explanations and transitional moments rather than across every section of the website."
-                    DE: "Ein Delfin wurde als gezielt eingesetzter Markencharakter entwickelt. Delfine werden häufig mit Intelligenz, Neugier und sozialem Verhalten verbunden und unterstützen damit die gewünschte Wahrnehmung von WikiMind. Das Maskottchen wird selektiv im Hero-Bereich, in erklärenden Inhalten und bei Übergängen eingesetzt, nicht auf jeder Website-Sektion."
-images[0] — aspect 4/3 · caption EN/DE (same) "[ moodboard ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 4/3 · caption EN/DE (same) "[ colour + type system ]" · no src — renders as a hatched placeholder box
-images[2] — aspect 4/3 · caption EN/DE (same) "[ logo sketches ]" · no src — renders as a hatched placeholder box
-images[3] — aspect 4/3 · caption EN/DE (same) "[ logo variants ]" · no src — renders as a hatched placeholder box
-images[4] — aspect 16/8 · caption EN/DE (same) "[ mascot development ]" · no src — renders as a hatched placeholder box
+body[8] figures
+body[9] sub-heading — EN: "A controlled human element" | DE: "Ein gezielt eingesetztes menschliches Element"
+body[10] paragraph — EN: "A dolphin was introduced as a controlled brand character. Dolphins are commonly associated with intelligence, curiosity and social behaviour, which supported the desired perception of WikiMind. The mascot is used selectively in the hero, educational explanations and transitional moments rather than across every section of the website."
+                     DE: "Ein Delfin wurde als gezielt eingesetzter Markencharakter entwickelt. Delfine werden häufig mit Intelligenz, Neugier und sozialem Verhalten verbunden und unterstützen damit die gewünschte Wahrnehmung von WikiMind. Das Maskottchen wird selektiv im Hero-Bereich, in erklärenden Inhalten und bei Übergängen eingesetzt, nicht auf jeder Website-Sektion."
+body[11] figures
 
 ### sections[5] — id "development" · number "06" · navLabel EN "Structure & system" | DE "Struktur & System"
 heading — EN: "Turning multiple services into a guided journey"
           DE: "Unterschiedliche Leistungen in eine geführte Nutzerreise übersetzen"
 body[0] paragraph — EN: "After establishing the brand direction, the website content was organised into a sitemap and reusable page system. The structure was designed to help visitors understand what WikiMind offers, identify the service relevant to them and move towards a clear next action."
                     DE: "Nach der Definition der Markenrichtung wurden die Inhalte der Website in einer Sitemap und einem wiederverwendbaren Seitensystem organisiert. Die Struktur hilft Besuchern dabei, das Angebot von WikiMind zu verstehen, eine relevante Leistung zu finden und zu einer klaren nächsten Handlung zu gelangen."
-body[1] sub-heading — EN: "Building consistency through reusable components" | DE: "Konsistenz durch wiederverwendbare Komponenten schaffen"
-body[2] paragraph — EN: "The interface system uses rounded containers, generous spacing and a limited visual hierarchy to soften the technical subject. Reusable components were created for navigation, buttons, content cards, input fields, service sections, icons, footer, hover states and feedback animations. The component approach keeps the website visually consistent while supporting future expansion."
+body[1] figures
+body[2] sub-heading — EN: "Building consistency through reusable components" | DE: "Konsistenz durch wiederverwendbare Komponenten schaffen"
+body[3] paragraph — EN: "The interface system uses rounded containers, generous spacing and a limited visual hierarchy to soften the technical subject. Reusable components were created for navigation, buttons, content cards, input fields, service sections, icons, footer, hover states and feedback animations. The component approach keeps the website visually consistent while supporting future expansion."
                     DE: "Das Interface-System arbeitet mit abgerundeten Containern, großzügigen Abständen und einer reduzierten visuellen Hierarchie. Wiederverwendbare Komponenten wurden für Navigation, Buttons, Inhaltskarten, Eingabefelder, Leistungsbereiche, Icons, Footer, Hover-Zustände und Feedback-Animationen entwickelt. Der modulare Ansatz hält die Website visuell konsistent und ermöglicht spätere Erweiterungen."
-images[0] — aspect 16/8 · caption EN/DE (same) "[ sitemap ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 4/3 · caption EN/DE (same) "[ wireframes ]" · no src — renders as a hatched placeholder box
-images[2] — aspect 4/3 · caption EN/DE (same) "[ ui kit ]" · no src — renders as a hatched placeholder box
+body[4] figures
 
 ### sections[6] — id "outcome" · number "07" · navLabel EN "Final outcome" | DE "Ergebnis"
 heading — EN: "A calmer entry point into artificial intelligence" | DE: "Ein ruhigerer Einstieg in künstliche Intelligenz"
 body[0] paragraph — EN: "The final concept brings the brand identity, service communication and interface system together in a light and structured website. Large headings establish a clear hierarchy. Service cards divide complex topics into understandable entry points. The mascot introduces a human and recognisable element."
                     DE: "Das finale Konzept verbindet Markenidentität, Leistungsbeschreibung und Interface-System in einer hellen und klar strukturierten Website. Große Überschriften schaffen eine deutliche Hierarchie. Leistungskarten teilen komplexe Themen in verständliche Einstiegspunkte. Das Maskottchen bringt ein menschliches und wiedererkennbares Element ein."
-body[1] paragraph — EN: "The result is an interactive Figma prototype that demonstrates the main page system, navigation behaviour and visual language of WikiMind."
+body[1] figures
+body[2] paragraph — EN: "The result is an interactive Figma prototype that demonstrates the main page system, navigation behaviour and visual language of WikiMind."
                     DE: "Das Ergebnis ist ein interaktiver Figma-Prototyp, der das zentrale Seitensystem, das Navigationsverhalten und die visuelle Sprache von WikiMind demonstriert."
-images[0] — aspect 16/9 · caption EN/DE (same) "[ final screens — large showcase ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 16/10 · caption EN/DE (same) "[ prototype video ]" · no src — renders as a hatched placeholder box
-images[2] — aspect 16/10 · caption EN/DE (same) "[ interface detail ]" · no src — renders as a hatched placeholder box
+body[3] figures
 
 ### sections[7] — id "reflection" · number "08" · navLabel EN "Limitations & reflection" | DE "Grenzen & Reflexion"
 heading — EN: "Evaluating the system against the original goals" | DE: "Das System anhand der ursprünglichen Ziele bewerten"
@@ -803,7 +776,6 @@ body[4] paragraph — EN: "The mascot, colour system and rounded components crea
 ```
 ### afono.en / .de
 name — EN/DE (same): "AFONO"
-projectTag — EN/DE (same): "AFONO · 2026"
 headline — EN: "Translating Nepali identity into contemporary streetwear."
            DE: "Nepalesische Identität in moderne Streetwear übersetzen."
 summary — EN: "AFONO is a fictional streetwear brand that combines selected cultural references from Nepal with a restrained visual identity, an oversized clothing collection and a complete e-commerce experience."
@@ -819,7 +791,7 @@ deliverables — EN: "Brand strategy · Naming · Logo · Clothing graphics · E
                DE: "Markenstrategie · Naming · Logo · Bekleidungsgrafiken · E-Commerce-Prototyp · Social-Media-System"
 heroImage.src — /images/hero-afono.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
 heroImage.alt — EN: "Print lettering from AFONO's HIMAL series" | DE: "Schriftzüge aus AFONOs HIMAL-Serie"
-heroDisclosure — EN: "Disclosure: The clothing graphics, brand identity and interface design are my original work. AI-generated images were used only as conceptual campaign and product visualisations." | DE: (missing — ISSUE-009)
+heroDisclosure — EN: "Disclosure: The clothing graphics, brand identity and interface design are my original work. AI-generated images were used only as conceptual campaign and product visualisations." | DE: "Offenlegung: Die Textilgrafiken, die Markenidentität und das Interface-Design sind meine eigene Arbeit. KI-generierte Bilder wurden ausschließlich als konzeptionelle Kampagnen- und Produktvisualisierungen eingesetzt."
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
 heading — EN: "The project at a glance" | DE: "Das Projekt auf einen Blick"
@@ -846,7 +818,7 @@ body[0] paragraph — EN: "Five qualitative interviews were conducted with Nepal
                     DE: "Fünf qualitative Interviews mit nepalesischen Teilnehmenden untersuchten Einstellungen zu kulturell inspirierter Kleidung, lokalen Modemarken und alltagstauglicher Gestaltung. Die Teilnehmenden waren grundsätzlich daran interessiert, Marken mit Nepal-Bezug zu unterstützen. Gleichzeitig äußerten sie Bedenken hinsichtlich Qualität, Haltbarkeit, Verfügbarkeit und generischer Gestaltung. Bestehende kulturelle Prints wurden häufig als zu laut, zu detailliert oder zu dekorativ für den Alltag beschrieben."
 body[1] paragraph — EN: "A visual market analysis compared local Nepalese fashion references with international streetwear brands. Local brands often communicated culture more strongly but lacked consistency. International brands presented products more clearly through structured layouts, campaign photography and controlled typography, but offered little cultural relevance to Nepal."
                     DE: "Eine visuelle Marktanalyse verglich lokale nepalesische Modereferenzen mit internationalen Streetwear-Marken. Lokale Marken vermittelten kulturelle Identität häufig stärker, waren visuell jedoch weniger konsistent. Internationale Marken präsentierten ihre Produkte durch strukturierte Layouts, Kampagnenfotografie und kontrollierte Typografie klarer, boten jedoch kaum kulturelle Relevanz für Nepal."
-images[0] — aspect 4/3 · caption EN/DE (same) "[ interview findings ]" · no src — renders as a hatched placeholder box
+images[0] — aspect 4/3 · caption EN/DE (same) "[ interview findings ]" · src /images/afono-personas.webp
 images[1] — aspect 4/3 · caption EN/DE (same) "[ market analysis ]" · no src — renders as a hatched placeholder box
 
 ### sections[3] — id "insights" · number "04" · navLabel EN "Key insights" | DE "Zentrale Erkenntnisse"
@@ -884,8 +856,8 @@ body[4] paragraph — EN: "The logo was developed from the letters A and F and r
                     DE: "Das Logo wurde aus den Buchstaben A und F entwickelt und zu einem kompakten geometrischen Symbol verfeinert. Eine subtile horizontale Konstruktion verweist auf den visuellen Rhythmus der Devanagari-Schrift, ohne ein traditionelles Zeichen direkt zu reproduzieren."
 body[5] paragraph — EN: "The colour system uses red, blue, black and white. Red provides energy and a connection to Nepal’s national visual identity. Blue introduces calmness and references mountain landscapes. Black and white allow the cultural colours to remain controlled and wearable."
                     DE: "Das Farbsystem arbeitet mit Rot, Blau, Schwarz und Weiß. Rot vermittelt Energie und stellt eine Verbindung zur visuellen Identität Nepals her. Blau schafft Ruhe und verweist auf Berglandschaften. Schwarz und Weiß halten die kulturellen Farben kontrolliert und tragbar."
-images[0] — aspect 4/3 · caption EN/DE (same) "[ logo sketches ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 4/3 · caption EN/DE (same) "[ logo system + colours ]" · no src — renders as a hatched placeholder box
+images[0] — aspect 4/3 · caption EN/DE (same) "[ logo sketches ]" · src /images/afono-logo-sketches.webp
+images[1] — aspect 4/3 · caption EN/DE (same) "[ logo system + colours ]" · src /images/afono-colour-system.webp
 
 ### sections[5] — id "development" · number "06" · navLabel EN "Collection & e-commerce" | DE "Kollektion & E-Commerce"
 heading — EN: "Designing a collection, not isolated graphics" | DE: "Eine Kollektion statt einzelner Grafiken gestalten"
@@ -904,13 +876,13 @@ body[3] paragraph — EN: "The website needed to balance two different user inte
                     DE: "Die Website musste zwei unterschiedliche Nutzerabsichten ausgleichen: Besucher, die schnell einkaufen möchten, und Besucher, die die Geschichten hinter der Marke verstehen möchten. Die Informationsarchitektur trennt deshalb direkte Produktentdeckung von ausführlicheren Marken- und Kollektionsinhalten."
 body[4] paragraph — EN: "The prototype includes homepage, shop and collection pages, product details, lookbook, shopping cart, checkout, user account, collection stories and AI-assisted size guidance. Reusable components support consistent product cards, navigation, filters, buttons, forms and checkout states."
                     DE: "Der Prototyp umfasst Startseite, Shop- und Kollektionsseiten, Produktdetails, Lookbook, Warenkorb, Checkout, Nutzerkonto, Kollektionsgeschichten und eine KI-gestützte Größenberatung. Wiederverwendbare Komponenten unterstützen konsistente Produktkarten, Navigation, Filter, Buttons, Formulare und Checkout-Zustände."
-images[0] — aspect 3/4 · caption EN/DE (same) "[ tee — front ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 3/4 · caption EN/DE (same) "[ tee — back print ]" · no src — renders as a hatched placeholder box
-images[2] — aspect 3/4 · caption EN/DE (same) "[ print development ]" · no src — renders as a hatched placeholder box
+images[0] — aspect 3/4 · caption EN/DE (same) "[ tee — front ]" · src /images/afono-tee-front.webp
+images[1] — aspect 3/4 · caption EN/DE (same) "[ tee — back print ]" · src /images/afono-tee-back.webp
+images[2] — aspect 5/6 · caption EN/DE (same) "[ print development ]" · src /images/afono-print-development.webp
 images[3] — aspect 4/3 · caption EN/DE (same) "[ product page ]" · no src — renders as a hatched placeholder box
-images[4] — aspect 4/3 · caption EN/DE (same) "[ size finder ]" · no src — renders as a hatched placeholder box
-images[5] — aspect 4/3 · caption EN/DE (same) "[ cart ]" · no src — renders as a hatched placeholder box
-images[6] — aspect 4/3 · caption EN/DE (same) "[ checkout ]" · no src — renders as a hatched placeholder box
+images[4] — aspect 7/4 · caption EN/DE (same) "[ size finder ]" · src /images/afono-size-finder.webp
+images[5] — aspect 4/3 · caption EN/DE (same) "[ cart ]" · src /images/afono-cart.webp
+images[6] — aspect 4/3 · caption EN/DE (same) "[ checkout ]" · src /images/afono-checkout.webp
 
 ### sections[6] — id "testing" · number "07" · navLabel EN "Testing" | DE "Testing"
 heading — EN: "Testing navigation, orientation and purchase flow" | DE: "Navigation, Orientierung und Kaufprozess testen"
@@ -931,9 +903,9 @@ body[2] paragraph — EN: "The next iteration should introduce a sticky header, 
 heading — EN: "One identity across product, commerce and communication" | DE: "Eine Identität für Produkt, Commerce und Kommunikation"
 body[0] paragraph — EN: "The final direction brings together naming, visual identity, clothing graphics, online shopping and social-media communication. The restrained front prints keep the products wearable, while collection-based back graphics carry cultural stories. The result is a scalable concept rather than a single logo or clothing graphic."
                     DE: "Die finale Richtung verbindet Naming, visuelle Identität, Bekleidungsgrafik, Online-Shopping und Social-Media-Kommunikation. Reduzierte Vorderseitendrucke halten die Produkte alltagstauglich, während kollektionsbasierte Rückengrafiken kulturelle Geschichten vermitteln. Das Ergebnis ist ein skalierbares Konzept und nicht nur ein einzelnes Logo oder Kleidungsdesign."
-images[0] — aspect 16/9 · caption EN/DE (same) "[ final brand system — large showcase ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 16/10 · caption EN/DE (same) "[ social media ]" · no src — renders as a hatched placeholder box
-images[2] — aspect 16/10 · caption EN/DE (same) "[ e-commerce prototype ]" · no src — renders as a hatched placeholder box
+images[0] — aspect 16/9 · caption EN/DE (same) "[ final brand system — large showcase ]" · src /images/afono-brand-system.webp
+images[1] — aspect 3/4 · caption EN/DE (same) "[ social media ]" · src /images/afono-social-system.webp
+images[2] — aspect 16/10 · caption EN/DE (same) "[ e-commerce prototype ]" · src /images/afono-prototype.webp
 
 ### sections[8] — id "reflection" · number "09" · navLabel EN "Limitations & reflection" | DE "Grenzen & Reflexion"
 heading — EN: "A conceptual brand, presented transparently" | DE: "Eine konzeptionelle Marke, transparent dargestellt"
@@ -953,7 +925,6 @@ body[4] paragraph — EN: "The project also showed how closely branding and user
 ```
 ### sync-fm.en / .de
 name — EN/DE (same): "Sync FM"
-projectTag — EN/DE (same): "Sync FM"
 headline — EN: "Giving listeners control without turning radio into another dashboard."
            DE: "Hörerinnen und Hörern Kontrolle geben, ohne Radio in ein weiteres Dashboard zu verwandeln."
 summary — EN: "Sync FM is an interactive AI-radio concept that combines the continuous experience of traditional radio with selected controls from personalised streaming. Listeners can adjust information depth, presenter tone and journalistic interpretation without having to assemble every programme manually."
@@ -1029,11 +1000,11 @@ body[4] paragraph — EN: "The visual language uses circular forms, rounded cont
                     DE: "Die visuelle Sprache verwendet kreisförmige Elemente, abgerundete Container und wellenbasierte Rückmeldungen, um eine Verbindung zu Audio und Radio herzustellen. Lila schafft eine eigenständige technologische Identität und wirkt weniger klinisch als viele blaue Technologiesysteme. Futura wird für prominente Überschriften eingesetzt, während Segoe UI längere Interface- und Nachrichtentexte unterstützt."
 body[5] paragraph — EN: "The logo transforms a traditional radio into a simple character-like form. Initial concepts were generated with Gemini and then adjusted and refined by the team into a flat vector system. This AI-assisted stage is disclosed within the process."
                     DE: "Das Logo verwandelt ein traditionelles Radio in eine einfache, charakterähnliche Form. Erste Konzepte wurden mit Gemini generiert und anschließend vom Team zu einem flachen Vektorsystem angepasst und verfeinert. Diese KI-gestützte Phase wird im Prozess transparent dargestellt."
-images[0] — aspect 1/1 · caption EN/DE (same) "[ sync dial ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 1/1 · caption EN/DE (same) "[ mood bar ]" · no src — renders as a hatched placeholder box
-images[2] — aspect 1/1 · caption EN/DE (same) "[ opinion filter ]" · no src — renders as a hatched placeholder box
-images[3] — aspect 4/3 · caption EN/DE (same) "[ logo + visual system ]" · no src — renders as a hatched placeholder box
-images[4] — aspect 4/3 · caption EN/DE (same) "[ components ]" · no src — renders as a hatched placeholder box
+images[0] — aspect 1/1 · caption EN/DE (same) "[ sync dial ]" · src /images/sync-fm-dial.webp
+images[1] — aspect 1/1 · caption EN/DE (same) "[ mood bar ]" · src /images/sync-fm-mood-bar.webp
+images[2] — aspect 1/1 · caption EN/DE (same) "[ opinion filter ]" · src /images/sync-fm-opinion-filter.webp
+images[3] — aspect 16/8 · caption EN/DE (same) "[ logo + visual system ]" · src /images/sync-fm-logo-system.webp
+images[4] — aspect 4/3 · caption EN/DE (same) "[ components ]" · src /images/sync-fm-components.webp
 
 ### sections[5] — id "outcome" · number "06" · navLabel EN "Final experience" | DE "Ergebnis"
 heading — EN: "A continuous information flow shaped in real time"
@@ -1042,7 +1013,7 @@ body[0] paragraph — EN: "The final prototype presents a mobile radio experienc
                     DE: "Der finale Prototyp zeigt ein mobiles Radioerlebnis, das sich auf den aktuellen Audiofluss konzentriert. Der Sync Dial bleibt visuell dominant, da er die umfassendste Veränderung steuert. Sekundäre Steuerungen verändern Moderationston und Interpretation, ohne das Zuhören zu unterbrechen."
 body[1] paragraph — EN: "The result is not a complete functioning AI-radio service. It is an interaction prototype demonstrating how editorial control could be introduced without requiring a complex settings dashboard."
                     DE: "Das Ergebnis ist kein vollständig funktionierender KI-Radiosender. Es handelt sich um einen Interaktionsprototyp, der zeigt, wie redaktionelle Kontrolle eingeführt werden könnte, ohne ein komplexes Einstellungs-Dashboard zu erzeugen."
-images[0] — aspect 16/9 · caption EN/DE (same) "[ final mobile screens — large showcase ]" · no src — renders as a hatched placeholder box
+images[0] — aspect 16/9 · caption EN/DE (same) "[ final mobile screens — large showcase ]" · src /images/sync-fm-final-screens.webp
 
 ### sections[6] — id "testing" · number "07" · navLabel EN "Evaluation & ethics" | DE "Evaluation & Ethik"
 heading — EN: "Control is not automatically neutral." | DE: "Kontrolle ist nicht automatisch neutral."
@@ -1078,7 +1049,6 @@ body[4] paragraph — EN: "The project also revealed that control is not automat
 ```
 ### barrier-free-kitchen.en / .de
 name — EN: "Barrier-Free Kitchen" | DE: "Barrierefreie Küche"
-projectTag — EN: "Barrier-Free Kitchen" | DE: "Barrierefreie Küche"
 headline — EN: "Designing a kitchen through reach, sight and touch."
            DE: "Eine Küche durch Reichweite, Sehen und Berührung gestalten."
 summary — EN: "This inclusive-design project explores how a kitchen can better support wheelchair users and people with cataracts. The concept was developed through observation, an interview, embodied testing, physical prototypes and a final animated Blender environment."
@@ -1224,7 +1194,6 @@ body[5] paragraph — EN: "The most valuable stage was full-scale testing. Sever
 ```
 ### surugami.en / .de
 name — EN/DE (same): "Surugami"
-projectTag — EN/DE (same): "Surugami"
 headline — EN: "Making origami feel social, contemporary and easy to enter."
            DE: "Origami sozial, zeitgemäß und leicht zugänglich gestalten."
 summary — EN: "Surugami is an origami-inspired brand and digital experience that connects learning, workshops, visual storytelling and community participation through one coherent identity."
@@ -1238,9 +1207,9 @@ year — EN/DE (same): undefined
 tools — EN/DE (same): ""
 deliverables — EN: "Illustration, one poster and mock-ups by Alexsha · Website co-designed · Brand direction collaborative"
                DE: "Illustration, ein Poster und Mock-ups von Alexsha · Website gemeinsam gestaltet · Markenrichtung im Team entwickelt"
-heroImage.src — /images/hero-surugami.webp (aspect 16/7.5) — see IMAGES for whether this file is a real export
-heroImage.alt — EN: "Two Surugami posters inviting people to hands-on origami courses"
-                DE: "Zwei Surugami-Plakate laden zu Origami-Kursen zum Mitmachen ein"
+heroImage.src — /images/hero-surugami.webp (aspect 1900/1189) — see IMAGES for whether this file is a real export
+heroImage.alt — EN: "The Surugami website shown across four screens, beside the case-study title"
+                DE: "Die Surugami-Website auf vier Bildschirmen, neben dem Titel der Fallstudie"
 
 ### sections[0] — id "overview" · number "01" · navLabel EN "Overview" | DE "Überblick"
 heading — EN: "The project at a glance" | DE: "Das Projekt auf einen Blick"
@@ -1265,8 +1234,7 @@ body[0] paragraph — EN: "The research combined visual market analysis, inspira
                     DE: "Die Recherche kombinierte visuelle Marktanalyse, Inspiration durch interaktive und edukative digitale Produkte, Moodboards, Concept Mapping, Zielgruppenprofile, die Untersuchung von Markenwerten und vergleichende Layoutstudien."
 body[1] paragraph — EN: "The references suggested that educational content becomes more engaging when information is divided into clear steps, supported by strong visual storytelling and presented through an identifiable personality. Surugami therefore needed to operate as more than a shop or tutorial archive. It had to feel like a place where people could learn, participate and see what others had created."
                     DE: "Die Referenzen deuteten darauf hin, dass Lerninhalte ansprechender werden, wenn Informationen in klare Schritte unterteilt, durch starkes visuelles Storytelling unterstützt und mit einer wiedererkennbaren Persönlichkeit vermittelt werden. Surugami sollte deshalb mehr sein als ein Shop oder Tutorial-Archiv. Die Marke sollte sich wie ein Ort anfühlen, an dem Menschen lernen, teilnehmen und die Arbeiten anderer entdecken können."
-images[0] — aspect 4/3 · caption EN "[ research board ]" | DE "[ research-board ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 4/3 · caption EN/DE (same) "[ concept map ]" · no src — renders as a hatched placeholder box
+body[2] figures
 
 ### sections[3] — id "insights" · number "04" · navLabel EN "Key insights" | DE "Zentrale Erkenntnisse"
 heading — EN: "Key insights" | DE: "Zentrale Erkenntnisse"
@@ -1292,23 +1260,20 @@ body[2] paragraph — EN: "The identity uses angular shapes, layered planes and 
                     DE: "Die Identität verwendet kantige Formen, überlagerte Flächen und gerichtete Linien, die von gefaltetem Papier inspiriert sind. Ein Farbsystem aus Korall, Mint, Petrol und hellen neutralen Tönen schafft einen zeitgemäßen und zugänglichen Charakter."
 body[3] paragraph — EN: "The strongest part of the identity is not one individual shape. It is the ability to reconfigure the same visual logic across different formats."
                     DE: "Die größte Stärke der Identität liegt nicht in einer einzelnen Form. Entscheidend ist die Fähigkeit, dieselbe visuelle Logik über verschiedene Formate hinweg neu zu konfigurieren."
-images[0] — aspect 4/3 · caption EN "[ logo exploration ]" | DE "[ logo-exploration ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 4/3 · caption EN "[ illustration — by alexsha ]" | DE "[ illustration — von alexsha ]" · no src — renders as a hatched placeholder box
+body[4] figures
 
 ### sections[5] — id "development" · number "06" · navLabel EN "Print & website" | DE "Print & Website"
 heading — EN: "Extending one identity across physical communication" | DE: "Eine Identität auf physische Kommunikation übertragen"
 body[0] paragraph — EN: "The print system includes posters, flyers, banners and promotional formats. Each application uses the same fold-based visual logic while adapting to different information priorities. Posters can prioritise emotional impact. Flyers need clearer event details. Banners require rapid recognition from a distance."
                     DE: "Das Printsystem umfasst Poster, Flyer, Banner und weitere Werbeformate. Jede Anwendung nutzt dieselbe faltbasierte visuelle Logik und passt sie gleichzeitig an unterschiedliche Informationsprioritäten an. Poster können emotionale Wirkung priorisieren. Flyer benötigen klarere Veranstaltungsdetails. Banner müssen aus größerer Entfernung schnell erkennbar sein."
-body[1] sub-heading — EN: "Creating a digital home for learning and participation" | DE: "Ein digitales Zuhause für Lernen und Teilnahme schaffen"
-body[2] paragraph — EN: "The website brings together the brand's educational and community functions. Its content structure prioritises: discovering origami, finding workshops, following tutorials, viewing community work, learning about the organisation, and joining or contacting the community."
+body[1] figures
+body[2] sub-heading — EN: "Creating a digital home for learning and participation" | DE: "Ein digitales Zuhause für Lernen und Teilnahme schaffen"
+body[3] paragraph — EN: "The website brings together the brand's educational and community functions. Its content structure prioritises: discovering origami, finding workshops, following tutorials, viewing community work, learning about the organisation, and joining or contacting the community."
                     DE: "Die Website verbindet die edukativen und gemeinschaftlichen Funktionen der Marke. Die Inhaltsstruktur priorisiert: Origami entdecken, Workshops finden, Tutorials folgen, Arbeiten der Community ansehen, mehr über die Organisation erfahren sowie der Community beitreten oder Kontakt aufnehmen."
-body[3] paragraph — EN: "Early wireframes established the main page hierarchy before the visual brand was applied. The final interface translates the folded-paper system into cards, navigation, image masks, transitions and section boundaries without compromising readability."
+body[4] figures
+body[5] paragraph — EN: "Early wireframes established the main page hierarchy before the visual brand was applied. The final interface translates the folded-paper system into cards, navigation, image masks, transitions and section boundaries without compromising readability."
                     DE: "Frühe Wireframes definierten die zentrale Seitenhierarchie, bevor die visuelle Marke angewendet wurde. Das finale Interface übersetzt das Faltpapier-System in Karten, Navigation, Bildmasken, Übergänge und Abschnittsgrenzen, ohne die Lesbarkeit zu beeinträchtigen."
-images[0] — aspect 3/4 · caption EN "[ poster — by alexsha ]" | DE "[ poster — von alexsha ]" · no src — renders as a hatched placeholder box
-images[1] — aspect 3/4 · caption EN "[ posters — team credit ]" | DE "[ poster — team-credit ]" · no src — renders as a hatched placeholder box
-images[2] — aspect 3/4 · caption EN/DE (same) "[ flyer + banner ]" · no src — renders as a hatched placeholder box
-images[3] — aspect 4/3 · caption EN/DE (same) "[ sitemap + wireframes ]" · no src — renders as a hatched placeholder box
-images[4] — aspect 4/3 · caption EN "[ website — co-designed ]" | DE "[ website — gemeinsam gestaltet ]" · no src — renders as a hatched placeholder box
+body[6] figures
 
 ### sections[6] — id "testing" · number "07" · navLabel EN "Testing" | DE "Testing"
 heading — EN: "Observation, interpretation, revision" | DE: "Beobachtung, Interpretation, Überarbeitung"
@@ -1342,7 +1307,6 @@ body[1] paragraph — EN: "The final portfolio version therefore shows fewer app
 ```
 ### qis-portal.en / .de
 name — EN/DE (same): "QIS Portal Redesign"
-projectTag — EN/DE (same): "QIS Portal Redesign · 2024"
 headline — EN: "Turning a fragmented university portal into a clearer student service."
            DE: "Ein fragmentiertes Hochschulportal in einen klareren Studierendenservice verwandeln."
 summary — EN: "The QIS redesign reorganises essential university-administration tasks around how students search for exams, certificates, grades, fees and personal information."

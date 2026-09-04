@@ -10,7 +10,7 @@ work section, case studies) → content and imagery → motion → consistency �
 | ID | Title | Status | Priority | Depends on | Addresses | File |
 | --- | --- | --- | --- | --- | --- | --- |
 | MILESTONE-001 | Stabilize the current implementation | **Complete** | Critical | — | ISSUE-001/002/003/017/018/022 — all resolved | `milestone_001.md` |
-| MILESTONE-002 | Rebuild homepage "Selected Work" | **In progress** — all eleven tiles now carry real images | High | M-001, ~~DECISION-010~~ answered | ISSUE-005 ✅, ISSUE-004 ✅ | `milestone_002.md` |
+| MILESTONE-002 | Rebuild homepage "Selected Work" | **Complete** (SESSION-025) — eleven tiles with real images, `!important` gone, verified at six widths; two tasks superseded by `DECISION-010` | High | M-001, ~~DECISION-010~~ answered | ISSUE-005 ✅, ISSUE-004 ✅, ISSUE-010 ✅ | `milestone_002.md` |
 | MILESTONE-003 | Case-study layout and content model | **Complete** | High | M-001 | ISSUE-024 ✅, ISSUE-008 ✅, ISSUE-007 (case studies ✅) | `milestone_003.md` |
 | MILESTONE-004 | English content pass | Proposed — **unblocked** | High | M-003 model ✅, owner | ISSUE-024 ✅ | `milestone_004.md` |
 | MILESTONE-005 | Real imagery | **In progress** — 48 of 136 slots filled; WikiMind, AFONO and Sync FM done end to end | High | owner's time, not owner's assets | ISSUE-007 ✅, ISSUE-006 mostly | `milestone_005.md` |
