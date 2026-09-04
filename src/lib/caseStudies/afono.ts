@@ -51,12 +51,29 @@ const afono: CaseStudyLocaleContent = {
         heading: "Understanding how culture becomes wearable",
         body: [
           "Five qualitative interviews were conducted with Nepali participants to understand attitudes towards culturally inspired clothing, local fashion brands and everyday wear. Participants were interested in supporting Nepal-related brands, but raised concerns about quality, durability, availability and generic design. Existing cultural prints were frequently described as too loud, too detailed or too decorative for everyday use.",
+          {
+            kind: "list",
+            items: [
+              "Himal — inspired by Nepal’s mountain landscape",
+              "City — based on contemporary urban life",
+              "Mythic — exploring selected stories and symbolic references",
+              "Logo Essentials — using the identity in its most reduced form",
+            ],
+          },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "4/3", caption: "[ interview findings ]", src: "/images/afono-personas.webp", alt: "User personas built from the five qualitative interviews, with goals, behaviour and frustrations" },
+            ],
+          },
           "A visual market analysis compared local Nepalese fashion references with international streetwear brands. Local brands often communicated culture more strongly but lacked consistency. International brands presented products more clearly through structured layouts, campaign photography and controlled typography, but offered little cultural relevance to Nepal.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ interview findings ]", src: "/images/afono-personas.webp", alt: "User personas built from the five qualitative interviews, with goals, behaviour and frustrations" },
-          { aspect: "4/3", caption: "[ market analysis ]" },
-          { aspect: "595/842", caption: "[ moodboard ]", src: "/images/afono-moodboard.webp", alt: "The AFONO moodboard: Nepali motifs, streetwear references and the red and blue colour direction" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "4/3", caption: "[ market analysis ]" },
+              { aspect: "595/842", caption: "[ moodboard ]", src: "/images/afono-moodboard.webp", alt: "The AFONO moodboard: Nepali motifs, streetwear references and the red and blue colour direction" },
+            ],
+          },
         ],
       },
       {
@@ -102,15 +119,23 @@ const afono: CaseStudyLocaleContent = {
           "The name AFONO is derived from the Nepali word afno, meaning ‘one’s own’ or ‘belonging to oneself’. It connects personal identity, cultural belonging and self-expression while remaining short enough to function as a fashion wordmark.",
           { kind: "h3", text: "A flexible identity based on ownership and belonging" },
           "The logo was developed from the letters A and F and refined into a compact geometric symbol. A subtle horizontal construction references the visual rhythm of Devanagari writing without directly reproducing a traditional character.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1042/1274", caption: "[ logo sketches ]", src: "/images/afono-logo-sketches.webp", alt: "Early logo exploration: monogram studies combining A and F, alongside garment sketches" },
+              { aspect: "1140/1518", caption: "[ wordmark studies ]", src: "/images/afono-wordmark-studies.webp", alt: "A page of wordmark studies working towards the AFONO lettering" },
+              { aspect: "1160/1322", caption: "[ logo lockups ]", src: "/images/afono-logo-lockups.webp", alt: "The AFONO lockups in black: wordmark, monogram and the creative-studio signature" },
+            ],
+          },
           "The colour system uses red, blue, black and white. Red provides energy and a connection to Nepal’s national visual identity. Blue introduces calmness and references mountain landscapes. Black and white allow the cultural colours to remain controlled and wearable.",
-        ],
-        images: [
-          { aspect: "1042/1274", caption: "[ logo sketches ]", src: "/images/afono-logo-sketches.webp", alt: "Early logo exploration: monogram studies combining A and F, alongside garment sketches" },
-          { aspect: "1140/1518", caption: "[ wordmark studies ]", src: "/images/afono-wordmark-studies.webp", alt: "A page of wordmark studies working towards the AFONO lettering" },
-          { aspect: "1160/1322", caption: "[ logo lockups ]", src: "/images/afono-logo-lockups.webp", alt: "The AFONO lockups in black: wordmark, monogram and the creative-studio signature" },
-          { aspect: "1228/1546", caption: "[ logo system + colours ]", src: "/images/afono-colour-system.webp", alt: "The same lockups in brand red and brand blue" },
-          { aspect: "1190/1488", caption: "[ colour palette ]", src: "/images/afono-colour-palette.webp", alt: "The four brand colours with their hex values, and the button states built from them" },
-          { aspect: "1226/506", caption: "[ typography ]", src: "/images/afono-typography.webp", alt: "Manrope in five weights, from ExtraBold to Regular" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1228/1546", caption: "[ logo system + colours ]", src: "/images/afono-colour-system.webp", alt: "The same lockups in brand red and brand blue" },
+              { aspect: "1190/1488", caption: "[ colour palette ]", src: "/images/afono-colour-palette.webp", alt: "The four brand colours with their hex values, and the button states built from them" },
+              { aspect: "1226/506", caption: "[ typography ]", src: "/images/afono-typography.webp", alt: "Manrope in five weights, from ExtraBold to Regular" },
+            ],
+          },
         ],
       },
       {
@@ -121,29 +146,37 @@ const afono: CaseStudyLocaleContent = {
         body: [
           "The collection uses oversized unisex T-shirts as the primary product format. A small front mark keeps the garments easy to wear. Larger back prints carry the main visual narrative.",
           {
-            kind: "list",
+            kind: "figures",
             items: [
-              "Himal — inspired by Nepal’s mountain landscape",
-              "City — based on contemporary urban life",
-              "Mythic — exploring selected stories and symbolic references",
-              "Logo Essentials — using the identity in its most reduced form",
+              { aspect: "1164/1684", caption: "[ print development ]", src: "/images/afono-print-development.webp", alt: "Print development: hand-lettered Himal Series and city studies with Newari mask motifs" },
+              { aspect: "1162/1478", caption: "[ print artwork ]", src: "/images/afono-print-artwork.webp", alt: "The finished NEPAL print in its four colourways" },
+              { aspect: "3/4", caption: "[ tee — front ]", src: "/images/afono-tee-front.webp", alt: "The small front mark: the AFONO wordmark set vertically in red" },
+              { aspect: "3/4", caption: "[ tee — back print ]", src: "/images/afono-tee-back.webp", alt: "A Himal Series back print: the wordmark over a line-drawn Himalayan peak and suspension bridge" },
+              { aspect: "1274/1442", caption: "[ tee mockups ]", src: "/images/afono-tee-mockups.webp", alt: "The collection on light tees, front and back" },
             ],
           },
           { kind: "h3", text: "Connecting product discovery with cultural storytelling" },
           "The website needed to balance two different user intentions: visitors who wanted to shop quickly and visitors who wanted to understand the stories behind the brand. The information architecture therefore separates direct product discovery from deeper brand and collection content.",
           "The prototype includes homepage, shop and collection pages, product details, lookbook, shopping cart, checkout, user account, collection stories and AI-assisted size guidance. Reusable components support consistent product cards, navigation, filters, buttons, forms and checkout states.",
-        ],
-        images: [
-          { aspect: "1164/1684", caption: "[ print development ]", src: "/images/afono-print-development.webp", alt: "Print development: hand-lettered Himal Series and city studies with Newari mask motifs" },
-          { aspect: "1162/1478", caption: "[ print artwork ]", src: "/images/afono-print-artwork.webp", alt: "The finished NEPAL print in its four colourways" },
-          { aspect: "3/4", caption: "[ tee — front ]", src: "/images/afono-tee-front.webp", alt: "The small front mark: the AFONO wordmark set vertically in red" },
-          { aspect: "3/4", caption: "[ tee — back print ]", src: "/images/afono-tee-back.webp", alt: "A Himal Series back print: the wordmark over a line-drawn Himalayan peak and suspension bridge" },
-          { aspect: "1274/1442", caption: "[ tee mockups ]", src: "/images/afono-tee-mockups.webp", alt: "The collection on light tees, front and back" },
-          { aspect: "1600/2937", caption: "[ product page ]", src: "/images/afono-product-page.webp", alt: "The product page: gallery, size selection, description and related products" },
-          { aspect: "896/1676", caption: "[ size finder ]", src: "/images/afono-size-finder.webp", alt: "The AI size finder: the recommended size with a try-on preview" },
-          { aspect: "768/2050", caption: "[ cart ]", src: "/images/afono-cart.webp", alt: "The cart drawer: one item, promo code, subtotal and the checkout action" },
-          { aspect: "4/3", caption: "[ checkout ]", src: "/images/afono-checkout.webp", alt: "The checkout: shipping address beside the order summary, with the site footer below" },
-          { aspect: "1600/1049", caption: "[ components ]", src: "/images/afono-components.webp", alt: "Component states from the product page: gallery, selectors, quantity and buttons" },
+          {
+            kind: "list",
+            items: [
+              "Himal — inspiriert von Nepals Berglandschaft",
+              "City — basierend auf zeitgenössischem urbanem Leben",
+              "Mythic — mit ausgewählten Geschichten und symbolischen Bezügen",
+              "Logo Essentials — mit der Identität in ihrer reduziertesten Form",
+            ],
+          },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/2937", caption: "[ product page ]", src: "/images/afono-product-page.webp", alt: "The product page: gallery, size selection, description and related products" },
+              { aspect: "896/1676", caption: "[ size finder ]", src: "/images/afono-size-finder.webp", alt: "The AI size finder: the recommended size with a try-on preview" },
+              { aspect: "768/2050", caption: "[ cart ]", src: "/images/afono-cart.webp", alt: "The cart drawer: one item, promo code, subtotal and the checkout action" },
+              { aspect: "4/3", caption: "[ checkout ]", src: "/images/afono-checkout.webp", alt: "The checkout: shipping address beside the order summary, with the site footer below" },
+              { aspect: "1600/1049", caption: "[ components ]", src: "/images/afono-components.webp", alt: "Component states from the product page: gallery, selectors, quantity and buttons" },
+            ],
+          },
         ],
       },
       {
@@ -172,11 +205,14 @@ const afono: CaseStudyLocaleContent = {
         heading: "One identity across product, commerce and communication",
         body: [
           "The final direction brings together naming, visual identity, clothing graphics, online shopping and social-media communication. The restrained front prints keep the products wearable, while collection-based back graphics carry cultural stories. The result is a scalable concept rather than a single logo or clothing graphic.",
-        ],
-        images: [
-          { aspect: "16/9", caption: "[ final brand system — large showcase ]", src: "/images/afono-brand-system.webp", alt: "The finished logo system in brand red: the primary lockup above its two secondary variants" },
-          { aspect: "800/1342", caption: "[ social media ]", src: "/images/afono-social-system.webp", alt: "The Instagram feed: restock, lookbook, giveaway and new-arrival posts" },
-          { aspect: "1600/1938", caption: "[ e-commerce prototype ]", src: "/images/afono-prototype.webp", alt: "The shop page: category filters, the product grid and the site footer" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/9", caption: "[ final brand system — large showcase ]", src: "/images/afono-brand-system.webp", alt: "The finished logo system in brand red: the primary lockup above its two secondary variants" },
+              { aspect: "800/1342", caption: "[ social media ]", src: "/images/afono-social-system.webp", alt: "The Instagram feed: restock, lookbook, giveaway and new-arrival posts" },
+              { aspect: "1600/1938", caption: "[ e-commerce prototype ]", src: "/images/afono-prototype.webp", alt: "The shop page: category filters, the product grid and the site footer" },
+            ],
+          },
         ],
       },
       {
@@ -244,12 +280,20 @@ const afono: CaseStudyLocaleContent = {
         heading: "Verstehen, wie Kultur tragbar wird",
         body: [
           "Fünf qualitative Interviews mit nepalesischen Teilnehmenden untersuchten Einstellungen zu kulturell inspirierter Kleidung, lokalen Modemarken und alltagstauglicher Gestaltung. Die Teilnehmenden waren grundsätzlich daran interessiert, Marken mit Nepal-Bezug zu unterstützen. Gleichzeitig äußerten sie Bedenken hinsichtlich Qualität, Haltbarkeit, Verfügbarkeit und generischer Gestaltung. Bestehende kulturelle Prints wurden häufig als zu laut, zu detailliert oder zu dekorativ für den Alltag beschrieben.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "4/3", caption: "[ interview findings ]", src: "/images/afono-personas.webp", alt: "Nutzer-Personas aus den fünf qualitativen Interviews, mit Zielen, Verhalten und Frustrationen" },
+            ],
+          },
           "Eine visuelle Marktanalyse verglich lokale nepalesische Modereferenzen mit internationalen Streetwear-Marken. Lokale Marken vermittelten kulturelle Identität häufig stärker, waren visuell jedoch weniger konsistent. Internationale Marken präsentierten ihre Produkte durch strukturierte Layouts, Kampagnenfotografie und kontrollierte Typografie klarer, boten jedoch kaum kulturelle Relevanz für Nepal.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ interview findings ]", src: "/images/afono-personas.webp", alt: "Nutzer-Personas aus den fünf qualitativen Interviews, mit Zielen, Verhalten und Frustrationen" },
-          { aspect: "4/3", caption: "[ market analysis ]" },
-          { aspect: "595/842", caption: "[ moodboard ]", src: "/images/afono-moodboard.webp", alt: "Das AFONO-Moodboard: nepalesische Motive, Streetwear-Referenzen und die rot-blaue Farbrichtung" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "4/3", caption: "[ market analysis ]" },
+              { aspect: "595/842", caption: "[ moodboard ]", src: "/images/afono-moodboard.webp", alt: "Das AFONO-Moodboard: nepalesische Motive, Streetwear-Referenzen und die rot-blaue Farbrichtung" },
+            ],
+          },
         ],
       },
       {
@@ -295,15 +339,23 @@ const afono: CaseStudyLocaleContent = {
           "Der Name AFONO leitet sich vom nepalesischen Wort afno ab, das ‘eigen’ oder ‘zu sich selbst gehörend’ bedeutet. Er verbindet persönliche Identität, kulturelle Zugehörigkeit und Selbstausdruck und bleibt gleichzeitig kurz genug für eine Modemarke.",
           { kind: "h3", text: "Eine flexible Identität auf Grundlage von Zugehörigkeit" },
           "Das Logo wurde aus den Buchstaben A und F entwickelt und zu einem kompakten geometrischen Symbol verfeinert. Eine subtile horizontale Konstruktion verweist auf den visuellen Rhythmus der Devanagari-Schrift, ohne ein traditionelles Zeichen direkt zu reproduzieren.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1042/1274", caption: "[ logo sketches ]", src: "/images/afono-logo-sketches.webp", alt: "Frühe Logo-Exploration: Monogramm-Studien aus A und F, daneben Kleidungsskizzen" },
+              { aspect: "1140/1518", caption: "[ wordmark studies ]", src: "/images/afono-wordmark-studies.webp", alt: "Eine Seite mit Wortmarken-Studien auf dem Weg zum AFONO-Schriftzug" },
+              { aspect: "1160/1322", caption: "[ logo lockups ]", src: "/images/afono-logo-lockups.webp", alt: "Die AFONO-Lockups in Schwarz: Wortmarke, Monogramm und die Creative-Studio-Signatur" },
+            ],
+          },
           "Das Farbsystem arbeitet mit Rot, Blau, Schwarz und Weiß. Rot vermittelt Energie und stellt eine Verbindung zur visuellen Identität Nepals her. Blau schafft Ruhe und verweist auf Berglandschaften. Schwarz und Weiß halten die kulturellen Farben kontrolliert und tragbar.",
-        ],
-        images: [
-          { aspect: "1042/1274", caption: "[ logo sketches ]", src: "/images/afono-logo-sketches.webp", alt: "Frühe Logo-Exploration: Monogramm-Studien aus A und F, daneben Kleidungsskizzen" },
-          { aspect: "1140/1518", caption: "[ wordmark studies ]", src: "/images/afono-wordmark-studies.webp", alt: "Eine Seite mit Wortmarken-Studien auf dem Weg zum AFONO-Schriftzug" },
-          { aspect: "1160/1322", caption: "[ logo lockups ]", src: "/images/afono-logo-lockups.webp", alt: "Die AFONO-Lockups in Schwarz: Wortmarke, Monogramm und die Creative-Studio-Signatur" },
-          { aspect: "1228/1546", caption: "[ logo system + colours ]", src: "/images/afono-colour-system.webp", alt: "Dieselben Lockups in Markenrot und Markenblau" },
-          { aspect: "1190/1488", caption: "[ colour palette ]", src: "/images/afono-colour-palette.webp", alt: "Die vier Markenfarben mit Hex-Werten und die daraus gebauten Button-Zustände" },
-          { aspect: "1226/506", caption: "[ typography ]", src: "/images/afono-typography.webp", alt: "Manrope in fünf Schnitten, von ExtraBold bis Regular" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1228/1546", caption: "[ logo system + colours ]", src: "/images/afono-colour-system.webp", alt: "Dieselben Lockups in Markenrot und Markenblau" },
+              { aspect: "1190/1488", caption: "[ colour palette ]", src: "/images/afono-colour-palette.webp", alt: "Die vier Markenfarben mit Hex-Werten und die daraus gebauten Button-Zustände" },
+              { aspect: "1226/506", caption: "[ typography ]", src: "/images/afono-typography.webp", alt: "Manrope in fünf Schnitten, von ExtraBold bis Regular" },
+            ],
+          },
         ],
       },
       {
@@ -314,29 +366,28 @@ const afono: CaseStudyLocaleContent = {
         body: [
           "Die Kollektion verwendet Oversized-Unisex-T-Shirts als primäres Produktformat. Eine kleine Markierung auf der Vorderseite hält die Kleidungsstücke alltagstauglich. Größere Rückendrucke tragen die zentrale visuelle Erzählung.",
           {
-            kind: "list",
+            kind: "figures",
             items: [
-              "Himal — inspiriert von Nepals Berglandschaft",
-              "City — basierend auf zeitgenössischem urbanem Leben",
-              "Mythic — mit ausgewählten Geschichten und symbolischen Bezügen",
-              "Logo Essentials — mit der Identität in ihrer reduziertesten Form",
+              { aspect: "1164/1684", caption: "[ print development ]", src: "/images/afono-print-development.webp", alt: "Print-Entwicklung: handgezeichnete Studien zur Himal-Serie und zu Städten mit Newari-Maskenmotiven" },
+              { aspect: "1162/1478", caption: "[ print artwork ]", src: "/images/afono-print-artwork.webp", alt: "Der fertige NEPAL-Druck in seinen vier Farbvarianten" },
+              { aspect: "3/4", caption: "[ tee — front ]", src: "/images/afono-tee-front.webp", alt: "Das kleine Zeichen für die Vorderseite: die vertikal gesetzte AFONO-Wortmarke in Rot" },
+              { aspect: "3/4", caption: "[ tee — back print ]", src: "/images/afono-tee-back.webp", alt: "Ein Rückendruck der Himal-Serie: die Wortmarke über einem gezeichneten Himalaya-Gipfel mit Hängebrücke" },
+              { aspect: "1274/1442", caption: "[ tee mockups ]", src: "/images/afono-tee-mockups.webp", alt: "Die Kollektion auf hellen Shirts, Vorder- und Rückseite" },
             ],
           },
           { kind: "h3", text: "Produktentdeckung mit kulturellem Storytelling verbinden" },
           "Die Website musste zwei unterschiedliche Nutzerabsichten ausgleichen: Besucher, die schnell einkaufen möchten, und Besucher, die die Geschichten hinter der Marke verstehen möchten. Die Informationsarchitektur trennt deshalb direkte Produktentdeckung von ausführlicheren Marken- und Kollektionsinhalten.",
           "Der Prototyp umfasst Startseite, Shop- und Kollektionsseiten, Produktdetails, Lookbook, Warenkorb, Checkout, Nutzerkonto, Kollektionsgeschichten und eine KI-gestützte Größenberatung. Wiederverwendbare Komponenten unterstützen konsistente Produktkarten, Navigation, Filter, Buttons, Formulare und Checkout-Zustände.",
-        ],
-        images: [
-          { aspect: "1164/1684", caption: "[ print development ]", src: "/images/afono-print-development.webp", alt: "Print-Entwicklung: handgezeichnete Studien zur Himal-Serie und zu Städten mit Newari-Maskenmotiven" },
-          { aspect: "1162/1478", caption: "[ print artwork ]", src: "/images/afono-print-artwork.webp", alt: "Der fertige NEPAL-Druck in seinen vier Farbvarianten" },
-          { aspect: "3/4", caption: "[ tee — front ]", src: "/images/afono-tee-front.webp", alt: "Das kleine Zeichen für die Vorderseite: die vertikal gesetzte AFONO-Wortmarke in Rot" },
-          { aspect: "3/4", caption: "[ tee — back print ]", src: "/images/afono-tee-back.webp", alt: "Ein Rückendruck der Himal-Serie: die Wortmarke über einem gezeichneten Himalaya-Gipfel mit Hängebrücke" },
-          { aspect: "1274/1442", caption: "[ tee mockups ]", src: "/images/afono-tee-mockups.webp", alt: "Die Kollektion auf hellen Shirts, Vorder- und Rückseite" },
-          { aspect: "1600/2937", caption: "[ product page ]", src: "/images/afono-product-page.webp", alt: "Die Produktseite: Galerie, Größenauswahl, Beschreibung und verwandte Produkte" },
-          { aspect: "896/1676", caption: "[ size finder ]", src: "/images/afono-size-finder.webp", alt: "Der KI-Größenfinder: die empfohlene Größe mit Anprobe-Vorschau" },
-          { aspect: "768/2050", caption: "[ cart ]", src: "/images/afono-cart.webp", alt: "Die Warenkorb-Lade: ein Artikel, Gutscheincode, Zwischensumme und die Checkout-Aktion" },
-          { aspect: "4/3", caption: "[ checkout ]", src: "/images/afono-checkout.webp", alt: "Der Checkout: Lieferadresse neben der Bestellübersicht, darunter der Seitenfuß" },
-          { aspect: "1600/1049", caption: "[ components ]", src: "/images/afono-components.webp", alt: "Komponenten-Zustände der Produktseite: Galerie, Auswahlfelder, Menge und Buttons" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/2937", caption: "[ product page ]", src: "/images/afono-product-page.webp", alt: "Die Produktseite: Galerie, Größenauswahl, Beschreibung und verwandte Produkte" },
+              { aspect: "896/1676", caption: "[ size finder ]", src: "/images/afono-size-finder.webp", alt: "Der KI-Größenfinder: die empfohlene Größe mit Anprobe-Vorschau" },
+              { aspect: "768/2050", caption: "[ cart ]", src: "/images/afono-cart.webp", alt: "Die Warenkorb-Lade: ein Artikel, Gutscheincode, Zwischensumme und die Checkout-Aktion" },
+              { aspect: "4/3", caption: "[ checkout ]", src: "/images/afono-checkout.webp", alt: "Der Checkout: Lieferadresse neben der Bestellübersicht, darunter der Seitenfuß" },
+              { aspect: "1600/1049", caption: "[ components ]", src: "/images/afono-components.webp", alt: "Komponenten-Zustände der Produktseite: Galerie, Auswahlfelder, Menge und Buttons" },
+            ],
+          },
         ],
       },
       {
@@ -365,11 +416,14 @@ const afono: CaseStudyLocaleContent = {
         heading: "Eine Identität für Produkt, Commerce und Kommunikation",
         body: [
           "Die finale Richtung verbindet Naming, visuelle Identität, Bekleidungsgrafik, Online-Shopping und Social-Media-Kommunikation. Reduzierte Vorderseitendrucke halten die Produkte alltagstauglich, während kollektionsbasierte Rückengrafiken kulturelle Geschichten vermitteln. Das Ergebnis ist ein skalierbares Konzept und nicht nur ein einzelnes Logo oder Kleidungsdesign.",
-        ],
-        images: [
-          { aspect: "16/9", caption: "[ final brand system — large showcase ]", src: "/images/afono-brand-system.webp", alt: "Das fertige Logosystem in Markenrot: die Hauptvariante über ihren zwei Nebenvarianten" },
-          { aspect: "800/1342", caption: "[ social media ]", src: "/images/afono-social-system.webp", alt: "Der Instagram-Feed: Restock-, Lookbook-, Giveaway- und Neuheiten-Posts" },
-          { aspect: "1600/1938", caption: "[ e-commerce prototype ]", src: "/images/afono-prototype.webp", alt: "Die Shop-Seite: Kategoriefilter, Produktraster und der Seitenfuß" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/9", caption: "[ final brand system — large showcase ]", src: "/images/afono-brand-system.webp", alt: "Das fertige Logosystem in Markenrot: die Hauptvariante über ihren zwei Nebenvarianten" },
+              { aspect: "800/1342", caption: "[ social media ]", src: "/images/afono-social-system.webp", alt: "Der Instagram-Feed: Restock-, Lookbook-, Giveaway- und Neuheiten-Posts" },
+              { aspect: "1600/1938", caption: "[ e-commerce prototype ]", src: "/images/afono-prototype.webp", alt: "Die Shop-Seite: Kategoriefilter, Produktraster und der Seitenfuß" },
+            ],
+          },
         ],
       },
       {
