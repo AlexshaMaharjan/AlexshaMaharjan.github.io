@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-04**, after SESSION-027 (figures sized by height; rows justified).
+Snapshot: **2026-09-08**, after SESSION-028 (five bento tiles re-cut from the owner's own exports).
 
 ## Overall
 

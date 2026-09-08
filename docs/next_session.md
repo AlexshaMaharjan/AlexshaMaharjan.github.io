@@ -11,7 +11,7 @@ took the last of the actionable non-image queue with it.
 this project: it is not short of engineering, it is short of two photographs, a poster's name,
 three judgement calls and three folders of images.
 
-Work sits on branch `milestone-003-content-model`, **forty-five commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **forty-six commits ahead of `main` and
 unpushed**. **The live site shows none of the last twenty-odd sessions.** That gap is now the
 largest single thing on this list — say so plainly to the owner before proposing anything else. **Check `git` before trusting any status in these files.**
 
@@ -73,11 +73,14 @@ decision only they can make, or work that assumes the repository is pushed.
 
 **Two things could be done without anyone**, if a session genuinely has nothing else:
 
-- **Re-cut the two Surugami bento tiles.** `tile-surugami-brand` and `tile-surugami-poster` are
-  still PDF crops from SESSION-016, and `Images/Surugami/` now holds sharper sources for both.
-  The tiles must pass `image-treat.mjs`'s bento contrast ceiling, which is the fiddly part.
+- ~~**Re-cut the two Surugami bento tiles.**~~ **Tested and ruled out in SESSION-028.** A tile
+  needs one element at the tile's aspect and at least its export width; `Poster.png`'s largest
+  element is 964 × 274 against a requirement of 900 × 647, so re-cutting would upscale. **A
+  supplied board is a composite and holds fewer pixels per element than a page render.** Five
+  other tiles *were* re-cut. Do not re-test this — the measurements are in `image_sources.md`.
 - **CI** (`SUGGESTION-015`) — a workflow running lint and build. It only earns its keep once the
-  branch is pushed, which is the owner's call.
+  branch is pushed, which is the owner's call. **This is now the only remaining item that needs
+  nobody**, and it needs the push first.
 
 Then:
 

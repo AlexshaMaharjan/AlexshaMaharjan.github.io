@@ -31,6 +31,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-025 | 2026-09-04 | No images to place: ISSUE-009 (German landmarks axe cannot see) and ISSUE-010 closed, MILESTONE-002 complete, `!important` removed, doc accuracy pass | `session_025.md` |
 | SESSION-026 | 2026-09-04 | AFONO and Sync FM re-shot from supplied folders — 12 PDF crops superseded, 9 new slots, Sync FM's three persona slots merged into the one board that exists; ISSUE-035 | `session_026.md` |
 | SESSION-027 | 2026-09-04 | DECISION-019: figures sized by height and rows justified, superseding SUGGESTION-017; AFONO's 22 figures moved into the prose | `session_027.md` |
+| SESSION-028 | 2026-09-08 | Five bento tiles re-cut from supplied exports; measuring disproved the hand-off's premise that Surugami's two could be — a composite board holds fewer pixels per element than a page render | `session_028.md` |
 
 ## Conventions
 

@@ -1,68 +1,5 @@
 [
   {
-    "src": "../../ProjectsDokus/DesPr1_Alexsha_Maharjan_Doku.pdf",
-    "out": "public/images/tile-wikimind-brand.webp",
-    "crop": [
-      0.06,
-      -0.0033,
-      0.72,
-      0.2666
-    ],
-    "width": 1300,
-    "aspect": "672/322",
-    "grade": {
-      "brightness": 0.42,
-      "saturate": 0.95,
-      "tint": "#132C8C",
-      "tintAlpha": 0.3
-    },
-    "check": "bento",
-    "page": 15,
-    "renderScale": 5
-  },
-  {
-    "src": "../../ProjectsDokus/DesignProjekt_Dokumentation_Maharjan.pdf",
-    "out": "public/images/tile-afono-brand.webp",
-    "crop": [
-      0.1,
-      0.0578,
-      0.8,
-      0.4443
-    ],
-    "width": 900,
-    "aspect": "448/322",
-    "grade": {
-      "brightness": 0.4,
-      "saturate": 1,
-      "tint": "#7A121A",
-      "tintAlpha": 0.28
-    },
-    "check": "bento",
-    "page": 16,
-    "renderScale": 5
-  },
-  {
-    "src": "../../ProjectsDokus/Enddokumentation.pdf",
-    "out": "public/images/tile-syncfm-interaction.webp",
-    "crop": [
-      0.33,
-      0.4726,
-      0.58,
-      0.2948
-    ],
-    "width": 900,
-    "aspect": "448/322",
-    "grade": {
-      "brightness": 0.72,
-      "saturate": 1.05,
-      "tint": "#2E1147",
-      "tintAlpha": 0.22
-    },
-    "check": "bento",
-    "page": 20,
-    "renderScale": 5
-  },
-  {
     "src": "../../ProjectsDokus/FInalDesmeth.pdf",
     "out": "public/images/tile-surugami-brand.webp",
     "crop": [
@@ -126,27 +63,6 @@
     "renderScale": 5
   },
   {
-    "src": "../../ProjectsDokus/DesPr1_Alexsha_Maharjan_Doku.pdf",
-    "out": "public/images/tile-wikimind-web.webp",
-    "crop": [
-      0.27,
-      0.1489,
-      0.5,
-      0.2222
-    ],
-    "width": 1100,
-    "aspect": "560/322",
-    "grade": {
-      "brightness": 0.4,
-      "saturate": 0.95,
-      "tint": "#132C8C",
-      "tintAlpha": 0.3
-    },
-    "check": "bento",
-    "page": 18,
-    "renderScale": 5
-  },
-  {
     "src": "../../ProjectsDokus/DesignProjekt_Dokumentation_Maharjan.pdf",
     "out": "public/images/tile-afono-graphic.webp",
     "crop": [
@@ -165,27 +81,6 @@
     },
     "check": "bento",
     "page": 21,
-    "renderScale": 5
-  },
-  {
-    "src": "../../ProjectsDokus/Enddokumentation.pdf",
-    "out": "public/images/tile-syncfm-mobile.webp",
-    "crop": [
-      0.3,
-      0.4267,
-      0.6,
-      0.4066
-    ],
-    "width": 700,
-    "aspect": "336/322",
-    "grade": {
-      "brightness": 0.8,
-      "saturate": 1.05,
-      "tint": "#2E1147",
-      "tintAlpha": 0.2
-    },
-    "check": "bento",
-    "page": 23,
     "renderScale": 5
   },
   {
@@ -1008,5 +903,100 @@
     "width": 1600,
     "height": 1938,
     "quality": 0.82
+  },
+  {
+    "src": "Images/wikimind/LogoVarients.png",
+    "out": "public/images/tile-wikimind-brand.webp",
+    "crop": [
+      0,
+      0,
+      0.6,
+      1.0
+    ],
+    "width": 1300,
+    "aspect": "672/322",
+    "grade": {
+      "brightness": 0.42,
+      "saturate": 0.95,
+      "tint": "#132C8C",
+      "tintAlpha": 0.3
+    },
+    "check": "bento"
+  },
+  {
+    "src": "Images/wikimind/Visualle Baukasten.png",
+    "out": "public/images/tile-wikimind-web.webp",
+    "crop": [
+      0,
+      0,
+      1.0,
+      0.89
+    ],
+    "width": 1100,
+    "aspect": "560/322",
+    "grade": {
+      "brightness": 0.4,
+      "saturate": 0.95,
+      "tint": "#132C8C",
+      "tintAlpha": 0.3
+    },
+    "check": "bento"
+  },
+  {
+    "src": "Images/Afono/LogoVariationsColor.png",
+    "out": "public/images/tile-afono-brand.webp",
+    "crop": [
+      0,
+      0,
+      1.0,
+      0.571
+    ],
+    "width": 900,
+    "aspect": "448/322",
+    "grade": {
+      "brightness": 0.4,
+      "saturate": 1,
+      "tint": "#7A121A",
+      "tintAlpha": 0.28
+    },
+    "check": "bento"
+  },
+  {
+    "src": "Images/SyncFM/Screens.png",
+    "out": "public/images/tile-syncfm-interaction.webp",
+    "crop": [
+      0.0,
+      0.045,
+      0.525,
+      0.237
+    ],
+    "width": 900,
+    "aspect": "448/322",
+    "grade": {
+      "brightness": 0.72,
+      "saturate": 1.05,
+      "tint": "#2E1147",
+      "tintAlpha": 0.22
+    },
+    "check": "bento"
+  },
+  {
+    "src": "Images/SyncFM/Screens.png",
+    "out": "public/images/tile-syncfm-mobile.webp",
+    "crop": [
+      0.5,
+      0.045,
+      0.39,
+      0.235
+    ],
+    "width": 700,
+    "aspect": "336/322",
+    "grade": {
+      "brightness": 0.8,
+      "saturate": 1.05,
+      "tint": "#2E1147",
+      "tintAlpha": 0.2
+    },
+    "check": "bento"
   }
 ]

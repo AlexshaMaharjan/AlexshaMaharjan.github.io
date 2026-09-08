@@ -152,7 +152,21 @@ work is fine on a page that says who did what; the case studies already say it.
 
 Value per unit of effort, highest first.
 
-**1. ~~The eleven bento tiles~~** — done, SESSION-016.
+**1. ~~The eleven bento tiles~~** — done, SESSION-016; **five re-cut from the owner's own
+exports in SESSION-028** (both WikiMind, AFONO brand, both Sync FM).
+
+**Six still come from PDF pages, and two of them should stay that way.** A tile needs one element
+at the tile's aspect and at least its export width — `tile-surugami-brand` needs 900 × 647. A
+supplied board is a *composite*: `Poster.png` is 2518px wide but its largest element is 964 × 274,
+so cropping a tile out of it would upscale. `tile-afono-graphic` is ruled out the same way —
+`print3.png` is three thin marks on white and any crop at 224/322 is mostly empty page.
+
+**A supplied export beats a page render for a figure, and often loses to it for a tile.** A figure
+shows the whole board; a tile shows one thing inside it. Measured in SESSION-028 with a decile
+grid — do not re-test.
+
+The remaining four (`tile-qis-research`, `tile-qis-product`, `tile-kitchen-inclusive`, and
+Surugami's two if a non-composite source ever arrives) wait on folders.
 
 **2. ~~The six case-study heroes~~** — done, SESSION-016, along with six prev/next cards that
 turned out to be live rather than dead (`projects[].image`, rendered by `NextProjectNav`).

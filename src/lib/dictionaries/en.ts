@@ -85,7 +85,7 @@ const en: Dictionary = {
     bento: [
       { slug: "wikimind", category: "Brand & UI/UX", title: "WikiMind", gridArea: "1 / 1 / 2 / 7", fontSize: "clamp(26px,3.6vw,60px)", src: "/images/tile-wikimind-brand.webp", alt: "The WikiMind wordmark in its two colourways" },
       { slug: "afono", category: "Brand & E-commerce", title: "AFONO", gridArea: "1 / 7 / 2 / 11", fontSize: "clamp(22px,2.8vw,44px)", src: "/images/tile-afono-brand.webp", alt: "AFONO logo lockups in the brand's red" },
-      { slug: "sync-fm", category: "Interaction Design", title: "Sync FM", gridArea: "2 / 1 / 3 / 5", fontSize: "clamp(20px,2.3vw,34px)", src: "/images/tile-syncfm-interaction.webp", alt: "Three Sync FM screens showing the news dial and the player" },
+      { slug: "sync-fm", category: "Interaction Design", title: "Sync FM", gridArea: "2 / 1 / 3 / 5", fontSize: "clamp(20px,2.3vw,34px)", src: "/images/tile-syncfm-interaction.webp", alt: "Two Sync FM screens: the news dial and the expanded player" },
       { slug: "surugami", category: "Brand & Print", title: "Surugami", gridArea: "3 / 1 / 4 / 5", fontSize: "clamp(20px,2.3vw,34px)", src: "/images/tile-surugami-brand.webp", alt: "A folded paper crane from a Surugami poster" },
       { slug: "qis-portal", category: "UX Research", title: "QIS Portal", gridArea: "2 / 5 / 4 / 11", fontSize: "clamp(26px,3.4vw,56px)", src: "/images/tile-qis-research.webp", alt: "Bar charts from the QIS Portal user survey" },
       { slug: "barrier-free-kitchen", category: "Inclusive Design", title: "Kitchen", gridArea: "4 / 1 / 6 / 6", fontSize: "clamp(24px,3.1vw,50px)", src: "/images/tile-kitchen-inclusive.webp", alt: "A wheelchair user at the height-adjustable kitchen counter" },
