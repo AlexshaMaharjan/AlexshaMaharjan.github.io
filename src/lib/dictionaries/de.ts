@@ -85,7 +85,7 @@ const de: Dictionary = {
     bento: [
       { slug: "wikimind", category: "Brand & UI/UX", title: "WikiMind", gridArea: "1 / 1 / 2 / 7", fontSize: "clamp(26px,3.6vw,60px)", src: "/images/tile-wikimind-brand.webp", alt: "Die WikiMind-Wortmarke in ihren zwei Farbvarianten" },
       { slug: "afono", category: "Marke & E-Commerce", title: "AFONO", gridArea: "1 / 7 / 2 / 11", fontSize: "clamp(22px,2.8vw,44px)", src: "/images/tile-afono-brand.webp", alt: "AFONO-Logovarianten im Markenrot" },
-      { slug: "sync-fm", category: "Interaction Design", title: "Sync FM", gridArea: "2 / 1 / 3 / 5", fontSize: "clamp(20px,2.3vw,34px)", src: "/images/tile-syncfm-interaction.webp", alt: "Drei Sync-FM-Screens mit Nachrichtenregler und Player" },
+      { slug: "sync-fm", category: "Interaction Design", title: "Sync FM", gridArea: "2 / 1 / 3 / 5", fontSize: "clamp(20px,2.3vw,34px)", src: "/images/tile-syncfm-interaction.webp", alt: "Zwei Sync-FM-Screens: der Nachrichtenregler und der erweiterte Player" },
       { slug: "surugami", category: "Marke & Print", title: "Surugami", gridArea: "3 / 1 / 4 / 5", fontSize: "clamp(20px,2.3vw,34px)", src: "/images/tile-surugami-brand.webp", alt: "Ein gefalteter Papierkranich von einem Surugami-Plakat" },
       { slug: "qis-portal", category: "UX-Research", title: "QIS Portal", gridArea: "2 / 5 / 4 / 11", fontSize: "clamp(26px,3.4vw,56px)", src: "/images/tile-qis-research.webp", alt: "Balkendiagramme aus der Nutzerbefragung zum QIS-Portal" },
       { slug: "barrier-free-kitchen", category: "Inklusives Design", title: "Kitchen", gridArea: "4 / 1 / 6 / 6", fontSize: "clamp(24px,3.1vw,50px)", src: "/images/tile-kitchen-inclusive.webp", alt: "Eine Rollstuhlfahrerin an der höhenverstellbaren Küchenarbeitsplatte" },
