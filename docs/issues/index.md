@@ -1,6 +1,6 @@
 # Issues Index
 
-35 issues. **28 resolved**, plus `ISSUE-004` and `ISSUE-006` partially. **7 remain open**,
+36 issues. **29 resolved**, plus `ISSUE-004` and `ISSUE-006` partially. **7 remain open**,
 none `Investigating` and none `Critical`.
 
 Of the six, **five need the owner and cannot be closed by work**: two are provenance judgements
@@ -29,7 +29,7 @@ _None._
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-032 | WikiMind's personas and moodboard ship third-party imagery | Open | Medium | The persona portraits and half the moodboard tiles are not the owner's; `DECISION-016` makes this their call | `issue_032.md` |
-| ISSUE-033 | The figure-dense case studies are heavy on mobile | Open | Medium | `/work/afono` is 1544 KB at 390/3x across 22 figures; the levers left all trade image quality or figure count | `issue_033.md` |
+| ISSUE-033 | The figure-dense case studies are heavy on mobile | Open | **High** | `/work/afono` is **2141 KB** at 390/3x across 29 figures; lowering the variant ladder's quality is now worth an experiment | `issue_033.md` |
 | ISSUE-034 | Which Surugami poster is the owner's? | Open | Medium | The supplied board carries the whole team's campaign; `[ poster — by alexsha ]` stays hatched rather than over-claim | `issue_034.md` |
 
 ## Active — Low
@@ -38,6 +38,12 @@ _None._
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-031 | Sync FM's copy credits the wrong AI tool | Open | Low | Says Gemini made the personas; the documentation says ChatGPT did | `issue_031.md` |
 | ISSUE-035 | AFONO's supplied folder: three files not used | Open | Low | One is an empty export; one is competitor imagery `DECISION-016` excludes; one is a moodboard flagged like `ISSUE-032` | `issue_035.md` |
+
+And in SESSION-029:
+
+| ID | Title | Resolved by | File |
+| --- | --- | --- | --- |
+| ISSUE-036 | A regex rearranged content into the wrong section and the wrong locale | Both lists restored; `scripts/content-audit.mjs` added and gated in `predeploy`, proved by re-injecting each fault | `issue_036.md` |
 
 ## Resolved
 

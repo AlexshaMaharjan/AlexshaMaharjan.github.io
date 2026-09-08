@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-08**, after SESSION-028 (five bento tiles re-cut from the owner's own exports).
+Snapshot: **2026-09-08**, after SESSION-029 (every supplied image placed; the old PDF crops deleted).
 
 ## Overall
 
@@ -11,7 +11,7 @@ both structured and laid out. What remains is mostly content the repository cann
 for itself: real photographs, and a copy pass. Plus one homepage section that still shows
 grey tiles.
 
-Roughly: architecture ~92% done, content ~70% drafted, imagery ~49% (73 of 148 slots), polish ~60%.
+Roughly: architecture ~92% done, content ~70% drafted, imagery ~51% (75 of 148 slots), polish ~60%.
 
 ## Working
 

@@ -32,6 +32,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-026 | 2026-09-04 | AFONO and Sync FM re-shot from supplied folders — 12 PDF crops superseded, 9 new slots, Sync FM's three persona slots merged into the one board that exists; ISSUE-035 | `session_026.md` |
 | SESSION-027 | 2026-09-04 | DECISION-019: figures sized by height and rows justified, superseding SUGGESTION-017; AFONO's 22 figures moved into the prose | `session_027.md` |
 | SESSION-028 | 2026-09-08 | Five bento tiles re-cut from supplied exports; measuring disproved the hand-off's premise that Surugami's two could be — a composite board holds fewer pixels per element than a page render | `session_028.md` |
+| SESSION-029 | 2026-09-08 | Every supplied image placed (AFONO 23 → 30 slots); 25 orphaned originals deleted, 1.4 MB; found and fixed ISSUE-036, a German list I shipped on the English page in SESSION-027, and added `content-audit.mjs` | `session_029.md` |
 
 ## Conventions
 

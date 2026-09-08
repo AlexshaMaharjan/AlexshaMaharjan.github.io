@@ -136,3 +136,28 @@ now walks body blocks too, through one `sectionImages()` helper shared by the co
 
 If the content model grows another home for images, **that helper is the place to teach it**, and
 the symptom of forgetting is a slot count that looks plausible.
+
+## The harness does not read words
+
+Everything above is structural. `tsc` and ESLint check types and syntax; axe, the image sweep,
+the overflow and reveal checks all read markup; `image-manifest.mjs` diffs figure `src` across
+`en` and `de` — **but never prose, because prose is supposed to differ between locales.**
+
+So a German list sitting in the English object renders perfectly and passes every one of them.
+That shipped in two commits (`ISSUE-036`).
+
+```bash
+npm run audit        # node scripts/content-audit.mjs
+```
+
+`content-audit.mjs` closes that gap with two checks, and `predeploy` now runs it:
+
+1. **Wrong-language body blocks.** Function words only — content words are cognates far too often
+   in a German design context ("Design", "Prototyp", "Interface"). **List items are tested
+   individually**: the first version joined them and passed a German line hidden among three
+   English ones, which is the fault it was written to catch, so that version was discarded.
+2. **`en`/`de` structural parity** — the same sections in the same order, and the same sequence of
+   block kinds within each. This catches a block that exists in one locale and not the other.
+
+Both were proved by re-injecting each fault and confirming a non-zero exit before confirming
+clean. **A check that has never failed has not been tested.**

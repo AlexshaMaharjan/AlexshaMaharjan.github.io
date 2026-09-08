@@ -175,16 +175,9 @@ const wikimind: CaseStudyLocaleContent = {
             kind: "figures",
             items: [
               { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Five pages of the finished site shown side by side" },
-              { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "The team page and footer of the finished site" },
             ],
           },
           "The result is an interactive Figma prototype that demonstrates the main page system, navigation behaviour and visual language of WikiMind.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "The chatbot page shown in the interactive Figma prototype" },
-            ],
-          },
         ],
       },
       {
@@ -376,16 +369,9 @@ const wikimind: CaseStudyLocaleContent = {
             kind: "figures",
             items: [
               { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
-              { aspect: "16/10", caption: "[ interface detail ]", src: "/images/wikimind-interface.webp", alt: "Die Team-Seite und die Fußzeile der fertigen Website" },
             ],
           },
           "Das Ergebnis ist ein interaktiver Figma-Prototyp, der das zentrale Seitensystem, das Navigationsverhalten und die visuelle Sprache von WikiMind demonstriert.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "16/10", caption: "[ prototype video ]", src: "/images/wikimind-prototype.webp", alt: "Die Chatbot-Seite im interaktiven Figma-Prototyp" },
-            ],
-          },
         ],
       },
       {

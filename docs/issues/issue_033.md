@@ -101,3 +101,28 @@ study is thorough.
 
 Option 1 is the only one that costs nothing but a judgement about image quality, which is why it
 is listed first — and why it is still the owner's call rather than a change made quietly.
+
+## Re-measured after SESSION-029 — AFONO is now 2.1 MB on a 3x phone
+
+Placing every supplied image took AFONO from 22 figures to 29, and the mobile number moved with
+it. Deleting 25 orphaned originals took 1.4 MB off what *ships* but nothing off what any single
+page *loads*, because none of them was referenced.
+
+| Page | 1440/1x | 390/3x | Figures |
+| --- | --- | --- | --- |
+| `/work/afono` | **910 KB** (734 img) | **2141 KB** (1964 img) | 29 |
+| `/work/wikimind` | 671 KB (497) | 953 KB (778) | 15 |
+| `/work/surugami` | 468 KB (295) | 713 KB (540) | 8 |
+| `/work/sync-fm` | 379 KB (205) | 600 KB (426) | 7 |
+
+**2.1 MB is past the point where this is only a number in a table.** On a slow connection that is
+a page that visibly takes its time, and AFONO is one of the two strongest case studies.
+
+The cause is unchanged and structural: below 640px every figure is full width, so a 3x phone
+fetches 29 images at the 1280 rung. The levers are also unchanged — lower the variant ladder's
+fixed 0.82 quality (site-wide, biggest single lever, needs a look at the 960 and 1280 rungs
+first), or show fewer figures on small screens.
+
+**What changed is that the first lever is now clearly worth trying.** At 22 figures accepting the
+weight was defensible; at 29 it is worth spending an experiment on. Still the owner's call,
+because it trades image quality across the whole site.

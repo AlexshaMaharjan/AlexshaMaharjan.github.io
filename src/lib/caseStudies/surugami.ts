@@ -97,7 +97,6 @@ const surugami: CaseStudyLocaleContent = {
             kind: "figures",
             items: [
               { aspect: "1600/1245", caption: "[ brand system ]", src: "/images/surugami-brand-system.webp", alt: "The Surugami identity: colour palette, Space Grotesk, and the folded-swan mark with its construction grid and colourways" },
-              { aspect: "16/9", caption: "[ illustration — by alexsha ]" },
             ],
           },
         ],
@@ -112,7 +111,6 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "3/4", caption: "[ poster — by alexsha ]" },
               { aspect: "1600/1159", caption: "[ posters — team credit ]", src: "/images/surugami-posters.webp", alt: "The team\u2019s poster campaign, from first sketches to mock-ups in a stairwell, a corridor and outdoors" },
               { aspect: "1400/1228", caption: "[ flyer + banner ]", src: "/images/surugami-flyer.webp", alt: "Paper prototypes above the finished three-fold flyer, shown open and folded" },
             ],
@@ -265,7 +263,6 @@ const surugami: CaseStudyLocaleContent = {
             kind: "figures",
             items: [
               { aspect: "1600/1245", caption: "[ brand-system ]", src: "/images/surugami-brand-system.webp", alt: "Die Surugami-Identität: Farbpalette, Space Grotesk und die gefaltete Schwan-Marke mit Konstruktionsraster und Farbvarianten" },
-              { aspect: "16/9", caption: "[ illustration — von alexsha ]" },
             ],
           },
         ],
@@ -280,7 +277,6 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "3/4", caption: "[ poster — von alexsha ]" },
               { aspect: "1600/1159", caption: "[ poster — team-credit ]", src: "/images/surugami-posters.webp", alt: "Die Plakatkampagne des Teams, von ersten Skizzen bis zu Mock-ups im Treppenhaus, im Flur und im Außenraum" },
               { aspect: "1400/1228", caption: "[ flyer + banner ]", src: "/images/surugami-flyer.webp", alt: "Papierprototypen über dem fertigen Wickelfalz-Flyer, offen und gefaltet" },
             ],

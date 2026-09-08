@@ -156,118 +156,6 @@
     "renderScale": 5
   },
   {
-    "src": "../../ProjectsDokus/DesignProjekt_Dokumentation_Maharjan.pdf",
-    "out": "public/images/afono-personas.webp",
-    "crop": [
-      0.0807,
-      0.176,
-      0.8387,
-      0.4861
-    ],
-    "width": 600,
-    "aspect": "4/3",
-    "page": 9,
-    "renderScale": 6
-  },
-  {
-    "src": "../../ProjectsDokus/DesignProjekt_Dokumentation_Maharjan.pdf",
-    "out": "public/images/afono-tee-front.webp",
-    "crop": [
-      0.3285,
-      0.5325,
-      0.2718,
-      0.28
-    ],
-    "width": 600,
-    "aspect": "3/4",
-    "page": 21,
-    "renderScale": 6
-  },
-  {
-    "src": "../../ProjectsDokus/DesignProjekt_Dokumentation_Maharjan.pdf",
-    "out": "public/images/afono-tee-back.webp",
-    "crop": [
-      0.625,
-      0.5514,
-      0.24,
-      0.2473
-    ],
-    "width": 600,
-    "aspect": "3/4",
-    "page": 20,
-    "renderScale": 6
-  },
-  {
-    "src": "../../ProjectsDokus/DesignProjekt_Dokumentation_Maharjan.pdf",
-    "out": "public/images/afono-checkout.webp",
-    "crop": [
-      0.085,
-      0.0551,
-      0.405,
-      0.2347
-    ],
-    "width": 600,
-    "aspect": "4/3",
-    "page": 40,
-    "renderScale": 6
-  },
-  {
-    "src": "../../ProjectsDokus/DesignProjekt_Dokumentation_Maharjan.pdf",
-    "out": "public/images/afono-brand-system.webp",
-    "crop": [
-      0.085,
-      0.1096,
-      0.83,
-      0.3608
-    ],
-    "width": 1900,
-    "aspect": "16/9",
-    "page": 16,
-    "renderScale": 6
-  },
-  {
-    "src": "../../ProjectsDokus/Enddokumentation.pdf",
-    "out": "public/images/sync-fm-dial.webp",
-    "crop": [
-      0.5932,
-      0.263,
-      0.2939,
-      0.2078
-    ],
-    "width": 600,
-    "aspect": "1/1",
-    "page": 32,
-    "renderScale": 6
-  },
-  {
-    "src": "../../ProjectsDokus/Enddokumentation.pdf",
-    "out": "public/images/sync-fm-mood-bar.webp",
-    "crop": [
-      0.1299,
-      0.617,
-      0.3303,
-      0.2335
-    ],
-    "width": 600,
-    "aspect": "1/1",
-    "page": 23,
-    "renderScale": 6
-  },
-  {
-    "src": "../../ProjectsDokus/Enddokumentation.pdf",
-    "out": "public/images/sync-fm-opinion-filter.webp",
-    "crop": [
-      0.5194,
-      0.3899,
-      0.3682,
-      0.2602
-    ],
-    "width": 600,
-    "aspect": "1/1",
-    "page": 23,
-    "renderScale": 6
-  },
-  {
     "src": "Images/wikimind/Hero image.png",
     "out": "public/images/hero-wikimind.webp",
     "crop": [
@@ -998,5 +886,161 @@
       "tintAlpha": 0.2
     },
     "check": "bento"
+  },
+  {
+    "src": "Images/Afono/Printsketch1.png",
+    "out": "public/images/afono-print-sketches.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1282,
+    "height": 750,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Afono/print1.png",
+    "out": "public/images/afono-print-himal.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1208,
+    "height": 518,
+    "quality": 0.9
+  },
+  {
+    "src": "Images/Afono/print2.png",
+    "out": "public/images/afono-print-mask.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1344,
+    "height": 510,
+    "quality": 0.9
+  },
+  {
+    "src": "Images/Afono/print3.png",
+    "out": "public/images/afono-print-wordmark.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1040,
+    "height": 658,
+    "quality": 0.9
+  },
+  {
+    "src": "Images/Afono/TshirtMockup2.png",
+    "out": "public/images/afono-tee-mockups-dark.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1274,
+    "height": 1480,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Afono/Landing Page.png",
+    "out": "public/images/afono-landing-page.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      0.26
+    ],
+    "width": 1600,
+    "height": 1897,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Afono/City Series Page.png",
+    "out": "public/images/afono-city-series.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 3217,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Afono/Register Page.png",
+    "out": "public/images/afono-register-page.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1702,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Afono/Components1.png",
+    "out": "public/images/afono-components-content.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1931,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Afono/COmponents2.png",
+    "out": "public/images/afono-components-nav.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 974,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Afono/Button.png",
+    "out": "public/images/afono-buttons.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 363,
+    "height": 142,
+    "quality": 0.9
+  },
+  {
+    "src": "Images/Afono/InstaInspiration.png",
+    "out": "public/images/afono-social-grid.webp",
+    "crop": [
+      0.6196,
+      0.1694,
+      0.3673,
+      0.8124
+    ],
+    "width": 476,
+    "height": 801,
+    "quality": 0.88
   }
 ]
