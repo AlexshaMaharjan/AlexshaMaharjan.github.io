@@ -97,14 +97,6 @@ const syncFm: CaseStudyLocaleContent = {
           "Sync Dial — The central dial adjusts the depth of information. Turning it towards the lower end reduces stories to brief headlines. Turning it towards the higher end introduces longer explanations, context and analysis. A responsive waveform provides visual feedback.",
           "Mood Bar — The Mood Bar adjusts the personality and rhythm of the AI presenter. A calm setting uses slower pacing, neutral language and longer pauses. A more energetic setting increases pace. This changes presentation, not the factual content itself.",
           "Opinion Filter — The Opinion Filter controls the amount of journalistic interpretation. The control is intended to make framing visible. It also introduces an important ethical risk: users may remove uncomfortable perspectives and reinforce an existing worldview.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "1/1", caption: "[ sync dial ]", src: "/images/sync-fm-dial.webp", alt: "The sync dial, segmented into the six news categories it turns between" },
-              { aspect: "1/1", caption: "[ mood bar ]", src: "/images/sync-fm-mood-bar.webp", alt: "The three sliders in the app: news type from negative to positive, location from local to global, and truth level" },
-              { aspect: "1/1", caption: "[ opinion filter ]", src: "/images/sync-fm-opinion-filter.webp", alt: "The expanded player, with the truth-level scale reading 75 out of 100 beneath the headline" },
-            ],
-          },
           { kind: "h3", text: "Combining the familiarity of radio with a digital AI system" },
           "The visual language uses circular forms, rounded containers and wave-based feedback to connect the interface to audio and radio. Purple creates a distinctive technological identity while remaining less clinical than the blue systems frequently used by technology products. Futura is used for prominent headings, while Segoe UI supports longer interface and news text.",
           {
@@ -268,14 +260,6 @@ const syncFm: CaseStudyLocaleContent = {
           "Sync Dial — Der zentrale Drehregler steuert die Informationstiefe. Eine Bewegung zum unteren Bereich reduziert Beiträge auf kurze Schlagzeilen. Eine Bewegung zum höheren Bereich führt zu ausführlicheren Erklärungen, Kontext und Analyse. Eine reagierende Wellenform gibt visuelles Feedback.",
           "Mood Bar — Die Mood Bar verändert Persönlichkeit und Rhythmus der KI-Moderation. Eine ruhige Einstellung nutzt langsameres Sprechen, neutrale Sprache und längere Pausen. Eine energetischere Einstellung erhöht das Tempo. Dabei verändert sich die Präsentation und nicht der faktische Inhalt.",
           "Opinion Filter — Der Opinion Filter steuert den Anteil journalistischer Interpretation. Die Steuerung soll Framing sichtbar machen. Sie bringt jedoch ein wichtiges ethisches Risiko mit sich: Nutzer könnten unangenehme Perspektiven ausblenden und bestehende Weltbilder verstärken.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "1/1", caption: "[ sync dial ]", src: "/images/sync-fm-dial.webp", alt: "Der Drehregler, segmentiert in die sechs Nachrichtenkategorien, zwischen denen er wechselt" },
-              { aspect: "1/1", caption: "[ mood bar ]", src: "/images/sync-fm-mood-bar.webp", alt: "Die drei Regler der App: Nachrichtentyp von negativ bis positiv, Standort von lokal bis global und Wahrheitsgrad" },
-              { aspect: "1/1", caption: "[ opinion filter ]", src: "/images/sync-fm-opinion-filter.webp", alt: "Der erweiterte Player mit der Wahrheitsgrad-Skala bei 75 von 100 unter der Schlagzeile" },
-            ],
-          },
           { kind: "h3", text: "Die Vertrautheit des Radios mit einem digitalen KI-System verbinden" },
           "Die visuelle Sprache verwendet kreisförmige Elemente, abgerundete Container und wellenbasierte Rückmeldungen, um eine Verbindung zu Audio und Radio herzustellen. Lila schafft eine eigenständige technologische Identität und wirkt weniger klinisch als viele blaue Technologiesysteme. Futura wird für prominente Überschriften eingesetzt, während Segoe UI längere Interface- und Nachrichtentexte unterstützt.",
           {

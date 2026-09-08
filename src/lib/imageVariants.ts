@@ -4,16 +4,6 @@
 // beside it as `<stem>-<width>.webp`. `ui/Image` turns this into a `srcset`;
 // anything not listed here renders as a plain `<img>` (`SUGGESTION-012`).
 export const imageVariants: Record<string, { w: number; v: number[] }> = {
-  "/images/afono-brand-system.webp": {
-    "w": 1900,
-    "v": [
-      400,
-      640,
-      960,
-      1280,
-      1600
-    ]
-  },
   "/images/afono-cart.webp": {
     "w": 768,
     "v": [
@@ -21,10 +11,13 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       640
     ]
   },
-  "/images/afono-checkout.webp": {
-    "w": 600,
+  "/images/afono-city-series.webp": {
+    "w": 1600,
     "v": [
-      400
+      400,
+      640,
+      960,
+      1280
     ]
   },
   "/images/afono-colour-palette.webp": {
@@ -43,7 +36,34 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       960
     ]
   },
+  "/images/afono-components-content.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/afono-components-nav.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
   "/images/afono-components.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/afono-landing-page.webp": {
     "w": 1600,
     "v": [
       400,
@@ -73,12 +93,6 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       400
     ]
   },
-  "/images/afono-personas.webp": {
-    "w": 600,
-    "v": [
-      400
-    ]
-  },
   "/images/afono-print-artwork.webp": {
     "w": 1162,
     "v": [
@@ -93,6 +107,37 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       400,
       640,
       960
+    ]
+  },
+  "/images/afono-print-himal.webp": {
+    "w": 1208,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-print-mask.webp": {
+    "w": 1344,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-print-sketches.webp": {
+    "w": 1282,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/afono-print-wordmark.webp": {
+    "w": 1040,
+    "v": [
+      400,
+      640
     ]
   },
   "/images/afono-product-page.webp": {
@@ -113,11 +158,26 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       1280
     ]
   },
+  "/images/afono-register-page.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
   "/images/afono-size-finder.webp": {
     "w": 896,
     "v": [
       400,
       640
+    ]
+  },
+  "/images/afono-social-grid.webp": {
+    "w": 476,
+    "v": [
+      400
     ]
   },
   "/images/afono-social-system.webp": {
@@ -127,16 +187,12 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       640
     ]
   },
-  "/images/afono-tee-back.webp": {
-    "w": 600,
+  "/images/afono-tee-mockups-dark.webp": {
+    "w": 1274,
     "v": [
-      400
-    ]
-  },
-  "/images/afono-tee-front.webp": {
-    "w": 600,
-    "v": [
-      400
+      400,
+      640,
+      960
     ]
   },
   "/images/afono-tee-mockups.webp": {
@@ -319,12 +375,6 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       1280
     ]
   },
-  "/images/sync-fm-dial.webp": {
-    "w": 600,
-    "v": [
-      400
-    ]
-  },
   "/images/sync-fm-final-screens.webp": {
     "w": 1600,
     "v": [
@@ -341,18 +391,6 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       640,
       960,
       1280
-    ]
-  },
-  "/images/sync-fm-mood-bar.webp": {
-    "w": 600,
-    "v": [
-      400
-    ]
-  },
-  "/images/sync-fm-opinion-filter.webp": {
-    "w": 600,
-    "v": [
-      400
     ]
   },
   "/images/sync-fm-personas.webp": {
@@ -486,16 +524,6 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       960
     ]
   },
-  "/images/wikimind-interface.webp": {
-    "w": 1900,
-    "v": [
-      400,
-      640,
-      960,
-      1280,
-      1600
-    ]
-  },
   "/images/wikimind-logo-sketch.webp": {
     "w": 1420,
     "v": [
@@ -555,16 +583,6 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       640,
       960,
       1280
-    ]
-  },
-  "/images/wikimind-prototype.webp": {
-    "w": 1900,
-    "v": [
-      400,
-      640,
-      960,
-      1280,
-      1600
     ]
   },
   "/images/wikimind-sitemap.webp": {
