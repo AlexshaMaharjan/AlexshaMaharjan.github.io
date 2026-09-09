@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import type { SectionImage } from "@/lib/caseStudies/types";
 import Media from "@/components/ui/Media";
 import Lightbox from "@/components/ui/Lightbox";
+import Video from "@/components/ui/Video";
 import { captionText } from "@/lib/caption";
 
 /**
@@ -24,6 +25,7 @@ export default function Figure({
   alt,
   aspect,
   caption,
+  video,
   className = "",
   sizes,
 }: SectionImage & { className?: string; sizes?: string }) {
@@ -35,6 +37,26 @@ export default function Figure({
   }
 
   const label = alt ?? captionText(caption);
+
+  /*
+   * A film is not zoomable — the lightbox exists so a dense still can be read
+   * at full size, and a video has its own full-screen control. So this branch
+   * skips the zoom button entirely rather than nesting one interactive element
+   * inside another.
+   */
+  if (video) {
+    return (
+      <figure className={className}>
+        <div
+          className="relative overflow-hidden rounded-[10px] border border-card-border bg-surface"
+          style={{ aspectRatio: aspect }}
+        >
+          <Video src={video} poster={src} alt={label} label={label} sizes={sizes} />
+        </div>
+        <figcaption className="mt-2.5 text-[13px] leading-[1.5] text-ink-secondary">{captionText(caption)}</figcaption>
+      </figure>
+    );
+  }
 
   return (
     <figure className={className}>

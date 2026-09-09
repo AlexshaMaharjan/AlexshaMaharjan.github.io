@@ -26,6 +26,7 @@ explicitly rather than inventing one.
 | DECISION-018 | A figure opens full screen | **Active** | Case-study figures | A dense figure is unreadable at 350px on a phone, and the column cannot widen — so the figure opens instead | `decision_018.md` |
 | DECISION-019 | Figures are sized by height, and rows are justified | **Active** | Case-study figures | Aspects must stay true, so widths absorb the difference and every figure in a row shares one height | `decision_019.md` |
 | DECISION-020 | The bento tiles are washed pale, not darkened | **Superseded** by `DECISION-021` | Homepage work grid | Eleven dark project-tinted tiles clashed with a white, restrained site; the colour now comes from each image itself and the text is ink | `decision_020.md` |
+| DECISION-022 | Video ships at full size and loads only on demand | **Active** | Case-study and playground films | No encoder exists on this machine, so the answer is a 34 KB poster and `preload="none"` rather than a smaller file | `decision_022.md` |
 | DECISION-021 | The homepage work section is project cards, not a bento grid | **Active** | Homepage work section | Rejected twice; the fault was text on images and `object-cover` crops, not colour. Six cards, covers shown whole, no repeated title, one mono line of tags | `decision_021.md` |
 
 ## Needing an owner decision

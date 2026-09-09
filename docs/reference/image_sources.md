@@ -161,6 +161,12 @@ supplied board is a *composite*: `Poster.png` is 2518px wide but its largest ele
 so cropping a tile out of it would upscale. `tile-afono-graphic` is ruled out the same way —
 `print3.png` is three thin marks on white and any crop at 224/322 is mostly empty page.
 
+**Two more decoder limits, both met in SESSION-032.** Chrome's `Image.decode()` refuses anything
+past roughly 256 megapixels — `digitalart6.jpg` is 581 MP and `digitalart9.jpg` is 670 MP, and a
+PDF page rendered at scale 4 reached 479 MP. Pre-scale with `sips -Z 3000` and use that as the
+source. And **`timeout` does not exist on macOS**: wrapping a tool in it produces "command not
+found", which reads exactly like the tool failing.
+
 **Measure the aspect as the browser decodes it, not as the file stores it.** `sips` reports the
 stored pixels; a JPEG carrying an EXIF rotation renders at the transpose of that. Two of the
 kitchen photographs — `test1.jpg` and `test2.jpg` — are stored 8160 × 3768 and decode as

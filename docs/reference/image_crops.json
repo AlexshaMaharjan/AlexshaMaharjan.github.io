@@ -1064,5 +1064,434 @@
     "width": 1900,
     "height": 1069,
     "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/Digitaldrawing1.png",
+    "out": "public/images/pg-portrait.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1601,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/digitalart6-scaled.png",
+    "out": "public/images/pg-group-portrait.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1800,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/digitalart7.jpg.jpg",
+    "out": "public/images/pg-double-portrait.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 800,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/digitalart8.jpg.jpg",
+    "out": "public/images/pg-scooter.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1600,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/digitalart9-scaled.png",
+    "out": "public/images/pg-line-study.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1800,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/Digitalart2.png",
+    "out": "public/images/pg-character.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1697,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/Digitalart3.png",
+    "out": "public/images/pg-forest.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1697,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/Digitalart4.png",
+    "out": "public/images/pg-autumn.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1601,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/Digitalart5.png",
+    "out": "public/images/pg-sunset.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1697,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/bead.jpg",
+    "out": "public/images/pg-bead.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 2604,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/framepainting.JPG",
+    "out": "public/images/pg-frame.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1600,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/framepainting2.JPG",
+    "out": "public/images/pg-frame-detail.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1600,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/gift2a.jpg",
+    "out": "public/images/pg-gift-explosion.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1200,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/gift3.jpg",
+    "out": "public/images/pg-gift-cube.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1200,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/gift4.jpg",
+    "out": "public/images/pg-gift-popup.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1600,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/painting1.jpg",
+    "out": "public/images/pg-painting-luffy.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1600,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/painting2.jpg",
+    "out": "public/images/pg-painting-blossom.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 900,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/bookcover.jpg",
+    "out": "public/images/pg-bookcover.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 891,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/flyer.jpg",
+    "out": "public/images/pg-flyer.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1242,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/postcard1.png",
+    "out": "public/images/pg-postcard-1.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1029,
+    "height": 760,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/postcard2.png",
+    "out": "public/images/pg-postcard-2.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1029,
+    "height": 760,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/postcard3.png",
+    "out": "public/images/pg-postcard-3.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1029,
+    "height": 760,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/logo.jpg",
+    "out": "public/images/pg-logo.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 803,
+    "height": 1115,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/abstractshapeart.jpg",
+    "out": "public/images/pg-abstract.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1035,
+    "height": 1359,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/poster.jpg",
+    "out": "public/images/pg-poster-hologram.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1553,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/posterkinder.jpg",
+    "out": "public/images/pg-poster-museum.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1658,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/packaging.jpg",
+    "out": "public/images/pg-packaging-crisps.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 794,
+    "height": 956,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/packaging2.jpg",
+    "out": "public/images/pg-packaging-perfume.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 656,
+    "height": 770,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/packaging2.1.jpg",
+    "out": "public/images/pg-packaging-perfume-flat.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1185,
+    "height": 1100,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/vtriBanner.jpg",
+    "out": "public/images/pg-vtri-banner.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 343,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/vtriBrandinaction.jpg",
+    "out": "public/images/pg-vtri-store.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1515,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/kitchen/AnimationPoster.png",
+    "out": "public/images/kitchen-animation-poster.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1024,
+    "height": 576,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/qis/LofiPrototype.png",
+    "out": "public/images/qis-paper-prototypes.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1197,
+    "quality": 0.88
   }
 ]

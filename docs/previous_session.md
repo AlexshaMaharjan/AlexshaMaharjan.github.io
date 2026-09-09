@@ -1,72 +1,72 @@
 # Previous Session
 
-**SESSION-031** — 2026-09-09. Full record: `docs/sessions/session_031.md`.
+**SESSION-032** — 2026-09-10. Full record: `docs/sessions/session_032.md`.
 
 ## What it did
 
-The owner rejected the bento a second time and asked what I suggested. It was replaced with **six
-project cards** (`DECISION-021`), then — on their second note — the text under the cards was
-removed too, and the barrier-free kitchen got a **composed cover** so all six read as a set.
+The owner added videos and photographs and asked for them used wherever possible.
 
-**150 slots, 89 filled.** The homepage went from 11 slots to 6, so the totals fall while nothing
-was lost.
+**161 slots, 125 filled**, up from 150 / 89. **The playground was the last surface with no imagery
+at all** and now carries 34 figures across four of its six categories. The kitchen's Blender
+animation and QIS's lo-fi prototypes — both described in prose, both hatched since the manifest
+was written — are in.
+
+**The site carries video now** (`DECISION-022`), which it never has.
 
 ## The thing worth carrying forward
 
-**I spent a whole session adjusting the wrong axis.**
+**`timeout` does not exist on macOS, and a command that fails to start looks exactly like the
+command failing.**
 
-SESSION-030 answered the first rejection by re-colouring the tiles — dark tints out, pale washes
-in. The rejection came straight back, which is the signal that the treatment was never the
-problem. Read close up at 1440px:
+I wrapped the video transcodes in `timeout 600 avconvert …`, got "command not found" twice, and
+wrote both up as *failed transcodes*. They had never run. The real numbers only appeared on the
+re-run — and they were more interesting than the false ones: `avconvert` **grew** two of the four
+files, because its presets optimise for quality rather than size.
 
-- the category label sits centred at the top of every tile **regardless of what is underneath**,
-  so "Interaction Design" lands across the Sync FM screens;
-- titles compete with the thing they name — "WikiMind" over the WikiMind logo;
-- **`object-cover` crops each image to whatever shape its `gridArea` happens to be**, so tiles
-  read as broken screenshots: `gami is much / nore fun together / nity`.
+That mattered. "Transcoding fails here" and "transcoding is available but useless on three of four
+files" lead to different designs, and the wrong one was a sentence away from a decision record.
 
-**Washing the tiles pale did not cause that. It revealed it** — the dark tint had been hiding the
-mess, which is exactly why the first fix made things look worse. When a second look at the same
-surface produces the same objection, stop adjusting and look at the construction.
+## How the constraint shaped the video design
 
-The owner's second note is the same lesson in miniature: the name under a card was said twice,
-because every cover already carries it. Cards lost their title — and then, on a third note, **got the tags back**: the
-name is repeated on every cover, but the disciplines appear nowhere else, so a card was saying
-what a project is called and never what it is. One mono line, no title.
+There is no encoder on this machine — no `ffmpeg`, and `avconvert` measured as:
 
-The link takes an `aria-label`, because otherwise its accessible name falls back to the cover's
-`alt`, which describes the picture rather than where the link goes — and it joins the tags with
-the **same separator** as the visible line, so the visible text is a substring of the accessible
-name. WCAG 2.5.3 asks for that and axe checks it.
+| File | Source | `Preset960x540` |
+| --- | --- | --- |
+| `kitchen/Video.mp4` | 11.9 MB | **31.3 MB** |
+| `craftgift2.mp4` | 60.1 MB | **77.2 MB** |
+| `craftgift3.mp4` | 45.9 MB | 13.2 MB |
 
-## Two smaller notes
+So: **do not shrink the video, do not fetch it.** A film is a figure whose `src` is a poster still,
+with the film in a separate `video` field; `ui/Video` swaps in a `<video controls>` only on a
+click. The page carries **34 KB against a 12 MB film**.
 
-- **`imageAspect` came back to `ProjectCopy`**, removed in SESSION-025 as dead. These cards render
-  each cover at its own proportions, so it is the field the layout depends on. "Dead" had meant
-  "dead for the design we had".
-- **The kitchen render needed picking, not taking.** Its old hero was two Blender *viewport
-  screenshots* side by side, one with the axis gizmo still in frame. The cover uses a clean render
-  from page 22, and the gizmo survived my first crop — it took a second look at full size.
+Verified rather than assumed — CDP with a network listener: after a full scroll, mp4 requests were
+`NONE`; after clicking play, exactly one.
 
-## What was deleted
+There is no `prefers-reduced-motion` branch and there should not be: nothing plays unless a person
+presses play, and `DECISION-008` is about *unsolicited* movement.
 
-`BentoGrid.tsx`, `selectedWork.bento[]`, the `BentoTile` type and all eleven tile images — 247 KB
-plus 22 variants. `image-manifest.mjs` reads the homepage from `projects[]` now, so a card's image
-is the same file its case study opens with.
+## Smaller notes
 
-`check: "bento"` stays in `image-treat.mjs` with nothing using it: nine lines, and the two sessions
-of measurement behind its threshold are cheap to keep and expensive to rediscover.
+- **The EXIF trap is now three for three.** `bead.jpg` and `gift4.jpg` store landscape and decode
+  portrait. Caught before export because the method says to decode with `Image()`.
+- **Two sources exceed Chrome's decoder** — 581 and 670 megapixels. Pre-scale with `sips` first.
+- Captions were rewritten to name what arrived, rather than leaving the manifest describing work
+  that was never supplied.
+
+## What it left for the owner — `ISSUE-038`
+
+- **Three craft videos, 121 MB.** They show gift boxes being *made*, which the stills do not, so
+  they are additive. Click-to-play makes a page cheap but not a repository small. One
+  `ffmpeg -crf 28 -vf scale=-2:720` pass makes all three shippable — everything else is built.
+- **Two photographs**, and the playground has no photography category. Adding one is a route, a
+  nav entry and copy in both locales; filing them elsewhere would miscategorise them.
+- `Afono/Wireframe.png` is still entirely white.
 
 ## Verified
 
-Production build: routes 36/36; images at dpr 1, 2 and 3 with 0 broken, 0 missing `alt`, 0 failed
-requests, counts identical; **axe 0 violations including the now-textless cards**; 0 overflow at
-390px; `tsc` clean; lint 0 errors; `content-audit.mjs` clean; `image-manifest.mjs` exits 0.
+Production build: routes 36/36; **476 images across 36 routes** at dpr 1, 2 and 3, 0 broken, 0
+missing `alt`, 0 failed requests, counts identical; axe 0 violations; 0 overflow; reduced motion
+static; `tsc` clean; lint 0 errors; `content-audit.mjs` clean; `image-manifest.mjs` exits 0.
 
-## What it left for the owner
-
-- **The playground — 39 slots, the only surface with no supplied imagery at all.**
-- Kitchen's textured render and animation; QIS's seven remaining figures.
-- A real kitchen cover, if they want one — `scripts/cover.mjs` copies a layout rather than
-  inventing one.
-- `ISSUE-037` and the standing decisions. **Nothing pushed — 49 commits ahead of `main`.**
+**Nothing pushed — 51 commits ahead of `main` before this one.**

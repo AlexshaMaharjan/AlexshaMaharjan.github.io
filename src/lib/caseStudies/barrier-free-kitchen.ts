@@ -187,7 +187,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             kind: "figures",
             items: [
               { aspect: "1600/382", caption: "[ 3d model process ]", src: "/images/kitchen-3d-structure.webp", alt: "The kitchen's grey-box model in Blender, before materials" },
-              { aspect: "16/9", caption: "[ blender environment + animation — large showcase ]" },
+              { aspect: "1024/576", caption: "[ blender environment + animation ]", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "The finished kitchen in Blender: a seated user at the lowered worktop beside the pull-down shelving" },
               { aspect: "16/10", caption: "[ materials + textures ]" },
             ],
           },
@@ -406,7 +406,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             kind: "figures",
             items: [
               { aspect: "1600/382", caption: "[ 3d model process ]", src: "/images/kitchen-3d-structure.webp", alt: "Das Graustufen-Modell der Küche in Blender, vor den Materialien" },
-              { aspect: "16/9", caption: "[ blender environment + animation — large showcase ]" },
+              { aspect: "1024/576", caption: "[ blender environment + animation ]", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "Die fertige Küche in Blender: eine sitzende Nutzerin an der abgesenkten Arbeitsplatte neben dem Absenkregal" },
               { aspect: "16/10", caption: "[ materials + textures ]" },
             ],
           },

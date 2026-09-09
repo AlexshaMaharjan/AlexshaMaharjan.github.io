@@ -35,6 +35,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-029 | 2026-09-08 | Every supplied image placed (AFONO 23 → 30 slots); 25 orphaned originals deleted, 1.4 MB; found and fixed ISSUE-036, a German list I shipped on the English page in SESSION-027, and added `content-audit.mjs` | `session_029.md` |
 | SESSION-030 | 2026-09-09 | Kitchen and QIS folders placed — all six case studies now on the owner's own images, 155 slots / 94 filled; bento tiles washed pale with ink text (DECISION-020); ProjectsDokus git-ignored; EXIF-rotation trap caught | `session_030.md` |
 | SESSION-031 | 2026-09-09 | Bento replaced by six project cards with no text (DECISION-021) — the fault was text on images and object-cover crops, not colour; kitchen cover composed to match the other five; bento and its 11 tiles deleted | `session_031.md` |
+| SESSION-032 | 2026-09-10 | Playground filled — 34 figures across four categories, 161 slots / 125 filled; video arrives (DECISION-022): poster + `preload="none"`, verified over CDP; kitchen animation and QIS lo-fi prototypes placed | `session_032.md` |
 
 ## Conventions
 
