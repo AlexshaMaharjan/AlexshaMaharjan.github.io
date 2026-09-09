@@ -82,19 +82,6 @@ const de: Dictionary = {
     eyebrow: "Ausgewählte Projekte",
     heading: "Durchdachtes Design, bedeutungsvolle Wirkung",
     copy: "Meine Arbeit konzentriert sich auf die Entwicklung visueller Identitäten und digitaler Erlebnisse, die klar, ansprechend und zielgerichtet sind. Von Markensystemen über User Interfaces bis hin zu experimentellen Projekten erforsche ich, wie Design Ideen vermittelt, Probleme löst und bessere Erlebnisse für Nutzer schafft.",
-    bento: [
-      { slug: "wikimind", category: "Brand & UI/UX", title: "WikiMind", gridArea: "1 / 1 / 2 / 7", fontSize: "clamp(26px,3.6vw,60px)", src: "/images/tile-wikimind-brand.webp", alt: "Die WikiMind-Wortmarke in ihren zwei Farbvarianten" },
-      { slug: "afono", category: "Marke & E-Commerce", title: "AFONO", gridArea: "1 / 7 / 2 / 11", fontSize: "clamp(22px,2.8vw,44px)", src: "/images/tile-afono-brand.webp", alt: "AFONO-Logovarianten im Markenrot" },
-      { slug: "sync-fm", category: "Interaction Design", title: "Sync FM", gridArea: "2 / 1 / 3 / 5", fontSize: "clamp(20px,2.3vw,34px)", src: "/images/tile-syncfm-interaction.webp", alt: "Zwei Sync-FM-Screens: der Nachrichtenregler und der erweiterte Player" },
-      { slug: "surugami", category: "Marke & Print", title: "Surugami", gridArea: "3 / 1 / 4 / 5", fontSize: "clamp(20px,2.3vw,34px)", src: "/images/tile-surugami-brand.webp", alt: "Ein gefalteter Papierkranich von einem Surugami-Plakat" },
-      { slug: "qis-portal", category: "UX-Research", title: "QIS Portal", gridArea: "2 / 5 / 4 / 11", fontSize: "clamp(26px,3.4vw,56px)", src: "/images/tile-qis-research.webp", alt: "Balkendiagramme aus der Nutzerbefragung zum QIS-Portal" },
-      { slug: "barrier-free-kitchen", category: "Inklusives Design", title: "Kitchen", gridArea: "4 / 1 / 6 / 6", fontSize: "clamp(24px,3.1vw,50px)", src: "/images/tile-kitchen-inclusive.webp", alt: "Eine Rollstuhlfahrerin an der höhenverstellbaren Küchenarbeitsplatte" },
-      { slug: "wikimind", category: "Webdesign", title: "WikiMind", gridArea: "4 / 6 / 5 / 11", fontSize: "clamp(20px,2.3vw,36px)", src: "/images/tile-wikimind-web.webp", alt: "WikiMinds Typoskala, Maskottchen und Button-Komponenten" },
-      { slug: "afono", category: "Grafik", title: "AFONO", gridArea: "5 / 6 / 6 / 8", fontSize: "clamp(16px,1.6vw,24px)", src: "/images/tile-afono-graphic.webp", alt: "Die AFONO-Wortmarke vertikal gesetzt in Rot" },
-      { slug: "sync-fm", category: "Mobile UI", title: "Sync FM", gridArea: "5 / 8 / 6 / 11", fontSize: "clamp(18px,1.9vw,26px)", src: "/images/tile-syncfm-mobile.webp", alt: "Sync FMs Dark-Mode-Player auf zwei Smartphones" },
-      { slug: "surugami", category: "Poster & Print", title: "Surugami", gridArea: "6 / 1 / 7 / 8", fontSize: "clamp(20px,2.5vw,38px)", src: "/images/tile-surugami-poster.webp", alt: "Hände falten einen Papierelefanten auf einem Surugami-Plakat" },
-      { slug: "qis-portal", category: "Produktdesign", title: "QIS Portal", gridArea: "6 / 8 / 7 / 11", fontSize: "clamp(18px,1.9vw,26px)", src: "/images/tile-qis-product.webp", alt: "Der überarbeitete Prüfungsanmeldungs-Screen des QIS-Portals" },
-    ],
   },
   projects: [
     {
@@ -147,7 +134,7 @@ const de: Dictionary = {
       year: "",
       image: "/images/hero-barrier-free-kitchen.webp",
       imageAlt: "Die barrierefreie Küche als 3D-Modell",
-      imageAspect: "16/7.5",
+      imageAspect: "1900/1069",
     },
     {
       slug: "surugami",

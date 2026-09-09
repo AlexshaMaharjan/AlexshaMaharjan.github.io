@@ -44,14 +44,19 @@ function px(renderedWidth) {
   return Math.round((renderedWidth * 2) / 100) * 100;
 }
 
-// ---- homepage bento ----
+/*
+ * ---- homepage work grid ----
+ *
+ * Six project cards, one per project, each showing that project's cover
+ * (`DECISION-021`). It was eleven bento tiles until SESSION-031; the cards read
+ * from `projects[]`, so a card's image is the same file its case study opens
+ * with and there is no separate tile to keep in step.
+ */
 const en = dict.getDictionary("en");
-en.selectedWork.bento.forEach((tile, i) => {
-  const [r1, c1, r2, c2] = tile.gridArea.split("/").map((n) => Number(n.trim()));
-  const w = Math.round(((c2 - c1) / 10) * 1120);
-  const h = Math.round(((r2 - r1) / 6) * (1120 / 0.58));
-  add("Homepage — work grid", `tile ${i + 1}: ${tile.title}`, tile.category, `≈${w}×${h}`, px(w), Boolean(tile.src),
-      `dictionaries/{en,de}.ts → selectedWork.bento[${i}].src`);
+(en.projects ?? []).forEach((project, i) => {
+  add("Homepage — work grid", `card ${i + 1}: ${project.name}`, project.tags.join(" · "),
+      project.imageAspect, px(548), Boolean(project.image),
+      `dictionaries/{en,de}.ts → projects[${i}].image`);
 });
 
 /**
@@ -138,8 +143,6 @@ for (const slug of SLUGS) {
 }
 {
   const [e, d] = ["en", "de"].map((l) => dict.getDictionary(l));
-  compareLocales("dictionaries — bento", (i) => `selectedWork.bento[${i}].src`,
-    e.selectedWork.bento.map((t) => t.src), d.selectedWork.bento.map((t) => t.src));
   compareLocales("dictionaries — about carousel", (i) => `about.carouselItems[${i}].src`,
     (e.about.carouselItems ?? []).map((c) => c.src), (d.about.carouselItems ?? []).map((c) => c.src));
   compareLocales("dictionaries — projects", (i) => `projects[${i}].image`,

@@ -247,7 +247,7 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/hero-barrier-free-kitchen.webp": {
-    "w": 2000,
+    "w": 1900,
     "v": [
       400,
       640,
@@ -578,78 +578,6 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
   },
   "/images/sync-fm-wireframes.webp": {
     "w": 820,
-    "v": [
-      400,
-      640
-    ]
-  },
-  "/images/tile-afono-brand.webp": {
-    "w": 900,
-    "v": [
-      400,
-      640
-    ]
-  },
-  "/images/tile-kitchen-inclusive.webp": {
-    "w": 1100,
-    "v": [
-      400,
-      640
-    ]
-  },
-  "/images/tile-qis-product.webp": {
-    "w": 700,
-    "v": [
-      400
-    ]
-  },
-  "/images/tile-qis-research.webp": {
-    "w": 1300,
-    "v": [
-      400,
-      640,
-      960
-    ]
-  },
-  "/images/tile-surugami-brand.webp": {
-    "w": 900,
-    "v": [
-      400,
-      640
-    ]
-  },
-  "/images/tile-surugami-poster.webp": {
-    "w": 1600,
-    "v": [
-      400,
-      640,
-      960,
-      1280
-    ]
-  },
-  "/images/tile-syncfm-interaction.webp": {
-    "w": 900,
-    "v": [
-      400,
-      640
-    ]
-  },
-  "/images/tile-syncfm-mobile.webp": {
-    "w": 700,
-    "v": [
-      400
-    ]
-  },
-  "/images/tile-wikimind-brand.webp": {
-    "w": 1300,
-    "v": [
-      400,
-      640,
-      960
-    ]
-  },
-  "/images/tile-wikimind-web.webp": {
-    "w": 1100,
     "v": [
       400,
       640
