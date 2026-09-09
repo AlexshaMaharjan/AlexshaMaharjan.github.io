@@ -16,7 +16,7 @@
  *     "grade": { "brightness": 0.55, "saturate": 0.8,
  *                "tint": "#1B3FE0", "tintAlpha": 0.18 },
  *     "format": "image/webp", "quality": 0.9,   // webp at 0.9 by default
- *     "check": "bento"                     // measure the tile contrast ceiling
+ *     "check": "bento"                     // measure the tile contrast floor
  *   }
  *
  * WebP because there is still no responsive image pipeline (`SUGGESTION-012`):
@@ -24,11 +24,16 @@
  * is worth roughly a 4x saving over PNG on this material.
  *
  * `check: "bento"` reports the mean luminance of the two bands where
- * `BentoGrid.tsx` puts white text — the top strip under the 12px category
- * label, where the scrim is fully transparent, and the centre band under the
- * title. SESSION-014 measured the ceiling at roughly #80; anything lighter
- * fails WCAG 1.4.3 on the homepage. The number is printed for every job so a
- * failing export is caught here rather than in review.
+ * `BentoGrid.tsx` puts its text — the top strip under the 12px category label
+ * and the centre band under the title.
+ *
+ * **The test is a floor, not a ceiling, since SESSION-030.** The tiles used to
+ * be darkened and colour-tinted so white text would sit on them, and the check
+ * asserted they were dark *enough* (mean <= 128/138). The owner's objection was
+ * exactly that treatment: eight murky colour washes under a white, restrained
+ * page. The tiles are now washed pale instead, keeping only a hint of each
+ * image's own colour, and the text is ink — so the same two bands must be
+ * light *enough*. Same measurement, opposite direction.
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
@@ -132,9 +137,14 @@ for (const job of jobs) {
 
   let verdict = "";
   if (job.check === "bento") {
-    // The label sits on bare image; the title sits under ~0.15 of near-black.
-    const ok = top <= 128 && middle <= 138;
-    if (!ok) { failures++; verdict = `  ✗ TOO BRIGHT (top ${top}, middle ${middle}; ceiling 128/138)`; }
+    /*
+     * A floor, not a ceiling (SESSION-030). Ink text on a pale wash needs the
+     * wash to stay light: 190 puts the darkest tile at roughly 8:1 against the
+     * ink, comfortably past WCAG 1.4.3's 4.5:1 with room for the image's own
+     * darker passages to show through.
+     */
+    const ok = top >= 190 && middle >= 190;
+    if (!ok) { failures++; verdict = `  ✗ TOO DARK (top ${top}, middle ${middle}; floor 190)`; }
     else verdict = `  ✓ top ${top} middle ${middle}`;
   }
   console.log(`${job.out}  ${w}x${h}  ${kb}  from ${natural}${verdict}`);
@@ -142,6 +152,6 @@ for (const job of jobs) {
 
 cdp.close();
 if (failures) {
-  console.log(`\n${failures} image(s) fail the bento contrast ceiling — darken and re-run.`);
+  console.log(`\n${failures} image(s) fail the bento contrast floor — lighten the wash and re-run.`);
   process.exit(1);
 }

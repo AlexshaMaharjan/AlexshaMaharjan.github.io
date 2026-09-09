@@ -1,6 +1,6 @@
 # Issues Index
 
-36 issues. **29 resolved**, plus `ISSUE-004` and `ISSUE-006` partially. **7 remain open**,
+37 issues. **29 resolved**, plus `ISSUE-004` and `ISSUE-006` partially. **8 remain open**,
 none `Investigating` and none `Critical`.
 
 Of the six, **five need the owner and cannot be closed by work**: two are provenance judgements
@@ -38,6 +38,7 @@ _None._
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-031 | Sync FM's copy credits the wrong AI tool | Open | Low | Says Gemini made the personas; the documentation says ChatGPT did | `issue_031.md` |
 | ISSUE-035 | AFONO's supplied folder: three files not used | Open | Low | One is an empty export; one is competitor imagery `DECISION-016` excludes; one is a moodboard flagged like `ISSUE-032` | `issue_035.md` |
+| ISSUE-037 | QIS ships three screenshots of the university's own portal | Open | Medium | The subject of a redesign, captioned as such — but one shows a grade record that was not checked field by field | `issue_037.md` |
 
 And in SESSION-029:
 

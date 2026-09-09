@@ -131,8 +131,8 @@ page is the source.
 | --- | --- |
 | `FInalDesmeth.pdf` (Surugami) | Freepik photographs by URL, and *"P4, P5, P6, P7, P8: All references were taken from Pinterest"* — its moodboards (7–9) and personas (12–13) are out. **Superseded in SESSION-024**: the owner supplied nine exports in `Images/Surugami/`, none of which touch those pages. The poster board's mock-up environments are the remaining question (`ISSUE-034`) |
 | `DesignProjekt…` (AFONO) | **Largely superseded in SESSION-026** by `Images/Afono/`; what its sources page says still governs, and see `ISSUE-035` for the three files that were not used. Originally: **more than the AI pages.** *"KI-generierte Mockups (ChatGPT) — Mode- und Produktmockups"* covers every product visual in the prototype, not only pages 25–27; plus a graphicgata iMac template, a pixelbuddha tee mockup, a Behance oversized-tee PSD, and Zara/Mango/H&M/Noah NYC/Awake NY as the market-analysis references. See `DECISION-016` Amendment 1 |
-| `Usability_SoSe24…` (QIS) | flaticon icons, Freepik illustrations, and a login background from a Google image search. Its "Originale" screenshots are the university's existing portal, not the team's design |
-| `Dokumentation_Kueche…` | three Sketchfab models — the wheelchair figure, a jar, a decor pack. The scene and the kitchen are the team's |
+| `Usability_SoSe24…` (QIS) | **Superseded in SESSION-030** by `Images/qis/`. Its three "Originale" screenshots **are now placed**, captioned as the existing portal — see `ISSUE-037` for why `DECISION-016` reads differently when the borrowed thing is the subject of the redesign rather than its inspiration. Originally: flaticon icons, Freepik illustrations, and a login background from a Google image search |
+| `Dokumentation_Kueche…` | **Superseded in SESSION-030** by `Images/kitchen/` — twelve photographs and diagrams of the team's own models, prototypes and testing, none of which touch the borrowed assets. Originally: three Sketchfab models — the wheelchair figure, a jar, a decor pack. The scene and the kitchen are the team's |
 | `DesPr1…` (WikiMind) | no sources page. Its persona portraits (9–11) are unattributed stock or AI, and its moodboard is a board of references. SESSION-022 ships the owner's own full-frame exports, portraits and all — flagged as `ISSUE-032`, which is the owner's call |
 | `Enddokumentation.pdf` (Sync FM) | **Superseded in SESSION-026** by `Images/SyncFM/`, which supplied the persona board the document never had. Originally: no page headed *Quellen* — but page 43, **"Tools und KI"**, is one: ChatGPT wrote the **personas**, Gemini generated the **first logo drafts** and the **3D perspective views** of the team's flat illustrations. Read it in full; the summary that used to sit in this row named only the perspective images and missed the personas |
 
@@ -161,6 +161,14 @@ supplied board is a *composite*: `Poster.png` is 2518px wide but its largest ele
 so cropping a tile out of it would upscale. `tile-afono-graphic` is ruled out the same way —
 `print3.png` is three thin marks on white and any crop at 224/322 is mostly empty page.
 
+**Measure the aspect as the browser decodes it, not as the file stores it.** `sips` reports the
+stored pixels; a JPEG carrying an EXIF rotation renders at the transpose of that. Two of the
+kitchen photographs — `test1.jpg` and `test2.jpg` — are stored 8160 × 3768 and decode as
+**3768 × 8160**. Declaring the stored ratio would have squashed both into landscape, and nothing
+downstream would have caught it: `image-treat.mjs` draws through Chrome, which applies the
+rotation, so the export would have been silently distorted rather than broken. Check with an
+`Image()` decode before writing any aspect (SESSION-030).
+
 **A supplied export beats a page render for a figure, and often loses to it for a tile.** A figure
 shows the whole board; a tile shows one thing inside it. Measured in SESSION-028 with a decile
 grid — do not re-test.
@@ -177,7 +185,7 @@ now diffs `en` against `de` and exits non-zero, so that cannot recur silently.
 card with the owner's name on it. Making one out of a documentation page would be inventing a
 brand asset rather than filling a slot.
 
-**4. The 83 case-study section figures — 55 done, 28 to go.** The bulk of the work, and the
+**4. The 90 case-study section figures — 76 done, 14 to go.** The bulk of the work, and the
 most mechanical: the manifest names each one (`[ persona 01 ]`, `[ sitemap ]`, `[ ui kit ]`)
 and the documentation almost always has exactly that figure. Do one project end to end rather
 than one figure type across six. **Four of the six are done, and all four now run on the owner's

@@ -33,6 +33,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-027 | 2026-09-04 | DECISION-019: figures sized by height and rows justified, superseding SUGGESTION-017; AFONO's 22 figures moved into the prose | `session_027.md` |
 | SESSION-028 | 2026-09-08 | Five bento tiles re-cut from supplied exports; measuring disproved the hand-off's premise that Surugami's two could be — a composite board holds fewer pixels per element than a page render | `session_028.md` |
 | SESSION-029 | 2026-09-08 | Every supplied image placed (AFONO 23 → 30 slots); 25 orphaned originals deleted, 1.4 MB; found and fixed ISSUE-036, a German list I shipped on the English page in SESSION-027, and added `content-audit.mjs` | `session_029.md` |
+| SESSION-030 | 2026-09-09 | Kitchen and QIS folders placed — all six case studies now on the owner's own images, 155 slots / 94 filled; bento tiles washed pale with ink text (DECISION-020); ProjectsDokus git-ignored; EXIF-rotation trap caught | `session_030.md` |
 
 ## Conventions
 

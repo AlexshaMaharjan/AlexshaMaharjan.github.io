@@ -15,8 +15,8 @@ const qisPortal: CaseStudyLocaleContent = {
     deliverables: "",
     heroImage: {
       src: "/images/hero-qis-portal.webp",
-      alt: "The redesigned QIS Portal exam pages shown side by side",
-      aspect: "16/7.5",
+      alt: "The redesigned QIS Portal shown across three screens, beside the case-study title",
+      aspect: "1900/1069",
     },
     sections: [
       {
@@ -31,8 +31,15 @@ const qisPortal: CaseStudyLocaleContent = {
           },
           "QIS is an administrative portal used by students at the Technische Hochschule Lübeck. It supports important tasks such as exam registration and withdrawal, viewing grades and study progress, downloading enrolment certificates, checking semester fees and updating personal information.",
           "Despite the importance of these functions, students experienced the existing portal as visually outdated, difficult to navigate and inefficient. The redesign was developed through two surveys, structural analysis, paper prototyping, high-fidelity design and remote usability testing.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1194/834", caption: "[ original portal — overview ]", src: "/images/qis-original-overview.webp", alt: "The existing QIS portal: the grade overview as it stands today" },
+              { aspect: "880/620", caption: "[ original portal — login ]", src: "/images/qis-original-login.webp", alt: "The existing portal's login page" },
+              { aspect: "876/745", caption: "[ original portal — exam registration ]", src: "/images/qis-original-exams.webp", alt: "The existing portal's exam registration tree" },
+            ],
+          },
         ],
-        images: [{ aspect: "16/8", caption: "[ original portal — before ]" }],
       },
       {
         id: "challenge",
@@ -54,10 +61,13 @@ const qisPortal: CaseStudyLocaleContent = {
         body: [
           "The first survey collected open feedback about usage patterns, satisfaction, strengths and frustrations. It received 150 responses. Because open responses were difficult to compare quantitatively, a second survey introduced structured response options. It received 137 responses and examined navigation, readability, space management, information relevance and functional priorities.",
           "This combination allowed the team to identify both personal frustrations and recurring patterns.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ survey 01 — 150 responses ]" },
-          { aspect: "4/3", caption: "[ survey 02 — 137 responses ]" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "4/3", caption: "[ survey 01 — 150 responses ]" },
+              { aspect: "4/3", caption: "[ survey 02 — 137 responses ]" },
+            ],
+          },
         ],
       },
       {
@@ -91,14 +101,27 @@ const qisPortal: CaseStudyLocaleContent = {
         heading: "Reducing 21 pages to 14 without removing essential functionality",
         body: [
           "The existing portal structure contained 21 pages and several redundant or closely related routes. The redesign reorganised the content by task type and reduced the structure to 14 pages without intentionally removing the existing core functionality.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/922", caption: "[ 21-page structure ]", src: "/images/qis-structure-21.webp", alt: "The existing information architecture: 21 pages across four levels" },
+            ],
+          },
           "Related pages were combined, secondary information was deprioritised and navigation was structured around student goals rather than the internal organisation of the university system.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/700", caption: "[ 14-page structure ]", src: "/images/qis-structure-14.webp", alt: "The revised architecture: 14 pages, with related functions merged" },
+            ],
+          },
           { kind: "h3", text: "Testing structure before visual polish" },
           "Paper prototypes were created for login, dashboard, study administration, exam administration, exam registration, grade history, study progress and fee management. The low-fidelity stage focused on page relationships, content priority and task completion rather than visual style.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ 21-page structure ]" },
-          { aspect: "4/3", caption: "[ 14-page structure ]" },
-          { aspect: "16/8", caption: "[ paper prototypes ]" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/8", caption: "[ paper prototypes ]" },
+            ],
+          },
         ],
       },
       {
@@ -108,12 +131,20 @@ const qisPortal: CaseStudyLocaleContent = {
         heading: "Evaluating seven essential student tasks",
         body: [
           "The original high-fidelity prototype introduced larger typography, improved use of screen space, persistent navigation patterns, structured forms, status colours, grade and certificate tables and confirmation dialogues. It was tested remotely with 12 participants, who completed seven tasks and then a System Usability Scale questionnaire.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "4/3", caption: "[ original hi-fi screens ]" },
+            ],
+          },
           "The individual SUS scores ranged from 77.5 to 100. The average score was approximately 90.6. Participants particularly valued the improved navigation, larger and more readable elements, clearer structure, more modern presentation and easier task completion.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/936", caption: "[ sus chart — 77.5–100 ]", src: "/images/qis-sus-chart.webp", alt: "System Usability Scale scores for twelve participants, all at or above the 68-point benchmark" },
+            ],
+          },
           "The result is promising but should be interpreted within the limits of a small remote academic study rather than as proof of production-level usability.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ original hi-fi screens ]" },
-          { aspect: "4/3", caption: "[ sus chart — 77.5–100 ]" },
         ],
       },
       {
@@ -170,11 +201,14 @@ const qisPortal: CaseStudyLocaleContent = {
         body: [
           "The final iteration preserves the research-led information architecture and tested task flows while replacing the outdated visual layer with a clearer responsive system. A task-based dashboard gives students direct access to the actions they perform most frequently.",
           "The result is a clearer service interface that supports essential academic administration without exposing students to the complexity of the underlying institutional structure.",
-        ],
-        images: [
-          { aspect: "16/9", caption: "[ new dashboard — large showcase ]" },
-          { aspect: "16/10", caption: "[ mobile redesign ]" },
-          { aspect: "16/10", caption: "[ before / after ]" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/9", caption: "[ new dashboard — large showcase ]" },
+              { aspect: "16/10", caption: "[ mobile redesign ]" },
+              { aspect: "16/10", caption: "[ before / after ]" },
+            ],
+          },
         ],
       },
       {
@@ -215,8 +249,8 @@ const qisPortal: CaseStudyLocaleContent = {
     deliverables: "",
     heroImage: {
       src: "/images/hero-qis-portal.webp",
-      alt: "Die überarbeiteten Prüfungsseiten des QIS-Portals nebeneinander",
-      aspect: "16/7.5",
+      alt: "Das überarbeitete QIS-Portal auf drei Screens, neben dem Titel der Fallstudie",
+      aspect: "1900/1069",
     },
     sections: [
       {
@@ -231,8 +265,15 @@ const qisPortal: CaseStudyLocaleContent = {
           },
           "QIS ist ein Verwaltungsportal für Studierende der Technischen Hochschule Lübeck. Es unterstützt wichtige Aufgaben wie Prüfungsanmeldung und -abmeldung, Einsicht in Noten und Studienverlauf, Download von Immatrikulationsbescheinigungen, Prüfung von Semestergebühren und Aktualisierung persönlicher Informationen.",
           "Trotz der Bedeutung dieser Funktionen erlebten Studierende das bestehende Portal als visuell veraltet, schwer navigierbar und ineffizient. Das Redesign entstand durch zwei Umfragen, Strukturanalyse, Paper Prototyping, High-Fidelity-Design und Remote-Usability-Tests.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1194/834", caption: "[ original portal — overview ]", src: "/images/qis-original-overview.webp", alt: "Das bestehende QIS-Portal: die Notenübersicht im heutigen Stand" },
+              { aspect: "880/620", caption: "[ original portal — login ]", src: "/images/qis-original-login.webp", alt: "Die Login-Seite des bestehenden Portals" },
+              { aspect: "876/745", caption: "[ original portal — exam registration ]", src: "/images/qis-original-exams.webp", alt: "Der Prüfungsanmeldungs-Baum des bestehenden Portals" },
+            ],
+          },
         ],
-        images: [{ aspect: "16/8", caption: "[ ursprüngliches portal — vorher ]" }],
       },
       {
         id: "challenge",
@@ -254,10 +295,13 @@ const qisPortal: CaseStudyLocaleContent = {
         body: [
           "Die erste Umfrage sammelte offene Rückmeldungen zu Nutzungsmustern, Zufriedenheit, Stärken und Problemen. Sie erhielt 150 Antworten. Da offene Antworten quantitativ schwer vergleichbar waren, führte die zweite Umfrage strukturierte Antwortmöglichkeiten ein. Sie erhielt 137 Antworten und untersuchte Navigation, Lesbarkeit, Platznutzung, Informationsrelevanz und funktionale Prioritäten.",
           "Diese Kombination ermöglichte es dem Team, sowohl persönliche Frustrationen als auch wiederkehrende Muster zu erkennen.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ umfrage 01 — 150 antworten ]" },
-          { aspect: "4/3", caption: "[ umfrage 02 — 137 antworten ]" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "4/3", caption: "[ survey 01 — 150 responses ]" },
+              { aspect: "4/3", caption: "[ survey 02 — 137 responses ]" },
+            ],
+          },
         ],
       },
       {
@@ -291,14 +335,27 @@ const qisPortal: CaseStudyLocaleContent = {
         heading: "21 Seiten auf 14 reduzieren, ohne zentrale Funktionen zu entfernen",
         body: [
           "Die bestehende Portalstruktur umfasste 21 Seiten sowie mehrere redundante oder eng verwandte Pfade. Das Redesign ordnete die Inhalte nach Aufgabentyp und reduzierte die Struktur auf 14 Seiten, ohne die bestehenden Kernfunktionen absichtlich zu entfernen.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/922", caption: "[ 21-page structure ]", src: "/images/qis-structure-21.webp", alt: "Die bestehende Informationsarchitektur: 21 Seiten über vier Ebenen" },
+            ],
+          },
           "Verwandte Seiten wurden zusammengeführt, sekundäre Informationen niedriger priorisiert und die Navigation an den Zielen der Studierenden statt an der internen Organisation des Hochschulsystems ausgerichtet.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/700", caption: "[ 14-page structure ]", src: "/images/qis-structure-14.webp", alt: "Die überarbeitete Architektur: 14 Seiten, verwandte Funktionen zusammengeführt" },
+            ],
+          },
           { kind: "h3", text: "Struktur vor visueller Ausarbeitung testen" },
           "Paper Prototypes wurden für Login, Dashboard, Studienverwaltung, Prüfungsverwaltung, Prüfungsanmeldung, Notenverlauf, Studienverlauf und Gebührenverwaltung erstellt. Die Low-Fidelity-Phase konzentrierte sich auf Seitenbeziehungen, Inhaltspriorität und Aufgabenabschluss und nicht auf visuellen Stil.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ struktur mit 21 seiten ]" },
-          { aspect: "4/3", caption: "[ struktur mit 14 seiten ]" },
-          { aspect: "16/8", caption: "[ papierprototypen ]" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/8", caption: "[ paper prototypes ]" },
+            ],
+          },
         ],
       },
       {
@@ -308,12 +365,20 @@ const qisPortal: CaseStudyLocaleContent = {
         heading: "Sieben zentrale Aufgaben von Studierenden evaluieren",
         body: [
           "Der ursprüngliche High-Fidelity-Prototyp führte größere Typografie, bessere Nutzung des Bildschirmraums, konsistentere Navigationsmuster, strukturierte Formulare, Statusfarben, Tabellen für Noten und Bescheinigungen sowie Bestätigungsdialoge ein. Er wurde remote mit 12 Teilnehmenden getestet, die sieben Aufgaben bearbeiteten und anschließend einen System-Usability-Scale-Fragebogen ausfüllten.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "4/3", caption: "[ original hi-fi screens ]" },
+            ],
+          },
           "Die einzelnen SUS-Werte lagen zwischen 77,5 und 100. Der Durchschnitt lag bei ungefähr 90,6. Besonders positiv bewertet wurden die verbesserte Navigation, größere und besser lesbare Elemente, klarere Struktur, modernere Darstellung und einfachere Aufgabenbearbeitung.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/936", caption: "[ sus chart — 77.5–100 ]", src: "/images/qis-sus-chart.webp", alt: "System-Usability-Scale-Werte von zwölf Teilnehmenden, alle auf oder über dem 68-Punkte-Benchmark" },
+            ],
+          },
           "Das Ergebnis ist vielversprechend, sollte jedoch innerhalb der Grenzen einer kleinen akademischen Remote-Studie interpretiert werden und nicht als Nachweis produktionsreifer Usability.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ ursprüngliche hi-fi-screens ]" },
-          { aspect: "4/3", caption: "[ sus-diagramm — 77,5–100 ]" },
         ],
       },
       {
@@ -370,11 +435,14 @@ const qisPortal: CaseStudyLocaleContent = {
         body: [
           "Die finale Iteration bewahrt die forschungsbasierte Informationsarchitektur und die getesteten Aufgabenabläufe und ersetzt gleichzeitig die veraltete visuelle Ebene durch ein klareres responsives System. Ein aufgabenbasiertes Dashboard bietet direkten Zugang zu den am häufigsten benötigten Handlungen.",
           "Das Ergebnis ist ein klareres Service-Interface, das zentrale akademische Verwaltungsaufgaben unterstützt, ohne Studierende mit der Komplexität der zugrunde liegenden institutionellen Struktur zu konfrontieren.",
-        ],
-        images: [
-          { aspect: "16/9", caption: "[ neues dashboard — große präsentation ]" },
-          { aspect: "16/10", caption: "[ mobiles redesign ]" },
-          { aspect: "16/10", caption: "[ vorher / nachher ]" },
+          {
+            kind: "figures",
+            items: [
+              { aspect: "16/9", caption: "[ new dashboard — large showcase ]" },
+              { aspect: "16/10", caption: "[ mobile redesign ]" },
+              { aspect: "16/10", caption: "[ before / after ]" },
+            ],
+          },
         ],
       },
       {

@@ -11,7 +11,7 @@ took the last of the actionable non-image queue with it.
 this project: it is not short of engineering, it is short of two photographs, a poster's name,
 three judgement calls and three folders of images.
 
-Work sits on branch `milestone-003-content-model`, **forty-seven commits ahead of `main` and
+Work sits on branch `milestone-003-content-model`, **forty-eight commits ahead of `main` and
 unpushed**. **The live site shows none of the last twenty-odd sessions.** That gap is now the
 largest single thing on this list — say so plainly to the owner before proposing anything else. **Check `git` before trusting any status in these files.**
 
@@ -34,10 +34,16 @@ the moment the folders land. **SESSION-024 and SESSION-026 proved the point thre
 Surugami, AFONO and Sync FM were all built or rebuilt from supplied folders, and twelve PDF crops
 were superseded in SESSION-026 alone.
 
-**So: check `Images/` first.** If new folders are there, that is the session. What is still
-missing is **the barrier-free kitchen (10 slots), QIS Portal (11) and the playground (39)** —
-`Images/BarrierFreeKitchen/`, `Images/QIS/`, `Images/Playground/` or whatever the owner names
-them.
+**So: check `Images/` first.** All six case studies are now placed. What is still missing:
+
+- **The playground — 39 slots, and the only surface with no supplied imagery at all.** This is
+  now the single largest gap on the site.
+- **The barrier-free kitchen's last two** — the textured render and the Blender animation. The
+  case study describes both; `Images/kitchen/` holds the grey-box only.
+- **QIS Portal's seven** — `[ survey 01 ]`, `[ survey 02 ]`, `[ paper prototypes ]`,
+  `[ original hi-fi screens ]`, `[ new dashboard ]`, `[ mobile redesign ]`, `[ before / after ]`.
+  The folder supplied the cover, the three original-portal screenshots, both architectures and
+  the SUS chart.
 
 **A supplied folder outranks the manifest.** Sync FM's three persona slots became one because one
 board arrived; Surugami's `[ sitemap + wireframes ]` became two because two did. Match the slots
@@ -56,9 +62,14 @@ The method is `docs/sessions/session_022.md`, and it is now well-worn:
    called. **Rename the caption when the figure disagrees with it** (`[ logo exploration ]`
    became `[ brand system ]`), and **split a slot when two artefacts arrive for it**, as
    `[ sitemap + wireframes ]` did.
-2. **Measure the aspect from the file** — `sips -g pixelWidth -g pixelHeight` — and declare that
-   exact ratio (`1600/1131`). Never a round number. `ui/Media` paints with `object-cover`, so a
-   mismatch is a silent crop; all fourteen of WikiMind's declared aspects were wrong.
+2. **Measure the aspect as the browser decodes it**, and declare that exact ratio (`1600/1131`).
+   Never a round number: `ui/Media` paints with `object-cover`, so a mismatch is a silent crop,
+   and all fourteen of WikiMind's declared aspects were wrong.
+   **`sips` is not enough.** It reports the pixels a file *stores*; a JPEG with an EXIF rotation
+   renders at the transpose. The kitchen's `test1.jpg` and `test2.jpg` store 8160 × 3768 and
+   decode as **3768 × 8160** — declaring the stored ratio would have squashed both, and
+   `image-treat.mjs` draws through Chrome, which applies the rotation, so the export would have
+   come out distorted rather than failing. Decode with an `Image()` in the browser first.
 3. Export WebP through `scripts/image-treat.mjs` with `crop: [0,0,1,1]`. Photographic material
    takes q0.78–0.82; flat vector boards stay at 0.9 and cost 6–31 KB anyway.
 4. Place the figures **in the prose** with `{ kind: "figures", items: [...] }`, not in

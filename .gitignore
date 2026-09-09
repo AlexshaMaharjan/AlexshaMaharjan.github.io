@@ -27,3 +27,9 @@ yarn-error.log*
 # outside the repo for the same reason. Only finished exports in public/images
 # ship; docs/reference/image_crops.json records the path each one came from.
 /Images/
+
+# The project documentations — 644 MB of PDFs. These have always been source
+# material that must not ship (DECISION-016, image_sources.md); they used to
+# live outside the repository, and a copy has since appeared inside it. Ignored
+# so that `git add -A` cannot commit them by accident.
+/ProjectsDokus/

@@ -9,9 +9,14 @@ import Image from "@/components/ui/Image";
  *
  * Tiles come from the dictionary, so the German homepage is German
  * (`ISSUE-005`) and giving a tile an image is a data edit (`ISSUE-004`). Until
- * one has a `src` the tile is the flat grey card it is today — the composition
- * is designed to work either way, and the two states can mix while the images
- * are being made.
+ * one has a `src` the tile is a flat card — the composition is designed to work
+ * either way, and the two states can mix while the images are being made.
+ *
+ * The tiles used to be darkened and tinted with each project's colour so white
+ * text could sit on them. The owner's objection was that treatment: eight murky
+ * colour washes under a white, restrained page. They are now washed *pale*,
+ * keeping only a hint of each image's own colour, and the text is ink
+ * (`DECISION-020`).
  *
  * Several projects appear on more than one tile, deliberately: the grid reads
  * as a wall of work rather than a list of six.
@@ -57,35 +62,30 @@ export default function BentoGrid({ locale, dictionary }: { locale: Locale; dict
           key={i}
           to={localeHref(locale, `/work/${tile.slug}`)}
           aria-label={`${tile.title} — ${tile.category}`}
-          className="group relative flex items-center justify-center overflow-hidden rounded-[14px] bg-[#E6E7E9] transition-colors duration-[250ms] ease-out hover:bg-[#DCDEE1]"
+          className="group relative flex items-center justify-center overflow-hidden rounded-[14px] border border-card-border bg-surface transition-colors duration-[250ms] ease-out hover:border-accent"
           style={{ "--bento-area": tile.gridArea, padding: "38px 18px 18px" } as CSSProperties}
         >
+          {/*
+            No scrim. The tile images are washed pale by `image-treat.mjs` and
+            measured against a lightness floor, so the ink text has its contrast
+            from the image itself rather than from a layer on top of it
+            (`DECISION-020`).
+          */}
           {tile.src && (
-            <>
-              <Image
-                src={tile.src}
-                alt={tile.alt ?? ""}
-                sizes={sizesFor(tile.gridArea)}
-                className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
-              />
-              {/* The label and title sit on the image, so they need their own ground. */}
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,10,0.55)] via-[rgba(10,10,10,0.15)] to-transparent"
-              />
-            </>
+            <Image
+              src={tile.src}
+              alt={tile.alt ?? ""}
+              sizes={sizesFor(tile.gridArea)}
+              className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.03]"
+            />
           )}
           <span
-            className={`absolute left-3.5 right-3.5 top-3.5 text-center text-[12px] leading-[1.2] ${
-              tile.src ? "text-white/85" : "text-ink-secondary"
-            }`}
+            className="absolute left-3.5 right-3.5 top-3.5 text-center font-mono text-[12px] leading-[1.2] text-ink-secondary"
           >
             {tile.category}
           </span>
           <h3
-            className={`relative m-0 text-center font-normal leading-[0.98] tracking-[-0.03em] ${
-              tile.src ? "text-white" : "text-ink"
-            }`}
+            className="relative m-0 text-center font-normal leading-[0.98] tracking-[-0.03em] text-ink"
             style={{ fontSize: tile.fontSize, textWrap: "balance" }}
           >
             {tile.title}
