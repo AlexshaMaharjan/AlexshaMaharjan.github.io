@@ -104,3 +104,33 @@ frame. The new cover uses "Rollstuhlfahrerin sitzt an Arbeitsplatte" from page
 **It copies a layout rather than inventing one**, and it should be replaced if
 the owner ever makes a real one. It is what makes six cards read as a set
 instead of five plus an exception.
+
+
+## The tags came back (2026-09-09)
+
+**"i se ehat you removed the tags also, like the type of project."**
+
+Removing the caption block had taken the disciplines with the name, and they are
+not the same thing. **The name is repeated — every cover carries it. The
+disciplines appear nowhere else on the page**, so without them a card says what
+a project is called and never what it is.
+
+So the card carries **one line: the tags**, in mono at 12px, and still no title.
+
+The owner asked for it "in the photos". Compositing it into the covers was
+tested and put aside: five of the six are the owner's own artwork with five
+different type systems, positions and grounds, so a line added on top would be
+impersonating five designs rather than matching one — and it would be *text on
+an image*, which is the fault this decision exists to remove. A measurement pass
+confirmed the practical half: the left-hand text block cannot be bounded
+reliably, because product imagery bleeds into the left 46% on four of the six.
+
+It is also brittle in a way the page is not: burn the tags in, and they are
+wrong the moment a cover is redrawn. The line reads from `projects[].tags`, so
+it cannot drift.
+
+**One accessibility detail worth keeping.** The link's `aria-label` joins the
+tags with `" · "` — the same separator as the visible line — so the visible text
+is a substring of the accessible name. WCAG 2.5.3 asks for that and axe checks
+it; joining with `", "` in one place and `" · "` in the other fails
+`label-content-name-mismatch`. Caught before the sweep rather than by it.

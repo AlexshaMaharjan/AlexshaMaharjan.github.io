@@ -38,6 +38,19 @@ back to the cover's `alt`, which describes the picture rather than the destinati
 carries `aria-label="{name} — {tags}"`. A screen reader hears "AFONO — Branding, E-commerce,
 Graphic Design" rather than "the AFONO shop and size finder in two browser windows".
 
+Then a third note: *"i se ehat you removed the tags also, like the type of project."* Removing
+the caption block had taken the disciplines with the name, and they are not the same thing — the
+name is repeated on every cover, the disciplines appear nowhere else. The card ends up carrying
+**one mono line of tags and no title.**
+
+Compositing them into the covers, which is what "in the photos" asked for, was tested and put
+aside. Five of the six covers are the owner's artwork with five different type systems and
+grounds, so a line added on top would impersonate five designs rather than match one — and it
+would be text on an image, the fault this whole change removes. Measurement settled the practical
+half: the left-hand text block cannot be bounded reliably, because product imagery bleeds into the
+left 46% on four of the six. Burned-in tags would also be wrong the moment a cover is redrawn;
+the line reads from `projects[].tags`.
+
 Rows are justified by `@/lib/justify`, **extracted from `SectionMedia`** so the homepage and the
 case studies cannot drift apart — a row of covers with different aspects still shares one height.
 

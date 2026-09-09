@@ -30,9 +30,14 @@ mess, which is exactly why the first fix made things look worse. When a second l
 surface produces the same objection, stop adjusting and look at the construction.
 
 The owner's second note is the same lesson in miniature: the name under a card was said twice,
-because every cover already carries it. **Cards now have no visible text at all** — and the link
-takes an `aria-label`, because otherwise its accessible name falls back to the cover's `alt`,
-which describes the picture rather than where the link goes.
+because every cover already carries it. Cards lost their title — and then, on a third note, **got the tags back**: the
+name is repeated on every cover, but the disciplines appear nowhere else, so a card was saying
+what a project is called and never what it is. One mono line, no title.
+
+The link takes an `aria-label`, because otherwise its accessible name falls back to the cover's
+`alt`, which describes the picture rather than where the link goes — and it joins the tags with
+the **same separator** as the visible line, so the visible text is a substring of the accessible
+name. WCAG 2.5.3 asks for that and axe checks it.
 
 ## Two smaller notes
 
