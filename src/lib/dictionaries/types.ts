@@ -22,6 +22,16 @@ export interface ProjectCopy {
   year: string;
   image: string;
   imageAlt: string;
+  /**
+   * The cover's true aspect, e.g. `"1900/1066"`.
+   *
+   * Removed in SESSION-025 because nothing read it, and back in SESSION-031
+   * because `WorkGrid` lays the cards out by it — the whole point of that grid
+   * is that a cover is shown at its own proportions rather than cropped to a
+   * tile. It must match the exported file exactly; `ui/Image` paints with
+   * `object-cover`, so a mismatch is a silent crop.
+   */
+  imageAspect: string;
 }
 
 export interface ProcessBranchCopy {

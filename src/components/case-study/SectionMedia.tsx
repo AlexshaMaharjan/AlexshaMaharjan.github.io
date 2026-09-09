@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import type { SectionImage } from "@/lib/caseStudies/types";
+import { ratioOf as ratioOfAspect, rowMetrics, rowsOf, sizesFor } from "@/lib/justify";
 import Figure from "./Figure";
 
 /**
@@ -18,10 +19,7 @@ function isWide(image: SectionImage): boolean {
 }
 
 /** The declared aspect as a number. 4/3 is the fallback so a malformed string cannot divide by zero. */
-function ratioOf(image: SectionImage): number {
-  const [w, h] = image.aspect.split("/").map(Number);
-  return w && h ? w / h : 4 / 3;
-}
+const ratioOf = (image: SectionImage): number => ratioOfAspect(image.aspect);
 
 /*
  * ---------------------------------------------------------------------------
@@ -68,46 +66,14 @@ const GAP = 20;
  */
 const MAX_FIGURE_HEIGHT = 640;
 
-/**
- * How many figures share a row.
+/*
+ * Rows of at most three, justified. Both live in `@/lib/justify`, which the
+ * homepage work grid uses too (`DECISION-021`) — the two must not drift, since
+ * a reader moving from the homepage into a case study should meet one layout.
  *
- * Three across is the busiest that stays legible in a 960px column. Four splits
- * two-and-two rather than going four across, which is the pairing the grid used
- * to produce and the reason a run of four reads as two comparisons.
- */
-function rowsOf(items: SectionImage[]): SectionImage[][] {
-  if (items.length === 4) return [items.slice(0, 2), items.slice(2)];
-  const rows: SectionImage[][] = [];
-  for (let i = 0; i < items.length; i += 3) rows.push(items.slice(i, i + 3));
-  return rows;
-}
-
-/** The height a row lands at, and therefore how wide the row is allowed to be. */
-function rowMetrics(items: SectionImage[]) {
-  const ratios = items.map(ratioOf);
-  const sum = ratios.reduce((a, b) => a + b, 0);
-  const gaps = GAP * (items.length - 1);
-  const height = Math.min(MAX_FIGURE_HEIGHT, (COLUMN_PX - gaps) / sum);
-  return { ratios, sum, gaps, height, width: Math.round(height * sum + gaps) };
-}
-
-/**
- * What a figure actually renders at, for `srcset` (`SUGGESTION-012`).
- *
- * Below `md` a row stacks, so every figure is the full viewport column whatever
- * its aspect — that branch is the one that matters most, because it is the one
- * a 3x phone uses.
- *
- * The row turns horizontal at 768px rather than 640px: at 640 a three-figure row
+ * A row turns horizontal at 768px rather than 640px: at 640 a three-figure row
  * put the narrowest figure at 140px, which is a thumbnail of a thumbnail.
  */
-function sizesFor(px: number): string {
-  return [
-    `(min-width: 1280px) ${px}px`,
-    `(min-width: 768px) min(${px}px, calc(100vw - 160px))`,
-    `calc(100vw - 40px)`,
-  ].join(", ");
-}
 
 /**
  * A section's figures, grouped into runs and then justified into rows.
@@ -138,7 +104,7 @@ export default function SectionMedia({ images }: { images: SectionImage[] }) {
         it; once it has arrived they wait for their own turn (DECISION-008).
       */}
       {rows.map((items, i) => {
-        const { ratios, height, width } = rowMetrics(items);
+        const { ratios, height, width } = rowMetrics(items.map(ratioOf), COLUMN_PX, GAP, MAX_FIGURE_HEIGHT);
         return (
           <div
             key={i}
