@@ -25,8 +25,8 @@ explicitly rather than inventing one.
 | DECISION-017 | Case study opens with the contents rail; title inside Overview | **Active** | Case studies, layout | Owner, 2026-08-25: rail visible on load, smaller title under Overview, no year, every project says "Semester project" | `decision_017.md` |
 | DECISION-018 | A figure opens full screen | **Active** | Case-study figures | A dense figure is unreadable at 350px on a phone, and the column cannot widen — so the figure opens instead | `decision_018.md` |
 | DECISION-019 | Figures are sized by height, and rows are justified | **Active** | Case-study figures | Aspects must stay true, so widths absorb the difference and every figure in a row shares one height | `decision_019.md` |
-| DECISION-020 | The bento tiles are washed pale, not darkened | **Active** | Homepage work grid | Eleven dark project-tinted tiles clashed with a white, restrained site; the colour now comes from each image itself and the text is ink | `decision_020.md` |
-| DECISION-021 | The homepage work section is project cards, not a bento grid | **Proposed** — built and shown | Homepage work section | Rejected twice; the fault was text on images and `object-cover` crops, not colour. Six cards, covers shown whole, text underneath | `decision_021.md` |
+| DECISION-020 | The bento tiles are washed pale, not darkened | **Superseded** by `DECISION-021` | Homepage work grid | Eleven dark project-tinted tiles clashed with a white, restrained site; the colour now comes from each image itself and the text is ink | `decision_020.md` |
+| DECISION-021 | The homepage work section is project cards, not a bento grid | **Active** | Homepage work section | Rejected twice; the fault was text on images and `object-cover` crops, not colour. Six cards, covers shown whole, no text at all — the cover already names the project | `decision_021.md` |
 
 ## Needing an owner decision
 

@@ -100,20 +100,6 @@ export interface ResumeCopy {
   printCta: string;
 }
 
-export interface BentoTile {
-  /** Case study this tile links to. */
-  slug: string;
-  /** Label above the title, e.g. "Brand & UI/UX". */
-  category: string;
-  title: string;
-  /** CSS `grid-area`, and the title size that suits the tile's box. */
-  gridArea: string;
-  fontSize: string;
-  /** Optional real image; without it the tile stays flat grey. */
-  src?: string;
-  alt?: string;
-}
-
 export interface Dictionary {
   meta: {
     title: string;
@@ -164,13 +150,6 @@ export interface Dictionary {
     eyebrow: string;
     heading: string;
     copy: string;
-    /**
-     * The bento tiles, in grid order. Kept here rather than in the component so
-     * the German homepage is not English (ISSUE-005), and so an image is a data
-     * edit (ISSUE-004, DECISION-010). `slug` links the tile to its case study;
-     * several projects deliberately appear more than once.
-     */
-    bento: BentoTile[];
   };
   projects: ProjectCopy[];
   resume: ResumeCopy;

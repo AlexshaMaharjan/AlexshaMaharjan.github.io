@@ -1,6 +1,7 @@
 # DECISION-010 — Homepage work section replaced with a bento grid
 
 Status: **Active** — confirmed by the owner, 2026-08-24
+Superseded: **by `DECISION-021`, 2026-09-09** — the owner rejected the bento twice and approved project cards in its place
 Date: Uncommitted working tree, 2026-08; confirmed 2026-08-24 (SESSION-008)
 Scope: Homepage
 

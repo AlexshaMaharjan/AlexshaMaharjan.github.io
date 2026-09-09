@@ -35,7 +35,7 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
   const rows = rowsOf(dictionary.projects, 2);
 
   return (
-    <div data-inview="stagger" className="flex flex-col gap-14">
+    <div data-inview="stagger" className="flex flex-col gap-6 md:gap-6">
       {rows.map((row, i) => {
         const { ratios, height, width } = rowMetrics(
           row.map((p) => ratioOf(p.imageAspect)),
@@ -49,6 +49,15 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
               <Link
                 key={project.slug}
                 to={localeHref(locale, `/work/${project.slug}`)}
+                /*
+                  The card carries no visible text — every cover is a designed
+                  title card that already names its project, and repeating the
+                  name underneath said it twice. The link still needs a name for
+                  anyone not looking at it, so it gets one here: without this the
+                  accessible name would fall back to the cover's `alt`, which
+                  describes the picture rather than where the link goes.
+                */
+                aria-label={`${project.name} — ${project.tags.join(", ")}`}
                 className="group block"
                 style={{ flex: `${ratios[n]} 1 0%` } as CSSProperties}
               >
@@ -63,10 +72,6 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
                     className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.02]"
                   />
                 </div>
-                <h3 className="mt-4 text-[21px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink">
-                  {project.name}
-                </h3>
-                <p className="mt-1.5 text-[13px] leading-[1.5] text-ink-secondary">{project.tags.join(" · ")}</p>
               </Link>
             ))}
           </div>

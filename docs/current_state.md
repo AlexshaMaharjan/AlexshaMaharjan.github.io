@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-09**, after SESSION-030 (kitchen and QIS placed; the bento washed pale).
+Snapshot: **2026-09-09**, after SESSION-031 (the bento replaced by six project cards).
 
 ## Overall
 
@@ -11,7 +11,7 @@ both structured and laid out. What remains is mostly content the repository cann
 for itself: real photographs, and a copy pass. Plus one homepage section that still shows
 grey tiles.
 
-Roughly: architecture ~92% done, content ~70% drafted, imagery ~61% (94 of 155 slots), polish ~65%.
+Roughly: architecture ~92% done, content ~70% drafted, imagery ~59% (89 of 150 slots), polish ~70%.
 
 ## Working
 

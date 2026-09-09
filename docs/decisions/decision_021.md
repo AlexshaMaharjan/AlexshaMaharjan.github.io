@@ -1,9 +1,9 @@
 # DECISION-021 — The homepage work section is project cards, not a bento grid
 
-Status: **Proposed** — built and shown; awaiting the owner
+Status: **Active** — approved by the owner, 2026-09-09
 Date: 2026-09-09 (SESSION-031)
 Scope: The homepage work section
-Supersedes, if accepted: `DECISION-010` and `DECISION-020`
+Supersedes: `DECISION-010` (the bento) and `DECISION-020` (its pale wash)
 
 ## Context
 
@@ -62,12 +62,45 @@ other five. It is the one obvious gap.
 so the grid read as a wall of work. Six cards do not read as a wall, so the
 duplication would read as repetition instead.
 
-**Nothing was deleted.** `BentoGrid.tsx`, `selectedWork.bento[]` and all eleven
-tile images are intact and still exported, so reverting is one import. If this
-is accepted, they go, and `check: "bento"` goes with them.
+**The bento is gone.** `BentoGrid.tsx`, `selectedWork.bento[]`, the `BentoTile`
+type and all eleven tile images were deleted once the owner approved the cards —
+247 KB of originals plus 22 variants. `image-manifest.mjs` now reports the
+homepage from `projects[]` instead of from tiles, so a card's image is the same
+file its case study opens with and there is no second copy to keep in step.
 
 ## Related
 
 - `DECISION-010` — the bento, approved 2026-08-24 and superseded here by the same owner
 - `DECISION-020` — the pale wash, which fixed the colour and exposed the construction
 - `DECISION-019` — the justified rows this reuses
+
+
+## Approved, with two changes (2026-09-09)
+
+**"I like this look but i dont like the text below the images/cards. i think
+title is not needed because it is already there in the title image."**
+
+Right, and it is the same fault as the bento in miniature: the name was being
+said twice, once inside the cover and once underneath it. The cards now carry
+**no visible text at all**.
+
+The link still needs a name for anyone not looking at it. Without one the
+accessible name falls back to the cover's `alt`, which describes the picture
+rather than where the link goes — so the `<a>` carries
+`aria-label="{name} — {tags}"`. axe passes, and a screen reader hears the
+project and its disciplines rather than "the AFONO shop and size finder in two
+browser windows".
+
+**The kitchen got a cover.** It was the one project without a designed title
+card, and its card was visibly the odd one out. `scripts/cover.mjs` composes one
+to match the other five — pale ground, name, one-line subtitle, the work
+bleeding off the right edge — from the cleanest render in the documentation.
+
+That render needed picking rather than taking: the existing hero was two Blender
+*viewport screenshots* side by side, one of them with the axis gizmo still in
+frame. The new cover uses "Rollstuhlfahrerin sitzt an Arbeitsplatte" from page
+22, cropped to exclude the gizmo.
+
+**It copies a layout rather than inventing one**, and it should be replaced if
+the owner ever makes a real one. It is what makes six cards read as a set
+instead of five plus an exception.

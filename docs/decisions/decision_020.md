@@ -1,6 +1,7 @@
 # DECISION-020 — The bento tiles are washed pale, not darkened
 
 Status: Active
+Superseded: **by `DECISION-021`, 2026-09-09** — the owner rejected the bento twice and approved project cards in its place
 Date: 2026-09-09 (SESSION-030)
 Scope: The homepage work grid
 Supersedes: the tile treatment established in SESSION-014/SESSION-016

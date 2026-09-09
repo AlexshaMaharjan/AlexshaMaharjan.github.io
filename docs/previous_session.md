@@ -1,67 +1,67 @@
 # Previous Session
 
-**SESSION-030** — 2026-09-09. Full record: `docs/sessions/session_030.md`.
+**SESSION-031** — 2026-09-09. Full record: `docs/sessions/session_031.md`.
 
 ## What it did
 
-The last two image folders arrived — `Images/kitchen/` (12) and `Images/qis/` (7), plus an AFONO
-cover. **All six case studies now run on the owner's own exports.** **155 slots, 94 filled**, up
-from 148/75. Every supplied file across six folders is placed except `Afono/Wireframe.png`, which
-is blank.
+The owner rejected the bento a second time and asked what I suggested. It was replaced with **six
+project cards** (`DECISION-021`), then — on their second note — the text under the cards was
+removed too, and the barrier-free kitchen got a **composed cover** so all six read as a set.
 
-And the bento grid was rebuilt: the owner said the tile backgrounds did not fit the site, and they
-were right.
-
-## The first thing done, before anything else
-
-**`ProjectsDokus/` had moved inside the repository** — 644 MB of PDFs, untracked, one `git add -A`
-away from being committed, and every session here commits with `git add -A`. Git-ignored
-immediately. They have always been source material that must not ship.
-
-## The bento — `DECISION-020`
-
-Each tile was darkened to 40–80%, desaturated and tinted with its project's colour so white text
-could sit on it. Eleven of those under a white, restrained layout read as a patchwork of murky
-washes. Asked what he wanted instead, the owner said *"maybe subtle colour backgrounds? maybe from
-title images?"*
-
-Tiles are now **washed pale** — a ~50% white overlay over a brightened image — with **ink** text,
-and the dark scrim is deleted rather than lightened. The colour survives as a faint tint of each
-image's **own** hue rather than a palette entry.
-
-**The contrast check flipped with it**: `check: "bento"` measured the same two bands before and
-after, asserting `<= 128/138` for white text and now `>= 190` for ink. It earned its keep on the
-first run — `tile-syncfm-mobile` failed at 176/178, because its source is Sync FM's *dark mode*
-screens and no wash that suits ten light sources suits that one.
+**150 slots, 89 filled.** The homepage went from 11 slots to 6, so the totals fall while nothing
+was lost.
 
 ## The thing worth carrying forward
 
-**`sips` reports the pixels a file stores, not the pixels anything renders.**
+**I spent a whole session adjusting the wrong axis.**
 
-The kitchen's `test1.jpg` and `test2.jpg` store 8160 × 3768 and **decode as 3768 × 8160** — they
-carry an EXIF rotation. Declaring the stored ratio would have squashed two portrait photographs
-into landscape, and **nothing downstream would have caught it**: `image-treat.mjs` draws through
-Chrome, which *applies* the rotation, so the export comes out distorted rather than failing.
+SESSION-030 answered the first rejection by re-colouring the tiles — dark tints out, pale washes
+in. The rejection came straight back, which is the signal that the treatment was never the
+problem. Read close up at 1440px:
 
-What prompted the check was the contact sheet showing them portrait while `sips` said landscape.
-Both were re-measured with an `Image()` decode before any aspect was written, and the method in
-this file's Objective now says so.
+- the category label sits centred at the top of every tile **regardless of what is underneath**,
+  so "Interaction Design" lands across the Sync FM screens;
+- titles compete with the thing they name — "WikiMind" over the WikiMind logo;
+- **`object-cover` crops each image to whatever shape its `gridArea` happens to be**, so tiles
+  read as broken screenshots: `gami is much / nore fun together / nity`.
+
+**Washing the tiles pale did not cause that. It revealed it** — the dark tint had been hiding the
+mess, which is exactly why the first fix made things look worse. When a second look at the same
+surface produces the same objection, stop adjusting and look at the construction.
+
+The owner's second note is the same lesson in miniature: the name under a card was said twice,
+because every cover already carries it. **Cards now have no visible text at all** — and the link
+takes an `aria-label`, because otherwise its accessible name falls back to the cover's `alt`,
+which describes the picture rather than where the link goes.
 
 ## Two smaller notes
 
-- A `[ original portal — before ]` placeholder survived the first removal because it was a
-  single-line `images: [{ … }]`. Removing the English one alone put the locales out of step and
-  **`image-manifest.mjs` exited 1 immediately** — the German twin had a localised caption, which
-  is why one regex missed it.
-- **`ISSUE-037`**: three screenshots of TH Lübeck's existing portal are now on the QIS page.
-  `DECISION-016` says competitor screenshots stay out, but it was written for material used as
-  *inspiration*; here the borrowed thing is the subject of the redesign, and it is captioned as
-  such in both locales. The real risk is narrower — `oldinfo.jpg` shows a grade record whose
-  fields were **not checked one by one.**
+- **`imageAspect` came back to `ProjectCopy`**, removed in SESSION-025 as dead. These cards render
+  each cover at its own proportions, so it is the field the layout depends on. "Dead" had meant
+  "dead for the design we had".
+- **The kitchen render needed picking, not taking.** Its old hero was two Blender *viewport
+  screenshots* side by side, one with the axis gizmo still in frame. The cover uses a clean render
+  from page 22, and the gizmo survived my first crop — it took a second look at full size.
+
+## What was deleted
+
+`BentoGrid.tsx`, `selectedWork.bento[]`, the `BentoTile` type and all eleven tile images — 247 KB
+plus 22 variants. `image-manifest.mjs` reads the homepage from `projects[]` now, so a card's image
+is the same file its case study opens with.
+
+`check: "bento"` stays in `image-treat.mjs` with nothing using it: nine lines, and the two sessions
+of measurement behind its threshold are cheap to keep and expensive to rediscover.
+
+## Verified
+
+Production build: routes 36/36; images at dpr 1, 2 and 3 with 0 broken, 0 missing `alt`, 0 failed
+requests, counts identical; **axe 0 violations including the now-textless cards**; 0 overflow at
+390px; `tsc` clean; lint 0 errors; `content-audit.mjs` clean; `image-manifest.mjs` exits 0.
 
 ## What it left for the owner
 
-- **The playground — 39 slots, and the only surface with no supplied imagery at all.**
-- Kitchen's textured render and animation; QIS's seven remaining figures, named in the hand-off.
-- `ISSUE-037` and the six standing decisions.
-- **Nothing pushed — 47 commits ahead of `main` before this one.**
+- **The playground — 39 slots, the only surface with no supplied imagery at all.**
+- Kitchen's textured render and animation; QIS's seven remaining figures.
+- A real kitchen cover, if they want one — `scripts/cover.mjs` copies a layout rather than
+  inventing one.
+- `ISSUE-037` and the standing decisions. **Nothing pushed — 49 commits ahead of `main`.**
