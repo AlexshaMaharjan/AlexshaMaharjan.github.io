@@ -108,6 +108,7 @@ const en: Dictionary = {
       year: "2026",
       image: "/images/hero-wikimind.webp",
       imageAlt: "The WikiMind homepage shown on a laptop, beside the case-study title",
+      imageAspect: "1900/1066",
     },
     {
       slug: "afono",
@@ -120,6 +121,7 @@ const en: Dictionary = {
       year: "2026",
       image: "/images/hero-afono.webp",
       imageAlt: "Print lettering from AFONO's HIMAL series",
+      imageAspect: "1600/900",
     },
     {
       slug: "sync-fm",
@@ -132,6 +134,7 @@ const en: Dictionary = {
       year: "",
       image: "/images/hero-sync-fm.webp",
       imageAlt: "Sync FM's home screen with the news dial",
+      imageAspect: "1578/1088",
     },
     {
       slug: "barrier-free-kitchen",
@@ -144,6 +147,7 @@ const en: Dictionary = {
       year: "",
       image: "/images/hero-barrier-free-kitchen.webp",
       imageAlt: "The barrier-free kitchen modelled in 3D",
+      imageAspect: "16/7.5",
     },
     {
       slug: "surugami",
@@ -156,6 +160,7 @@ const en: Dictionary = {
       year: "",
       image: "/images/hero-surugami.webp",
       imageAlt: "A Surugami poster inviting people to fold",
+      imageAspect: "1900/1189",
     },
     {
       slug: "qis-portal",
@@ -168,6 +173,7 @@ const en: Dictionary = {
       year: "2024",
       image: "/images/hero-qis-portal.webp",
       imageAlt: "The redesigned QIS Portal exam page",
+      imageAspect: "1900/1069",
     },
   ],
   resume: {

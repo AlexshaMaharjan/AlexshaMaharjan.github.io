@@ -1,6 +1,6 @@
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
-import BentoGrid from "@/components/BentoGrid";
+import WorkGrid from "@/components/WorkGrid";
 
 export default function SelectedWork({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   return (
@@ -18,7 +18,7 @@ export default function SelectedWork({ dictionary, locale }: { dictionary: Dicti
           </div>
         </div>
 
-        <BentoGrid locale={locale} dictionary={dictionary} />
+        <WorkGrid locale={locale} dictionary={dictionary} />
       </div>
     </section>
   );
