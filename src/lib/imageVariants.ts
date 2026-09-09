@@ -93,6 +93,15 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       400
     ]
   },
+  "/images/afono-presentation.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
   "/images/afono-print-artwork.webp": {
     "w": 1162,
     "v": [
@@ -229,13 +238,12 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/hero-afono.webp": {
-    "w": 1900,
+    "w": 1600,
     "v": [
       400,
       640,
       960,
-      1280,
-      1600
+      1280
     ]
   },
   "/images/hero-barrier-free-kitchen.webp": {
@@ -249,7 +257,7 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
     ]
   },
   "/images/hero-qis-portal.webp": {
-    "w": 2000,
+    "w": 1900,
     "v": [
       400,
       640,
@@ -285,6 +293,163 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       960,
       1280,
       1600
+    ]
+  },
+  "/images/kitchen-3d-structure.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-journey-map.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-lego-annotated.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-lego.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-observation-fridge.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-observation.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-paper-containers.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-paper-details.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-paper-prototype.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-reach-study.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-simulation.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/kitchen-wooden-blocks.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/qis-original-exams.webp": {
+    "w": 876,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/qis-original-login.webp": {
+    "w": 880,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/qis-original-overview.webp": {
+    "w": 1194,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/qis-structure-14.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/qis-structure-21.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ]
+  },
+  "/images/qis-sus-chart.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
     ]
   },
   "/images/surugami-brand-system.webp": {

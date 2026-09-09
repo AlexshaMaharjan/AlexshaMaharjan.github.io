@@ -55,13 +55,17 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           },
           "The team examined typical actions including opening cabinets, locating objects, operating appliances, using the sink, reading labels, sitting at a table and identifying controls through touch.",
           {
+            kind: "figures",
+            items: [
+              { aspect: "1600/3465", caption: "[ kitchen observation ]", src: "/images/kitchen-observation.webp", alt: "A seated user reaching for the upper cabinet in a conventional kitchen" },
+              { aspect: "1600/3465", caption: "[ observation — the fridge ]", src: "/images/kitchen-observation-fridge.webp", alt: "The same user reaching into the upper shelves of a standard fridge" },
+              { aspect: "1600/790", caption: "[ simulation testing ]", src: "/images/kitchen-simulation.webp", alt: "Three simulated tasks from a seated position: the hob, the fridge and a wall cabinet" },
+            ],
+          },
+          {
             kind: "note",
             text: "Research note: Simulation can reveal obvious spatial and perceptual barriers, but it does not reproduce the lived experience of disability.",
           },
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ kitchen observation ]" },
-          { aspect: "4/3", caption: "[ simulation testing ]" },
         ],
       },
       {
@@ -102,7 +106,22 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         heading: "Moving from observations to spatial relationships",
         body: [
           "Wooden blocks were used to explore the general relationship between storage, work surfaces, appliances and movement areas. Lego Serious Play allowed the team to compare different room arrangements and discuss where important actions should occur.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1074", caption: "[ wooden blocks ]", src: "/images/kitchen-wooden-blocks.webp", alt: "Wooden blocks standing in for the counter, sink and storage while the layout was arranged" },
+              { aspect: "1600/991", caption: "[ reach study ]", src: "/images/kitchen-reach-study.webp", alt: "Two overhead reach studies marking how far a seated user can comfortably extend" },
+              { aspect: "1600/444", caption: "[ lego study ]", src: "/images/kitchen-lego.webp", alt: "The kitchen units rebuilt in Lego to test heights and proportions" },
+              { aspect: "1600/932", caption: "[ lego study — annotated ]", src: "/images/kitchen-lego-annotated.webp", alt: "The Lego model labelled with fridge, cupboard, sink, hob, worktop, containers and dining table" },
+            ],
+          },
           "A journey map then connected these spatial decisions to a complete sequence. This prevented the design from focusing on isolated features without considering the complete cooking process.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/213", caption: "[ journey map ]", src: "/images/kitchen-journey-map.webp", alt: "The cooking sequence as a flow: fridge and shelving, sink, worktop, hob and oven, dining table" },
+            ],
+          },
           {
             kind: "list",
             ordered: true,
@@ -115,11 +134,6 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             ],
           },
         ],
-        images: [
-          { aspect: "4/3", caption: "[ wooden blocks ]" },
-          { aspect: "4/3", caption: "[ lego study ]" },
-          { aspect: "4/3", caption: "[ journey map ]" },
-        ],
       },
       {
         id: "testing",
@@ -128,11 +142,15 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         heading: "Testing the kitchen at the scale of the body",
         body: [
           "Paper prototypes were built at full scale to test cabinet positions, work surfaces, sink access, oven controls, handles and movement space. This stage revealed problems that were difficult to identify in small models. Reach distances, turning areas and control positions could be evaluated through actual movement.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/535", caption: "[ full-scale prototype ]", src: "/images/kitchen-paper-prototype.webp", alt: "Full-scale paper prototypes of the pull-out drawers and the lowered sink" },
+              { aspect: "1600/495", caption: "[ prototype details ]", src: "/images/kitchen-paper-details.webp", alt: "Prototype details: control dials, the reach arc and the different handle types tried" },
+              { aspect: "1600/430", caption: "[ prototype containers ]", src: "/images/kitchen-paper-containers.webp", alt: "Paper prototypes of the transparent containers and the pull-down shelf" },
+            ],
+          },
           "Observations were translated directly into revisions rather than being treated as final confirmation.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ full-scale prototype ]" },
-          { aspect: "4/3", caption: "[ testing session ]" },
         ],
       },
       {
@@ -165,12 +183,15 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         body: [
           { kind: "h3", text: "Translating research into a spatial prototype" },
           "The final design was modelled in Blender and populated with appliances, storage, work surfaces and accessibility features. An animated wheelchair user demonstrates how the kitchen could function across different tasks.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/382", caption: "[ 3d model process ]", src: "/images/kitchen-3d-structure.webp", alt: "The kitchen's grey-box model in Blender, before materials" },
+              { aspect: "16/9", caption: "[ blender environment + animation — large showcase ]" },
+              { aspect: "16/10", caption: "[ materials + textures ]" },
+            ],
+          },
           "EEVEE was used for the final animation because a Cycles render was estimated to require approximately 26 days. This reduced rendering time but resulted in darker materials and lower visual quality. The compromise is acknowledged rather than hidden.",
-        ],
-        images: [
-          { aspect: "16/9", caption: "[ blender environment + animation — large showcase ]" },
-          { aspect: "16/10", caption: "[ 3d model process ]" },
-          { aspect: "16/10", caption: "[ materials + textures ]" },
         ],
       },
       {
@@ -253,13 +274,17 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           },
           "Untersucht wurden typische Handlungen wie das Öffnen von Schränken, das Finden von Gegenständen, die Bedienung von Geräten, die Nutzung der Spüle, das Lesen von Beschriftungen, das Sitzen am Tisch und das Erkennen von Bedienelementen durch Berührung.",
           {
+            kind: "figures",
+            items: [
+              { aspect: "1600/3465", caption: "[ kitchen observation ]", src: "/images/kitchen-observation.webp", alt: "Eine sitzende Nutzerin greift in einer konventionellen Küche nach dem Oberschrank" },
+              { aspect: "1600/3465", caption: "[ observation — the fridge ]", src: "/images/kitchen-observation-fridge.webp", alt: "Dieselbe Nutzerin greift in die oberen Fächer eines üblichen Kühlschranks" },
+              { aspect: "1600/790", caption: "[ simulation testing ]", src: "/images/kitchen-simulation.webp", alt: "Drei simulierte Handlungen aus sitzender Position: Kochfeld, Kühlschrank und Hängeschrank" },
+            ],
+          },
+          {
             kind: "note",
             text: "Hinweis: Simulation kann offensichtliche räumliche und wahrnehmungsbezogene Barrieren sichtbar machen, ersetzt jedoch nicht die gelebte Erfahrung von Behinderung.",
           },
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ küchenbeobachtung ]" },
-          { aspect: "4/3", caption: "[ simulationstest ]" },
         ],
       },
       {
@@ -300,7 +325,22 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         heading: "Beobachtungen in räumliche Beziehungen übersetzen",
         body: [
           "Holzklötze wurden verwendet, um die grundlegenden Beziehungen zwischen Stauraum, Arbeitsflächen, Geräten und Bewegungsbereichen zu untersuchen. Lego Serious Play ermöglichte den Vergleich verschiedener Raumaufteilungen und half bei der Diskussion, wo wichtige Handlungen stattfinden sollten.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1074", caption: "[ wooden blocks ]", src: "/images/kitchen-wooden-blocks.webp", alt: "Holzklötze als Platzhalter für Arbeitsplatte, Spüle und Stauraum beim Anordnen des Grundrisses" },
+              { aspect: "1600/991", caption: "[ reach study ]", src: "/images/kitchen-reach-study.webp", alt: "Zwei Reichweiten-Studien von oben, die den bequem erreichbaren Bereich markieren" },
+              { aspect: "1600/444", caption: "[ lego study ]", src: "/images/kitchen-lego.webp", alt: "Die Küchenmodule in Lego nachgebaut, um Höhen und Proportionen zu prüfen" },
+              { aspect: "1600/932", caption: "[ lego study — annotated ]", src: "/images/kitchen-lego-annotated.webp", alt: "Das Lego-Modell beschriftet mit Kühlschrank, Schrank, Spüle, Herd, Arbeitsfläche, Behältern und Esstisch" },
+            ],
+          },
           "Eine Journey Map verband diese räumlichen Entscheidungen anschließend zu einer vollständigen Abfolge. Dadurch konzentrierte sich das Design nicht nur auf einzelne Funktionen, sondern auf den vollständigen Kochprozess.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/213", caption: "[ journey map ]", src: "/images/kitchen-journey-map.webp", alt: "Der Kochablauf als Fluss: Kühlschrank und Regal, Spüle, Arbeitsplatte, Herd und Ofen, Esstisch" },
+            ],
+          },
           {
             kind: "list",
             ordered: true,
@@ -313,11 +353,6 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             ],
           },
         ],
-        images: [
-          { aspect: "4/3", caption: "[ holzklötze ]" },
-          { aspect: "4/3", caption: "[ lego-studie ]" },
-          { aspect: "4/3", caption: "[ journey map ]" },
-        ],
       },
       {
         id: "testing",
@@ -326,11 +361,15 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         heading: "Die Küche im Maßstab des Körpers testen",
         body: [
           "Papierprototypen wurden im Maßstab 1:1 gebaut, um Schrankpositionen, Arbeitsflächen, Spülenzugang, Ofenbedienung, Griffe und Bewegungsflächen zu testen. Diese Phase machte Probleme sichtbar, die in kleinen Modellen schwer zu erkennen waren. Reichweiten, Wendeflächen und Positionen von Bedienelementen konnten durch tatsächliche Bewegung überprüft werden.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/535", caption: "[ full-scale prototype ]", src: "/images/kitchen-paper-prototype.webp", alt: "Papierprototypen im Maßstab 1:1 der Auszüge und der abgesenkten Spüle" },
+              { aspect: "1600/495", caption: "[ prototype details ]", src: "/images/kitchen-paper-details.webp", alt: "Prototyp-Details: Bedienknöpfe, der Reichweitenbogen und die erprobten Griffvarianten" },
+              { aspect: "1600/430", caption: "[ prototype containers ]", src: "/images/kitchen-paper-containers.webp", alt: "Papierprototypen der transparenten Behälter und des Absenkregals" },
+            ],
+          },
           "Die Beobachtungen wurden direkt in Überarbeitungen übersetzt und nicht als reine Bestätigung des ersten Konzepts behandelt.",
-        ],
-        images: [
-          { aspect: "4/3", caption: "[ prototyp im maßstab 1:1 ]" },
-          { aspect: "4/3", caption: "[ testsitzung ]" },
         ],
       },
       {
@@ -363,12 +402,15 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         body: [
           { kind: "h3", text: "Recherche in einen räumlichen Prototyp übersetzen" },
           "Das finale Design wurde in Blender modelliert und mit Geräten, Stauraum, Arbeitsflächen und barrierearmen Funktionen ergänzt. Eine animierte Rollstuhlnutzerin zeigt, wie die Küche bei unterschiedlichen Aufgaben funktionieren könnte.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/382", caption: "[ 3d model process ]", src: "/images/kitchen-3d-structure.webp", alt: "Das Graustufen-Modell der Küche in Blender, vor den Materialien" },
+              { aspect: "16/9", caption: "[ blender environment + animation — large showcase ]" },
+              { aspect: "16/10", caption: "[ materials + textures ]" },
+            ],
+          },
           "Für die finale Animation wurde EEVEE verwendet, da eine Berechnung mit Cycles schätzungsweise etwa 26 Tage benötigt hätte. Dadurch wurde die Renderzeit reduziert, gleichzeitig entstanden jedoch dunklere Materialien und eine geringere visuelle Qualität. Dieser Kompromiss wird transparent dargestellt.",
-        ],
-        images: [
-          { aspect: "16/9", caption: "[ blender-umgebung + animation — große präsentation ]" },
-          { aspect: "16/10", caption: "[ 3d-modell-prozess ]" },
-          { aspect: "16/10", caption: "[ materialien + texturen ]" },
         ],
       },
       {

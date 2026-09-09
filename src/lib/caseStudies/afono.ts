@@ -17,8 +17,8 @@ const afono: CaseStudyLocaleContent = {
     deliverables: "Brand strategy · Naming · Logo · Clothing graphics · E-commerce prototype · Social-media system",
     heroImage: {
       src: "/images/hero-afono.webp",
-      alt: "The AFONO landing page on a monitor, beside the case-study title",
-      aspect: "1900/1250",
+      alt: "The AFONO shop and size finder in two browser windows, beside the case-study title",
+      aspect: "1600/900",
     },
     sections: [
       {
@@ -202,6 +202,7 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
+              { aspect: "1600/1053", caption: "[ desktop presentation ]", src: "/images/afono-presentation.webp", alt: "The finished storefront presented on a desktop monitor" },
               { aspect: "800/1342", caption: "[ social media ]", src: "/images/afono-social-system.webp", alt: "The Instagram feed: restock, lookbook, giveaway and new-arrival posts" },
               { aspect: "476/801", caption: "[ social layout system ]", src: "/images/afono-social-grid.webp", alt: "The red, blue and white grid that lays out the feed" },
             ],
@@ -239,8 +240,8 @@ const afono: CaseStudyLocaleContent = {
     deliverables: "Markenstrategie · Naming · Logo · Bekleidungsgrafiken · E-Commerce-Prototyp · Social-Media-System",
     heroImage: {
       src: "/images/hero-afono.webp",
-      alt: "Die AFONO-Landingpage auf einem Monitor, neben dem Titel der Fallstudie",
-      aspect: "1900/1250",
+      alt: "Der AFONO-Shop und der Größenfinder in zwei Browserfenstern, neben dem Titel der Fallstudie",
+      aspect: "1600/900",
     },
     sections: [
       {
@@ -424,6 +425,7 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
+              { aspect: "1600/1053", caption: "[ desktop presentation ]", src: "/images/afono-presentation.webp", alt: "Der fertige Shop auf einem Desktop-Monitor präsentiert" },
               { aspect: "800/1342", caption: "[ social media ]", src: "/images/afono-social-system.webp", alt: "Der Instagram-Feed: Restock-, Lookbook-, Giveaway- und Neuheiten-Posts" },
               { aspect: "476/801", caption: "[ social layout system ]", src: "/images/afono-social-grid.webp", alt: "Das Rot-Blau-Weiß-Raster, das den Feed strukturiert" },
             ],
