@@ -35,7 +35,7 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
   const rows = rowsOf(dictionary.projects, 2);
 
   return (
-    <div data-inview="stagger" className="flex flex-col gap-6 md:gap-6">
+    <div data-inview="stagger" className="flex flex-col gap-10 md:gap-10">
       {rows.map((row, i) => {
         const { ratios, height, width } = rowMetrics(
           row.map((p) => ratioOf(p.imageAspect)),
@@ -50,14 +50,19 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
                 key={project.slug}
                 to={localeHref(locale, `/work/${project.slug}`)}
                 /*
-                  The card carries no visible text — every cover is a designed
-                  title card that already names its project, and repeating the
-                  name underneath said it twice. The link still needs a name for
-                  anyone not looking at it, so it gets one here: without this the
-                  accessible name would fall back to the cover's `alt`, which
+                  The card does not repeat the project's name — every cover is a
+                  designed title card that already carries it. The link still
+                  needs one for anyone not looking at it: without this the
+                  accessible name falls back to the cover's `alt`, which
                   describes the picture rather than where the link goes.
+
+                  The tags are joined the same way here as in the visible line
+                  below, so the visible text is a substring of the accessible
+                  name. WCAG 2.5.3 asks for exactly that, and axe checks it —
+                  joining with ", " here and " · " there would fail
+                  `label-content-name-mismatch`.
                 */
-                aria-label={`${project.name} — ${project.tags.join(", ")}`}
+                aria-label={`${project.name} — ${project.tags.join(" · ")}`}
                 className="group block"
                 style={{ flex: `${ratios[n]} 1 0%` } as CSSProperties}
               >
@@ -72,6 +77,16 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
                     className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.02]"
                   />
                 </div>
+                {/*
+                  The tags, and only the tags. The project's *name* is already
+                  inside every cover — repeating it underneath was the fault the
+                  owner caught, and the bento's fault in miniature. The
+                  disciplines appear nowhere else, so without this line the card
+                  says what the project is called and never what it is.
+                */}
+                <p className="mt-3 font-mono text-[12px] leading-[1.4] text-ink-secondary">
+                  {project.tags.join(" · ")}
+                </p>
               </Link>
             ))}
           </div>
