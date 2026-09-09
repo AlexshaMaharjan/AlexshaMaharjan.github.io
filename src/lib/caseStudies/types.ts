@@ -23,6 +23,12 @@ export interface SectionImage {
    * aspect ratio decides — anything 3:2 or wider carries a row on its own.
    */
   wide?: boolean;
+  /**
+   * A film rather than a still. `src` stays the **poster** — it is what the
+   * page loads, what `srcset` serves and what `aspect` must match — and this is
+   * the file fetched only when someone presses play (`ui/Video`).
+   */
+  video?: string;
 }
 
 /**

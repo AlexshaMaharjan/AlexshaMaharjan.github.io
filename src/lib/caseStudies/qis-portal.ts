@@ -119,7 +119,7 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "16/8", caption: "[ paper prototypes ]" },
+              { aspect: "1600/1197", caption: "[ paper prototypes ]", src: "/images/qis-paper-prototypes.webp", alt: "The lo-fi wireframe flow: login, dashboard, semester overview, exam registration and the grade list, joined by flow arrows" },
             ],
           },
         ],
@@ -353,7 +353,7 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "16/8", caption: "[ paper prototypes ]" },
+              { aspect: "1600/1197", caption: "[ paper prototypes ]", src: "/images/qis-paper-prototypes.webp", alt: "Der Lo-Fi-Wireframe-Ablauf: Login, Dashboard, Semesterübersicht, Prüfungsanmeldung und Notenspiegel, durch Pfeile verbunden" },
             ],
           },
         ],

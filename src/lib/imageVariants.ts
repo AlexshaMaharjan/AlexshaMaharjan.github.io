@@ -304,6 +304,13 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       1280
     ]
   },
+  "/images/kitchen-animation-poster.webp": {
+    "w": 1024,
+    "v": [
+      400,
+      640
+    ]
+  },
   "/images/kitchen-journey-map.webp": {
     "w": 1600,
     "v": [
@@ -403,6 +410,246 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       1280
     ]
   },
+  "/images/pg-abstract.webp": {
+    "w": 1035,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/pg-autumn.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-bead.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-bookcover.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-character.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-double-portrait.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-flyer.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-forest.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-frame-detail.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-frame.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-gift-cube.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-gift-explosion.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-gift-popup.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-group-portrait.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-line-study.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-logo.webp": {
+    "w": 803,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/pg-packaging-crisps.webp": {
+    "w": 794,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/pg-packaging-perfume-flat.webp": {
+    "w": 1185,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-packaging-perfume.webp": {
+    "w": 656,
+    "v": [
+      400
+    ]
+  },
+  "/images/pg-painting-blossom.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-painting-luffy.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-portrait.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-postcard-1.webp": {
+    "w": 1029,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/pg-postcard-2.webp": {
+    "w": 1029,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/pg-postcard-3.webp": {
+    "w": 1029,
+    "v": [
+      400,
+      640
+    ]
+  },
+  "/images/pg-poster-hologram.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-poster-museum.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-scooter.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-sunset.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-vtri-banner.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-vtri-store.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
   "/images/qis-original-exams.webp": {
     "w": 876,
     "v": [
@@ -423,6 +670,15 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       400,
       640,
       960
+    ]
+  },
+  "/images/qis-paper-prototypes.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
     ]
   },
   "/images/qis-structure-14.webp": {
