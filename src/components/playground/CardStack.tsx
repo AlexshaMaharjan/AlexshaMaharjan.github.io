@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, type CSSProperties } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Collage from "@/components/playground/Collage";
 import type { Locale } from "@/lib/i18n";
 import { prefersReducedMotion } from "@/lib/motion";
 import type { CollageCard } from "@/lib/playground/collage";
-import { gridBackground } from "./gridBackground";
+import { accentGridBackground, gridBackground } from "./gridBackground";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +15,17 @@ const PEEK = 16;
 const GAP = 20;
 /** How much narrower each card gets for every card stacked on top of it. */
 const SHRINK = 0.03;
+/**
+ * The empty scroll behind each card, in `svh`, over which its colour comes back.
+ *
+ * It is a real gap in the document between one card and the next, not a pinned
+ * scroll: a card lands on the stack, and the next card's top edge is this much
+ * further down, so for the whole of it the deck is motionless and the only
+ * thing happening on screen is the reveal. 75svh is about 40-55px of wheel per
+ * picture across the four cards, which is roughly half a notch each — enough
+ * that they arrive one at a time rather than in a burst.
+ */
+const RUNWAY = 75;
 
 function headerHeight(): number {
   const value = getComputedStyle(document.documentElement).getPropertyValue("--header-h");
@@ -40,6 +51,22 @@ function headerHeight(): number {
  *   Without it the parent ends at the last card and the whole stack starts
  *   scrolling away the instant it is complete.
  *
+ * **The reveal is what the runways are for** (SESSION-037). Every card is
+ * followed by `RUNWAY` of empty scroll, so once a card has landed on the stack
+ * there is a stretch during which nothing in the deck moves at all — the next
+ * card's top edge is still below the fold, and this one is stuck under the
+ * header. `--pg-reveal` is scrubbed from 0 to 1 across exactly that stretch and
+ * `index.css` does the rest: the pictures come back to colour one at a time,
+ * and then the notes and the ruling turn accent. The runway lands the next
+ * card's top edge at the bottom of the viewport at precisely the moment the
+ * reveal completes, so the deck starts moving again on the frame the card
+ * finishes.
+ *
+ * A runway is a sibling of the cards, not a wrapper around one, for the same
+ * reason the cards share a parent: it lengthens the container the sticky cards
+ * are confined to, which is what keeps every card pinned for longer, and it
+ * leaves the stepped heights doing their job untouched.
+ *
  * What GSAP adds is only depth: as a card is covered it narrows slightly from
  * its top edge, so the visible slivers step inwards and the deck reads as
  * receding. That part is decoration, and under `prefers-reduced-motion` it
@@ -63,12 +90,51 @@ export default function CardStack({
 
   useEffect(() => {
     const root = rootRef.current;
-    if (!root || prefersReducedMotion()) return;
+    if (!root) return;
 
     const slots = gsap.utils.toArray<HTMLElement>("[data-stack-slot]", root);
     const panels = gsap.utils.toArray<HTMLElement>("[data-stack-card]", root);
-    if (panels.length < 2) return;
+    const runways = gsap.utils.toArray<HTMLElement>("[data-stack-runway]", root);
 
+    /*
+     * Under reduced motion nothing is scrubbed, so the cards would sit in
+     * black and white for ever. They arrive finished instead — the reveal is a
+     * flourish, and the pictures are the content.
+     */
+    if (prefersReducedMotion()) {
+      panels.forEach((panel) => panel.style.setProperty("--pg-reveal", "1"));
+      return;
+    }
+
+    /*
+     * One scrubbed value per card, written straight onto the card as a custom
+     * property. A tween over a plain object rather than over the element's own
+     * `--pg-reveal`, because GSAP's unit inference on custom properties is a
+     * thing to trust or to sidestep, and this sidesteps it; and one value per
+     * card rather than one tween per picture, because forty-eight scrubbed
+     * filters is work the browser can do from a single number.
+     */
+    const reveals = panels.map((panel, i) => {
+      const state = { at: 0 };
+      const write = () => panel.style.setProperty("--pg-reveal", state.at.toFixed(4));
+      return gsap.to(state, {
+        at: 1,
+        ease: "none",
+        onUpdate: write,
+        scrollTrigger: {
+          trigger: slots[i],
+          // From the moment this card lands under the header to the end of its
+          // own runway, measured off the runway itself so the two cannot drift
+          // — `svh` and `innerHeight` are not the same number on a phone.
+          start: () => `top ${headerHeight() + GAP + i * PEEK}px`,
+          end: () => `+=${runways[i]?.offsetHeight ?? window.innerHeight}`,
+          scrub: true,
+        },
+      });
+    });
+
+    // Only the stacking needs two cards to have anything to say; the reveal
+    // above is per-card and runs on however many there are.
     const tweens = panels.slice(0, -1).map((panel, i) =>
       gsap.fromTo(
         panel,
@@ -104,7 +170,7 @@ export default function CardStack({
     return () => {
       done = true;
       window.removeEventListener("load", refresh);
-      tweens.forEach((tween) => {
+      [...tweens, ...reveals].forEach((tween) => {
         tween.scrollTrigger?.kill();
         tween.kill();
       });
@@ -146,48 +212,77 @@ export default function CardStack({
       </div>
 
       {cards.map((card, i) => (
-        <div
-          key={card.index}
-          data-stack-slot
-          className="sticky"
-          style={{
-            top: `calc(var(--header-h) + ${GAP + i * PEEK}px)`,
-            // Each card is exactly as much shorter as its `top` is lower, so
-            // every card in the deck ends on the same bottom edge — the deck
-            // fans downwards from the top rather than off the bottom of the
-            // screen.
-            //
-            // That is also what keeps the fan from collapsing at the end. A
-            // sticky element cannot be pushed past `parent.bottom -
-            // element.height`, and with one shared parent that limit is one
-            // document position for all of them: equal heights meant equal
-            // clamped tops, so the four cards slid into a single flush pile as
-            // the deck scrolled out. Stepping the heights makes each card's
-            // limit differ by exactly its own offset, and the fan survives.
-            height: `calc(100svh - var(--header-h) - ${GAP * 2 + i * PEEK}px)`,
-            zIndex: i + 1,
-          }}
-        >
-          <article
-            data-stack-card
-            aria-label={card.label[locale]}
-            /*
-             * `container-type: size` is what `Collage`'s stage is measured
-             * against — without it the collage has nothing to be contained by
-             * and collapses.
-             */
-            className="relative h-full w-full overflow-hidden rounded-[28px] border border-card-border bg-page shadow-[0_-6px_44px_rgba(20,30,60,0.10)] [container-type:size]"
-            style={gridBackground}
+        <Fragment key={card.index}>
+          <div
+            data-stack-slot
+            className="sticky"
+            style={{
+              top: `calc(var(--header-h) + ${GAP + i * PEEK}px)`,
+              // Each card is exactly as much shorter as its `top` is lower, so
+              // every card in the deck ends on the same bottom edge — the deck
+              // fans downwards from the top rather than off the bottom of the
+              // screen.
+              //
+              // That is also what keeps the fan from collapsing at the end. A
+              // sticky element cannot be pushed past `parent.bottom -
+              // element.height`, and with one shared parent that limit is one
+              // document position for all of them: equal heights meant equal
+              // clamped tops, so the four cards slid into a single flush pile as
+              // the deck scrolled out. Stepping the heights makes each card's
+              // limit differ by exactly its own offset, and the fan survives.
+              height: `calc(100svh - var(--header-h) - ${GAP * 2 + i * PEEK}px)`,
+              zIndex: i + 1,
+            }}
           >
-            <Collage slots={card.slots} scribbles={card.scribbles} locale={locale} paused={paused} />
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute left-0 top-0 z-10 block p-7 font-mono text-[12px] text-accent md:p-9"
+            <article
+              data-stack-card
+              aria-label={card.label[locale]}
+              /*
+               * `container-type: size` is what `Collage`'s stage is measured
+               * against — without it the collage has nothing to be contained by
+               * and collapses.
+               */
+              className="pg-card relative h-full w-full overflow-hidden rounded-[28px] border border-card-border shadow-[0_-6px_44px_rgba(20,30,60,0.10)] [container-type:size]"
+              /*
+               * `--pg-steps` is what turns one scrubbed number into a queue: the
+               * card's own slot count plus one, so every picture gets an equal
+               * share of the sweep and the last one is lit before the sweep ends
+               * rather than exactly on it.
+               *
+               * `--pg-accent` is the colour this card leaves the blue for, and
+               * it is inherited rather than passed: the notes, the index and the
+               * ruling all read it without being told which card they are on.
+               */
+              style={
+                { ...gridBackground, "--pg-steps": card.slots.length + 1, "--pg-accent": card.accent } as CSSProperties
+              }
             >
-              {card.index}
-            </span>
-          </article>
-        </div>
+              {/*
+                The ruling in this card's own colour, over the card's blue. First in
+              the card
+                so it paints under the pictures, and faded in by `--pg-full` once
+                they all have their colour back.
+              */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0"
+                style={{ ...accentGridBackground(card.accent), opacity: "var(--pg-full)" }}
+              />
+              <Collage slots={card.slots} scribbles={card.scribbles} locale={locale} paused={paused} />
+              <span
+                aria-hidden="true"
+                className="pg-tint pointer-events-none absolute left-0 top-0 z-10 block p-7 font-mono text-[12px] md:p-9"
+              >
+                {card.index}
+              </span>
+            </article>
+          </div>
+          {/*
+            The card's reveal runway: empty scroll between this card and the
+            next, during which the deck is still and the colour comes back.
+          */}
+          <div aria-hidden="true" data-stack-runway style={{ height: `${RUNWAY}svh` }} />
+        </Fragment>
       ))}
       {/* Holds the finished deck still for a beat before it scrolls away. */}
       <div aria-hidden="true" className="h-[40svh]" />

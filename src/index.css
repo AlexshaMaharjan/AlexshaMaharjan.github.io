@@ -243,6 +243,151 @@
     }
   }
 
+  /*
+   * The colour reveal (SESSION-037).
+   *
+   * A card arrives in black and white on a blue-grey desk, and the scroll is
+   * what puts the colour back: once a card has landed on the stack there is a
+   * runway of empty scroll behind it (`CardStack.tsx`) during which nothing in
+   * the deck moves, and `--pg-reveal` is driven from 0 to 1 across it.
+   *
+   * Everything downstream of that is arithmetic in CSS rather than a tween per
+   * picture, which is why forty-eight slots cost one scrubbed value each card
+   * and no React render at all:
+   *
+   * - `--pg-sweep` is the first 82% of the runway, over which the pictures
+   *   light up one after another;
+   * - `--pg-full` is the last 18%, over which the notes and the ruling turn
+   *   from muted blue to the page's accent.
+   *
+   * A card sets `--pg-steps` (its own slot count plus one) and every slot sets
+   * `--pg-order` — its place in an order shuffled per card, so the pictures
+   * come back in a different sequence on every visit. `--pg-lit` is then that
+   * slot's own share of the sweep, taken at 2.5x so a picture arrives with a
+   * snap rather than dissolving for the whole of its window.
+   *
+   * The fallbacks matter: a missing `--pg-order` or `--pg-steps` would make the
+   * whole `filter` invalid at computed-value time and leave the picture in
+   * whatever state it was last painted in.
+   */
+  /*
+   * The playground's two grounds: blue-toned paper, and grey panels lifted off
+   * it, which is what makes the deck read as objects on a desk rather than as
+   * more page.
+   *
+   * They live here rather than in `tailwind.config.ts` with the rest of the
+   * palette, and that is a decision rather than an oversight. Everything else
+   * about this page's colour is already in this file — the reveal, the tint,
+   * the ruling — and a `bg-*` utility for either of them depends on the Tailwind
+   * config, which a dev server that is already running does not always reload:
+   * the first cut of this shipped both grounds as tokens and both came out
+   * transparent until the server was restarted.
+   *
+   * The cards are white paper and the page is blue, ruled for the cards and
+   * dotted for the page (`gridBackground.ts`) — a notebook under a stack of
+   * proofs.
+   *
+   * `#F0F4FC` is as blue as the page can go and still carry the hero's
+   * `ink-muted` eyebrow at 4.58:1. A deeper tint drops that 12px line under the
+   * 4.5:1 floor, so the blue is sold by the grid lines drawn on top of it
+   * (`gridBackground.ts`), not by the paper. Check the eyebrow before changing
+   * it.
+   */
+  .pg-page {
+    background-color: #f0f4fc;
+  }
+
+  .pg-card {
+    background-color: #ffffff;
+    --pg-reveal: 0;
+    --pg-sweep: clamp(0, calc(var(--pg-reveal) / 0.82), 1);
+    --pg-full: clamp(0, calc((var(--pg-reveal) - 0.82) / 0.18), 1);
+  }
+
+  /* The masonry's last row runs past the bottom edge; this turns the overflow
+     into an ending rather than a cut. It matches `.pg-card`. */
+  .pg-fade {
+    background-image: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0));
+  }
+
+  .pg-piece {
+    --pg-lit: clamp(0, calc((var(--pg-sweep, 1) * var(--pg-steps, 1) - var(--pg-order, 0)) * 2.5), 1);
+    /* A little extra contrast while it is grey: a desaturated photograph goes
+       flat, and the lift is what keeps the black-and-white state looking
+       chosen. It comes back out as the colour arrives. */
+    filter: grayscale(calc(1 - var(--pg-lit))) contrast(calc(1 + 0.09 * (1 - var(--pg-lit))));
+    /* `filter` is transitioned too, and shorter than the rest: hovering a
+       picture that has not had its turn yet brings its colour back, and that
+       needs to arrive rather than snap. Kept well under the scrub's own frame
+       budget so it softens the scroll reveal instead of trailing behind it. */
+    transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out),
+      filter 180ms var(--ease-out);
+  }
+
+  /*
+   * Hover holds a picture up to the light: it grows in place, and its slot is
+   * lifted over its neighbours so the growth is not painted underneath them.
+   * The z-index is on the slot rather than on the button because the one
+   * rotated slot in the deck carries a transform, and a transform makes a
+   * stacking context its children cannot escape.
+   */
+  @media (hover: hover) {
+    .pg-piece:hover {
+      transform: scale(1.16);
+      box-shadow: 0 18px 44px rgba(16, 26, 54, 0.28);
+      /* Out of turn, but in colour. Holding a picture up to the light and
+         being shown the black-and-white one is the wrong answer to the
+         gesture; the scroll still owns the order, and this is a look ahead
+         that costs the reveal nothing once the pointer leaves. */
+      --pg-lit: 1;
+    }
+
+    .pg-slot:hover {
+      z-index: 30;
+    }
+  }
+
+  /*
+   * The notes, the card's index, and anything else that answers to the reveal:
+   * blue until the card's pictures are all back, and then the card's own colour
+   * — orange, green, black, purple, one per card (`collage.ts`).
+   *
+   * `--pg-accent` is inherited from the card, so a note does not have to know
+   * which card it is on. `color-mix` is guarded because the un-mixed base is a
+   * perfectly good fallback: the note is simply always blue where it is
+   * unsupported.
+   */
+  .pg-tint {
+    color: var(--pg-tint-base, #3a54c4);
+  }
+
+  @supports (color: color-mix(in oklab, red, blue)) {
+    .pg-tint {
+      color: color-mix(in oklab, var(--pg-accent, #1b3fe0) calc(var(--pg-full, 0) * 100%), var(--pg-tint-base, #3a54c4));
+    }
+  }
+
+  /*
+   * The name of the picture under the pointer. Portalled to `body` and fixed,
+   * because every ancestor inside the deck is either transformed (which would
+   * make `fixed` behave like `absolute`) or clipped by the card's own
+   * `overflow: hidden`.
+   */
+  .pg-cursor-tag {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 180;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  @media (hover: none) {
+    .pg-cursor-tag {
+      display: none;
+    }
+  }
+
   .container-page {
     @apply mx-auto max-w-[1440px] px-5 md:px-20;
   }
