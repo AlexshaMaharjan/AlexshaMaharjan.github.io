@@ -29,7 +29,16 @@ export default function PlaygroundCard({
       <Media
         src={item.src}
         alt={item.alt}
-        aspect={item.aspect}
+        /*
+          The same 3/4 box as the index (`DECISION-025`). Passing each item's
+          own aspect here was not a crop — the images were whole — but it made
+          the grid ragged: a landscape book cover next to a tall poster left
+          rows that did not line up and a column of white voids underneath.
+          One box, contained, matted in the image's own colour, and the grid
+          reads as a grid again.
+        */
+        aspect="3/4"
+        fit="contain"
         /*
           `container-page` is 1440px capped with 80px of padding either side at
           md, so 1280px of content; three columns with `gap-6` and the card's
