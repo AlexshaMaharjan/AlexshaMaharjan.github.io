@@ -13,8 +13,6 @@ const gamesAndApps: PlaygroundCategoryLocaleContent = {
       { caption: "Code-based experiments", aspect: "16/10", rotated: true },
     ],
     moreComingNote: "More to come — this space grows with every experiment.",
-    nextCategorySlug: "photography-3d-motion",
-    nextCategoryTitle: "Photography, Animation and 3D",
   },
   de: {
     slug: "games-and-apps",
@@ -28,8 +26,6 @@ const gamesAndApps: PlaygroundCategoryLocaleContent = {
       { caption: "Code-basierte Experimente", aspect: "16/10", rotated: true },
     ],
     moreComingNote: "Weitere Arbeiten folgen — dieser Bereich wächst mit jedem Experiment.",
-    nextCategorySlug: "photography-3d-motion",
-    nextCategoryTitle: "Fotografie, Animation und 3D",
   },
 };
 

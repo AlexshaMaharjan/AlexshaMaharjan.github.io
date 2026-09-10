@@ -10,8 +10,6 @@ const Resume = lazy(() => import("@/pages/Resume"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const CaseStudy = lazy(() => import("@/pages/CaseStudy"));
 const PlaygroundIndex = lazy(() => import("@/pages/playground/PlaygroundIndex"));
-const PlaygroundCategory = lazy(() => import("@/pages/playground/PlaygroundCategory"));
-const PlaygroundProject = lazy(() => import("@/pages/playground/PlaygroundProject"));
 
 /** Registers `path` at both the default (unprefixed) and `/de`-prefixed locale. */
 function dual(path: string, element: ReactElement): RouteObject[] {
@@ -27,8 +25,6 @@ function dual(path: string, element: ReactElement): RouteObject[] {
 function dualPlayground(): RouteObject[] {
   const children: RouteObject[] = [
     { index: true, element: <PlaygroundIndex /> },
-    { path: ":category", element: <PlaygroundCategory /> },
-    { path: ":category/:slug", element: <PlaygroundProject /> },
   ];
   return [
     { path: "/playground", element: <PlaygroundLayout />, children },

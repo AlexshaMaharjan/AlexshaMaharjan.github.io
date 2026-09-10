@@ -30,8 +30,6 @@ const graphicDesign: PlaygroundCategoryLocaleContent = {
       { caption: "VTRI storefront", aspect: "1200/1515", src: "/images/pg-vtri-store.webp", alt: "The VTRI banner installed above the shop window" },
     ],
     moreComingNote: "More to come — this space grows with every experiment.",
-    nextCategorySlug: "digital-art",
-    nextCategoryTitle: "Digital Drawings and Portraits",
   },
   de: {
     slug: "graphic-design",
@@ -55,8 +53,6 @@ const graphicDesign: PlaygroundCategoryLocaleContent = {
       { caption: "VTRI-Ladenfront", aspect: "1200/1515", src: "/images/pg-vtri-store.webp", alt: "Das VTRI-Banner über dem Schaufenster montiert" },
     ],
     moreComingNote: "Weitere Arbeiten folgen — dieser Bereich wächst mit jedem Experiment.",
-    nextCategorySlug: "digital-art",
-    nextCategoryTitle: "Digitale Zeichnungen und Porträts",
   },
 };
 

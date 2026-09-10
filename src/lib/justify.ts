@@ -57,3 +57,34 @@ export function sizesFor(px: number, gutter = 160): string {
     `calc(100vw - 40px)`,
   ].join(", ");
 }
+
+/**
+ * Row sizes for a scrapbook run (`DECISION-026`).
+ *
+ * `rowsOf` puts the same number of figures in every row, which is right for a
+ * case study, where a figure group is an argument and evenness is the point.
+ * A gallery wants the opposite: rows of two make a pair of large tiles, rows of
+ * four make a strip of small ones, and alternating between them is what makes a
+ * wall of pictures read as a wall rather than a spreadsheet.
+ *
+ * The pattern is fixed rather than random so that two renders of the same page
+ * agree — a prerendered head and a hydrated body have to match, and a layout
+ * that reshuffles on every visit is not a layout.
+ */
+export function bentoRows<T>(items: T[], pattern: number[] = [3, 2, 4, 3]): T[][] {
+  const rows: T[][] = [];
+  let i = 0;
+  let p = 0;
+  while (i < items.length) {
+    let n = pattern[p % pattern.length]!;
+    const left = items.length - i;
+    // Never strand a single tile alone on the last row: at row height it would
+    // render as one enormous picture with the page's whole width to itself.
+    if (left - n === 1) n += 1;
+    if (left < n) n = left;
+    rows.push(items.slice(i, i + n));
+    i += n;
+    p++;
+  }
+  return rows;
+}

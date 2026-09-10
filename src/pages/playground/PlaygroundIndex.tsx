@@ -4,38 +4,44 @@ import { useLocale } from "@/lib/useLocale";
 import { useScrollReveals } from "@/lib/useScrollReveals";
 import { localeHref } from "@/lib/i18n";
 import home from "@/lib/playground/home";
-import { getCategory } from "@/lib/playground/categories";
-import { getProject } from "@/lib/playground/projects";
-import CategoryMarquee from "@/components/playground/CategoryMarquee";
+import { getAllCategories } from "@/lib/playground/categories";
+import Scrapbook from "@/components/playground/Scrapbook";
 import Media from "@/components/ui/Media";
 import Seo from "@/components/Seo";
+import { tintOf } from "@/lib/tint";
 
+/**
+ * The playground — one page, everything on it (`DECISION-026`).
+ *
+ * It used to be an index that sent you somewhere: five auto-scrolling marquees,
+ * each a teaser for a category page, plus a project page under that. Three
+ * levels, twelve routes, and the pictures were smallest on the page that was
+ * supposed to show them off.
+ *
+ * The owner asked for the opposite — "i dont want the user to click and land on
+ * other pages but everything needs to be here" — so the categories are sections
+ * of this page and the tiles are the real thing at full size. Clicking a picture
+ * opens it larger in place; nothing navigates.
+ */
 export default function PlaygroundIndex() {
   const locale = useLocale();
-  // The five rows scroll indefinitely, so WCAG 2.2.2 needs a way to stop them
-  // that does not depend on hovering. Under prefers-reduced-motion the CSS has
-  // already stopped them and this control is beside the point — it is harmless
-  // there, and the rows stay still either way.
-  const [paused, setPaused] = useState(false);
   const content = home[locale];
+  const categories = getAllCategories(locale);
   useScrollReveals();
 
   /*
-    A featured card that names a project links into that project's own
-    category. This used to be the literal string `/playground/3d-motion/`,
-    which meant renaming a category slug broke the link with no type error and
-    no failing check — the route simply 404ed (SESSION-033). Asking the project
-    where it lives cannot go stale.
-  */
-  const projectHref = (slug: string) => {
-    const project = getProject(slug, locale);
-    return localeHref(locale, project ? `/playground/${project.categorySlug}/${slug}` : "/playground");
-  };
+   * One control for every moving thing on the page (WCAG 2.2.2). The clips
+   * autoplay, so there has to be a way to stop them that does not depend on
+   * hovering — and under `prefers-reduced-motion` none of them start at all,
+   * which makes this control redundant rather than wrong.
+   */
+  const [paused, setPaused] = useState(false);
 
   return (
     <>
       <Seo title={`${content.heading} — Alexsha Maharjan`} description={content.intro} />
-      <section className="pb-24 pt-[var(--page-top)]">
+
+      <section className="pb-16 pt-[var(--page-top)]">
         <div className="container-page">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
             <div className="md:col-span-7">
@@ -50,9 +56,7 @@ export default function PlaygroundIndex() {
             </div>
 
             <div className="relative mt-10 hidden h-[440px] md:col-span-5 md:col-start-8 md:mt-0 md:block">
-              <div
-                className="absolute right-[36%] top-4 w-[56%] max-w-[300px] rounded-md border border-card-border bg-white p-3 shadow-[0_2px_10px_rgba(20,30,60,0.06)] [transform:rotate(-2.5deg)]"
-              >
+              <div className="absolute right-[36%] top-4 w-[56%] max-w-[300px] rounded-md border border-card-border bg-white p-3 shadow-[0_2px_10px_rgba(20,30,60,0.06)] [transform:rotate(-2.5deg)]">
                 <Media
                   src={content.heroCards[0]?.src}
                   alt={content.heroCards[0]?.alt}
@@ -85,103 +89,77 @@ export default function PlaygroundIndex() {
         </div>
       </section>
 
-      <section className="pb-[110px]">
+      {/*
+        The contents. These are in-page jumps, not links to anywhere — the whole
+        point of the rewrite — but a gallery this long still needs a way to get
+        to the crafts without scrolling past everything else.
+      */}
+      <section className="pb-14">
         <div data-inview className="container-page">
-          <h2 className="mb-10 text-subheading font-semibold tracking-[-0.02em]">
-            {content.featuredHeading}
-          </h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {content.featured.map((item, i) => (
-              <article
-                key={i}
-                className="rounded-md border border-card-border bg-white p-3.5 shadow-[0_1px_4px_rgba(20,30,60,0.05)]"
-                style={item.rotated ? { transform: "rotate(-1deg)", position: "relative" } : undefined}
-              >
-                {item.rotated && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute -top-2.5 right-10 h-5 w-[68px] rotate-[3deg] rounded-sm bg-[rgba(120,134,168,0.16)]"
-                  />
-                )}
-                <Media
-                  src={item.src}
-                  alt={item.alt}
-                  /*
-                    The same 3/4 box as the marquee, contained rather than
-                    cropped. This card used to declare `16/10`, which took 71%
-                    of the height off the beaded planter — the tallest image on
-                    the site — and showed a band of leaves (DECISION-025).
-                  */
-                  aspect="3/4"
-                  fit="contain"
-                  /* Three across container-page's 1280px of content, less gap-6 and the card's p-3.5. */
-                  sizes="(min-width: 1440px) 384px, (min-width: 640px) calc(33.33vw - 70px), calc(100vw - 68px)"
-                  caption={`[ ${item.caption.toLowerCase()} ]`}
-                  className="rounded-[3px]"
-                />
-                <h3 className="mt-4 px-0.5 text-[19px] font-semibold tracking-[-0.01em] text-ink">
-                  {item.slug ? (
-                    <Link
-                      to={projectHref(item.slug)}
-                      className="border-b border-border-muted hover:text-accent"
-                    >
-                      {item.caption}
-                    </Link>
-                  ) : (
-                    item.caption
-                  )}
-                </h3>
-                {item.subtitle && (
-                  <p className="mt-1.5 px-0.5 font-mono text-[12px] text-ink-muted">{item.subtitle}</p>
-                )}
-                {item.description && (
-                  <p className="mt-3 px-0.5 text-[15px] leading-[1.55] text-ink-secondary">{item.description}</p>
-                )}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="pb-[72px]">
-        <div data-inview className="container-page">
-          <h2 className="mb-3 text-subheading font-semibold tracking-[-0.02em]">
-            {content.categoriesHeading}
-          </h2>
           <p className="font-mono text-[12px] text-ink-muted">{content.categoriesCaption}</p>
-          <button
-            type="button"
-            onClick={() => setPaused((p) => !p)}
-            aria-pressed={paused}
-            className="tap-target mt-5 gap-2 rounded-full border border-border px-4 text-[13px] text-ink-secondary transition-colors hover:border-accent hover:text-accent"
-          >
-            <span aria-hidden="true" className="text-[10px] leading-none">
-              {paused ? "▶" : "❚❚"}
-            </span>
-            {paused ? content.playMotion : content.pauseMotion}
-          </button>
+          <nav aria-label={content.categoriesHeading} className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {categories.map((category, i) => (
+              <a
+                key={category.slug}
+                href={`#${category.slug}`}
+                className="text-[15px] text-ink-secondary transition-colors hover:text-accent"
+              >
+                <span aria-hidden="true" className="font-mono text-[11px] text-accent">
+                  {String(i + 1).padStart(2, "0")}
+                </span>{" "}
+                {category.title}
+              </a>
+            ))}
+            <button
+              type="button"
+              onClick={() => setPaused((p) => !p)}
+              aria-pressed={paused}
+              className="tap-target ml-auto gap-2 rounded-full border border-border px-4 text-[13px] text-ink-secondary transition-colors hover:border-accent hover:text-accent"
+            >
+              <span aria-hidden="true" className="text-[10px] leading-none">
+                {paused ? "▶" : "❚❚"}
+              </span>
+              {paused ? content.playMotion : content.pauseMotion}
+            </button>
+          </nav>
         </div>
       </section>
 
-      <div>
-        {content.categories.map((cat, i) => {
-          const category = getCategory(cat.slug, locale);
-          if (!category) return null;
-          return (
-            <CategoryMarquee
-              key={cat.slug}
-              index={i}
-              number={String(i + 1).padStart(2, "0")}
-              title={cat.title}
-              caption={cat.caption}
-              slug={cat.slug}
-              items={category.items}
-              locale={locale}
-              paused={paused}
-            />
-          );
-        })}
-      </div>
+      {categories.map((category, i) => {
+        /*
+          Each section stands on a wash of its own contents' colour
+          (`@/lib/tint`) — a gradient rather than a band, so the sections do not
+          read as stripes. It never touches a tile and never sits under text.
+        */
+        const tint = tintOf(category.items.map((item) => item.src));
+        return (
+          <section
+            key={category.slug}
+            id={category.slug}
+            className="scroll-mt-28 py-16"
+            style={
+              tint === "transparent"
+                ? undefined
+                : { background: `linear-gradient(180deg, transparent 0%, ${tint} 14%, ${tint} 86%, transparent 100%)` }
+            }
+          >
+            <div data-inview className="container-page">
+              <span aria-hidden="true" className="mb-2 block font-mono text-[12px] text-accent">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h2 className="text-subheading font-semibold tracking-[-0.02em] text-ink">{category.title}</h2>
+              <p className="mt-3 max-w-[560px] text-[15px] leading-[1.6] text-ink-secondary">{category.intro}</p>
+            </div>
+            <div className="container-page mt-10">
+              <Scrapbook items={category.items} paused={paused} pendingLabel={content.pendingLabel} />
+              {/* The owner's own "more to come" line, in their hand. */}
+              <p className="mt-7 font-hand text-[20px] leading-[1.3] text-[#4E6087] [transform:rotate(-1deg)]">
+                {category.moreComingNote}
+              </p>
+            </div>
+          </section>
+        );
+      })}
 
       <section className="pt-8 pb-[110px]">
         <div className="container-page">
@@ -194,21 +172,11 @@ export default function PlaygroundIndex() {
       <section className="pb-[130px]">
         <div className="container-page">
           <p className="max-w-[560px] text-[18px] leading-[1.65] text-ink">{content.noteBody}</p>
-        </div>
-      </section>
-
-      <section className="pb-[130px]">
-        <div className="container-page">
           <Link
             to={localeHref(locale, "/")}
-            className="flex items-center justify-between gap-6 border-y border-[rgba(78,96,135,0.2)] py-9 transition-colors hover:text-accent"
+            className="mt-8 inline-block text-[16px] font-medium text-ink transition-colors hover:text-accent"
           >
-            <span className="text-subheading font-semibold tracking-[-0.02em] text-ink">
-              {content.returnCta}
-            </span>
-            <span aria-hidden="true" className="text-[28px] text-accent">
-              →
-            </span>
+            {content.returnCta} <span aria-hidden="true" className="text-accent">→</span>
           </Link>
         </div>
       </section>

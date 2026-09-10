@@ -17,8 +17,6 @@ const digitalArt: PlaygroundCategoryLocaleContent = {
       { caption: "Sunset above the clouds", aspect: "1200/1697", src: "/images/pg-sunset.webp", alt: "The sun setting over a bank of cloud" },
     ],
     moreComingNote: "More to come — this space grows with every experiment.",
-    nextCategorySlug: "crafts",
-    nextCategoryTitle: "Handmade and Bead Crafts",
   },
   de: {
     slug: "digital-art",
@@ -36,8 +34,6 @@ const digitalArt: PlaygroundCategoryLocaleContent = {
       { caption: "Sonnenuntergang über den Wolken", aspect: "1200/1697", src: "/images/pg-sunset.webp", alt: "Die Sonne geht über einer Wolkendecke unter" },
     ],
     moreComingNote: "Weitere Arbeiten folgen — dieser Bereich wächst mit jedem Experiment.",
-    nextCategorySlug: "crafts",
-    nextCategoryTitle: "Handarbeit und Perlenkunst",
   },
 };
 
