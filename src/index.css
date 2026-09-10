@@ -180,6 +180,54 @@
     @apply inline-flex min-h-[24px] items-center;
   }
 
+  /*
+   * The playground's collage cards carry two layouts, and the card's own shape
+   * decides between them — not the viewport's, which is why this is a container
+   * query and not a breakpoint. The Figma frames are 16:10, and a card is a
+   * whole viewport tall, so a portrait window (or a tablet held upright) leaves
+   * a landscape collage floating in the middle of a very tall card: measured at
+   * 820x1180, the design came out 643x402 inside a 645x1067 card. Below 5/4 the
+   * masonry takes over instead, showing the same pieces at a size worth having.
+   *
+   * The card sets `container-type: size` (`CardStack.tsx`), which is also what
+   * `Collage.tsx`'s `min(100cqw, 160cqh)` stage is measured against. Where
+   * container queries are not supported both fall back together: the collage
+   * stays, at the card's full width.
+   */
+  .collage-design {
+    display: grid;
+  }
+
+  .collage-masonry {
+    display: none;
+  }
+
+  @container (max-aspect-ratio: 5 / 4) {
+    .collage-design {
+      display: none;
+    }
+
+    .collage-masonry {
+      display: block;
+    }
+  }
+
+  /*
+   * The masonry's columns are set here rather than with `columns-3 sm:columns-4`
+   * because those are viewport breakpoints and this has to follow the card:
+   * a portrait tablet's card is twice a phone's width, and a Tailwind utility
+   * would also outrank the container query, utilities being the later layer.
+   */
+  .collage-columns {
+    columns: 3;
+  }
+
+  @container (min-width: 560px) {
+    .collage-columns {
+      columns: 4;
+    }
+  }
+
   .container-page {
     @apply mx-auto max-w-[1440px] px-5 md:px-20;
   }

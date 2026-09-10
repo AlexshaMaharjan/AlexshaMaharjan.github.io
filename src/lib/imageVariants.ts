@@ -511,6 +511,20 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#5d6c86"
   },
+  "/images/pg-clip-hibi.webp": {
+    "w": 640,
+    "v": [
+      400
+    ],
+    "bg": "#fbeaed"
+  },
+  "/images/pg-clip-motorbike.webp": {
+    "w": 640,
+    "v": [
+      400
+    ],
+    "bg": "#34221b"
+  },
   "/images/pg-clip-popup.webp": {
     "w": 720,
     "v": [
@@ -524,6 +538,15 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       400
     ],
     "bg": "#aaabad"
+  },
+  "/images/pg-desmark-logo.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#ffffff"
   },
   "/images/pg-double-portrait.webp": {
     "w": 1200,
@@ -606,6 +629,87 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#ffffff"
   },
+  "/images/pg-kalender-cover.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fbfbfb"
+  },
+  "/images/pg-kalender-dezember.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fdfbfa"
+  },
+  "/images/pg-kalender-februar.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fbfbfc"
+  },
+  "/images/pg-kalender-juli.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fafbfc"
+  },
+  "/images/pg-kalender-juni.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fdfbfc"
+  },
+  "/images/pg-kalender-maerz.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fefefb"
+  },
+  "/images/pg-kalender-mai.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fcfdfd"
+  },
+  "/images/pg-kalender-oktober.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fdfbf6"
+  },
+  "/images/pg-kalender-september.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#fdfbfc"
+  },
   "/images/pg-line-study.webp": {
     "w": 1200,
     "v": [
@@ -622,6 +726,15 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640
     ],
     "bg": "#f4f4f4"
+  },
+  "/images/pg-mindruhe.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#ffffff"
   },
   "/images/pg-packaging-crisps.webp": {
     "w": 794,
@@ -655,6 +768,15 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       960
     ],
     "bg": "#8b969d"
+  },
+  "/images/pg-painting-framed.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#ceb5a7"
   },
   "/images/pg-painting-luffy.webp": {
     "w": 1200,
@@ -751,6 +873,14 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       960
     ],
     "bg": "#663d41"
+  },
+  "/images/pg-typography-posters.webp": {
+    "w": 900,
+    "v": [
+      400,
+      640
+    ],
+    "bg": "#f7f7f7"
   },
   "/images/pg-vtri-banner.webp": {
     "w": 1200,
