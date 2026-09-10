@@ -26,7 +26,6 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
   const trackRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
-  const labelRef = useRef<HTMLSpanElement>(null);
   const cueRef = useRef<HTMLSpanElement>(null);
   const qRef = useRef<HTMLHeadingElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
@@ -97,11 +96,10 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
     const track = trackRef.current;
     const hero = heroRef.current;
     const canvas = canvasRef.current;
-    const label = labelRef.current;
     const cue = cueRef.current;
     const q = qRef.current;
     const map = mapRef.current;
-    if (!track || !hero || !canvas || !label || !cue || !q || !map) return;
+    if (!track || !hero || !canvas || !cue || !q || !map) return;
 
     let rafId = 0;
 
@@ -131,7 +129,6 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
 
       hero.style.opacity = String(1 - smoothstep(p, 0.12, 0.45));
       hero.style.transform = "translateY(" + -140 * smoothstep(p, 0, 0.55) + "px)";
-      label.style.opacity = "1";
       cue.style.opacity = String(1 - smoothstep(p, 0.04, 0.18));
 
       const s = Math.max(0.5, Math.min(W / 1440, H / 900));
@@ -262,9 +259,6 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
 
         <section className="relative w-full overflow-hidden bg-canvas-black py-[72px]">
           <p className="sr-only">{dictionary.process.srSummary}</p>
-          <span className="mb-6 block text-center font-mono text-[12px] text-ink-on-dark-muted">
-            {dictionary.process.label}
-          </span>
           <h2 className="mx-auto max-w-[88vw] px-4 text-center text-[26px] font-semibold leading-[1.12] tracking-[-0.02em] text-white">
             {dictionary.process.question}
           </h2>
@@ -350,12 +344,6 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
           style={{ top: "70svh", width: "min(92vw,1320px)", height: "78svh", borderRadius: 44 }}
         >
           <p className="sr-only">{dictionary.process.srSummary}</p>
-          <span
-            ref={labelRef}
-            className="absolute left-8 top-6 font-mono text-[12px] text-ink-on-dark-muted"
-          >
-            {dictionary.process.label}
-          </span>
           <h2
             ref={qRef}
             className="absolute left-1/2 top-[14svh] m-0 w-[min(90vw,1000px)] -translate-x-1/2 -translate-y-1/2 text-center text-[clamp(1.625rem,3vw,2.625rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-white"

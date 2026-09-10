@@ -139,7 +139,6 @@ export interface Dictionary {
     tags: string;
   };
   process: {
-    label: string;
     scrollCue: string;
     question: string;
     srSummary: string;

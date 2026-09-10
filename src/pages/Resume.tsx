@@ -119,7 +119,7 @@ export default function Resume() {
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.educationHeading}
           </h2>
-          <div>
+          <div className="pt-5">
             {r.education.map((entry) => (
               <EducationRow key={entry.degree} entry={entry} />
             ))}
@@ -130,7 +130,7 @@ export default function Resume() {
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.projectsHeading}
           </h2>
-          <div>
+          <div className="pt-5">
             {r.projects.map((entry) => (
               <ProjectRow key={entry.name} entry={entry} />
             ))}
@@ -141,7 +141,7 @@ export default function Resume() {
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.experienceHeading}
           </h2>
-          <div>
+          <div className="pt-5">
             {r.experience.map((entry) => (
               <ExperienceRow key={entry.role} entry={entry} />
             ))}
@@ -152,7 +152,7 @@ export default function Resume() {
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.furtherHeading}
           </h2>
-          <div>
+          <div className="pt-5">
             {r.further.map((entry) => (
               <FurtherRow key={entry.title} entry={entry} />
             ))}
