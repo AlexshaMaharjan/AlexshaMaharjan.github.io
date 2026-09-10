@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://alexshamaharjan.github.io/sitemap.xml
