@@ -39,11 +39,15 @@ export default function PlaygroundIndex() {
       <Seo title={`${content.heading} — Alexsha Maharjan`} description={content.intro} />
 
       {/*
-        The title sits in the middle of the first screen, not at the top of it —
-        so the deck below starts from an empty page rather than from the bottom
-        of a hero.
+        The title sits high on the first screen rather than in the middle of it,
+        so the top of the first card is already on screen before anyone scrolls
+        — the owner asked for about half of it. That is arithmetic, not taste:
+        the deck starts at this section's height, a card is
+        `100svh - header - 40`, so half a card showing at rest wants a hero of
+        `100svh - card/2`, which is 56svh. In `svh` the ratio holds at any
+        window height.
       */}
-      <section className="flex min-h-[calc(100svh_-_var(--header-h))] items-center justify-center px-5 pt-[var(--header-h)]">
+      <section className="flex min-h-[56svh] items-center justify-center px-5 pt-[var(--header-h)]">
         <div className="container-page text-center">
           <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink-muted">{content.eyebrow}</p>
           <h1 className="mx-auto mt-5 max-w-[900px] text-page-title font-semibold leading-[1.02] tracking-[-0.028em] text-ink">

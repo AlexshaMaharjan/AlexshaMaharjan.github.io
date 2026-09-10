@@ -213,6 +213,21 @@
   }
 
   /*
+   * A note is fixed-size handwriting over a collage that is not, so it takes a
+   * larger share of a smaller card. Below this width there is no room to spare
+   * and the pictures are better off without them.
+   */
+  .collage-scribble {
+    display: none;
+  }
+
+  @container (min-width: 900px) {
+    .collage-scribble {
+      display: block;
+    }
+  }
+
+  /*
    * The masonry's columns are set here rather than with `columns-3 sm:columns-4`
    * because those are viewport breakpoints and this has to follow the card:
    * a portrait tablet's card is twice a phone's width, and a Tailwind utility
