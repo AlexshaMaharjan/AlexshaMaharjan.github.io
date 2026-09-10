@@ -1,6 +1,6 @@
 # ISSUE-038 — Five supplied files are still unplaced: three videos and two photographs
 
-Status: Open
+Status: Open — part 2 closed 2026-09-10 (SESSION-033)
 Priority: Medium
 Category: Content
 Discovered: 2026-09-10 (SESSION-032)
@@ -32,23 +32,22 @@ the same thing with a GUI. Drop the compressed files in and they take three slot
 `Handmade and Bead Crafts` in minutes — the component, the poster extractor and the content model
 all exist now.
 
-## 2. Two photographs — the playground has no category for them
+## 2. ~~Two photographs — the playground has no category for them~~ — CLOSED
 
-`PhotographyLowkey.jpg` (13.6 MB, 3840×5760) and `photographystilllife.jpg` (12.0 MB, 8000×6176).
+**Resolved in SESSION-033 by option 2, as part of the owner's category restructure**
+(`DECISION-023`). `3D and Motion` became **Photography, Animation and 3D**, and both
+photographs lead it:
 
-The playground's six categories are Digital Drawings and Portraits, Handmade and Bead Crafts,
-Calendars and Editorial Experiments, Graphic and Logo Experiments, 3D and Motion, and Games and
-Interactive Experiments. **Photography is not one of them**, and filing photographs under any of
-those would miscategorise them.
+| Source | Decoded | Export | Aspect |
+| --- | --- | --- | --- |
+| `photographystilllife.jpg` | 8000 × 6176 | `pg-photo-stilllife.webp` 1250 × 965, 35 KB | `250/193` |
+| `PhotographyLowkey.jpg` | 3840 × 5760 | `pg-photo-lowkey.webp` 1200 × 1800, 165 KB | `2/3` |
 
-Three ways forward, and this one is genuinely the owner's:
+Both decode as they are stored — no EXIF rotation this time — and both reduce to an exact
+ratio (8000/6176 is 250/193; 3840/5760 is 2/3), so neither is cropped by `object-cover`.
 
-1. **Add a Photography category.** It is a real change — a route, a nav entry, a category card and
-   copy in both locales — but the structure is built for it and five other categories show the
-   shape.
-2. **Fold them into an existing category** if they belong to one in the owner's mind — the still
-   life could sit under Handmade if it photographs their own objects.
-3. **Leave them out.** Two photographs do not make a portfolio section.
+A seventh category was not needed: two photographs do not make a section, and the three
+subjects share one — light, and what it does to a surface over time.
 
 ## 3. `Afono/Wireframe.png` — still blank
 

@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-10**, after SESSION-032 (the playground filled; the site carries video).
+Snapshot: **2026-09-10**, after SESSION-033 (five playground categories; the heaviest page found and fixed).
 
 ## Overall
 
@@ -8,14 +8,15 @@ The site is **structurally complete and visually unfinished.** Every page, route
 content system exists and works; the build is green in ~1 second. Navigation is fixed and
 the case studies — the largest surface, and the owner's first-named complaint — are now
 both structured and laid out. What remains is mostly content the repository cannot supply
-for itself: real photographs, and a copy pass. Plus one homepage section that still shows
-grey tiles.
+for itself: real photographs, and a copy pass. The homepage work grid is finished (`DECISION-021`).
 
-Roughly: architecture ~93% done, content ~70% drafted, imagery ~78% (125 of 161 slots), polish ~70%.
+Roughly: architecture ~93% done, content ~70% drafted, imagery ~78% (127 of 163 slots), polish ~72%.
 
 ## Working
 
-- All 36 routes (18 paths × 2 locales) render. Unknown slugs fall through to 404.
+- All 34 routes (17 paths × 2 locales) render. Unknown slugs fall through to 404.
+  Down from 36: the playground went from six categories to five in SESSION-033 (`DECISION-023`),
+  and `/playground/editorial` folded into `/playground/graphic-design`.
 - Bilingual EN/DE throughout. `ISSUE-009` closed in SESSION-025: the four dictionary gaps **and
   six landmark `aria-label`s** that were hard-coded English, so a German visitor heard "Primary",
   "Footer" and "My design process" around German content. **axe never reported it** — it checks
@@ -34,7 +35,7 @@ Roughly: architecture ~93% done, content ~70% drafted, imagery ~78% (125 of 161 
   The layout is editorial: body text at a 680px measure against media at up to 960px, three
   distinct set-piece treatments, a contents rail that marks the section being read, and a
   closing band. Figures accept a real `src` and render a caption when one is set.
-- Playground: six categories, paper-grid texture, taped cards, six auto-scrolling
+- Playground: five categories, paper-grid texture, taped cards, five auto-scrolling
   marquees, one experiment detail page.
 - A complete, real résumé page with print styles.
 - `prefers-reduced-motion` honoured consistently.

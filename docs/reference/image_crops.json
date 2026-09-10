@@ -1493,5 +1493,31 @@
     "width": 1600,
     "height": 1197,
     "quality": 0.88
+  },
+  {
+    "src": "Images/Playground/photographystilllife.jpg",
+    "out": "public/images/pg-photo-stilllife.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1250,
+    "height": 965,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/PhotographyLowkey.jpg",
+    "out": "public/images/pg-photo-lowkey.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1800,
+    "quality": 0.82
   }
 ]

@@ -65,14 +65,17 @@ model.
 | File | Lines | Contents |
 | --- | --- | --- |
 | `types.ts` | 69 | `PlaygroundItem`, `PlaygroundCategoryContent`, `PlaygroundHomeContent`, `PlaygroundProjectContent` |
-| `home.ts` | 129 | hero, 3 featured, 6 category summaries, exploring/note/return copy |
+| `home.ts` | 121 | hero, 3 featured, 5 category summaries, exploring/note/return copy |
 | `categories/index.ts` | 29 | registry + `getCategory` / `getAllCategories` |
-| `categories/{digital-art,crafts,editorial,graphic-experiments,3d-motion,interactive}.ts` | 36–37 each | title, intro, 5 items, "more coming" note, next-category ring link |
+| `categories/{games-and-apps,photography-3d-motion,graphic-design,digital-art,crafts}.ts` | 37–60 each | title, intro, 5–14 items, "more coming" note, next-category ring link |
 | `projects/index.ts` | 15 | registry + `getProject` |
 | `projects/motorbike-study.ts` | 58 | the only built experiment detail page |
 
-Category ring order: `digital-art → crafts → editorial → graphic-experiments → 3d-motion
-→ interactive → digital-art`.
+Category ring order (`DECISION-023`): `games-and-apps → photography-3d-motion →
+graphic-design → digital-art → crafts → games-and-apps`. **`categories/index.ts` insertion
+order is the site's order**, and `content-audit.mjs` asserts that `home.ts`, the ring and
+each project's `categorySlug` all agree with it — every one of those links is a bare string
+that otherwise fails silently.
 
 ## Helpers
 

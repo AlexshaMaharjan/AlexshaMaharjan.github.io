@@ -212,7 +212,14 @@ async function checkA11y() {
 
 // ---------------------------------------------------------------- weight
 async function checkWeight() {
-  const pages = ["/", "/work/sync-fm", "/work/afono", "/work/surugami", "/work/wikimind"];
+  /*
+    The playground was never sampled here, and by SESSION-033 it holds the two
+    pages most likely to be heavy: the index renders every category's items into
+    its marquees (43 cards), and Graphic Design is the largest single category
+    at 14. A weight check that only looks at case studies cannot see either.
+  */
+  const pages = ["/", "/work/sync-fm", "/work/afono", "/work/surugami", "/work/wikimind",
+                 "/playground", "/playground/graphic-design"];
   console.log("whole page, uncached, gzipped:");
   for (const p of pages) {
     for (const [w, dpr, mobile] of [[1440, 1, false], [390, 3, true]]) {

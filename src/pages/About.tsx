@@ -182,7 +182,8 @@ export default function About() {
           <div className="flex w-max gap-4 px-5 md:px-20">
             {about.carouselItems.map((item) => (
               <figure key={item.caption} className="m-0" style={{ scrollSnapAlign: "start" }}>
-                <Media src={item.src} alt={item.alt} aspect="4/5" caption={`[ ${item.caption} ]`} className="w-60" />
+                {/* `w-60` is a fixed 240px at every viewport (SESSION-033). */}
+                <Media src={item.src} alt={item.alt} aspect="4/5" sizes="240px" caption={`[ ${item.caption} ]`} className="w-60" />
                 <figcaption className="mt-2.5 font-mono text-[11px] text-ink-muted">{item.caption}</figcaption>
               </figure>
             ))}

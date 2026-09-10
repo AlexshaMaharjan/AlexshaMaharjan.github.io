@@ -26,8 +26,23 @@ const home: PlaygroundHomeLocaleContent = {
       { caption: "Hibi", aspect: "16/10", subtitle: "small software experiment" },
     ],
     categoriesHeading: "Categories",
-    categoriesCaption: "six kinds of making — each row runs on its own, hover to pause",
+    categoriesCaption: "five kinds of making — each row runs on its own, hover to pause",
     categories: [
+      {
+        slug: "games-and-apps",
+        title: "Games and Applications",
+        caption: "A Unity game, small applications and code-based prototypes — software that responds.",
+      },
+      {
+        slug: "photography-3d-motion",
+        title: "Photography, Animation and 3D",
+        caption: "Low-key photography, Blender and Unreal experiments — light, and things that move.",
+      },
+      {
+        slug: "graphic-design",
+        title: "Graphic Design",
+        caption: "Logos, posters, print and packaging — kept because they taught me something.",
+      },
       {
         slug: "digital-art",
         title: "Digital Drawings and Portraits",
@@ -37,26 +52,6 @@ const home: PlaygroundHomeLocaleContent = {
         slug: "crafts",
         title: "Handmade and Bead Crafts",
         caption: "Beads, wire and small handmade objects, built slowly and mostly for joy.",
-      },
-      {
-        slug: "editorial",
-        title: "Calendars and Editorial Experiments",
-        caption: "Calendars, grids and print compositions — typography as a playground.",
-      },
-      {
-        slug: "graphic-experiments",
-        title: "Graphic and Logo Experiments",
-        caption: "Posters, logo studies and directions that never shipped — kept because they taught me something.",
-      },
-      {
-        slug: "3d-motion",
-        title: "3D and Motion",
-        caption: "Blender, Unreal and After Effects experiments — learning to make things move.",
-      },
-      {
-        slug: "interactive",
-        title: "Games and Interactive Experiments",
-        caption: "A Unity game, small apps and code-based prototypes — design that responds.",
       },
     ],
     exploringHeading: "Currently exploring —",
@@ -89,8 +84,23 @@ const home: PlaygroundHomeLocaleContent = {
       { caption: "Hibi", aspect: "16/10", subtitle: "kleines Software-Experiment" },
     ],
     categoriesHeading: "Kategorien",
-    categoriesCaption: "Sechs Arten des Machens — jede Reihe läuft von selbst. Zum Anhalten mit der Maus darüber.",
+    categoriesCaption: "Fünf Arten des Machens — jede Reihe läuft von selbst. Zum Anhalten mit der Maus darüber.",
     categories: [
+      {
+        slug: "games-and-apps",
+        title: "Games und Anwendungen",
+        caption: "Ein Unity-Game, kleine Anwendungen und Code-Prototypen — Software, die reagiert.",
+      },
+      {
+        slug: "photography-3d-motion",
+        title: "Fotografie, Animation und 3D",
+        caption: "Low-Key-Fotografie, Blender- und Unreal-Experimente — Licht, und Dinge in Bewegung.",
+      },
+      {
+        slug: "graphic-design",
+        title: "Grafikdesign",
+        caption: "Logos, Poster, Print und Verpackung — aufbewahrt, weil sie mir etwas beigebracht haben.",
+      },
       {
         slug: "digital-art",
         title: "Digitale Zeichnungen und Porträts",
@@ -100,26 +110,6 @@ const home: PlaygroundHomeLocaleContent = {
         slug: "crafts",
         title: "Handarbeit und Perlenkunst",
         caption: "Perlen, Draht und kleine handgemachte Objekte — langsam und vor allem aus Freude entstanden.",
-      },
-      {
-        slug: "editorial",
-        title: "Kalender und Editorial Experimente",
-        caption: "Kalender, Raster und Printkompositionen — Typografie als Spielwiese.",
-      },
-      {
-        slug: "graphic-experiments",
-        title: "Grafik- und Logoexperimente",
-        caption: "Poster, Logostudien und nie umgesetzte Richtungen — aufbewahrt, weil sie mir etwas beigebracht haben.",
-      },
-      {
-        slug: "3d-motion",
-        title: "3D und Motion",
-        caption: "Experimente mit Blender, Unreal und After Effects — Dinge in Bewegung bringen.",
-      },
-      {
-        slug: "interactive",
-        title: "Games und interaktive Experimente",
-        caption: "Ein Unity-Game, kleine Apps und Code-Prototypen — Design, das reagiert.",
       },
     ],
     exploringHeading: "Aktuell am Entdecken —",
