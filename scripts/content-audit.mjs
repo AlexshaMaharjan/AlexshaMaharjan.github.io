@@ -29,6 +29,10 @@
  * axe, the image sweep and the en/de source diff were all green throughout,
  * because none of them reads prose.
  *
+ * **4. A collage note pointing at a picture that is not there.** A note names
+ * its slot by `src` and is placed from that; a `src` with a typo in it silently
+ * becomes a note in the middle of the card with an arrow to nowhere.
+ *
  * Exits non-zero on any finding.
  */
 import { build } from "esbuild";
@@ -53,6 +57,7 @@ async function load(entry, name) {
   return import(pathToFileURL(out).href);
 }
 const pgCats = await load("src/lib/playground/categories/index.ts", "pg-cats");
+const collage = await load("src/lib/playground/collage.ts", "pg-collage");
 
 const SLUGS = ["wikimind", "afono", "sync-fm", "barrier-free-kitchen", "surugami", "qis-portal"];
 
@@ -167,9 +172,32 @@ for (const slug of registrySlugs) {
   }
 }
 
+/*
+ * **4. A note pointing at nothing** (SESSION-038). A collage scribble names the
+ * slot it is about by `src`, and `lib/playground/placeScribbles` reads that to
+ * work out where the note can sit and where its arrow lands. A `src` that is
+ * not on the card is not an error anywhere — the note falls back to the middle
+ * of the frame and the arrow points at the middle of nothing, which looks like
+ * a placement bug rather than a typo. Nothing else in the harness reads these:
+ * `tsc` sees a `string`, and axe never sees the note at all because it is
+ * decorative and `aria-hidden`.
+ */
+for (const card of collage.default) {
+  const slots = new Set(card.slots.map((slot) => slot.src));
+  for (const note of card.scribbles) {
+    if (!slots.has(note.target))
+      fail(`collage ${card.index}: note ${JSON.stringify(note.text.en)} targets "${note.target}", not a slot on this card`);
+    if (!note.text.en || !note.text.de) fail(`collage ${card.index}: a note is written in one locale only`);
+  }
+  if (!/^#[0-9a-fA-F]{6}$/.test(card.accent)) fail(`collage ${card.index}: accent "${card.accent}" is not a #rrggbb colour`);
+}
+
 if (findings) {
   console.log(`\n${findings} finding(s)`);
   process.exit(1);
 }
 console.log(`content audit: ${SLUGS.length} case studies — language and en/de block shape agree`);
 console.log(`               ${registrySlugs.length} playground categories — en/de items, aspects, clips and posters agree`);
+console.log(
+  `               ${collage.default.length} collage cards — every note points at a slot on its own card`,
+);

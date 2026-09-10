@@ -19,7 +19,7 @@
  *           the corner: position in the file is not the page number.
  *
  * Renders the whole page. Cropping to the figure is a manual step, on purpose
- * — see the provenance gate in `docs/decisions/decision_016.md` before
+ * — see the provenance gate in `docs/decisions.md#decision-016` before
  * exporting anything.
  */
 ObjC.import("Foundation");

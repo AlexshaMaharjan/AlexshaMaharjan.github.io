@@ -46,22 +46,25 @@ export interface CollageSlot {
 /**
  * A hand-written note with an arrow, over a card (`Scribble.tsx`).
  *
- * `x`/`y` are the note's own anchor in design pixels, not the thing it points
- * at — the arrow is a gesture in the owner's hand, the way the two beside the
- * About portrait are, rather than a leader line that has to land on a pixel.
- * Placing one is a matter of looking at the card, which is why these are
- * written next to the slots they belong with.
+ * **A note names its picture, not its position** (`SESSION-038`). These carried
+ * their own `x`/`y` until then, placed by looking at the card, and what three
+ * sessions of that produced was a pattern nobody had chosen: a note in the
+ * top-left of every card and another anchored at x=15700 in the top-right of
+ * every card, with arrows that pointed at roughly nothing.
+ *
+ * `target` is the `src` of the slot the note is about, and
+ * `lib/playground/placeScribbles` works out where it can sit and draws the
+ * arrow from there to the picture. So writing one is a matter of deciding what
+ * to say and about which piece — which is the part only the owner can do.
+ *
+ * `scripts/content-audit.mjs` checks that every `target` is a slot on its own
+ * card: a typo here is not a type error and does not throw, it is a note in the
+ * middle of the frame pointing at nothing.
  */
 export interface CollageScribble {
-  x: number;
-  y: number;
+  /** The `src` of the slot this note is about. Must be a slot on this card. */
+  target: string;
   text: Record<Locale, string>;
-  /** Which side the arrow leaves the note from, and curves towards. */
-  point: "down-left" | "down-right";
-  /** Set `right` to hang the note leftwards from its anchor. */
-  align?: "left" | "right";
-  /** Degrees off true. Default -3. */
-  rotate?: number;
   tone?: "ink" | "accent";
 }
 
@@ -70,6 +73,21 @@ export interface CollageCard {
   index: string;
   /** Names the card for screen readers. */
   label: Record<Locale, string>;
+  /**
+   * The colour this card turns once every picture on it has its colour back
+   * (`SESSION-037`).
+   *
+   * The deck arrives in black and white on blue paper, and the scroll runway
+   * behind each card puts the colour back one picture at a time; at the end of
+   * that runway the card's notes, its index and its ruling all leave the blue
+   * and land here. One per card, so the four cards are four different arrivals
+   * rather than the same one four times — and deliberately not the site's
+   * accent, which is the blue they are leaving.
+   *
+   * Read as data, not as a token: `Scribble` and `.pg-tint` mix towards it, and
+   * `accentGridBackground` draws the ruling in it.
+   */
+  accent: string;
   slots: CollageSlot[];
   scribbles: CollageScribble[];
 }
@@ -82,6 +100,8 @@ const cards: CollageCard[] = [
   {
     index: "01",
     label: { en: "Collage 1 of 4 — warm work", de: "Collage 1 von 4 — warme Arbeiten" },
+    /* orange */
+    accent: "#D65A18",
     slots: [
       {
         x: 2723, y: 2044, w: 2201, h: 3267, src: "/images/pg-painting-luffy.webp",
@@ -181,22 +201,25 @@ const cards: CollageCard[] = [
     ],
     scribbles: [
       {
-        x: 8600, y: 250, point: "down-left",
+        target: "/images/pg-clip-hibi.webp",
         text: { en: "my own\ntask app", de: "meine eigene\nAufgaben-App" },
       },
       {
-        x: 1500, y: 400, point: "down-right", rotate: -5,
+        target: "/images/pg-painting-luffy.webp",
         text: { en: "acrylic on\ncanvas", de: "Acryl auf\nLeinwand" },
       },
       {
-        x: 15700, y: 300, point: "down-left", align: "right", rotate: 3, tone: "accent",
+        target: "/images/pg-kalender-cover.webp",
         text: { en: "a whole year,\none flower\na month", de: "ein ganzes Jahr,\neine Blüte\nje Monat" },
+        tone: "accent",
       },
     ],
   },
   {
     index: "02",
     label: { en: "Collage 2 of 4 — blue work", de: "Collage 2 von 4 — blaue Arbeiten" },
+    /* green */
+    accent: "#1B7A4E",
     slots: [
       {
         x: 9473, y: 775, w: 1888, h: 2612, src: "/images/pg-bead.webp",
@@ -271,18 +294,21 @@ const cards: CollageCard[] = [
     ],
     scribbles: [
       {
-        x: 700, y: 1500, point: "down-right", rotate: -4,
+        target: "/images/pg-forest.webp",
         text: { en: "light is the\nwhole subject", de: "das Licht ist\ndas Motiv" },
       },
       {
-        x: 15700, y: 500, point: "down-left", align: "right", rotate: 3, tone: "accent",
+        target: "/images/pg-packaging-perfume-flat.webp",
         text: { en: "perfume — flat,\nthen folded", de: "Parfüm — flach,\ndann gefaltet" },
+        tone: "accent",
       },
     ],
   },
   {
     index: "03",
     label: { en: "Collage 3 of 4 — dark work", de: "Collage 3 von 4 — dunkle Arbeiten" },
+    /* black */
+    accent: "#141414",
     slots: [
       {
         x: 9265, y: 7852, w: 1669, h: 1230, src: "/images/pg-abstract.webp", rotate: -90,
@@ -363,18 +389,21 @@ const cards: CollageCard[] = [
     ],
     scribbles: [
       {
-        x: 1400, y: 800, point: "down-right", rotate: -4,
+        target: "/images/pg-poster-hologram.webp",
         text: { en: "holographic watch,\nall concept", de: "Holo-Uhr,\nreines Konzept" },
       },
       {
-        x: 15700, y: 600, point: "down-left", align: "right", rotate: 3, tone: "accent",
+        target: "/images/pg-line-study.webp",
         text: { en: "one weight,\nno fill", de: "eine Strichstärke,\nkeine Füllung" },
+        tone: "accent",
       },
     ],
   },
   {
     index: "04",
     label: { en: "Collage 4 of 4 — pink and lilac work", de: "Collage 4 von 4 — rosa und lila Arbeiten" },
+    /* purple */
+    accent: "#6A34B0",
     slots: [
       {
         x: 9993, y: 4489, w: 1457, h: 1942, src: "/images/pg-frame.webp",
@@ -475,16 +504,17 @@ const cards: CollageCard[] = [
     ],
     scribbles: [
       {
-        x: 900, y: 800, point: "down-right", rotate: -4,
+        target: "/images/pg-frame-detail.webp",
         text: { en: "beads, ribbon,\nfairy lights", de: "Perlen, Band,\nLichterkette" },
       },
       {
-        x: 900, y: 3400, point: "down-right", rotate: 2,
+        target: "/images/pg-character.webp",
         text: { en: "flat colour,\nno line work", de: "flache Farben,\nkeine Konturen" },
       },
       {
-        x: 15700, y: 400, point: "down-left", align: "right", rotate: 3, tone: "accent",
+        target: "/images/pg-gift-cube.webp",
         text: { en: "photo cubes,\nstacked into\na pyramid", de: "Fotowürfel, zur\nPyramide\ngestapelt" },
+        tone: "accent",
       },
     ],
   },

@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
-import { gridBackground } from "./gridBackground";
+import { dotBackground } from "./gridBackground";
 
 export default function PlaygroundLayout() {
   return (
-    <div className="relative min-h-screen bg-page" style={gridBackground}>
+    <div className="pg-page relative min-h-screen" style={dotBackground}>
       <Outlet />
     </div>
   );

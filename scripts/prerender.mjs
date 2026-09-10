@@ -16,7 +16,7 @@
  * That is a visible flicker for every human visitor, paid to serve crawlers that
  * do not execute JavaScript. Search engines that matter here do execute it, and
  * social scrapers only ever read the head. The body option is written up in
- * `docs/issues/issue_013.md` with what it would take to make it safe.
+ * `docs/issues.md#issue-013` with what it would take to make it safe.
  */
 import { spawn } from "node:child_process";
 import { build } from "esbuild";

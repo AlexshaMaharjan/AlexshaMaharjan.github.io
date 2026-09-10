@@ -1,39 +1,45 @@
-import type { CollageScribble } from "@/lib/playground/collage";
+import type { CSSProperties } from "react";
 import type { Locale } from "@/lib/i18n";
 import { FRAME_H, FRAME_W } from "@/lib/playground/collage";
+import type { PlacedScribble } from "@/lib/playground/placeScribbles";
 
 /**
- * A hand-written note with an arrow, over a collage card.
+ * A hand-written note over a collage card, and the arrow that gets it to its
+ * picture.
  *
  * The idiom is the site's own — `pages/About.tsx` has two of these beside the
  * portrait — and this is that gesture lifted out rather than copied a third
- * time: Caveat at a bold weight, tipped a couple of degrees, and an arrow drawn
- * as one cubic curve with two short strokes for the head. It is deliberately
- * *drawn*, not a glyph: an arrow character sits on the text baseline and reads
- * as punctuation, where this reads as somebody's pen.
+ * time: Caveat at a bold weight, tipped a few degrees, and an arrow drawn as
+ * one curve with two short strokes for the head. It is deliberately *drawn*,
+ * not a glyph: an arrow character sits on the text baseline and reads as
+ * punctuation, where this reads as somebody's pen.
  *
  * **Decorative, and `aria-hidden`.** The pictures carry their own alt text and
  * their own captions in the viewer; a note pointing at one of them adds the
  * owner's voice, not information a screen reader is missing. The About page's
  * two notes are hidden for the same reason.
  *
- * **Positioned in the design's coordinates, sized in CSS pixels.** The anchor
- * travels with the collage, so a note keeps its relationship to the picture it
- * points at as the stage is contained at different scales; the handwriting does
- * not shrink with it, because handwriting at 14px is not handwriting. That is
- * also why notes appear only on a card wide enough to spare the room for them —
- * a container query in `index.css`, measured on the card, like everything else
- * about this layout.
+ * **Neither of these decides where it goes.** `lib/playground/placeScribbles`
+ * does, from the picture the note names — see that file for why. What is left
+ * here is how a note is drawn: the text at a fixed CSS size over a collage that
+ * is not (handwriting at 14px is not handwriting, which is also why notes
+ * appear only on a card wide enough to spare the room, a container query in
+ * `index.css`), and the arrow in the design's own coordinates so that it lands
+ * where the picture actually is at any scale.
+ *
+ * **The note answers to the card's reveal** (SESSION-037). It is written in
+ * blue while the card's pictures are still black and white, and turns to that
+ * card's own colour — orange, green, black or purple — once they all have their
+ * colour back. One `color` on the wrapper, with the arrow drawn in
+ * `currentColor` so the pen never changes hand halfway.
  */
-export default function Scribble({ scribble, locale }: { scribble: CollageScribble; locale: Locale }) {
-  const { x, y, point, align = "left", rotate = -3, tone = "ink" } = scribble;
-  const colour = tone === "accent" ? "#1B3FE0" : "#2B2D31";
-  const flip = point === "down-right";
+const base = (tone: "ink" | "accent") => (tone === "accent" ? "#1B3FE0" : "#3A54C4");
 
+export default function Scribble({ note, locale }: { note: PlacedScribble; locale: Locale }) {
   return (
     <div
       aria-hidden="true"
-      className="collage-scribble pointer-events-none absolute z-[5]"
+      className="collage-scribble pg-tint pointer-events-none absolute z-[6]"
       /*
        * A right-hung note is anchored with `right`, not with `left` plus a
        * translate. An absolutely positioned box shrinks to fit the space from
@@ -43,41 +49,49 @@ export default function Scribble({ scribble, locale }: { scribble: CollageScribb
        * place leaves the whole stage to wrap in, and the explicit line breaks
        * in the text decide where it actually breaks.
        */
-      style={{
-        [align === "right" ? "right" : "left"]:
-          align === "right" ? `${100 - (x / FRAME_W) * 100}%` : `${(x / FRAME_W) * 100}%`,
-        top: `${(y / FRAME_H) * 100}%`,
-        transform: `rotate(${rotate}deg)`,
-        transformOrigin: align === "right" ? "100% 0" : "0 0",
-      }}
+      style={
+        {
+          "--pg-tint-base": base(note.tone),
+          [note.align === "right" ? "right" : "left"]:
+            note.align === "right" ? `${100 - (note.x / FRAME_W) * 100}%` : `${(note.x / FRAME_W) * 100}%`,
+          top: `${(note.y / FRAME_H) * 100}%`,
+          transform: `rotate(${note.rotate}deg)`,
+          transformOrigin: note.align === "right" ? "100% 0" : "0 0",
+        } as CSSProperties
+      }
     >
       <span
         className="block max-w-[15ch] whitespace-pre-line font-hand text-[22px] font-bold leading-[1.1]"
-        style={{ color: colour, textAlign: align }}
+        style={{ textAlign: note.align }}
       >
-        {scribble.text[locale]}
+        {note.text[locale]}
       </span>
-      {/*
-        The arrow leaves the note from the side it points towards, and the
-        `down-right` variant is the same curve mirrored — one path, so both
-        directions are drawn by the same hand.
-      */}
-      <svg
-        width="62"
-        height="50"
-        viewBox="0 0 62 50"
-        fill="none"
-        className="absolute top-[calc(100%-4px)]"
-        style={
-          flip
-            ? { right: "-30px", transform: "scaleX(-1)" }
-            : { left: "-30px" }
-        }
-      >
-        <path d="M54 6 C 32 6 13 18 7 42" stroke={colour} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M7 42 l 14 -3" stroke={colour} strokeWidth="2.2" strokeLinecap="round" />
-        <path d="M7 42 l 3 -14" stroke={colour} strokeWidth="2.2" strokeLinecap="round" />
-      </svg>
     </div>
+  );
+}
+
+/**
+ * One note's arrow, as a `<g>` for the stage-wide SVG in `Collage`.
+ *
+ * It lives in that SVG rather than beside its note because it is drawn in the
+ * frame's coordinates — that is the only way a line can start at the note and
+ * end on the picture when the two are measured in different units. The stroke
+ * is `non-scaling-stroke`, so a 2.2px pen stays a 2.2px pen however far the
+ * collage is scaled down.
+ */
+export function ScribbleArrow({ note }: { note: PlacedScribble }) {
+  return (
+    <g
+      className="pg-tint"
+      style={{ "--pg-tint-base": base(note.tone) } as CSSProperties}
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    >
+      <path d={note.arrow.path} vectorEffect="non-scaling-stroke" />
+      <path d={note.arrow.head} vectorEffect="non-scaling-stroke" />
+    </g>
   );
 }
