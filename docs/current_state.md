@@ -1,6 +1,13 @@
 # Current State
 
-Snapshot: **2026-09-10**, after SESSION-036 (the playground deck gets scribbles and a viewer). Deployed.
+Snapshot: **2026-09-10**, after SESSION-038. **Not deployed** — the last deploy was
+SESSION-035, and SESSION-036/037/038 sit on `milestone-003-content-model`.
+
+**The live objective is [`MILESTONE-010`](milestones.md#milestone-010)**, the owner's list of
+fifteen changes across the whole site. Nothing in it is blocked on engineering; four tasks
+need the owner.
+
+**`docs/` was rebuilt in SESSION-038**: 159 files to 16, one per kind, anchored by ID.
 
 ## Overall
 
@@ -35,7 +42,15 @@ Roughly: architecture ~93% done, content ~70% drafted, imagery ~81% (129 of 159 
   The layout is editorial: body text at a 680px measure against media at up to 960px, three
   distinct set-piece treatments, a contents rail that marks the section being read, and a
   closing band. Figures accept a real `src` and render a caption when one is set.
-- Playground: **a title and a deck of four cards** (`DECISION-027`) — the cards stack on
+- Playground: **a title and a deck of four cards** (`DECISION-027`) that **arrive in black
+  and white and get their colour back as you scroll** (SESSION-037). Each card is followed by
+  75svh of empty scroll; one scrubbed `--pg-reveal` per card drives the whole reveal in CSS,
+  pictures lighting one at a time in an order shuffled per visit, and the notes, index and
+  ruling turning that card's own colour: orange, green, black, purple. Hovering a picture
+  grows it, brings its colour back out of turn and names it beside the cursor. The notes are
+  placed by geometry from the picture each names (SESSION-038, `placeScribbles.ts`), on white
+  cards over a dotted blue page.
+- Playground, the older description of the same deck — the cards stack on
   scroll as `position: sticky` siblings, each carrying one collage traced from
   `Portfolio.fig` page 2 (48 slots, 5 autoplaying muted clips) on the paper-grid ground.
   The collage is contained on a landscape card and becomes a masonry on a portrait one,
@@ -52,7 +67,7 @@ Roughly: architecture ~93% done, content ~70% drafted, imagery ~81% (129 of 159 
   `npm run prerender` writes it and `predeploy` runs it.
 - **A case study loads only itself** — 13 KB of page shell plus 15–22 KB for that study,
   where all six used to arrive together (`ISSUE-019`, `DECISION-015`).
-- **The verification harness is in the repository** (`npm run verify`, `docs/reference/verification.md`).
+- **The verification harness is in the repository** (`npm run verify`, `docs/reference/handbook.md`).
   Routes, images at 1x/2x/3x, axe, overflow, stuck reveals, reduced motion and page weight,
   against the production build through a gzipping server that behaves like GitHub Pages. It
   had been rebuilt by hand from prose every session; SESSION-021 moved it in.
@@ -174,7 +189,7 @@ overflow itself is measured clean at 320/375/768/840/1024/1440 in both locales.
   `CONTENT_GUIDE.md` §5 from the case-study data.
 - All Next.js leftovers deleted; `.gitignore` is complete (`ISSUE-018` resolved).
 - `design-reference/` — the authoritative design source — is gitignored and exists only on
-  this machine. Key values are mirrored into `docs/reference/design_tokens.md`.
+  this machine. Key values are mirrored into `docs/reference/handbook.md`.
 
 ## Current milestone
 
@@ -188,7 +203,7 @@ SESSION-025. What remains is `MILESTONE-004` (the copy pass), `MILESTONE-005` (i
 
 **`MILESTONE-008` is complete** bar the owner's `og:image` — `ISSUE-013`, `ISSUE-014`,
 `ISSUE-019` and `ISSUE-025` are done, and SESSION-014 added a pre-flight on the built
-artifact (`docs/reference/publishing.md`) proving what GitHub Pages will actually serve,
+artifact (`docs/reference/handbook.md`) proving what GitHub Pages will actually serve,
 including a real 404 for unknown deep links.
 
 **`MILESTONE-007` is complete.** `ISSUE-010` was its last open item and closed in
@@ -234,7 +249,7 @@ material, not choices:
 3. **`MILESTONE-004`, the copy pass** — unblocked, and the layout it will be written into
    is settled. Needs the owner: `DECISION-011` forbids inventing anything to fill gaps.
 4. **Publishing.** The pre-flight is done and the artifact is sound; the two commands are
-   in `docs/reference/publishing.md`. **Thirty-nine commits exist only on a local branch**,
+   in `docs/reference/handbook.md`. **Thirty-nine commits exist only on a local branch**,
    which is now the largest gap between what is built and what anyone can see — and this
    would be the first publish showing real imagery on two full case studies. The only thing
    that will look wrong once live is the link-preview image.
@@ -244,5 +259,5 @@ images land. Nothing else in the repository is waiting on a decision or a fix.
 
 ## Where to read more
 
-`docs/issues/index.md` · `docs/milestones/index.md` · `docs/architecture/index.md` ·
-`docs/decisions/index.md`
+`docs/issues.md` · `docs/milestones.md` · `docs/architecture.md` ·
+`docs/decisions.md`

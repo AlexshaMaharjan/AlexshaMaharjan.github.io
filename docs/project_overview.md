@@ -66,7 +66,7 @@ Editorial and restrained: near-white page, `#111111` ink, a single cobalt accent
 `#1B3FE0`, Inter for everything except monospace metadata and Caveat hand-notes.
 Very large negative space and large clamp-scaled display type. The Playground inverts
 this into a warmer, tactile, "scrapbook" register. Full token table:
-`docs/reference/design_tokens.md`.
+`docs/reference/handbook.md`.
 
 ## Commands
 
@@ -108,7 +108,7 @@ the domain question is still open.
 ## Related documents
 
 - Current state → `docs/current_state.md`
-- Architecture → `docs/architecture/index.md`
-- Where code lives → `docs/codebase/index.md`
+- Architecture → `docs/architecture.md`
+- Where code lives → `docs/codebase.md`
 - External project documents (content guide, design spec, image manifest) →
   `docs/reference/index.md`
