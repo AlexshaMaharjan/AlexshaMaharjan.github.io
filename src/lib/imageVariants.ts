@@ -258,7 +258,16 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#ffffff"
   },
-  "/images/alexsha_photo-mrx9hbwx-nif2.png": {
+  "/images/alexsha-portrait-og.jpg": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#b4b4b4"
+  },
+  "/images/alexsha-portrait.webp": {
     "w": 1720,
     "v": [
       400,
@@ -266,7 +275,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       960,
       1280
     ],
-    "bg": "#0a0a0a"
+    "bg": "#b4b4b4"
   },
   "/images/hero-afono.webp": {
     "w": 1600,

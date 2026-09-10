@@ -88,3 +88,69 @@ export function bentoRows<T>(items: T[], pattern: number[] = [3, 2, 4, 3]): T[][
   }
   return rows;
 }
+
+/**
+ * A cell in a justified row: one figure, or several stacked in a column.
+ *
+ * `ratios` is the aspect of each figure in the cell, top to bottom.
+ */
+export interface Cell {
+  ratios: number[];
+}
+
+export interface CellMetrics {
+  /** Each cell's width at the row's common height — also its `flex-grow`. */
+  widths: number[];
+  /** The height a single-figure cell's picture renders at, as `rowMetrics` means it. */
+  height: number;
+  /** The row's own width at that height. */
+  width: number;
+}
+
+/**
+ * The vertical cost of a `figcaption` under a figure: `mt-2.5` plus one line of
+ * 13px at `leading-[1.5]`. It only matters when the cells in a row hold
+ * different numbers of figures, and then it matters a lot — a stack of two
+ * carries two captions against a single figure's one, and without this the
+ * bento's two columns end a caption apart.
+ */
+const CAPTION_PX = 30;
+
+/**
+ * Justify a row whose cells may be stacked columns (`MILESTONE-010` task 8).
+ *
+ * `height` keeps `rowMetrics`' meaning: the height of the picture in a cell
+ * that holds one figure. A stack of `n` figures sharing a width has `n - 1`
+ * extra captions and `n - 1` inner gaps to find room for, so its pictures get
+ * that much less height between them and its width is
+ * `(height - overhead) * k`, where `k = 1 / Σ(1 / rᵢ)` — the ratio the stack
+ * would have if nothing sat between its figures. Every cell then finishes at
+ * exactly `height + CAPTION_PX`, so the row's bottoms line up.
+ *
+ * A row whose cells all hold one figure has zero overhead everywhere and comes
+ * out identical to `rowMetrics`, which is what keeps every existing page still.
+ *
+ * The one approximation: the widths are exact at `columnPx`, and as the row
+ * narrows the fixed gap and caption do not shrink with it, so a stack runs at
+ * most `overhead` taller than its neighbour. At 768px, the narrowest width at
+ * which rows are still horizontal, that is under 25px; below it every row
+ * stacks and the question does not arise.
+ */
+export function justifyCells(
+  cells: Cell[],
+  columnPx: number,
+  gap: number,
+  maxHeight: number,
+  innerGap = gap,
+): CellMetrics {
+  const k = cells.map((c) => 1 / c.ratios.reduce((a, r) => a + 1 / r, 0));
+  const overhead = cells.map((c) => (c.ratios.length - 1) * (innerGap + CAPTION_PX));
+
+  const gaps = gap * (cells.length - 1);
+  const sum = k.reduce((a, b) => a + b, 0);
+  const slack = k.reduce((a, ki, i) => a + ki * overhead[i]!, 0);
+  const height = Math.min(maxHeight, (columnPx - gaps + slack) / sum);
+
+  const widths = k.map((ki, i) => (height - overhead[i]!) * ki);
+  return { widths, height, width: Math.round(widths.reduce((a, b) => a + b, 0) + gaps) };
+}

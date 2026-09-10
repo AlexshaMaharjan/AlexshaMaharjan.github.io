@@ -93,7 +93,7 @@ export default function Header({
             >
               {dictionary.nav.projects}
             </Link>
-            <Link to={localeHref(locale, "/#about")} className="tap-target transition-colors hover:text-accent">
+            <Link to={localeHref(locale, "/about")} className="tap-target transition-colors hover:text-accent">
               {dictionary.nav.about}
             </Link>
             <Link

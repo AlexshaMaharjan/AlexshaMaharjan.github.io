@@ -49,12 +49,6 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "The project compared regional and international examples, including AI-generated weather and traffic segments, AI-hosted web radio and AI-supported music recommendations. Existing systems generally use AI to automate presentation or generate content. Their internal selection logic remains largely invisible to listeners.",
           "Sync FM takes a different position. Instead of only automating the host, it exposes selected editorial controls to the user. The listener becomes a form of personal editor who can influence depth, tone and interpretation.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "16/8", caption: "[ competitor comparison ]" },
-            ],
-          },
           { kind: "h3", text: "Exploring different relationships with information" },
           "Three personas were used to consider different age groups, listening contexts and attitudes towards information. They represented needs such as efficient access to facts, calm background listening, more energetic presentation, greater contextual depth and protection from information overload.",
           "These personas were generated with Gemini and then used as concept-development tools. They are therefore labelled as hypothesis personas, not as direct evidence from primary user research.",
@@ -147,7 +141,6 @@ const syncFm: CaseStudyLocaleContent = {
             ],
           },
         ],
-        images: [{ aspect: "16/8", caption: "[ ethical-risk diagram ]" }],
       },
       {
         id: "reflection",
@@ -212,12 +205,6 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "Das Projekt verglich regionale und internationale Beispiele, darunter KI-generierte Wetter- und Verkehrsmeldungen, KI-moderierte Webradios und KI-gestützte Musikempfehlungen. Bestehende Systeme nutzen KI hauptsächlich zur Automatisierung von Moderation oder Inhaltserstellung. Die interne Auswahl- und Aufbereitungslogik bleibt für Hörer weitgehend unsichtbar.",
           "Sync FM nimmt eine andere Position ein. Anstatt ausschließlich die Moderation zu automatisieren, stellt das System ausgewählte redaktionelle Steuerungsmöglichkeiten bereit. Die Hörer werden zu persönlichen Redakteuren und können Tiefe, Tonalität und Interpretation beeinflussen.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "16/8", caption: "[ competitor comparison ]" },
-            ],
-          },
           { kind: "h3", text: "Unterschiedliche Beziehungen zu Informationen untersuchen" },
           "Drei Personas wurden verwendet, um unterschiedliche Altersgruppen, Hörsituationen und Einstellungen zu Informationen zu betrachten. Sie repräsentierten Bedürfnisse wie effizienten Zugang zu Fakten, ruhiges Hören im Hintergrund, energetischere Präsentation, größere inhaltliche Tiefe und Schutz vor Informationsüberlastung.",
           "Die Personas wurden mit Gemini erstellt und anschließend als Werkzeuge für die Konzeptentwicklung genutzt. Sie werden deshalb als Hypothesen-Personas und nicht als direkte Ergebnisse primärer Nutzerforschung bezeichnet.",
@@ -310,7 +297,6 @@ const syncFm: CaseStudyLocaleContent = {
             ],
           },
         ],
-        images: [{ aspect: "16/8", caption: "[ ethical-risk diagram ]" }],
       },
       {
         id: "reflection",

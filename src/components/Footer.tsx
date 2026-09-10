@@ -35,7 +35,7 @@ export default function Footer({
               leaves them, and every page scrolled sideways (ISSUE-026). */}
           <div className="flex flex-wrap gap-x-16 gap-y-6 md:col-span-5">
             <nav aria-label={dictionary.landmarks.footerNav} className="flex flex-col gap-3 text-[14px] text-ink">
-              <Link to={localeHref(locale, "/#about")} className="tap-target hover:text-accent transition-colors">
+              <Link to={localeHref(locale, "/about")} className="tap-target hover:text-accent transition-colors">
                 {dictionary.nav.about}
               </Link>
               <Link to={localeHref(locale, "/playground")} className="tap-target hover:text-accent transition-colors">

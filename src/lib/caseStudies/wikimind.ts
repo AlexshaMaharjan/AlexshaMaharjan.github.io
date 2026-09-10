@@ -52,7 +52,6 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "16/8", caption: "[ competitor analysis ]" },
             ],
           },
           { kind: "h3", text: "Translating the audience into design needs" },
@@ -124,9 +123,9 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
-              { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines" },
+              { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines", stackWithNext: true },
               { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "The WikiMind logo in gradient, in solid black and in its horizontal lockups" },
+              { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
             ],
           },
           { kind: "h3", text: "A controlled human element" },
@@ -246,7 +245,6 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "16/8", caption: "[ competitor analysis ]" },
             ],
           },
           { kind: "h3", text: "Zielgruppen in konkrete Designanforderungen übersetzen" },
@@ -318,9 +316,9 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
-              { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M" },
+              { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M", stackWithNext: true },
               { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "Das WikiMind-Logo mit Farbverlauf, in Schwarz und in den horizontalen Varianten" },
+              { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
             ],
           },
           { kind: "h3", text: "Ein gezielt eingesetztes menschliches Element" },

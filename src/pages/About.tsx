@@ -3,7 +3,6 @@ import { useLocale, useDictionary } from "@/lib/useLocale";
 import { useScrollReveals } from "@/lib/useScrollReveals";
 import { localeHref } from "@/lib/i18n";
 import Image from "@/components/ui/Image";
-import Media from "@/components/ui/Media";
 import LoveLine from "@/components/about/LoveLine";
 import Seo from "@/components/Seo";
 
@@ -35,7 +34,7 @@ export default function About() {
               <div className="relative max-w-[460px] pt-[58px]">
                 <div className="relative z-[1] aspect-[3/4] overflow-hidden rounded-[10px] border border-card-border bg-surface">
                   <Image
-                    src="/images/alexsha_photo-mrx9hbwx-nif2.png"
+                    src="/images/alexsha-portrait.webp"
                     alt={about.portraitAlt}
                     fill
                     sizes="(min-width: 1180px) 460px, (min-width: 768px) 40vw, calc(100vw - 40px)"
@@ -98,6 +97,11 @@ export default function About() {
                   {p}
                 </p>
               ))}
+              {/* MILESTONE-010 task 7: the "I love …" line sits directly below
+                  the biography, before the focus and tools blocks. */}
+              <div className="mt-11">
+                <LoveLine intro={about.loveIntro} words={about.loveWords} />
+              </div>
             </div>
           </div>
         </div>
@@ -127,73 +131,49 @@ export default function About() {
               </h2>
               <div className="mt-7 flex max-w-[520px] flex-wrap gap-2.5">
                 {about.tools.map((tool) => (
-                  <span key={tool} className="rounded-full border border-border px-4 py-2 text-[14px] text-ink-body">
-                    {tool}
+                  <span
+                    key={tool.name}
+                    className={`rounded-full border px-4 py-2 text-[14px] ${
+                      tool.accent ? "border-accent text-accent" : "border-border text-ink-body"
+                    }`}
+                  >
+                    {tool.name}
                   </span>
                 ))}
               </div>
 
               <div className="mt-8.5 max-w-[520px] border-t border-surface-2 pt-6.5">
-                <p className="font-mono text-[12px] text-accent">{about.aiLabel}</p>
-                <p className="mt-3.5 text-[16px] leading-[1.65] text-ink-body">{about.aiBody}</p>
+                <p className="text-[16px] leading-[1.65] text-accent">{about.aiBody}</p>
                 <div className="mt-5 flex flex-wrap gap-2.5">
                   {about.aiTags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-dashed border-border-muted px-4 py-2 text-[14px] text-ink-body"
+                      className="rounded-full border border-dashed border-accent px-4 py-2 text-[14px] text-accent"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
-
-              <div className="mt-12 flex flex-wrap items-center gap-4">
-                <Link
-                  to={localeHref(locale, "/resume")}
-                  className="flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-colors hover:bg-accent"
-                >
-                  {about.resumeLink}
-                </Link>
-                <span className="font-mono text-[12px] text-ink-muted">{about.resumeCaption}</span>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="pt-[110px]">
+      <section className="py-[110px]">
         <div data-inview className="container-page">
-          <h2 className="mt-2.5 text-subheading font-semibold tracking-[-0.02em]">
-            {about.carouselHeading}
-          </h2>
-        </div>
-        {/*
-          A horizontally scrolling region needs to be focusable, or a keyboard
-          user cannot scroll it at all (axe: scrollable-region-focusable).
-        */}
-        <div
-          tabIndex={0}
-          role="region"
-          aria-label={about.carouselHeading}
-          className="mt-8 overflow-x-auto pb-2"
-          style={{ scrollSnapType: "x proximity" }}
-        >
-          <div className="flex w-max gap-4 px-5 md:px-20">
-            {about.carouselItems.map((item) => (
-              <figure key={item.caption} className="m-0" style={{ scrollSnapAlign: "start" }}>
-                {/* `w-60` is a fixed 240px at every viewport (SESSION-033). */}
-                <Media src={item.src} alt={item.alt} aspect="4/5" sizes="240px" caption={`[ ${item.caption} ]`} className="w-60" />
-                <figcaption className="mt-2.5 font-mono text-[11px] text-ink-muted">{item.caption}</figcaption>
-              </figure>
-            ))}
+          <div className="mx-auto flex max-w-[640px] flex-col items-center text-center">
+            <h2 className="mt-2.5 text-subheading font-semibold tracking-[-0.02em]">
+              {about.playgroundHeading}
+            </h2>
+            <p className="mt-6 text-[18px] leading-[1.65] text-ink-body">{about.playgroundCopy}</p>
+            <Link
+              to={localeHref(locale, "/playground")}
+              className="tap-target mt-7 text-[15px] font-medium text-accent hover:underline"
+            >
+              {about.linkPlayground}
+            </Link>
           </div>
-        </div>
-      </section>
-
-      <section className="py-[100px] pb-[130px]">
-        <div data-inview className="container-page">
-          <LoveLine intro={about.loveIntro} words={about.loveWords} />
         </div>
       </section>
 

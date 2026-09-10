@@ -11,22 +11,12 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
           <div>
             <div className="relative aspect-[3/4] w-full max-w-[460px] overflow-hidden rounded-[10px] border border-card-border bg-surface-2">
               <Image
-                src="/images/alexsha_photo-mrx9hbwx-nif2.png"
+                src="/images/alexsha-portrait.webp"
                 alt={dictionary.aboutPreview.portraitAlt}
                 fill
                 sizes="(min-width: 1180px) 460px, (min-width: 768px) 40vw, calc(100vw - 40px)"
                 className="object-cover"
               />
-            </div>
-            <div className="mt-5 flex max-w-[460px] flex-wrap gap-2">
-              {dictionary.aboutPreview.annotations.map((note) => (
-                <span
-                  key={note}
-                  className="rounded-full border border-border px-3.5 py-[6px] text-[13px] text-ink-secondary"
-                >
-                  {note}
-                </span>
-              ))}
             </div>
           </div>
 
@@ -38,17 +28,28 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
             <p className="mt-6 max-w-[600px] text-[18px] leading-[1.6] text-ink-secondary">
               {dictionary.aboutPreview.copy}
             </p>
-            <div className="mt-9 flex flex-wrap gap-8">
-              <Link to={localeHref(locale, "/about")} className="tap-target text-[15px] font-medium text-accent hover:underline">
-                {dictionary.aboutPreview.linkAbout}
-              </Link>
-              <Link
-                to={localeHref(locale, "/playground")}
-                className="tap-target text-[15px] font-medium text-accent hover:underline"
-              >
-                {dictionary.aboutPreview.linkPlayground}
-              </Link>
-            </div>
+            <p className="mt-4 max-w-[600px] text-[18px] leading-[1.6] text-ink-muted">
+              {dictionary.aboutPreview.copyDim}
+            </p>
+            <Link
+              to={localeHref(locale, "/about")}
+              className="tap-target mt-5 inline-block text-[15px] font-medium text-accent hover:underline"
+            >
+              {dictionary.aboutPreview.linkAbout}
+            </Link>
+
+            <h3 className="mt-12 text-[24px] font-semibold leading-[1.2] tracking-[-0.02em] text-ink">
+              {dictionary.aboutPreview.playgroundHeading}
+            </h3>
+            <p className="mt-4 max-w-[600px] text-[18px] leading-[1.6] text-ink-secondary">
+              {dictionary.aboutPreview.playgroundCopy}
+            </p>
+            <Link
+              to={localeHref(locale, "/playground")}
+              className="tap-target mt-5 inline-block text-[15px] font-medium text-accent hover:underline"
+            >
+              {dictionary.aboutPreview.linkPlayground}
+            </Link>
           </div>
         </div>
       </div>

@@ -31,7 +31,7 @@ export default function MobileMenu({
 
   const links = [
     { href: localeHref(locale, "/#work"), label: dictionary.nav.projects },
-    { href: localeHref(locale, "/#about"), label: dictionary.nav.about },
+    { href: localeHref(locale, "/about"), label: dictionary.nav.about },
     { href: localeHref(locale, "/#contact"), label: dictionary.nav.contact },
   ];
 

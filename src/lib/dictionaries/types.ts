@@ -154,11 +154,13 @@ export interface Dictionary {
   projects: ProjectCopy[];
   resume: ResumeCopy;
   aboutPreview: {
-    annotations: string[];
     eyebrow: string;
     heading: string;
     copy: string;
+    copyDim: string;
     linkAbout: string;
+    playgroundHeading: string;
+    playgroundCopy: string;
     linkPlayground: string;
     portraitAlt: string;
   };
@@ -196,14 +198,15 @@ export interface Dictionary {
     focusHeading: string;
     focusItems: string[];
     toolsHeading: string;
-    tools: string[];
-    aiLabel: string;
+    /* `accent` marks the one chip rendered in the accent blue (MILESTONE-010
+       task 6c). It is data rather than an index check in About.tsx so the
+       German list can mark a different position if it ever reorders. */
+    tools: { name: string; accent?: boolean }[];
     aiBody: string;
     aiTags: string[];
-    resumeLink: string;
-    resumeCaption: string;
-    carouselHeading: string;
-    carouselItems: { alt: string; caption: string; src?: string }[];
+    playgroundHeading: string;
+    playgroundCopy: string;
+    linkPlayground: string;
     loveIntro: string;
     loveWords: string[];
     resumeHeading: string;
