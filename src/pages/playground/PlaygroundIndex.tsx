@@ -40,14 +40,19 @@ export default function PlaygroundIndex() {
 
       {/*
         The title sits high on the first screen rather than in the middle of it,
-        so the top of the first card is already on screen before anyone scrolls
-        — the owner asked for about half of it. That is arithmetic, not taste:
-        the deck starts at this section's height, a card is
-        `100svh - header - 40`, so half a card showing at rest wants a hero of
-        `100svh - card/2`, which is 56svh. In `svh` the ratio holds at any
-        window height.
+        so the top of the first card is already on screen before anyone scrolls.
+        The height is the homepage's: its process canvas is pinned at `top:
+        70svh` (`HeroProcess.tsx`), and the owner asked for the two pages to
+        start their big scrolling object at the same place. In `svh` that holds
+        at any window height.
+
+        What it costs: the deck starts at this section's height and a card is
+        `100svh - header - 40`, so the sliver showing at rest is `30svh` of a
+        card — about a third of it at a 900px window, where the old 56svh hero
+        showed half. Half a card was SESSION-036's arithmetic; agreeing with
+        the homepage is the owner's instruction, and it wins.
       */}
-      <section className="flex min-h-[56svh] items-center justify-center px-5 pt-[var(--header-h)]">
+      <section className="flex min-h-[70svh] items-center justify-center px-5 pt-[var(--header-h)]">
         <div className="container-page text-center">
           <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink-muted">{content.eyebrow}</p>
           <h1 className="mx-auto mt-5 max-w-[900px] text-page-title font-semibold leading-[1.02] tracking-[-0.028em] text-ink">

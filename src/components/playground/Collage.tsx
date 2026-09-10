@@ -1,4 +1,11 @@
-import { useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { createPortal } from "react-dom";
 import Image from "@/components/ui/Image";
 import Lightbox from "@/components/ui/Lightbox";
@@ -6,7 +13,7 @@ import LoopVideo from "@/components/ui/LoopVideo";
 import Scribble, { ScribbleArrow } from "@/components/playground/Scribble";
 import type { Locale } from "@/lib/i18n";
 import { FRAME_H, FRAME_W, type CollageScribble, type CollageSlot } from "@/lib/playground/collage";
-import { placeScribbles } from "@/lib/playground/placeScribbles";
+import { placeScribbles, UNITS_PER_PX_AT_1280 } from "@/lib/playground/placeScribbles";
 
 /**
  * One card's worth of the playground collage (`SESSION-035`).
@@ -134,7 +141,10 @@ function Opener({
       onPointerMove={(event) => onPoint(slot, event)}
       onPointerLeave={onUnpoint}
       style={{ "--pg-order": order } as CSSProperties}
-      className={`pg-piece block cursor-zoom-in outline-offset-4 ${className}`}
+      /* `cursor-pointer`, not `cursor-zoom-in`: the owner does not want the
+          magnifying glass, and the viewer this opens no longer zooms
+          (`MILESTONE-010` tasks 14d and 14e). */
+      className={`pg-piece block cursor-pointer outline-offset-4 ${className}`}
     >
       <Picture slot={slot} locale={locale} paused={paused} />
     </button>
@@ -164,7 +174,39 @@ export default function Collage({
    * Where the notes go and how their arrows run. Worked out from the pictures
    * they name rather than written down beside them — `placeScribbles` says why.
    */
-  const notes = useMemo(() => placeScribbles(slots, scribbles), [slots, scribbles]);
+  /*
+   * How many design units one CSS pixel of this card is worth. A note is drawn
+   * at a fixed CSS size over a stage that is not, so `placeScribbles` cannot
+   * know how big its boxes are until the stage has one: measured here and fed
+   * back in, rather than assumed to be the 1280px card the type estimates were
+   * taken on (`ISSUE-043`, `MILESTONE-010` task 14h).
+   *
+   * The first pass runs at the default, and the measurement re-places on the
+   * frame after layout. That is one extra render per card on mount and one per
+   * resize, and it is the difference between a note that was collision-tested
+   * at its real size and one that was not.
+   */
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [unitsPerPx, setUnitsPerPx] = useState(UNITS_PER_PX_AT_1280);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(([entry]) => {
+      const width = entry?.contentRect.width ?? 0;
+      if (width <= 0) return;
+      // Rounded, or a sub-pixel reflow re-places every note for nothing.
+      const next = Math.round((FRAME_W / width) * 100) / 100;
+      setUnitsPerPx((current) => (current === next ? current : next));
+    });
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
+
+  const notes = useMemo(
+    () => placeScribbles(slots, scribbles, unitsPerPx),
+    [slots, scribbles, unitsPerPx],
+  );
   /* The shuffle is a permutation of the slot list, so the fallback is dead —
      it is here because the index signature says it might not be. */
   const orderOf = (index: number) => sequence[index] ?? index;
@@ -214,6 +256,7 @@ export default function Collage({
       {/* The design, whenever the card is wide enough to hold it. */}
       <div className="collage-design absolute inset-0 place-items-center">
         <div
+          ref={stageRef}
           className="relative w-full"
           style={{ width: `min(100cqw, ${(FRAME_W / FRAME_H) * 100}cqh)`, aspectRatio: `${FRAME_W} / ${FRAME_H}` }}
         >
@@ -370,6 +413,7 @@ export default function Collage({
           alt={open.alt[locale]}
           caption={open.caption[locale]}
           description={open.alt[locale]}
+          zoomable={false}
           onClose={close}
         />
       ) : null}

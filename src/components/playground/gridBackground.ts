@@ -29,7 +29,13 @@ function rgba(hex: string, alpha: number): string {
   return `rgba(${(value >> 16) & 255}, ${(value >> 8) & 255}, ${value & 255}, ${alpha})`;
 }
 
-export const gridBackground = grid("rgba(43,74,191,0.075)", "rgba(43,74,191,0.032)");
+/*
+ * Lightened from 0.075/0.032 (`MILESTONE-010` task 14f): the owner found the
+ * card ruling too dark. Read this together with `accentGridBackground`, which
+ * paints a second grid over it at full reveal — the two add up, so the state to
+ * judge is the lit card, not the resting one.
+ */
+export const gridBackground = grid("rgba(43,74,191,0.045)", "rgba(43,74,191,0.018)");
 
 /**
  * The page behind the deck: a notebook's dot grid, not a ruled one

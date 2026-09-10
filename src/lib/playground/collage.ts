@@ -299,7 +299,7 @@ const cards: CollageCard[] = [
       },
       {
         target: "/images/pg-packaging-perfume-flat.webp",
-        text: { en: "perfume — flat,\nthen folded", de: "Parfüm — flach,\ndann gefaltet" },
+        text: { en: "perfume: flat,\nthen folded", de: "Parfüm: flach,\ndann gefaltet" },
         tone: "accent",
       },
     ],

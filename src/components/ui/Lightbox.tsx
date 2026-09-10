@@ -30,6 +30,14 @@ import { prefersReducedMotion } from "@/lib/motion";
  * backdrop is opaque for the same reason: at 95% the header's own wordmark still
  * ghosted through and landed on top of this dialog's caption.
  *
+ * **`zoomable={false}` drops the second state** (`MILESTONE-010` task 14d). On
+ * the playground the owner wants a piece to open large and centred and to close
+ * on a click anywhere outside it, with no zoom-and-pan behind it: the collage
+ * pieces are photographs of things rather than dense artefacts, and the reason
+ * the toggle exists does not apply to them. It stays the default everywhere
+ * else, because on a case study it is the whole point on a phone
+ * (`DECISION-018`).
+ *
  * **A clip opens here too** (SESSION-036), for the playground's collages: pass
  * `video` and the poster as `src`. It plays with controls, from the start, and
  * the fit/actual-size toggle does not apply — a film has one size, and taking a
@@ -44,6 +52,7 @@ export default function Lightbox({
   caption,
   description,
   video,
+  zoomable = true,
   onClose,
 }: {
   src: string;
@@ -53,6 +62,12 @@ export default function Lightbox({
   description?: string;
   /** When set, `src` is its poster and the dialog plays the film instead. */
   video?: string;
+  /**
+   * Whether tapping the image switches to its natural width in a pannable
+   * container. Off, the image is not a control at all and a click anywhere
+   * outside it closes the dialog.
+   */
+  zoomable?: boolean;
   onClose: () => void;
 }) {
   const [actualSize, setActualSize] = useState(false);
@@ -95,9 +110,17 @@ export default function Lightbox({
       if (event.key !== "Tab") return;
       // A two-element trap: Close and the image itself. A clip has no
       // fit toggle, so `imageRef` is empty and the guard below lets Tab fall
-      // through to the video's own controls.
+      // through to the video's own controls — but a still with no toggle has
+      // nothing else to reach, so Tab must stay on Close rather than walk out
+      // of the dialog into the page behind it.
       const focusable = [closeRef.current, imageRef.current].filter(Boolean) as HTMLElement[];
-      if (focusable.length < 2) return;
+      if (focusable.length < 2) {
+        if (!video && closeRef.current) {
+          event.preventDefault();
+          closeRef.current.focus();
+        }
+        return;
+      }
       const first = focusable[0]!;
       const last = focusable[focusable.length - 1]!;
       const active = document.activeElement;
@@ -118,6 +141,14 @@ export default function Lightbox({
       aria-modal="true"
       aria-label={alt}
       onKeyDown={onKeyDown}
+      /*
+       * Click-to-close on the backdrop, and only where there is no zoom to
+       * confuse it with: with `zoomable` on, a click that misses the image is
+       * as likely to be a mis-aimed zoom as a dismissal. `event.target` rather
+       * than a wrapper, so only the padding around the picture closes it and a
+       * click on the picture itself does nothing.
+       */
+      onClick={zoomable ? undefined : (event) => { if (event.target === event.currentTarget) onClose(); }}
       className="fixed inset-0 z-[210] flex flex-col bg-ink"
       style={prefersReducedMotion() ? undefined : { animation: "figure-zoom-in 160ms ease-out" }}
     >
@@ -143,7 +174,10 @@ export default function Lightbox({
         at actual size the image overflows and this pans. `overscroll-contain`
         stops a pan at the edge from scrolling the page behind it.
       */}
-      <div className={`flex-1 overscroll-contain px-5 pb-6 sm:px-8 ${!video && actualSize ? "overflow-auto" : "overflow-hidden"}`}>
+      <div
+        onClick={zoomable ? undefined : (event) => { if (event.target === event.currentTarget) onClose(); }}
+        className={`flex-1 overscroll-contain px-5 pb-6 sm:px-8 ${!video && zoomable && actualSize ? "overflow-auto" : "overflow-hidden"}`}
+      >
         {video ? (
           <div className="flex h-full w-full items-center justify-center">
             {/* Silent by construction: these clips have no audio track at all
@@ -160,7 +194,7 @@ export default function Lightbox({
               className="max-h-full max-w-full rounded-[6px]"
             />
           </div>
-        ) : (
+        ) : zoomable ? (
           <button
             ref={imageRef}
             type="button"
@@ -174,6 +208,13 @@ export default function Lightbox({
               className={actualSize ? "max-w-none rounded-[6px]" : "max-h-full max-w-full rounded-[6px] object-contain"}
             />
           </button>
+        ) : (
+          <div
+            onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}
+            className="flex h-full w-full items-center justify-center"
+          >
+            <img src={src} alt={alt} className="max-h-full max-w-full rounded-[6px] object-contain" />
+          </div>
         )}
       </div>
     </div>,
