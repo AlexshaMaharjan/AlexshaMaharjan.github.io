@@ -34,7 +34,6 @@ const de: Dictionary = {
     tags: "UI/UX · Branding · Visual Design",
   },
   process: {
-    label: "Mein Prozess",
     scrollCue: "Scrollen zum Entdecken ↓",
     question: "Wie bringe ich ein Projekt zum Leben?",
     srSummary:
