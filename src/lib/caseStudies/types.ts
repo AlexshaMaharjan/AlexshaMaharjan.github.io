@@ -24,6 +24,15 @@ export interface SectionImage {
    */
   wide?: boolean;
   /**
+   * Share a column with the figure that follows, as a single cell in the
+   * justified row (`MILESTONE-010` task 8). Two wide figures stacked beside a
+   * tall one is a bento the row machinery cannot otherwise express: on their
+   * own aspects the wide pair would each claim a row and the tall one a third.
+   *
+   * A stacked cell is never treated as `wide` — it is already a composite.
+   */
+  stackWithNext?: boolean;
+  /**
    * A film rather than a still. `src` stays the **poster** — it is what the
    * page loads, what `srcset` serves and what `aspect` must match — and this is
    * the file fetched only when someone presses play (`ui/Video`).

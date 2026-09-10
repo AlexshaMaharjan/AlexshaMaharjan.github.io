@@ -67,7 +67,17 @@ const config: Config = {
         canvas: "40px",
       },
       spacing: {
+        /*
+         * The half steps Tailwind's own scale stops providing above 3.5. Three
+         * of them were written in `About.tsx` and produced **no CSS at all**
+         * (SESSION-039): `mt-8.5`, `pt-6.5` and `mt-5.5` were silently dropped,
+         * so the AI block sat flush against its own rule. Nothing warns about
+         * a class that does not exist.
+         */
         "4.5": "18px",
+        "5.5": "22px",
+        "6.5": "26px",
+        "8.5": "34px",
         "13": "52px",
         "18": "72px",
         "30": "120px",

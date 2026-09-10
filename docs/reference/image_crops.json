@@ -902,12 +902,13 @@
     "crop": [
       0,
       0,
-      1,
+      0.6704,
       1
     ],
     "width": 1600,
-    "height": 495,
-    "quality": 0.82
+    "height": 743,
+    "quality": 0.82,
+    "note": "Trimmed to the first two panels. The third carried the source document's own figure caption, 'Abbildung 26 Verschiedene Haken', legible in the shot (MILESTONE-010 task 9a)."
   },
   {
     "src": "Images/kitchen/paperprototyp3.png",

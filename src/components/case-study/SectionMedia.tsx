@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { SectionImage } from "@/lib/caseStudies/types";
-import { ratioOf as ratioOfAspect, rowMetrics, rowsOf, sizesFor } from "@/lib/justify";
+import { justifyCells, ratioOf as ratioOfAspect, rowsOf, sizesFor } from "@/lib/justify";
 import Figure from "./Figure";
 
 /**
@@ -84,12 +84,24 @@ const MAX_FIGURE_HEIGHT = 640;
 export default function SectionMedia({ images }: { images: SectionImage[] }) {
   if (images.length === 0) return null;
 
-  const runs: { wide: boolean; items: SectionImage[] }[] = [];
+  /*
+   * Figures first collapse into cells, so a stack counts as one item in
+   * everything that follows: the wide/narrow grouping, the three-per-row
+   * chunking and the justification.
+   */
+  const cells: SectionImage[][] = [];
   for (const image of images) {
-    const wide = isWide(image);
+    const previous = cells[cells.length - 1];
+    if (previous && previous[previous.length - 1]!.stackWithNext) previous.push(image);
+    else cells.push([image]);
+  }
+
+  const runs: { wide: boolean; items: SectionImage[][] }[] = [];
+  for (const cell of cells) {
+    const wide = cell.length === 1 && isWide(cell[0]!);
     const last = runs[runs.length - 1];
-    if (last && !last.wide && !wide) last.items.push(image);
-    else runs.push({ wide, items: [image] });
+    if (last && !last.wide && !wide) last.items.push(cell);
+    else runs.push({ wide, items: [cell] });
   }
 
   const rows = runs.flatMap((run) => (run.wide ? [run.items] : rowsOf(run.items)));
@@ -103,18 +115,25 @@ export default function SectionMedia({ images }: { images: SectionImage[] }) {
         section's. While the section is at rest the figures are invisible with
         it; once it has arrived they wait for their own turn (DECISION-008).
       */}
-      {rows.map((items, i) => {
-        const { ratios, height, width } = rowMetrics(items.map(ratioOf), COLUMN_PX, GAP, MAX_FIGURE_HEIGHT);
+      {rows.map((row, i) => {
+        const { widths, width } = justifyCells(
+          row.map((cell) => ({ ratios: cell.map(ratioOf) })),
+          COLUMN_PX,
+          GAP,
+          MAX_FIGURE_HEIGHT,
+        );
         return (
           <div
             key={i}
-            data-inview={items.length === 1 ? "scale" : "stagger"}
+            data-inview={row.length === 1 ? "scale" : "stagger"}
             className="mx-auto flex w-full flex-col gap-5 md:flex-row"
             style={{ maxWidth: width }}
           >
-            {items.map((image, n) => (
-              <div key={n} style={{ flex: `${ratios[n]} 1 0%` } as CSSProperties}>
-                <Figure {...image} sizes={sizesFor(Math.round(height * ratios[n]!))} />
+            {row.map((cell, n) => (
+              <div key={n} className="flex flex-col gap-5" style={{ flex: `${widths[n]} 1 0%` } as CSSProperties}>
+                {cell.map((image, m) => (
+                  <Figure key={m} {...image} sizes={sizesFor(Math.round(widths[n]!))} />
+                ))}
               </div>
             ))}
           </div>

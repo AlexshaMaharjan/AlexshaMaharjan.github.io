@@ -256,7 +256,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
           </h1>
           <div className="mt-7 max-w-[560px]">
             <p className="text-[17px] leading-[1.6] text-ink-secondary">{dictionary.hero.intro}</p>
-            <p className="mt-5 font-mono text-[13px] text-ink-muted">{dictionary.hero.tags}</p>
+            <p className="mt-5 font-mono text-[13px] text-accent">{dictionary.hero.tags}</p>
           </div>
         </section>
 
@@ -338,7 +338,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
           </h1>
           <div className="mx-auto mt-8 max-w-[660px]">
             <p className="text-[19px] leading-[1.6] text-ink-secondary">{dictionary.hero.intro}</p>
-            <p className="mt-6 font-mono text-[13px] text-ink-muted">{dictionary.hero.tags}</p>
+            <p className="mt-6 font-mono text-[13px] text-accent">{dictionary.hero.tags}</p>
           </div>
         </div>
 

@@ -23,7 +23,8 @@ Placeholder fill colors follow the site's near-black / cool-grey palette (Part B
 
 | File | Status | Dimensions | Notes |
 |---|---|---|---|
-| `alexsha_photo-mrx9hbwx-nif2.png` | **PLACEHOLDER** | 1720x2150 | Portrait — needs full-res re-export |
+| `alexsha-portrait.webp` | real | 1720x2150 | The photograph, from `Images/Alexsha_Photo.png`. Replaced the `alexsha_photo-mrx9hbwx-nif2.png` stand-in in SESSION-039. |
+| `alexsha-portrait-og.jpg` | real | 1200x1500 | The same photograph as the site-wide `og:image`. JPEG rather than WebP: the social card is the one image with no fallback. |
 | `1-ms52o75m-suju.png` | **PLACEHOLDER** | 2000x1414 | User persona worksheet |
 | `1-ms52okpl-ih7m.png` | **PLACEHOLDER** | 2000x1414 | User persona worksheet (variant) |
 | `frame-6-mrtp0czu-dh8i.png` | REAL | 3314x4080 | Fetched complete (62.7KB) |

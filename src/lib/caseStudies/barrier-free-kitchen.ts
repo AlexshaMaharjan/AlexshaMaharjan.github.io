@@ -146,7 +146,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             kind: "figures",
             items: [
               { aspect: "1600/535", caption: "[ full-scale prototype ]", src: "/images/kitchen-paper-prototype.webp", alt: "Full-scale paper prototypes of the pull-out drawers and the lowered sink" },
-              { aspect: "1600/495", caption: "[ prototype details ]", src: "/images/kitchen-paper-details.webp", alt: "Prototype details: control dials, the reach arc and the different handle types tried" },
+              { aspect: "1600/743", caption: "[ prototype details ]", src: "/images/kitchen-paper-details.webp", alt: "Prototype details: the cardboard control dials and the reach arc drawn on paper" },
               { aspect: "1600/430", caption: "[ prototype containers ]", src: "/images/kitchen-paper-containers.webp", alt: "Paper prototypes of the transparent containers and the pull-down shelf" },
             ],
           },
@@ -188,10 +188,8 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             items: [
               { aspect: "1600/382", caption: "[ 3d model process ]", src: "/images/kitchen-3d-structure.webp", alt: "The kitchen's grey-box model in Blender, before materials" },
               { aspect: "1024/576", caption: "[ blender environment + animation ]", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "The finished kitchen in Blender: a seated user at the lowered worktop beside the pull-down shelving" },
-              { aspect: "16/10", caption: "[ materials + textures ]" },
             ],
           },
-          "EEVEE was used for the final animation because a Cycles render was estimated to require approximately 26 days. This reduced rendering time but resulted in darker materials and lower visual quality. The compromise is acknowledged rather than hidden.",
         ],
       },
       {
@@ -365,7 +363,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             kind: "figures",
             items: [
               { aspect: "1600/535", caption: "[ full-scale prototype ]", src: "/images/kitchen-paper-prototype.webp", alt: "Papierprototypen im Maßstab 1:1 der Auszüge und der abgesenkten Spüle" },
-              { aspect: "1600/495", caption: "[ prototype details ]", src: "/images/kitchen-paper-details.webp", alt: "Prototyp-Details: Bedienknöpfe, der Reichweitenbogen und die erprobten Griffvarianten" },
+              { aspect: "1600/743", caption: "[ prototype details ]", src: "/images/kitchen-paper-details.webp", alt: "Prototyp-Details: die Bedienknöpfe aus Karton und der auf Papier gezeichnete Reichweitenbogen" },
               { aspect: "1600/430", caption: "[ prototype containers ]", src: "/images/kitchen-paper-containers.webp", alt: "Papierprototypen der transparenten Behälter und des Absenkregals" },
             ],
           },
@@ -407,10 +405,8 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             items: [
               { aspect: "1600/382", caption: "[ 3d model process ]", src: "/images/kitchen-3d-structure.webp", alt: "Das Graustufen-Modell der Küche in Blender, vor den Materialien" },
               { aspect: "1024/576", caption: "[ blender environment + animation ]", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "Die fertige Küche in Blender: eine sitzende Nutzerin an der abgesenkten Arbeitsplatte neben dem Absenkregal" },
-              { aspect: "16/10", caption: "[ materials + textures ]" },
             ],
           },
-          "Für die finale Animation wurde EEVEE verwendet, da eine Berechnung mit Cycles schätzungsweise etwa 26 Tage benötigt hätte. Dadurch wurde die Renderzeit reduziert, gleichzeitig entstanden jedoch dunklere Materialien und eine geringere visuelle Qualität. Dieser Kompromiss wird transparent dargestellt.",
         ],
       },
       {

@@ -95,10 +95,6 @@ for (const slug of SLUGS) {
 // ---- about ----
 const about = en.about;
 add("About", "portrait", about.portraitAlt, "4/5", 1720, true, "dictionaries/{en,de}.ts → (portrait file is wired; needs a real export)");
-about.carouselItems.forEach((item, i) => {
-  add("About", "carousel", item.caption, "4/5", px(240), Boolean(item.src),
-      `dictionaries/{en,de}.ts → about.carouselItems[${i}].src`);
-});
 
 // ---- playground ----
 const h = home.default.en;
@@ -144,8 +140,6 @@ for (const slug of SLUGS) {
 }
 {
   const [e, d] = ["en", "de"].map((l) => dict.getDictionary(l));
-  compareLocales("dictionaries — about carousel", (i) => `about.carouselItems[${i}].src`,
-    (e.about.carouselItems ?? []).map((c) => c.src), (d.about.carouselItems ?? []).map((c) => c.src));
   compareLocales("dictionaries — projects", (i) => `projects[${i}].image`,
     (e.projects ?? []).map((x) => x.image), (d.projects ?? []).map((x) => x.image));
 }

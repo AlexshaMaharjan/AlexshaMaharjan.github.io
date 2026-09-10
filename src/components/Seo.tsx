@@ -64,7 +64,7 @@ export default function Seo({
 
   useEffect(() => {
     const resolvedDescription = description ?? dictionary.meta.description;
-    const resolvedImage = absoluteUrl(image ?? "/images/alexsha_photo-mrx9hbwx-nif2.png");
+    const resolvedImage = absoluteUrl(image ?? "/images/alexsha-portrait-og.jpg");
     const url = absoluteUrl(pathname);
 
     document.title = title;
