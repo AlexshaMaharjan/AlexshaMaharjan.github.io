@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-10**, after SESSION-035 (the playground becomes a deck of four Figma collages, and the branch is deployed).
+Snapshot: **2026-09-10**, after SESSION-036 (the playground deck gets scribbles and a viewer). Deployed.
 
 ## Overall
 
@@ -39,7 +39,9 @@ Roughly: architecture ~93% done, content ~70% drafted, imagery ~81% (129 of 159 
   scroll as `position: sticky` siblings, each carrying one collage traced from
   `Portfolio.fig` page 2 (48 slots, 5 autoplaying muted clips) on the paper-grid ground.
   The collage is contained on a landscape card and becomes a masonry on a portrait one,
-  switched by a container query on the card itself.
+  switched by a container query on the card itself. Ten hand-written notes point at
+  pieces (`Scribble.tsx`, the About idiom), and **every slot opens** in `ui/Lightbox` with
+  its caption and description — clips play there with their controls.
 - A complete, real résumé page with print styles.
 - `prefers-reduced-motion` honoured consistently.
 - **WCAG 2.2 AA verified** — axe-core reports 0 violations across 8 pages × 2 locales, the

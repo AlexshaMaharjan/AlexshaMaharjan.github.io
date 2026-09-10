@@ -179,7 +179,7 @@ export default function CardStack({
             className="relative h-full w-full overflow-hidden rounded-[28px] border border-card-border bg-page shadow-[0_-6px_44px_rgba(20,30,60,0.10)] [container-type:size]"
             style={gridBackground}
           >
-            <Collage slots={card.slots} locale={locale} paused={paused} />
+            <Collage slots={card.slots} scribbles={card.scribbles} locale={locale} paused={paused} />
             <span
               aria-hidden="true"
               className="pointer-events-none absolute left-0 top-0 z-10 block p-7 font-mono text-[12px] text-accent md:p-9"

@@ -29,6 +29,8 @@ export interface CollageSlot {
   src: string;
   /** A short silent loop, played in place of the poster once it is on screen. */
   video?: string;
+  /** What the piece is. Shown as the viewer's heading when a slot is opened. */
+  caption: Record<Locale, string>;
   alt: Record<Locale, string>;
   /**
    * `object-position`, for the slots where the design's own crop is not the
@@ -41,12 +43,35 @@ export interface CollageSlot {
   rotate?: number;
 }
 
+/**
+ * A hand-written note with an arrow, over a card (`Scribble.tsx`).
+ *
+ * `x`/`y` are the note's own anchor in design pixels, not the thing it points
+ * at — the arrow is a gesture in the owner's hand, the way the two beside the
+ * About portrait are, rather than a leader line that has to land on a pixel.
+ * Placing one is a matter of looking at the card, which is why these are
+ * written next to the slots they belong with.
+ */
+export interface CollageScribble {
+  x: number;
+  y: number;
+  text: Record<Locale, string>;
+  /** Which side the arrow leaves the note from, and curves towards. */
+  point: "down-left" | "down-right";
+  /** Set `right` to hang the note leftwards from its anchor. */
+  align?: "left" | "right";
+  /** Degrees off true. Default -3. */
+  rotate?: number;
+  tone?: "ink" | "accent";
+}
+
 export interface CollageCard {
   /** `01`–`04`, shown in the card's corner. */
   index: string;
   /** Names the card for screen readers. */
   label: Record<Locale, string>;
   slots: CollageSlot[];
+  scribbles: CollageScribble[];
 }
 
 /** The design canvas every slot is measured against. */
@@ -60,6 +85,7 @@ const cards: CollageCard[] = [
     slots: [
       {
         x: 2723, y: 2044, w: 2201, h: 3267, src: "/images/pg-painting-luffy.webp",
+        caption: { en: "Acrylic painting", de: "Acrylbild" },
         // The design pulls the crop to the picture's right edge.
         focus: "100% 50%",
         alt: {
@@ -69,14 +95,17 @@ const cards: CollageCard[] = [
       },
       {
         x: 7525, y: 3678, w: 2543, h: 3596, src: "/images/pg-sunset.webp",
+        caption: { en: "Sunset above the clouds", de: "Sonnenuntergang über den Wolken" },
         alt: { en: "The sun setting over a bank of cloud", de: "Die Sonne geht über einer Wolkendecke unter" },
       },
       {
         x: 5280, y: 2912, w: 1798, h: 2399, src: "/images/pg-autumn.webp",
+        caption: { en: "Autumn path", de: "Herbstweg" },
         alt: { en: "A path through autumn trees in orange and red", de: "Ein Weg durch herbstliche Bäume in Orange und Rot" },
       },
       {
         x: 4443, y: 5816, w: 2629, h: 2722, src: "/images/pg-flyer.webp",
+        caption: { en: "Event flyer", de: "Veranstaltungsflyer" },
         alt: {
           en: "A set of event cards in pink and black, laid out as a grid",
           de: "Eine Reihe von Veranstaltungskarten in Rosa und Schwarz als Raster",
@@ -84,10 +113,12 @@ const cards: CollageCard[] = [
       },
       {
         x: 2604, y: 5677, w: 1660, h: 1999, src: "/images/pg-packaging-crisps.webp",
+        caption: { en: "Crisp packet", de: "Chips-Verpackung" },
         alt: { en: "Packaging for a hot and spicy crisp brand", de: "Verpackung für eine scharfe Chips-Marke" },
       },
       {
         x: 13187, y: 4111, w: 2109, h: 2812, src: "/images/pg-painting-framed.webp",
+        caption: { en: "Framed sky painting", de: "Gerahmtes Himmelsbild" },
         alt: {
           en: "A painted sky held up against a wall of red bows and fairy lights",
           de: "Ein gemalter Himmel, hochgehalten vor einer Wand aus roten Schleifen und Lichterketten",
@@ -95,6 +126,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 10342, y: 6013, w: 2571, h: 1820, src: "/images/pg-kalender-maerz.webp",
+        caption: { en: "Calendar — March", de: "Kalender — März" },
         alt: {
           en: "The March page of a typographic calendar, its flower drawn from the month's name",
           de: "Das März-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
@@ -102,6 +134,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 7192, y: 7676, w: 2882, h: 2037, src: "/images/pg-kalender-oktober.webp",
+        caption: { en: "Calendar — October", de: "Kalender — Oktober" },
         alt: {
           en: "The October page of a typographic calendar, its flower drawn from the month's name",
           de: "Das Oktober-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
@@ -109,6 +142,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 5962, y: 1491, w: 1563, h: 1106, src: "/images/pg-kalender-dezember.webp",
+        caption: { en: "Calendar — December", de: "Kalender — Dezember" },
         alt: {
           en: "The December page of a typographic calendar, its flower drawn from the month's name",
           de: "Das Dezember-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
@@ -116,6 +150,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 10342, y: 3952, w: 2438, h: 1725, src: "/images/pg-kalender-juni.webp",
+        caption: { en: "Calendar — June", de: "Kalender — Juni" },
         alt: {
           en: "The June page of a typographic calendar, its flower drawn from the month's name",
           de: "Das Juni-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
@@ -123,11 +158,13 @@ const cards: CollageCard[] = [
       },
       {
         x: 681, y: 4348, w: 1595, h: 2128, src: "/images/pg-gift-popup.webp",
+        caption: { en: "Pop-up gift box", de: "Pop-up-Geschenkbox" },
         alt: { en: "A pop-up birthday box with balloons and lettering", de: "Eine Pop-up-Geburtstagsbox mit Ballons und Schriftzug" },
       },
       {
         x: 7881, y: 1459, w: 3347, h: 1883,
         src: "/images/pg-clip-hibi.webp", video: "/videos/pg-hibi.mp4",
+        caption: { en: "Hibi — task app", de: "Hibi — Aufgaben-App" },
         alt: {
           en: "The Hibi task app, its to-do list and upcoming tasks on screen",
           de: "Die Aufgaben-App Hibi mit To-do-Liste und anstehenden Aufgaben",
@@ -135,10 +172,25 @@ const cards: CollageCard[] = [
       },
       {
         x: 11561, y: 1887, w: 2530, h: 1791, src: "/images/pg-kalender-cover.webp",
+        caption: { en: "Typographic calendar — cover", de: "Typografischer Kalender — Cover" },
         alt: {
           en: "The cover of a 2027 typographic calendar, its title over an outlined floral pattern",
           de: "Das Cover eines typografischen Kalenders 2027, Titel über einem Blütenmuster in Konturlinien",
         },
+      },
+    ],
+    scribbles: [
+      {
+        x: 8600, y: 250, point: "down-left",
+        text: { en: "my own\ntask app", de: "meine eigene\nAufgaben-App" },
+      },
+      {
+        x: 1500, y: 400, point: "down-right", rotate: -5,
+        text: { en: "acrylic on\ncanvas", de: "Acryl auf\nLeinwand" },
+      },
+      {
+        x: 15700, y: 300, point: "down-left", align: "right", rotate: 3, tone: "accent",
+        text: { en: "a whole year,\none flower\na month", de: "ein ganzes Jahr,\neine Blüte\nje Monat" },
       },
     ],
   },
@@ -148,6 +200,7 @@ const cards: CollageCard[] = [
     slots: [
       {
         x: 9473, y: 775, w: 1888, h: 2612, src: "/images/pg-bead.webp",
+        caption: { en: "Beaded hanging planter", de: "Perlen-Hängeampel" },
         // A tall picture in a shorter box: the design keeps the planter, not the ceiling.
         focus: "50% 59%",
         alt: {
@@ -157,10 +210,12 @@ const cards: CollageCard[] = [
       },
       {
         x: 5748, y: 7099, w: 3157, h: 2368, src: "/images/pg-painting-blossom.webp",
+        caption: { en: "Blossom painting", de: "Blütenbild" },
         alt: { en: "Blue blossom branches painted in acrylic", de: "Blaue Blütenzweige in Acryl gemalt" },
       },
       {
         x: 10499, y: 3787, w: 2048, h: 2732, src: "/images/pg-portrait.webp",
+        caption: { en: "Digital portrait", de: "Digitales Porträt" },
         alt: {
           en: "A digital portrait of a woman in a green patterned dress",
           de: "Digitales Porträt einer Frau in grün gemustertem Kleid",
@@ -168,10 +223,12 @@ const cards: CollageCard[] = [
       },
       {
         x: 3069, y: 3489, w: 2480, h: 3508, src: "/images/pg-forest.webp",
+        caption: { en: "Forest study", de: "Waldstudie" },
         alt: { en: "Light falling through a dense green forest", de: "Licht, das durch einen dichten grünen Wald fällt" },
       },
       {
         x: 1045, y: 3961, w: 1685, h: 2384, src: "/images/pg-poster-museum.webp",
+        caption: { en: "Museum poster", de: "Museumsplakat" },
         alt: {
           en: "An illustrated children's poster for a museum exhibition",
           de: "Ein illustriertes Kinderplakat für eine Museumsausstellung",
@@ -179,14 +236,17 @@ const cards: CollageCard[] = [
       },
       {
         x: 5981, y: 534, w: 2924, h: 2714, src: "/images/pg-packaging-perfume-flat.webp",
+        caption: { en: "Perfume box — unfolded", de: "Parfüm-Verpackung — abgewickelt" },
         alt: { en: "Perfume packaging laid out flat", de: "Parfümverpackung flach ausgelegt" },
       },
       {
         x: 12676, y: 3845, w: 2278, h: 2674, src: "/images/pg-packaging-perfume.webp",
+        caption: { en: "Perfume box", de: "Parfüm-Verpackung" },
         alt: { en: "A navy perfume box with a floral pattern", de: "Eine dunkelblaue Parfümschachtel mit Blütenmuster" },
       },
       {
         x: 5888, y: 3701, w: 4272, h: 2552, src: "/images/pg-mindruhe.webp",
+        caption: { en: "MindRuhe — web design", de: "MindRuhe — Webdesign" },
         alt: {
           en: "The MindRuhe landing page on a laptop, its calming methods arranged in a fan",
           de: "Die MindRuhe-Startseite auf einem Laptop, die Beruhigungsmethoden fächerförmig angeordnet",
@@ -194,6 +254,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 2858, y: 1114, w: 2784, h: 1970, src: "/images/pg-kalender-mai.webp",
+        caption: { en: "Calendar — May", de: "Kalender — Mai" },
         alt: {
           en: "The May page of a typographic calendar, its flower drawn from the month's name",
           de: "Das Mai-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
@@ -201,10 +262,21 @@ const cards: CollageCard[] = [
       },
       {
         x: 9248, y: 7099, w: 2969, h: 2102, src: "/images/pg-kalender-juli.webp",
+        caption: { en: "Calendar — July", de: "Kalender — Juli" },
         alt: {
           en: "The July page of a typographic calendar, its flower drawn from the month's name",
           de: "Das Juli-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
         },
+      },
+    ],
+    scribbles: [
+      {
+        x: 700, y: 1500, point: "down-right", rotate: -4,
+        text: { en: "light is the\nwhole subject", de: "das Licht ist\ndas Motiv" },
+      },
+      {
+        x: 15700, y: 500, point: "down-left", align: "right", rotate: 3, tone: "accent",
+        text: { en: "perfume — flat,\nthen folded", de: "Parfüm — flach,\ndann gefaltet" },
       },
     ],
   },
@@ -214,14 +286,17 @@ const cards: CollageCard[] = [
     slots: [
       {
         x: 9265, y: 7852, w: 1669, h: 1230, src: "/images/pg-abstract.webp", rotate: -90,
+        caption: { en: "Abstract shape poster", de: "Abstraktes Formplakat" },
         alt: { en: "A black and white burst of radiating shapes", de: "Ein schwarz-weißer Strahlenkranz aus Formen" },
       },
       {
         x: 1046, y: 3969, w: 2412, h: 1781, src: "/images/pg-postcard-1.webp",
+        caption: { en: "Typographic postcard", de: "Typografische Postkarte" },
         alt: { en: "A Schiller quote set around a circular path", de: "Ein Schiller-Zitat entlang einer Kreisbahn gesetzt" },
       },
       {
         x: 6678, y: 838, w: 3154, h: 2280, src: "/images/pg-bookcover.webp",
+        caption: { en: "Book cover", de: "Buchcover" },
         alt: {
           en: "A book cover for “Glow in the Fog”, front and spine",
           de: "Ein Buchcover für „Glow in the Fog“, Vorderseite und Rücken",
@@ -229,11 +304,13 @@ const cards: CollageCard[] = [
       },
       {
         x: 3580, y: 2129, w: 2109, h: 2811, src: "/images/pg-poster-hologram.webp",
+        caption: { en: "Hologram poster", de: "Hologramm-Plakat" },
         alt: { en: "A product poster for a holographic watch", de: "Ein Produktplakat für eine holografische Uhr" },
       },
       {
         x: 6029, y: 3479, w: 4452, h: 2505,
         src: "/images/pg-clip-motorbike.webp", video: "/videos/pg-motorbike.mp4",
+        caption: { en: "3D motorbike — Unreal", de: "3D-Motorrad — Unreal" },
         alt: {
           en: "A motorbike riding through a rain-lit city, seen from above",
           de: "Ein Motorrad fährt durch eine regennasse Stadt, von oben gesehen",
@@ -241,6 +318,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 10830, y: 1018.5, w: 1463, h: 2194, src: "/images/pg-line-study.webp",
+        caption: { en: "Line study", de: "Linienstudie" },
         alt: {
           en: "A couple drawn in single-weight outline, no fill",
           de: "Ein Paar in gleichmäßiger Linie gezeichnet, ohne Füllung",
@@ -248,12 +326,14 @@ const cards: CollageCard[] = [
       },
       {
         x: 12859, y: 4050, w: 2091, h: 2485, src: "/images/pg-group-portrait.webp",
+        caption: { en: "Group portrait", de: "Gruppenporträt" },
         // A tall drawing in a shorter box: the design keeps the figures, not the sky.
         focus: "50% 100%",
         alt: { en: "Three women in saris, drawn as a group portrait", de: "Drei Frauen in Saris als Gruppenporträt gezeichnet" },
       },
       {
         x: 10830, y: 3332.5, w: 1884, h: 2825, src: "/images/pg-photo-lowkey.webp",
+        caption: { en: "Low-key portrait", de: "Low-Key-Porträt" },
         alt: {
           en: "A singer lit by red and blue gels against black, mid-phrase with a microphone",
           de: "Eine singende Person in rotem und blauem Licht vor Schwarz, mit Mikrofon",
@@ -261,6 +341,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 3580, y: 5291, w: 2259, h: 3348, src: "/images/pg-typography-posters.webp",
+        caption: { en: "Typographic posters", de: "Typografische Plakate" },
         alt: {
           en: "Six typographic posters, each setting a word to act out its own meaning",
           de: "Sechs typografische Plakate, jedes setzt ein Wort so, dass es seine Bedeutung vorführt",
@@ -268,14 +349,26 @@ const cards: CollageCard[] = [
       },
       {
         x: 9155, y: 6535, w: 3559, h: 1075, src: "/images/pg-desmark-logo.webp",
+        caption: { en: "Desmark logo", de: "Desmark-Logo" },
         alt: { en: "A logo lockup for the Desmark brand agency", de: "Eine Wort-Bild-Marke für die Markenagentur Desmark" },
       },
       {
         x: 6029, y: 6692, w: 2940, h: 2270, src: "/images/pg-photo-stilllife.webp",
+        caption: { en: "Mirrored still life", de: "Gespiegeltes Stillleben" },
         alt: {
           en: "Forks and grapes mirrored on black glass, arranged to read as a pair of eyes",
           de: "Gabeln und Weintrauben auf schwarzem Glas gespiegelt, angeordnet wie ein Augenpaar",
         },
+      },
+    ],
+    scribbles: [
+      {
+        x: 1400, y: 800, point: "down-right", rotate: -4,
+        text: { en: "holographic watch,\nall concept", de: "Holo-Uhr,\nreines Konzept" },
+      },
+      {
+        x: 15700, y: 600, point: "down-left", align: "right", rotate: 3, tone: "accent",
+        text: { en: "one weight,\nno fill", de: "eine Strichstärke,\nkeine Füllung" },
       },
     ],
   },
@@ -285,6 +378,7 @@ const cards: CollageCard[] = [
     slots: [
       {
         x: 9993, y: 4489, w: 1457, h: 1942, src: "/images/pg-frame.webp",
+        caption: { en: "Handmade frame", de: "Handgemachter Rahmen" },
         alt: {
           en: "A hand-decorated photo frame held up against fairy lights",
           de: "Ein handverzierter Bilderrahmen vor einer Lichterkette",
@@ -292,15 +386,18 @@ const cards: CollageCard[] = [
       },
       {
         x: 2483, y: 2739, w: 1677, h: 2235, src: "/images/pg-frame-detail.webp",
+        caption: { en: "Handmade frame — detail", de: "Handgemachter Rahmen — Detail" },
         alt: { en: "The same frame with beadwork and pressed flowers", de: "Derselbe Rahmen mit Perlen und gepressten Blüten" },
       },
       {
         x: 10096, y: 1146, w: 2700, h: 2701, src: "/images/pg-gift-cube.webp",
+        caption: { en: "Photo cube gift", de: "Fotowürfel-Geschenk" },
         alt: { en: "A stack of photo cubes forming a pyramid", de: "Ein Stapel Fotowürfel, zu einer Pyramide gesetzt" },
       },
       {
         x: 10096, y: 6977, w: 1354, h: 2407,
         src: "/images/pg-clip-riona.webp", video: "/videos/pg-gift-riona.mp4",
+        caption: { en: "Marble keepsake box", de: "Marmor-Erinnerungsbox" },
         alt: {
           en: "A pink marble keepsake box opening to reveal folded paper inside",
           de: "Eine rosa Marmorbox öffnet sich und gibt gefaltetes Papier frei",
@@ -309,6 +406,7 @@ const cards: CollageCard[] = [
       {
         x: 2713, y: 5460, w: 1475, h: 2621,
         src: "/images/pg-clip-popup.webp", video: "/videos/pg-gift-popup.mp4",
+        caption: { en: "Pop-up box, opened", de: "Pop-up-Box, geöffnet" },
         alt: {
           en: "A pink and lilac pop-up box being opened, its photo panels standing up",
           de: "Eine rosa-lila Pop-up-Box wird geöffnet, die Fotoelemente stellen sich auf",
@@ -317,6 +415,7 @@ const cards: CollageCard[] = [
       {
         x: 4401, y: 1650, w: 1918, h: 2557,
         src: "/images/pg-clip-explosion.webp", video: "/videos/pg-gift-explosion.mp4",
+        caption: { en: "Explosion box, unfolding", de: "Explosionsbox beim Öffnen" },
         alt: {
           en: "Hands unfolding the layers of a black and pink explosion gift box",
           de: "Hände, die die Ebenen einer schwarz-rosa Explosionsbox auffalten",
@@ -324,22 +423,27 @@ const cards: CollageCard[] = [
       },
       {
         x: 6592, y: 3733, w: 3127, h: 3947, src: "/images/pg-vtri-store.webp",
+        caption: { en: "VTRI storefront", de: "VTRI-Ladenfront" },
         alt: { en: "The VTRI banner installed above the shop window", de: "Das VTRI-Banner über dem Schaufenster montiert" },
       },
       {
         x: 570, y: 5165, w: 1930, h: 1287, src: "/images/pg-double-portrait.webp",
+        caption: { en: "Double portrait", de: "Doppelporträt" },
         alt: { en: "Two friends drawn side by side on a pink ground", de: "Zwei Freundinnen nebeneinander auf rosa Grund gezeichnet" },
       },
       {
         x: 11723, y: 6771, w: 1564, h: 2086, src: "/images/pg-scooter.webp",
+        caption: { en: "Child on a scooter", de: "Kind auf dem Roller" },
         alt: { en: "A child on a scooter, drawn in flat colour", de: "Ein Kind auf einem Roller, in flachen Farben gezeichnet" },
       },
       {
         x: 6746, y: 8181, w: 2973, h: 849, src: "/images/pg-vtri-banner.webp",
+        caption: { en: "VTRI banner", de: "VTRI-Banner" },
         alt: { en: "A shopfront banner for the VTRI lingerie store", de: "Ein Ladenbanner für den VTRI-Wäschestore" },
       },
       {
         x: 11663, y: 3967, w: 3671, h: 2597, src: "/images/pg-kalender-februar.webp",
+        caption: { en: "Calendar — February", de: "Kalender — Februar" },
         alt: {
           en: "The February page of a typographic calendar, its flower drawn from the month's name",
           de: "Das Februar-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
@@ -347,6 +451,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 4401, y: 7503, w: 1918, h: 1356, src: "/images/pg-kalender-september.webp",
+        caption: { en: "Calendar — September", de: "Kalender — September" },
         alt: {
           en: "The September page of a typographic calendar, its flower drawn from the month's name",
           de: "Das September-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
@@ -354,16 +459,32 @@ const cards: CollageCard[] = [
       },
       {
         x: 4401, y: 4560, w: 1836, h: 2597, src: "/images/pg-character.webp",
+        caption: { en: "Character illustration", de: "Charakter-Illustration" },
         alt: { en: "A figure holding an oversized red heart", de: "Eine Figur mit einem übergroßen roten Herz" },
       },
       {
         x: 6904, y: 836, w: 2192, h: 2686, src: "/images/pg-logo.webp",
+        caption: { en: "Logo study", de: "Logostudie" },
         // The design sits the mark high in its box, not centred.
         focus: "50% 34%",
         alt: {
           en: "A monogram mark for Infrastruktur Technologie und Design",
           de: "Eine Wortbildmarke für Infrastruktur Technologie und Design",
         },
+      },
+    ],
+    scribbles: [
+      {
+        x: 900, y: 800, point: "down-right", rotate: -4,
+        text: { en: "beads, ribbon,\nfairy lights", de: "Perlen, Band,\nLichterkette" },
+      },
+      {
+        x: 900, y: 3400, point: "down-right", rotate: 2,
+        text: { en: "flat colour,\nno line work", de: "flache Farben,\nkeine Konturen" },
+      },
+      {
+        x: 15700, y: 400, point: "down-left", align: "right", rotate: 3, tone: "accent",
+        text: { en: "photo cubes,\nstacked into\na pyramid", de: "Fotowürfel, zur\nPyramide\ngestapelt" },
       },
     ],
   },

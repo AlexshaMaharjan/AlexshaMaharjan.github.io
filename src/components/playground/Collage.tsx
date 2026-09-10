@@ -1,8 +1,10 @@
-import type { CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import Image from "@/components/ui/Image";
+import Lightbox from "@/components/ui/Lightbox";
 import LoopVideo from "@/components/ui/LoopVideo";
+import Scribble from "@/components/playground/Scribble";
 import type { Locale } from "@/lib/i18n";
-import { FRAME_H, FRAME_W, type CollageSlot } from "@/lib/playground/collage";
+import { FRAME_H, FRAME_W, type CollageScribble, type CollageSlot } from "@/lib/playground/collage";
 
 /**
  * One card's worth of the playground collage (`SESSION-035`).
@@ -22,6 +24,12 @@ import { FRAME_H, FRAME_W, type CollageSlot } from "@/lib/playground/collage";
  * design letterbox inside it keeps every piece the shape it was drawn, where
  * stretching would silently re-crop forty-eight pictures. The card sets
  * `container-type: size`, which is what those units are measured against.
+ *
+ * **Every slot opens** (SESSION-036). A collage shows a piece at a few hundred
+ * pixels; the viewer shows it at the size it was made, with what it is written
+ * under it, and plays the clips with their controls. `ui/Lightbox` already owned
+ * the dialog — the scroll lock, the focus trap, the z-index that clears the
+ * fixed header — so it learned about video rather than being duplicated.
  */
 const pct = (value: number, of: number) => `${(value / of) * 100}%`;
 
@@ -49,15 +57,68 @@ function Picture({ slot, locale, paused }: { slot: CollageSlot; locale: Locale; 
   return <Image src={slot.src} alt={alt} sizes={sizes} className="object-cover [object-position:var(--focus,50%_50%)]" />;
 }
 
+/**
+ * One slot, as the button that opens it.
+ *
+ * Module scope, deliberately. Declared inside `Collage` this is a new component
+ * type on every render, so opening the viewer remounted all forty-eight
+ * buttons — and the node the viewer had been told to return focus to was
+ * detached by the time it tried. Focus landed on `body` instead, which is the
+ * one thing a dialog must not do.
+ */
+function Opener({
+  slot,
+  locale,
+  paused,
+  className,
+  onOpen,
+}: {
+  slot: CollageSlot;
+  locale: Locale;
+  paused: boolean;
+  className: string;
+  onOpen: (slot: CollageSlot, trigger: HTMLButtonElement) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={(event) => onOpen(slot, event.currentTarget)}
+      className={`block cursor-zoom-in outline-offset-4 ${className}`}
+    >
+      <Picture slot={slot} locale={locale} paused={paused} />
+    </button>
+  );
+}
+
 export default function Collage({
   slots,
+  scribbles,
   locale,
   paused,
 }: {
   slots: CollageSlot[];
+  scribbles: CollageScribble[];
   locale: Locale;
   paused: boolean;
 }) {
+  const [open, setOpen] = useState<CollageSlot | null>(null);
+  /*
+   * `Lightbox` returns focus to whatever opened it only if the caller says
+   * where that was — it cannot know, and each slot appears in both layouts.
+   */
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+
+  const openSlot = (slot: CollageSlot, trigger: HTMLButtonElement) => {
+    triggerRef.current = trigger;
+    setOpen(slot);
+  };
+
+  const close = () => {
+    setOpen(null);
+    triggerRef.current?.focus();
+    triggerRef.current = null;
+  };
+
   return (
     <>
       {/* The design, whenever the card is wide enough to hold it. */}
@@ -95,14 +156,23 @@ export default function Collage({
                       transform: `translate(-50%, -50%) rotate(${slot.rotate}deg)`,
                     }}
                   >
-                    <Picture slot={slot} locale={locale} paused={paused} />
+                    <Opener slot={slot} locale={locale} paused={paused} className="absolute inset-0" onOpen={openSlot} />
                   </div>
                 ) : (
-                  <Picture slot={slot} locale={locale} paused={paused} />
+                  <Opener slot={slot} locale={locale} paused={paused} className="absolute inset-0" onOpen={openSlot} />
                 )}
               </div>
             );
           })}
+
+          {/*
+            The notes live on the stage, not on the card, so one keeps its
+            relationship to the picture it points at however the collage is
+            contained.
+          */}
+          {scribbles.map((scribble) => (
+            <Scribble key={scribble.text.en} scribble={scribble} locale={locale} />
+          ))}
         </div>
       </div>
 
@@ -112,7 +182,21 @@ export default function Collage({
         row can run past the bottom edge — the fade turns that overflow into an
         ending rather than a cut.
       */}
-      <div className="collage-masonry relative h-full overflow-hidden px-3 pt-12">
+      <div className="collage-masonry relative h-full overflow-hidden px-3 pt-[68px]">
+        {/*
+          A note reaches a phone too, but without its arrow. The masonry is a
+          dense contact sheet with no clear space to point across, so the card's
+          first note sits in the strip beside the index instead — the owner's
+          voice survives the layout change, the leader line does not.
+        */}
+        {scribbles[0] ? (
+          <span
+            aria-hidden="true"
+            className="absolute left-16 top-4 z-[5] whitespace-pre-line font-hand text-[19px] font-bold leading-[1.05] text-[#2B2D31] [transform:rotate(-3deg)]"
+          >
+            {scribbles[0].text[locale]}
+          </span>
+        ) : null}
         <div className="collage-columns gap-1.5 [column-fill:balance]">
           {slots.map((slot) => {
             const style = { "--focus": slot.focus } as CSSProperties;
@@ -122,7 +206,7 @@ export default function Collage({
                 className="relative mb-1.5 w-full break-inside-avoid overflow-hidden rounded-[3px]"
                 style={{ aspectRatio: `${slot.w} / ${slot.h}`, ...style }}
               >
-                <Picture slot={slot} locale={locale} paused={paused} />
+                <Opener slot={slot} locale={locale} paused={paused} className="absolute inset-0" onOpen={openSlot} />
               </div>
             );
           })}
@@ -132,6 +216,17 @@ export default function Collage({
           className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-page to-transparent"
         />
       </div>
+
+      {open ? (
+        <Lightbox
+          src={open.src}
+          video={open.video}
+          alt={open.alt[locale]}
+          caption={open.caption[locale]}
+          description={open.alt[locale]}
+          onClose={close}
+        />
+      ) : null}
     </>
   );
 }

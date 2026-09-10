@@ -13,46 +13,27 @@ npm run predeploy && npm run deploy
 
 **159 image slots, 131 filled.** Six case studies complete on the owner's own exports. The
 playground is **a title and a deck of four stacking collage cards** as of SESSION-035
-(`DECISION-027`), traced from `Portfolio.fig` page 2.
+(`DECISION-027`), traced from `Portfolio.fig` page 2, with hand-written notes over them and
+a viewer on every slot as of SESSION-036.
 
-## The objective: three things the owner asked for next
+## The objective
 
-Given in one message, at the end of SESSION-035, immediately after asking for the deploy:
+**None set.** SESSION-036 finished the three things the owner asked for after the deploy —
+the raised hero, the scribbles and the click-to-expand viewer — and the site is deployed and
+current. **Ask what they want next before proposing anything.**
 
-> "1. the title and description in playground should be bit higher so that the half of the
-> card can be visible in the hero page already.
-> 2. in each of the cards, i want scribbles like in other pages of the website, for example
-> pointing toways something, some note or something relatzed to those pictures.
-> 3. when each of the image is clicked, the image or video needs to be expanded with a
-> little description"
+Two things this branch of work left deliberately open, both cheap and both worth raising:
 
-### 1. Raise the hero
-
-Arithmetic, not taste. The deck starts at the hero's height `H`; a card is
-`100svh − header − 40`. Half a card visible at rest means `H ≈ 100svh − C/2` — about
-**56svh** at 1440 × 900. `PlaygroundIndex.tsx` currently sets
-`min-h-[calc(100svh_-_var(--header-h))]`.
-
-### 2. Scribbles
-
-**The idiom already exists** — `src/pages/About.tsx` lines 54–79: `font-hand` (Caveat) at
-25–28px bold, `[transform:rotate(±3deg)]`, and a hand-drawn SVG arrow (one cubic curve plus
-two short strokes for the head). Lift it into a reusable component rather than copying it a
-third time.
-
-A scribble must be **positioned against a slot, not against the card**, or it will drift
-from what it points at when the collage is contained at a different scale. Both locales,
-and `aria-hidden` — the About ones are decorative and these are too.
-
-### 3. Click to expand
-
-`ui/Lightbox.tsx` already does this for case-study figures (`DECISION-018`) — portalled to
-`body` at `z-[210]`, fitted/actual-size toggle, two-element focus trap, Escape to close. It
-takes `src`, `alt`, `caption`. It needs **video** and **a longer description**, and the
-description has to be written per slot in both locales — 48 of them. That is the real cost
-of item 3, and it is copy the repository cannot invent: **ask the owner whether they want
-to write them, or whether a one-line caption derived from the existing `alt` is enough for
-now.**
+1. **The descriptions in the viewer are each slot's `alt`.** That is accurate and it is not
+   the owner's voice. If they want a sentence per piece — what it was for, what it was made
+   with — that is 48 short paragraphs in two locales and it is copy only they can write. A
+   `description` field beside `caption` in `collage.ts` is where it goes; the viewer already
+   renders it.
+2. **`goto()` in `scripts/verify/run.mjs` accepts `main` plus any `h1,h2`** as proof a route
+   has rendered, and the layout supplies both before the route's lazy chunk arrives. On
+   `/playground` — now the heaviest page on the site — that window is wide enough to lose a
+   race: one `verify all` reported `landmark-one-main` and `page-has-heading-one` there and
+   four subsequent runs did not. **Wait for an `h1` specifically.**
 
 ## What needs the owner, not work
 
@@ -87,6 +68,18 @@ measured against it. Change one and check the other.
 
 **The deck's geometry has three traps** (`DECISION-027`): one shared parent, stepped
 heights, a trailing spacer. Read the decision before changing `PEEK`, `GAP` or a height.
+
+**The hero's height is arithmetic, not taste.** 56svh is what puts half a card on screen at
+rest — `100svh − card/2`, where a card is `100svh − header − 40`. Change one and recompute
+the other.
+
+**Notes are anchored in design coordinates and sized in CSS pixels**, and hidden below 900px
+of card width. A right-hung note must be anchored with `right`, not `left` plus a translate,
+or it wraps one word per line.
+
+**Never declare a component inside another component.** `Opener` was, and opening the viewer
+remounted all 48 slot buttons, detaching the node focus was meant to return to. Check
+`document.activeElement` after closing a dialog — nothing else shows this.
 
 **Clips.**
 

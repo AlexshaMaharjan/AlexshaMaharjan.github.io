@@ -1,48 +1,49 @@
 # Previous Session
 
-**SESSION-035** — 2026-09-10. Full record: `docs/sessions/session_035.md`.
+**SESSION-036** — 2026-09-10. Full record: `docs/sessions/session_036.md`.
+Immediately preceded by **SESSION-035** (`session_035.md`), which rebuilt the playground as
+a deck of four Figma collages and **deployed the branch** after 55 unpushed commits.
 
 ## What it did
 
-**Rebuilt the playground again** (`DECISION-027`), on the owner's new direction: a centred
-title and a **deck of four cards that stack as you scroll**, after
-`https://www.tanujashastri.com`. The five category sections, the contents nav, the taped
-hero collage, the exploring line, the closing note and the return link are gone.
+Three changes to `/playground`, all asked for in one message:
 
-The stack is **`position: sticky`, not script** — four siblings in one container, each
-stopping below the header while the next scrolls over it. GSAP only narrows a covered card
-for depth, and does not run under reduced motion; the stacking still does.
+**The hero is 56svh**, so half of the first card is on screen before anyone scrolls. That
+is arithmetic — the deck starts at the hero's height, a card is `100svh − header − 40`, so
+half a card showing wants `100svh − card/2`. Measured: 396 of 787px, exactly 50%.
 
-**Then filled the four cards from Figma.** `Portfolio.fig` page 2 holds four 16000 × 10000
-frames of pictures sorted by colour. `src/lib/playground/collage.ts` holds all 48 slots in
-**the design's own coordinates**, unconverted, in the design's own paint order — so a slot
-can be checked against the Figma inspector by reading it.
+**Ten scribbles**, two or three per card. The idiom is the site's own — the two notes beside
+the About portrait — lifted into `components/playground/Scribble.tsx` rather than copied a
+third time. Anchored in the design's coordinates so a note travels with the collage, sized
+in CSS pixels so the handwriting stays handwriting, `aria-hidden` because the pictures
+already carry their own alt text. **They say only what is visible**: technique and subject,
+never biography.
 
-**Fifteen new assets** through the existing pipeline, including two that
-`next_session.md` had listed as *waiting for material that does not exist*: the **3D
-motorbike** and the **Hibi application**. Both were sitting in `Images/Playground` all
-along.
+**Every slot opens.** `ui/Lightbox` learned `video` and `description` rather than being
+duplicated — a clip plays with its controls, an image keeps the fit/actual-size toggle. 48
+captions were added to `collage.ts`, 32 of them lifted from the category data that already
+held them in both locales. No prose was invented.
 
-**Merged to `main`, pushed and deployed.** This closes the item that had been the largest
-single thing on the list for twenty-odd sessions: the branch was 55 commits ahead of `main`
-and had never been pushed, so the live site showed none of it.
+## Two faults worth remembering
 
-## Three faults measurement caught and looking did not
+- **A component declared inside its parent is a new type every render.** `Opener` was, so
+  opening the viewer remounted all 48 buttons and the node the dialog meant to return focus
+  to was detached. Focus landed on `body`. Invisible unless you read `document.activeElement`
+  after closing — which is now how it is checked.
+- **An absolutely positioned box wraps in the space from its `left` to its container's
+  right edge.** A note anchored at 98% and slid back with `translateX(-100%)` had 2% of the
+  stage to wrap in and came out one word per line. Anchor the edge you mean.
 
-- **`--from` was a lie on any large video.** `video-clip.mjs` served files with no
-  `accept-ranges`, so Chrome could not seek past what it had buffered — and it will not
-  buffer 151 MB to oblige. Every seek snapped to frame zero. `currentTime` reading back as
-  `0.02` is the tell. Range support added.
-- **`sips` lied about `painting4.jpg`** — 4000 × 3000 stored, 3000 × 4000 decoded. The same
-  EXIF trap SESSION-030 recorded. **The browser's decode is the only truth.**
-- **Equal card heights collapsed the fan** in the last 400px of the deck's travel, because a
-  sticky element cannot pass `parent.bottom - element.height` and that limit was one
-  position for all four. Stepping the heights gives each its own.
+## One flake, deliberately recorded
+
+The first `verify all` after the viewer landed reported `landmark-one-main` and
+`page-has-heading-one` on `/playground` — the harness's own signature for axe running
+against the Suspense fallback. It did not reproduce in four subsequent runs.
+`goto()` accepts `main` plus any `h1,h2` as proof a page rendered, and the layout supplies
+those before the route's chunk arrives; on the heaviest page on the site that window is now
+wide enough to lose a race. **Tighten `goto()` to wait for an `h1`.** Not done.
 
 ## State
 
-22 routes, `tsc` clean, lint 0 errors, content audit clean, `verify all` green, **axe 0
-violations**. `/playground` is the heaviest page on the site at 2630 KB (810 KB images,
-~1.7 MB of clips that load only as each comes on screen).
-
-**Deployed.** `main` and `gh-pages` are current.
+22 routes, `tsc` clean, lint 0 errors, content audit clean, `verify all` green, axe 0
+violations. `/playground` 2633 KB at 1440/1x. **Deployed** — `main` and `gh-pages` current.

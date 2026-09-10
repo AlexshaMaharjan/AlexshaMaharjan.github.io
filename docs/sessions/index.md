@@ -39,6 +39,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-033 | 2026-09-10 | Playground categories reordered to the owner's five (`DECISION-023`); `/playground/editorial` folded into graphic design; the heaviest page on the site measured and cut | `session_033.md` |
 | SESSION-034 | 2026-09-10 | Playground rebuilt as one scrapbook page (`DECISION-026`) — 34 routes → 22, true aspect ratios, click-to-enlarge in place; Chrome's `MediaRecorder` turns 121 MB of craft video into 1035 KB, amending `DECISION-022` | `session_034.md` |
 | SESSION-035 | 2026-09-10 | Playground rebuilt again as a deck of four sticky cards (`DECISION-027`), then filled with 48 slots traced from `Portfolio.fig` page 2; 15 new assets including the motorbike and Hibi clips that `next_session.md` had listed as impossible; **branch merged to `main`, pushed and deployed — the first deploy in 56 commits** | `session_035.md` |
+| SESSION-036 | 2026-09-10 | The deck gets its own hand: hero raised to 56svh so half a card shows at rest, ten `aria-hidden` scribbles lifted from the About idiom, and every slot opens in `ui/Lightbox` — which learned `video` and `description` rather than being duplicated. Caught a detached focus target caused by declaring a component inside its parent | `session_036.md` |
 
 ## Conventions
 
