@@ -1,10 +1,11 @@
 # ISSUE-039 — The playground index crops every card to a fixed aspect
 
-Status: Open
+Status: **Resolved** 2026-09-10 (SESSION-034) — see `DECISION-025`
 Priority: Medium
 Category: Design
 Discovered: 2026-09-10 (SESSION-033)
-Owner decision: yes — it is a redesign, not a defect fix
+Owner decision: given. The owner chose a uniform box with the leftover space
+filled to match the image, and 'one row at a time' for the motion.
 
 ## What
 
@@ -57,3 +58,15 @@ categories, and it stopped at the edge of that.
 - `DECISION-021` — nothing sits on an image, nothing is cropped (the work grid)
 - `DECISION-019` — height-governed justified rows, and `@/lib/justify`
 - `DECISION-023` — the restructure that put these items in this order
+
+
+## Resolution
+
+`DECISION-025`. Every playground card is a 3/4 box with the image contained
+rather than cropped, and the leftover space painted the image's own border
+colour, sampled at build time. Average mat 19%, against 36% of every image
+previously discarded. The ITD logo lockup and the museum poster's title are
+back inside the frame.
+
+The motion is settled with it: one row moves at a time, chosen by which section
+the viewport's centre line is in.

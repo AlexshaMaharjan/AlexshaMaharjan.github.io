@@ -88,3 +88,21 @@ Scroll-linked effects on long pages are the easiest way to introduce jank. Use G
 ## Possible Milestone
 
 `MILESTONE-006`.
+
+
+## Amendment — the playground half is withdrawn (2026-09-10, SESSION-034)
+
+This suggestion's marquee idea — rows that speed up as the page scrolls — shipped
+in SESSION-012 and was **removed in SESSION-034**. The owner's words were "the
+moving animation is also abit too busy".
+
+The coupling itself was not the problem. **Five rows drifting in alternating
+directions was**, and velocity-linking all five made a busy thing busier. Two of
+the five were sliding hatched placeholders past, so a share of the movement had
+nothing to show.
+
+What replaced it keeps the spirit — motion that responds to where the reader is —
+with one moving thing instead of five: a row runs only while the viewport's
+centre line is inside its section (`DECISION-025`).
+
+The rest of this suggestion, the case-study scroll-linked media, is untouched.

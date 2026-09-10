@@ -106,7 +106,14 @@ export default function PlaygroundIndex() {
                 <Media
                   src={item.src}
                   alt={item.alt}
-                  aspect="16/10"
+                  /*
+                    The same 3/4 box as the marquee, contained rather than
+                    cropped. This card used to declare `16/10`, which took 71%
+                    of the height off the beaded planter — the tallest image on
+                    the site — and showed a band of leaves (DECISION-025).
+                  */
+                  aspect="3/4"
+                  fit="contain"
                   /* Three across container-page's 1280px of content, less gap-6 and the card's p-3.5. */
                   sizes="(min-width: 1440px) 384px, (min-width: 640px) calc(33.33vw - 70px), calc(100vw - 68px)"
                   caption={`[ ${item.caption.toLowerCase()} ]`}

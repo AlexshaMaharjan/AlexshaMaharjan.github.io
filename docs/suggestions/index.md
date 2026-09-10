@@ -15,7 +15,7 @@ layout, correct images, humanised copy, richer animation, design consistency.
 | SUGGESTION-005 | ★ Editorial pass — humanise copy, cut redundancy | Proposed | High | High | Large | M-004 | `suggestion_005.md` |
 | SUGGESTION-006 | ★ Establish a shared GSAP motion system | Proposed | High | High | Medium | M-006 | `suggestion_006.md` |
 | SUGGESTION-007 | ★ Page transitions between routes | Proposed | Medium | Medium | Medium | M-006 | `suggestion_007.md` |
-| SUGGESTION-008 | ★ Scroll-linked interactions on case studies and media | Proposed | Medium | Medium | Medium | M-006 | `suggestion_008.md` |
+| SUGGESTION-008 | ★ Scroll-linked interactions on case studies and media | Partly **withdrawn** (`DECISION-025`) | Medium | Medium | Medium | M-006 | `suggestion_008.md` |
 | SUGGESTION-009 | ★ Consolidate the design system | Proposed | Medium | High | Medium | M-007 | `suggestion_009.md` |
 | SUGGESTION-010 | Responsive audit and one layout vocabulary | Proposed | Medium | Medium | Medium | M-007 | `suggestion_010.md` |
 | SUGGESTION-011 | Accessibility pass to WCAG 2.2 AA | Proposed | Medium | Medium | Medium | M-007 | `suggestion_011.md` |

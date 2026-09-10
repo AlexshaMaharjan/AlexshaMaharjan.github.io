@@ -1,7 +1,7 @@
 # Issues Index
 
-39 issues. **29 resolved**, plus `ISSUE-004`, `ISSUE-006` and `ISSUE-038` partially.
-**10 remain open**, none `Investigating` and none `Critical`.
+39 issues. **30 resolved**, plus `ISSUE-004`, `ISSUE-006` and `ISSUE-038` partially.
+**9 remain open**, none `Investigating` and none `Critical`.
 
 Of those, **five need the owner and cannot be closed by work**: two are provenance judgements
 (`ISSUE-032`, `ISSUE-034`), one is a weight trade-off (`ISSUE-033`), one is a word of copy
@@ -38,7 +38,7 @@ _None._
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-031 | Sync FM's copy credits the wrong AI tool | Open | Low | Says Gemini made the personas; the documentation says ChatGPT did | `issue_031.md` |
 | ISSUE-035 | AFONO's supplied folder: three files not used | Open | Low | One is an empty export; one is competitor imagery `DECISION-016` excludes; one is a moodboard flagged like `ISSUE-032` | `issue_035.md` |
-| ISSUE-039 | The playground index crops every card to a fixed aspect | Open | Medium | The marquee declares `4/3` and the featured cards `16/10` whatever the item is; `object-cover` then crops ~65% off a beaded planter. A redesign, not a defect fix | `issue_039.md` |
+| ISSUE-039 | The playground index crops every card to a fixed aspect | **Resolved** | Medium | The marquee declares `4/3` and the featured cards `16/10` whatever the item is; `object-cover` then crops ~65% off a beaded planter. A redesign, not a defect fix | `issue_039.md` |
 | ISSUE-038 | Five supplied files are still unplaced: three videos and two photographs | Open — part 2 closed | Medium | 121 MB of craft video with no encoder to shrink it. **Both photographs placed in SESSION-033**; only the videos remain | `issue_038.md` |
 | ISSUE-037 | QIS ships three screenshots of the university's own portal | Open | Medium | The subject of a redesign, captioned as such — but one shows a grade record that was not checked field by field | `issue_037.md` |
 

@@ -26,7 +26,7 @@ const home: PlaygroundHomeLocaleContent = {
       { caption: "Hibi", aspect: "16/10", subtitle: "small software experiment" },
     ],
     categoriesHeading: "Categories",
-    categoriesCaption: "five kinds of making — each row runs on its own, hover to pause",
+    categoriesCaption: "five kinds of making — the row you are reading moves, the rest keep still",
     categories: [
       {
         slug: "games-and-apps",
@@ -84,7 +84,7 @@ const home: PlaygroundHomeLocaleContent = {
       { caption: "Hibi", aspect: "16/10", subtitle: "kleines Software-Experiment" },
     ],
     categoriesHeading: "Kategorien",
-    categoriesCaption: "Fünf Arten des Machens — jede Reihe läuft von selbst. Zum Anhalten mit der Maus darüber.",
+    categoriesCaption: "Fünf Arten des Machens — die Reihe, bei der Sie gerade sind, bewegt sich; die anderen bleiben stehen.",
     categories: [
       {
         slug: "games-and-apps",
