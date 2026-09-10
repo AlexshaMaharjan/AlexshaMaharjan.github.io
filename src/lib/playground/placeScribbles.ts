@@ -32,16 +32,29 @@ import { FRAME_H, FRAME_W, type CollageScribble, type CollageSlot } from "./coll
  */
 
 /**
- * A line of 22px Caveat, and a character of it, in design units — measured
- * against the stage a 1280px card gives, which is 12.7 units to the CSS pixel.
+ * A line of 22px Caveat, and a character of it, **in CSS pixels**.
+ *
+ * These were design units until `MILESTONE-010` task 14h, which meant they were
+ * only right at one card width. A note is drawn at a fixed CSS size over a
+ * stage that is not, so a fixed number of design units is a different number of
+ * pixels on every card: the estimates were taken on a 1280px stage and every
+ * narrower card collision-tested a box smaller than the note it drew
+ * (`ISSUE-043`). In pixels they are a property of the type, and
+ * `unitsPerPixel` converts them for whatever stage the card actually has.
  *
  * `MAX_CH` is the note's own `max-w-[15ch]`, and it is why a row is not the
  * same thing as a line: "holographic watch," is eighteen characters and comes
  * out as two rows however it was typed.
  */
-const LINE_H = 330;
-const CHAR_W = 118;
+const LINE_PX = 26;
+const CHAR_PX = 9.3;
 const MAX_CH = 15;
+
+/**
+ * Design units to one CSS pixel on a 1280px stage — the width these estimates
+ * were originally taken at, and the default when nothing has been measured yet.
+ */
+export const UNITS_PER_PX_AT_1280 = FRAME_W / 1280;
 /**
  * Air between a note and the picture it is about.
  *
@@ -137,7 +150,7 @@ const DIRS: ReadonlyArray<readonly [number, number]> = [
   [-1, 0],
 ];
 
-function sizeOf(text: Record<Locale, string>): { w: number; h: number } {
+function sizeOf(text: Record<Locale, string>, unitsPerPx: number): { w: number; h: number } {
   // Both locales, because a note keeps its place when the page changes language
   // and German is reliably the longer of the two.
   const rowsIn = (value: string) =>
@@ -145,8 +158,8 @@ function sizeOf(text: Record<Locale, string>): { w: number; h: number } {
   const widestIn = (value: string) =>
     value.split("\n").reduce((most, line) => Math.max(most, Math.min(line.length, MAX_CH)), 0);
   return {
-    w: Math.max(widestIn(text.en), widestIn(text.de)) * CHAR_W,
-    h: Math.max(rowsIn(text.en), rowsIn(text.de)) * LINE_H,
+    w: Math.max(widestIn(text.en), widestIn(text.de)) * CHAR_PX * unitsPerPx,
+    h: Math.max(rowsIn(text.en), rowsIn(text.de)) * LINE_PX * unitsPerPx,
   };
 }
 
@@ -204,10 +217,39 @@ function edgePoint(box: Rect, toward: { x: number; y: number }, inset: number) {
  * One arrow, drawn as a cubic that leans out of the straight line and comes
  * back — the bend is stronger at the note's end than at the picture's, which is
  * what makes a curve read as a stroke somebody made rather than as an arc.
+ *
+ * `loop` adds the curl some of them start with (`MILESTONE-010` task 14i): a
+ * near-closed circle at the note's end before the line sets off, drawn as a
+ * single elliptical arc whose end is nudged along the line of travel, because
+ * an arc that finishes exactly where it began is dropped by the renderer rather
+ * than drawn. Whether a note gets one is decided by its own seed, so a third of
+ * them loop and the same third loop on every visit.
  */
-function arrowBetween(from: Rect, to: Rect, bend: number) {
-  const start = edgePoint(from, { x: to.x + to.w / 2, y: to.y + to.h / 2 }, 0.1);
+function arrowBetween(from: Rect, to: Rect, bend: number, loop: boolean) {
+  const origin = edgePoint(from, { x: to.x + to.w / 2, y: to.y + to.h / 2 }, 0.1);
   const end = edgePoint(to, { x: from.x + from.w / 2, y: from.y + from.h / 2 }, 0.04);
+
+  const runX = end.x - origin.x;
+  const runY = end.y - origin.y;
+  const run = Math.hypot(runX, runY) || 1;
+  /*
+   * The curl is a fraction of the journey, capped so a short arrow does not
+   * become mostly loop, and the line then starts from where the curl ends.
+   *
+   * A short arrow gets none at all: at `run * 0.13` a 970-unit arrow was drawn
+   * a 126-unit loop, which is about ten CSS pixels — a blob on the end of a
+   * line rather than a curl. Below the threshold there is no room to make the
+   * gesture, so it is not made.
+   */
+  const curly = loop && run > 1800;
+  const radius = curly ? Math.min(Math.max(run * 0.13, 240), 460) : 0;
+  const start = curly
+    ? { x: origin.x + (runX / run) * radius, y: origin.y + (runY / run) * radius }
+    : origin;
+  const curl = curly
+    ? `M${Math.round(origin.x)} ${Math.round(origin.y)} A ${Math.round(radius)} ${Math.round(radius)} 0 1 1 ${Math.round(start.x)} ${Math.round(start.y)} `
+    : "";
+
   const vx = end.x - start.x;
   const vy = end.y - start.y;
   const length = Math.hypot(vx, vy) || 1;
@@ -230,7 +272,7 @@ function arrowBetween(from: Rect, to: Rect, bend: number) {
 
   const round = (n: number) => Math.round(n);
   return {
-    path: `M${round(start.x)} ${round(start.y)} C ${round(c1x)} ${round(c1y)}, ${round(c2x)} ${round(c2y)}, ${round(end.x)} ${round(end.y)}`,
+    path: `${curl}M${round(start.x)} ${round(start.y)} C ${round(c1x)} ${round(c1y)}, ${round(c2x)} ${round(c2y)}, ${round(end.x)} ${round(end.y)}`,
     head: `M${round(end.x)} ${round(end.y)} L${round(hx1)} ${round(hy1)} M${round(end.x)} ${round(end.y)} L${round(hx2)} ${round(hy2)}`,
   };
 }
@@ -270,7 +312,16 @@ function clampToFrame(box: Rect): Rect {
   };
 }
 
-export function placeScribbles(slots: CollageSlot[], scribbles: CollageScribble[]): PlacedScribble[] {
+/**
+ * @param unitsPerPx design units to one CSS pixel on the stage these notes will
+ * be drawn on — `FRAME_W / stageWidthInPixels`. Measured by `Collage`; the
+ * default is the 1280px stage the type estimates were taken against.
+ */
+export function placeScribbles(
+  slots: CollageSlot[],
+  scribbles: CollageScribble[],
+  unitsPerPx: number = UNITS_PER_PX_AT_1280,
+): PlacedScribble[] {
   const rects: Rect[] = slots.map((slot) => ({ x: slot.x, y: slot.y, w: slot.w, h: slot.h }));
   /*
    * Two things on the card that are not pictures and still cannot be written
@@ -286,7 +337,7 @@ export function placeScribbles(slots: CollageSlot[], scribbles: CollageScribble[
 
   return scribbles.map((scribble) => {
     const target = slots.find((slot) => slot.src === scribble.target);
-    const size = sizeOf(scribble.text);
+    const size = sizeOf(scribble.text, unitsPerPx);
     const seed = seedOf(scribble.text.en);
     const next = streamOf(seed);
 
@@ -369,7 +420,11 @@ export function placeScribbles(slots: CollageSlot[], scribbles: CollageScribble[
       align,
       // Never square: a note at true horizontal is a caption.
       rotate: Math.round((next() * 11 - 7) * 10) / 10 || -3,
-      arrow: arrowBetween(box, anchor, bend),
+      // Half of them ask for the curl; the short ones do not get it, so what
+      // reaches the card is fewer than half. Taken from the seed rather than
+      // from `next()` so adding it did not reshuffle every bend and angle
+      // already on the cards.
+      arrow: arrowBetween(box, anchor, bend, (seed >>> 7) % 2 === 0),
     };
   });
 }

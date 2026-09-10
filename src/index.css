@@ -214,14 +214,24 @@
 
   /*
    * A note is fixed-size handwriting over a collage that is not, so it takes a
-   * larger share of a smaller card. Below this width there is no room to spare
+   * larger share of a smaller card. Below this size there is no room to spare
    * and the pictures are better off without them.
+   *
+   * **Both dimensions, because the notes live on the stage and not on the
+   * card.** The stage is `min(100cqw, 160cqh)`, so a card that is wide but
+   * short is height-bound and its stage is much narrower than it is: at a
+   * 1180x700 window the cards were over 1100px wide and passed a width-only
+   * query, while the stage they were drawing on was 859. That is where the last
+   * note-over-picture overlaps were coming from — `placeScribbles` was doing
+   * its job and there was genuinely nowhere left to put them (`ISSUE-043`).
+   * 563px is 900 / 1.6, the height at which the stage stops being the smaller
+   * of the two.
    */
   .collage-scribble {
     display: none;
   }
 
-  @container (min-width: 900px) {
+  @container (min-width: 900px) and (min-height: 563px) {
     .collage-scribble {
       display: block;
     }
@@ -257,8 +267,11 @@
    *
    * - `--pg-sweep` is the first 82% of the runway, over which the pictures
    *   light up one after another;
-   * - `--pg-full` is the last 18%, over which the notes and the ruling turn
-   *   from muted blue to the page's accent.
+   * - `--pg-full` runs from the start of the runway to 60% of it, over which
+   *   the notes, the arrows and the ruling turn from muted blue to the card's
+   *   accent. It used to be the *last* 18%, which made the colour snap on at
+   *   the end; the owner asked for it to start as soon as the card lands, so
+   *   it now arrives gradually alongside the pictures (`MILESTONE-010` 14g).
    *
    * A card sets `--pg-steps` (its own slot count plus one) and every slot sets
    * `--pg-order` — its place in an order shuffled per card, so the pictures
@@ -301,7 +314,7 @@
     background-color: #ffffff;
     --pg-reveal: 0;
     --pg-sweep: clamp(0, calc(var(--pg-reveal) / 0.82), 1);
-    --pg-full: clamp(0, calc((var(--pg-reveal) - 0.82) / 0.18), 1);
+    --pg-full: clamp(0, calc(var(--pg-reveal) / 0.6), 1);
   }
 
   /* The masonry's last row runs past the bottom edge; this turns the overflow
@@ -333,8 +346,12 @@
    */
   @media (hover: hover) {
     .pg-piece:hover {
-      transform: scale(1.16);
-      box-shadow: 0 18px 44px rgba(16, 26, 54, 0.28);
+      /* 1.16 until `MILESTONE-010` task 14c; the owner wanted a picture held up
+         to the light to be much bigger. The ceiling is the card's own
+         `overflow: hidden` — a slot near an edge grows into the clip rather
+         than over it, and no transform on the piece can escape that. */
+      transform: scale(1.42);
+      box-shadow: 0 26px 60px rgba(16, 26, 54, 0.3);
       /* Out of turn, but in colour. Holding a picture up to the light and
          being shown the black-and-white one is the wrong answer to the
          gesture; the scroll still owns the order, and this is a look ahead

@@ -16,6 +16,17 @@ const GAP = 20;
 /** How much narrower each card gets for every card stacked on top of it. */
 const SHRINK = 0.03;
 /**
+ * How much smaller the first card starts, before it has landed.
+ *
+ * The homepage's process canvas grows as it pins, and the owner wants the deck
+ * to arrive the same way. This is `SHRINK` run the other way and only on card
+ * one: the rest of the deck already arrives at full size and is shrunk as it is
+ * covered, so giving them all an entrance would be two tweens fighting over one
+ * property. It stops at 1, which is the container's width and not the page's —
+ * the owner asked that it not take up the whole page.
+ */
+const GROW = 0.08;
+/**
  * The empty scroll behind each card, in `svh`, over which its colour comes back.
  *
  * It is a real gap in the document between one card and the next, not a pinned
@@ -133,6 +144,31 @@ export default function CardStack({
       });
     });
 
+    /*
+     * Card one grows into place as it arrives, the way the homepage's process
+     * canvas does. It runs over the travel from "this card has appeared at the
+     * bottom of the viewport" to "this card has landed under the header", which
+     * is finished long before the shrink below can start on it: the next card's
+     * top edge is still a RUNWAY plus a card height further down.
+     */
+    const entrance = panels[0]
+      ? gsap.fromTo(
+          panels[0],
+          { scale: 1 - GROW },
+          {
+            scale: 1,
+            ease: "none",
+            transformOrigin: "50% 50%",
+            scrollTrigger: {
+              trigger: slots[0],
+              start: "top bottom",
+              end: () => `top ${headerHeight() + GAP}px`,
+              scrub: true,
+            },
+          },
+        )
+      : null;
+
     // Only the stacking needs two cards to have anything to say; the reveal
     // above is per-card and runs on however many there are.
     const tweens = panels.slice(0, -1).map((panel, i) =>
@@ -170,7 +206,7 @@ export default function CardStack({
     return () => {
       done = true;
       window.removeEventListener("load", refresh);
-      [...tweens, ...reveals].forEach((tween) => {
+      [...tweens, ...reveals, ...(entrance ? [entrance] : [])].forEach((tween) => {
         tween.scrollTrigger?.kill();
         tween.kill();
       });
