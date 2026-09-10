@@ -36,6 +36,9 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-030 | 2026-09-09 | Kitchen and QIS folders placed — all six case studies now on the owner's own images, 155 slots / 94 filled; bento tiles washed pale with ink text (DECISION-020); ProjectsDokus git-ignored; EXIF-rotation trap caught | `session_030.md` |
 | SESSION-031 | 2026-09-09 | Bento replaced by six project cards with no text (DECISION-021) — the fault was text on images and object-cover crops, not colour; kitchen cover composed to match the other five; bento and its 11 tiles deleted | `session_031.md` |
 | SESSION-032 | 2026-09-10 | Playground filled — 34 figures across four categories, 161 slots / 125 filled; video arrives (DECISION-022): poster + `preload="none"`, verified over CDP; kitchen animation and QIS lo-fi prototypes placed | `session_032.md` |
+| SESSION-033 | 2026-09-10 | Playground categories reordered to the owner's five (`DECISION-023`); `/playground/editorial` folded into graphic design; the heaviest page on the site measured and cut | `session_033.md` |
+| SESSION-034 | 2026-09-10 | Playground rebuilt as one scrapbook page (`DECISION-026`) — 34 routes → 22, true aspect ratios, click-to-enlarge in place; Chrome's `MediaRecorder` turns 121 MB of craft video into 1035 KB, amending `DECISION-022` | `session_034.md` |
+| SESSION-035 | 2026-09-10 | Playground rebuilt again as a deck of four sticky cards (`DECISION-027`), then filled with 48 slots traced from `Portfolio.fig` page 2; 15 new assets including the motorbike and Hibi clips that `next_session.md` had listed as impossible; **branch merged to `main`, pushed and deployed — the first deploy in 56 commits** | `session_035.md` |
 
 ## Conventions
 

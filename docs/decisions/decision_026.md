@@ -1,6 +1,8 @@
 # DECISION-026 — The playground is one page: a scrapbook that moves
 
-Status: Active
+Status: **Amended by `DECISION-027`** (SESSION-035) — the five-section page shape below is
+gone; everything this decision says about *pictures* (true aspect ratios, clips with posters,
+nothing cropped that need not be) still holds.
 Date: 2026-09-10 (SESSION-034)
 Scope: `/playground` and everything under it
 Supersedes: `DECISION-025` (the uniform 3/4 box), and the twelve playground routes

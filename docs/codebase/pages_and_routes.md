@@ -19,7 +19,7 @@ behaviour (`ISSUE-001`–`ISSUE-003` all land here or in `RootLayout`).
 | File | Role |
 | --- | --- |
 | `src/components/RootLayout.tsx` | flex column, `<Header>` / `<main><Suspense><Outlet/></Suspense></main>` / `<Footer>`; sets `<html lang>` |
-| `src/components/playground/PlaygroundLayout.tsx` | adds the four-layer CSS dotted-grid background (8px minor + 32px major) |
+| `src/components/playground/PlaygroundLayout.tsx` | adds the four-layer CSS dotted-grid background (8px minor + 32px major), shared with every card via `gridBackground.ts` |
 
 ## `src/pages/`
 
@@ -31,9 +31,7 @@ behaviour (`ISSUE-001`–`ISSUE-003` all land here or in `RootLayout`).
 | `CaseStudy.tsx` | 36 | reads the study with `use(caseStudyPromise(slug))` — suspending into the loading bar on first visit (`DECISION-015`) — computes prev/next as a ring over `dictionary.projects`, renders `CaseStudyPage` | returns `<NotFound/>` for unknown slugs, without a round trip |
 | `Contact.tsx` | 8 | `<Navigate>` to `/#contact` | broken in practice, `ISSUE-022` |
 | `NotFound.tsx` | 25 | 404 | not lazy — imported directly by `routes.tsx` |
-| `playground/PlaygroundIndex.tsx` | 155 | playground home: hero + two taped cards, featured 3-up, six `CategoryMarquee`s, exploring/note/return blocks | largest playground file |
-| `playground/PlaygroundCategory.tsx` | 24 | slug → `getCategory` → `CategoryPage` | |
-| `playground/PlaygroundProject.tsx` | 24 | slug → `getProject` → `ProjectPage`; validates `categorySlug` matches | |
+| `playground/PlaygroundIndex.tsx` | 66 | the whole playground: a centred title and `CardStack` (`DECISION-027`). Owns the one `paused` state the clips read | does **not** call `useScrollReveals` — the deck is its own motion |
 
 **Pattern:** every page resolves its own content, renders `<Seo>`, calls
 `useScrollReveals()`, and delegates markup to components — except `About.tsx` and

@@ -19,8 +19,8 @@
 
 | File | Lines | Controls |
 | --- | --- | --- |
-| `SelectedWork.tsx` | 25 | `#work` section heading block + `<BentoGrid>` |
-| `BentoGrid.tsx` | 61 | **NEW, uncommitted.** 11 grey link tiles on a 10-column CSS grid, `gridArea` per card. No images. Card titles/categories are hard-coded English and several projects appear twice — `ISSUE-004`, `ISSUE-005` |
+| `SelectedWork.tsx` | 25 | `#work` section heading block + `<WorkGrid>` |
+| `WorkGrid.tsx` | 97 | six project cards, image-only, read from `dictionary.projects[]` (`DECISION-021`, SESSION-031 — the bento and its eleven tiles were deleted; the fault was text over images and `object-cover` crops, not colour) |
 | `AboutPreview.tsx` | 57 | portrait + annotation pills + copy + two links |
 | `ContactSection.tsx` | 34 | `#contact`, near-black band, two CTAs, email |
 
@@ -60,11 +60,12 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 
 | File | Lines | Controls |
 | --- | --- | --- |
-| `PlaygroundLayout.tsx` | 16 | dotted paper grid background |
-| `CategoryPage.tsx` | 69 | category hero, 3-col card grid, dashed "more coming" cell, ring nav |
-| `PlaygroundCard.tsx` | 43 | white card, optional `-rotate-2` + tape strip, placeholder, caption |
-| `CategoryMarquee.tsx` | 66 | infinite CSS marquee of tripled items with edge mask + hover pause |
-| `ProjectPage.tsx` | 95 | experiment detail: hero, main media, 3-up process, tools + reflection, next link |
+| `PlaygroundLayout.tsx` | 8 | the paper grid behind the whole section; the grid itself lives in `gridBackground.ts` because a card has to paint its own copy |
+| `gridBackground.ts` | 14 | the shared 32px/8px grid, used by the layout and by every card |
+| `CardStack.tsx` | ~190 | the deck (`DECISION-027`): four `position: sticky` siblings in one container, stepped in `top` and in `height`; a GSAP shrink for depth only; the sticky motion control, pinned with `top: calc(100svh - 84px)` |
+| `Collage.tsx` | ~140 | one card's slots. The contained design stage (`min(100cqw, 160cqh)`) on a landscape card, a masonry on a portrait one — switched by a container query in `index.css`, not a breakpoint |
+| `Scrapbook.tsx` | 118 | **no longer rendered** (`DECISION-027`). The SESSION-034 bento rows |
+| `Tile.tsx` | 78 | **no longer rendered** (`DECISION-027`). One scrapbook tile: matted media, written cards, click-to-enlarge |
 
 ## Shared
 

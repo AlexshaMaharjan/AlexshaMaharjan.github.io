@@ -50,9 +50,31 @@ const kbps = arg("kbps", 900);
 const port = arg("port", 9333);
 
 const bytes = readFileSync(src);
+/*
+ * Range requests are not an optimisation here, they are the difference between
+ * `--from 38` meaning 38 seconds and meaning zero. Chrome will only seek within
+ * what it has buffered unless the server advertises `accept-ranges`, and it
+ * does not buffer a whole 151 MB film to oblige: every seek past the start
+ * silently snapped back to frame zero and recorded the opening titles instead
+ * (SESSION-036, the motorbike animation). `currentTime` reads back as 0.02
+ * when this happens, which is the thing to check if a clip comes out wrong.
+ */
 const server = createServer((req, res) => {
   if (req.url === "/clip.mp4") {
-    res.writeHead(200, { "content-type": "video/mp4", "content-length": bytes.length });
+    const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range ?? "");
+    if (range) {
+      const start = range[1] ? +range[1] : 0;
+      const end = range[2] ? +range[2] : bytes.length - 1;
+      res.writeHead(206, {
+        "content-type": "video/mp4",
+        "accept-ranges": "bytes",
+        "content-range": `bytes ${start}-${end}/${bytes.length}`,
+        "content-length": end - start + 1,
+      });
+      res.end(bytes.subarray(start, end + 1));
+      return;
+    }
+    res.writeHead(200, { "content-type": "video/mp4", "accept-ranges": "bytes", "content-length": bytes.length });
     res.end(bytes);
   } else {
     res.writeHead(200, { "content-type": "text/html" });

@@ -33,7 +33,7 @@ docs/                   this documentation system
 | Change any visible text | `CONTENT_GUIDE.md` → the named file in `src/lib/**` |
 | Fix a case-study layout | `src/components/case-study/*` + `content_data.md` |
 | Change case-study section structure | `src/lib/caseStudies/types.ts` (`Block`) + `Section.tsx`, then rerun `node scripts/content-guide-case-studies.mjs --write` |
-| Fix the homepage work grid | `src/components/BentoGrid.tsx`, `SelectedWork.tsx` |
+| Fix the homepage work grid | `src/components/WorkGrid.tsx`, `SelectedWork.tsx` |
 | Touch scroll animation | `src/lib/useScrollReveals.ts` + `ARCH-04` |
 | Touch scroll position, hash links, back button | `src/lib/useScrollBehavior.ts` + `ARCH-01`, `DECISION-013` |
 | Touch the process canvas | `src/components/process/HeroProcess.tsx` + `ARCH-04` |

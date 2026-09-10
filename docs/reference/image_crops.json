@@ -1558,5 +1558,200 @@
     "width": 720,
     "height": 1280,
     "quality": 0.8
+  },
+  {
+    "src": "Images/Playground/painting4.jpg",
+    "out": "public/images/pg-painting-framed.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 1600,
+    "quality": 0.8
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 14@2x.png",
+    "out": "public/images/pg-kalender-cover.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 12@2x.png",
+    "out": "public/images/pg-kalender-februar.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 12 Copy@2x.png",
+    "out": "public/images/pg-kalender-maerz.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 12 Copy 3@2x.png",
+    "out": "public/images/pg-kalender-mai.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 12 Copy 4@2x.png",
+    "out": "public/images/pg-kalender-juni.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 12 Copy 5@2x.png",
+    "out": "public/images/pg-kalender-juli.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 12 Copy 7@2x.png",
+    "out": "public/images/pg-kalender-september.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 12 Copy 8@2x.png",
+    "out": "public/images/pg-kalender-oktober.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/kalender/Artboard 12 Copy 10@2x.png",
+    "out": "public/images/pg-kalender-dezember.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 849,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/Screenshot 2026-09-10 at 13.33.52.png",
+    "out": "public/images/pg-typography-posters.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 900,
+    "height": 1334,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/Screenshot 2026-09-10 at 13.34.10.png",
+    "out": "public/images/pg-desmark-logo.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 362,
+    "quality": 0.88
+  },
+  {
+    "src": "Images/Playground/mindruhe-mockup.png",
+    "out": "public/images/pg-mindruhe.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1200,
+    "height": 717,
+    "quality": 0.85
+  },
+  {
+    "src": "Images/Playground/motorbikeVideoAnimation.mp4 @38s, 8s clip -> public/videos/pg-motorbike.mp4, frame @4s",
+    "out": "public/images/pg-clip-motorbike.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 640,
+    "height": 360,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/HibiVideo/2026-09-10 13-16-11.mov @4s, 9s clip -> public/videos/pg-hibi.mp4, frame @3s",
+    "out": "public/images/pg-clip-hibi.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 640,
+    "height": 360,
+    "quality": 0.85
   }
 ]

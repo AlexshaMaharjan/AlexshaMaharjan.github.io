@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-10**, after SESSION-034 (the playground becomes one scrapbook page that carries video).
+Snapshot: **2026-09-10**, after SESSION-035 (the playground becomes a deck of four Figma collages, and the branch is deployed).
 
 ## Overall
 
@@ -35,8 +35,11 @@ Roughly: architecture ~93% done, content ~70% drafted, imagery ~81% (129 of 159 
   The layout is editorial: body text at a 680px measure against media at up to 960px, three
   distinct set-piece treatments, a contents rail that marks the section being read, and a
   closing band. Figures accept a real `src` and render a caption when one is set.
-- Playground: **one page** (`DECISION-026`) — five category sections of true-aspect bento
-  rows on a paper-grid ground, three autoplaying muted clips, click-to-enlarge in place.
+- Playground: **a title and a deck of four cards** (`DECISION-027`) — the cards stack on
+  scroll as `position: sticky` siblings, each carrying one collage traced from
+  `Portfolio.fig` page 2 (48 slots, 5 autoplaying muted clips) on the paper-grid ground.
+  The collage is contained on a landscape card and becomes a masonry on a portrait one,
+  switched by a container query on the card itself.
 - A complete, real résumé page with print styles.
 - `prefers-reduced-motion` honoured consistently.
 - **WCAG 2.2 AA verified** — axe-core reports 0 violations across 8 pages × 2 locales, the

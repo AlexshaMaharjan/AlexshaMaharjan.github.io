@@ -106,7 +106,7 @@ Loaded render-blocking from Google Fonts in `index.html`: Inter 400/500/600, Cav
 - Page container: `.container-page`. The 80px padding from 768px up is what made
   `ISSUE-026` possible and what `ISSUE-028` runs into at 320px.
 - Headings: the named scale above. Only two `clamp()` literals remain — the process
-  canvas's question heading and `BentoGrid`'s inline per-tile sizes.
+  canvas's question heading.
 - Case studies: text at a 680px measure, media to 960px, rail 240px from `xl` up
   (`DECISION-014`).
 - Card border: `border border-card-border`.

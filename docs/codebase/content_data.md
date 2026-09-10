@@ -64,15 +64,19 @@ model.
 
 | File | Lines | Contents |
 | --- | --- | --- |
-| `types.ts` | 69 | `PlaygroundItem`, `PlaygroundCategoryContent`, `PlaygroundHomeContent`, `PlaygroundProjectContent` |
-| `home.ts` | 44 | hero collage, contents caption, exploring/note/return copy |
+| `collage.ts` | ~430 | **what the page renders** (`DECISION-027`): four cards, 48 slots traced from `Portfolio.fig` page 2. Each slot holds `x/y/w/h` in the design's own pixels on its 16000 × 10000 frame, plus `src`, an optional `video`, both locales' `alt`, and `focus`/`rotate` where the design crops or turns a picture |
+| `types.ts` | 69 | `PlaygroundItem`, `PlaygroundCategoryContent`, `PlaygroundHomeContent` |
+| `home.ts` | 44 | the page's copy. Only `eyebrow`, `heading`, `intro`, `pauseMotion` and `playMotion` are read now; the rest is kept |
 | `categories/index.ts` | 29 | registry + `getCategory` / `getAllCategories` |
 | `categories/{games-and-apps,photography-3d-motion,graphic-design,digital-art,crafts}.ts` | 33–56 each | title, intro, 5–17 items (pictures, clips and written cards), "more coming" note |
 
-Category order (`DECISION-023`) is `categories/index.ts` insertion order, and it is the
-order the sections appear in on the one page: `games-and-apps → photography-3d-motion →
-graphic-design → digital-art → crafts`. The next-category ring was removed in SESSION-034
-along with the pages it linked (`DECISION-026`).
+**The category files are no longer rendered** (`DECISION-027`) and are deliberately kept:
+they are the only written record of the captions and of the slots still waiting for
+material, and `content-audit.mjs` still holds their two locales together. `collage.ts` is
+what to edit to change the page.
+
+**Order in `collage.ts` is paint order** — the Figma frames have deliberate overlaps, so
+the slots are listed bottom-to-top exactly as Figma lists them.
 
 ## Helpers
 
@@ -87,11 +91,11 @@ along with the pages it linked (`DECISION-026`).
 
 - **New case study:** create `src/lib/caseStudies/<slug>.ts` with both locales → register
   in `caseStudies/index.ts` → add a `ProjectCopy` entry to **both** dictionaries (the
-  prev/next ring reads from `dictionary.projects`) → add a tile in `BentoGrid.tsx`.
-- **New playground category:** data file → `categories/index.ts` → a summary entry in
-  `home.ts` → fix the ring links on the neighbouring categories.
-- **New playground experiment:** data file → `projects/index.ts` → give the matching
-  `PlaygroundItem` a `slug`.
+  prev/next ring reads from `dictionary.projects`) → add a card entry in `dictionaries/{en,de}.ts → projects[]`.
+- **New playground picture:** add a `CollageSlot` to the right card in
+  `collage.ts` — `x/y/w/h` read straight off the Figma inspector, both locales' `alt` — then
+  `node scripts/image-treat.mjs <spec>` for the asset, record it in
+  `docs/reference/image_crops.json`, and `npm run images`.
 
 ## Images
 
