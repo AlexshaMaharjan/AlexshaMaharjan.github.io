@@ -3,8 +3,8 @@ import type { PlaygroundProjectLocaleContent } from "../types";
 const motorbikeStudy: PlaygroundProjectLocaleContent = {
   en: {
     slug: "motorbike-study",
-    categorySlug: "3d-motion",
-    categoryTitle: "3D and Motion",
+    categorySlug: "photography-3d-motion",
+    categoryTitle: "Photography, Animation and 3D",
     title: "Motorbike Study",
     intro:
       "A 3D modelling and motion experiment exploring surface detail, lighting and cinematic presentation.",
@@ -28,8 +28,8 @@ const motorbikeStudy: PlaygroundProjectLocaleContent = {
   },
   de: {
     slug: "motorbike-study",
-    categorySlug: "3d-motion",
-    categoryTitle: "3D und Motion",
+    categorySlug: "photography-3d-motion",
+    categoryTitle: "Fotografie, Animation und 3D",
     title: "Motorradstudie",
     intro:
       "Ein 3D- und Motion-Experiment zu Oberflächendetails, Licht und filmischer Präsentation.",

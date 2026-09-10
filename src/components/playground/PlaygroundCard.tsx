@@ -26,7 +26,20 @@ export default function PlaygroundCard({
           className="absolute -top-2.5 left-1/2 h-5 w-14 -translate-x-1/2 rotate-[-3deg] bg-[rgba(228,231,238,0.85)]"
         />
       )}
-      <Media src={item.src} alt={item.alt} aspect={item.aspect} caption={`[ ${item.caption} ]`} />
+      <Media
+        src={item.src}
+        alt={item.alt}
+        aspect={item.aspect}
+        /*
+          `container-page` is 1440px capped with 80px of padding either side at
+          md, so 1280px of content; three columns with `gap-6` and the card's
+          own `p-2.5` leave ~392px. The category grid drops to two columns
+          below lg, and the project page's process grid stays at three — the
+          two-column figure is the larger of the pair, so it is the safe one.
+        */
+        sizes="(min-width: 1440px) 392px, (min-width: 1024px) calc(33.33vw - 62px), (min-width: 640px) calc(50vw - 112px), calc(100vw - 60px)"
+        caption={`[ ${item.caption} ]`}
+      />
       <p className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">{item.caption}</p>
     </div>
   );

@@ -5,19 +5,32 @@ import { useScrollReveals } from "@/lib/useScrollReveals";
 import { localeHref } from "@/lib/i18n";
 import home from "@/lib/playground/home";
 import { getCategory } from "@/lib/playground/categories";
+import { getProject } from "@/lib/playground/projects";
 import CategoryMarquee from "@/components/playground/CategoryMarquee";
 import Media from "@/components/ui/Media";
 import Seo from "@/components/Seo";
 
 export default function PlaygroundIndex() {
   const locale = useLocale();
-  // The six rows scroll indefinitely, so WCAG 2.2.2 needs a way to stop them
+  // The five rows scroll indefinitely, so WCAG 2.2.2 needs a way to stop them
   // that does not depend on hovering. Under prefers-reduced-motion the CSS has
   // already stopped them and this control is beside the point — it is harmless
   // there, and the rows stay still either way.
   const [paused, setPaused] = useState(false);
   const content = home[locale];
   useScrollReveals();
+
+  /*
+    A featured card that names a project links into that project's own
+    category. This used to be the literal string `/playground/3d-motion/`,
+    which meant renaming a category slug broke the link with no type error and
+    no failing check — the route simply 404ed (SESSION-033). Asking the project
+    where it lives cannot go stale.
+  */
+  const projectHref = (slug: string) => {
+    const project = getProject(slug, locale);
+    return localeHref(locale, project ? `/playground/${project.categorySlug}/${slug}` : "/playground");
+  };
 
   return (
     <>
@@ -44,6 +57,8 @@ export default function PlaygroundIndex() {
                   src={content.heroCards[0]?.src}
                   alt={content.heroCards[0]?.alt}
                   aspect={content.heroCards[0]?.aspect ?? "4/5"}
+                  /* max-w-[300px] with p-3, and the collage is hidden below md. */
+                  sizes="276px"
                   caption={`[ ${content.heroCards[0]?.caption ?? ""} ]`}
                   className="rounded-[3px]"
                 />
@@ -58,6 +73,8 @@ export default function PlaygroundIndex() {
                   src={content.heroCards[1]?.src}
                   alt={content.heroCards[1]?.alt}
                   aspect={content.heroCards[1]?.aspect ?? "4/3"}
+                  /* max-w-[280px] with p-3. */
+                  sizes="256px"
                   caption={`[ ${content.heroCards[1]?.caption ?? ""} ]`}
                   className="rounded-[3px]"
                 />
@@ -86,11 +103,19 @@ export default function PlaygroundIndex() {
                     className="absolute -top-2.5 right-10 h-5 w-[68px] rotate-[3deg] rounded-sm bg-[rgba(120,134,168,0.16)]"
                   />
                 )}
-                <Media src={item.src} alt={item.alt} aspect="16/10" caption={`[ ${item.caption.toLowerCase()} ]`} className="rounded-[3px]" />
+                <Media
+                  src={item.src}
+                  alt={item.alt}
+                  aspect="16/10"
+                  /* Three across container-page's 1280px of content, less gap-6 and the card's p-3.5. */
+                  sizes="(min-width: 1440px) 384px, (min-width: 640px) calc(33.33vw - 70px), calc(100vw - 68px)"
+                  caption={`[ ${item.caption.toLowerCase()} ]`}
+                  className="rounded-[3px]"
+                />
                 <h3 className="mt-4 px-0.5 text-[19px] font-semibold tracking-[-0.01em] text-ink">
                   {item.slug ? (
                     <Link
-                      to={localeHref(locale, `/playground/3d-motion/${item.slug}`)}
+                      to={projectHref(item.slug)}
                       className="border-b border-border-muted hover:text-accent"
                     >
                       {item.caption}

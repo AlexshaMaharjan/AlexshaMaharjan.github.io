@@ -16,8 +16,8 @@ const crafts: PlaygroundCategoryLocaleContent = {
       { caption: "Blossom painting", aspect: "1200/900", rotated: true, src: "/images/pg-painting-blossom.webp", alt: "Blue blossom branches painted in acrylic" },
     ],
     moreComingNote: "More to come — this space grows with every experiment.",
-    nextCategorySlug: "editorial",
-    nextCategoryTitle: "Calendars and Editorial Experiments",
+    nextCategorySlug: "games-and-apps",
+    nextCategoryTitle: "Games and Applications",
   },
   de: {
     slug: "crafts",
@@ -34,8 +34,8 @@ const crafts: PlaygroundCategoryLocaleContent = {
       { caption: "Blütenbild", aspect: "1200/900", rotated: true, src: "/images/pg-painting-blossom.webp", alt: "Blaue Blütenzweige in Acryl gemalt" },
     ],
     moreComingNote: "Weitere Arbeiten folgen — dieser Bereich wächst mit jedem Experiment.",
-    nextCategorySlug: "editorial",
-    nextCategoryTitle: "Kalender und Editorial Experimente",
+    nextCategorySlug: "games-and-apps",
+    nextCategoryTitle: "Games und Anwendungen",
   },
 };
 

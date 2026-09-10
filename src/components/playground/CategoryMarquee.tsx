@@ -125,7 +125,14 @@ export default function CategoryMarquee({
               key={i}
               className="m-0 shrink-0 basis-[280px] rounded-md border border-card-border bg-white p-3 shadow-[0_1px_4px_rgba(20,30,60,0.05)] transition-colors hover:border-border-muted"
             >
-              <Media src={item.src} alt={item.alt} aspect="4/3" caption={`[ ${item.caption} ]`} className="rounded-[3px]" />
+              {/*
+                The card is `basis-[280px]` with `p-3`, so the image is 256px
+                wide at every viewport — a constant, not a fraction of one.
+                Without this `ui/Image` falls back to `sizes="100vw"` and a
+                1440px window fetches the 1600px variant for a 256px card
+                (SESSION-033); the marquees were most of `/playground`'s weight.
+              */}
+              <Media src={item.src} alt={item.alt} aspect="4/3" sizes="256px" caption={`[ ${item.caption} ]`} className="rounded-[3px]" />
               <figcaption className="mt-2.5 px-0.5 font-mono text-[11px] text-ink-muted">{item.caption}</figcaption>
             </figure>
           ))}

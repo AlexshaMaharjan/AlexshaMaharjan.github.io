@@ -573,6 +573,22 @@ export const imageVariants: Record<string, { w: number; v: number[] }> = {
       960
     ]
   },
+  "/images/pg-photo-lowkey.webp": {
+    "w": 1200,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
+  "/images/pg-photo-stilllife.webp": {
+    "w": 1250,
+    "v": [
+      400,
+      640,
+      960
+    ]
+  },
   "/images/pg-portrait.webp": {
     "w": 1200,
     "v": [

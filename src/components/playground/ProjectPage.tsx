@@ -35,7 +35,13 @@ export default function ProjectPage({
       <section className="pt-14">
         <div data-inview className="container-page">
           <div className="rounded-lg border border-card-border bg-white p-3">
-            <Media src={content.mainSrc} alt={content.mainAlt} aspect={content.mainAspect} caption={`[ ${content.mainCaption} ]`} />
+            <Media
+              src={content.mainSrc}
+              alt={content.mainAlt}
+              aspect={content.mainAspect}
+              sizes="(min-width: 1440px) 1256px, (min-width: 768px) calc(100vw - 184px), calc(100vw - 64px)"
+              caption={`[ ${content.mainCaption} ]`}
+            />
           </div>
         </div>
       </section>
