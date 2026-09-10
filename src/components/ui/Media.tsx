@@ -1,6 +1,5 @@
 import PlaceholderImage from "@/components/PlaceholderImage";
 import Image from "@/components/ui/Image";
-import { imageVariants } from "@/lib/imageVariants";
 import { captionText } from "@/lib/caption";
 
 /**
@@ -10,6 +9,12 @@ import { captionText } from "@/lib/caption";
  * The caption is not rendered here — call sites put their own below the box,
  * and the placeholder shows the bracketed label inside itself. `className`
  * reaches the box in both branches, so rounding and width survive the swap.
+ *
+ * **`aspect` must be the image's own ratio.** The box is painted with
+ * `object-cover`, so a declared aspect that disagrees with the file is a silent
+ * crop — the fault that cost the playground 36% of every picture before
+ * `DECISION-025` measured it. Every call site on the site now passes the true
+ * ratio, which is why there is no "contain" mode here: nothing needs one.
  */
 export default function Media({
   src,
@@ -19,7 +24,6 @@ export default function Media({
   className = "",
   priority = false,
   sizes,
-  fit = "cover",
 }: {
   src?: string;
   alt?: string;
@@ -29,41 +33,14 @@ export default function Media({
   priority?: boolean;
   /** The width this slot actually renders at — see `ui/Image`. */
   sizes?: string;
-  /**
-   * `cover` fills the box and crops whatever does not fit — correct only when
-   * `aspect` is the image's own ratio.
-   *
-   * `contain` fits the whole image inside the box and paints the leftover
-   * space in the image's own border colour (`DECISION-025`). Use it wherever
-   * one box has to hold images of many shapes.
-   */
-  fit?: "cover" | "contain";
 }) {
   if (!src) {
     return <PlaceholderImage aspect={aspect} caption={caption} className={className} />;
   }
 
-  /*
-   * The mat, sampled at build time by `image-variants.mjs`. Doing it here in
-   * the browser would mean every card painted white for a frame and then
-   * repainted — on a page of 33 cards that is a visible flash. `bg-surface` is
-   * the fallback for an image with no generated variants, which is the same
-   * case in which `ui/Image` emits no `srcset`.
-   */
-  const mat = fit === "contain" ? imageVariants[src]?.bg : undefined;
-
   return (
-    <div
-      className={`relative overflow-hidden ${mat ? "" : "bg-surface"} ${className}`}
-      style={{ aspectRatio: aspect, backgroundColor: mat }}
-    >
-      <Image
-        src={src}
-        alt={alt ?? captionText(caption)}
-        sizes={sizes}
-        className={fit === "contain" ? "object-contain" : "object-cover"}
-        priority={priority}
-      />
+    <div className={`relative overflow-hidden bg-surface ${className}`} style={{ aspectRatio: aspect }}>
+      <Image src={src} alt={alt ?? captionText(caption)} sizes={sizes} className="object-cover" priority={priority} />
     </div>
   );
 }

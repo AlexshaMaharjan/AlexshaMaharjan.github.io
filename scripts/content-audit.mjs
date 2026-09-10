@@ -13,20 +13,14 @@
  * locale has a list the other lacks, or their figure groups sit at different
  * points in the body, the two pages have quietly diverged.
  *
- * **3. The playground's structure disagreeing with itself** (SESSION-033).
- * Five separate files have to say the same thing about five categories:
- * `categories/index.ts` sets the order, `home.ts` lists them again for the
- * marquee, each category names the next one in the ring, and a project names
- * the category it belongs to. **Every one of those links fails silently.**
- * `PlaygroundIndex` does `if (!category) return null`, so a stale slug in
- * `home.ts` deletes a whole row and renumbers the ones after it; a stale
- * `nextCategorySlug` 404s the "next" link; a stale `categorySlug` 404s a
- * project. None of it is a type error, because they are all just strings.
- *
- * It also diffs `src` across `en` and `de` for every category item.
+ * **3. The playground's two locales drifting apart** (SESSION-033, narrowed in
+ * SESSION-034). It diffs `src`, `video` and `aspect` across `en` and `de` for
+ * every category item.
  * `image-manifest.mjs` does that for case studies and dictionaries but **not
  * for playground categories** — it reads only `en` there, so a slot filled in
- * one locale and missed in the other reports as filled.
+ * one locale and missed in the other reports as filled. It also asserts that
+ * every clip has a poster, which is the entire fallback for a reader with
+ * `prefers-reduced-motion` set.
  *
  * Both faults were real: SESSION-027 rearranged AFONO's blocks with a regex
  * matched only by *shape* — `figures` immediately followed by `list` — and it
@@ -58,9 +52,7 @@ async function load(entry, name) {
   await build({ entryPoints: [path.join(ROOT, entry)], bundle: true, format: "esm", outfile: out, logLevel: "error" });
   return import(pathToFileURL(out).href);
 }
-const pgHome = (await load("src/lib/playground/home.ts", "pg-home")).default;
 const pgCats = await load("src/lib/playground/categories/index.ts", "pg-cats");
-const pgProjects = await load("src/lib/playground/projects/index.ts", "pg-projects");
 
 const SLUGS = ["wikimind", "afono", "sync-fm", "barrier-free-kitchen", "surugami", "qis-portal"];
 
@@ -129,72 +121,49 @@ for (const slug of SLUGS) {
 
 /*
  * ---------------------------------------------------------------------------
- * The playground's five cross-file links (SESSION-033).
+ * The playground (SESSION-034).
  * ---------------------------------------------------------------------------
+ *
+ * SESSION-033 checked five cross-file links here: the registry against a second
+ * list in `home.ts`, a next-category ring, and every project's category. All
+ * three are **gone**, because the pages they linked are gone — the playground is
+ * one page and the categories are sections of it (`DECISION-026`). A check for
+ * a link that no longer exists is not a safety net, it is a thing to maintain.
+ *
+ * What survives is the pair nothing else can see: `en`/`de` parity across the
+ * category items, which `image-manifest.mjs` misses because it reads only `en`
+ * there, and the poster rule for clips.
  */
 const registrySlugs = pgCats.categorySlugs;
 
-for (const loc of ["en", "de"]) {
-  // 1. home.ts lists the same categories, in the same order, as the registry.
-  const listed = pgHome[loc].categories.map((c) => c.slug);
-  if (listed.join(",") !== registrySlugs.join(",")) {
-    fail(`playground ${loc}: home.ts categories differ from the registry`);
-    console.log(`      home.ts:  [${listed.join(", ")}]`);
-    console.log(`      registry: [${registrySlugs.join(", ")}]`);
-  }
-
-  // 2. Each listed title matches the category's own title, so the marquee and
-  //    the page it leads to cannot call the same thing two different names.
-  for (const entry of pgHome[loc].categories) {
-    const cat = pgCats.getCategory(entry.slug, loc);
-    if (!cat) { fail(`playground ${loc}: home.ts names "${entry.slug}", which no category answers to`); continue; }
-    if (cat.title !== entry.title)
-      fail(`playground ${loc} ${entry.slug}: home.ts says "${entry.title}", the category says "${cat.title}"`);
-  }
-
-  // 3. nextCategorySlug forms one complete ring over every category.
-  const seen = [];
-  let at = registrySlugs[0];
-  for (let i = 0; i < registrySlugs.length; i++) {
-    const cat = pgCats.getCategory(at, loc);
-    if (!cat) { fail(`playground ${loc}: "${at}" is not a category`); break; }
-    if (seen.includes(at)) break;
-    seen.push(at);
-    const next = pgCats.getCategory(cat.nextCategorySlug, loc);
-    if (!next) {
-      fail(`playground ${loc} ${at}: nextCategorySlug "${cat.nextCategorySlug}" 404s`);
-      break;
-    }
-    if (next.title !== cat.nextCategoryTitle)
-      fail(`playground ${loc} ${at}: nextCategoryTitle "${cat.nextCategoryTitle}" but "${cat.nextCategorySlug}" is "${next.title}"`);
-    at = cat.nextCategorySlug;
-  }
-  if (seen.length !== registrySlugs.length || at !== registrySlugs[0])
-    fail(`playground ${loc}: the next-category ring covers ${seen.length} of ${registrySlugs.length} — [${seen.join(" → ")}]`);
-
-  // 4. Every project points at a category that exists.
-  for (const slug of pgProjects.projectSlugs) {
-    const project = pgProjects.getProject(slug, loc);
-    const cat = pgCats.getCategory(project.categorySlug, loc);
-    if (!cat) { fail(`playground ${loc} project ${slug}: categorySlug "${project.categorySlug}" 404s`); continue; }
-    if (cat.title !== project.categoryTitle)
-      fail(`playground ${loc} project ${slug}: categoryTitle "${project.categoryTitle}" but the category is "${cat.title}"`);
-  }
-}
-
-// 5. en/de item parity — same count, same src at each index. image-manifest.mjs
-//    reads only `en` for categories, so this is the only check that sees it.
 for (const slug of registrySlugs) {
   const [e, d] = ["en", "de"].map((l) => pgCats.getCategory(slug, l));
+  if (!e || !d) { fail(`playground ${slug}: missing in one locale`); continue; }
+
   if (e.items.length !== d.items.length) {
     fail(`playground ${slug}: ${e.items.length} items in en, ${d.items.length} in de`);
     continue;
   }
   for (const [i, item] of e.items.entries()) {
-    if (item.src !== d.items[i].src)
-      fail(`playground ${slug} items[${i}]: en "${item.src ?? "(none)"}" vs de "${d.items[i].src ?? "(none)"}"`);
-    if (Boolean(item.slug) !== Boolean(d.items[i].slug))
-      fail(`playground ${slug} items[${i}]: project link present in one locale only`);
+    const other = d.items[i];
+    if (item.src !== other.src)
+      fail(`playground ${slug} items[${i}]: en "${item.src ?? "(none)"}" vs de "${other.src ?? "(none)"}"`);
+    if (item.video !== other.video)
+      fail(`playground ${slug} items[${i}]: video en "${item.video ?? "(none)"}" vs de "${other.video ?? "(none)"}"`);
+    if (item.aspect !== other.aspect)
+      fail(`playground ${slug} items[${i}]: aspect en "${item.aspect}" vs de "${other.aspect}"`);
+    if (Boolean(item.note) !== Boolean(other.note))
+      fail(`playground ${slug} items[${i}]: a written note in one locale only`);
+
+    /*
+     * A clip without a poster is a black rectangle for everyone who has
+     * `prefers-reduced-motion` set, because `ui/LoopVideo` deliberately never
+     * creates the `<video>` for them — the poster is the whole fallback.
+     */
+    for (const [loc, it] of [["en", item], ["de", other]]) {
+      if (it.video && !it.src)
+        fail(`playground ${slug} items[${i}] ${loc}: has a video but no poster \`src\``);
+    }
   }
 }
 
@@ -203,4 +172,4 @@ if (findings) {
   process.exit(1);
 }
 console.log(`content audit: ${SLUGS.length} case studies — language and en/de block shape agree`);
-console.log(`               ${registrySlugs.length} playground categories — order, ring, titles and en/de srcs agree`);
+console.log(`               ${registrySlugs.length} playground categories — en/de items, aspects, clips and posters agree`);

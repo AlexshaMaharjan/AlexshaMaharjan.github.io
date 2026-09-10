@@ -213,13 +213,17 @@ async function checkA11y() {
 // ---------------------------------------------------------------- weight
 async function checkWeight() {
   /*
-    The playground was never sampled here, and by SESSION-033 it holds the two
-    pages most likely to be heavy: the index renders every category's items into
-    its marquees (43 cards), and Graphic Design is the largest single category
-    at 14. A weight check that only looks at case studies cannot see either.
+    The playground was never sampled here before SESSION-033, and it is the
+    heaviest page on the site: one scrapbook page carrying every category's
+    pictures at full size plus three autoplaying clips (`DECISION-026`). A
+    weight check that only looks at case studies cannot see it.
+
+    `/playground/graphic-design` was sampled here too until SESSION-034 retired
+    that route — and the check happily reported it at "0 KB img, 113 KB total",
+    which is the weight of the 404 page. **A route that stops existing does not
+    fail this check, it flatters it.**
   */
-  const pages = ["/", "/work/sync-fm", "/work/afono", "/work/surugami", "/work/wikimind",
-                 "/playground", "/playground/graphic-design"];
+  const pages = ["/", "/work/sync-fm", "/work/afono", "/work/surugami", "/work/wikimind", "/playground"];
   console.log("whole page, uncached, gzipped:");
   for (const p of pages) {
     for (const [w, dpr, mobile] of [[1440, 1, false], [390, 3, true]]) {

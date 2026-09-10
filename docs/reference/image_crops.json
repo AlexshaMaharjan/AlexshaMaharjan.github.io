@@ -1519,5 +1519,44 @@
     "width": 1200,
     "height": 1800,
     "quality": 0.82
+  },
+  {
+    "src": "Images/Playground/craftworkgift1.mp4 @13s",
+    "out": "public/images/pg-clip-explosion.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 720,
+    "height": 960,
+    "quality": 0.8
+  },
+  {
+    "src": "Images/Playground/craftgift2.mp4 @14s",
+    "out": "public/images/pg-clip-popup.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 720,
+    "height": 1280,
+    "quality": 0.8
+  },
+  {
+    "src": "Images/Playground/craftgift3.mp4 @15.5s",
+    "out": "public/images/pg-clip-riona.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 720,
+    "height": 1280,
+    "quality": 0.8
   }
 ]

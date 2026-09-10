@@ -1,6 +1,6 @@
 # Current State
 
-Snapshot: **2026-09-10**, after SESSION-033 (five playground categories; the heaviest page found and fixed).
+Snapshot: **2026-09-10**, after SESSION-034 (the playground becomes one scrapbook page that carries video).
 
 ## Overall
 
@@ -10,7 +10,7 @@ the case studies — the largest surface, and the owner's first-named complaint 
 both structured and laid out. What remains is mostly content the repository cannot supply
 for itself: real photographs, and a copy pass. The homepage work grid is finished (`DECISION-021`).
 
-Roughly: architecture ~93% done, content ~70% drafted, imagery ~78% (127 of 163 slots), polish ~72%.
+Roughly: architecture ~93% done, content ~70% drafted, imagery ~81% (129 of 159 slots), polish ~75%.
 
 ## Working
 
@@ -35,8 +35,8 @@ Roughly: architecture ~93% done, content ~70% drafted, imagery ~78% (127 of 163 
   The layout is editorial: body text at a 680px measure against media at up to 960px, three
   distinct set-piece treatments, a contents rail that marks the section being read, and a
   closing band. Figures accept a real `src` and render a caption when one is set.
-- Playground: five categories, paper-grid texture, taped cards, five auto-scrolling
-  marquees, one experiment detail page.
+- Playground: **one page** (`DECISION-026`) — five category sections of true-aspect bento
+  rows on a paper-grid ground, three autoplaying muted clips, click-to-enlarge in place.
 - A complete, real résumé page with print styles.
 - `prefers-reduced-motion` honoured consistently.
 - **WCAG 2.2 AA verified** — axe-core reports 0 violations across 8 pages × 2 locales, the

@@ -32,7 +32,6 @@ const cs = await load("src/lib/caseStudies/index.ts", "caseStudies");
 const dict = await load("src/lib/dictionaries/index.ts", "dictionaries");
 const home = await load("src/lib/playground/home.ts", "home");
 const cats = await load("src/lib/playground/categories/index.ts", "categories");
-const projects = await load("src/lib/playground/projects/index.ts", "projects");
 
 const SLUGS = ["wikimind", "afono", "sync-fm", "barrier-free-kitchen", "surugami", "qis-portal"];
 const rows = [];
@@ -106,13 +105,15 @@ const h = home.default.en;
 h.heroCards.forEach((card, i) =>
   add("Playground — home", "hero collage", card.caption, card.aspect, px(300), Boolean(card.src),
       `playground/home.ts → {en,de}.heroCards[${i}].src`));
-h.featured.forEach((item, i) =>
-  add("Playground — home", "featured", item.caption, item.aspect ?? "16/10", px(340), Boolean(item.src),
-      `playground/home.ts → {en,de}.featured[${i}].src`));
 for (const category of cats.getAllCategories("en")) {
-  category.items.forEach((item, i) =>
-    add(`Playground — ${category.title}`, "card", item.caption, item.aspect, px(300), Boolean(item.src),
-        `playground/categories/${category.slug}.ts → {en,de}.items[${i}].src`));
+  category.items.forEach((item, i) => {
+    // A written card is content, not an empty picture slot — counting it as one
+    // would report the playground as permanently unfinished (`DECISION-026`).
+    if (item.note) return;
+    const kind = item.video ? "clip" : "tile";
+    add(`Playground — ${category.title}`, kind, item.caption, item.aspect, px(430), Boolean(item.src),
+        `playground/categories/${category.slug}.ts → {en,de}.items[${i}].src`);
+  });
 }
 /*
  * Every `src` has to be written into both the `en` and the `de` object, and the
@@ -149,14 +150,6 @@ for (const slug of SLUGS) {
     (e.projects ?? []).map((x) => x.image), (d.projects ?? []).map((x) => x.image));
 }
 
-const project = projects.getProject("motorbike-study", "en");
-if (project) {
-  add("Playground — Motorbike Study", "main", project.mainCaption, project.mainAspect, px(960), Boolean(project.mainSrc),
-      `playground/projects/motorbike-study.ts → {en,de}.mainSrc`);
-  (project.processItems ?? []).forEach((item, i) =>
-    add("Playground — Motorbike Study", "process", item.caption, item.aspect, px(300), Boolean(item.src),
-        `playground/projects/motorbike-study.ts → {en,de}.processItems[${i}].src`));
-}
 
 // ---- render ----
 if (localeMismatches.length) {

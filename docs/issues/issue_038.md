@@ -1,36 +1,30 @@
 # ISSUE-038 — Five supplied files are still unplaced: three videos and two photographs
 
-Status: Open — part 2 closed 2026-09-10 (SESSION-033)
+Status: Open — parts 1 and 2 closed (SESSION-034, SESSION-033). **Part 3 stands: `Afono/Wireframe.png` is still blank.**
 Priority: Medium
 Category: Content
 Discovered: 2026-09-10 (SESSION-032)
 Owner decision: yes for all three groups
 
-## 1. Three craft videos — 121 MB, and no encoder here
+## 1. ~~Three craft videos — 121 MB, and no encoder here~~ — CLOSED
 
-`craftworkgift1.mp4` (15.4 MB), `craftgift3.mp4` (45.9 MB), `craftgift2.mp4` (60.1 MB). They show
-gift boxes being *made*, which the eight craft stills on the page do not — so they are genuinely
-additive, not duplicates.
+**Resolved in SESSION-034** (`DECISION-026`). The premise was wrong, and it was my own:
+this issue said there is no encoder on this machine, because `ffmpeg` is absent and
+`avconvert` grew two of four files.
 
-They were not shipped because **there is no encoder on this machine.** `ffmpeg` is not installed,
-and `avconvert`'s presets target quality: on these four files it grew two, left one unchanged, and
-only usefully shrank one. `DECISION-022` has the numbers.
+**Chrome is an encoder.** `scripts/video-clip.mjs` plays the source, draws it to a canvas
+at the size actually wanted, and records `canvas.captureStream()` through `MediaRecorder`.
+The question this issue never asked was the one that mattered: a gallery tile does not need
+the film, it needs eight seconds of it at 640px.
 
-`ui/Video` means a page carrying a film costs its poster — 34 KB — and the film only downloads on
-a click. **But click-to-play makes a page cheap, not a repository small.** 121 MB of phone footage
-is more than this repository has ever carried, and `ProjectsDokus/` is git-ignored for exactly
-that reason.
+| Source | | Clip |
+| --- | --- | --- |
+| `craftworkgift1.mp4` 15.4 MB, 48s | → | `pg-gift-explosion.mp4` **349 KB**, 8s |
+| `craftgift2.mp4` 60.1 MB, 142s | → | `pg-gift-popup.mp4` **476 KB**, 8s |
+| `craftgift3.mp4` 45.9 MB, 23s | → | `pg-gift-riona.mp4` **210 KB**, 6s |
 
-**One command makes all three shippable:**
-
-```bash
-ffmpeg -i craftgift2.mp4 -vf scale=-2:720 -crf 28 -c:a aac -b:a 96k craftgift2-web.mp4
-```
-
-That should put all three comfortably inside 15 MB together. HandBrake's "Fast 720p30" preset does
-the same thing with a GUI. Drop the compressed files in and they take three slots in
-`Handmade and Bead Crafts` in minutes — the component, the poster extractor and the content model
-all exist now.
+**121 MB → 1035 KB.** All three autoplay muted and looping in Handmade and Bead Crafts,
+and none of them is fetched at all under `prefers-reduced-motion`.
 
 ## 2. ~~Two photographs — the playground has no category for them~~ — CLOSED
 

@@ -1,39 +1,41 @@
 # Previous Session
 
-**SESSION-033** — 2026-09-10. Full record: `docs/sessions/session_033.md`.
+**SESSION-034** — 2026-09-10. Full record: `docs/sessions/session_034.md`.
 
 ## What it did
 
-**Restructured the playground to five categories in the owner's order** (`DECISION-023`):
-Games and Applications, Photography/Animation/3D, Graphic Design, Digital Drawings and
-Portraits, Handmade and Bead Crafts. `Calendars and Editorial Experiments` folded into
-Graphic Design, which now holds 14 items. Slugs were renamed to match the new titles.
+**Finished SESSION-033's cut-off request** (`DECISION-025`, committed as `cf64c51`): the
+playground marquee had declared `aspect="4/3"` on every card whatever the image was, and
+`object-cover` discarded an average of **36% of every picture** — the ITD logo card read
+"Infrastruktur Technologie und D—". Fixed with a measured 3/4 box, contained, matted in each
+image's own build-time-sampled border colour; and one marquee row moving at a time.
 
-**Placed both of `ISSUE-038`'s photographs**, closing part 2 of it. They lead category 2 —
-photography joined 3D and Motion rather than becoming a seventh category.
+**Then rebuilt the playground entirely** (`DECISION-026`), because the owner changed
+direction: one scrapbook page, no sub-pages, **true aspect ratios** in bento rows of two,
+three and four. Routes **34 → 22**. Clicking a picture opens it in place. The motorbike
+study's reflection survived losing its page as a **written card** among the pictures.
 
-**Found and fixed the heaviest page on the site.** `verify weight` had never sampled a
-playground route; adding two showed `/playground` at 1692 KB of images at 1440px/1x. Cause:
-`ui/Image` falls back to `sizes="100vw"` and every playground call site passed none, so a
-256px card took the 1600px variant. Fixed at all seven call sites (`DECISION-024`) —
-**1692 KB → 378 KB**, with the 390px/3x figure unchanged, which is how you know only waste
-went.
+**Found that Chrome is an encoder.** `DECISION-022` had concluded there is none on this
+machine, and `ISSUE-038` sat open on that basis. True of `ffmpeg` and `avconvert`; wrong as
+a rule. `scripts/video-clip.mjs` records `canvas.captureStream()` through `MediaRecorder`:
+**121 MB of craft video → 1035 KB** of muted, looping, autoplaying clips. MP4/H.264, so
+Safari plays them.
 
-**Taught `content-audit.mjs` the playground's structure.** Five files have to agree about
-five categories and every link between them is a bare string that fails silently — a stale
-slug in `home.ts` deletes a whole marquee row. `PlaygroundIndex.tsx` linked its featured
-project through the literal `/playground/3d-motion/`, which the rename would have 404'd with
-no type error. All five new checks were proved by injecting the fault.
+**Colour comes from the pictures.** Each section stands on a wash averaged from its own
+images' sampled mats, mixed 94% into white — never on a tile, never under text, which is
+what `DECISION-020` got wrong.
 
-## What it deliberately did not do
+**A gallery shows what exists.** At a 430px row height the two empty categories were ten
+huge hatched rectangles across two screens. They are one line of text now.
 
-- **`ISSUE-039`** — the marquee crops every card to `4/3` and the featured cards to `16/10`
-  whatever the item's real aspect is. Pre-existing, and a redesign of the playground index
-  rather than a category reorder.
-- **The owner's last message was truncated mid-word** at "also most of thr". Nothing was
-  guessed. Ask.
+## Two faults caught by measuring, not by looking
+
+- The bento **squeezed tiles to 82px at 768px wide** — row counts are fixed at render, the
+  viewport is not. A `min-width` floor plus `flex-wrap` fixes it at every width.
+- The clips were **under-provisioned for a phone** (328 CSS px tile, 460px clip), and two
+  posters fell out of the variant map entirely for being under `MIN_SAVING`.
 
 ## State
 
-34 routes, 492 images across three pixel ratios, axe 0 violations, **163 slots / 127 filled**.
-**53 commits ahead of `main`, still unpushed.**
+22 routes, `tsc` clean, lint 0 errors, content audit clean, **159 slots / 129 filled**.
+**55 commits ahead of `main`, still unpushed. The owner has not seen any of this.**

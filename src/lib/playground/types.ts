@@ -1,5 +1,4 @@
 export interface PlaygroundItem {
-  slug?: string;
   caption: string;
   aspect: string;
   /**
@@ -9,9 +8,21 @@ export interface PlaygroundItem {
    */
   src?: string;
   alt?: string;
+  /** Tilts the card a degree or two, the way a taped-in photograph sits. */
   rotated?: boolean;
   subtitle?: string;
-  description?: string;
+  /**
+   * A short muted clip that loops on its own (`DECISION-026`). `src` stays the
+   * poster, so a tile with no `video` and a tile whose clip has not loaded look
+   * the same, and `prefers-reduced-motion` simply keeps the poster.
+   */
+  video?: string;
+  /**
+   * A written card instead of a picture. The scrapbook carries the owner's own
+   * words between the images — it is how the motorbike study's reflection
+   * survived losing its own page (`DECISION-026`), rather than being deleted.
+   */
+  note?: string;
 }
 
 export interface PlaygroundCategoryContent {
@@ -20,18 +31,10 @@ export interface PlaygroundCategoryContent {
   intro: string;
   items: PlaygroundItem[];
   moreComingNote: string;
-  nextCategorySlug: string;
-  nextCategoryTitle: string;
-}
-
-export interface PlaygroundCategorySummary {
-  slug: string;
-  title: string;
-  caption: string;
 }
 
 export interface PlaygroundHomeContent {
-  /** Labels for the marquee pause control (WCAG 2.2.2). */
+  /** Labels for the page's motion control — it stops every clip (WCAG 2.2.2). */
   pauseMotion: string;
   playMotion: string;
   /** The two tilted cards in the hero collage. */
@@ -40,39 +43,16 @@ export interface PlaygroundHomeContent {
   heading: string;
   intro: string;
   handNote: string;
-  featuredHeading: string;
-  featured: PlaygroundItem[];
+  /** Names the in-page contents nav for screen readers. */
   categoriesHeading: string;
   categoriesCaption: string;
-  categories: PlaygroundCategorySummary[];
+  /** Prefixes the list of things a category is still waiting for. */
+  pendingLabel: string;
   exploringHeading: string;
   exploringItems: string[];
   noteBody: string;
   returnCta: string;
 }
 
-export interface PlaygroundProjectContent {
-  slug: string;
-  categorySlug: string;
-  categoryTitle: string;
-  title: string;
-  intro: string;
-  mainCaption: string;
-  mainAspect: string;
-  mainSrc?: string;
-  mainAlt?: string;
-  processHeading: string;
-  processItems: PlaygroundItem[];
-  toolsHeading: string;
-  tools: string[];
-  reflectionHeading: string;
-  reflection: string;
-  nextLabel: string;
-  nextSlug: string;
-  nextCategorySlug: string;
-  nextTitle: string;
-}
-
 export type PlaygroundCategoryLocaleContent = Record<"en" | "de", PlaygroundCategoryContent>;
 export type PlaygroundHomeLocaleContent = Record<"en" | "de", PlaygroundHomeContent>;
-export type PlaygroundProjectLocaleContent = Record<"en" | "de", PlaygroundProjectContent>;

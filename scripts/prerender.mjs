@@ -42,24 +42,19 @@ async function loadRoutes() {
     stdin: {
       contents: `
         export { caseStudySlugs } from "${path.join(ROOT, "src/lib/caseStudies/index.ts")}";
-        import { getAllCategories } from "${path.join(ROOT, "src/lib/playground/categories/index.ts")}";
-        import { getProject } from "${path.join(ROOT, "src/lib/playground/projects/index.ts")}";
-        export const categories = getAllCategories("en").map((c) => c.slug);
-        export const projects = getAllCategories("en").flatMap((c) =>
-          c.items.filter((i) => i.slug && getProject(i.slug, "en")).map((i) => c.slug + "/" + i.slug));
       `,
       resolveDir: ROOT,
       loader: "ts",
     },
     bundle: true, format: "esm", outfile: out, logLevel: "error",
   });
-  const { caseStudySlugs, categories, projects } = await import(pathToFileURL(out).href);
+  const { caseStudySlugs } = await import(pathToFileURL(out).href);
   const paths = [
     "/", "/about", "/resume", "/contact",
     ...caseStudySlugs.map((s) => `/work/${s}`),
+    // The playground is one page now (`DECISION-026`): its five categories are
+    // sections of it, not routes.
     "/playground",
-    ...categories.map((c) => `/playground/${c}`),
-    ...[...new Set(projects)].map((p) => `/playground/${p}`),
   ];
   return paths.flatMap((p) => [p, p === "/" ? "/de/" : `/de${p}`]);
 }

@@ -7,7 +7,7 @@ Information Technology and Design (B.Sc.) at Technische Hochschule Lübeck.
 The site has two "modes" the visitor toggles between in the header:
 
 - **Portfolio** — professional work: six case studies, About, Résumé, contact.
-- **Playground** — personal/unbriefed work: five categories of experiments on a
+- **Playground** — personal/unbriefed work: one scrapbook page, five categories of experiments on a
   paper-grid background with a deliberately hand-made, taped-photo visual language.
 
 ## Purpose
@@ -44,9 +44,9 @@ Every route is registered twice — bare (English) and `/de`-prefixed (German), 
 | `/resume` | Résumé — print-optimised single column |
 | `/contact` | Redirect to `/#contact` |
 | `/work/:slug` | Case study — 6 slugs: `wikimind`, `afono`, `sync-fm`, `barrier-free-kitchen`, `surugami`, `qis-portal` |
-| `/playground` | Playground home — featured, category index, five auto-scrolling marquees |
-| `/playground/:category` | 5 categories, in this order: `games-and-apps`, `photography-3d-motion`, `graphic-design`, `digital-art`, `crafts` (`DECISION-023`) |
-| `/playground/:category/:slug` | Playground project — only `motorbike-study` exists |
+| `/playground` | The whole playground — five category sections of true-aspect bento rows, autoplaying clips, click-to-enlarge (`DECISION-026`) |
+| ~~`/playground/:category`~~ | Retired in SESSION-034. The five categories — `games-and-apps`, `photography-3d-motion`, `graphic-design`, `digital-art`, `crafts` — are sections of `/playground` |
+| ~~`/playground/:category/:slug`~~ | Retired in SESSION-034; the motorbike study's prose became a written card in the run |
 | `*` | 404 |
 
 ## Major features

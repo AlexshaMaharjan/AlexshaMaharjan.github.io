@@ -504,6 +504,27 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#ead8ff"
   },
+  "/images/pg-clip-explosion.webp": {
+    "w": 720,
+    "v": [
+      400
+    ],
+    "bg": "#5d6c86"
+  },
+  "/images/pg-clip-popup.webp": {
+    "w": 720,
+    "v": [
+      400
+    ],
+    "bg": "#786433"
+  },
+  "/images/pg-clip-riona.webp": {
+    "w": 720,
+    "v": [
+      400
+    ],
+    "bg": "#aaabad"
+  },
   "/images/pg-double-portrait.webp": {
     "w": 1200,
     "v": [
