@@ -46,6 +46,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-036 | 2026-09-10 | The deck gets its own hand: hero raised to 56svh so half a card shows at rest, ten `aria-hidden` scribbles lifted from the About idiom, and every slot opens in `ui/Lightbox` — which learned `video` and `description` rather than being duplicated. Caught a detached focus target caused by declaring a component inside its parent |
 | SESSION-037 | 2026-09-10 | The deck arrives in black and white and the scroll puts the colour back: a `RUNWAY` of empty scroll behind every card, one scrubbed `--pg-reveal` per card and the rest arithmetic in CSS; per-card accent colours; hover holds a picture up to the light and names it beside the cursor |
 | SESSION-038 | 2026-09-10 | Notes name their picture instead of their position (`placeScribbles.ts`); white cards on a dotted page; `content-audit` learns to check note targets; **`docs/` consolidated from 159 files to 16** and `MILESTONE-010` written from the owner's fifteen-item list |
+| SESSION-039 | 2026-09-10 | `MILESTONE-010`: the eleven tasks that needed nobody, leaving only the four owner gates. Hero split into title and description; the About page rewritten and its portrait made real after being a solid-black stand-in the whole time; WikiMind's sketches become a bento (`DECISION-032`); nine playground changes; three spacing classes that produced no CSS at all (`ISSUE-047`) |
 
 ### Conventions
 
@@ -1083,3 +1084,106 @@ The owner's fifteen items, written up with the file and line for each, four owne
 marked, and copy drafted for the three tasks that asked for it. The site's writing rules
 (no em dashes, both locales, never invent a fact) are now in `README.md` rather than being
 re-derived every session.
+
+---
+<a id="session-039"></a>
+
+## SESSION-039 — The owner's list, minus the four things only they can answer
+
+Date: 2026-09-10
+Branch: `milestone-003-content-model`
+Follows: SESSION-038.
+Decisions: `DECISION-032` written. `DECISION-028` and `DECISION-031` amended with what shipped.
+Issues: `ISSUE-041`, `ISSUE-042`, `ISSUE-046` resolved. `ISSUE-047` raised and resolved.
+`ISSUE-043` partially. `ISSUE-006` lost one of its two remaining items.
+
+### First: the previous session's work was not committed
+
+`next_session.md` said SESSION-037 and SESSION-038 were committed to the branch. `git log`
+said `HEAD` was SESSION-036's. Both sessions' work — the scroll reveal, the note placement,
+and the 159-file documentation consolidation — was sitting uncommitted in the working tree.
+That file also says **"check `git` before trusting any status in these files"**, which is the
+only reason it was caught in the first minute rather than lost to a stray `git checkout`.
+
+Committed as two: the playground code, then the documentation rebuild.
+
+### `MILESTONE-010`, eleven of fifteen
+
+Committed in three parts: group A (copy and data), tasks 3a and 12, then task 14.
+
+**The About portrait was never a missing asset.** `image_files.md` had it as a placeholder
+needing a "full-res re-export". The real photograph was in the repo at
+`Images/Alexsha_Photo.png`, at **exactly** the stand-in's 1720x2150 — the placeholder had
+been generated to the photograph's own dimensions and then never swapped. The page had been
+showing a black rectangle where a face was meant to be.
+
+It did not go back under the same filename, which is what `image_files.md` recommends: a
+photograph as PNG is megabytes, and the base file sits in the `srcset` at its full intrinsic
+width, so a 3x phone would have fetched it. It is `alexsha-portrait.webp` at 242 KB, plus
+`alexsha-portrait-og.jpg` for the social card — the one image with no fallback, where WebP
+support is good rather than universal.
+
+**The WikiMind bento needed the layout to grow, not the data.** See `DECISION-032`. The
+short version: a row is made of cells now, a cell can be a column, and the arithmetic reduces
+exactly to `rowMetrics` when every cell holds one figure — which is the only reason it could
+replace it at the call site.
+
+Two things the milestone predicted that turned out not to be true, both worth knowing because
+the milestone is still the reference for tasks 3, 13 and 15:
+
+- **The bento does not come out square.** Both columns scale linearly with the row height, so
+  the block's aspect is fixed at about 2.2:1 at any size. The arrangement is the owner's ask
+  and that is what shipped.
+- **The word legible in the kitchen crop was "Abbildung 26 Verschiedene Haken"**, the source
+  document's own figure caption, not "Abblendung". It was on the third of three panels, so
+  the crop trims horizontally rather than vertically and the figure went from 1600/495 to
+  1600/743.
+
+### Three classes that were never there
+
+`About.tsx` was written with `mt-8.5`, `pt-6.5` and `mt-5.5`. None of them are on Tailwind's
+scale and none of them were in this project's `spacing` extension, so **no CSS was generated
+for any of them.** Nothing reports this: an unknown class and a class you meant to write look
+identical.
+
+It stayed invisible for as long as `about.aiLabel` sat between the rule and the paragraph.
+Deleting that label put the paragraph flush against its own `border-t`, which is what showed
+it. `ISSUE-047` has the one-line grep that finds the rest.
+
+### The playground, and a third cause of `ISSUE-043`
+
+Eight of task 14's nine parts were what they said on the tin. The ninth was not.
+
+Note sizes were design units, which are only right at one card width; they are CSS pixels
+now, and `Collage` measures the stage with a `ResizeObserver` and hands `placeScribbles` the
+conversion. That fixed what `ISSUE-043` called cause 2 — and left a 78%-of-a-note overlap at
+a 1180x700 window.
+
+That one was not placement at all. **Notes are hidden below a 900px card, but they are drawn
+on the stage, and the stage is `min(100cqw, 160cqh)`.** A card that is wide and short is
+height-bound, so it passed a width-only query with a stage 300px narrower than itself, and
+`placeScribbles` was correctly reporting that there was nowhere left to put anything. The
+container query asks for the height too now. Worst overlap across five window sizes: 78% to
+14%, and the 14% is a rotated bounding box brushing a corner rather than ink on a picture.
+
+### Measured rather than assumed
+
+Four things this session that a screenshot would have got wrong:
+
+- **The résumé still prints to three pages** after task 12's extra air. Checked by driving
+  `Page.printToPDF` on the branch and on a `git stash` of it, not by looking at the screen.
+- **Hover at 1.42 does not clip.** Nothing on cards one to three reaches its card's edge;
+  card four overruns by 7px.
+- **The bento's columns end together** — 1px apart at 1440, 5px at 1024, 17px at 800, which
+  is what `DECISION-032`'s approximation predicts.
+- **The `zoomable={false}` viewer**: clicking the scroll container, the centring wrapper or
+  the dialog root all close it, and clicking the image does nothing. The case-study viewer
+  still opens fitted at 1297, zooms to 1600 on a click, and ignores its backdrop.
+
+### One thing worth arguing about
+
+`content-audit.mjs` does not check for em dashes, and there are around 100 in shipped content
+— almost all of them separating a label from a name ("Calendar — March", "WikiMind —
+Corporate Design"). Only one was in prose, a playground note reading "perfume — flat, then
+folded", and that one is now a colon. **Whether the site rule means the separators too is the
+owner's call**, and it is not one of the fifteen tasks, so nothing else was touched.

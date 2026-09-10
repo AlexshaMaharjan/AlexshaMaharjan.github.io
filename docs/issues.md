@@ -2,16 +2,22 @@
 
 Defects and genuine deficiencies, including UI/UX ones. Resolved issues stay: they explain why the code looks as it does.
 
-46 issues. **30 resolved**, plus `ISSUE-004`, `ISSUE-006` and `ISSUE-038` partially.
-**16 remain open**, none `Investigating` and none `Critical`.
+47 issues. **34 resolved.** **Ten remain open** — `ISSUE-031` to `ISSUE-035`, `ISSUE-037`,
+`ISSUE-038`, `ISSUE-040`, `ISSUE-044`, `ISSUE-045` — and three are partial: `ISSUE-004`,
+`ISSUE-006` and `ISSUE-043`. None `Investigating`, none `Critical`.
 
 `ISSUE-041` to `ISSUE-046` were all raised by the owner in SESSION-038 and are worked as
 [`MILESTONE-010`](milestones.md#milestone-010).
 
-Of those, **five need the owner and cannot be closed by work**: two are provenance judgements
-(`ISSUE-032`, `ISSUE-034`), one is a weight trade-off (`ISSUE-033`), one is a word of copy
-(`ISSUE-031`), and `ISSUE-006` needs a photograph and a designed card. Only `ISSUE-004` waits on
-images that are coming.
+Of those, **four need the owner and cannot be closed by work**: two are provenance judgements
+(`ISSUE-032`, `ISSUE-034`), one is a weight trade-off (`ISSUE-033`) and one is a word of copy
+(`ISSUE-031`). Only `ISSUE-004` waits on images that are coming.
+
+`ISSUE-041`, `ISSUE-042` and `ISSUE-046` closed in SESSION-039, and `ISSUE-043` lost two of
+its three causes. `ISSUE-006` lost one of its two: the About portrait had been a solid-black
+stand-in since it was wired, and the real photograph was sitting in
+`Images/Alexsha_Photo.png` at exactly the same dimensions the whole time. What it still wants
+is the designed `og:image` card, which a photograph is a stopgap for and not an answer to.
 
 `ISSUE-009` and `ISSUE-010` closed in SESSION-025 — the German landmark labels and the dead
 content fields.
@@ -27,7 +33,7 @@ _None._
 | ID | Title | Status | Priority | Summary | File |
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-004 | Homepage work grid has no imagery | **Partially resolved** | High | Tiles take images now; the images are being made | [#issue-004](#issue-004) |
-| ISSUE-006 | Wired images that are colour stand-ins | Mostly resolved | High | Heroes all real since SESSION-016; German Sync FM fixed SESSION-020. Left: the About portrait, and the `og:image` | [#issue-006](#issue-006) |
+| ISSUE-006 | Wired images that are colour stand-ins | Mostly resolved | High | Portrait real since SESSION-039. Left: a **designed** `og:image` card, which the portrait is only standing in for | [#issue-006](#issue-006) |
 
 ### Active — Medium
 
@@ -43,15 +49,16 @@ _None._
 | --- | --- | --- | --- | --- | --- |
 | ISSUE-031 | Sync FM's copy credits the wrong AI tool | Open | Low | Says Gemini made the personas; the documentation says ChatGPT did | [#issue-031](#issue-031) |
 | ISSUE-035 | AFONO's supplied folder: three files not used | Open | Low | One is an empty export; one is competitor imagery `DECISION-016` excludes; one is a moodboard flagged like `ISSUE-032` | [#issue-035](#issue-035) |
-| ISSUE-042 | Résumé section rules sit flush against the first row | Open | Low | `pb-2` under the heading meets `first:pt-0` on the first entry: no gap at all | [#issue-042](#issue-042) |
+| ISSUE-047 | Three spacing classes produced no CSS at all | **Resolved** | Low | `mt-8.5`, `pt-6.5` and `mt-5.5` are not on Tailwind's scale and were silently dropped | [#issue-047](#issue-047) |
+| ISSUE-042 | Résumé section rules sit flush against the first row | **Resolved** | Low | `pt-5` on the wrapping container, SESSION-039. Still prints to three pages | [#issue-042](#issue-042) |
 | ISSUE-045 | The process question wraps to two lines | Open | Low | `w-[min(90vw,1000px)]` plus `textWrap: balance` splits "How do I bring a project to life?" | [#issue-045](#issue-045) |
-| ISSUE-046 | Placeholder slots with no assets are still shipping | Open | Low | Four hatched slots the owner has now said to delete rather than fill | [#issue-046](#issue-046) |
+| ISSUE-046 | Placeholder slots with no assets are still shipping | **Resolved** | Low | All four deleted in SESSION-039, plus the eight About carousel slots. 159 slots to 147 | [#issue-046](#issue-046) |
 | ISSUE-040 | Scrolling the whole playground costs 4 MB on a phone | Open | Medium | Landing is 492 KB and everything is lazy; the 4 MB is paid only by scrolling all 33 pictures. Every remaining lever trades picture quality | [#issue-040](#issue-040) |
 | ISSUE-039 | The playground index crops every card to a fixed aspect | **Resolved** | Medium | The marquee declares `4/3` and the featured cards `16/10` whatever the item is; `object-cover` then crops ~65% off a beaded planter. A redesign, not a defect fix | [#issue-039](#issue-039) |
 | ISSUE-038 | Five supplied files are still unplaced: three videos and two photographs | Open — 2 of 3 closed | Medium | Photographs placed in SESSION-033; SESSION-034 found Chrome's MediaRecorder is an encoder and turned 121 MB of craft video into 1035 KB. Only the blank `Afono/Wireframe.png` remains | [#issue-038](#issue-038) |
 | ISSUE-037 | QIS ships three screenshots of the university's own portal | Open | Medium | The subject of a redesign, captioned as such — but one shows a grade record that was not checked field by field | [#issue-037](#issue-037) |
-| ISSUE-041 | Nav "About" goes to a homepage section, not the About page | Open | Medium | `Header.tsx` links `/#about`; the real page is reachable only from inside the teaser | [#issue-041](#issue-041) |
-| ISSUE-043 | Playground notes and arrows still cross the pictures | Open | Medium | Arrows cross by design; note boxes are estimated in design units and the estimate is scale-dependent | [#issue-043](#issue-043) |
+| ISSUE-041 | Nav "About" goes to a homepage section, not the About page | **Resolved** | Medium | All three links point at `/about`, SESSION-039 | [#issue-041](#issue-041) |
+| ISSUE-043 | Playground notes and arrows still cross the pictures | **Partially resolved** | Medium | Note sizing is measured, not assumed, and the notes hide on a stage too small for them. The arrows still cross | [#issue-043](#issue-043) |
 | ISSUE-044 | The playground clips are 6-9 second excerpts | Open | Medium | Sources are 20-63s. The owner reports 2-3s, which matches neither: **measure before re-encoding** | [#issue-044](#issue-044) |
 
 And in SESSION-029:
@@ -583,11 +590,11 @@ Blocked by the `ISSUE-004` design decision.
 
 ## ISSUE-006 — Wired-up images that are solid-colour stand-ins
 
-Status: **Mostly resolved** — one stand-in left (the About portrait) plus the `og:image`
+Status: **Mostly resolved** — the portrait is real (SESSION-039); the designed `og:image` card is not made
 Priority: High
 Category: Content / Assets
 Discovered: 2026-08-22 (documented earlier in `docs/reference/image_files.md`)
-Last reviewed: 2026-08-25 (SESSION-020)
+Last reviewed: 2026-09-10 (SESSION-039)
 
 ### Where this stands (2026-08-25)
 
@@ -597,14 +604,18 @@ sessions have changed most of it:
 | Then | Now |
 | --- | --- |
 | 4 of 6 case-study heroes were colour blocks | **All six are real**, from the owner's documentations (SESSION-016) |
-| 3 alt strings began "Placeholder: " | Gone from the case studies (SESSION-016). Eight remain in `about.carouselItems` in both dictionaries — those slots have no `src`, so nothing is read aloud today, but they must not gain one while the string says that |
+| 3 alt strings began "Placeholder: " | Gone from the case studies (SESSION-016). The eight in `about.carouselItems` went with the carousel itself in SESSION-039 (`MILESTONE-010` task 6g) |
 | The Sync FM hero | English was fixed in SESSION-016; **German was missed and still pointed at the 6.9 KB stand-in until SESSION-020**. `scripts/image-manifest.mjs` now diffs `en` against `de` and exits non-zero, because no browser-side check can see this |
 | 9 unused PNGs | **15**, 817 KB, still shipping — the count keeps rising as replaced files are orphaned. Needs the owner's yes to delete |
-| The About portrait | **Still a stand-in.** `alexsha_photo-mrx9hbwx-nif2.png`, 14 KB at 1720×2150, on `/about` and the homepage. Needs a photograph; nothing in the documentations substitutes |
-| `og:image` | Still absent, so every shared link previews as a blank rectangle. **Not a crop** — a designed 1200×630 card. The single highest-visibility item left in `MILESTONE-005` |
+| The About portrait | **Real since SESSION-039.** The photograph was in the repo the whole time, at `Images/Alexsha_Photo.png` and at exactly the stand-in's 1720×2150. Now `alexsha-portrait.webp`, 242 KB, on `/about` and the homepage |
+| `og:image` | **A real photograph rather than a blank rectangle** since SESSION-039 (`alexsha-portrait-og.jpg`, 1200×1500). It is still **not the designed 1200×630 card** `MILESTONE-005` asks for, and a portrait crops badly to a landscape social card |
 
-What is left is exactly the part that needs the owner: **a photograph of them, and an
-approved `og:image`.** Neither can be extracted from a project documentation.
+What is left is the part that needs a design rather than an asset: **an approved 1200×630
+`og:image`.** The portrait is holding that place, not filling it.
+
+The JPEG is deliberate. Every other image on the site is WebP, but the social card is the one
+image with no `srcset` and no fallback, and crawler support for WebP is good rather than
+universal.
 
 ---
 
@@ -3502,7 +3513,7 @@ explicitly and now agree with `npm run verify weight` to within 5 KB.
 
 ## ISSUE-041 — The nav "About" link goes to a homepage section, not the About page
 
-Status: Open
+Status: **Resolved** (SESSION-039)
 Priority: Medium
 Category: Navigation
 Discovered: 2026-09-10 (SESSION-038), reported by the owner
@@ -3516,15 +3527,16 @@ block. Sending "About" in the primary navigation to a three-paragraph teaser ins
 it, and it also means the nav item behaves differently depending on which page you are on:
 from `/work/afono` it navigates home and then scrolls.
 
-**Fix:** `"/#about"` becomes `"/about"`. Check `MobileMenu.tsx` and `Footer.tsx` for the
-same link before closing. Fixed as part of [`MILESTONE-010` task 11](milestones.md#milestone-010).
+**Fixed** in SESSION-039 as [`MILESTONE-010` task 11](milestones.md#milestone-010).
+`Header.tsx`, `MobileMenu.tsx` and `Footer.tsx` all carried the same `/#about` link and all
+three now point at `/about`.
 
 ---
 <a id="issue-042"></a>
 
 ## ISSUE-042 — Résumé section rules sit flush against the first row
 
-Status: Open
+Status: **Resolved** (SESSION-039)
 Priority: Low
 Category: Layout
 Discovered: 2026-09-10 (SESSION-038), reported by the owner
@@ -3547,7 +3559,7 @@ designed to be printed and the rule spacing changes the page breaks.
 
 ## ISSUE-043 — Playground notes and arrows still cross the pictures
 
-Status: Open
+Status: **Partially resolved** (SESSION-039) — cause 2 is gone, cause 1 stands
 Priority: Medium
 Category: Layout
 Discovered: 2026-09-10 (SESSION-038), reported by the owner
@@ -3568,9 +3580,24 @@ stage a full-width card gives and wrong on anything narrower. Notes render at a 
 size while the stage scales, so on a smaller card the real note is larger than the rectangle
 that was collision-tested, and it can reach a picture the test said it cleared.
 
-**Fix:** measure the rendered note after layout and re-place from the real size, rather than
-estimating. That removes cause 2 entirely and shrinks cause 1, because tighter boxes find
-nearer seats. See [`MILESTONE-010` task 14h](milestones.md#milestone-010).
+**Cause 2 is fixed** (SESSION-039, `MILESTONE-010` task 14h). The line-height and character
+width estimates are CSS pixels now rather than design units, and `Collage` measures the stage
+with a `ResizeObserver` and hands `placeScribbles` the conversion, so a note is
+collision-tested at the size it is actually drawn.
+
+**And a third cause nobody had named.** The last overlaps to survive that were not placement
+at all. Notes are hidden below a 900px card, but they are drawn on the *stage*, which is
+`min(100cqw, 160cqh)` — so a card that is wide and short is height-bound and its stage is far
+narrower than the card that passed the query. At a 1180x700 window the cards were over 1100px
+wide with an 859px stage. The container query asks for `min-height: 563px` as well now
+(900 / 1.6), and the case simply does not arise.
+
+Measured across five window sizes, the worst note-on-picture overlap goes from 78% of a note
+to 14% of one note's *rotated bounding box*, which is a corner brush rather than a collision.
+
+**Cause 1 stands.** An arrow from a note to a picture on the far side of a crowded card still
+crosses whatever is between them. Routing around obstacles is the remaining work and it is
+not started.
 
 ---
 <a id="issue-044"></a>
@@ -3620,7 +3647,7 @@ has approved the new spacing.** See [`MILESTONE-010` task 3](milestones.md#miles
 
 ## ISSUE-046 — Placeholder slots with no assets are still shipping
 
-Status: Open
+Status: **Resolved** (SESSION-039)
 Priority: Low
 Category: Content
 Discovered: 2026-09-10 (SESSION-038), reported by the owner
@@ -3640,3 +3667,35 @@ exception the owner has named. **The Sync FM prose about ethical risk stays** (l
 162): the owner asked to remove the diagrams, not the argument.
 
 Re-run `node scripts/image-manifest.mjs` after deleting them so the slot count is honest.
+
+**Done** in SESSION-039. All four are gone, and so are the eight `about.carouselItems` slots
+that `MILESTONE-010` task 6g retired with the "Outside the work" carousel — they had never
+been filled either. The manifest went from 159 slots with 30 empty to 147 with 18.
+
+---
+<a id="issue-047"></a>
+
+## ISSUE-047 — Three spacing classes produced no CSS at all
+
+Status: **Resolved** (SESSION-039)
+Priority: Low
+Category: Styling
+Discovered: 2026-09-10 (SESSION-039)
+
+`About.tsx` was written with `mt-8.5`, `pt-6.5` and `mt-5.5`. Tailwind's default spacing
+scale stops offering half steps above `3.5`, and this project's `tailwind.config.ts` had
+added only `4.5`. The other three matched no utility, so **no rule was generated and no
+margin or padding was applied** — and nothing anywhere reports it: an unknown class is
+indistinguishable from a class you meant to put on the element.
+
+It was invisible while `about.aiLabel` sat between the rule and the paragraph. Deleting that
+label (`MILESTONE-010` task 6d) left the AI paragraph flush against its own `border-t`, which
+is what surfaced it.
+
+**Fixed** by adding `5.5`, `6.5` and `8.5` to the spacing scale at the values the classes
+were evidently written for (22px, 26px, 34px), rather than by rewriting three call sites to
+classes that happen to exist.
+
+**Worth knowing:** `grep -roE '\b[mp][tblrxy]?-[0-9]+\.5\b' src/` lists every fractional
+spacing class in use, and anything not in Tailwind's default set (`0.5`, `1.5`, `2.5`, `3.5`)
+or in `tailwind.config.ts` is doing nothing.

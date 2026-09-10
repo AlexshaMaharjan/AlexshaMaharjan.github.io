@@ -35,9 +35,10 @@ explicitly rather than inventing one.
 | DECISION-022 | Video ships at full size and loads only on demand | **Active** | Case-study and playground films | No encoder exists on this machine, so the answer is a 34 KB poster and `preload="none"` rather than a smaller file | [#decision-022](#decision-022) |
 | DECISION-021 | The homepage work section is project cards, not a bento grid | **Active** | Homepage work section | Rejected twice; the fault was text on images and `object-cover` crops, not colour. Six cards, covers shown whole, no repeated title, one mono line of tags | [#decision-021](#decision-021) |
 | DECISION-027 | The playground is a deck of four collages that stack as you scroll | **Active** | `/playground` | Four `position: sticky` siblings in one container; slots traced from Figma in the design's own 16000×10000 pixels; two layouts chosen by a container query on the card's aspect, not a breakpoint | [#decision-027](#decision-027) |
-| DECISION-028 | The hero is a short title over a description | **Under review** | homepage hero | Four title candidates, "Design that listens." recommended; the old three-line headline becomes the description | [#decision-028](#decision-028) |
+| DECISION-028 | The hero is a short title over a description | **Under review** | homepage hero | Candidate A, "Design that listens.", is live so the owner can see it. One string per locale to change | [#decision-028](#decision-028) |
 | DECISION-029 | A case-study figure signals openable without a colour or a scale | **Under review** | case studies | No accent border and no hover scale: a figure in a justified row cannot grow without breaking the row. Shadow lift recommended | [#decision-029](#decision-029) |
 | DECISION-030 | Full-length playground clips, or a lighter page | **Under review** | `/playground` | The clips are 6-9s excerpts of 20-63s sources; `/playground` is already 2.6 MB. Full film in the viewer, excerpt in the collage, recommended | [#decision-030](#decision-030) |
+| DECISION-032 | A justified row can hold a column of figures | **Active** | case studies | `stackWithNext` joins figures into a cell; `justifyCells` reduces exactly to `rowMetrics` when every cell holds one | [#decision-032](#decision-032) |
 | DECISION-031 | The playground's colour turn runs with the card | **Active** | `/playground` | `--pg-full` starts at 0, not at 0.82: notes, arrows and ruling change from the first pixel of scroll rather than snapping at the end | [#decision-031](#decision-031) |
 
 ### Needing an owner decision
@@ -2354,8 +2355,8 @@ that decides, not the window's.
 
 ## DECISION-028 — The hero is a short title over a description, and the title is the owner's to pick
 
-Status: **Under review** — the owner chooses between four candidates
-Date: 2026-09-10 (SESSION-038)
+Status: **Under review** — candidate A is on the site so the owner can see it, not because it is settled
+Date: 2026-09-10 (SESSION-038), shipped provisionally 2026-09-10 (SESSION-039)
 Scope: `hero.headlineLines`, `hero.intro` in both dictionaries; `process/HeroProcess.tsx`
 
 ### Context
@@ -2378,10 +2379,18 @@ About page spends four paragraphs saying, which is that this designer starts fro
 person's point of view. A hero that repeats the name (candidate D) competes with the header;
 a hero that describes the discipline repeats the description underneath it.
 
+### What is on the site now
+
+SESSION-039 shipped **candidate A**, "Design that listens." / "Design, das zuhört.", with the
+description under it. That is the recommendation put on screen rather than a decision taken
+for the owner: a title is judged by looking at it, and four candidates in a table is not
+looking at it. **Swapping it is one string per locale in `dictionaries/{en,de}.ts`** — nothing
+else in the hero depends on which one wins.
+
 ### Consequences
 
 - `headlineLines` stays an array. The hero controls its own line breaks and German will not
-  break where English does.
+  break where English does. Candidate A is one line in both.
 - The description is now the only place the disciplines are named, so the tags line under it
   carries more weight. It goes accent blue in the same pass (task 2).
 
@@ -2480,9 +2489,69 @@ changing as soon as the card lands.
 `--pg-full` starts at 0 rather than at 0.82. The pictures still arrive one at a time; the
 surrounding colour now moves with them from the first pixel of scroll instead of waiting.
 
+**Implemented in SESSION-039** as `clamp(0, calc(var(--pg-reveal) / 0.6), 1)`: it starts with
+the card and is finished at 60% of the runway, so the colour is complete while the last few
+pictures are still arriving rather than chasing them.
+
 ### Consequences
 
 - The two states stop being "before" and "after" and become one continuous change. The
   black-and-white resting state is still the resting state.
-- Card 03's colour is black, which means its ruling darkens from the first scroll. Check that
-  card specifically: it was already the one where the grid competes most with the artwork.
+- Card 03's colour is black, which means its ruling darkens from the first scroll. **Checked
+  in SESSION-039 and it is fine** — because the same session lightened the base ruling for
+  `MILESTONE-010` task 14f, from `0.075`/`0.032` to `0.045`/`0.018`. The two changes had to
+  land together; the earlier turn over the darker grid would have been the problem this
+  predicted.
+
+---
+<a id="decision-032"></a>
+
+## DECISION-032 — A justified row can hold a column of figures
+
+Status: **Active**
+Date: 2026-09-10 (SESSION-039)
+Scope: `src/lib/justify.ts`, `src/components/case-study/SectionMedia.tsx`
+
+### Context
+
+`MILESTONE-010` task 8 asks for WikiMind's three sketch figures as a bento: the tall page of
+sketches on the right, the two wide ones stacked beside it. `DECISION-019` sizes every figure
+in a row by **height** and lets the browser justify the widths, which is what keeps a row of
+mixed aspects from having three different bottoms. It cannot express a bento at all: on their
+own aspects the two wide figures each claim a row and the tall one takes a third.
+
+### The decision
+
+A row is made of **cells**, and a cell is one figure or a column of them. A figure marked
+`stackWithNext` in the data joins the next one into a cell. Everything downstream — the
+wide/narrow grouping, the three-per-row chunking, the justification — counts a cell as one
+item, so nothing else had to learn about stacks.
+
+`justifyCells` in `lib/justify.ts` does the arithmetic. A single figure's width is
+`height * ratio`. A stack of `n` sharing one width has `n - 1` extra captions and `n - 1`
+inner gaps to find room for, so its width is `(height - overhead) * k`, where
+`k = 1 / Σ(1 / rᵢ)` is the ratio the stack would have with nothing between its figures.
+Every cell then finishes at exactly `height + one caption`, and the row's bottoms line up.
+
+### Why it is safe
+
+**A row whose cells all hold one figure has zero overhead everywhere and reduces exactly to
+`rowMetrics`.** That is not a claim about the code being careful, it is the arithmetic:
+`height = (columnPx - gaps + 0) / Σk` with `k = ratio`. Every existing page renders
+identically, which is what let this replace `rowMetrics` at the call site rather than sit
+beside it.
+
+### The approximation, stated
+
+The widths are exact at the reading column's 960px. As the row narrows the fixed gap and the
+fixed caption do not shrink with it, so a stack runs slightly taller than its neighbour.
+Measured on `/work/wikimind`: 1px at 1440px, 5px at 1024px, 17px at 800px. Below 768px every
+row stacks to one column and the question does not arise.
+
+### What it does not do
+
+**The bento is not square.** The milestone estimated it would come out "close to square"; it
+does not, and it cannot. Both columns scale linearly with the row's height, so the block's
+aspect is fixed at roughly 2.2:1 whatever size it is drawn at — the tall figure at 0.665 and
+the two wide ones at 2.75 and 3.48 do not admit a square arrangement. What the owner asked
+for is the *arrangement*, and that is what shipped.

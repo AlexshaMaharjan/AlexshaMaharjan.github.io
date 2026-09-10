@@ -1,11 +1,18 @@
 # Current State
 
-Snapshot: **2026-09-10**, after SESSION-038. **Not deployed** — the last deploy was
-SESSION-035, and SESSION-036/037/038 sit on `milestone-003-content-model`.
+Snapshot: **2026-09-10**, after SESSION-039. **Not deployed** — the last deploy was
+SESSION-035, and SESSION-036 through SESSION-039 sit on `milestone-003-content-model`.
 
-**The live objective is [`MILESTONE-010`](milestones.md#milestone-010)**, the owner's list of
-fifteen changes across the whole site. Nothing in it is blocked on engineering; four tasks
-need the owner.
+**[`MILESTONE-010`](milestones.md#milestone-010) is eleven-fifteenths done and what remains
+needs the owner, not a session.** SESSION-039 finished every task in it that could be
+finished without them: the hero, the About page and its landing section, three case studies,
+the résumé, the navigation and all nine playground changes. The four gates — the hero title,
+the process spacing, the case-study hover and the clip length — each have something on screen
+to look at.
+
+**One deliberate placeholder is on a live-facing page.** The About biography reads "brought me
+**[ N ]** kilometres from home to Germany": the owner left the number blank and it stays blank
+until they supply it. Read [next_session.md](next_session.md) before deploying.
 
 **`docs/` was rebuilt in SESSION-038**: 159 files to 16, one per kind, anchored by ID.
 
@@ -17,7 +24,10 @@ the case studies — the largest surface, and the owner's first-named complaint 
 both structured and laid out. What remains is mostly content the repository cannot supply
 for itself: real photographs, and a copy pass. The homepage work grid is finished (`DECISION-021`).
 
-Roughly: architecture ~93% done, content ~70% drafted, imagery ~81% (129 of 159 slots), polish ~75%.
+Roughly: architecture ~94% done, content ~80% drafted, imagery ~88% (129 of 147 slots),
+polish ~85%. Imagery moved without a single new export: SESSION-039 deleted twelve slots the
+owner had said would never be filled, and found the About portrait's real photograph already
+in the repo behind a solid-black stand-in.
 
 ## Working
 
@@ -49,7 +59,11 @@ Roughly: architecture ~93% done, content ~70% drafted, imagery ~81% (129 of 159 
   ruling turning that card's own colour: orange, green, black, purple. Hovering a picture
   grows it, brings its colour back out of turn and names it beside the cursor. The notes are
   placed by geometry from the picture each names (SESSION-038, `placeScribbles.ts`), on white
-  cards over a dotted blue page.
+  cards over a dotted blue page. Since SESSION-039: the deck starts at 70svh where the
+  homepage pins its process canvas, card one grows as it arrives, the colour turn runs from
+  the start of a card's runway rather than snapping at its end, a piece opens large and
+  centred with no second zoom, and note sizes are measured off the stage rather than assumed
+  (`ISSUE-043`, `DECISION-032` for the case-study equivalent).
 - Playground, the older description of the same deck — the cards stack on
   scroll as `position: sticky` siblings, each carrying one collage traced from
   `Portfolio.fig` page 2 (48 slots, 5 autoplaying muted clips) on the paper-grid ground.

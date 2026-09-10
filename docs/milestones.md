@@ -23,7 +23,7 @@ work section, case studies) → content and imagery → motion → consistency �
 | MILESTONE-007 | Consistency, responsive, accessibility | **Complete** bar `ISSUE-010`, which waits on the owner's images | Medium | M-002/003/006 | ISSUE-011/015/016/021/023/026/027/028/029/030 ✅, ISSUE-010 | [#milestone-007](#milestone-007) |
 | MILESTONE-008 | Performance, SEO, deployment | **Complete** bar the owner's `og:image` | Medium | content near-final, owner | ISSUE-013/014/019/025 ✅ | [#milestone-008](#milestone-008) |
 | MILESTONE-009 | German parity | Proposed | Medium | M-004 | ISSUE-009 | [#milestone-009](#milestone-009) |
-| MILESTONE-010 | The owner's pass over the whole site | **Approved, not started** | High | nothing technical; 4 owner gates | ISSUE-041…046, DECISION-028…031 | [#milestone-010](#milestone-010) |
+| MILESTONE-010 | The owner's pass over the whole site | **In progress** | High | nothing technical; 4 owner gates | ISSUE-041…046, DECISION-028…031 | [#milestone-010](#milestone-010) |
 
 ### Completed
 
@@ -56,9 +56,9 @@ owner's **participation in the copy pass**.
 
 ### Recommended next milestone
 
-**`MILESTONE-010`.** It is the owner's own list, it is unblocked, and ten of its fifteen
-tasks are copy and data that need nobody else. Four have an owner gate; do the other eleven
-first and bring the four to the owner with something to look at.
+**`MILESTONE-010`, and it now needs the owner rather than a session.** SESSION-039 finished
+the eleven tasks that needed nobody. The four that remain are the four gates, and each of
+them has something on screen to look at rather than a question in the abstract.
 
 ## The older recommendation, still true underneath
 
@@ -1075,9 +1075,11 @@ strictly required.
 
 ## MILESTONE-010 — The owner's pass over the whole site
 
-Status: **Approved, not started**
+Status: **In progress** — eleven of fifteen done (SESSION-039). The four left are the four
+that need the owner.
 Priority: High
 Date raised: 2026-09-10 (SESSION-038)
+Worked: 2026-09-10 (SESSION-039)
 Depends on: nothing technical. Four tasks have an owner gate, marked **OWNER** below.
 Addresses: `ISSUE-041` … `ISSUE-046`, `DECISION-028` … `DECISION-031`
 
@@ -1087,6 +1089,30 @@ other, so they are numbered as the owner numbered them and can be done in any or
 
 **Read the site writing rules in `README.md` before touching any string.** No em dashes.
 Both locales or `content-audit` fails.
+
+### Where it stands after SESSION-039
+
+| Task | State |
+| --- | --- |
+| 1. Hero title and description | **Done**, with candidate A live so the owner can look at it. `DECISION-028` is still theirs to settle |
+| 2. Hero tags blue | **Done** |
+| 3a. Remove "My process" | **Done**, with `labelRef` and its timeline line |
+| 3b / 3c. Question spacing, connectors | **Owner.** Not started, and 3c must not start before the owner has seen 3b |
+| 4. Real photograph on About | **Done.** It was never a missing asset: the file was a solid-black stand-in and the photograph was in `Images/Alexsha_Photo.png` at the same dimensions |
+| 5. Landing About section | **Done** |
+| 6. About page rewrite (a-g) | **Done.** `[ N ]` in the biography is left blank as instructed |
+| 7. Move the "I love ..." line | **Done** |
+| 8. WikiMind bento | **Done** — needed `DECISION-032`. It does not come out square; see that decision |
+| 9. Kitchen crop and deletions | **Done.** The legible word was "Abbildung 26 Verschiedene Haken", not "Abblendung" |
+| 10. Sync FM placeholders | **Done**, prose kept |
+| 11. Nav "About" link | **Done**, all three call sites |
+| 12. Résumé air | **Done.** Still prints to three pages |
+| 13. Case-study figure hover | **Owner.** `DECISION-029` |
+| 14. The playground (a-i) | **Done**, all nine |
+| 15. Clip length | **Owner.** `DECISION-030`, and `ISSUE-044` wants a measurement first |
+
+**What is left is exactly the four owner gates and nothing else.** Every task that could be
+finished without them has been.
 
 ### How to work this milestone
 
