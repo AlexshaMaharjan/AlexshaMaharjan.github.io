@@ -6,9 +6,9 @@ import {
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { createPortal } from "react-dom";
 import Image from "@/components/ui/Image";
 import Lightbox from "@/components/ui/Lightbox";
+import { useCursorTag } from "@/lib/useCursorTag";
 import LoopVideo from "@/components/ui/LoopVideo";
 import Scribble, { ScribbleArrow } from "@/components/playground/Scribble";
 import type { Locale } from "@/lib/i18n";
@@ -246,33 +246,14 @@ export default function Collage({
   const orderOf = (index: number) => sequence[index] ?? index;
 
   /*
-   * The cursor tag. Its text is state because it changes once per slot; its
-   * position is written straight onto the node, because that changes on every
-   * pointer event and re-rendering a dozen pictures to move a label two pixels
-   * is not a trade worth making. The node is always mounted so that the first
-   * `pointerenter` has somewhere to put the coordinates — rendering it with the
-   * label would place it at 0,0 for one frame before the first move.
+   * The cursor tag, from `lib/useCursorTag` — the homepage's project cards use
+   * the same one (`MILESTONE-016` task 1). It is painted in this card's own
+   * colour, which is the colour its arrows and its ruling arrive at
+   * (`DECISION-049`).
    */
-  const [tag, setTag] = useState<string | null>(null);
-  const tagRef = useRef<HTMLDivElement>(null);
-
-  const onPoint = (slot: CollageSlot, event: ReactPointerEvent<HTMLButtonElement>) => {
-    // A touch "hover" is a tap on its way to opening the viewer, and a pen is
-    // no better placed to read a label under its own nib.
-    if (event.pointerType !== "mouse") return;
-    const el = tagRef.current;
-    if (el) {
-      // Kept inside the window: a slot at the right edge would otherwise hang
-      // its own name off the side of the screen.
-      const x = Math.max(12, Math.min(event.clientX + 18, window.innerWidth - el.offsetWidth - 12));
-      const y = Math.max(12, Math.min(event.clientY + 20, window.innerHeight - el.offsetHeight - 12));
-      el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    }
-    const name = slot.caption[locale];
-    setTag((current) => (current === name ? current : name));
-  };
-
-  const onUnpoint = () => setTag(null);
+  const { tag, onPoint: pointAt, onUnpoint } = useCursorTag({ background: accent });
+  const onPoint = (slot: CollageSlot, event: ReactPointerEvent<HTMLButtonElement>) =>
+    pointAt(slot.caption[locale], event);
 
   const openSlot = (slot: CollageSlot, trigger: HTMLButtonElement) => {
     triggerRef.current = trigger;
@@ -296,7 +277,7 @@ export default function Collage({
       if (current === null) return current;
       return (current + delta + slots.length) % slots.length;
     });
-    setTag(null);
+    onUnpoint();
   };
 
   return (
@@ -454,38 +435,7 @@ export default function Collage({
         />
       </div>
 
-      {createPortal(
-        <div
-          ref={tagRef}
-          aria-hidden="true"
-          /*
-           * The card's own colour, not the site's ink (`MILESTONE-014` task 5).
-           * The tag names a picture on a particular card, and every other mark
-           * that belongs to a card — its arrows, its notes, its index, its
-           * ruling — arrives at that card's accent. The tag was the one thing
-           * left in the site's near-black.
-           *
-           * Mixed 12% towards the ink rather than used neat, for one card:
-           * card 1's orange is 3.9:1 against white, which is under AA for
-           * 12.5px text, and 88% of it is 4.8:1. The other three are 5.3:1 or
-           * better neat and lose nothing they can be seen to lose. One rule
-           * rather than a per-card exception, so a fifth card cannot arrive
-           * with an illegible tag.
-           */
-          className="pg-cursor-tag whitespace-nowrap rounded-full px-3.5 py-2 text-[12.5px] font-medium leading-none text-white shadow-[0_8px_24px_rgba(10,16,36,0.34)] transition-opacity duration-150"
-          style={{
-            opacity: tag ? 1 : 0,
-            backgroundColor: accent,
-            // A flat 12% of ink over the colour. Written as a gradient rather
-            // than as `color-mix` so the two declarations cannot be reordered
-            // into the shorthand resetting the overlay.
-            backgroundImage: "linear-gradient(rgba(10,10,12,0.12), rgba(10,10,12,0.12))",
-          }}
-        >
-          {tag}
-        </div>,
-        document.body,
-      )}
+      {tag}
 
       {open && openIndex !== null ? (
         <Lightbox

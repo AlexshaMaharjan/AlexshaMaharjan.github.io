@@ -34,12 +34,12 @@ export default function Legal({ page }: { page: "impressum" | "privacy" }) {
         <div className="container-page">
           <Link
             to={localeHref(locale, "/")}
-            className="tap-target text-[14px] text-ink-secondary transition-colors hover:text-accent"
+            className="tap-target hidden text-[14px] text-ink-secondary transition-colors hover:text-accent md:inline-flex"
           >
             {dictionary.about.backToHome}
           </Link>
           <div className="max-w-[680px]">
-            <h1 className="mt-10 text-page-title font-semibold leading-[1.04] tracking-[-0.028em] text-ink">
+            <h1 className="text-page-title md:mt-8 font-semibold leading-[1.04] tracking-[-0.028em] text-ink">
               {copy.title}
             </h1>
             <p className="mt-5 text-[19px] leading-[1.6] text-ink-secondary">{copy.intro}</p>

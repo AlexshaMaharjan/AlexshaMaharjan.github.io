@@ -10,7 +10,7 @@ const en: Dictionary = {
     portfolio: "Portfolio",
     playground: "Playground",
     projects: "Projects",
-    about: "About",
+    about: "About me",
     contact: "Contact",
     menu: "Menu",
     close: "Close",
@@ -270,10 +270,10 @@ const en: Dictionary = {
     printCta: "Print / Save as PDF",
   },
   aboutPreview: {
-    eyebrow: "About",
+    eyebrow: "About me",
     heading: "How did I start designing?",
     copy:
-      "I grew up in Nepal surrounded by creativity, always making things, experimenting with crafts, and designing personalised gifts for people around me. What I enjoyed most was not just creating something visually appealing, but thinking about the person it was for, what they would like, and what would make it feel meaningful.",
+      "I grew up in Nepal surrounded by creativity, always making things, experimenting with crafts, and designing personalised gifts for people around me.",
     /*
      * The paragraph that fades out (`MILESTONE-012` task 3). It is the about
      * page's own second paragraph, and it follows `copy` because that is what
@@ -282,7 +282,7 @@ const en: Dictionary = {
      * restating each other.
      */
     copyDim:
-      "That way of thinking eventually led me to design. I realised that many of the things I had naturally enjoyed, understanding people, making thoughtful choices, and shaping ideas visually, were at the heart of user-centred design.",
+      "What I enjoyed most was not just creating something visually appealing, but thinking about the person it was for, what they would like, and what would make it feel meaningful.",
     linkAbout: "Read the whole story →",
     playgroundHeading: "The playground",
     playgroundCopy: "Everything I make when nobody has asked for it. Personal projects, crafts, experiments, and whatever I happen to be learning at the moment.",
@@ -302,8 +302,15 @@ const en: Dictionary = {
     linkedin: "linkedin.com/in/alexsham",
     linkedinHref: "https://www.linkedin.com/in/alexsham",
     resume: "Résumé",
+    availability: "Open to design opportunities",
     backToTop: "Back to top ↑",
     copyright: "© 2026 Alexsha Maharjan",
+  },
+  playgroundOutro: {
+    eyebrow: "End of the playground",
+    heading: "That is everything I make for myself.",
+    copy: "The other half is the work with a brief behind it: six case studies, the process I run and the people I made it for.",
+    cta: "Back to the portfolio",
   },
   legal: {
     impressumNav: "Impressum",
@@ -366,7 +373,7 @@ const en: Dictionary = {
         {
           heading: "The short version",
           body: [
-            "This is a personal portfolio. It sets no cookies, runs no analytics or tracking, and has no accounts and no contact form. The only data that arises when you visit are the technical access data the host writes to its logs, and the data your browser sends to Google when it fetches the two typefaces this site uses.",
+            "This is a personal portfolio. It sets no cookies, runs no analytics or tracking, and has no accounts and no contact form. Nothing on these pages is loaded from a third party: the typefaces are served from this site itself. The only data that arises when you visit are the technical access data the host writes to its logs.",
           ],
         },
         {
@@ -380,13 +387,6 @@ const en: Dictionary = {
             "This site is hosted on GitHub Pages, a service of GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.",
             "When you open a page, your browser sends technically necessary data to GitHub's servers, which are recorded there in server log files. These usually include your IP address, the date and time of the request, the address requested, the referring URL, and your browser and operating system. This data is not merged with any other source and I do not have access to it.",
             "The legal basis is Art. 6 (1) (f) GDPR, my legitimate interest in providing this website securely and reliably. GitHub also processes this data in the United States.",
-          ],
-        },
-        {
-          heading: "Typefaces",
-          body: [
-            "This site loads the typefaces Inter and Caveat from Google Fonts, a service of Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Your browser fetches the font files directly from Google's servers and transmits your IP address in doing so.",
-            "The legal basis is Art. 6 (1) (f) GDPR, my legitimate interest in a consistent presentation of this website.",
           ],
         },
         {
@@ -425,7 +425,7 @@ const en: Dictionary = {
   },
   about: {
     backToHome: "← Back to home",
-    eyebrow: "About",
+    eyebrow: "About me",
     heading: "How did I start designing?",
     portraitAlt: "Portrait of Alexsha.",
     handNoteOrigin: "Nepal → Germany",

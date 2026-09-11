@@ -90,7 +90,20 @@ export default function ContentsNav({
         </ol>
       </nav>
 
-      <details className="mb-10 rounded-lg border border-border p-3.5 xl:hidden">
+      {/*
+        Sticky under the header below `xl` (`MILESTONE-016` task 2).
+
+        The desktop rail is a sticky column beside the article; below `xl` there
+        is no column to put it in, so it was a `<details>` at the top of the page
+        that scrolled away with the first section. On a case study that is nine
+        sections and several thousand words long, "on this page" is worth having
+        *while* you are on the page, which is the whole reason the desktop rail
+        is sticky too.
+
+        `z-[100]` clears the article and stays under the header (`z-[200]`), and
+        the background is opaque because sections scroll underneath it.
+      */}
+      <details className="sticky top-[var(--header-h)] z-[100] mb-10 rounded-lg border border-border bg-white p-3.5 shadow-[0_2px_10px_rgba(20,30,60,0.06)] xl:hidden">
         <summary className="cursor-pointer text-[14px] font-medium">
           {dictionary.caseStudy.onThisPage}
           <span className="ml-2 font-normal text-ink-secondary">

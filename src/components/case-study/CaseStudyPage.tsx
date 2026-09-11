@@ -40,12 +40,12 @@ export default function CaseStudyPage({
         <div className="container-page">
           <Link
             to={localeHref(locale, "/#work")}
-            className="tap-target inline-block text-[14px] text-ink-secondary transition-colors hover:text-accent"
+            className="tap-target hidden text-[14px] text-ink-secondary transition-colors hover:text-accent md:inline-block"
           >
             {dictionary.caseStudy.backToProjects}
           </Link>
 
-          <div className="mt-8 grid grid-cols-1 gap-10 xl:grid-cols-[240px_minmax(0,1fr)]">
+          <div className="grid md:mt-8 grid-cols-1 gap-10 xl:grid-cols-[240px_minmax(0,1fr)]">
             <ContentsNav sections={content.sections} dictionary={dictionary} />
             <div className="min-w-0 max-w-[960px]">
               <CaseStudyHero content={content} />

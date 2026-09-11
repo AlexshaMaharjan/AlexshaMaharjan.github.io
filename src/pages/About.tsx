@@ -17,10 +17,27 @@ export default function About() {
       <Seo title={`${about.heading} — Alexsha Maharjan`} description={dictionary.meta.description} />
       <section className="pt-[var(--page-top)]">
         <div className="container-page">
-          <Link to={localeHref(locale, "/")} className="tap-target text-[14px] text-ink-secondary transition-colors hover:text-accent">
-            {about.backToHome}
-          </Link>
-          <p className="mt-7 font-mono text-[13px] text-accent">{about.eyebrow}</p>
+          {/*
+              The back link is desktop-only, and it sits on the eyebrow's line
+              rather than on one of its own (`MILESTONE-016` tasks 2 and 5).
+
+              It was a line to itself above the eyebrow, which cost every inner
+              page a whole row of vertical space before a word of content. On a
+              phone that was the difference between the heading and the picture
+              both fitting the first screen and neither of them doing so — and a
+              phone already has the drawer, which reaches everywhere this link
+              goes. It is kept above `md` because a pointer user with no back
+              gesture has further to travel to the header.
+            */}
+          <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+            <p className="font-mono text-[13px] text-accent">{about.eyebrow}</p>
+            <Link
+              to={localeHref(locale, "/")}
+              className="tap-target hidden text-[14px] text-ink-secondary transition-colors hover:text-accent md:inline-flex"
+            >
+              {about.backToHome}
+            </Link>
+          </div>
           <h1 className="mt-4 max-w-[1080px] text-page-title font-semibold leading-[1] tracking-[-0.028em] text-ink">
             {about.heading}
           </h1>

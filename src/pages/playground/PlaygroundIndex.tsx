@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { useLocale } from "@/lib/useLocale";
+import { Link } from "react-router-dom";
+import { useLocale, useDictionary } from "@/lib/useLocale";
+import { localeHref } from "@/lib/i18n";
 import home from "@/lib/playground/home";
 import collageCards from "@/lib/playground/collage";
 import CardStack from "@/components/playground/CardStack";
@@ -28,7 +30,9 @@ import Seo from "@/components/Seo";
  */
 export default function PlaygroundIndex() {
   const locale = useLocale();
+  const dictionary = useDictionary();
   const content = home[locale];
+  const outro = dictionary.playgroundOutro;
 
   /*
    * One control for every moving thing on the page (WCAG 2.2.2). Five clips
@@ -56,6 +60,38 @@ export default function PlaygroundIndex() {
         motionLabel={paused ? content.playMotion : content.pauseMotion}
         onToggleMotion={() => setPaused((p) => !p)}
       />
+
+      {/*
+        The way back (`MILESTONE-016` task 4).
+
+        The fourth card used to hand straight over to the footer, which made the
+        playground a corridor with no door at the end of it: the only way back
+        to the work was the switch in the header, three screens up. The deck is
+        a scroll you commit to, so the end of it is exactly where someone is
+        most likely to want the other half of the site.
+
+        It is the mode switch's counterpart, not a repeat of the footer's link:
+        the footer offers every destination equally and this offers one, because
+        after four cards of personal work there is only one obvious next thing.
+      */}
+      <section className="container-page py-[104px] text-center sm:py-[128px]">
+        <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink-muted">
+          {outro.eyebrow}
+        </p>
+        <h2 className="mx-auto mt-5 max-w-[18ch] text-[clamp(1.75rem,4vw,2.5rem)] font-semibold leading-[1.1] tracking-[-0.025em] text-ink">
+          {outro.heading}
+        </h2>
+        <p className="mx-auto mt-5 max-w-[52ch] text-[17px] leading-[1.6] text-ink-secondary">
+          {outro.copy}
+        </p>
+        <Link
+          to={localeHref(locale, "/")}
+          className="mt-9 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-accent px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#1233c4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-focus"
+        >
+          {outro.cta}
+          <span aria-hidden="true">→</span>
+        </Link>
+      </section>
     </>
   );
 }

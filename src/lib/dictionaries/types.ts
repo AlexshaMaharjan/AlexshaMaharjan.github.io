@@ -235,8 +235,17 @@ export interface Dictionary {
     linkedin: string;
     linkedinHref: string;
     resume: string;
+    /** The blue status line under the tagline. */
+    availability: string;
     backToTop: string;
     copyright: string;
+  };
+  /** The closing band of the playground, after the last card. */
+  playgroundOutro: {
+    eyebrow: string;
+    heading: string;
+    copy: string;
+    cta: string;
   };
   legal: LegalCopy;
   about: {

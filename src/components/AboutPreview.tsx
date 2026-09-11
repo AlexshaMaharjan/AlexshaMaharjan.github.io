@@ -42,17 +42,28 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
               screen reader reads every word of it, because a `mask-image` is
               paint and nothing else.
 
-              `55%` is where the fade starts, not where it ends: two of the
-              three lines stay at full strength and the third is what
-              dissolves, so the paragraph reads as interrupted rather than as
-              a rendering fault. In German it is four lines and the same
-              fraction still leaves three of them whole.
+              **Both paragraphs are shorter than they were**
+              (`MILESTONE-016` task 6). The preview used to run the biography's
+              whole first paragraph and then most of its second — around ninety
+              words before the fade — which is not a preview, it is the about
+              page with the end missing. The owner's note was that too much is
+              shown before it fades.
+
+              It is one paragraph's worth now, split at its own full stop: a
+              complete thought you finish, and then the sentence that follows
+              it dissolving. That is the shape the gesture wanted all along.
+
+              The clamp is what makes the fade land in the same place in both
+              locales. `3.3em` is two lines at this line-height, and the mask
+              reaches full transparency at exactly that point, so German's
+              third line is cut where it is already invisible rather than
+              hanging half-lit below the fade.
             */}
             <p
-              className="mt-4 max-w-[600px] text-[18px] leading-[1.6] text-ink-muted"
+              className="mt-4 max-h-[3.3em] max-w-[600px] overflow-hidden text-[18px] leading-[1.6] text-ink-muted"
               style={{
-                maskImage: "linear-gradient(to bottom, #000 55%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, #000 55%, transparent 100%)",
+                maskImage: "linear-gradient(to bottom, #000 38%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, #000 38%, transparent 100%)",
               }}
             >
               {dictionary.aboutPreview.copyDim}

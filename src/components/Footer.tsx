@@ -85,26 +85,46 @@ export default function Footer({
                 had no link to at all (`ISSUE-050`). */}
             <Link
               to={localeHref(locale, "/")}
-              className="text-[16px] font-semibold text-ink transition-colors hover:text-accent"
+              className="group inline-block text-[16px] font-semibold text-ink transition-colors hover:text-accent"
             >
               Alexsha Maharjan
+              {/* The site's hand-drawn underline, in the accent, drawn on hover.
+                  It is the same gesture `About` puts under a word. */}
+              <span
+                aria-hidden="true"
+                className="mt-1 block h-[2px] w-0 rounded-full bg-accent transition-[width] duration-300 ease-out group-hover:w-full"
+              />
             </Link>
             <p className="mt-2 text-[14px] text-ink-secondary">{dictionary.footer.tagline}</p>
+            {/* A small blue mark tying the footer to the accent the rest of the
+                page uses, and the one piece of information a visitor at the
+                bottom of a portfolio is actually looking for. */}
+            <p className="mt-5 flex items-center gap-2 text-[13px] font-medium text-accent">
+              <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-accent" />
+              {dictionary.footer.availability}
+            </p>
           </div>
 
           {/* Wraps rather than overflows: between 768px and 839px two columns
               plus a fixed gap were wider than the space `md:px-20` leaves them,
               and every page scrolled sideways (`ISSUE-026`). */}
           <div className="flex flex-wrap gap-x-14 gap-y-8">
+            {/*
+              Two columns, split by what the links are for
+              (`MILESTONE-016` task 3). One column of six read as a list of
+              everything; these are two kinds of destination — the two modes the
+              header toggles between, and the pages inside the portfolio — and
+              saying so in the layout costs nothing and halves the height.
+            */}
             <nav
               aria-label={dictionary.landmarks.footerNav}
-              className="flex flex-col gap-3 text-[14px] text-ink"
+              className="grid grid-cols-2 gap-x-12 gap-y-3 text-[14px] text-ink"
             >
               {links.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="tap-target transition-colors hover:text-accent"
+                  className="tap-target w-fit border-b border-transparent transition-colors hover:border-accent hover:text-accent"
                 >
                   {link.label}
                 </Link>
@@ -113,7 +133,7 @@ export default function Footer({
             <div className="flex flex-col gap-3 font-mono text-[12px] text-ink-muted">
               <a
                 href={`mailto:${dictionary.footer.email}`}
-                className="tap-target transition-colors hover:text-accent"
+                className="tap-target text-ink-secondary transition-colors hover:text-accent"
               >
                 {dictionary.footer.email}
               </a>

@@ -111,7 +111,7 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1159", caption: "[ posters — team credit ]", src: "/images/surugami-posters.webp", alt: "The team\u2019s poster campaign, from first sketches to mock-ups in a stairwell, a corridor and outdoors" },
+              { aspect: "1600/1159", caption: "[ poster campaign ]", src: "/images/surugami-posters.webp", alt: "The poster campaign, from first sketches to mock-ups in a stairwell, a corridor and outdoors" },
               { aspect: "1400/1228", caption: "[ flyer + banner ]", src: "/images/surugami-flyer.webp", alt: "Paper prototypes above the finished three-fold flyer, shown open and folded" },
             ],
           },
@@ -277,7 +277,7 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1159", caption: "[ poster — team-credit ]", src: "/images/surugami-posters.webp", alt: "Die Plakatkampagne des Teams, von ersten Skizzen bis zu Mock-ups im Treppenhaus, im Flur und im Außenraum" },
+              { aspect: "1600/1159", caption: "[ Plakatkampagne ]", src: "/images/surugami-posters.webp", alt: "Die Plakatkampagne, von ersten Skizzen bis zu Mock-ups im Treppenhaus, im Flur und im Außenraum" },
               { aspect: "1400/1228", caption: "[ flyer + banner ]", src: "/images/surugami-flyer.webp", alt: "Papierprototypen über dem fertigen Wickelfalz-Flyer, offen und gefaltet" },
             ],
           },

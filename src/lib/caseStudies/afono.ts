@@ -55,7 +55,7 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "4/3", caption: "[ market analysis ]" },
+              { aspect: "1800/1280", caption: "Market analysis", src: "/images/afono-market-analysis.webp", alt: "Four reference boards of Nepalese streetwear brands: campaign photography, garment mock-ups, storefronts and social posts" },
               { aspect: "595/842", caption: "[ moodboard ]", src: "/images/afono-moodboard.webp", alt: "The AFONO moodboard: Nepali motifs, streetwear references and the red and blue colour direction" },
             ],
           },
@@ -158,6 +158,7 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
+              { aspect: "1900/1168", caption: "Wireframes", src: "/images/afono-wireframes.webp", alt: "Wireframes for seven pages of the storefront, with the component layers they are built from" },
               { aspect: "1600/1897", caption: "[ landing page ]", src: "/images/afono-landing-page.webp", alt: "The landing page: hero, category strip and the first product rows" },
               { aspect: "1600/1938", caption: "[ shop page ]", src: "/images/afono-prototype.webp", alt: "The shop page: category filters, the product grid and the site footer" },
               { aspect: "1600/3217", caption: "[ city series page ]", src: "/images/afono-city-series.webp", alt: "The City Series page, from lookbook to product grid" },
@@ -278,7 +279,7 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "4/3", caption: "[ market analysis ]" },
+              { aspect: "1800/1280", caption: "Marktanalyse", src: "/images/afono-market-analysis.webp", alt: "Vier Referenzboards nepalesischer Streetwear-Marken: Kampagnenfotografie, Kleidungs-Mock-ups, Ladenfronten und Social-Media-Posts" },
               { aspect: "595/842", caption: "[ moodboard ]", src: "/images/afono-moodboard.webp", alt: "Das AFONO-Moodboard: nepalesische Motive, Streetwear-Referenzen und die rot-blaue Farbrichtung" },
             ],
           },
@@ -381,6 +382,7 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
+              { aspect: "1900/1168", caption: "Wireframes", src: "/images/afono-wireframes.webp", alt: "Wireframes für sieben Seiten des Shops, mit den Komponenten-Ebenen, aus denen sie gebaut sind" },
               { aspect: "1600/1897", caption: "[ landing page ]", src: "/images/afono-landing-page.webp", alt: "Die Landingpage: Hero, Kategorieleiste und die ersten Produktreihen" },
               { aspect: "1600/1938", caption: "[ shop page ]", src: "/images/afono-prototype.webp", alt: "Die Shop-Seite: Kategoriefilter, Produktraster und der Seitenfuß" },
               { aspect: "1600/3217", caption: "[ city series page ]", src: "/images/afono-city-series.webp", alt: "Die City-Series-Seite, vom Lookbook bis zum Produktraster" },

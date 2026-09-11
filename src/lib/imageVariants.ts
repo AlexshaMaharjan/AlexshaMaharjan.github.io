@@ -99,6 +99,16 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#ffffff"
   },
+  "/images/afono-market-analysis.webp": {
+    "w": 1800,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
   "/images/afono-moodboard.webp": {
     "w": 595,
     "v": [
@@ -246,6 +256,17 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       400,
       640,
       960
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/afono-wireframes.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
     ],
     "bg": "#ffffff"
   },
@@ -812,7 +833,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#c0e2ff"
+    "bg": "#c3e2fe"
   },
   "/images/pg-postcard-1.webp": {
     "w": 1029,

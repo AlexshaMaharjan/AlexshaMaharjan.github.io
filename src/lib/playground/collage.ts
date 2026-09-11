@@ -296,8 +296,8 @@ const cards: CollageCard[] = [
         x: 10499, y: 3787, w: 2048, h: 2732, src: "/images/pg-portrait.webp",
         caption: { en: "Digital portrait", de: "Digitales Porträt" },
         alt: {
-          en: "A digital portrait of a woman in a patterned dress, drawn in Illustrator",
-          de: "Digitales Porträt einer Frau in gemustertem Kleid, in Illustrator gezeichnet",
+          en: "A digital portrait of a woman in a green patterned dress, drawn in Illustrator",
+          de: "Digitales Porträt einer Frau in grün gemustertem Kleid, in Illustrator gezeichnet",
         },
       },
       {

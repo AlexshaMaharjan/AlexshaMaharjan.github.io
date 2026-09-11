@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
+import { useCursorTag } from "@/lib/useCursorTag";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
 import Image from "@/components/ui/Image";
@@ -33,9 +34,18 @@ const MAX_CARD_HEIGHT = 420;
 
 export default function WorkGrid({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const rows = rowsOf(dictionary.projects, 2);
+  /*
+    The same gesture the playground uses on a collage piece (`MILESTONE-016`
+    task 1). It was a pill centred on the cover for one session; the owner asked
+    for the one that follows the cursor, which is also the better of the two
+    here — a label pinned to the middle of a designed title card lands on the
+    title, and this one never does.
+  */
+  const { tag, onPoint, onUnpoint } = useCursorTag();
 
   return (
     <div data-inview="stagger" className="flex flex-col gap-10 md:gap-10">
+      {tag}
       {rows.map((row, i) => {
         const { ratios, height, width } = rowMetrics(
           row.map((p) => ratioOf(p.imageAspect)),
@@ -63,6 +73,9 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
                   `label-content-name-mismatch`.
                 */
                 aria-label={`${project.name} — ${project.tags.join(" · ")}`}
+                onPointerEnter={(event) => onPoint(dictionary.caseStudy.viewCaseStudy, event)}
+                onPointerMove={(event) => onPoint(dictionary.caseStudy.viewCaseStudy, event)}
+                onPointerLeave={onUnpoint}
                 className="group block"
                 style={{ flex: `${ratios[n]} 1 0%` } as CSSProperties}
               >
@@ -76,27 +89,6 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
                     sizes={sizesFor(Math.round(height * ratios[n]!))}
                     className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.02]"
                   />
-                  {/*
-                    What the card does when you click it (`MILESTONE-015`
-                    task 2). Six covers that grow 2% on hover say "this is
-                    interactive" and never say what happens, and a title card is
-                    not obviously a link into a long-form case study.
-
-                    `aria-hidden`, because the link already has an accessible
-                    name and this is the same promise said again in a second
-                    place. It is also why WCAG 2.5.3 is not at risk here: this
-                    text is decorative rather than part of the label.
-
-                    Hidden from a keyboard user by `group-hover` alone, so it is
-                    shown on `group-focus-visible` too — the focus ring says
-                    where you are, this says where you would go.
-                  */}
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-95 whitespace-nowrap rounded-full bg-accent px-4 py-2.5 text-[13px] font-medium text-white opacity-0 shadow-[0_8px_24px_rgba(10,16,36,0.28)] transition-[opacity,transform] duration-[250ms] ease-out group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
-                  >
-                    {dictionary.caseStudy.viewCaseStudy}
-                  </span>
                 </div>
                 {/*
                   The tags, and only the tags. The project's *name* is already

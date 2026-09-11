@@ -273,9 +273,9 @@ const de: Dictionary = {
     eyebrow: "Über mich",
     heading: "Wie bin ich zum Design gekommen?",
     copy:
-      "Ich bin in Nepal aufgewachsen, umgeben von Kreativität. Ich habe ständig etwas gemacht, mit Handarbeit experimentiert und persönliche Geschenke für die Menschen um mich herum gestaltet. Am schönsten war dabei nicht, etwas Hübsches entstehen zu lassen, sondern an die Person zu denken, für die es war: was ihr gefallen würde und was es bedeutsam machen würde.",
+      "Ich bin in Nepal aufgewachsen, umgeben von Kreativität. Ich habe ständig etwas gemacht, mit Handarbeit experimentiert und persönliche Geschenke für die Menschen um mich herum gestaltet.",
     copyDim:
-      "Dieses Denken hat mich am Ende zum Design gebracht. Mir wurde klar, dass vieles, was mir ohnehin Freude gemacht hat, Menschen zu verstehen, bewusst zu entscheiden und Ideen sichtbar zu machen, genau den Kern von nutzerzentriertem Design ausmacht.",
+      "Am schönsten war dabei nicht, etwas Hübsches entstehen zu lassen, sondern an die Person zu denken, für die es war: was ihr gefallen würde und was es bedeutsam machen würde.",
     linkAbout: "Die ganze Geschichte lesen →",
     playgroundHeading: "Der Playground",
     playgroundCopy: "Alles, was ich mache, wenn niemand danach gefragt hat. Eigene Projekte, Handarbeit, Experimente und was ich gerade lerne.",
@@ -295,8 +295,15 @@ const de: Dictionary = {
     linkedin: "linkedin.com/in/alexsham",
     linkedinHref: "https://www.linkedin.com/in/alexsham",
     resume: "Lebenslauf",
+    availability: "Offen für Designmöglichkeiten",
     backToTop: "Nach oben ↑",
     copyright: "© 2026 Alexsha Maharjan",
+  },
+  playgroundOutro: {
+    eyebrow: "Ende des Playgrounds",
+    heading: "Das ist alles, was ich für mich selbst mache.",
+    copy: "Die andere Hälfte ist die Arbeit mit Briefing: sechs Fallstudien, mein Prozess und die Menschen, für die ich sie gemacht habe.",
+    cta: "Zurück zum Portfolio",
   },
   legal: {
     impressumNav: "Impressum",
@@ -358,7 +365,7 @@ const de: Dictionary = {
         {
           heading: "Kurz gefasst",
           body: [
-            "Diese Website ist ein persönliches Portfolio. Sie setzt keine Cookies, bindet keine Analyse- oder Trackingdienste ein und hat weder Nutzerkonten noch ein Kontaktformular. Die einzigen Daten, die beim Besuch anfallen, sind die technischen Zugriffsdaten, die der Hoster protokolliert, und die Daten, die Ihr Browser beim Laden der beiden Schriftarten an Google überträgt.",
+            "Diese Website ist ein persönliches Portfolio. Sie setzt keine Cookies, bindet keine Analyse- oder Trackingdienste ein und hat weder Nutzerkonten noch ein Kontaktformular. Es werden keine Inhalte von Dritten nachgeladen: Die Schriftarten werden von dieser Website selbst ausgeliefert. Die einzigen Daten, die beim Besuch anfallen, sind die technischen Zugriffsdaten, die der Hoster protokolliert.",
           ],
         },
         {
@@ -372,13 +379,6 @@ const de: Dictionary = {
             "Diese Website wird von GitHub Pages gehostet, einem Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.",
             "Beim Aufruf einer Seite überträgt Ihr Browser technisch notwendige Daten an die Server von GitHub, die dort in Server-Logfiles protokolliert werden. Dazu gehören in der Regel die IP-Adresse, Datum und Uhrzeit des Zugriffs, die aufgerufene Adresse, die Referrer-URL sowie Browser und Betriebssystem. Diese Daten werden nicht mit anderen Quellen zusammengeführt, und ich habe keinen Zugriff darauf.",
             "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, mein berechtigtes Interesse an einer sicheren und zuverlässigen Bereitstellung dieser Website. GitHub verarbeitet diese Daten auch in den USA.",
-          ],
-        },
-        {
-          heading: "Schriftarten",
-          body: [
-            "Diese Website lädt die Schriftarten Inter und Caveat über Google Fonts, einen Dienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Ihr Browser lädt die Schriftdateien direkt von Servern von Google und überträgt dabei Ihre IP-Adresse.",
-            "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, mein berechtigtes Interesse an einer einheitlichen Darstellung dieser Website.",
           ],
         },
         {
