@@ -1,10 +1,16 @@
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 
 export default function ContactSection({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   return (
-    <section id="contact" className="bg-near-black py-[140px]">
+    <section
+      id="contact"
+      data-anchor-pad
+      style={{ "--anchor-pad": "140px" } as CSSProperties}
+      className="bg-near-black py-[140px]"
+    >
       <div className="container-page">
         <div data-inview className="mx-auto flex flex-col items-center text-center">
           <span className="block text-[14px] text-accent-on-dark">{dictionary.contact.eyebrow}</span>

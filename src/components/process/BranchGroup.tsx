@@ -119,7 +119,10 @@ export default function BranchGroup({
       <div
         aria-hidden="true"
         className={clsx(
-          "mt-[18px] flex flex-wrap items-start gap-2.5 transition-transform duration-[350ms] ease-out",
+          "mt-[18px] transition-transform duration-[350ms] ease-out",
+          // The pinned map wraps its pieces at their own widths; the phone card
+          // grows them to fill its rows. See `.process-bento` in `index.css`.
+          stacked ? "process-bento" : "flex flex-wrap items-start gap-2.5",
           /*
            * The hover zoom grows out of the edge the cluster hangs from. A
            * right-aligned cluster scaled from its top-LEFT corner grows

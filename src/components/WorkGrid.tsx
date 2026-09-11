@@ -76,6 +76,27 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
                     sizes={sizesFor(Math.round(height * ratios[n]!))}
                     className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.02]"
                   />
+                  {/*
+                    What the card does when you click it (`MILESTONE-015`
+                    task 2). Six covers that grow 2% on hover say "this is
+                    interactive" and never say what happens, and a title card is
+                    not obviously a link into a long-form case study.
+
+                    `aria-hidden`, because the link already has an accessible
+                    name and this is the same promise said again in a second
+                    place. It is also why WCAG 2.5.3 is not at risk here: this
+                    text is decorative rather than part of the label.
+
+                    Hidden from a keyboard user by `group-hover` alone, so it is
+                    shown on `group-focus-visible` too — the focus ring says
+                    where you are, this says where you would go.
+                  */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-95 whitespace-nowrap rounded-full bg-accent px-4 py-2.5 text-[13px] font-medium text-white opacity-0 shadow-[0_8px_24px_rgba(10,16,36,0.28)] transition-[opacity,transform] duration-[250ms] ease-out group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                  >
+                    {dictionary.caseStudy.viewCaseStudy}
+                  </span>
                 </div>
                 {/*
                   The tags, and only the tags. The project's *name* is already

@@ -90,7 +90,7 @@
 
   @media (min-width: 768px) {
     :root {
-      --page-air: 77px;
+      --page-air: 56px;
     }
   }
 
@@ -162,6 +162,85 @@
 }
 
 @layer components {
+  /*
+   * The process steps as a bento on a phone (`MILESTONE-015` task 1).
+   *
+   * The five clusters are drawn for a 1440 x 900 map, where every piece has a
+   * pixel width chosen to sit beside its neighbours. Stacked into a ~310px card
+   * on a phone those widths become arbitrary: step 02's three panels are 186px
+   * each in a 310px column, so each one left 124px of black beside it, and step
+   * 04's nested columns drifted apart into something the owner fairly called
+   * "all over the place".
+   *
+   * The fix is not new widths. It is to let the existing ones act as
+   * **proportions** rather than as sizes: `flex: 1 1 auto` keeps each piece's
+   * width as its basis, so the relative sizes within a row survive, and then
+   * grows the row to fill the card. Nothing has to be measured again, and a
+   * piece whose width changes on the map still behaves here.
+   *
+   * `pb-row` opts a nested row in — steps 03 and 04 lay themselves out as
+   * explicit rows (`DECISION-045`), and those rows need the same treatment as
+   * the outer one. `pb-fixed` opts a piece out: the icon badges are 40px
+   * squares with a glyph centred in them, and a square stretched to 150px is
+   * not a bigger badge, it is a different object.
+   *
+   * All of it is scoped under `.process-bento`, which `BranchGroup` only sets
+   * in the stacked layout. The pinned map is untouched.
+   */
+  .process-bento,
+  .process-bento .pb-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .process-bento > *,
+  .process-bento .pb-row > * {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .process-bento .pb-fixed {
+    flex-grow: 0;
+  }
+
+  /*
+   * `pb-col` is for a wrapper whose *children* carry the pixel widths.
+   *
+   * Growing a flex item grows the item, not what is inside it, so step 04's
+   * right-hand column stretched to fill the card while the spacing and states
+   * cards inside it stayed 88px and sat against its left edge. These are the
+   * three places a width is written one level down from the row.
+   */
+  .process-bento .pb-col,
+  .process-bento .pb-col > * {
+    width: 100% !important;
+  }
+
+  /*
+   * A section whose own top padding should scroll out of the way when it is the
+   * anchor target (`MILESTONE-015` task 3).
+   *
+   * `#work` carries `pt-[160px]` and `#contact` `py-[140px]`, which is the right
+   * amount of air when you arrive by scrolling. It was also being *added* to the
+   * header offset when you arrived by clicking "Projects" in the nav: the
+   * section's top landed at `--anchor-offset` and its heading 160px below that,
+   * so the nav dropped you 264px above the thing you asked for, with the tail of
+   * the previous section still showing under the header.
+   *
+   * Subtracting the padding from the scroll margin lands the *content* under the
+   * header instead of the box. The value goes negative, which is exactly right:
+   * the section's top belongs above the viewport, and its padding scrolls away.
+   * `useScrollBehavior` reads this same property back off the element, so the
+   * smooth-scroll path and the native one agree by construction.
+   */
+  [data-anchor-pad] {
+    scroll-margin-top: calc(var(--header-h) + 16px - var(--anchor-pad, 0px));
+  }
+
+
   /*
    * The drawer's two arrivals (`MILESTONE-013` task 4). Keyframes rather than a
    * transition because the panel and its backdrop are mounted on open and

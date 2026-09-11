@@ -482,6 +482,7 @@ const en: Dictionary = {
   },
   routeLoading: "Loading page…",
   caseStudy: {
+    viewCaseStudy: "View case study",
     backToProjects: "← Back to projects",
     onThisPage: "On this page",
     designQuestion: "Design question",

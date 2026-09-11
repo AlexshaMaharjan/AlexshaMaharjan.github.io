@@ -270,6 +270,8 @@ export interface Dictionary {
   };
   routeLoading: string;
   caseStudy: {
+    /** The blue tag that appears over a project cover on hover. */
+    viewCaseStudy: string;
     backToProjects: string;
     onThisPage: string;
     designQuestion: string;

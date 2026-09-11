@@ -20,18 +20,24 @@ export default function About() {
           <Link to={localeHref(locale, "/")} className="tap-target text-[14px] text-ink-secondary transition-colors hover:text-accent">
             {about.backToHome}
           </Link>
-          <p className="mt-10 font-mono text-[13px] text-accent">{about.eyebrow}</p>
+          <p className="mt-7 font-mono text-[13px] text-accent">{about.eyebrow}</p>
           <h1 className="mt-4 max-w-[1080px] text-page-title font-semibold leading-[1] tracking-[-0.028em] text-ink">
             {about.heading}
           </h1>
         </div>
       </section>
 
-      <section className="pt-[90px]">
+      <section className="pt-12 md:pt-[72px]">
         <div className="container-page">
           <div data-inview className="grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-16">
             <div>
-              <div className="relative max-w-[460px] pt-[58px]">
+              {/*
+                  The 58px is headroom for the "Nepal → Germany" note, which is
+                  `hidden md:block`. Below `md` there is no note, so the padding
+                  was 58px of nothing between the heading and the portrait
+                  (`MILESTONE-015` task 3).
+                */}
+              <div className="relative max-w-[460px] md:pt-[58px]">
                 <div className="relative z-[1] aspect-[3/4] overflow-hidden rounded-[10px] border border-card-border bg-surface">
                   <Image
                     src="/images/alexsha-portrait.webp"

@@ -84,7 +84,9 @@ function IconBadge({
       role="img"
       aria-label={label}
       className={clsx(
-        "flex h-10 w-10 items-center justify-center rounded-lg border",
+        // `pb-fixed`: a 40px square with a glyph in it is not improved by
+        // being stretched across half a phone card. See `index.css`.
+        "pb-fixed flex h-10 w-10 items-center justify-center rounded-lg border",
         active ? "border-white/[0.18] bg-[#1B3FE0]" : "border-white/10 bg-[#101116]",
       )}
     >
@@ -232,7 +234,7 @@ export function Cluster1() {
         </div>
       </DarkPanel>
 
-      <div className="relative" style={{ width: 178 }}>
+      <div className="pb-col relative" style={{ width: 178 }}>
         <Pin tone="blue" left="72%" />
         <Polaroid variant="b" rotate={1.4} padding="14px 13px 15px" width={178}>
           <div className="flex items-baseline justify-between gap-1.5">
@@ -425,7 +427,7 @@ export function Cluster3() {
         </Polaroid>
       </div>
 
-      <div className="flex w-full flex-wrap items-start gap-2.5">
+      <div className="pb-row flex w-full flex-wrap items-start gap-2.5">
         <DarkPanel width={150}>
           <p className="m-0 text-xs font-semibold tracking-[-0.01em] text-white">Concept direction</p>
           <div className="mt-3 flex flex-col gap-[9px]">
@@ -460,7 +462,7 @@ export function Cluster3() {
         </div>
       </div>
 
-      <div className="flex w-full flex-wrap items-start gap-2.5">
+      <div className="pb-row flex w-full flex-wrap items-start gap-2.5">
         <div className="relative" style={{ width: 222 }}>
           {/* The strip of tape. It belongs to the sitemap and moves with it. */}
           <span
@@ -483,7 +485,7 @@ export function Cluster3() {
             </div>
           </Polaroid>
         </div>
-        <div className="flex flex-col gap-2.5" style={{ width: 104 }}>
+        <div className="pb-col flex flex-col gap-2.5" style={{ width: 104 }}>
           <DarkPanel>
             <p className="m-0 text-[10px] leading-[1.4] text-[#C4C9D0]">Exploring structure and flow.</p>
           </DarkPanel>
@@ -523,7 +525,7 @@ export function Cluster4({ stacked = false }: ClusterProps) {
         that the swatches sit level with the states panel rather than level with
         the pin above it, which is how the owner's file has it.
       */}
-      <div className={clsx("flex w-full flex-wrap items-start gap-2.5", stacked ? "justify-start" : "justify-end")}>
+      <div className={clsx("pb-row flex w-full flex-wrap items-start gap-2.5", stacked ? "justify-start" : "justify-end")}>
         <div className={clsx("flex flex-col gap-3.5", stacked ? "items-start" : "mt-[92px] items-end")}>
           <div
             role="img"
@@ -541,10 +543,23 @@ export function Cluster4({ stacked = false }: ClusterProps) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4" style={{ width: 88 }}>
+        <div className="pb-col flex flex-col gap-4" style={{ width: 88 }}>
           <div className="relative" style={{ width: 88 }}>
             <Pin left="54%" />
-            <div style={{ height: 76, transform: "rotate(-2deg)", boxShadow: "0 14px 30px rgba(0,0,0,0.5)" }} className="box-border flex flex-col justify-between bg-[#EDEAE3] p-[9px_10px]">
+            {/*
+                The pinned cards sit straight in the bento (`MILESTONE-015`
+                task 1). A 2-degree tilt lifts an 88px card's corner by three
+                pixels and reads as paper; the same two degrees across a
+                615px phone card lift it by twenty-one and read as a mistake.
+              */}
+              <div
+                style={{
+                  height: 76,
+                  transform: stacked ? "none" : "rotate(-2deg)",
+                  boxShadow: "0 14px 30px rgba(0,0,0,0.5)",
+                }}
+                className="box-border flex flex-col justify-between bg-[#EDEAE3] p-[9px_10px]"
+              >
               <span className="font-mono text-[8px] text-[#696559]">spacing</span>
               <div className="flex flex-col gap-1">
                 <span className="block h-[3px] w-[30%] bg-[#B9B4A8]" />
@@ -557,7 +572,7 @@ export function Cluster4({ stacked = false }: ClusterProps) {
           <div className="relative" style={{ width: 88 }}>
             <Pin />
             <div
-              style={{ height: 104, transform: "rotate(1.2deg)" }}
+              style={{ height: 104, transform: stacked ? "none" : "rotate(1.2deg)" }}
               className="box-border flex flex-col gap-[5px] border border-white/10 bg-[#101116] p-2"
             >
               <span className={monoLabel}>states</span>
@@ -571,7 +586,7 @@ export function Cluster4({ stacked = false }: ClusterProps) {
         </div>
       </div>
 
-      <div className={clsx("flex w-full flex-wrap items-start gap-2.5", stacked ? "justify-start" : "justify-end")}>
+      <div className={clsx("pb-row flex w-full flex-wrap items-start gap-2.5", stacked ? "justify-start" : "justify-end")}>
         <div style={{ width: 198 }} className="box-border rounded-lg bg-[#F1EFE9] p-[13px]">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[9px] text-[#6C6C6C]">Focus</span>

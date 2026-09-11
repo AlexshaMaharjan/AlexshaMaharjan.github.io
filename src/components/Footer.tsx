@@ -54,6 +54,14 @@ export default function Footer({
   };
 
   const links = [
+    /*
+      Portfolio first, and it is not a duplicate of the wordmark above it
+      (`MILESTONE-015` task 4). The footer listed Playground and not its
+      counterpart, so the two modes the header toggles between were one link and
+      one wordmark down here — which reads as the playground being a place and
+      the portfolio being a logo.
+    */
+    { href: localeHref(locale, "/"), label: dictionary.nav.portfolio },
     { href: localeHref(locale, "/#work"), label: dictionary.nav.projects },
     { href: localeHref(locale, "/about"), label: dictionary.nav.about },
     { href: localeHref(locale, "/playground"), label: dictionary.nav.playground },

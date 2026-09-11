@@ -465,6 +465,7 @@ const de: Dictionary = {
   },
   routeLoading: "Seite wird geladen…",
   caseStudy: {
+    viewCaseStudy: "Fallstudie ansehen",
     backToProjects: "← Zurück zu den Projekten",
     onThisPage: "Auf dieser Seite",
     designQuestion: "Designfrage",
