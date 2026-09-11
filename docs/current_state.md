@@ -1,20 +1,61 @@
 # Current State
 
-Snapshot: **2026-09-11**, after SESSION-040. **Not deployed** — the last deploy was
-SESSION-035, and SESSION-036 through SESSION-040 sit on `milestone-003-content-model`.
+Snapshot: **2026-09-11**, after SESSION-044. **Not deployed** — the last deploy was
+SESSION-035, and SESSION-036 onward sit on `milestone-003-content-model`. SESSION-041 to
+SESSION-044 are all in the working tree and not yet committed.
 
-**[`MILESTONE-010`](milestones.md#milestone-010) is complete.** The owner answered the four
-gates on 2026-09-11 and SESSION-040 closed them: the hero title is their name, the case-study
-figure hover is gone, the process question is on one line with the map regularised around it,
-and the playground's clips were measured (no playback bug) before the whole films were shipped
-on demand. `ISSUE-043`, `ISSUE-044` and `ISSUE-045` closed with it.
+**Two hard blockers on deploying, both legal rather than visual.** The Impressum ships
+`[ Street and number ]` where its postal address goes, which does not satisfy § 5 DDG; and
+`ISSUE-055`, the site's typefaces come from Google's CDN, so every visitor's IP reaches
+Google before consent. Read [next_session.md](next_session.md) before doing anything about
+either.
 
-**There are no placeholders left on live-facing copy.** The About biography's `[ N ]` is
-6,570 kilometres. Read [next_session.md](next_session.md) before deploying anyway — the deploy
-is the owner's call.
+**[`MILESTONE-014`](milestones.md#milestone-014) is complete.** The owner's fifth pass, and
+the first that is mostly *undoing*.
 
-**Every open issue is now a provenance or judgement call**, not a defect. The tracker's
-defects are closed.
+**The playground now has exactly one data file.** `lib/playground/collage.ts` holds all 48
+pictures, each with its caption and alt text in both locales, on the card it sits on. The
+five category files, `PlaygroundItem`, `Scrapbook.tsx` and `Tile.tsx` are deleted
+(`DECISION-047`): they had had no renderer since `DECISION-027` and had survived on a comment
+claiming they were the only record of the captions, which the collage slots disproved.
+`content-audit.mjs` audits the 48 slots that render instead of 47 items that did not, and
+`image-manifest.mjs` reports the playground as complete rather than as 47 unfilled slots.
+
+**Every playground caption is the owner's own.** They reviewed 47 in the page
+`MILESTONE-013` published; 34 came back edited, were mapped onto the slots they actually
+describe, written up, and translated, and the 17 live pictures the review had missed were
+written too.
+
+**The image viewer steps.** Next and previous buttons, a position counter and the arrow keys,
+on the playground only (`DECISION-048`). The hover tag that names a picture is painted in its
+own card's colour now rather than the site's ink (`DECISION-049`), which was the last mark
+belonging to a card that was not in the card's colour.
+
+**The footer is conventional again.** `MILESTONE-013`'s big-type email address lasted one
+session; it is about 240px now against the original 380, and the height that went is air.
+
+**Six re-cropped pictures were shipping as their old exports** and the staleness check could
+not see it (`ISSUE-057`): comparing source and export *modification times* answers the wrong
+question. An export is checked by re-deriving it and diffing the bytes now
+(`DECISION-050`) — `image-treat.mjs` is deterministic, so 114 of 131 came back identical and
+the 17 that did not were exactly the sources that had changed.
+
+**The AFONO market analysis is blank for the third time** (`ISSUE-058`). Byte-identical to
+the previous upload; all 3,607,704 pixels opaque pure white.
+
+**[`MILESTONE-013`](milestones.md#milestone-013) is complete.** The owner's fourth pass: the
+Figma process redesign implemented from the `Process` frame, the arrowhead defect
+(`ISSUE-054`), a phone header that is one row again with an on/off mode toggle and a side
+drawer (`DECISION-042`, `DECISION-043`), the legal pages (`DECISION-046`), and the hero and
+About copy.
+
+**[`MILESTONE-012`](milestones.md#milestone-012) is complete** — the owner's third pass, the
+first whose brief arrived partly as a drawing. **[`MILESTONE-011`](milestones.md#milestone-011)
+is complete**; its one unfinished task, a second still-life photograph, is closed by the
+owner's instruction that there will be no more playground images.
+
+**The Figma file's key and the `Process` frame's geometry are recorded** at
+[reference/figma.md](reference/figma.md).
 
 **`docs/` was rebuilt in SESSION-038**: 159 files to 16, one per kind, anchored by ID.
 
@@ -26,14 +67,17 @@ the case studies — the largest surface, and the owner's first-named complaint 
 both structured and laid out. What remains is mostly content the repository cannot supply
 for itself: real photographs, and a copy pass. The homepage work grid is finished (`DECISION-021`).
 
-Roughly: architecture ~94% done, content ~80% drafted, imagery ~88% (129 of 147 slots),
+Roughly: architecture ~95% done, content ~85% drafted, imagery ~92% (the playground is finished at 48 of 48 slots; the shortfall is now case-study figures),
 polish ~85%. Imagery moved without a single new export: SESSION-039 deleted twelve slots the
 owner had said would never be filled, and found the About portrait's real photograph already
 in the repo behind a solid-black stand-in.
 
 ## Working
 
-- All 34 routes (17 paths × 2 locales) render. Unknown slugs fall through to 404.
+- All 26 prerendered routes (13 paths × 2 locales) render, plus `/contact`'s redirect at
+  both locales. Unknown slugs fall through to 404. `/impressum` and `/datenschutz` joined them
+  in SESSION-043 — **and had to be added to `scripts/prerender.mjs` separately**, because its
+  route list is hand-written and `routes.tsx` is not its source.
   Down from 36: the playground went from six categories to five in SESSION-033 (`DECISION-023`),
   and `/playground/editorial` folded into `/playground/graphic-design`.
 - Bilingual EN/DE throughout. `ISSUE-009` closed in SESSION-025: the four dictionary gaps **and
@@ -45,7 +89,9 @@ in the repo behind a solid-black stand-in.
   re-run when only a route param changes. All verified in Chrome against the production
   build, at 1440px and 390px, both locales, reduced motion on and off.
 - The scroll-pinned process canvas — the site's signature interaction — works on desktop,
-  with a proper static fallback for mobile and reduced motion.
+  with a proper static fallback for mobile and reduced motion. Below 880px that fallback is a
+  **stacked column at full size**, not the desktop map scaled down: scaling it put half the
+  map off a phone's screen and drew the rest at 9px-to-4.5px (`ISSUE-049`).
 - Six long-form case studies with a shared template, a contents rail that is on screen from
   the moment the page opens, a compact facts list inside Overview (`DECISION-017`) and a
   prev/next ring.

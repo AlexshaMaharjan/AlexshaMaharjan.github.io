@@ -163,6 +163,24 @@
 
 @layer components {
   /*
+   * The drawer's two arrivals (`MILESTONE-013` task 4). Keyframes rather than a
+   * transition because the panel and its backdrop are mounted on open and
+   * unmounted on close: there is no previous value for a transition to run
+   * from. Both are inside `motion-safe:` at the call site, so a visitor who has
+   * asked for less motion gets the drawer with no travel at all.
+   */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes drawerIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+
+  /*
    * The page container, written out by hand ~30 times before this
    * (ISSUE-023). Deliberately identical to that string — including no
    * `w-full` — so adopting it changed nothing.
@@ -459,3 +477,111 @@
 /* [data-inview] has no at-rest style here on purpose. useScrollReveals hides
    these elements from a layout effect instead, before the first paint, so that
    a page whose script never runs stays readable rather than blank (ISSUE-001). */
+
+/*
+ * The résumé, on paper (`MILESTONE-011` task 12).
+ *
+ * It printed on **three** pages and had to fit two. Nothing here changes a type
+ * size: the screen page is the deliverable and shrinking its text to win a page
+ * would be solving the wrong problem. What is cut is **space** — the gaps
+ * between sections, the padding around each entry and the page's own top
+ * offset — which on a document this dense is where the third page came from.
+ *
+ * The arithmetic, measured at A4 with 12mm margins (1,032 CSS px of printable
+ * height per page):
+ *
+ *   before   2,417px   2.31 pages
+ *   after    1,905px   1.85 pages
+ *
+ * The 0.15 of a page left over is deliberate headroom. `break-inside: avoid`
+ * can only honour itself by pushing a block onto the next page, so a layout
+ * that fits at exactly 2.00 pages does not fit at all — it fits until one entry
+ * lands across the fold and takes the whole thing to three again.
+ *
+ * Everything that is not the document is hidden. `Header`, `Footer` and
+ * `PrintButton` already carried `print:hidden`; the back link did too. The rule
+ * here is the belt to that braces, because a nav bar reproduced at the top of
+ * somebody's PDF is the most visible thing on it.
+ */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  /* Paper is white and ink is expensive. */
+  :root {
+    background: #fff;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  header,
+  footer,
+  nav[aria-label="Site mode"] {
+    display: none !important;
+  }
+
+  .resume-sheet {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* The section stack: 40px gaps become 20. */
+  .resume-sheet .resume-block {
+    margin-top: 20px;
+  }
+
+  /* A heading never ends a page, and an entry never straddles one. */
+  .resume-sheet h1,
+  .resume-sheet h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .resume-sheet .resume-entry {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .resume-sheet .resume-entry:first-child {
+    padding-top: 0;
+  }
+
+  .resume-sheet .resume-body {
+    padding-top: 12px;
+  }
+
+  .resume-sheet .resume-head {
+    margin-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  /* The small vertical rhythm inside an entry. */
+  .resume-sheet .resume-entry > p {
+    margin-top: 4px;
+  }
+
+  .resume-sheet .resume-entry ul {
+    margin-top: 6px;
+  }
+
+  .resume-sheet .resume-entry li + li {
+    margin-top: 2px;
+  }
+
+  .resume-sheet .resume-skills {
+    row-gap: 8px;
+  }
+
+  /* Links print as text; a URL in brackets after every one of them is noise on
+     a document that lists its own addresses in the header. */
+  .resume-sheet a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

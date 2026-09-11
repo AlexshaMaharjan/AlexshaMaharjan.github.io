@@ -55,6 +55,9 @@ async function loadRoutes() {
     // The playground is one page now (`DECISION-026`): its five categories are
     // sections of it, not routes.
     "/playground",
+    // The two legal pages (`MILESTONE-013` task 9). German paths in both
+    // locales, which is why they are written out rather than translated.
+    "/impressum", "/datenschutz",
   ];
   return paths.flatMap((p) => [p, p === "/" ? "/de/" : `/de${p}`]);
 }

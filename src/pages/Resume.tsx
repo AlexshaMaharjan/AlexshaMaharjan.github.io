@@ -26,7 +26,7 @@ function EntryBullets({ bullets }: { bullets: string[] }) {
 
 function EducationRow({ entry }: { entry: ResumeEducationEntry }) {
   return (
-    <div className="border-t border-surface-2 py-6 first:border-t-0 first:pt-0">
+    <div className="resume-entry border-t border-surface-2 py-6 first:border-t-0 first:pt-0">
       <EntryHeader title={entry.degree} period={entry.period} />
       <p className="mt-1.5 text-[14px] text-ink-secondary">{entry.place}</p>
       {entry.detail && <p className="mt-1.5 text-[13.5px] leading-[1.5] text-ink-muted">{entry.detail}</p>}
@@ -36,7 +36,7 @@ function EducationRow({ entry }: { entry: ResumeEducationEntry }) {
 
 function ProjectRow({ entry }: { entry: ResumeProjectEntry }) {
   return (
-    <div className="border-t border-surface-2 py-6 first:border-t-0 first:pt-0">
+    <div className="resume-entry border-t border-surface-2 py-6 first:border-t-0 first:pt-0">
       <EntryHeader title={entry.name} period={entry.period} />
       <p className="mt-1.5 text-[14px] text-ink-secondary">{entry.place}</p>
       <EntryBullets bullets={entry.bullets} />
@@ -46,7 +46,7 @@ function ProjectRow({ entry }: { entry: ResumeProjectEntry }) {
 
 function ExperienceRow({ entry }: { entry: ResumeExperienceEntry }) {
   return (
-    <div className="border-t border-surface-2 py-6 first:border-t-0 first:pt-0">
+    <div className="resume-entry border-t border-surface-2 py-6 first:border-t-0 first:pt-0">
       <EntryHeader title={entry.role} period={entry.period} />
       <p className="mt-1.5 text-[14px] text-ink-secondary">{entry.place}</p>
       <EntryBullets bullets={entry.bullets} />
@@ -56,7 +56,7 @@ function ExperienceRow({ entry }: { entry: ResumeExperienceEntry }) {
 
 function FurtherRow({ entry }: { entry: ResumeFurtherEntry }) {
   return (
-    <div className="border-t border-surface-2 py-6 first:border-t-0 first:pt-0">
+    <div className="resume-entry border-t border-surface-2 py-6 first:border-t-0 first:pt-0">
       <EntryHeader title={entry.title} period={entry.period} />
       <p className="mt-1.5 text-[14px] text-ink-secondary">
         {entry.place} · {entry.description}
@@ -71,7 +71,7 @@ export default function Resume() {
   const r = dictionary.resume;
 
   return (
-    <section className="pt-[var(--page-top)] pb-[140px] print:pt-10">
+    <section className="resume-sheet pt-[var(--page-top)] pb-[140px] print:pt-10">
       <Seo title={r.metaTitle} />
       <div className="mx-auto max-w-[760px] px-5 md:px-0">
         <Link
@@ -81,7 +81,7 @@ export default function Resume() {
           {r.backToAbout}
         </Link>
 
-        <div className="mt-8 flex flex-wrap items-start justify-between gap-6 border-b border-surface-2 pb-8">
+        <div className="resume-head mt-8 flex flex-wrap items-start justify-between gap-6 border-b border-surface-2 pb-8">
           <div>
             <h1 className="text-heading font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
               {r.name}
@@ -108,62 +108,62 @@ export default function Resume() {
           <PrintButton label={r.printCta} />
         </div>
 
-        <div className="mt-8">
+        <div className="resume-block mt-8">
           <h2 className="font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.profileHeading}
           </h2>
           <p className="mt-3 text-[15px] leading-[1.6] text-ink-body">{r.profileBody}</p>
         </div>
 
-        <div className="mt-10">
+        <div className="resume-block mt-10">
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.educationHeading}
           </h2>
-          <div className="pt-5">
+          <div className="resume-body pt-5">
             {r.education.map((entry) => (
               <EducationRow key={entry.degree} entry={entry} />
             ))}
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="resume-block mt-10">
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.projectsHeading}
           </h2>
-          <div className="pt-5">
+          <div className="resume-body pt-5">
             {r.projects.map((entry) => (
               <ProjectRow key={entry.name} entry={entry} />
             ))}
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="resume-block mt-10">
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.experienceHeading}
           </h2>
-          <div className="pt-5">
+          <div className="resume-body pt-5">
             {r.experience.map((entry) => (
               <ExperienceRow key={entry.role} entry={entry} />
             ))}
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="resume-block mt-10">
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.furtherHeading}
           </h2>
-          <div className="pt-5">
+          <div className="resume-body pt-5">
             {r.further.map((entry) => (
               <FurtherRow key={entry.title} entry={entry} />
             ))}
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="resume-block mt-10">
           <h2 className="border-b border-accent pb-2 font-mono text-[12px] font-semibold uppercase tracking-[0.1em] text-accent">
             {r.skillsHeading}
           </h2>
-          <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-3 text-[14px] leading-[1.5] sm:grid-cols-[130px_1fr]">
+          <div className="resume-skills mt-4 grid grid-cols-1 gap-x-6 gap-y-3 text-[14px] leading-[1.5] sm:grid-cols-[130px_1fr]">
             {r.skills.map((skill) => (
               <div key={skill.label} className="contents">
                 <p className="font-semibold text-ink">{skill.label}</p>

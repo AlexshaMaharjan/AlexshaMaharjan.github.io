@@ -2,10 +2,43 @@
 
 Defects and genuine deficiencies, including UI/UX ones. Resolved issues stay: they explain why the code looks as it does.
 
-47 issues. **37 resolved.** **Seven remain open** — `ISSUE-031` to `ISSUE-035`, `ISSUE-037`,
-`ISSUE-038`, `ISSUE-040` — and two are partial: `ISSUE-004`, `ISSUE-006`. None
-`Investigating`, none `Critical`. **Every open one is a provenance or judgement call for the
-owner, not a defect.**
+58 issues. **43 resolved.** **Fourteen remain open** — `ISSUE-031` to `ISSUE-035`,
+`ISSUE-037`, `ISSUE-038`, `ISSUE-040`, `ISSUE-052`, `ISSUE-053`, `ISSUE-055`, `ISSUE-056`,
+`ISSUE-058` — and two are partial: `ISSUE-004`, `ISSUE-006`. None `Investigating`.
+
+**SESSION-044 found `ISSUE-057`, and it is the one to read.** Six playground pictures had
+been re-cropped by the owner and the site was still shipping the old exports, and **the
+staleness check could not see it**: `image_crops.json` compares source and export
+*modification times*, and these six sources had timestamps older than the exports made from
+their earlier contents. The fix was to stop asking when a file changed and start asking
+whether it did.
+
+**`ISSUE-055` is the first `High` one in five sessions and it is not a rendering fault.**
+The site loads its two typefaces from Google's CDN, which transmits every visitor's IP
+address to Google, and SESSION-043 has just published a Datenschutzerklärung that says so.
+Self-hosting the fonts removes the disclosure and the exposure together. It is the owner's
+call because it changes what ships.
+
+**SESSION-043 found and fixed `ISSUE-054`**, the arrowhead defect the owner reported with a
+screenshot: the head was built on the curve's tangent at its tip while the visible ink over
+the last 26 pixels ran 17 degrees shallower, so one arm of every head lay along its own
+shaft.
+
+**SESSION-042 found the arrows had been too short to be arrows**, at 127 of 264 placements,
+and fixed all but nine of them (`MILESTONE-012`, `DECISION-039`). The nine are `ISSUE-053`.
+Worth reading for the general lesson: the audit checked that an arrow did not cross a picture
+and did not leave the card, and a two-pixel arrow does neither.
+
+**SESSION-042 found the arrows had been too short to be arrows**, at 127 of 264 placements,
+and fixed all but nine of them (`MILESTONE-012`, `DECISION-039`). The nine are `ISSUE-053`.
+Worth reading for the general lesson: the audit checked that an arrow did not cross a picture
+and did not leave the card, and a two-pixel arrow does neither.
+
+**SESSION-041 opened and closed four**, all found while doing `MILESTONE-011` rather than
+reported: `ISSUE-048` (cluster 05 was switched on, not revealed), `ISSUE-049` (the mobile
+process map was clipped at half size), `ISSUE-050` (the footer was missing two of the five
+destinations) and `ISSUE-051` (the arrow audit sampled a stage width that cannot occur, and
+missed the one every desktop gets).
 
 **SESSION-040 closed `ISSUE-043`, `ISSUE-044` and `ISSUE-045`**, which were the last three the
 owner raised in SESSION-038. `ISSUE-043` took three sessions and ends with the build measuring
@@ -168,6 +201,17 @@ And in SESSION-025, closing `MILESTONE-002`'s last two dependencies:
 | --- | --- | --- | --- |
 | ISSUE-009 | German gaps: untranslated and missing fields | The four listed fields, **plus six landmark `aria-label`s** that were the larger half and are actually announced. A new `landmarks` dictionary group; verified on the built German pages | [#issue-009](#issue-009) |
 | ISSUE-010 | Dead fields across the content types | `DECISION-010` ended the "they'll come back" premise. Eleven structural fields removed; `headline`/`description`/`role`/`year` kept for `SUGGESTION-014` and the type now says why | [#issue-010](#issue-010) |
+| ISSUE-048 | Cluster 05 never arrived, it was switched on | **Resolved** | Medium | Revealed over `0.90 → 1.02` on a track that stops at 1, and `INTERACTIVE_ON` fired at 0.90 and wrote it to full opacity in one frame | [#issue-048](#issue-048) |
+| ISSUE-049 | The mobile process map was clipped, at half size | **Resolved** | High | `max(0.5, …)` made a 1440-unit map 720px wide inside a 390px phone; clusters 02 and 04 were entirely off-screen | [#issue-049](#issue-049) |
+| ISSUE-050 | The footer was missing Projects and Contact | **Resolved** | Medium | Three of the five destinations the header reaches; at the bottom of a page there was no way to either | [#issue-050](#issue-050) |
+| ISSUE-051 | The arrow audit tested a stage width that cannot occur | **Resolved** | High | It sampled 1440, but the card is never as wide as the window — 1,256 at a 1440 window — and 1,256 was broken | [#issue-051](#issue-051) |
+| ISSUE-052 | `pg-gift-riona-full.mp4` is 9.1 MB for 142 seconds | Open | Medium | Fetched by the card now, not only by the viewer (`DECISION-038`); wants a narrower re-encode, and the source it came from is recorded three ways | [#issue-052](#issue-052) |
+| ISSUE-054 | The collage arrowheads were built on a direction the ink does not have | **Resolved** (SESSION-043) | Medium | The head sat on the cubic's tangent at `t = 1`; over its own 26px the bowed shaft has already turned ~17° off it, so the lower arm lay on the shaft. The owner's words: the line is rotated and the head is not | [#issue-054](#issue-054) |
+| ISSUE-055 | The site loads its typefaces from Google's CDN | Open | **High** | Inter and Caveat come from `fonts.googleapis.com`, so every visitor's IP reaches Google before they have consented to anything. `MILESTONE-013` had to disclose it in the new Datenschutzerklärung. Self-hosting is the standard German fix and is ~150 KB of woff2 | [#issue-055](#issue-055) |
+| ISSUE-056 | `Images/Afono/MarketCompetitorAnalysis.png` is a blank export | Open | Low | 17.8 KB for 2252 × 1602 with alpha, and nothing drawn in it. It is the file the `[ market analysis ]` slot has been waiting for | [#issue-056](#issue-056) |
+| ISSUE-057 | Six re-cropped images were never re-exported, and the mtime check could not see it | **Resolved** (SESSION-044) | Medium | `pg-abstract`, `pg-bookcover`, `pg-logo`, `pg-painting-luffy`, `pg-postcard-1`, `pg-poster-hologram`. Comparing source mtime to export mtime reported everything current; re-exporting everything and diffing the bytes found all six | [#issue-057](#issue-057) |
+| ISSUE-058 | `Images/Afono/Market.png` is the same blank file again | Open | Low | Byte-identical to `MarketCompetitorAnalysis.png` (same SHA-256), and all 3,607,704 of its pixels are opaque pure white. Second upload, same empty export. Supersedes `ISSUE-056` | [#issue-058](#issue-058) |
+| ISSUE-053 | Nine collage arrows are still under 24 CSS px, on crowded cards at narrow widths | Open | Low | The residue of the short-arrow defect; cards 1 and 3 between 900 and 1,080px have no seat that is both in the owner's corner and clear of a photograph. The audit floor is a 12px ratchet | [#issue-053](#issue-053) |
 
 ### Grouped by milestone
 
@@ -3756,3 +3800,466 @@ classes that happen to exist.
 **Worth knowing:** `grep -roE '\b[mp][tblrxy]?-[0-9]+\.5\b' src/` lists every fractional
 spacing class in use, and anything not in Tailwind's default set (`0.5`, `1.5`, `2.5`, `3.5`)
 or in `tailwind.config.ts` is doing nothing.
+
+---
+
+<a id="issue-048"></a>
+
+## ISSUE-048 — Cluster 05 never arrived, it was switched on
+
+Status: **Resolved** (SESSION-041)
+Severity: Medium
+Scope: `src/components/process/HeroProcess.tsx`
+Reported by the owner as "the later steps appear too quickly, especially Step 5"
+
+### What was wrong
+
+The five clusters were revealed by `smoothstep(p, 0.68 + i * 0.055, 0.8 + i * 0.055)`. For
+`i = 4` that is **0.90 to 1.02**, and `p` is clamped to 1: at the very bottom of the runway
+cluster 05 had reached 93% opacity and was still moving.
+
+It never looked like it was still moving, because `INTERACTIVE_ON` fired at **0.90** — the
+same instant cluster 05 began — and the moment the map goes interactive `applyBranchState`
+writes every cluster to full opacity. So 05 did not arrive. It was switched on, in one frame,
+at the exact point the other four had finished.
+
+### The fix
+
+The schedule is four named constants and two functions, and **`STEPS_DONE` is derived from
+them** rather than typed: change a stagger or a duration and the interactive threshold moves
+with it, instead of quietly clipping the last cluster again.
+
+- The track is **340svh**, up from 280. The reveal band is a fraction of the runway, so
+  lengthening the runway is what buys real scrolling distance without changing the shape of
+  the sequence: one cluster now takes about 32svh to arrive where it took 22.
+- Each cluster is given slightly longer than the one before it, so the sequence settles rather
+  than stopping dead. 05 takes 0.154 of the track against 01's 0.130.
+- The sequence ends at 0.964 and the map goes live at 0.975, which leaves about 86svh of
+  settled canvas at the end of the runway.
+
+Measured across the scroll, cluster 05 now reads 0.00 → 0.17 → 0.63 → 0.88 → 1.00 where it
+used to read 0.00 → 1.00.
+
+---
+
+<a id="issue-049"></a>
+
+## ISSUE-049 — The mobile process map was clipped, at half size
+
+Status: **Resolved** (SESSION-041)
+Severity: High
+Scope: `src/components/process/HeroProcess.tsx`, `src/components/process/BranchGroup.tsx`
+
+### What was wrong
+
+Below 880px `HeroProcess` renders a static flow, and that flow drew the same 1440 × 900 map
+scaled by `Math.max(0.5, Math.min(W / 1440, H / 900))`, centred in an `overflow-hidden`
+section.
+
+**The `0.5` floor is the bug.** Below a 720px window the map is wider than the window, so it
+was clipped: on a 390px phone clusters 02 and 04 were entirely off the right-hand edge, and
+the bottom of the section was 200px of empty black. Everything that survived was drawn at half
+size — 9px panel labels at four and a half.
+
+The connectors were worse than useless there. In the static layout the question is a heading
+*above* the map, so five strokes converging on the middle of the canvas converged on nothing
+at all. That was on the tracker as a known wart before this session.
+
+### Why removing the floor is not the fix
+
+At 390px an honest scale is 0.27, and the whole canvas is then illustrations of interfaces
+rendered at a quarter. Legible to nobody.
+
+### The fix
+
+The map is a desktop idea. The phone gets the same content laid out the way a phone lays
+things out: one step under the next, **at full size**, with the panels wrapping inside each
+step. `BranchGroup` takes a `stacked` prop that puts it in the normal flow instead of pinning
+it to a percentage of the map, and the connector SVG is not rendered at all in that layout.
+
+This replaces the whole static branch, not just the phone one — at 768px the scaled map's body
+text rendered at 5px too, so there was no width below 880 where it was the better answer.
+
+---
+
+<a id="issue-050"></a>
+
+## ISSUE-050 — The footer was missing Projects and Contact
+
+Status: **Resolved** (SESSION-041)
+Severity: Medium
+Scope: `src/components/Footer.tsx`
+
+### What was wrong
+
+The footer nav listed About, Playground and Résumé. The header reaches five destinations, and
+**Projects and Contact were in neither the footer nav nor anywhere else in it** — so a reader
+at the bottom of a long page had no way to either without scrolling back up. The footer's own
+wordmark was plain text, so there was no link home either.
+
+### The fix
+
+All five, in the header's own order, plus the wordmark as the link home. The two hash links
+are the header's own targets rather than new ones: `#work` is `SelectedWork` and `#contact` is
+`ContactSection`.
+
+### What was checked, not assumed
+
+Every footer link was followed from `/about` and its landing verified. `/#work` lands at
+scrollY 2956 with `#work` present in the DOM; `/#contact` at 5707 with `#contact` present;
+`/`, `/about`, `/playground`, `/resume` and `/de/about` all resolve. `/contact` is registered
+as a route but it is a `<Navigate>` to `/#contact`, so the footer links the hash directly and
+skips the redirect.
+
+---
+
+<a id="issue-051"></a>
+
+## ISSUE-051 — The arrow audit tested a stage width that cannot occur
+
+Status: **Resolved** (SESSION-041)
+Severity: High
+Scope: `scripts/content-audit.mjs`
+
+### What was wrong
+
+`ISSUE-043` ends with the build measuring what it was about, at five stage widths: 1440, 1280,
+1100, 1000 and 900. Five hand-picked widths turned out to be the next version of the same
+mistake.
+
+**The stage is never as wide as the window.** Measured: a 1440px window gives a 1,256px stage
+and a 1920px window gives 1,278. So 1440 tested a layout that cannot occur, and **nothing
+tested the one nearly every desktop actually gets**. At 1,256 the card-1 calendar note was
+8,900 units from its picture with 234px of arrow lying across other photographs, and the audit
+was green.
+
+### The fix
+
+The widths are swept rather than chosen: 860 to 1320 in 20px steps, which is every stage the
+deck produces between the container query's floor and the widest card a 4K window makes. 24
+widths against four cards, about a second.
+
+---
+
+<a id="issue-052"></a>
+
+## ISSUE-052 — `pg-gift-riona-full.mp4` is 9.1 MB for 142 seconds
+
+Status: Open
+Severity: Medium
+Scope: `public/videos`
+
+`DECISION-038` moved the collage cards onto the full films, which the owner asked for and
+chose knowing the cost. Four of the five are between 462 KB and 2.8 MB. This one is 9.1 MB,
+which is a bitrate rather than a length: it is 64 kB/s where the motorbike film is 44.
+
+It wants a re-encode at the tile's own resolution — the card never shows it larger than about
+340 CSS px wide, and this is a 142-second clip stored at a width nothing on the page uses.
+
+**There is no `ffmpeg` on the machine this session ran on**, and re-encoding is not something
+to approximate. There is `scripts/video-clip.mjs`, which records playback in a browser and is
+how the eight-second cuts were made; it takes a `--width`, so a full-length narrower version
+is:
+
+```bash
+node scripts/video-clip.mjs Images/Playground/<the source> \
+  public/videos/pg-gift-riona-full.mp4 --from 0.04 --seconds 142 --width 640
+```
+
+**Check which source that is before running it.** The docs disagree: `decisions.md` and this
+file both say `craftgift3.mp4`, `milestones.md` says `craftgift2.mp4`, and neither is
+obviously right — `craftgift3.mp4` is recorded as 23 seconds and the film is 142. The three
+candidates are `craftgift2.mp4`, `craftgift3.mp4` and `craftworkgift1.mp4`.
+
+Two reasons that was not just run. **Recording is real time**, so it is 142 seconds a take and
+wants somebody watching the result. And it is a re-encode of a re-encode: the owner's film is
+the asset, and degrading it to save 7 MB is the owner's call, not a maintenance decision.
+
+Nothing blocks on this. The page streams the file only when that card is on screen, and never
+at all under `prefers-reduced-motion`.
+
+
+---
+
+<a id="issue-053"></a>
+
+## ISSUE-053 — Nine collage arrows are still under 24 CSS px
+
+Status: Open
+Severity: Low
+Scope: `src/lib/playground/placeScribbles.ts`
+Opened: SESSION-042, as the residue of the defect that session found and mostly fixed
+
+### The defect this is left over from
+
+Sweeping every stage width the deck produces found **127 of 264 note placements drawing an
+arrow shorter than 34 CSS px**, seven notes whose worst case was under 7px, and one at 0.3px
+— a speck of ink beside a note, which reads as a note about nothing.
+
+It had shipped for three sessions and nothing had ever seen it. `content-audit.mjs` checked
+that an arrow does not cross a picture (`ISSUE-043`) and does not leave the card, and **a
+two-pixel arrow does neither**. The eye did not catch it either, because the failures are at
+particular window widths and the screenshots had all been taken at 1440.
+
+Four things were wrong, and all four are fixed — see `MILESTONE-012` for the detail:
+`crampedBy` measured the gap between two rectangles rather than the arrow actually drawn; ring
+seats that fell off the card were priced out instead of slid back on; the `farness` knee was
+tight enough that standing back cost more than a visible arrow was worth; and the note was
+fixed-size type over a card that is not.
+
+Median arrow length went 36px → 88px and the sub-34px cases 127 → 41.
+
+### What is left
+
+Nine placements, between 13 and 24 CSS px:
+
+| Card | Note | Stage widths |
+| --- | --- | --- |
+| 01 | "a whole year, one flower a month" | 900–1000 (6 widths) |
+| 03 | "holographic watch, all concept" | 1060, 1080, 1180 |
+
+**This is geometry, not tuning.** Those cards are crowded at that size, and the seat search is
+choosing between a short arrow and one lying across a photograph. Every setting that
+lengthens these arrows further was swept, and each one buys the length by either moving the
+note out of the corner the owner drew (`DECISION-039`) or putting up to 178px of stroke
+across another picture — which is `ISSUE-043` reopened.
+
+### What holds it
+
+`content-audit.mjs` check 6 fails the build at **12 CSS px**, set just under the 13px the deck
+currently draws. It is a ratchet, not a target: it cannot get worse without somebody deciding
+it should.
+
+### If it is worth closing
+
+Three options, in the order they are worth trying:
+
+1. **Shorten the two notes.** Both are three lines; two-line versions would free most of the
+   room. Not done here because the owner said they like the current text, and this is their
+   voice rather than a layout parameter.
+2. **Let the seat search reach further.** `sweepForGaps` returns the twelve *nearest* clear
+   seats, spread only by 0.8 of a note's width, so on a crowded card all twelve are in the
+   same neighbourhood. Spreading the shortlist by distance as well as by position would give
+   the router somewhere further out to consider.
+3. **Lower `MIN_RUN_PX` for the narrow cards specifically**, and accept a shorter arrow there
+   as the design rather than as a defect.
+
+---
+
+## ISSUE-054
+
+**The collage arrowheads were built on a direction the ink does not have**
+
+| | |
+| --- | --- |
+| Status | **Resolved** (SESSION-043) |
+| Priority | Medium |
+| Area | `/playground`, `src/lib/playground/placeScribbles.ts` |
+| Found by | The owner, with a screenshot, as `MILESTONE-013` task 1 |
+
+### What it looked like
+
+The owner's description was exact: *"the lines are rotated but the arrow head are not
+rotated which causes overlapping of the line with the side of the arrowhead."*
+
+Reproduced at 4x on card 1's "my own task app" arrow. The shaft arrives at the tip
+travelling about 31 degrees above horizontal. The head's two arms sat at -74 and -23
+degrees, which straddles **-48.5**, not -31: the whole head was rotated 17 degrees away
+from the line it belonged to. Its upper arm stood too steep, and its lower arm, eight
+degrees off the shaft, lay along the shaft. What reached the page was a tick, not an arrow.
+
+### Why
+
+```js
+const angle = Math.atan2(end.y - c2y, end.x - c2x);
+```
+
+That is the cubic's tangent at `t = 1`, and it is correct — *at the tip*, for an
+infinitesimal length of line. The head is 26 CSS pixels long, and the stroke is a bowed arc
+(`BOW`, `DECISION-039`): over its last 26 pixels the ink has already turned away from that
+tangent. The comment above the line even said the head must sit "on the curve's own tangent,
+not on the straight line, or it points somewhere the pen never went" — the reasoning was
+right and the length scale was wrong. A tangent is the direction of a curve at a point; a
+26-pixel head needs the direction of the curve *over 26 pixels*.
+
+### The fix
+
+Aim the head at the chord the ink actually draws over the head's own length. `points` is
+the stroke already flattened for the clearance test, so it is a lookup rather than more
+geometry: walk back from the tip to the first sample at least a head-length away, and take
+the direction to it.
+
+Both arms then sit at `spread` either side of the visible line **at every bend the seat
+search can choose**, which is the part a single tangent cannot promise: the bow varies per
+note, so the error varied per note, which is why this survived three sessions of looking at
+the playground.
+
+### Why nothing caught it
+
+`content-audit.mjs` measures where arrows *go* — that one does not cross a picture, does not
+leave the card, and is not too short. It has never measured what one looks like. That is the
+same blind spot `ISSUE-051` and the short-arrow defect came out of, and it is worth stating
+plainly: **this build checks arrow placement, not arrow drawing.** A head at the wrong angle
+is still inside the card.
+
+---
+
+## ISSUE-055
+
+**The site loads its typefaces from Google's CDN**
+
+| | |
+| --- | --- |
+| Status | Open |
+| Priority | **High** |
+| Area | `index.html`, and now `dictionaries/*.legal.privacy` |
+| Found by | SESSION-043, while writing the Datenschutzerklärung for `MILESTONE-013` task 9 |
+
+`index.html` has:
+
+```html
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:...&family=Inter:..." rel="stylesheet" />
+```
+
+So every visitor's browser fetches the font files from Google's servers, transmitting their
+IP address, before they have been asked anything. For a site published from Germany this is
+the well-known Google Fonts exposure (LG München I, 3 O 17493/20): the court found the
+remote embed an infringement of the visitor's personality right and awarded damages.
+
+It is `High` because it is the only thing on this list that can cost the owner money, and
+because SESSION-043 has just published a privacy notice that **discloses it** — which is the
+honest thing to do and is not the same as fixing it.
+
+### The fix, when the owner wants it
+
+Self-host. Download the six woff2 files (Inter 400/500/600, Caveat 500/600/700, latin plus
+latin-ext), put them in `public/fonts/`, replace the `<link>`s with local `@font-face` rules
+carrying `font-display: swap`, and delete the "Typefaces" section from both privacy
+dictionaries. It is roughly 150 KB, it removes a third-party connection from every page
+load, and it makes the first paint faster rather than slower.
+
+**Not done in SESSION-043** because it adds binary assets and changes what ships on every
+route, which is the owner's decision and not a defect repair.
+
+---
+
+## ISSUE-056
+
+**`Images/Afono/MarketCompetitorAnalysis.png` is a blank export**
+
+| | |
+| --- | --- |
+| Status | Open |
+| Priority | Low |
+| Area | `Images/Afono/`, `caseStudies/afono.ts` |
+| Found by | SESSION-043, doing `MILESTONE-013` task 8 |
+
+The owner added it on 2026-09-11 at 09:23, and its filename matches the one empty figure
+slot in the AFONO case study exactly: `{ aspect: "4/3", caption: "[ market analysis ]" }`,
+in both locales, under the paragraph that describes comparing local Nepalese fashion
+references with international streetwear brands.
+
+The file is 17.8 KB for 2,252 × 1,602 pixels with an alpha channel, and there is nothing
+drawn in it. Checked at full size and at the centre; it is empty.
+
+It was exported to `public/images/afono-market-analysis.webp` at 5 KB before this was
+noticed, and that export and its crop-manifest entry were both backed out. **The slot is
+still empty and still waiting for this picture.** A re-export from the source document is
+all it needs.
+
+
+---
+
+## ISSUE-057
+
+**Six re-cropped images were never re-exported, and the modification-time check could not
+see it**
+
+| | |
+| --- | --- |
+| Status | **Resolved** (SESSION-044) |
+| Priority | Medium |
+| Area | `docs/reference/image_crops.json`, `scripts/image-treat.mjs`, `public/images/` |
+| Found by | The owner: "i have cropped and edited some photos in the images folder, you didnt update that in the website yet" |
+
+### The report, and why the first answer was wrong
+
+SESSION-043 had built a staleness check: for each entry in `image_crops.json`, compare the
+**modification time** of the source against the modification time of the export. It found
+ten stale sources, they were re-exported, and it then reported everything current.
+
+The owner said otherwise. Re-running the mtime check found nothing. It was the check that
+was wrong, not the report.
+
+An mtime comparison answers *"was this file written after that one?"*. What it is being used
+to answer is *"does this export still represent this source?"*, and those come apart the
+moment a file's content changes without its timestamp moving past the export's — an editor
+that preserves modification times, a copy that restores them, a file replaced from a backup,
+or simply an export regenerated after the edit for an unrelated reason.
+
+### What actually found them
+
+Re-export every entry and compare the results to what is committed.
+
+This works because **`image-treat.mjs` is deterministic**: the same source, the same crop and
+the same Chrome produce the same bytes. 131 entries were re-exported; 114 came out
+byte-identical and 17 did not. Ten of the seventeen were the sources SESSION-043 had already
+refreshed. The other **six had been re-cropped and never picked up**:
+
+`pg-abstract`, `pg-bookcover`, `pg-logo`, `pg-painting-luffy`, `pg-postcard-1`,
+`pg-poster-hologram`.
+
+Four of the six also moved their sampled **mat colour** materially — `pg-poster-hologram`
+went from `#fcfcfc` to `#191919`, a near-white surround to a near-black one, which is the
+whole background the playground paints behind that picture. Two did not move it enough to
+notice, which is the argument against using the mat colour as the detector: **the bytes are
+the signal, the mat colour is a symptom.**
+
+### The lesson, written down because it will happen again
+
+The harness has now been caught three times by a check that measures something adjacent to
+the thing it is about: `ISSUE-051` sampled a stage width the site cannot produce, `ISSUE-054`
+built an arrowhead on a direction the ink does not have, and this measured when a file was
+written instead of what is in it. Re-derive and diff; do not infer.
+
+---
+
+## ISSUE-058
+
+**`Images/Afono/Market.png` is the same blank file again**
+
+| | |
+| --- | --- |
+| Status | Open |
+| Priority | Low |
+| Area | `Images/Afono/`, `caseStudies/afono.ts` |
+| Supersedes | `ISSUE-056` |
+
+The owner re-uploaded the AFONO market analysis as `Market.png` on 2026-09-11 at 13:31,
+after `ISSUE-056` reported the first upload blank.
+
+It is the same file. `shasum -a 256` is identical for `Market.png` and
+`MarketCompetitorAnalysis.png`: `45f170db1c1d…`.
+
+This time it was checked properly rather than by looking at it, because "it looks white"
+cannot tell a blank image from white artwork on a transparent ground. Decoded to a canvas and
+counted:
+
+```
+{"w":2252,"h":1602,"px":3607704,"opaque":3607704,"nonwhite":0,"minA":255,"maxA":255,
+ "colours":["255,255,255,255"]}
+```
+
+Every one of its 3,607,704 pixels is fully opaque pure white. There is nothing in the file,
+including nothing hidden by transparency.
+
+**The AFONO case study's `[ market analysis ]` slot is still empty**, in both locales, under
+the paragraph describing the comparison of local Nepalese fashion references with
+international streetwear brands.
+
+**This is the third blank export from the same source document.** `ISSUE-038` part 3 records
+`Afono/Wireframe.png` at 14,299 × 8,794 and entirely white. Whatever export path produces
+these is dropping the artwork before it writes the file — most likely exporting a hidden
+layer, an empty frame, or a selection that does not contain the artboard. Opening the file
+after export would catch it in a second, and is worth doing once before the next upload.

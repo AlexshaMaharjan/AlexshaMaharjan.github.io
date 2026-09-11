@@ -113,11 +113,11 @@ requires editing the `src` strings in `src/lib/**`).
 
 | File | Lines | Controls |
 | --- | --- | --- |
-| `Header.tsx` | 93 | fixed 72px bar, wordmark, absolutely-centred `ModeSwitch`, nav links (`nav:` ≥1160px), `MobileMenu`, scroll-state blur/background, a second `sm:hidden` row holding the mode switch |
-| `Footer.tsx` | 77 | two-column footer, playground vs portfolio border/bg variant, language switch, back-to-top, copyright |
-| `ModeSwitch.tsx` | 47 | Portfolio ⇄ Playground segmented pill, `aria-current`, 44px min height |
+| `Header.tsx` | 148 | **one row at every width** since `MILESTONE-013` (61px below `md`, 73px above). `AM` monogram below `md` and the full wordmark above it, one `aria-label` for both; the compact `ModeSwitch` absolutely centred below `md` and the segmented one above it; nav links (`nav:` ≥1160px); `MobileMenu`; scroll-state blur. Publishes `--header-h` from a `ResizeObserver` (`ISSUE-015`) |
+| `Footer.tsx` | 152 | a conventional footer again (`MILESTONE-014` task 6): identity and tagline left, a five-link nav and a mono contact column right, then a utility strip with the language switch, Impressum, Datenschutz, copyright and back-to-top. ~240px against the original ~380; the big-type email of `DECISION-044` lasted one session. Playground vs portfolio border/bg variant |
+| `ModeSwitch.tsx` | 113 | **two forms** (`DECISION-042`). `compact`: one link to the *other* mode drawn as an on/off toggle, a 32px knob that changes side with flex `order` and the current mode's name beside it, its own `aria-label`. Default: the Portfolio ⇄ Playground segmented pill, `aria-current`, 44px min height |
 | `LanguageSwitch.tsx` | 29 | EN/DE pill; links to `localeHref(target, pathname)` |
-| `MobileMenu.tsx` | 80 | full-screen panel below `nav:`, Escape to close, body scroll lock |
+| `MobileMenu.tsx` | 168 | **a hamburger and a right-hand drawer** below `nav:` (`DECISION-043`). Closes on Escape, on the close button, and on a real backdrop element rather than a `document` click listener; focus in on open and back to the hamburger on close; body scroll lock. Carries the other mode and the résumé, which the bar cannot |
 | `Seo.tsx` | 41 | imperative `document.title` + meta writes |
 
 `Header` and `Footer` each contain a private duplicate of `stripLocale()` (`ISSUE-021`).
@@ -128,7 +128,7 @@ requires editing the `src` strings in `src/lib/**`).
 | --- | --- | --- |
 | `SelectedWork.tsx` | 25 | `#work` section heading block + `<WorkGrid>` |
 | `WorkGrid.tsx` | 97 | six project cards, image-only, read from `dictionary.projects[]` (`DECISION-021`, SESSION-031 — the bento and its eleven tiles were deleted; the fault was text over images and `object-cover` crops, not colour) |
-| `AboutPreview.tsx` | 57 | portrait + annotation pills + copy + two links |
+| `AboutPreview.tsx` | 104 | portrait, copy, and the section's two offers: About's biography runs on and fades out under a `mask-image` with a text link beneath it; the playground carries the pill (`DECISION-041`) |
 | `ContactSection.tsx` | 34 | `#contact`, near-black band, two CTAs, email |
 
 `src/components/ProjectEntry.tsx` (`FeaturedProject` / `GridProject`) was **deleted** in
@@ -142,7 +142,7 @@ the uncommitted working tree; recover it with `git show HEAD:src/components/Proj
 | `clusters.tsx` | 630 | five illustrated collages (`Cluster1`–`Cluster5`) — polaroids with `clip-path` torn edges, pins, dark panels, sketches. Hard-coded English labels |
 | `icons.tsx` | 209 | 20 inline SVG icons + `branchIcons` / `tileIcons` arrays |
 | `BranchGroup.tsx` | 89 | one branch: number, title button, question, cluster, close button |
-| `branchData.ts` | 117 | five `BranchLayout` records — `left`/`top` %, SVG path, endpoint caps — plus `HUB_W`/`HUB_Y`, the question's own box. The file's header is the reasoning: what the map has room for, and why the connectors are 72 units (`DECISION-034`) |
+| `branchData.ts` | 158 | five `BranchLayout` records — `left`/`top` %, `align`, SVG path, endpoint caps — plus `HUB_W`/`HUB_Y`, the question's own box. The file's header is the reasoning: what the map has room for, why the top row leans and the bottom row turns an L-shaped corner, and why right-aligning 02 and 04 needed no new coordinates (`DECISION-035`, `DECISION-040`) |
 
 This is the most intricate area of the codebase. Read `ARCH-04` before changing it.
 
@@ -171,8 +171,6 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 | `gridBackground.ts` | 14 | the shared 32px/8px grid, used by the layout and by every card |
 | `CardStack.tsx` | ~190 | the deck (`DECISION-027`): four `position: sticky` siblings in one container, stepped in `top` and in `height`; a GSAP shrink for depth only; the sticky motion control, pinned with `top: calc(100svh - 84px)` |
 | `Collage.tsx` | ~140 | one card's slots. The contained design stage (`min(100cqw, 160cqh)`) on a landscape card, a masonry on a portrait one — switched by a container query in `index.css`, not a breakpoint |
-| `Scrapbook.tsx` | 118 | **no longer rendered** (`DECISION-027`). The SESSION-034 bento rows |
-| `Tile.tsx` | 78 | **no longer rendered** (`DECISION-027`). One scrapbook tile: matted media, written cards, click-to-enlarge |
 
 ### Shared
 
@@ -309,8 +307,8 @@ model.
 
 | File | Lines | Contents |
 | --- | --- | --- |
-| `collage.ts` | ~535 | **what the page renders** (`DECISION-027`): four cards, 48 slots traced from `Portfolio.fig` page 2. Each slot holds `x/y/w/h` in the design's own pixels on its 16000 × 10000 frame, plus `src`, both locales' `alt`, and `focus`/`rotate` where the design crops or turns a picture. A clip slot carries **two** videos: `video`, the eight-second loop the collage plays, and `film`, the whole thing, which only the viewer fetches (`DECISION-030`) |
-| `placeScribbles.ts` | 795 | where every note goes and what its arrow does. A seat is scored on the picture it would sit on **and on what the arrow from it would lie across**, and the arrow's two control points are searched over so a stroke can pass between pictures rather than over one (`DECISION-033`). `stageUnits` quantises the stage measurement, because this runs on resize. `crossingOf` is exported for `content-audit.mjs`, which fails the build over 40 CSS px of arrow on a picture |
+| `collage.ts` | ~611 | **what the page renders** (`DECISION-027`): four cards, 48 slots traced from `Portfolio.fig` page 2. Each slot holds `x/y/w/h` in the design's own pixels on its 16000 × 10000 frame, plus `src`, both locales' `alt`, and `focus`/`rotate` where the design crops or turns a picture. A clip slot carries **two** videos: `video`, the eight-second loop the collage plays, and `film`, the whole thing, which only the viewer fetches (`DECISION-030`) |
+| `placeScribbles.ts` | 1000 | where every note goes and what its arrow does. A seat is scored on the picture it would sit on, **on what the arrow from it would lie across** (`DECISION-033`), on the corner the owner asked for (`prefer`), and on **how long the arrow it actually draws turns out to be** (`shortRun`). The stroke's target shape is an arc, not a straight line — `BOW`, from the owner's own Figma arrows (`DECISION-039`). `stageUnits` quantises the stage measurement and `notePx` gives the note's type size, both because this runs on resize. `crossingOf` is exported for `content-audit.mjs`, which fails the build over 40 CSS px of arrow on a picture, or under 12 CSS px of arrow at all |
 | `types.ts` | 69 | `PlaygroundItem`, `PlaygroundCategoryContent`, `PlaygroundHomeContent` |
 | `home.ts` | 44 | the page's copy. Only `eyebrow`, `heading`, `intro`, `pauseMotion` and `playMotion` are read now; the rest is kept |
 | `categories/index.ts` | 29 | registry + `getCategory` / `getAllCategories` |
@@ -395,6 +393,7 @@ behaviour (`ISSUE-001`–`ISSUE-003` all land here or in `RootLayout`).
 | `Resume.tsx` | 179 | print-oriented single column with local `EntryHeader`/`EducationRow`/`ProjectRow`/`ExperienceRow`/`FurtherRow` sub-components | `print:` variants throughout; does **not** call `useScrollReveals` |
 | `CaseStudy.tsx` | 36 | reads the study with `use(caseStudyPromise(slug))` — suspending into the loading bar on first visit (`DECISION-015`) — computes prev/next as a ring over `dictionary.projects`, renders `CaseStudyPage` | returns `<NotFound/>` for unknown slugs, without a round trip |
 | `Contact.tsx` | 8 | `<Navigate>` to `/#contact` | broken in practice, `ISSUE-022` |
+| `Legal.tsx` | 74 | the Impressum and the privacy notice from one component and one `page` prop (`DECISION-046`); 680px measure, headed sections, the postal address rendered once from `legal.address` | **not** lazy — 4KB of strings the footer links from every page |
 | `NotFound.tsx` | 25 | 404 | not lazy — imported directly by `routes.tsx` |
 | `playground/PlaygroundIndex.tsx` | 66 | the whole playground: a centred title and `CardStack` (`DECISION-027`). Owns the one `paused` state the clips read | does **not** call `useScrollReveals` — the deck is its own motion |
 

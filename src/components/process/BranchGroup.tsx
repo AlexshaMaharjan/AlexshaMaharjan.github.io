@@ -16,6 +16,7 @@ export default function BranchGroup({
   onClose,
   groupRef,
   pointerEvents = true,
+  stacked = false,
 }: {
   branch: ProcessBranchCopy;
   layout: BranchLayout;
@@ -29,8 +30,32 @@ export default function BranchGroup({
   onClose: () => void;
   groupRef?: (el: HTMLDivElement | null) => void;
   pointerEvents?: boolean;
+  /**
+   * Laid out in the normal flow rather than pinned to the map
+   * (`MILESTONE-011` task 10). The phone has no map to be pinned to.
+   *
+   * Since `MILESTONE-013` task 4 it is also a **card**: a bordered box with the
+   * number in a chip, the step's question under its title, and the cluster's
+   * own pieces wrapping inside it. The column before it was the same five
+   * groups with 48 pixels of black between them, and on a black canvas that is
+   * not a separation — the eye ran the bottom of 02 into the top of 03 and the
+   * five steps read as one very long list of small pictures. `HeroProcess`
+   * draws a dashed stroke between the cards, so what the map says with five
+   * connectors the phone says with four ticks down the middle.
+   */
+  stacked?: boolean;
 }) {
   const Cluster = processClusters[index];
+  /*
+   * The two right-hand steps hang from their own right edge
+   * (`MILESTONE-012` task 1). See `branchData.BranchLayout.align`: the boxes
+   * were already symmetric and only their contents were not.
+   *
+   * Not in the stacked layout, where the five steps are one column on a phone
+   * and there is nothing to mirror — `layout.align` is read only when the map
+   * is the map.
+   */
+  const alignRight = !stacked && layout.align === "right";
   return (
     <div
       ref={groupRef}
@@ -38,17 +63,32 @@ export default function BranchGroup({
       aria-label={branch.ariaLabel}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className="absolute"
-      style={{
-        left: `${layout.left}%`,
-        top: `${layout.top}%`,
-        width: layout.width,
-        pointerEvents: pointerEvents ? "auto" : "none",
-      }}
+      className={clsx(
+        stacked ? "relative rounded-2xl border border-white/[0.09] bg-[#0C0D10] p-5" : "absolute",
+      )}
+      style={
+        stacked
+          ? { pointerEvents: pointerEvents ? "auto" : "none" }
+          : {
+              left: `${layout.left}%`,
+              top: `${layout.top}%`,
+              width: layout.width,
+              pointerEvents: pointerEvents ? "auto" : "none",
+            }
+      }
       data-branch-group
     >
-      <div className="flex items-baseline gap-3">
-        <span className="font-mono text-[12px] text-accent-on-dark">{branch.number}</span>
+      <div className={clsx("flex items-baseline gap-3", alignRight && "justify-end")}>
+        <span
+          className={clsx(
+            "font-mono text-[12px] text-accent-on-dark",
+            // A chip on the card, so the number reads as the step's label and
+            // not as a stray figure beside a heading.
+            stacked && "rounded-md bg-accent-on-dark/10 px-2 py-1 leading-none",
+          )}
+        >
+          {branch.number}
+        </span>
         <h3 className="m-0">
           <button
             type="button"
@@ -56,13 +96,18 @@ export default function BranchGroup({
             onFocus={onEnter}
             onBlur={onLeave}
             aria-pressed={locked}
-            className="cursor-pointer border-0 bg-transparent p-0 text-left text-[21px] font-semibold leading-[1.2] tracking-[-0.01em] text-white"
+            className={clsx(
+              "cursor-pointer border-0 bg-transparent p-0 text-[21px] font-semibold leading-[1.2] tracking-[-0.01em] text-white",
+              alignRight ? "text-right" : "text-left",
+            )}
           >
             {branch.title}
           </button>
         </h3>
       </div>
-      <p className="mt-[7px] text-[13px] leading-[1.4] text-[#9AA0A8]">{branch.question}</p>
+      <p className={clsx("mt-[7px] text-[13px] leading-[1.4] text-[#9AA0A8]", alignRight && "text-right")}>
+        {branch.question}
+      </p>
       {/*
         The clusters are illustrations — miniature mock interfaces drawn in DOM
         rather than exported as images. Their labels ("Mono labels",
@@ -74,11 +119,20 @@ export default function BranchGroup({
       <div
         aria-hidden="true"
         className={clsx(
-          "mt-[18px] flex origin-top-left flex-wrap items-start gap-2.5 transition-transform duration-[350ms] ease-out",
-          active && "scale-105",
+          "mt-[18px] flex flex-wrap items-start gap-2.5 transition-transform duration-[350ms] ease-out",
+          /*
+           * The hover zoom grows out of the edge the cluster hangs from. A
+           * right-aligned cluster scaled from its top-LEFT corner grows
+           * rightwards, and 105% of a box whose right edge is already 65 units
+           * from the map's is 105% over the edge of a canvas that clips.
+           */
+          alignRight ? "origin-top-right justify-end" : "origin-top-left",
+          // No zoom in the stacked layout: it is already at full size there,
+          // and 105% of a column that fills the phone is 105% off the edge.
+          active && !stacked && "scale-105",
         )}
       >
-        {Cluster && <Cluster />}
+        {Cluster && <Cluster stacked={stacked} />}
       </div>
       {locked && (
         <button

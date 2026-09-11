@@ -937,7 +937,7 @@
     "quality": 0.85
   },
   {
-    "src": "Images/qis/00 · Cover · QIS Portal Redesign.png",
+    "src": "Images/qis/00 \u00b7 Cover \u00b7 QIS Portal Redesign.png",
     "out": "public/images/hero-qis-portal.webp",
     "crop": [
       0,
@@ -1028,7 +1028,7 @@
     "quality": 0.9
   },
   {
-    "src": "Images/Afono/00 · Cover · Afono.png",
+    "src": "Images/Afono/00 \u00b7 Cover \u00b7 Afono.png",
     "out": "public/images/hero-afono.webp",
     "crop": [
       0,
@@ -1054,7 +1054,7 @@
     "quality": 0.82
   },
   {
-    "src": "Images/kitchen/00 · Cover · Barrier-Free Kitchen.png",
+    "src": "Images/kitchen/00 \u00b7 Cover \u00b7 Barrier-Free Kitchen.png",
     "out": "public/images/hero-barrier-free-kitchen.webp",
     "crop": [
       0,
@@ -1223,19 +1223,6 @@
     "quality": 0.82
   },
   {
-    "src": "Images/Playground/gift2a.jpg",
-    "out": "public/images/pg-gift-explosion.webp",
-    "crop": [
-      0,
-      0,
-      1,
-      1
-    ],
-    "width": 1200,
-    "height": 1200,
-    "quality": 0.82
-  },
-  {
     "src": "Images/Playground/gift3.jpg",
     "out": "public/images/pg-gift-cube.webp",
     "crop": [
@@ -1316,32 +1303,6 @@
   {
     "src": "Images/Playground/postcard1.png",
     "out": "public/images/pg-postcard-1.webp",
-    "crop": [
-      0,
-      0,
-      1,
-      1
-    ],
-    "width": 1029,
-    "height": 760,
-    "quality": 0.82
-  },
-  {
-    "src": "Images/Playground/postcard2.png",
-    "out": "public/images/pg-postcard-2.webp",
-    "crop": [
-      0,
-      0,
-      1,
-      1
-    ],
-    "width": 1029,
-    "height": 760,
-    "quality": 0.82
-  },
-  {
-    "src": "Images/Playground/postcard3.png",
-    "out": "public/images/pg-postcard-3.webp",
     "crop": [
       0,
       0,
@@ -1754,5 +1715,44 @@
     "width": 640,
     "height": 360,
     "quality": 0.85
+  },
+  {
+    "src": "Images/qis/SHOWCASE 01 \u00b7 Alle Screens.png",
+    "out": "public/images/qis-final-screens.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1900,
+    "height": 1636,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/qis/SHOWCASE 02 \u00b7 Design-System.png",
+    "out": "public/images/qis-design-system.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1600,
+    "height": 1655,
+    "quality": 0.82
+  },
+  {
+    "src": "Images/qis/SHOWCASE 03 \u00b7 Interaktion & Flow.png",
+    "out": "public/images/qis-interaction-flow.webp",
+    "crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "width": 1900,
+    "height": 1045,
+    "quality": 0.82
   }
 ]

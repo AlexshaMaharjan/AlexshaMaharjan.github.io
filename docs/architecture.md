@@ -161,7 +161,7 @@ All visible copy and content structure live in typed TypeScript modules under
 
 - `src/lib/dictionaries/` — site-wide UI + home + about + résumé copy
 - `src/lib/caseStudies/` — one module per case study
-- `src/lib/playground/` — playground home, categories, projects
+- `src/lib/playground/` — the playground's home copy and `collage.ts`, which holds all 48 pictures (`DECISION-047`; the categories were deleted in `MILESTONE-014`)
 
 ### Relevant files
 
@@ -171,7 +171,7 @@ All visible copy and content structure live in typed TypeScript modules under
 - `src/lib/caseStudies/types.ts` — `CaseStudyContent`, `CaseStudySection`, `SectionImage`
 - `src/lib/caseStudies/index.ts` — slug → **dynamic import** registry,
   `caseStudyPromise(slug)` + `localeContent(content, locale)` (`DECISION-015`)
-- `src/lib/playground/types.ts`, `home.ts`, `categories/index.ts`, `projects/index.ts`
+- `src/lib/playground/types.ts`, `home.ts`, `collage.ts`, `placeScribbles.ts`
 
 ### How it currently works
 
@@ -216,7 +216,10 @@ and `de` together.
 `SectionImage` is `{ aspect, caption, src?, alt? }`. With a `src` the slot renders a real
 image and a caption; without one it stays a hatched placeholder.
 
-Playground content is thinner: `PlaygroundItem` is `{ caption, aspect, slug?, rotated?,
+**Superseded (`MILESTONE-014`).** `PlaygroundItem` and the category files are deleted; the
+playground's content model is `CollageSlot` in `collage.ts`, which carries `caption` and
+`alt` as `Record<Locale, string>` beside the picture's coordinates. The paragraph below
+describes the model as it was: `PlaygroundItem` was `{ caption, aspect, slug?, rotated?,
 subtitle?, description? }` — caption + aspect ratio only, no image source.
 
 Section `id`s double as anchor targets for `ContentsNav`.
@@ -238,7 +241,7 @@ None — pure data modules. Case studies are loaded on demand, one chunk each.
 
 ### Known weaknesses
 
-- `PlaygroundItem` and `about.carouselItems[]` still carry **no image source field**, so
+- ~~`PlaygroundItem`~~ (deleted, `MILESTONE-014`) and `about.carouselItems[]` carry **no image source field**, so
   44 image slots can only render as placeholders — `ISSUE-007`. `SectionImage` (the 71
   case-study slots) was fixed in SESSION-003.
 - ~~`CaseStudySection.body` is a flat `string[]`~~ — **resolved in SESSION-003**
@@ -543,7 +546,7 @@ so a figure can sit inline in `body[]` rather than only in the trailing `images[
 
 #### Where no image mechanism exists at all (44 slots)
 
-`PlaygroundItem` (36 slots) and `about.carouselItems[]` (8 slots) carry only `caption` +
+~~`PlaygroundItem` (36 slots)~~ (deleted, `MILESTONE-014`) and `about.carouselItems[]` (8 slots) carry only `caption` +
 `aspect`. Attaching a real photo there still requires a **type change plus a call-site
 change**, not just a data edit — `ISSUE-007`. These are also the slots where the
 placeholder may be a deliberate choice, which is `DECISION-006`'s open question.

@@ -2,9 +2,17 @@
 
 The roadmap. One section per milestone.
 
-**`MILESTONE-010` is the live one** (SESSION-038). Everything before it is either complete
-or waiting on the owner's copy and images, and `MILESTONE-010` is the owner's own list of
-fifteen changes across the whole site. Start there.
+**`MILESTONE-014` is the live one** (SESSION-044). It is the owner's fifth pass and the
+first one that is mostly *undoing*: the playground's category data, which had outlived two
+redesigns, is gone, and `MILESTONE-013`'s big-type footer lasted exactly one session.
+
+**`MILESTONE-013`** (SESSION-043). `MILESTONE-010` to `MILESTONE-012` are
+the owner's first three passes over the whole site and are complete; this is the fourth, and
+the largest — ten numbered requests, of which one arrived as a **redesigned Figma frame**
+(`Process`, node `310:736`) that had to be read and implemented rather than described.
+
+One of the ten is finished but not *applied*: the caption review is a published page the
+owner is filling in, and their wording comes back into the repository in the next session.
 
 `MILESTONE-001` (SESSION-002) and `MILESTONE-003` (SESSION-003 content model, SESSION-004
 layout) are complete. The rest of the older roadmap remains as proposed.
@@ -24,6 +32,10 @@ work section, case studies) → content and imagery → motion → consistency �
 | MILESTONE-008 | Performance, SEO, deployment | **Complete** bar the owner's `og:image` | Medium | content near-final, owner | ISSUE-013/014/019/025 ✅ | [#milestone-008](#milestone-008) |
 | MILESTONE-009 | German parity | Proposed | Medium | M-004 | ISSUE-009 | [#milestone-009](#milestone-009) |
 | MILESTONE-010 | The owner's pass over the whole site | **Complete** | High | all 15; the four gates answered 2026-09-11 | ISSUE-041…046, DECISION-028…031, 033, 034 | [#milestone-010](#milestone-010) |
+| MILESTONE-011 | The owner's second pass: process, playground, responsive | **Complete** bar one still-life asset | High | M-010 | ISSUE-048…051 ✅, ISSUE-052, DECISION-035…038 | [#milestone-011](#milestone-011) |
+| MILESTONE-014 | The owner's fifth pass: the captions applied, the categories deleted, a stepping viewer | **Complete** | High | M-013 | ISSUE-057 ✅, ISSUE-058, DECISION-047…050 | [#milestone-014](#milestone-014) |
+| MILESTONE-013 | The owner's fourth pass: the Figma process redesign, the mobile header, the footer, the legal pages | **Complete** bar the captions the owner is reviewing | High | M-012 | ISSUE-054 ✅, ISSUE-055, ISSUE-056, DECISION-042…046 | [#milestone-013](#milestone-013) |
+| MILESTONE-012 | The owner's third pass: the Figma annotations, the map's bottom row, the hero's two calls to action | **Complete** | High | M-011 | ISSUE-053, DECISION-039…041 | [#milestone-012](#milestone-012) |
 
 ### Completed
 
@@ -1501,3 +1513,330 @@ re-cut will not fix it. **Measure before re-encoding.**
 - `node scripts/image-manifest.mjs` re-run if any slot was added or deleted.
 - The four **OWNER** gates answered, or the tasks behind them left undone and listed in
   `next_session.md`.
+
+---
+
+<a id="milestone-011"></a>
+
+## MILESTONE-011 — The owner's second pass: process, playground, responsive
+
+Status: **Complete**, bar one part that needs an asset the repository does not have
+Date: 2026-09-11 (SESSION-041)
+Depends on: `MILESTONE-010`
+
+### What it was
+
+Fourteen numbered requests from the owner, covering the process canvas, the playground
+collages, the two modes' first screens, the footer, the résumé's print layout and a full
+responsive review.
+
+| # | Ask | Outcome |
+| --- | --- | --- |
+| 1 | Step 2: drop "Effort Focus"; steps 1 and 2 in one row; diagonal connectors | Done — `DECISION-035` |
+| 2 | Slow the step reveal, especially step 5 | Done — `ISSUE-048`; it was a clipping bug, not a pacing preference |
+| 3 | The two modes' headers in the same place; playground tags | Done — `DECISION-037`; pixel-identical at 1440 in both locales |
+| 4 | No looped arrows; one style; a gap from the pictures | Done — `DECISION-036` |
+| 5 | Card 1: no acrylic arrow, event-flyer note bottom-left, calendar points at March | Done |
+| 6 | Card 2: the callout points at the finished perfume box | Done |
+| 7 | Card 3: Desmark replaces the line-art note, bottom-right; **add a still life** | Note done; **still life not done** — see below |
+| 8 | Card 4: the VTRI banner replaces the character note | Done |
+| 9 | A complete footer navigation check | Done — `ISSUE-050`; two links were missing |
+| 10 | Full responsive review, fix what it finds | Done — `ISSUE-049` was the find |
+| 11 | Portfolio/Playground too large on phones | Done — header 146px → 116px, hero 70svh → 58svh |
+| 12 | Résumé prints on at most two pages | Done — 3 pages → 2, in both locales |
+| 13 | The About link becomes a real button | Done |
+| 14 | The playground videos autoplay the whole film, looping | Done — `DECISION-038` |
+
+### The one thing not done
+
+**Task 7's extra still-life photograph.** The asset library has exactly one still life,
+`Images/Playground/photographystilllife.jpg`, and it is already on card 3 as
+`pg-photo-stilllife.webp`. The other photograph in the library, `PhotographyLowkey.jpg`, is a
+portrait and is also already on that card.
+
+The owner was asked and chose to leave it out rather than reuse a picture or ship a slot
+pointing at a file that does not exist (`DECISION-011`: never invent a fact to fill a gap).
+**To finish it: drop a still-life photograph into `Images/Playground/`, run `npm run images`,
+and add a slot to card 3 in `src/lib/playground/collage.ts`.**
+
+### What the milestone cost that it did not predict
+
+Three of the fourteen turned out to be sitting on defects rather than on preferences, and each
+took longer than the ask:
+
+- **Task 2 was a bug.** Cluster 05 was revealed over `0.90 → 1.02` on a track that stops at 1,
+  and the interactive threshold fired at 0.90 and wrote it to full opacity in one frame.
+- **Task 4 exposed a cliff in the seat search.** Thirty units of note width moved a note 8,900
+  units across the card, because seats were filtered rather than priced.
+- **Task 10's find was the mobile process map**, drawn at half size and clipped to the phone.
+
+And one piece of tooling was wrong in a way that had hidden a real defect for a session:
+`content-audit.mjs` sampled a stage width the site cannot produce (`ISSUE-051`).
+
+
+---
+
+<a id="milestone-012"></a>
+
+## MILESTONE-012 — The owner's third pass: the Figma annotations, the map's bottom row, the hero's two calls to action
+
+Status: **Complete**
+Date: 2026-09-11 (SESSION-042)
+Depends on: `MILESTONE-011`
+
+### What it was
+
+Three asks, one of which arrived as a drawing:
+
+> "GO TO portfolio figma file, page 2, there i have added arrows and texts to the frames,
+> try to see what i did there, the type of arrows i used, placements and all. ignore the
+> style or size of the figma arrows and text… i just want you to see the positions and type
+> of arrow and make it like that.
+> in the process card, i want the step 2 and 4 to be right aligned. also, the 3 and 4 steps
+> should be L shaped…
+> in the hero page, i also want button for playground and not for about. for about, you can
+> fade the text out in the end so that user wants to click to more to go to about page."
+
+| # | Ask | Outcome |
+| --- | --- | --- |
+| 1 | Steps 02 and 04 right-aligned; the bottom row's connectors L-shaped | Done — `DECISION-040` |
+| 2 | The playground's notes and arrows to match page 2 of `Portfolio.fig` | Done — `DECISION-039`; one limitation left open as `ISSUE-053` |
+| 3 | The playground gets the button; About's copy fades out instead | Done — `DECISION-041` |
+
+### Reading a brief that was drawn
+
+Page 2 of `Portfolio.fig` is the four collage frames, and the owner had added **ten blue
+arrows and ten "example text" boxes** to them — three on frames 1, 3 and 4, two on frame 2.
+They are consistent enough to be read as a specification:
+
+- **One shape.** A single smooth arc of about a quarter-turn, round caps, with an open
+  two-stroke V for a head. No loops, no S-curves, no curl. The shallowest measures 1,672
+  design units long and stands 492 off its own chord, which is a sagitta of 0.29.
+- **Always in the margin.** Every annotation sits in the card's outer band, in white space,
+  never over a picture — and the *text* is always the outermost of the two.
+- **Corners, not sides.** Nine of the ten are in a corner of the frame. The tenth (frame 4's
+  right-hand one) is level with its picture and a shade below its middle, which is
+  `bottom-right` of the four values `prefer` can take and emphatically not `top-right`.
+
+**Two questions could not be answered by reading**, and the owner answered both before any
+code was written:
+
+1. The first ask said "the 3 and 4 steps should be L shaped" and then "2 should be l shaped
+   and 4 should mirror L". The owner chose **the bottom row, 3 and 4**.
+2. **Every arrow in the Figma points at the text**, tail on the picture — the exact opposite
+   of what the site draws. The owner confirmed those arrows are **guides addressed to the
+   reader of the file** — "put a note here, about that piece" — and that the site keeps its
+   arrowhead on the picture. Only the shape and the placements were being specified.
+
+Had either been guessed, the work would have been wrong in a way no test would have caught.
+
+### What the milestone cost that it did not predict
+
+**The arrows were too short to be arrows, and had been for three sessions.** Sweeping every
+stage width the deck produces found **127 of 264 placements drawing an arrow under 34 CSS
+px**, seven notes whose worst case was under 7px, and one at 0.3px — a speck of ink beside a
+note. Nothing had ever measured it: `content-audit` checks that an arrow does not cross a
+picture and does not leave the card, and a two-pixel arrow does neither.
+
+It is fixed — median arrow length 36px → 88px, sub-34px cases 127 → 41 — and the fix needed
+four separate things, each of which is documented where it lives in
+`lib/playground/placeScribbles.ts`:
+
+- `shortRun` replaces `crampedBy`: the seat is priced on **the arrow it actually draws**
+  rather than on the gap between two rectangles, which for a diagonal seat is a different
+  number entirely.
+- Ring seats that fall off the card are **slid back onto it** instead of being priced out by
+  the off-frame term at 40 a unit. Card 4's pyramid is 1,146 units from the top, so every one
+  of its "above and right" seats was outside the frame.
+- The `farness` knee moved 2,600 → 4,200 and its slope halved, so a note can stand back far
+  enough to draw a visible arrow — which is what the Figma annotations do.
+- **The note's type size now follows the card** (`notePx`): 18px at the 900px stage where
+  notes first appear, rising to the full 22 by 1,180. Fixed-size type over a card that is not
+  is what made the narrow cards unsolvable, and it is why every failure was below ~1,100px.
+
+`content-audit.mjs` gained a sixth check for it, and its stage sweep now starts at 900 rather
+than 860 — below 900 the `.collage-scribble` container query hides notes and arrows both, so
+the two narrowest widths were testing a layout nobody can see.
+
+### What is left
+
+`ISSUE-053` — nine placements, all on cards 1 and 3 at stage widths between 900 and 1,080,
+still draw an arrow between 13 and 24 CSS px. Those cards are genuinely crowded at that size
+and the seat search is choosing between a short arrow and one lying across a photograph. The
+audit's floor is set at 12px as a ratchet so it cannot get worse by accident.
+
+
+---
+
+## MILESTONE-013
+
+**The owner's fourth pass: the Figma process redesign, the mobile header, the footer, the
+legal pages**
+
+| | |
+| --- | --- |
+| Status | **Complete** bar task 6, which is with the owner |
+| Priority | High |
+| Session | SESSION-043 (2026-09-11) |
+| Depends on | `MILESTONE-012` |
+
+Ten numbered requests. Unlike the last three passes, most of them are not repairs: the site
+is structurally finished and this is the pass where it stops looking like a build.
+
+### The tasks
+
+| # | Asked for | Done |
+| --- | --- | --- |
+| 1 | Fix the playground arrowheads: the line is rotated, the head is not | ✅ `ISSUE-054` |
+| 2 | Reorder and fix the process map from the redesigned Figma `Process` frame | ✅ |
+| 3 | The footer is too tall and too plain | ✅ `DECISION-044` |
+| 4 | A small circular on/off toggle centred in the mobile navbar, `AM` at the left, a hamburger and a side drawer at the right; and the process vertical on phones | ✅ `DECISION-042`, `DECISION-043`, `DECISION-045` |
+| 5 | Drop the playground arrows and their notes on phones | ✅ |
+| 6 | Review every photograph's caption | **Published for the owner**, not yet applied |
+| 7 | "Hello, I am …" in the hero; a new About heading and biography | ✅ |
+| 8 | Take in the new and edited images | ✅ three of four; `ISSUE-056` for the fourth |
+| 9 | Impressum and Datenschutz in the footer | ✅ `DECISION-046`, and it opened `ISSUE-055` |
+| 10 | Make the "I love …" words actually fit | ✅ |
+
+### Task 2, in detail, because it is the largest
+
+The owner redesigned the whole process board in Figma. The frame is `Process`, node
+`310:736` on page 2, **1512 x 868** — a MacBook viewport, where the map in code is 1440 x
+900. Everything taken from it was read as a **fraction of the frame** and laid onto the map,
+which is the only conversion that survives the aspect difference.
+
+What the redesign changes:
+
+- **The bottom row's connectors stop being elbows.** `MILESTONE-012` routed 03 and 04 as
+  L-shapes; the redesign draws four diagonals radiating from the question, so the elbow is
+  gone. The elbow was only ever a waypoint between two points that were already a diagonal.
+- **The question moves to the middle of the canvas.** `HUB_Y` 430 → 450, which is 50.06% of
+  the owner's frame.
+- **Steps 03 and 04 come up level with the question**, 56% → 46.4%, and 05 drops into the
+  room they leave, 61.78% → 68.7%. This is the change you actually see: the map used to read
+  as two rows with a sentence wedged between them and now reads as one sentence with four
+  steps around it.
+- **The four outer strokes are short and nowhere near their clusters.** Easy to get wrong by
+  reasoning instead of measuring: a stroke from the question to the thing it connects to is
+  the obvious drawing and it is not the one in the file.
+- **01** puts the frustration rating before the SWOT, and draws **three** interview figures
+  where there was one. Three people over a quote is research; one is an opinion.
+- **02** is reordered and rewritten: "Define problems / What is the problem? What needs to be
+  solved?", then the opportunity statement, then a **cobalt-filled** panel, "Defining Goals /
+  What needs to be achieved?". The old labels named the artefact ("Problem framed", "Success
+  looks like") where the rest of the map asks questions.
+- **03** leads with the wireframe and its "Simplify navigation" note, and drops the sitemap
+  to the bottom. The sitemap is the biggest object in the cluster and it was reading as the
+  beginning of the step.
+- **04** leads with the tokens — spacing, states, colour, the three icon studies — and closes
+  on the two things made out of them, a screen and a typeface. It used to open on the
+  typeface, which is the end of the work standing at the front of it. The Focus card now says
+  "Designing frames in Figma".
+- **05** is unchanged, in the file and in the code.
+
+The widths and the 65-unit outer inset were **not** taken from the file. Its clusters are
+inset further, 8.2% against 4.5%, but that is a consequence of its contents being drawn
+smaller relative to a wider frame, not an instruction about where a cluster's outer edge
+belongs.
+
+### What was not done, and why
+
+- **Task 6 is with the owner.** Forty-seven pieces, ninety-four captions. The captions were
+  written from the pictures, so they describe what is visible and cannot know what a thing is
+  called, who it was for, or when it was made. A published page shows every photograph beside
+  its four strings and saves what the owner types; their wording comes back into
+  `src/lib/playground/categories/` next session.
+- **The AFONO market analysis is still an empty slot** (`ISSUE-056`). The owner exported a
+  blank file.
+- **The typefaces are still Google's** (`ISSUE-055`). Self-hosting them adds binary assets
+  and changes what ships on every route, which is a decision rather than a repair — and the
+  new privacy notice discloses the transfer in the meantime.
+- **The Impressum's postal address is a placeholder** (`DECISION-046`). It is a fact only the
+  owner has.
+
+### Verification
+
+`npm run build` green. `npm run lint` clean (three pre-existing `react-refresh` warnings, one
+pre-existing `exhaustive-deps`). `node scripts/content-audit.mjs` green — six case studies,
+five playground categories, 88 card layouts. `node scripts/verify/run.mjs images` green: 420
+images across 26 routes at device pixel ratios 1, 2 and 3, nothing broken, nothing missing
+alt text. Chrome checks at 1440 x 900 and 390 x 844, both modes.
+
+
+---
+
+## MILESTONE-014
+
+**The owner's fifth pass: the captions applied, the categories deleted, a stepping viewer**
+
+| | |
+| --- | --- |
+| Status | **Complete** |
+| Priority | High |
+| Session | SESSION-044 (2026-09-11) |
+| Depends on | `MILESTONE-013` |
+
+Six requests, and two of them are corrections of `MILESTONE-013`.
+
+| # | Asked for | Done |
+| --- | --- | --- |
+| 1 | Improve the reviewed captions, translate them, and **delete the categories** | ✅ `DECISION-047` |
+| 2 | Take in the photos that were cropped and edited | ✅ `ISSUE-057` — six of them |
+| 3 | Next and previous buttons in the image viewer | ✅ `DECISION-048` |
+| 4 | The AFONO market analysis is uploaded | ❌ `ISSUE-058` — the file is blank again |
+| 5 | The hover tag takes its card's arrow colour | ✅ `DECISION-049` |
+| 6 | The footer looks bad; make it normal, no big email | ✅ |
+
+### Task 1, which was two tasks
+
+The owner reviewed 47 captions in the page `MILESTONE-013` published, and then said something
+more important than the edits: *"categories is not needed anymore, right now its categorized
+based on cards"*.
+
+They were right, and the review had been built against the wrong file. The playground's
+pictures are slots on four collage cards, and **each slot already carried its own caption and
+alt in both locales**. `lib/playground/categories/` was a parallel set of 47 items that
+nothing had rendered since `DECISION-027` — so of the 47 strings reviewed, 31 corresponded to
+a picture on a card and 16 did not, while **17 live pictures were not in the review at all**.
+
+So the work was: map the 34 edited rows onto the slots they actually describe by `src`, write
+them up, translate them, write the 17 the review had missed, and delete the categories.
+`DECISION-047` has what went and why it had survived.
+
+The captions themselves needed the owner's substance and not their grammar — the site's rule
+is that the owner supplies the fact and the writing is made human (`README.md`). "Crafted a
+suncatcher beaded crystal hanging plant" became "A beaded crystal suncatcher hung with a
+trailing plant, lit at night"; "Digital portrait illlustration" became "Digital portrait",
+with "drawn in Illustrator" moved into the alt text where it belongs. **What was kept is
+every fact the owner added**: the tools (Procreate, Illustrator), the subjects (Spider-Man,
+unicorn, Christmas market, horror, smart watch), and the corrections to what a thing
+*is* — `pg-frame-detail` is a paper flower frame, not a detail shot of the frame above it.
+
+### Task 2, and why the last session's check was wrong
+
+`MILESTONE-013` added a staleness check comparing source and export modification times, ran
+it, re-exported ten images, and reported everything current. The owner said it was not.
+
+The check was wrong. It answers "was this written after that?" and is used to answer "does
+this still represent that?". `ISSUE-057` has the detail and `DECISION-050` has the
+replacement: re-export everything and diff the bytes, which works because `image-treat.mjs`
+is deterministic. 114 of 131 came out byte-identical; the 17 that did not were exactly the
+sources that had changed, six of which had never been picked up.
+
+### Task 6, and what `MILESTONE-013` got wrong
+
+The big-type email footer was the owner's own pick from three options a session ago, and it
+was a bad recommendation to have put in front of them. A 27-character Gmail address set at
+44px is not a wordmark: it is a long lowercase string with a dot and an `@` in it, it wraps on
+a phone, and it makes the loudest thing on the page a piece of plumbing. The footer is
+conventional again and still about 240px against the original 380 — the height that went is
+air, not content.
+
+### Verification
+
+`npm run build` green. `npm run lint` clean (two pre-existing `react-refresh` warnings, one
+pre-existing `exhaustive-deps`; two more disappeared with `Scrapbook` and `Tile`).
+`node scripts/content-audit.mjs` green, now auditing 48 collage slots instead of 47 phantom
+category items. `node scripts/verify/run.mjs images` green across 26 routes at device pixel
+ratios 1, 2 and 3. Chrome checks of the hover tag, the stepping viewer and the footer at
+1440 x 900.

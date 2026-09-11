@@ -10,7 +10,7 @@ the code wins. Fix the document.
 
 ## The files
 
-Eleven of them, plus four data files. It was 159 until SESSION-038; one file per issue, per
+Eleven of them, plus five data files. It was 159 until SESSION-038; one file per issue, per
 decision, per session and per milestone meant an agent spent its first minutes opening
 directories instead of reading.
 
@@ -28,6 +28,7 @@ directories instead of reading.
 | `codebase.md` | Map of directories and files. What to open for which task. |
 | `sessions.md` | History. A table of every session, full write-ups from SESSION-029. |
 | `reference/handbook.md` | Design tokens, the publishing runbook, the verification harness. |
+| `reference/figma.md` | The owner's Figma file: its key, its two pages, and the node ids of the four collage frames. |
 | `reference/image_sources.md` | Which project document each image came from. Read by `scripts/`. |
 | `reference/image_manifest.md` | Every image slot. **Generated** by `scripts/image-manifest.mjs`. |
 | `reference/image_files.md` | Which image files are real and which are stand-ins. |

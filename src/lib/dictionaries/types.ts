@@ -34,6 +34,52 @@ export interface ProjectCopy {
   imageAspect: string;
 }
 
+/**
+ * One block of a legal page: a heading and its paragraphs.
+ *
+ * `address` marks the section that carries the postal address, which is
+ * rendered from `LegalCopy.address` rather than written into `body`. There are
+ * two sections across the two pages that have to state it — the Impressum's
+ * §5 DDG block and the privacy page's controller block — and an address that is
+ * typed twice is an address that will one day be right in one place and wrong
+ * in the other. It is stated once and shown twice.
+ */
+export interface LegalSectionCopy {
+  heading: string;
+  body: string[];
+  address?: boolean;
+}
+
+export interface LegalPageCopy {
+  title: string;
+  intro: string;
+  updated: string;
+  sections: LegalSectionCopy[];
+}
+
+/**
+ * The two pages German law asks a site like this one for: an Impressum
+ * (§ 5 DDG) and a privacy notice (DSGVO) (`MILESTONE-013` task 9).
+ *
+ * **`address` ships as a placeholder and must be filled before deploying.** An
+ * Impressum with no postal address is not an Impressum, and the address is a
+ * fact only the owner has (`DECISION-011`): it is not in the repository, it
+ * cannot be derived, and inventing one would be worse than leaving the gap
+ * visible. The bracketed strings are deliberately conspicuous.
+ *
+ * The URLs are `/impressum` and `/datenschutz` in **both** locales. Those are
+ * the words a German visitor looks for in a footer and the words a German
+ * authority looks for in a URL; translating the paths would make the English
+ * side of the site harder to check compliance on, not easier.
+ */
+export interface LegalCopy {
+  impressumNav: string;
+  privacyNav: string;
+  address: string[];
+  impressum: LegalPageCopy;
+  privacy: LegalPageCopy;
+}
+
 export interface ProcessBranchCopy {
   number: string;
   title: string;
@@ -114,6 +160,16 @@ export interface Dictionary {
     menu: string;
     close: string;
     modeSwitchLabel: string;
+    /**
+     * The compact mode switch's accessible name (`MILESTONE-013` task 4).
+     *
+     * Below `md` the switch is one control rather than two: a track with a knob
+     * showing the mode you are *in*, which is how an on/off switch reads. A
+     * link has to say where it goes, so what it announces is the mode it takes
+     * you to, not the one it is showing.
+     */
+    switchToPlayground: string;
+    switchToPortfolio: string;
     switchToGerman: string;
     switchToEnglish: string;
   };
@@ -128,7 +184,6 @@ export interface Dictionary {
     primaryNav: string;
     menu: string;
     footerNav: string;
-    categoryNav: string;
     projectNav: string;
     processCanvas: string;
   };
@@ -179,11 +234,7 @@ export interface Dictionary {
     backToTop: string;
     copyright: string;
   };
-  playgroundNav: {
-    backToPlayground: string;
-    allCategories: string;
-    experimentEyebrow: string;
-  };
+  legal: LegalCopy;
   about: {
     backToHome: string;
     eyebrow: string;

@@ -40,6 +40,24 @@ explicitly rather than inventing one.
 | DECISION-030 | Full-length playground clips, or a lighter page | **Under review** | `/playground` | The clips are 6-9s excerpts of 20-63s sources; `/playground` is already 2.6 MB. Full film in the viewer, excerpt in the collage, recommended | [#decision-030](#decision-030) |
 | DECISION-032 | A justified row can hold a column of figures | **Active** | case studies | `stackWithNext` joins figures into a cell; `justifyCells` reduces exactly to `rowMetrics` when every cell holds one | [#decision-032](#decision-032) |
 | DECISION-031 | The playground's colour turn runs with the card | **Active** | `/playground` | `--pg-full` starts at 0, not at 0.82: notes, arrows and ruling change from the first pixel of scroll rather than snapping at the end | [#decision-031](#decision-031) |
+| DECISION-033 | `placeScribbles` is a search, not a placement | **Active** | `/playground` | A seat is scored partly on what its arrow would lie across; both control points chosen by that search | [#decision-033](#decision-033) |
+| DECISION-034 | The process question's size is solved from its own measurement | **Active** | process canvas | `measure()` reads the heading at 1px and solves the end size; German sets the width | [#decision-034](#decision-034) |
+| DECISION-035 | Three bands, so clusters 01 and 02 get one row | **Active** | process canvas | One-row clusters are short clusters; that opens a real band for the question and makes the connectors diagonal | [#decision-035](#decision-035) |
+| DECISION-047 | The playground's pictures live on the collage cards, and nowhere else | **Active** | `/playground` | The five category files, `PlaygroundItem`, `Scrapbook` and `Tile` are deleted. `content-audit` now audits the slots that render instead of the items that did not | [#decision-047](#decision-047) |
+| DECISION-048 | The viewer steps through a card | **Active** | `/playground`, `ui/Lightbox` | `onPrev`/`onNext`/`position` on `Lightbox`; the collage holds an index rather than a slot, and wraps. Case-study figures pass none of it and render no nav | [#decision-048](#decision-048) |
+| DECISION-049 | The cursor tag is painted in its card's colour | **Active** | `/playground` | Every other mark belonging to a card arrives at that card's accent; the tag was the last thing in the site's ink. Mixed 12% to ink so card 1's orange clears AA | [#decision-049](#decision-049) |
+| DECISION-050 | An export is checked by re-deriving it, not by its timestamp | **Active** | image pipeline | `image-treat` is deterministic, so re-exporting everything and diffing the bytes is the reliable check. Reverses the mtime comparison `MILESTONE-013` used. See `ISSUE-057` | [#decision-050](#decision-050) |
+| DECISION-042 | Below `md` the mode switch is one on/off toggle, and the header is one row | **Active** | header | A track, a knob and the mode you are in; one link to the other mode, with its own accessible name. Retires the second header row and `MILESTONE-011` task 11 | [#decision-042](#decision-042) |
+| DECISION-043 | The narrow-viewport menu is a drawer, dismissed by the page | **Active** | header | A hamburger and a right-hand drawer over a real backdrop element, not a document click listener. Replaces the full-screen takeover | [#decision-043](#decision-043) |
+| DECISION-044 | The footer is the email address | **Active** | every page | Big type, one row of links, one utility strip. ~380px to ~200px, and the thing a visitor at the bottom of a portfolio wants is the largest thing on it | [#decision-044](#decision-044) |
+| DECISION-045 | The phone gets the five process steps as cards, not as a column | **Active** | homepage | A bordered box per step with its number in a chip, and a dashed tick between them. Extends the static fallback `MILESTONE-011` task 10 built | [#decision-045](#decision-045) |
+| DECISION-046 | `/impressum` and `/datenschutz` keep German paths in both locales | **Active** | legal pages | The words a German visitor and a German authority both look for. The address ships as a visible placeholder rather than as an invention | [#decision-046](#decision-046) |
+| DECISION-039 | The collage arrows are arcs, and the Figma frames say where the notes go | **Active** | `/playground` | `scoreArrow` prices distance from a 0.28 bow instead of distance from straight; all eleven notes carry the corner the owner drew. Amends `DECISION-036` | [#decision-039](#decision-039) |
+| DECISION-040 | The process map's bottom row turns a corner, and its right column hangs from the right | **Active** | process canvas | 03 and 04 become L-shaped elbows lying in the band the one-row top opened; 02 and 04 align their contents to the edge the strokes already reached for. Extends `DECISION-035` | [#decision-040](#decision-040) |
+| DECISION-041 | The homepage's one pill belongs to the playground; About trails off instead | **Active** | homepage About section | A story you can keep reading is invited by a fade, not by a button; a place needs a door. Reverses `MILESTONE-011` task 13 | [#decision-041](#decision-041) |
+| DECISION-036 | Playground arrows are straight, and stop short of the picture | **Active** | `/playground` | No curl, no seeded bend, a 22px tip gap — and seats priced rather than filtered | [#decision-036](#decision-036) |
+| DECISION-037 | Portfolio and Playground share one hero component | **Active** | both modes | `PageHero`: one description of where the first screen goes, so the mode switch stops moving the page | [#decision-037](#decision-037) |
+| DECISION-038 | The collage cards play the whole film | **Active** | `/playground` | Reverses the card half of `DECISION-030`; 1.7 MB of cuts becomes 15.5 MB of films, fetched only on screen | [#decision-038](#decision-038) |
 
 ### Needing an owner decision
 
@@ -2774,3 +2792,780 @@ about x = 720, because the inner edge is the one the eye reads against the quest
 question is a separate heading above the map, so the five strokes converge on an empty centre.
 That was equally true before — the old lines converged on the same hole — and it is left
 alone rather than quietly redesigned, because the owner has not seen that view either.
+
+---
+
+<a id="decision-035"></a>
+
+## DECISION-035 — Three bands, so clusters 01 and 02 get one row
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-041)
+Scope: `src/components/process/branchData.ts`, `src/components/process/clusters.tsx`
+Supersedes the geometry half of `DECISION-034`; `MILESTONE-011` task 1
+
+### Context
+
+The owner asked for step 02's "Impact × Effort" panel removed, and for steps 01 and 02 to lay
+their contents out **in one row each**.
+
+Measured, that is impossible on the old map. Cluster 01's five panels are 580 units side by
+side and cluster 02's three are 578, and each cluster had **415 units** before it reached the
+centred question. `DECISION-034` explains why: the two rows owned 99–473 and 504–844, leaving
+31 units of clear band against a question 36 tall, so the question had to live in the *gap
+between clusters 01 and 02* — and that gap is what capped both.
+
+The owner was shown the trade and chose to re-band the map.
+
+### The decision
+
+**A one-row cluster is a short cluster, and that is what pays for it.** Cluster 01 ran 374
+units tall as two rows and runs 252 as one; cluster 02 ran 352 and runs 192. The top row now
+ends near 350 instead of 473, which opens a genuine horizontal band across the middle — about
+350 to 504 — and the question moved into it.
+
+Three things follow, and all three were the point:
+
+- **The clusters got their width back.** 01 and 02 are 584 units, 03 and 04 are 468. They are
+  paired by width because the owner asked for 01 and 02 to match each other and 03 and 04 to
+  match each other.
+- **They are placed by their outer edge**, 65 units in from each side, so the four are
+  symmetric about x = 720 by construction rather than by arithmetic that has to be redone
+  whenever a width changes. `DECISION-034` had to move cluster 02 by hand to get that.
+- **The connectors are diagonal**, which is task 1's other half and which was not available
+  before: with the question wedged between two clusters, horizontal was the only direction
+  with any room in it. That is why five strokes documented as "leaning 16 degrees" were in
+  fact flat.
+
+### The connectors
+
+Four strokes leave the question's corners 124 units across and 62 down — 26.6 degrees, the
+same stroke reflected about both axes — and a fifth drops from its foot to cluster 05.
+
+**The two upper strokes end on one horizontal line** rather than each on its own cluster's
+foot. Cluster 01 is 60 units taller than 02, so matching each cluster's own edge would have
+made a mirrored pair visibly unequal, where ending them level reads as deliberate.
+
+### What this costs
+
+The question keeps `HUB_W = 480`, so nothing was given up there. What changed is that the
+middle of the canvas is a band rather than a corridor, and the map has more air in it: the
+regions left and right of the question, between the rows, are empty. On a 1920 window that
+reads as composition. It is the honest consequence of steps 01 and 02 being one row each, and
+it is what the owner asked for.
+
+---
+
+<a id="decision-036"></a>
+
+## DECISION-036 — Playground arrows are straight, and stop short of the picture
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-041)
+Scope: `src/lib/playground/placeScribbles.ts`, `scripts/content-audit.mjs`
+Closes: `ISSUE-051`; `MILESTONE-011` task 4
+
+### Context
+
+The owner asked for the looped arrows gone, one arrow style throughout, and a clear gap
+between an arrow and the picture it points at.
+
+### The decision
+
+Three changes, and the third is the one that mattered.
+
+**1. The curl is gone.** With it went `arcOf`, the five `Curl` states and the three scoring
+terms that chose between them (`MILESTONE-010` task 14i, reversed). `lean` and `follow`
+survive for one reason: they are how the router gets an arrow *between* two pictures instead
+of over one. They are capped at ±0.32 now, from ±1.
+
+**2. Straight is the default, not one option among eleven.** Every note carried a seeded
+`bend`, so an arrow with nothing in its way was still drawn as a curve "so the cards keep
+their variety". `scoreArrow` charges for the whole of the offset now and there is no seeded
+gesture to be near, so the pressure is to **move the note** until the straight line is clear
+rather than to bow the line around what is in the way.
+
+**3. The tip stops 22 CSS px short**, where it used to be pulled *inside* the picture. In
+pixels rather than design units, because the gap is measured by the eye against the note's own
+type, which is also fixed pixels.
+
+### The part that was not in the brief
+
+Straightening the arrows exposed a cliff that had been there all along.
+
+Both seat sources were **all-or-nothing**: a seat with `penaltyOf(...) === 0` was a candidate
+and every other seat was discarded, with a single least-bad `best` behind them chosen on
+overlap alone — with no regard for distance or for what its arrow would cross. On a crowded
+card that is no choice at all, and at some widths it meant *no seats*:
+
+| stage | card-1 calendar note | reach | arrow over other pictures |
+| --- | --- | --- | --- |
+| 1278px | beside its picture | 1,579 | 0px |
+| 1256px | opposite corner of the card | 8,900 | **234px** |
+
+Thirty units of note width was the whole difference. `seatCost` prices a seat instead of
+filtering it: `farness`, plus a **linear and brutal** charge for lying on a picture, plus a
+**squared and mild** one for merely being inside its `CLEAR` margin. A note 7px from its
+neighbour beside the picture it is about is a better drawing than a clear one on the far side
+of the card, and it is now reachable.
+
+The first cut of this got it wrong in a way worth recording: it reused `penaltyOf`, whose
+return value is **an area divided by a thousand** plus an off-frame term. Dividing that by the
+note's area gave shares around 0.001 where the arithmetic wanted 0.4, the overlap term
+evaluated to roughly nothing, and every note was placed on top of the picture it was about.
+
+### And a minimum run
+
+`CLEAR` lets a seat sit 20px from a picture and the tip gap stops the head 22px short of it,
+which is a run of **minus two**: card 2's forest note was seated directly under its picture
+and its arrowhead was drawn backwards across its own first line. A seat pays for leaving less
+than 34px of shaft, and the head is capped at half the stroke it belongs to.
+
+---
+
+<a id="decision-037"></a>
+
+## DECISION-037 — Portfolio and Playground share one hero component
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-041)
+Scope: `src/components/PageHero.tsx`, `src/components/process/HeroProcess.tsx`, `src/pages/playground/PlaygroundIndex.tsx`
+`MILESTONE-011` task 3
+
+### Context
+
+The two modes are two views of one site and the header invites flipping between them. They
+were two separate blocks of JSX and had drifted into two different first screens: the homepage
+set a 14px eyebrow and top-anchored the block 59px under the header, the playground set a 12px
+mono eyebrow and centred it in 70svh, and the two headings used different size tokens.
+**Flipping modes moved every line on the page.**
+
+### The decision
+
+One component, two sets of copy. Not a tidy-up — it is the fix. Two blocks of JSX that "match"
+are two blocks of JSX that will stop matching the next time one of them is edited; one
+description of where things go cannot drift from itself.
+
+Measured after: at 1440 in **both locales** the section, the container, the eyebrow, the
+heading, the subheading and the tag line are identical to the pixel in both modes.
+
+Four details are load-bearing:
+
+- **`w-full` on the inner container.** The section is a centred flex column and a flex item
+  sizes to its content in the cross axis, so `container-page` shrink-wrapped the longest line:
+  the same container measured 798px in one mode and 1060px in the other.
+- **The heading has a two-line floor** (`min-h-[2.04em]`, two of its own 1.02 line-height).
+  One heading is one line and the other is two, and centring a block that changes height moves
+  everything below *and* above it — a 40px jump on every mode switch. `justify-center` splits
+  the spare line rather than dumping it underneath.
+- **The subheading has a three-line floor**, for the same reason one step down: the two intros
+  are different lengths and the tag line sat three lines up in one mode and two in the other.
+- **`container-page` is the only horizontal padding.** The section carried a `px-5` of its
+  own, which below `md` doubled the gutter to 40px a side — eleven pixels less than the German
+  eyebrow needs, so "DEUTSCHLAND" fell to a line by itself on a phone.
+
+The playground gained the tag line it needed to have the same four slots. Its tags are the
+five titles from `playground/categories`, shortened to a line: nothing there names something
+the cards do not show.
+
+---
+
+<a id="decision-038"></a>
+
+## DECISION-038 — The collage cards play the whole film
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-041)
+Scope: `src/components/playground/Collage.tsx`
+Reverses the card half of `DECISION-030`; `MILESTONE-011` task 14
+
+### Context
+
+The owner asked for the playground videos to play the complete original, first frame to last,
+looping, with no click and no cuts. The card played `video` — an eight-second cut — and the
+whole thing was behind a click, in the viewer.
+
+### The decision
+
+The card plays `film`, falling back to `video` for a slot that has no film. The owner was
+shown the cost and chose it.
+
+| clip | cut | full | duration |
+| --- | --- | --- | --- |
+| hibi | 189 KB | 462 KB | 25s |
+| explosion | 358 KB | 1.0 MB | 23s |
+| popup | 487 KB | 2.2 MB | 48s |
+| motorbike | 443 KB | 2.8 MB | 63s |
+| riona | 215 KB | 9.1 MB | 142s |
+| | **1.7 MB** | **15.5 MB** | |
+
+`/playground` measures 7,518 KB gzipped over a scroll of the whole deck, against about 800 KB
+before.
+
+**What keeps that from being 15.5 MB of page load is `LoopVideo` itself**: no `<video>`
+element exists until the card is on screen, none are created at all under
+`prefers-reduced-motion`, and each is `preload="metadata"` and streams. The cuts are kept in
+`public/videos` and in the data precisely so this is revertible in one word.
+
+`pg-gift-riona-full.mp4` at 9.1 MB for 142 seconds is the outlier — 64 kB/s where the
+motorbike film is 44 — and is worth a narrower re-encode. `ISSUE-052` has the command and the
+two reasons it was not simply run.
+
+
+---
+
+<a id="decision-039"></a>
+
+## DECISION-039 — The collage arrows are arcs, and the Figma frames say where the notes go
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-042)
+Scope: `src/lib/playground/placeScribbles.ts`, `src/lib/playground/collage.ts`
+Amends `DECISION-036` (the arrow's shape) and `DECISION-033` (which still stands)
+`MILESTONE-012` task 2
+
+### Context
+
+`MILESTONE-011` task 4 asked for "normal" arrows and one style throughout. The curl went, and
+with it `arcOf`, the five `Curl` states and three scoring terms — and **straight** became the
+preferred shape, with `scoreArrow` charging 960 for every unit of offset away from it.
+
+Then the owner drew what they meant. Page 2 of `Portfolio.fig` came back with ten annotation
+arrows on the four collage frames, and not one of them is straight: they are single smooth
+arcs of about a quarter-turn, with an open two-stroke head.
+
+**Both instructions are the same instruction.** What the owner wanted gone was the loop, and
+straightening was how that was delivered when the only description available was the word
+"normal". The arc is what they wanted *instead* of the loop, and it took a drawing to say so.
+
+### The decision
+
+**One: the arc is the default shape.** `BOW = 0.28`, and `scoreArrow`'s middle term becomes
+the distance from it — `(||lean| − BOW| + ||follow| − BOW|) × 960` — which is the same
+arithmetic with its origin moved. A straight line is no longer free; a stroke that bows the
+wrong amount pays whether it bowed too little or too much.
+
+0.28 is measured, not chosen: with `c1` at 0.2 along the chord and `c2` at 0.72, a pair of
+0.28s bows the middle of the stroke out by about a fifth of its length, which is the sagitta
+of the owner's own arrows (the shallowest is 1,672 units long and stands 492 off its chord).
+
+**Which way it bows is not charged for at all.** A mirrored arc is the same arc, so the sign
+is left entirely to clearance — and that is what keeps the four cards from drawing one
+gesture eleven times.
+
+**Two: every note carries a corner.** `prefer` was two of nine, added where the owner had a
+view. It is eleven of eleven now, read off the frames. It stopped being an exception and
+became the data: the three notes that had no `prefer` were not left free because nobody
+minded where they went, but because nobody had said.
+
+`PREFER_MISS` went 2,400 → 9,000 to survive the new `shortRun` term. At 2,400 the notes
+simply bought arrow length by leaving the corner they had been given.
+
+**Three: a third note on card 3.** Frame 3 carries three annotations and the card shipped
+two. The missing one is the top right, where the arrow springs off the group portrait —
+"drawn from / one photo", in both locales.
+
+### What was deliberately not copied
+
+**The direction.** Every arrow on page 2 points *at* the text, tail on the picture. The site
+draws the opposite and keeps doing so: the owner confirmed those arrows are notes to the
+reader of the Figma file — "put a note here, about that piece" — not a specification of which
+end the head goes on. An arrow pointing at its own caption is not an annotation.
+
+**The style and the size**, which the owner excluded in the ask itself. The pen, the
+handwriting, the colour and the tint behaviour are all unchanged.
+
+### Consequences
+
+- The arrows read as one deliberate gesture rather than as eleven straight lines, and the
+  notes sit where the owner put them — ten of the eleven hold their corner at 22 or more of
+  the 22 stage widths swept.
+- Measuring the deck to make this change found that the arrows had been **too short to be
+  arrows** at 127 of 264 placements. That is not part of this decision; it is `ISSUE-053` and
+  the `MILESTONE-012` write-up.
+- `LEANS` and `FOLLOWS` are nine offsets arranged around `BOW` rather than seven around zero,
+  with `0` kept at the end of each list so a straight line stays reachable on a card that
+  leaves no room to curve.
+
+---
+
+<a id="decision-040"></a>
+
+## DECISION-040 — The process map's bottom row turns a corner, and its right column hangs from the right
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-042)
+Scope: `src/components/process/branchData.ts`, `src/components/process/BranchGroup.tsx`
+Extends `DECISION-035`; `MILESTONE-012` task 1
+
+### Context
+
+The owner asked for two things at once: steps 02 and 04 right-aligned, and the bottom row's
+connectors L-shaped — "so that they go a bit up to compensate the space after 1 and 2".
+
+The second half of that sentence is the reason for the first. `DECISION-035` put clusters 01
+and 02 on one row each, which made them short: the top row now ends near y = 350 and the
+bottom row starts at 504, leaving a real horizontal band across the middle with the question
+in it and nothing else.
+
+### The decision
+
+**The bottom row's connectors are right-angled elbows.** 03 runs out along the question's
+foot and turns down; 04 is the same stroke reflected, so the pair opens away from the middle.
+
+```
+  [01]                    [02]
+      ＼                  ／
+       ＼                ／
+        ( the question )
+   ┌─────┘              └─────┐
+   │                          │
+  [03]                    [04]
+```
+
+The diagonals they replace ran 446 → 508 with their midpoints at 477. The elbow's horizontal
+leg runs its whole 124 units at **446**, thirty-one units higher — so the stroke lies *in*
+the band the short top row opened rather than cutting across the corner of it. That is what
+"go a bit up" asks for, and it is why the top row keeps its diagonals: the map has two kinds
+of stroke because it has two kinds of space.
+
+**02 and 04 hang their contents from their right edge.** The four boxes were already
+symmetric about x = 720 — placed by their outer edge, 65 units in from each side — and
+everything *inside* the two right-hand boxes was left-aligned, so they read as left-hand
+clusters that happened to start further across. The number, the title, the question and the
+wrapped panels now all align right, and the hover zoom grows from `origin-top-right` so a
+cluster already 65 units from the edge does not scale over it.
+
+### The thing that needed no new coordinates
+
+**All four upper landing points were already 287 units in from their own cluster's outer
+edge** — 352 is 287 from the left-hand boxes' left edge at 65, and 1088 is 287 from the
+right-hand boxes' right edge at 1375. Right-aligning 02 and 04 moved their contents *onto*
+the points the strokes had been reaching for all along. The alignment made the existing
+geometry correct rather than requiring new geometry.
+
+### Consequences
+
+- `BranchLayout` gains `align`, and it is read **only on the pinned map**. The phone lays the
+  five steps out as one column, and a column with two of its five steps right-aligned is not
+  a mirror of anything.
+- The map now has two connector idioms. That is deliberate and it is the owner's call; if it
+  ever reads as inconsistent, the fix is to elbow all four, not to un-elbow these two.
+
+---
+
+<a id="decision-041"></a>
+
+## DECISION-041 — The homepage's one pill belongs to the playground; About trails off instead
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-042)
+Scope: `src/components/AboutPreview.tsx`, both dictionaries
+Reverses `MILESTONE-011` task 13; `MILESTONE-012` task 3
+
+### Context
+
+`MILESTONE-011` task 13 turned the About link into a filled pill, on the argument that it was
+the section's one real call to action and was the weakest control on a page whose contact
+section, mode switch and language switch are all pills. The playground link below it stayed a
+text link, so the two read as a primary and a secondary.
+
+The owner now wants the pill on the playground, and About to "fade the text out in the end so
+that user wants to click to more to go to about page".
+
+### The decision
+
+The two halves of that column are not the same kind of offer, and that is the whole
+justification for the swap:
+
+- **About is a story you can keep reading.** It is invited by a fade — the paragraph runs on
+  and dissolves into the white — and closed by a quiet accent link, "Read the whole story →".
+- **The playground is a place.** A place needs a door, so it takes the `h-12 rounded-full
+  px-7` pill, inverted for a white ground, with the `focus-visible` ring the rest of the
+  site's controls carry.
+
+There is still exactly one primary control in the section. It has changed which half it
+belongs to.
+
+### The copy had to change with it
+
+`copyDim` was one line of signposting — "There is more of it on the about page" — which is
+the page telling you there is more instead of showing you, and there is nothing in it worth
+fading. It is now the **about page's own third paragraph**, so the text that dissolves is
+real biography.
+
+The third rather than the second: the second paragraph says the career came from the other
+person's point of view, which is what the paragraph directly above it has just said. The
+third opens "It is also what brought me 6,570 kilometres from home to Germany", which picks
+up `copy`'s closing "it is still how I work" instead of restating it.
+
+`linkPlayground` lost its "→" — a pill does not carry an arrow glued to the end of a string,
+which is the `MILESTONE-011` task 13 argument applied in the other direction — and
+`linkAbout` gained one.
+
+### Accessibility
+
+The fade is a `mask-image`, which is paint and nothing else: the whole paragraph is in the
+DOM and a screen reader reads every word of it. The gradient starts at 55%, so two of the
+three English lines stay at full strength and the third is what dissolves — the paragraph
+reads as interrupted rather than as a rendering fault. German sets four lines and the same
+fraction still leaves three of them whole.
+
+
+---
+
+## DECISION-042
+
+**Below `md` the mode switch is one on/off toggle, and the header is one row**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-043 |
+| Area | `components/ModeSwitch.tsx`, `components/Header.tsx` |
+| Supersedes | `MILESTONE-011` task 11, which gave the switch a second row |
+
+### The problem this has now been solved twice
+
+The wide switch is a segmented control: both destinations on screen, the current one filled.
+It wants about 200 x 46. A 360-pixel header bar holding a 148-pixel wordmark and a menu
+control has nowhere to put it, which is `ISSUE-016`: at 480px it overlapped the wordmark by
+34 pixels and at 520px by 14.
+
+`MILESTONE-011` solved that by **giving it a row of its own** and tightening both rows to 60
+and 53. That is 113 pixels of an 844-pixel phone spent before a word of the page, for one
+control, on every route.
+
+### What the owner asked for
+
+"A toggle with only a circle and, inside, at the side of the circle, the toggled status.
+Example would be those toggle buttons with on and off." Which is the switch every phone
+already has, and it fits in 115 x 40 — so the switch goes back into the first row, between
+an `AM` monogram (28px) and a hamburger (44px), with 86 pixels clear on each side. The
+second row is gone and the header is 61px below `md`.
+
+### Why it is one link and not two
+
+A switch shows one state, so there is only one thing on screen to click. The compact form is
+therefore **one link to the other mode, drawn showing the mode you are in**. That split is
+why it carries its own `aria-label` (`nav.switchToPlayground` / `nav.switchToPortfolio`): a
+link must announce where it goes, and what this link *says* is where you already are.
+
+`role="switch"` was considered and rejected. It describes a control that toggles state in
+place; this one navigates, and announcing "switch, off" for something that loads a different
+page is a worse lie than the one it repairs.
+
+The knob changes side with flex `order` rather than sliding along an absolute track. A slide
+would never be seen — the knob only moves because the route changed, and the page changes
+under it in the same frame — and a fixed-width track has to be wide enough for the longest
+label in every locale, a number that goes stale the first time somebody translates the word
+"Playground".
+
+### The wordmark
+
+`AM` below `md`, the full name from `md` up, both inside one `aria-label="Alexsha Maharjan"`
+so the link announces the same thing at every width. The full name is 148 of 360 pixels and
+it is the one piece of information on the page that the visitor already has: they are on the
+site.
+
+---
+
+## DECISION-043
+
+**The narrow-viewport menu is a drawer, dismissed by the page**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-043 |
+| Area | `components/MobileMenu.tsx` |
+
+Three changes, all the owner's, and all of them worth having:
+
+**A hamburger, not the word "Menu".** 44 pixels of a 360-pixel bar spent labelling a control
+that has had a universally understood glyph for fifteen years, and a string to translate. The
+button keeps its `aria-label`, so the word is still there for anyone who needs it.
+
+**A drawer, not a full-screen takeover.** The overlay covered the page and centred five links
+in the middle of it. There was then nothing to aim at to get back, which is why the only exit
+was the word "Close" where the hamburger had been. A drawer leaves the page beside it, and
+**the page becomes the way out**.
+
+**Clicking outside closes it**, and that is written as a real backdrop element rather than a
+`document` click listener. The listener version is the one that goes wrong: it fires on the
+same click that opened the drawer unless the handler is delayed or the event stopped, and it
+closes on a scrollbar click or a drag-selection that happens to end outside the panel. A
+backdrop can do neither. It is `aria-hidden`; the drawer is a `dialog` with Escape and a
+close button, so nobody is offered the backdrop as a control.
+
+Focus moves into the panel on open and back to the hamburger on close. It is **not trapped**:
+the drawer is a five-item list with a close button at the top, and a hand-maintained focus
+trap is a bigger liability than tabbing past the end of a list that Escape dismisses.
+
+The drawer also carries the two destinations the header bar cannot: the other mode, and the
+résumé.
+
+---
+
+## DECISION-044
+
+**The footer is the email address**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-043 |
+| Area | `components/Footer.tsx` |
+
+The old footer was a twelve-column grid — wordmark and tagline in seven, two stacks of links
+in five, a utility strip fourteen units below — which came to about 380 pixels on a desktop
+and roughly 520 stacked on a phone. The owner's two complaints, "too big" and "too plain",
+are one complaint: **a block with nothing in it that wants looking at has no reason to be
+tall.**
+
+So the height that went is the height that was empty, and the thing that fills what is left
+is the one thing a visitor at the bottom of a portfolio might actually want. The email
+address was set at 12px in a mono stack beside a LinkedIn URL; it is the largest type on the
+page now, on its own line, under one line of invitation. Everything else is navigation and is
+sized as navigation: one wrapped row, one rule, one utility strip carrying the language
+switch, Impressum, Datenschutz, the copyright and back-to-top.
+
+About 200 pixels, and nothing was cut: every destination the old footer reached is still
+there and two more have been added.
+
+The underline under the address is drawn, not declared. `text-decoration` under 44px type
+sits too close and too heavy, and a hand-drawn line is the site's own gesture anyway — it is
+what `About` puts under a word and what the playground's notes are made of. It grows to the
+full width of the address on hover, so the link still announces itself as one.
+
+The owner chose this over a compact single band and over a minimal one-line footer.
+
+---
+
+## DECISION-045
+
+**The phone gets the five process steps as cards, not as a column**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-043 |
+| Area | `components/process/BranchGroup.tsx`, `HeroProcess.tsx` |
+| Extends | `MILESTONE-011` task 10 |
+
+Below 880px there is no pinned map — `ISSUE-049` established that scaling a 1440 x 900 map
+onto a 390px phone draws 9px labels at four and a half — so the five steps are laid out the
+way a phone lays things out. `MILESTONE-011` made that a column with 48 pixels between the
+steps.
+
+On a black canvas 48 pixels of black is not a separation. The bottom of 02 ran into the top
+of 03 and the five steps read as one very long list of small pictures.
+
+Each step is a bordered card now, with its number in a chip and its own illustration
+wrapping inside it, and a dashed stroke between cards: what the map says with five
+connectors, the phone says with four ticks down the middle. The owner chose this over a
+playground-style scroll-revealed deck (which makes the homepage much longer on a phone and
+reads as five separate pages rather than one sequence) and over a tap-to-expand accordion
+(which hides the illustrations, and the illustrations are the point).
+
+Steps 03 and 04 lay their contents out as explicit rows for this, taking a `stacked` prop so
+a row pinned to its right edge inside the map starts at its left edge inside a card. See the
+note above `Cluster3`: a `w-full` child takes a line of its own by construction, where widths
+that happen to add up stop adding up the first time a German label gets longer.
+
+---
+
+## DECISION-046
+
+**`/impressum` and `/datenschutz` keep German paths in both locales**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-043 |
+| Area | `routes.tsx`, `pages/Legal.tsx`, `dictionaries/*.legal` |
+
+A portfolio published from Germany that solicits work needs an Impressum (§ 5 DDG) and a
+privacy notice (DSGVO), and the place both are looked for is the footer.
+
+**The paths are not translated.** "Impressum" and "Datenschutz" are the words a German
+visitor scans a footer for and the words an authority looks for in a URL; translating them on
+the English side would make the site harder to check compliance on, not easier. The headings
+and the prose are translated; the addresses are not.
+
+**One component renders both.** They are the same page — a title, a line of orientation, a
+date and a run of headed sections — and two components would be two places to fix a measure
+for no difference a reader could name. Neither is lazy-loaded: 4KB of strings linked from the
+footer of every page would cost more as a separate chunk behind a Suspense fallback than it
+saves.
+
+**The postal address ships as a visible placeholder.** `[ Street and number ]` /
+`[ Straße und Hausnummer ]`, stated once in `LegalCopy.address` and rendered into both pages.
+An Impressum with no address is not an Impressum, and the address is a fact only the owner
+has: it is not in the repository, it cannot be derived, and `DECISION-011` says never invent
+one to fill a gap. The brackets are deliberately conspicuous. **The site must not be deployed
+before they are replaced.**
+
+Writing the privacy notice honestly is what opened `ISSUE-055`: the site loads its typefaces
+from Google's CDN, so the notice has a "Typefaces" section disclosing an IP transfer that
+self-hosting would remove outright.
+
+
+---
+
+## DECISION-047
+
+**The playground's pictures live on the collage cards, and nowhere else**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-044 |
+| Area | `lib/playground/`, `components/playground/`, `scripts/` |
+| Supersedes | the data half of `DECISION-026` |
+
+### What was deleted
+
+`lib/playground/categories/` (five files and a registry), `PlaygroundItem`,
+`PlaygroundCategoryContent`, `PlaygroundCategoryLocaleContent`,
+`components/playground/Scrapbook.tsx`, `components/playground/Tile.tsx`, the
+`playgroundNav` dictionary block, `landmarks.categoryNav`, and seven fields of
+`playground/home.ts` that described layouts the page has not had for two sessions.
+
+### Why it had survived
+
+`DECISION-027` replaced the scrapbook with the deck of four collages. The category data was
+kept, and `PlaygroundIndex`'s own doc comment said why: *"It is no longer rendered ... but it
+is the only place the captions and the still-empty slots are written down, so it stays until
+something replaces it."*
+
+**That was not true**, and it was checkable in one file: `CollageSlot` carries
+`caption: Record<Locale, string>` and `alt: Record<Locale, string>`, so every picture on
+every card already had both, in both languages, next to its own coordinates. The categories
+were not the record of anything. They were 47 items of content that nothing rendered, that
+`content-audit.mjs` still spent a check on, and that `image-manifest.mjs` still counted as
+unfilled slots — which is why the playground read as 88% complete when it was finished.
+
+Worse, it was actively misleading: `MILESTONE-013`'s caption review was built against the
+category files, so the owner reviewed 47 strings of which only 31 corresponded to anything on
+screen, and 17 live pictures were not in the review at all.
+
+### What replaced the audit
+
+The check that went with the categories was `en`/`de` parity across their items. A collage
+slot holds both locales on one object and cannot drift apart, so parity-by-comparison is no
+longer a thing that can fail. What can fail is a locale being **empty** — the key is present
+and the string is `""`, which `tsc` accepts and which reaches the page as a blank heading
+over a picture, or a blank `alt`. That is what is checked now, along with the poster rule
+(kept, unchanged) and two new ones: a `film` with no `video` loop, and the same picture
+placed on two cards.
+
+### The consequence nobody asked for
+
+Three exports stopped being referenced by anything: `pg-gift-explosion.webp`,
+`pg-postcard-2.webp` and `pg-postcard-3.webp`, 148 KB of pictures that were only ever on
+category pages. They were removed from `public/images/` and from `image_crops.json`. **Their
+sources are untouched in `Images/`** — putting one back on a card is a slot and an
+`npm run images`, not a recovery.
+
+---
+
+## DECISION-048
+
+**The viewer steps through a card**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-044 |
+| Area | `components/ui/Lightbox.tsx`, `components/playground/Collage.tsx` |
+
+Opening a collage piece was a round trip: open, look, close, find the next one on a card of
+a dozen or fourteen, open that. The owner asked for next and previous.
+
+**`Lightbox` grows three optional props** — `onPrev`, `onNext`, `position` — and renders the
+edge buttons, the counter and the two arrow keys only when a handler is passed. The case
+studies pass none of them and get exactly what they had: a figure there belongs to a section,
+not to a gallery, and there is no obvious "next" for it to mean.
+
+**The caller owns the wrapping.** The dialog only ever says "the reader asked for the one
+after this"; whether that is the first one again is a fact about the set. `Collage` wraps,
+because a collage is a loop rather than a list — there is no first or last picture on a card,
+only the one you started at.
+
+**`Collage` holds an index now, not a slot.** Both of its layouts map over the same `slots`
+array, so one index means the same picture in the design and in the masonry.
+
+Three details that are not obvious:
+
+- **The zoom resets on a step.** Carrying "actual size" across means the next picture opens
+  scrolled into the middle of itself at a magnification chosen for a different image.
+- **The steppers sit on the dialog, not in the scroll container**, so they stay put while a
+  picture pans under them — and so that a click on one is never read as a backdrop click,
+  which with `zoomable={false}` would close the dialog instead of stepping.
+- **A button with nowhere to go is not rendered**, rather than disabled. A disabled control
+  still takes a tab stop and still invites a click.
+
+The focus trap was two elements and is now built from whatever rendered. The `<video>` had to
+be given a `tabIndex` to be in that list at all: Tab used to reach a film's controls by
+falling out of a trap that was too short to engage, which happened to work and was not a
+design.
+
+---
+
+## DECISION-049
+
+**The cursor tag is painted in its card's colour**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-044 |
+| Area | `components/playground/Collage.tsx` |
+
+Hovering a picture names it beside the cursor. That tag was `bg-ink`, the site's near-black,
+on all four cards — and it was the last mark belonging to a card that was not in the card's
+own colour. The arrows, the notes, the index and the ruling all arrive at `card.accent` as
+the card takes its colour back; the owner asked for the tag to do the same.
+
+`Collage` takes `accent` as a prop rather than reading a CSS variable, because the tag is
+portalled to `document.body` and inherits nothing from the card.
+
+**Mixed 12% towards the ink rather than used neat**, for one card: card 1's orange
+(`#D65A18`) is 3.9:1 against white, under AA for 12.5px text; 88% of it is 4.8:1. The other
+three are 5.3:1 or better neat and lose nothing visible. One rule rather than a per-card
+exception, so that a fifth card cannot arrive with an illegible tag.
+
+Written as a flat `linear-gradient` over `backgroundColor` rather than as `color-mix`, so the
+two declarations cannot be reordered into the `background` shorthand resetting the overlay.
+
+---
+
+## DECISION-050
+
+**An export is checked by re-deriving it, not by its timestamp**
+
+| | |
+| --- | --- |
+| Status | **Active** |
+| Date | SESSION-044 |
+| Area | image pipeline |
+| Supersedes | the mtime comparison `MILESTONE-013` used |
+
+`MILESTONE-013` checked whether an export was current by comparing the modification time of
+its source against the modification time of the export. `ISSUE-057` is what that misses: six
+sources had been re-cropped and carried timestamps older than exports made from their earlier
+contents, so the check reported everything current while the site shipped the old pictures.
+
+The check is now: **re-export every entry in `image_crops.json` and diff the bytes.**
+
+It works because `image-treat.mjs` is deterministic — same source, same crop, same Chrome,
+same bytes. Of 131 entries re-exported, 114 came out byte-identical and 17 did not, and the
+seventeen were exactly the sources that had changed. There are no false positives to sift.
+
+Do **not** use the sampled mat colour as the detector. It moved materially on four of the six
+and imperceptibly on the other two: it is a symptom of a changed picture, not the evidence.
+
+The cost is a couple of minutes of Chrome and a working tree full of identical files, so it
+is a thing to run when an export is in question rather than on every build — and after
+running it, keep only the files that actually differ.

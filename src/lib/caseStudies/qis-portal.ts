@@ -204,9 +204,24 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "16/9", caption: "[ new dashboard — large showcase ]" },
-              { aspect: "16/10", caption: "[ mobile redesign ]" },
-              { aspect: "16/10", caption: "[ before / after ]" },
+              {
+                aspect: "1900/1636",
+                caption: "The sixteen final screens",
+                src: "/images/qis-final-screens.webp",
+                alt: "A board of the sixteen final QIS Portal screens, from login and dashboard through exam registration, the grade list and account settings",
+              },
+              {
+                aspect: "1600/1655",
+                caption: "The design system behind them",
+                src: "/images/qis-design-system.webp",
+                alt: "The design system: brand, neutral and status colour tokens, a twelve-step Inter type scale, buttons, inputs, status pills, accordions, menus, notifications and dialogs",
+              },
+              {
+                aspect: "1900/1045",
+                caption: "Exam registration, state by state",
+                src: "/images/qis-interaction-flow.webp",
+                alt: "The exam registration flow across five states, from not registered through the confirmation dialog to deregistered, with the accordion, navigation and button states below it",
+              },
             ],
           },
         ],
@@ -438,9 +453,24 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "16/9", caption: "[ new dashboard — large showcase ]" },
-              { aspect: "16/10", caption: "[ mobile redesign ]" },
-              { aspect: "16/10", caption: "[ before / after ]" },
+              {
+                aspect: "1900/1636",
+                caption: "Die sechzehn finalen Screens",
+                src: "/images/qis-final-screens.webp",
+                alt: "Ein Board der sechzehn finalen Screens des QIS-Portals, von Login und Startseite über die Prüfungsanmeldung bis zu Notenspiegel und Kontoeinstellungen",
+              },
+              {
+                aspect: "1600/1655",
+                caption: "Das Designsystem dahinter",
+                src: "/images/qis-design-system.webp",
+                alt: "Das Designsystem: Marken-, Neutral- und Status-Farbtokens, eine zwölfstufige Inter-Typoskala, Buttons, Eingaben, Status-Pills, Akkordeons, Menüs, Benachrichtigungen und Dialoge",
+              },
+              {
+                aspect: "1900/1045",
+                caption: "Prüfungsanmeldung, Zustand für Zustand",
+                src: "/images/qis-interaction-flow.webp",
+                alt: "Der Ablauf der Prüfungsanmeldung über fünf Zustände, von nicht angemeldet über den Bestätigungsdialog bis abgemeldet, darunter die Zustände von Akkordeon, Navigation und Buttons",
+              },
             ],
           },
         ],

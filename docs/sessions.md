@@ -48,6 +48,10 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-038 | 2026-09-10 | Notes name their picture instead of their position (`placeScribbles.ts`); white cards on a dotted page; `content-audit` learns to check note targets; **`docs/` consolidated from 159 files to 16** and `MILESTONE-010` written from the owner's fifteen-item list |
 | SESSION-039 | 2026-09-10 | `MILESTONE-010`: the eleven tasks that needed nobody, leaving only the four owner gates. Hero split into title and description; the About page rewritten and its portrait made real after being a solid-black stand-in the whole time; WikiMind's sketches become a bento (`DECISION-032`); nine playground changes; three spacing classes that produced no CSS at all (`ISSUE-047`) |
 | SESSION-040 | 2026-09-11 | The owner answered all four gates and **`MILESTONE-010` closed**. Hero title becomes their name; `[ N ]` becomes 6,570 km; the case-study figure hover removed outright; the playground's arrows routed so they stop crossing pictures, worst 394 → **16 CSS px**, and the build measures it (`DECISION-033`); the process question solved onto one line and the map regularised around it (`DECISION-034`); the clips measured (**no playback bug**) and the whole films shipped on demand at no cost to page weight (`DECISION-030`) |
+| SESSION-041 | 2026-09-11 | MILESTONE-011 | The owner's fourteen: the process canvas re-banded, the playground's arrows straightened, one hero for both modes, a two-page résumé | Complete |
+| SESSION-042 | 2026-09-11 | MILESTONE-012 | A brief that arrived as a drawing: the Figma's arrows and note corners, the map's L-shaped bottom row, the hero's pill moved to the playground | Complete |
+| SESSION-043 | 2026-09-11 | MILESTONE-013 | The owner's ten: the Figma process redesign implemented, the arrowhead defect, a phone header that is one row again, the footer rebuilt around the email address, Impressum and Datenschutz | Complete bar the captions |
+| SESSION-044 | 2026-09-11 | MILESTONE-014 | The owner's captions applied to the right file, the playground's category data deleted, a stepping image viewer, the card-coloured hover tag, the footer put back | Complete |
 
 ### Conventions
 
@@ -1303,3 +1307,380 @@ Four things this session that a screenshot would have got wrong:
 Corporate Design"). Only one was in prose, a playground note reading "perfume — flat, then
 folded", and that one is now a colon. **Whether the site rule means the separators too is the
 owner's call**, and it is not one of the fifteen tasks, so nothing else was touched.
+
+---
+
+## SESSION-041 — 2026-09-11 — MILESTONE-011
+
+Fourteen numbered requests from the owner. Eleven were what they said on the tin. Three were
+sitting on defects, and finding those is most of what this session was.
+
+### The three that were not preferences
+
+**"Step 5 appears too quickly" was a clipping bug.** The five clusters were revealed by
+`smoothstep(p, 0.68 + i * 0.055, 0.8 + i * 0.055)`, which for `i = 4` is **0.90 to 1.02** on a
+track where `p` stops at 1. Cluster 05 could reach 93% and no further. It never looked like it
+was still moving because `INTERACTIVE_ON` fired at 0.90 — the same instant 05 began — and that
+writes every cluster to full opacity. So 05 was not revealed at all; it was switched on, in
+one frame, at the point the other four finished. The schedule is named constants now and
+`STEPS_DONE` is **derived** from them, so the threshold cannot drift back over the sequence
+(`ISSUE-048`).
+
+**"Remove the looped arrows" exposed a cliff in the seat search.** Both seat sources were
+all-or-nothing — a perfectly clear seat was a candidate and everything else was discarded
+behind a single least-bad fallback chosen on overlap alone. Measured at two stage widths 22px
+apart:
+
+| stage | card-1 calendar note | reach | arrow over other pictures |
+| --- | --- | --- | --- |
+| 1278px | beside its picture | 1,579 | 0px |
+| 1256px | opposite corner of the card | 8,900 | **234px** |
+
+Seats are priced now rather than filtered (`DECISION-036`). Worst crossing across ten stage
+widths: 234px → 5px.
+
+**The responsive review's find was the mobile process map** (`ISSUE-049`). It was drawn by
+scaling the 1440 × 900 map by `max(0.5, min(W/1440, H/900))`, and the `0.5` floor means that
+below a 720px window the map is wider than the window. On a 390px phone clusters 02 and 04
+were entirely off-screen and everything else was at half size. Replaced with a stacked column
+at full size, which also retires the connectors-pointing-at-nothing wart that
+`next_session.md` had been carrying.
+
+### The audit was green on a width that cannot occur
+
+`ISSUE-043` ended with `content-audit.mjs` measuring arrow crossings at five stage widths:
+1440, 1280, 1100, 1000, 900. **The stage is never as wide as the window.** A 1440px window
+gives a 1,256px stage; a 1920px window gives 1,278. So 1440 tested a layout that cannot exist
+and nothing tested the one nearly every desktop gets — which was the broken one. The widths
+are swept now, 860 to 1320 in 20px steps: 96 card layouts, about a second (`ISSUE-051`).
+
+This is the second time on this file that a hand-picked sample hid a real defect. The first
+was "1280 alone", in SESSION-040's own notes.
+
+### One mistake worth recording
+
+The first cut of `seatCost` reused `penaltyOf`, whose return value is **an area divided by a
+thousand** plus an off-frame term. Dividing that by the note's area gave overlap shares around
+0.001 where the arithmetic wanted 0.4, so the overlap penalty evaluated to roughly nothing and
+**every note was placed on top of the picture it was about**. Caught by looking at the card,
+not by the audit — the audit measures arrows, not notes.
+
+### What the owner decided
+
+Three questions were put before any code was written, because all three had answers that
+changed what got built:
+
+1. **Steps 1 and 2 cannot be one row on the old map** — they need 580 and 578 units and had
+   415. The owner chose to re-band the canvas rather than shrink the panels (`DECISION-035`).
+2. **There is no second still-life photograph in the repository.** The owner chose to leave
+   task 7's extra picture out rather than reuse one or ship a broken slot.
+3. **Full films cost 1.7 MB → 15.5 MB.** The owner chose the films (`DECISION-038`).
+
+### Measured rather than assumed
+
+- **The résumé prints on two pages**, in both locales, by `Page.printToPDF` against the
+  build — 3 pages before. SESSION-040 recorded that it "still prints to three pages"; what
+  changed is that only spacing was cut and no type size moved. 2,417px of content → 1,905px
+  against a 1,032px page, with the 0.15 of a page left over as headroom for
+  `break-inside: avoid`.
+- **The two modes' first screens are identical to the pixel** at 1440 in both locales:
+  section, container, eyebrow, heading, subheading and tag line.
+- **All five playground clips autoplay their full film**, muted and looping: 25s, 63s, 23s,
+  142s, 48s, against eight-second cuts.
+- **Every footer link was followed from `/about`** and its landing verified, hashes included.
+- **No horizontal overflow** on five routes at ten widths from 1920 to 320.
+- `axe`: 0 violations. Images: 414 across 22 routes at 1x, 2x and 3x, none broken.
+
+### A trap in this session's own tooling
+
+Two verify checks "cannot share one browser" — the file says so at the top. There is a second
+version of that: `Emulation.setEmulatedMedia` **persists on the target**, so a print-layout
+measurement left the shared Chrome in print media and the next `a11y` run reported six
+violations that were not there — missing landmarks and contrast failures that are exactly what
+the print stylesheet is supposed to produce. Confirmed by rebuilding the baseline, finding it
+green, and re-running the branch from a clean emulation state: also green. **Reset emulated
+media after using it, or read the next run's failures as your own.**
+
+
+---
+
+<a id="session-042"></a>
+
+### SESSION-042 — A brief that arrived as a drawing
+
+Date: 2026-09-11
+Objective: `MILESTONE-012` — the owner's third pass
+Decisions: `DECISION-039`, `DECISION-040`, `DECISION-041`
+Opens: `ISSUE-053`
+Amends: `DECISION-036` (the arrow's shape), `MILESTONE-011` task 13 (the About pill)
+
+#### What the owner asked
+
+> "GO TO portfolio figma file, page 2, there i have added arrows and texts to the frames, try
+> to see what i did there, the type of arrows i used, placements and all. ignore the style or
+> size of the figma arrows and text. they are supposed to be guide lines bacause i already
+> like the style and text in the current website. i just want you to see the positions and
+> type of arrow and make it like that.
+> in the process card, i want the step 2 and 4 to be right aligned. also, the 3 and 4 steps
+> should be L shaped. 2 should be l shaped and 4 should mirror L so that they go abit up to
+> compensate the space after 1 and 2.
+> in the hero page, i also want button for playground and not for about. for about, you can
+> fade the text out in the end so that user wants to click to more to go to about page.
+> do all these and update docs also."
+
+#### Finding the file
+
+**The repository does not record the Figma URL anywhere** — not in `docs/`, not in
+`CONTENT_GUIDE.md`, not in a comment. `collage.ts` says "traced from `Portfolio.fig`, page 2,
+frames 1–4" and gives no key.
+
+Two attempts to recover it from the machine were **correctly refused** by the permission
+layer: reading Chrome's history database, and grepping Figma's own Local Storage. Both are a
+long way outside the working directory and neither is something to do without being asked.
+
+It was found in this project's own Claude Code transcripts, where the owner had pasted it in
+SESSION-035: `XbDJCMe6BplwiwcfbVqxSn`. **It is now recorded in
+[`reference/figma.md`](reference/figma.md)** so the next session does not repeat this.
+
+One wrong turn worth recording: `get_metadata` with no `nodeId` lists "Page 1" only, which
+looks like a single-page file. Page 2 is reachable by its own id (`1:3`) and the page listing
+simply does not show it.
+
+#### Reading a specification that was drawn
+
+Page 2 carries **ten blue arrows and ten "example text" boxes** over the four collage frames.
+They agree with each other closely enough to be read as a spec — one arc shape, always in the
+card's outer margin, text outermost, nine of ten in a corner — and `DECISION-039` records what
+was taken from them.
+
+**Two things in the brief could not be resolved by reading, and both were asked before any
+code was written.** This was the right call twice over:
+
+1. "the 3 and 4 steps should be L shaped" and "2 should be l shaped and 4 should mirror L"
+   name different pairs. The owner chose **3 and 4**. Had it been guessed as 2 and 4 — which
+   is what "2 and 4 right aligned" suggests — the whole of `DECISION-040` would have been
+   built on the wrong row.
+2. **Every arrow in the Figma points at the text.** The site points at the picture. The owner
+   confirmed the Figma arrows are instructions to the reader of the file, not a spec for
+   which end the head goes on. Copying them literally would have inverted all eleven arrows
+   on the playground.
+
+#### What was built
+
+**The process map** (`DECISION-040`). 03 and 04 became L-shaped elbows lying in the band that
+`DECISION-035`'s one-row top opened; 02 and 04 hang their contents from their right edge, and
+needed no new coordinates because all four landing points were already 287 units in from their
+own cluster's outer edge.
+
+**The playground** (`DECISION-039`). `scoreArrow`'s middle term now measures distance from a
+0.28 bow instead of distance from straight; all eleven notes carry the corner the owner drew;
+card 3 gained the third note its frame has.
+
+**The homepage** (`DECISION-041`). The pill moved to the playground, About's copy became real
+biography and fades out under a `mask-image`, and the "→" moved from the playground string to
+the About one.
+
+#### What the session did not expect to find
+
+**The arrows had been too short to be arrows, and had been for three sessions.** 127 of 264
+placements under 34 CSS px; one at 0.3px. It is `ISSUE-053`, it is mostly fixed, and the
+lesson is in how it survived: `content-audit` checked that an arrow does not cross a picture
+and does not leave the card, and **a two-pixel arrow does neither**. A check written against
+one failure mode says nothing about the others.
+
+Four separate faults, found by sweeping every stage width rather than by looking:
+
+1. `crampedBy` measured the gap between two **rectangles**. The arrow is drawn from a point on
+   the note's facing edge to a point just outside the picture, and for a diagonal seat those
+   are a small fraction of the corner-to-corner distance apart. A seat could clear the test
+   comfortably and draw four pixels of ink.
+2. **Ring seats that fell off the card were priced out rather than slid back on.** Card 4's
+   pyramid is 1,146 units from the top of the frame, so every one of its "above and right"
+   seats was outside it, and the note fell back to a seat 24 units from its own picture — with
+   the arrowhead drawn *inside the note*, pointing away from the thing it names.
+3. **The `farness` knee was too tight** for a note to stand back far enough to draw a visible
+   arrow. The owner's own annotations sit out at the margin with 1,600 units behind them.
+4. **The note is fixed-size type over a card that is not.** Three lines of 22px Caveat cover
+   nearly twice the share of a 900px stage that they cover on a 1,300px one, which is why
+   every failure was below about 1,100px and none above it.
+
+#### Measured rather than assumed
+
+- **Arrow length across all 88 card layouts**: median 36px → 88px, sub-34px cases 127 → 41,
+  worst 0.3px → 13px. Nine remain under 24px (`ISSUE-053`).
+- **Note corners**: ten of eleven notes hold the corner the owner drew at 22 or more of the 22
+  stage widths swept; the eleventh holds it at 18.
+- **No arrow crosses another picture by more than 40 CSS px** at any width — the worst graze
+  is 6px — and none leaves the card. Both were re-checked after every parameter change,
+  because every setting that lengthens an arrow also tempts it across a photograph.
+- **The three surfaces were screenshotted in Chrome against the production build**, not
+  reasoned about: the pinned process map at 1440×900, the About section, and all four collage
+  cards, plus the deck at a 1120px window to see the narrow-card behaviour.
+- `tsc`, `eslint` (4 pre-existing warnings, 0 errors), `npm run audit` and `npm run build` all
+  green.
+
+#### A note on the tuning
+
+`placeScribbles` is a scoring function with about eight constants in it, and four of them
+moved this session. **None was moved by feeling.** Each change was swept across all 22 stage
+widths and four cards and scored on four numbers at once — shortest arrow, count under 34px,
+corner misses, and worst crossing — because every one of those constants trades against the
+others, and three earlier sessions had each fixed one of them by making another worse. The
+sweep scripts were temporary and are not in the repository; the numbers they produced are in
+`MILESTONE-012` and `ISSUE-053`.
+
+
+---
+
+## SESSION-043
+
+**2026-09-11 · `MILESTONE-013` · the owner's fourth pass**
+
+Ten numbered requests, one of which arrived as a redesigned Figma frame and one of which
+arrived as a screenshot that did not come through.
+
+### The screenshot that was not there
+
+Task 1 said "see the screenshot provided" and no image was attached. The description was
+precise enough to work from — *"the lines are rotated but the arrow head are not rotated
+which causes overlapping of the line with the side of the arrowhead"* — but precise is not
+the same as diagnosed, so the session built the site, drove headless Chrome at it, and
+cropped card 1's "my own task app" arrow at 4x.
+
+The owner was describing the symptom exactly. The head sat 17 degrees off the line, because
+it was built on the cubic's tangent at `t = 1` and the head is 26 pixels long, over which a
+bowed arc has already turned away from that tangent. `ISSUE-054` has the arithmetic. The fix
+aims the head at the chord the ink actually draws over the head's own length, which is a
+lookup into the flattened stroke the clearance test already builds.
+
+**Lesson worth keeping**: the comment above the broken line was *right* — "the head sits on
+the curve's own tangent, not on the straight line, or it points somewhere the pen never
+went". The reasoning was sound and the length scale was wrong. A tangent is the direction of
+a curve at a point; a 26-pixel head needs the direction of the curve over 26 pixels.
+
+### Reading a redesign instead of a brief
+
+The `Process` frame (`310:736`, page 2) is 1512 x 868 and the map in code is 1440 x 900, so
+nothing in it could be copied as a coordinate. Everything was read as a fraction of the
+frame. `reference/figma.md` now records the node id and that conversion, because this will
+happen again.
+
+The thing that would have been got wrong by reasoning: **the four connectors are short and
+stop in open black, nowhere near the clusters they point at.** A stroke that reaches the
+thing it connects to is the obvious drawing, and it is not the one in the file. They are a
+gesture towards a cluster, not a wire to it, which is why four identical strokes can serve
+four differently-sized clusters.
+
+The redesign also turned out to contain a genuine content edit, not only a rearrangement:
+step 02's dark panels were relabelled from artefact names ("Problem framed", "Success looks
+like") to questions, matching what every other step's heading already does, and the last of
+them is filled cobalt.
+
+### Four questions asked up front
+
+Mobile process treatment, footer direction, how to handle the legal pages, and how to run the
+caption review. All four changed what got built, and three of them the owner had explicitly
+asked for a recommendation on. The answers: step cards, the big-type email footer, build both
+legal pages with the address as a placeholder, and an editable review page.
+
+### Things found while doing the work
+
+- **`ISSUE-055`**, and it is the most important thing in this session. Writing an honest
+  Datenschutzerklärung meant writing down what actually happens on a page load, and what
+  happens is that `index.html` fetches Inter and Caveat from Google's CDN. Every visitor's IP
+  reaches Google before they have been asked anything. For a site published from Germany that
+  is the *München* Google Fonts exposure. The notice discloses it; self-hosting would remove
+  it.
+- **`ISSUE-056`.** `Images/Afono/MarketCompetitorAnalysis.png` arrived at 09:23 today and its
+  name matches the AFONO case study's one empty figure slot exactly. It is blank: 17.8 KB for
+  2,252 x 1,602 with an alpha channel and nothing drawn in it. It was exported and wired in
+  before that was noticed, then backed out.
+- **Ten image sources had been edited since their last export** — the whole `kalender` series
+  and the Surugami hero. Found by comparing source mtimes against export mtimes through
+  `image_crops.json`, which is a check worth having as a script one day.
+- **The prerender route list is hand-written.** Adding two routes to `routes.tsx` put them in
+  the app and left them out of `sitemap.xml`. Caught by reading the sitemap the image
+  verification prints.
+
+### What the owner still has
+
+The caption review page, the Impressum address, `ISSUE-055`, and a re-export of the AFONO
+market analysis. All four are in `next_session.md`.
+
+
+---
+
+## SESSION-044
+
+**2026-09-11 · `MILESTONE-014` · the owner's fifth pass**
+
+Six requests. Two of them corrected work from the session before, and one of those
+corrections mattered more than everything else in the list.
+
+### The caption review had been built against the wrong file
+
+The owner reviewed 47 captions and then said: *"i see that you are still categorizing the
+images and all acording to categories in playground but categories is not needed anymore,
+right now its categorized based on cards."*
+
+That is the whole finding. `lib/playground/categories/` held 47 items in two locales and
+**nothing had rendered them since `DECISION-027`**, three sessions earlier. The pictures the
+playground actually shows are slots on four collage cards, and every slot already carried its
+own caption and alt text in both languages.
+
+SESSION-043 built the review page from the categories because `PlaygroundIndex`'s own doc
+comment said they were "the only place the captions ... are written down" — a claim that was
+in the repository, was load-bearing, and was false. The cost: of the 47 rows the owner filled
+in, 31 described a picture that is on a card, 16 described nothing, and **17 live pictures
+were never shown to them at all.**
+
+The lesson is not "read more carefully". It is that a comment asserting why dead code is
+alive is exactly the kind of claim to check against the code, because it is the kind that
+stops being true silently. `CollageSlot` had `caption: Record<Locale, string>` on it the
+whole time.
+
+So: the 34 edited rows were mapped onto their slots by `src`, written up, translated, and the
+17 the review had missed were written too. Then the categories went, with `PlaygroundItem`,
+`Scrapbook`, `Tile`, `playgroundNav`, `landmarks.categoryNav` and seven unused fields of
+`home.ts` (`DECISION-047`).
+
+### The staleness check was measuring the wrong thing
+
+SESSION-043 also built a check for "which image sources have been edited since their export"
+by comparing modification times, ran it, re-exported ten, and said everything else was
+current. The owner said it was not.
+
+Re-running it found nothing, so the check was wrong rather than the report. An mtime
+comparison answers *was this written after that*; it was being used to answer *does this
+still represent that*. Six sources had been re-cropped and carried timestamps older than
+exports made from their earlier contents.
+
+What found them: re-export all 131 entries and diff the bytes. `image-treat.mjs` turns out to
+be **deterministic** — 114 came back byte-identical, 17 did not, and the seventeen were
+exactly right. `ISSUE-057`, `DECISION-050`.
+
+Worth noting that an earlier session had concluded the exporter was *not* deterministic, from
+a single hash comparison against a file committed long before. One sample, wrong conclusion,
+and it is the conclusion that made the mtime check look like the only option available.
+
+### Three checks in a row that measured something adjacent
+
+`ISSUE-051` sampled a stage width the site cannot produce. `ISSUE-054` built an arrowhead on
+a direction the visible ink does not have. `ISSUE-057` measured when a file was written
+instead of what is in it. All three passed, all three were about the right subject, and none
+of them was measuring the thing it was for.
+
+### The blank file, for the third time
+
+`Images/Afono/Market.png` is byte-identical to the `MarketCompetitorAnalysis.png` that
+`ISSUE-056` reported blank — same SHA-256. This time it was decoded to a canvas and counted
+rather than looked at, because "it looks white" cannot distinguish a blank image from white
+artwork on a transparent ground: all 3,607,704 pixels are opaque pure white. It is the third
+blank export from the same source document (`ISSUE-038` part 3 is the first). `ISSUE-058`.
+
+### And the footer
+
+The big-type email footer was the owner's pick from three options I offered a session ago,
+and offering it was the mistake. A 27-character Gmail address at 44px is not a wordmark. It
+is conventional again, and still 140px shorter than the one `MILESTONE-013` was asked to
+shrink.

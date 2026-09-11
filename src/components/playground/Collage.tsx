@@ -13,7 +13,7 @@ import LoopVideo from "@/components/ui/LoopVideo";
 import Scribble, { ScribbleArrow } from "@/components/playground/Scribble";
 import type { Locale } from "@/lib/i18n";
 import { FRAME_H, FRAME_W, type CollageScribble, type CollageSlot } from "@/lib/playground/collage";
-import { placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/playground/placeScribbles";
+import { notePx, placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/playground/placeScribbles";
 
 /**
  * One card's worth of the playground collage (`SESSION-035`).
@@ -90,8 +90,27 @@ function revealOrder(count: number): number[] {
 function Picture({ slot, locale, paused }: { slot: CollageSlot; locale: Locale; paused: boolean }) {
   const alt = slot.alt[locale];
   const sizes = slotSizes(slot);
-  if (slot.video) {
-    return <LoopVideo src={slot.video} poster={slot.src} alt={alt} sizes={sizes} paused={paused} />;
+  /*
+   * The card plays the **whole film**, first frame to last, on a loop
+   * (`MILESTONE-011` task 14).
+   *
+   * It played `video` — an eight-second cut — and the whole thing was behind a
+   * click, in the viewer. The owner asked for the complete piece playing in
+   * place, with no cuts and no click, so `film` is what the card gets and
+   * `video` is the fallback for a slot that has no film.
+   *
+   * **This is a deliberate reversal of `DECISION-030` and it is not free**: the
+   * five clips weigh 1.7 MB as cuts and 15.5 MB as films, and
+   * `pg-gift-riona-full.mp4` is 9.1 MB of that on its own. What keeps it from
+   * being 15.5 MB of page load is `LoopVideo` itself — no `<video>` element
+   * exists until the card is on screen, and none of them are fetched at all
+   * under `prefers-reduced-motion`. The cuts are kept in `public/videos` and in
+   * the data precisely so this can be reverted in one word if the weight turns
+   * out to matter more than the whole film does.
+   */
+  const clip = slot.film ?? slot.video;
+  if (clip) {
+    return <LoopVideo src={clip} poster={slot.src} alt={alt} sizes={sizes} paused={paused} />;
   }
   /*
    * The crop is steered by a custom property rather than by a generated class:
@@ -156,13 +175,27 @@ export default function Collage({
   scribbles,
   locale,
   paused,
+  accent,
 }: {
   slots: CollageSlot[];
   scribbles: CollageScribble[];
   locale: Locale;
   paused: boolean;
+  /**
+   * The card's own colour, the one its arrows and its ruling arrive at
+   * (`CollageCard.accent`). The cursor tag is painted in it
+   * (`MILESTONE-014` task 5).
+   */
+  accent: string;
 }) {
-  const [open, setOpen] = useState<CollageSlot | null>(null);
+  /*
+   * **An index, not a slot** (`MILESTONE-014` task 3). The viewer steps through
+   * the card now, so what is open has to be a position in a sequence rather
+   * than the object at it. Both layouts map over this same `slots` array, so
+   * one index means the same picture in the design and in the masonry.
+   */
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const open = openIndex === null ? null : slots[openIndex] ?? null;
   /*
    * `Lightbox` returns focus to whatever opened it only if the caller says
    * where that was — it cannot know, and each slot appears in both layouts.
@@ -243,13 +276,27 @@ export default function Collage({
 
   const openSlot = (slot: CollageSlot, trigger: HTMLButtonElement) => {
     triggerRef.current = trigger;
-    setOpen(slot);
+    setOpenIndex(slots.indexOf(slot));
   };
 
   const close = () => {
-    setOpen(null);
+    setOpenIndex(null);
     triggerRef.current?.focus();
     triggerRef.current = null;
+  };
+
+  /*
+   * Stepping wraps, because a collage is a loop and not a list: there is no
+   * first or last picture on a card, only the one you started at. The cursor
+   * tag is dismissed on the way, since the pointer has not moved and the tag
+   * would otherwise still be naming the piece you just stepped away from.
+   */
+  const step = (delta: number) => {
+    setOpenIndex((current) => {
+      if (current === null) return current;
+      return (current + delta + slots.length) % slots.length;
+    });
+    setTag(null);
   };
 
   return (
@@ -259,7 +306,20 @@ export default function Collage({
         <div
           ref={stageRef}
           className="relative w-full"
-          style={{ width: `min(100cqw, ${(FRAME_W / FRAME_H) * 100}cqh)`, aspectRatio: `${FRAME_W} / ${FRAME_H}` }}
+          /*
+            `--pg-note-px` is the note's type size, and it comes from the same
+            `notePx` the placement sized its collision boxes with. `Scribble`
+            reads it. Two sources for one number is how `ISSUE-043` happened:
+            the notes were measured at one size and drawn at another, so every
+            narrow card collision-tested a box smaller than its own ink.
+          */
+          style={
+            {
+              width: `min(100cqw, ${(FRAME_W / FRAME_H) * 100}cqh)`,
+              aspectRatio: `${FRAME_W} / ${FRAME_H}`,
+              "--pg-note-px": `${notePx(unitsPerPx).toFixed(2)}px`,
+            } as CSSProperties
+          }
         >
           {slots.map((slot, i) => {
             const style = { "--focus": slot.focus } as CSSProperties;
@@ -351,21 +411,20 @@ export default function Collage({
         row can run past the bottom edge — the fade turns that overflow into an
         ending rather than a cut.
       */}
+      {/*
+        **No notes and no arrows on a phone** (`MILESTONE-013` task 5).
+
+        The card used to keep its first note here, in the strip beside the
+        index, on the argument that the owner's voice should survive the layout
+        change even when the leader line could not. The owner's instruction is
+        that neither should: the masonry is a dense contact sheet of about a
+        dozen pieces at phone width, and a line of handwriting laid over the top
+        of it is one more thing in a frame that has no clear space left in it.
+        The arrows were already gone — the SVG is inside `.collage-design`,
+        which the container query switches off below 5/4 — so this is the half
+        that was left.
+      */}
       <div className="collage-masonry relative h-full overflow-hidden px-3 pt-[68px]">
-        {/*
-          A note reaches a phone too, but without its arrow. The masonry is a
-          dense contact sheet with no clear space to point across, so the card's
-          first note sits in the strip beside the index instead — the owner's
-          voice survives the layout change, the leader line does not.
-        */}
-        {scribbles[0] ? (
-          <span
-            aria-hidden="true"
-            className="pg-tint absolute left-16 top-4 z-[5] whitespace-pre-line font-hand text-[19px] font-bold leading-[1.05] [transform:rotate(-3deg)]"
-          >
-            {scribbles[0].text[locale]}
-          </span>
-        ) : null}
         <div className="collage-columns gap-1.5 [column-fill:balance]">
           {slots.map((slot, i) => {
             const style = { "--focus": slot.focus } as CSSProperties;
@@ -399,15 +458,36 @@ export default function Collage({
         <div
           ref={tagRef}
           aria-hidden="true"
-          className="pg-cursor-tag whitespace-nowrap rounded-full bg-ink px-3.5 py-2 text-[12.5px] font-medium leading-none text-white shadow-[0_8px_24px_rgba(10,16,36,0.34)] transition-opacity duration-150"
-          style={{ opacity: tag ? 1 : 0 }}
+          /*
+           * The card's own colour, not the site's ink (`MILESTONE-014` task 5).
+           * The tag names a picture on a particular card, and every other mark
+           * that belongs to a card — its arrows, its notes, its index, its
+           * ruling — arrives at that card's accent. The tag was the one thing
+           * left in the site's near-black.
+           *
+           * Mixed 12% towards the ink rather than used neat, for one card:
+           * card 1's orange is 3.9:1 against white, which is under AA for
+           * 12.5px text, and 88% of it is 4.8:1. The other three are 5.3:1 or
+           * better neat and lose nothing they can be seen to lose. One rule
+           * rather than a per-card exception, so a fifth card cannot arrive
+           * with an illegible tag.
+           */
+          className="pg-cursor-tag whitespace-nowrap rounded-full px-3.5 py-2 text-[12.5px] font-medium leading-none text-white shadow-[0_8px_24px_rgba(10,16,36,0.34)] transition-opacity duration-150"
+          style={{
+            opacity: tag ? 1 : 0,
+            backgroundColor: accent,
+            // A flat 12% of ink over the colour. Written as a gradient rather
+            // than as `color-mix` so the two declarations cannot be reordered
+            // into the shorthand resetting the overlay.
+            backgroundImage: "linear-gradient(rgba(10,10,12,0.12), rgba(10,10,12,0.12))",
+          }}
         >
           {tag}
         </div>,
         document.body,
       )}
 
-      {open ? (
+      {open && openIndex !== null ? (
         <Lightbox
           src={open.src}
           video={open.film ?? open.video}
@@ -416,6 +496,9 @@ export default function Collage({
           caption={open.caption[locale]}
           description={open.alt[locale]}
           zoomable={false}
+          position={[openIndex + 1, slots.length]}
+          onPrev={slots.length > 1 ? () => step(-1) : undefined}
+          onNext={slots.length > 1 ? () => step(1) : undefined}
           onClose={close}
         />
       ) : null}
