@@ -128,7 +128,7 @@ async function checkRoutes() {
 // ---------------------------------------------------------------- images
 async function checkImages(dpr) {
   const paths = routes();
-  let seen = 0, broken = 0, noAlt = 0, placeholder = 0, failedReqs = 0;
+  let seen = 0, broken = 0, noAlt = 0, decorative = 0, placeholder = 0, failedReqs = 0;
   const perRoute = new Map();   // route → how many <img> it ended up with
 
   // A `srcset` candidate that 404s is invisible in the page — the browser just
@@ -153,21 +153,39 @@ async function checkImages(dpr) {
     const n = await settle();
     perRoute.set(p, n);
     if (process.env.VERBOSE) process.stderr.write(`    ${p} → ${n}\n`);
+    /*
+     * `hidden` is whether the image sits inside an `aria-hidden` subtree, and it
+     * is the difference between a missing alt and a correct one.
+     *
+     * `alt=""` on a decorative image is the right answer, not a defect: it is
+     * how you tell a screen reader there is nothing here worth announcing. The
+     * check used to fail every one of them, which was fine while the site had
+     * none — and then `PlaygroundPeek` put four thumbnails inside a labelled
+     * link, where four descriptions in front of a button that already says
+     * "Open the playground" would be three announcements too many.
+     *
+     * An image inside `aria-hidden="true"` is not in the accessibility tree at
+     * all, so "missing alt" is not a question that applies to it. An `alt=""`
+     * that is *not* inside one is still a failure, because that is the case
+     * where a real picture has been left undescribed.
+     */
     const stats = JSON.parse(await evaluate(cdp, `JSON.stringify(
       [...document.images].map((i) => ({
         src: i.currentSrc || i.src,
         broken: i.complete && i.naturalWidth === 0,
         alt: i.getAttribute("alt"),
+        hidden: Boolean(i.closest('[aria-hidden="true"]')),
       })))`));
     for (const im of stats) {
       seen++;
       if (im.broken) { broken++; fail(`${p} dpr${dpr}: broken ${im.src}`); }
-      if (im.alt === null || im.alt.trim() === "") { noAlt++; fail(`${p}: missing alt ${im.src}`); }
+      if (im.hidden) { decorative++; }
+      else if (im.alt === null || im.alt.trim() === "") { noAlt++; fail(`${p}: missing alt ${im.src}`); }
       else if (/^Placeholder:/i.test(im.alt)) { placeholder++; fail(`${p}: "Placeholder:" alt — ${im.src}`); }
     }
     for (const [url, why] of failed) { failedReqs++; fail(`${p} dpr${dpr}: image request failed (${why}) — ${url}`); }
   }
-  console.log(`dpr ${dpr}: ${seen} images across ${paths.length} routes — ${broken} broken, ${noAlt} missing alt, ${placeholder} "Placeholder:" alt, ${failedReqs} failed image requests`);
+  console.log(`dpr ${dpr}: ${seen} images across ${paths.length} routes — ${broken} broken, ${decorative} decorative (aria-hidden), ${noAlt} missing alt, ${placeholder} "Placeholder:" alt, ${failedReqs} failed image requests`);
   return perRoute;
 }
 
