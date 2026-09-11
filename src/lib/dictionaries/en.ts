@@ -308,7 +308,7 @@ const en: Dictionary = {
   legal: {
     impressumNav: "Impressum",
     privacyNav: "Privacy",
-    address: ["Alexsha Maharjan", "[ Street and number ]", "[ Postcode and city ]", "Germany"],
+    address: ["Alexsha Maharjan", "Anschützstr. 7", "23562 Lübeck", "Germany"],
     impressum: {
       title: "Impressum",
       intro:

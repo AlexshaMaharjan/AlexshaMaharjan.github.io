@@ -301,7 +301,7 @@ const de: Dictionary = {
   legal: {
     impressumNav: "Impressum",
     privacyNav: "Datenschutz",
-    address: ["Alexsha Maharjan", "[ Straße und Hausnummer ]", "[ PLZ und Ort ]", "Deutschland"],
+    address: ["Alexsha Maharjan", "Anschützstr. 7", "23562 Lübeck", "Deutschland"],
     impressum: {
       title: "Impressum",
       intro: "Anbieterkennzeichnung für diese Website nach § 5 DDG.",

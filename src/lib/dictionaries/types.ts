@@ -61,11 +61,15 @@ export interface LegalPageCopy {
  * The two pages German law asks a site like this one for: an Impressum
  * (§ 5 DDG) and a privacy notice (DSGVO) (`MILESTONE-013` task 9).
  *
- * **`address` ships as a placeholder and must be filled before deploying.** An
- * Impressum with no postal address is not an Impressum, and the address is a
- * fact only the owner has (`DECISION-011`): it is not in the repository, it
- * cannot be derived, and inventing one would be worse than leaving the gap
- * visible. The bracketed strings are deliberately conspicuous.
+ * **`address` is stated once and rendered twice.** The Impressum's § 5 DDG block
+ * and the privacy page's controller block both have to carry it, and an address
+ * typed in two places is one that will one day be right in one and wrong in the
+ * other.
+ *
+ * It shipped as a conspicuous bracketed placeholder for one session, because an
+ * address is a fact only the owner has (`DECISION-011`) and inventing one would
+ * have been worse than leaving the gap visible. The owner supplied it in
+ * SESSION-045.
  *
  * The URLs are `/impressum` and `/datenschutz` in **both** locales. Those are
  * the words a German visitor looks for in a footer and the words a German
