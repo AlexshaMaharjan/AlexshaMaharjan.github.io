@@ -4,6 +4,7 @@ import { useScrollReveals } from "@/lib/useScrollReveals";
 import { localeHref } from "@/lib/i18n";
 import Image from "@/components/ui/Image";
 import LoveLine from "@/components/about/LoveLine";
+import PlaygroundPeek from "@/components/PlaygroundPeek";
 import Seo from "@/components/Seo";
 
 export default function About() {
@@ -190,12 +191,14 @@ export default function About() {
               {about.playgroundHeading}
             </h2>
             <p className="mt-6 text-[18px] leading-[1.65] text-ink-body">{about.playgroundCopy}</p>
-            <Link
-              to={localeHref(locale, "/playground")}
-              className="tap-target mt-7 text-[15px] font-medium text-accent hover:underline"
-            >
-              {about.linkPlayground}
-            </Link>
+            {/*
+              The same offer the homepage makes, centred for this band
+              (`MILESTONE-017`). The text link that was here became the
+              component's button: this section has no other control competing
+              with it, and a link that quiet under a band this wide was the
+              weakest door on the site.
+            */}
+            <PlaygroundPeek locale={locale} dictionary={dictionary} align="center" />
           </div>
         </div>
       </section>

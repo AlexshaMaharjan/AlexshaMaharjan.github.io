@@ -247,6 +247,14 @@ export interface Dictionary {
     copy: string;
     cta: string;
   };
+  /** The clickable sample of the playground, and the arrow into its button. */
+  playgroundPeek: {
+    /** The stack's accessible name; the button beside it says the same thing. */
+    openLabel: string;
+    cta: string;
+    /** The hand-written note beside the button. */
+    note: string;
+  };
   legal: LegalCopy;
   about: {
     backToHome: string;

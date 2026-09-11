@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Image from "@/components/ui/Image";
+import PlaygroundPeek from "@/components/PlaygroundPeek";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
 
@@ -89,24 +90,13 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
               {dictionary.aboutPreview.playgroundCopy}
             </p>
             {/*
-              The pill, moved here from About (`MILESTONE-012` task 3).
-
-              The two halves of this column are not the same kind of offer.
-              About is a story you can keep reading, and the fade above is
-              already asking for that click; the playground is a *place*, and a
-              place needs a door. So the strong control — the `h-12
-              rounded-full px-7` of `ContactSection`'s primary, inverted for a
-              white ground, with the `focus-visible` ring the rest of the
-              site's controls carry — sits on the playground now, and About
-              keeps the text link the playground used to have. One primary in
-              the section either way; it has changed which half it belongs to.
+              A look inside, and the door (`MILESTONE-017`). This was a pill
+              under two lines of grey text, which described the playground
+              without showing any of it — see `PlaygroundPeek` for why four real
+              pieces do the job the copy could not. The pill is still here; it
+              is inside the component now, with the arrow.
             */}
-            <Link
-              to={localeHref(locale, "/playground")}
-              className="mt-6 inline-flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-focus"
-            >
-              {dictionary.aboutPreview.linkPlayground}
-            </Link>
+            <PlaygroundPeek locale={locale} dictionary={dictionary} />
           </div>
         </div>
       </div>

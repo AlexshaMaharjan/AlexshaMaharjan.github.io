@@ -305,6 +305,11 @@ const de: Dictionary = {
     copy: "Die andere Hälfte ist die Arbeit mit Briefing: sechs Fallstudien, mein Prozess und die Menschen, für die ich sie gemacht habe.",
     cta: "Zurück zum Portfolio",
   },
+  playgroundPeek: {
+    openLabel: "Playground öffnen",
+    cta: "Playground öffnen",
+    note: "schau mal rein",
+  },
   legal: {
     impressumNav: "Impressum",
     privacyNav: "Datenschutz",

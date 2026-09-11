@@ -312,6 +312,11 @@ const en: Dictionary = {
     copy: "The other half is the work with a brief behind it: six case studies, the process I run and the people I made it for.",
     cta: "Back to the portfolio",
   },
+  playgroundPeek: {
+    openLabel: "Open the playground",
+    cta: "Open the playground",
+    note: "have a look",
+  },
   legal: {
     impressumNav: "Impressum",
     privacyNav: "Privacy",

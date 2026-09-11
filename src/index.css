@@ -279,6 +279,49 @@
 
 @layer components {
   /*
+   * The playground peek's deck fans open on hover (`MILESTONE-017`).
+   *
+   * One rule per piece rather than a transform on the row, because each piece
+   * has its own resting angle and the fan has to open *from* it — rotating the
+   * row would swing all four around a point none of them sits on. The values
+   * are the resting `rotate` widened by about six degrees and pushed outwards,
+   * so the stack reads as a deck being spread rather than as four cards moving.
+   *
+   * It is a hover affordance, not decoration: the owner's brief was that the
+   * section should "look like the user wants to click it", and a stack that
+   * answers the pointer is the part that says the pictures are the link.
+   */
+  .pg-peek > span > span,
+  .pg-peek img {
+    transition: transform 420ms var(--ease-out);
+  }
+
+  /* At rest: a stack, tipped the way the pieces sit on their own cards. */
+  .pg-peek > span > span:nth-child(1) { transform: rotate(-7deg); }
+  .pg-peek > span > span:nth-child(2) { transform: rotate(3.5deg) translateY(-10px); }
+  .pg-peek > span > span:nth-child(3) { transform: rotate(-2.5deg) translateY(4px); }
+  .pg-peek > span > span:nth-child(4) { transform: rotate(6.5deg) translateY(-6px); }
+
+  /* Fanned: the same angles widened and pushed outwards. */
+  .pg-peek:hover > span > span:nth-child(1) { transform: rotate(-13deg) translate(-10px, -4px); }
+  .pg-peek:hover > span > span:nth-child(2) { transform: rotate(-3deg) translate(-3px, -16px); }
+  .pg-peek:hover > span > span:nth-child(3) { transform: rotate(3deg) translate(3px, -2px); }
+  .pg-peek:hover > span > span:nth-child(4) { transform: rotate(12deg) translate(10px, -12px); }
+  .pg-peek:hover img { transform: scale(1.06); }
+
+  /* Reduced motion keeps the stack and drops the fan: the resting rules above
+     still apply, and only the hover ones are cancelled. */
+  @media (prefers-reduced-motion: reduce) {
+    .pg-peek > span > span,
+    .pg-peek img { transition: none; }
+    .pg-peek:hover > span > span:nth-child(1) { transform: rotate(-7deg); }
+    .pg-peek:hover > span > span:nth-child(2) { transform: rotate(3.5deg) translateY(-10px); }
+    .pg-peek:hover > span > span:nth-child(3) { transform: rotate(-2.5deg) translateY(4px); }
+    .pg-peek:hover > span > span:nth-child(4) { transform: rotate(6.5deg) translateY(-6px); }
+    .pg-peek:hover img { transform: none; }
+  }
+
+  /*
    * The process steps as a bento on a phone (`MILESTONE-015` task 1).
    *
    * The five clusters are drawn for a 1440 x 900 map, where every piece has a
