@@ -13,7 +13,7 @@ import LoopVideo from "@/components/ui/LoopVideo";
 import Scribble, { ScribbleArrow } from "@/components/playground/Scribble";
 import type { Locale } from "@/lib/i18n";
 import { FRAME_H, FRAME_W, type CollageScribble, type CollageSlot } from "@/lib/playground/collage";
-import { placeScribbles, UNITS_PER_PX_AT_1280 } from "@/lib/playground/placeScribbles";
+import { placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/playground/placeScribbles";
 
 /**
  * One card's worth of the playground collage (`SESSION-035`).
@@ -195,8 +195,9 @@ export default function Collage({
     const observer = new ResizeObserver(([entry]) => {
       const width = entry?.contentRect.width ?? 0;
       if (width <= 0) return;
-      // Rounded, or a sub-pixel reflow re-places every note for nothing.
-      const next = Math.round((FRAME_W / width) * 100) / 100;
+      // Rounded, or a sub-pixel reflow re-places every note for nothing, and
+      // placing a note is a seat search and an arrow routed (`ISSUE-043`).
+      const next = stageUnits(width);
       setUnitsPerPx((current) => (current === next ? current : next));
     });
     observer.observe(stage);
@@ -409,7 +410,8 @@ export default function Collage({
       {open ? (
         <Lightbox
           src={open.src}
-          video={open.video}
+          video={open.film ?? open.video}
+          loopVideo={!open.film}
           alt={open.alt[locale]}
           caption={open.caption[locale]}
           description={open.alt[locale]}

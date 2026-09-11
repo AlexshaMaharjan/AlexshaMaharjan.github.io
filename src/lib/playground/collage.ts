@@ -29,6 +29,18 @@ export interface CollageSlot {
   src: string;
   /** A short silent loop, played in place of the poster once it is on screen. */
   video?: string;
+  /**
+   * The whole film, fetched only when somebody opens the slot (`DECISION-030`).
+   *
+   * The collage plays `video`, which is eight seconds and a few hundred
+   * kilobytes, because forty-eight pieces on a page that already weighs 2.6 MB
+   * cannot each carry a minute of footage. The owner asked for the whole thing,
+   * and the whole thing is what the viewer plays: this is the same trade
+   * `ui/Video` makes for the 12 MB kitchen walkthrough (`DECISION-022`), and it
+   * costs the page nothing, because a `<video>` for it is only created once the
+   * dialog is open.
+   */
+  film?: string;
   /** What the piece is. Shown as the viewer's heading when a slot is opened. */
   caption: Record<Locale, string>;
   alt: Record<Locale, string>;
@@ -183,7 +195,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 7881, y: 1459, w: 3347, h: 1883,
-        src: "/images/pg-clip-hibi.webp", video: "/videos/pg-hibi.mp4",
+        src: "/images/pg-clip-hibi.webp", video: "/videos/pg-hibi.mp4", film: "/videos/pg-hibi-full.mp4",
         caption: { en: "Hibi — task app", de: "Hibi — Aufgaben-App" },
         alt: {
           en: "The Hibi task app, its to-do list and upcoming tasks on screen",
@@ -335,7 +347,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 6029, y: 3479, w: 4452, h: 2505,
-        src: "/images/pg-clip-motorbike.webp", video: "/videos/pg-motorbike.mp4",
+        src: "/images/pg-clip-motorbike.webp", video: "/videos/pg-motorbike.mp4", film: "/videos/pg-motorbike-full.mp4",
         caption: { en: "3D motorbike — Unreal", de: "3D-Motorrad — Unreal" },
         alt: {
           en: "A motorbike riding through a rain-lit city, seen from above",
@@ -425,7 +437,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 10096, y: 6977, w: 1354, h: 2407,
-        src: "/images/pg-clip-riona.webp", video: "/videos/pg-gift-riona.mp4",
+        src: "/images/pg-clip-riona.webp", video: "/videos/pg-gift-riona.mp4", film: "/videos/pg-gift-riona-full.mp4",
         caption: { en: "Marble keepsake box", de: "Marmor-Erinnerungsbox" },
         alt: {
           en: "A pink marble keepsake box opening to reveal folded paper inside",
@@ -434,7 +446,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 2713, y: 5460, w: 1475, h: 2621,
-        src: "/images/pg-clip-popup.webp", video: "/videos/pg-gift-popup.mp4",
+        src: "/images/pg-clip-popup.webp", video: "/videos/pg-gift-popup.mp4", film: "/videos/pg-gift-popup-full.mp4",
         caption: { en: "Pop-up box, opened", de: "Pop-up-Box, geöffnet" },
         alt: {
           en: "A pink and lilac pop-up box being opened, its photo panels standing up",
@@ -443,7 +455,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 4401, y: 1650, w: 1918, h: 2557,
-        src: "/images/pg-clip-explosion.webp", video: "/videos/pg-gift-explosion.mp4",
+        src: "/images/pg-clip-explosion.webp", video: "/videos/pg-gift-explosion.mp4", film: "/videos/pg-gift-explosion-full.mp4",
         caption: { en: "Explosion box, unfolding", de: "Explosionsbox beim Öffnen" },
         alt: {
           en: "Hands unfolding the layers of a black and pink explosion gift box",

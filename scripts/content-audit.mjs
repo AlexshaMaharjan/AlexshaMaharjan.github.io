@@ -33,6 +33,12 @@
  * its slot by `src` and is placed from that; a `src` with a typo in it silently
  * becomes a note in the middle of the card with an arrow to nowhere.
  *
+ * **5. An arrow drawn across a picture** (`ISSUE-043`, SESSION-040). The notes
+ * are placed and their arrows routed by arithmetic, so "does this card look
+ * right" is a question with a number behind it, and it is a number that three
+ * sessions have moved in both directions. It is checked here rather than left
+ * to the eye.
+ *
  * Exits non-zero on any finding.
  */
 import { build } from "esbuild";
@@ -58,6 +64,7 @@ async function load(entry, name) {
 }
 const pgCats = await load("src/lib/playground/categories/index.ts", "pg-cats");
 const collage = await load("src/lib/playground/collage.ts", "pg-collage");
+const place = await load("src/lib/playground/placeScribbles.ts", "pg-place");
 
 const SLUGS = ["wikimind", "afono", "sync-fm", "barrier-free-kitchen", "surugami", "qis-portal"];
 
@@ -192,6 +199,54 @@ for (const card of collage.default) {
   if (!/^#[0-9a-fA-F]{6}$/.test(card.accent)) fail(`collage ${card.index}: accent "${card.accent}" is not a #rrggbb colour`);
 }
 
+/*
+ * **5. An arrow drawn across a picture** (`ISSUE-043`). `placeScribbles` scores
+ * a seat for a note partly on how much of its arrow would lie over the other
+ * pictures, and picks the route with the clearest run — so this is a check that
+ * the search still finds one, not a restatement of what it does.
+ *
+ * The tolerance is a graze, not a crossing. An arrow that clips the corner of a
+ * picture for a few pixels is a pen stroke passing close; the fault this exists
+ * to catch is a line lying across a photograph, which measured 394 CSS px on
+ * card 1 before the routing was written.
+ *
+ * Five stage widths, because the notes are fixed CSS pixels over a stage that
+ * is not, and the placement is different at every one of them (`ISSUE-043`
+ * cause 2). 1280 alone was what let the narrow cards ship broken.
+ */
+const OVER_PX = 40;
+for (const stage of [1440, 1280, 1100, 1000, 900]) {
+  const unitsPerPx = place.stageUnits(stage);
+  for (const card of collage.default) {
+    for (const note of place.placeScribbles(card.slots, card.scribbles, unitsPerPx)) {
+      const target = card.scribbles.find((one) => one.text.en === note.key)?.target;
+      const others = card.slots.filter((slot) => slot.src !== target);
+      const over = place.crossingOf(note.samples, others) / unitsPerPx;
+      if (over > OVER_PX)
+        fail(
+          `collage ${card.index} at a ${stage}px stage: the arrow for ${JSON.stringify(note.key)} ` +
+            `runs ${over.toFixed(0)} CSS px over another picture (limit ${OVER_PX})`,
+        );
+      /*
+       * And that no stroke leaves the card, which is `overflow: hidden`: a bend
+       * wide enough to clear three pictures took one arrow up over the frame's
+       * top edge, and what reached the page was two strokes with a gap where
+       * the middle should have been.
+       */
+      const outside = Math.max(
+        ...note.samples.map((point) =>
+          Math.max(-point.x, point.x - collage.FRAME_W, -point.y, point.y - collage.FRAME_H),
+        ),
+      );
+      if (outside > 0)
+        fail(
+          `collage ${card.index} at a ${stage}px stage: the arrow for ${JSON.stringify(note.key)} ` +
+            `is drawn ${(outside / unitsPerPx).toFixed(0)} CSS px outside the card, where it is clipped`,
+        );
+    }
+  }
+}
+
 if (findings) {
   console.log(`\n${findings} finding(s)`);
   process.exit(1);
@@ -200,4 +255,7 @@ console.log(`content audit: ${SLUGS.length} case studies — language and en/de 
 console.log(`               ${registrySlugs.length} playground categories — en/de items, aspects, clips and posters agree`);
 console.log(
   `               ${collage.default.length} collage cards — every note points at a slot on its own card`,
+);
+console.log(
+  `               ${collage.default.length * 5} card layouts — no arrow runs more than ${OVER_PX} CSS px over another picture, none leaves the card`,
 );

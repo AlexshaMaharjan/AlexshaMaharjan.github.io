@@ -45,6 +45,11 @@ import { prefersReducedMotion } from "@/lib/motion";
  * pointer. The description below the caption is the same in both cases: the
  * pictures are small in a collage, and being told what one *is* is half of what
  * opening it is for.
+ *
+ * **Since SESSION-040 that is the whole film**, not the collage's excerpt of it
+ * (`DECISION-030`), which is why `loopVideo` exists: an eight-second loop that
+ * stops looks broken, and a two-and-a-half-minute one that starts over unasked
+ * is a different kind of wrong.
  */
 export default function Lightbox({
   src,
@@ -52,6 +57,7 @@ export default function Lightbox({
   caption,
   description,
   video,
+  loopVideo = true,
   zoomable = true,
   onClose,
 }: {
@@ -62,6 +68,12 @@ export default function Lightbox({
   description?: string;
   /** When set, `src` is its poster and the dialog plays the film instead. */
   video?: string;
+  /**
+   * Whether that film repeats. On for the collage's eight-second loops, which
+   * are excerpts and read as broken if they stop; off for a whole film, which
+   * has an ending and should be allowed to reach it (`DECISION-030`).
+   */
+  loopVideo?: boolean;
   /**
    * Whether tapping the image switches to its natural width in a pannable
    * container. Off, the image is not a control at all and a click anywhere
@@ -187,7 +199,7 @@ export default function Lightbox({
               poster={src}
               controls
               autoPlay
-              loop
+              loop={loopVideo}
               muted
               playsInline
               aria-label={alt}
