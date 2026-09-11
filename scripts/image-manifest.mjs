@@ -31,7 +31,7 @@ async function load(entry, name) {
 const cs = await load("src/lib/caseStudies/index.ts", "caseStudies");
 const dict = await load("src/lib/dictionaries/index.ts", "dictionaries");
 const home = await load("src/lib/playground/home.ts", "home");
-const cats = await load("src/lib/playground/categories/index.ts", "categories");
+const collage = await load("src/lib/playground/collage.ts", "collage");
 
 const SLUGS = ["wikimind", "afono", "sync-fm", "barrier-free-kitchen", "surugami", "qis-portal"];
 const rows = [];
@@ -97,18 +97,19 @@ const about = en.about;
 add("About", "portrait", about.portraitAlt, "4/5", 1720, true, "dictionaries/{en,de}.ts → (portrait file is wired; needs a real export)");
 
 // ---- playground ----
-const h = home.default.en;
-h.heroCards.forEach((card, i) =>
-  add("Playground — home", "hero collage", card.caption, card.aspect, px(300), Boolean(card.src),
-      `playground/home.ts → {en,de}.heroCards[${i}].src`));
-for (const category of cats.getAllCategories("en")) {
-  category.items.forEach((item, i) => {
-    // A written card is content, not an empty picture slot — counting it as one
-    // would report the playground as permanently unfinished (`DECISION-026`).
-    if (item.note) return;
-    const kind = item.video ? "clip" : "tile";
-    add(`Playground — ${category.title}`, kind, item.caption, item.aspect, px(430), Boolean(item.src),
-        `playground/categories/${category.slug}.ts → {en,de}.items[${i}].src`);
+/*
+ * The playground is the four collage cards and nothing else
+ * (`MILESTONE-014` task 1). It used to be counted as a hero collage plus five
+ * categories of items, and neither of those has had a renderer since
+ * `DECISION-027`. Every picture the playground shows is a slot on a card, and
+ * every slot has a real `src` — so this surface is complete by construction and
+ * the manifest says so rather than reporting phantom empty slots.
+ */
+for (const card of collage.default) {
+  card.slots.forEach((slot, i) => {
+    const kind = slot.video ? "clip" : "tile";
+    add(`Playground — card ${card.index}`, kind, slot.caption.en, `${slot.w}/${slot.h}`, px(430),
+        Boolean(slot.src), `playground/collage.ts → card ${card.index} slots[${i}].src`);
   });
 }
 /*

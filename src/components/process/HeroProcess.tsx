@@ -2,9 +2,55 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 import { branchLayout, HUB_W, HUB_Y } from "./branchData";
 import BranchGroup from "./BranchGroup";
+import PageHero from "@/components/PageHero";
 
 const EASE_LO = 0;
 const EASE_HI = 1;
+
+/**
+ * When each of the five clusters arrives, as a fraction of the track's scroll
+ * (`MILESTONE-011` task 2).
+ *
+ * These were four loose numbers in `frame()` and they had a bug in them that
+ * only arithmetic finds. Cluster 05 was revealed over `0.90 → 1.02`, and a
+ * track cannot scroll past 1: at the very bottom of the runway it had reached
+ * 93% opacity and was still moving. It never *looked* like it was still moving,
+ * because `INTERACTIVE_ON` fired at 0.90 — the same instant cluster 05 began —
+ * and the moment the map goes interactive `applyBranchState` writes every
+ * cluster to full opacity. So 05 did not arrive: it was switched on, in one
+ * frame, at the exact point the other four had finished.
+ *
+ * The schedule now ends before the map goes live, which is the whole fix. The
+ * rest is the owner's "slower, and more room around 05":
+ *
+ * - **The track is 340svh, up from 280.** The band below is a *fraction* of the
+ *   runway, so lengthening the runway is what buys real scrolling distance
+ *   without changing the shape of the sequence. One cluster now takes about
+ *   32svh to arrive where it took 22.
+ * - **Each cluster is given slightly longer than the one before it**
+ *   (`STEP_DUR_GROWTH`), so the sequence settles rather than stopping dead. 05
+ *   takes 0.154 of the track against 01's 0.130.
+ * - **`STEPS_DONE` is derived, not typed.** It is what stops this drifting back
+ *   into the state it was in: change a stagger or a duration and the interactive
+ *   threshold moves with it, instead of quietly clipping the last cluster again.
+ */
+const STEP_FIRST = 0.64;
+const STEP_STAGGER = 0.0425;
+const STEP_DUR = 0.13;
+const STEP_DUR_GROWTH = 0.006;
+
+const stepStart = (i: number) => STEP_FIRST + STEP_STAGGER * i;
+const stepEnd = (i: number) => stepStart(i) + STEP_DUR + STEP_DUR_GROWTH * i;
+
+/** The point every cluster has finished arriving. Derived — see above. */
+const STEPS_DONE = stepEnd(4);
+/**
+ * The map takes hover, focus and clicks only once the sequence has finished,
+ * with a gap below it to come back out of. Both were 0.9/0.85, which is to say
+ * both were inside the sequence.
+ */
+const INTERACTIVE_ON = Math.min(0.99, STEPS_DONE + 0.011);
+const INTERACTIVE_OFF = INTERACTIVE_ON - 0.025;
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
@@ -21,10 +67,9 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
   const [hovered, setHovered] = useState<number | null>(null);
   const [locked, setLocked] = useState<number | null>(null);
   const [interactiveOn, setInteractiveOn] = useState(false);
-  const [staticScale, setStaticScale] = useState(1);
 
   const trackRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const cueRef = useRef<HTMLSpanElement>(null);
   const qRef = useRef<HTMLHeadingElement>(null);
@@ -85,18 +130,6 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
     };
   }, []);
 
-  // Static (mobile / reduced-motion) desktop scale: fit the 1440x900 map to the viewport.
-  useEffect(() => {
-    if (!staticFlow) return;
-    const onResize = () => {
-      const s = Math.max(0.5, Math.min(window.innerWidth / 1440, window.innerHeight / 900));
-      setStaticScale(s);
-    };
-    onResize();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [staticFlow]);
-
   useEffect(() => {
     if (staticFlow) {
       setInteractiveOn(true);
@@ -120,7 +153,13 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       const heroBottom = hero.offsetTop + hero.offsetHeight;
       trackTopRef.current = track.getBoundingClientRect().top + window.scrollY;
       trackHRef.current = track.offsetHeight;
-      cTop0Ref.current = Math.max(0.7 * H, heroBottom + 24);
+      /*
+       * The canvas starts where the hero ends, and `PageHero` is `min-h-70svh`
+       * — the same 70svh the playground's deck starts at, which is the whole
+       * point of the shared component. `heroBottom` is only larger than that
+       * when the copy has outgrown the box, and then it still wins.
+       */
+      cTop0Ref.current = Math.max(0.7 * H, heroBottom);
       qhRef.current = q.offsetHeight || 90;
       // One forced layout per resize, which is where `measure` already is.
       const width = q.style.width;
@@ -183,17 +222,21 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       map.style.transform = "translate(-50%,-50%) scale(" + s + ")";
       const mo = smoothstep(p, 0.62, 0.72);
       map.style.opacity = String(mo);
-      map.style.pointerEvents = p > 0.985 ? "auto" : "none";
+      map.style.pointerEvents = p >= INTERACTIVE_ON ? "auto" : "none";
 
+      // A connector is drawn just ahead of the cluster it reaches, so the
+      // stroke arrives first and the cluster arrives along it.
       lineRefs.current.forEach((l, i) => {
         if (!l) return;
-        l.style.strokeDashoffset = String(100 * (1 - smoothstep(p, 0.64 + i * 0.02, 0.78 + i * 0.02)));
+        l.style.strokeDashoffset = String(
+          100 * (1 - smoothstep(p, stepStart(i) - 0.03, stepStart(i) + 0.07)),
+        );
       });
 
-      if (p >= 0.9 && !interactiveOnRef.current) {
+      if (p >= INTERACTIVE_ON && !interactiveOnRef.current) {
         interactiveOnRef.current = true;
         setInteractiveOn(true);
-      } else if (p < 0.85 && interactiveOnRef.current) {
+      } else if (p < INTERACTIVE_OFF && interactiveOnRef.current) {
         interactiveOnRef.current = false;
         setInteractiveOn(false);
         setLocked(null);
@@ -208,7 +251,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       if (!interactiveOnRef.current) {
         groupRefs.current.forEach((g, i) => {
           if (!g) return;
-          const b = smoothstep(p, 0.68 + i * 0.055, 0.8 + i * 0.055);
+          const b = smoothstep(p, stepStart(i), stepEnd(i));
           g.style.opacity = String(b);
           g.style.transform = "translateY(" + 26 * (1 - b) + "px)";
         });
@@ -278,57 +321,55 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
   if (staticFlow) {
     return (
       <>
-        <section className="flex min-h-[70svh] flex-col items-center justify-center px-5 pt-[calc(var(--header-h)+31px)] pb-10 text-center sm:pt-[calc(var(--header-h)+45px)]">
-          <p className="mb-5 text-[13px] text-ink-muted sm:mb-6 sm:text-[14px]">{dictionary.hero.eyebrow}</p>
-          <h1 className="text-[42px] font-semibold leading-[1.02] tracking-[-0.028em] text-ink sm:text-[54px]">
-            {dictionary.hero.headlineLines.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
-          <div className="mt-7 max-w-[560px]">
-            <p className="text-[17px] leading-[1.6] text-ink-secondary">{dictionary.hero.intro}</p>
-            <p className="mt-5 font-mono text-[13px] text-accent">{dictionary.hero.tags}</p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={dictionary.hero.eyebrow}
+          headingLines={dictionary.hero.headlineLines}
+          intro={dictionary.hero.intro}
+          tags={dictionary.hero.tags}
+        />
 
-        <section className="relative w-full overflow-hidden bg-canvas-black py-[72px]">
+        {/*
+          The five steps as a column (`MILESTONE-011` task 10).
+
+          This was the 1440 x 900 map again, scaled by
+          `max(0.5, min(W/1440, H/900))` and centred in an `overflow-hidden`
+          section. **The `0.5` floor is the bug**: below a 720px window the map
+          is wider than the window, so it was clipped — on a 390px phone
+          clusters 02 and 04 were entirely off the right-hand edge and the
+          bottom of the section was 200px of empty black. Everything that
+          survived was drawn at half size, which is 9px panel labels at four and
+          a half.
+
+          Removing the floor does not help. At 390px an honest scale is 0.27,
+          and the whole canvas is then illustrations of interfaces rendered at a
+          quarter: legible to nobody. The map is a desktop idea and the phone
+          gets the same content laid out the way a phone lays things out — one
+          step under the next, at **full size**, with the panels wrapping inside
+          each step.
+
+          The connectors go with it, and that closes something that was on the
+          tracker rather than opening it: in this layout the question is a
+          heading *above* the steps, so five strokes converging on the middle of
+          the canvas converged on nothing at all.
+        */}
+        <section className="relative w-full overflow-hidden bg-canvas-black py-14 sm:py-[72px]">
           <p className="sr-only">{dictionary.process.srSummary}</p>
           <h2 className="mx-auto max-w-[88vw] px-4 text-center text-[26px] font-semibold leading-[1.12] tracking-[-0.02em] text-white">
             {dictionary.process.question}
           </h2>
 
-          <div
-            className="relative mx-auto mt-10"
-            style={{ width: 1440 * staticScale, height: 900 * staticScale }}
-          >
-            <div
-              className="absolute left-0 top-0"
-              style={{ width: 1440, height: 900, transform: `scale(${staticScale})`, transformOrigin: "top left" }}
-            >
-              <svg viewBox="0 0 1440 900" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
-                {branchLayout.map((b, i) => (
-                  <path
-                    key={i}
-                    d={b.line}
-                    style={{
-                      stroke: active === i ? "#1B3FE0" : "rgba(255,255,255,0.22)",
-                      strokeWidth: active === i ? 1.5 : 1,
-                      fill: "none",
-                    }}
-                  />
-                ))}
-                {branchLayout.map((b, i) => (
-                  <g key={i} style={{ opacity: active === i ? 1 : 0, transition: "opacity .18s ease" }}>
-                    <rect x={b.capA.x - 3.5} y={b.capA.y - 3.5} width={7} height={7} style={{ fill: "#FFFFFF", stroke: "#1B3FE0", strokeWidth: 1.5 }} />
-                    <rect x={b.capB.x - 3.5} y={b.capB.y - 3.5} width={7} height={7} style={{ fill: "#FFFFFF", stroke: "#1B3FE0", strokeWidth: 1.5 }} />
-                  </g>
-                ))}
-              </svg>
-              {branches.map((branch, i) => (
+          {/*
+            One card per step, with a dashed tick between them
+            (`MILESTONE-013` task 4). The connector is drawn between cards
+            rather than on them because only this loop knows which card is the
+            last one, and a stroke under step 05 points at the end of the
+            section.
+          */}
+          <ol className="mx-auto mt-10 flex w-full max-w-[600px] list-none flex-col px-5">
+            {branches.map((branch, i) => (
+              <li key={branch.number}>
                 <BranchGroup
-                  key={branch.number}
+                  stacked
                   branch={branch}
                   layout={branchLayout[i]!}
                   index={i}
@@ -343,34 +384,30 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
                     groupRefs.current[i] = el;
                   }}
                 />
-              ))}
-            </div>
-          </div>
+                {i < branches.length - 1 && (
+                  <span
+                    aria-hidden="true"
+                    className="mx-auto block h-9 w-px border-l border-dashed border-white/25"
+                  />
+                )}
+              </li>
+            ))}
+          </ol>
         </section>
       </>
     );
   }
 
   return (
-    <div ref={trackRef} className="relative" style={{ height: "280svh" }}>
+    <div ref={trackRef} className="relative" style={{ height: "340svh" }}>
       <div className="sticky top-0 h-svh overflow-hidden bg-white">
-        <div
-          ref={heroRef}
-          className="container-page pt-[calc(var(--header-h)+59px)] text-center sm:px-10 md:px-20"
-        >
-          <p className="mb-5 text-[14px] text-ink-muted">{dictionary.hero.eyebrow}</p>
-          <h1 className="mx-auto text-hero font-semibold leading-[0.98] tracking-[-0.028em] text-ink">
-            {dictionary.hero.headlineLines.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
-          <div className="mx-auto mt-8 max-w-[660px]">
-            <p className="text-[19px] leading-[1.6] text-ink-secondary">{dictionary.hero.intro}</p>
-            <p className="mt-6 font-mono text-[13px] text-accent">{dictionary.hero.tags}</p>
-          </div>
-        </div>
+        <PageHero
+          innerRef={heroRef}
+          eyebrow={dictionary.hero.eyebrow}
+          headingLines={dictionary.hero.headlineLines}
+          intro={dictionary.hero.intro}
+          tags={dictionary.hero.tags}
+        />
 
         <div
           ref={canvasRef}

@@ -318,7 +318,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1280,
       1600
     ],
-    "bg": "#fb809c"
+    "bg": "#f8e1e7"
   },
   "/images/hero-sync-fm.webp": {
     "w": 1578,
@@ -475,7 +475,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       400,
       640
     ],
-    "bg": "#fcfcfc"
+    "bg": "#f7f7f7"
   },
   "/images/pg-autumn.webp": {
     "w": 1200,
@@ -502,7 +502,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#f9f9f9"
+    "bg": "#c6c9ca"
   },
   "/images/pg-character.webp": {
     "w": 1200,
@@ -611,15 +611,6 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#c7d9fb"
   },
-  "/images/pg-gift-explosion.webp": {
-    "w": 1200,
-    "v": [
-      400,
-      640,
-      960
-    ],
-    "bg": "#8da3c6"
-  },
   "/images/pg-gift-popup.webp": {
     "w": 1200,
     "v": [
@@ -645,7 +636,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fbfbfb"
+    "bg": "#ece4e8"
   },
   "/images/pg-kalender-dezember.webp": {
     "w": 1200,
@@ -654,7 +645,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fdfbfa"
+    "bg": "#f4ebe9"
   },
   "/images/pg-kalender-februar.webp": {
     "w": 1200,
@@ -663,7 +654,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fbfbfc"
+    "bg": "#e9e8ef"
   },
   "/images/pg-kalender-juli.webp": {
     "w": 1200,
@@ -672,7 +663,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fafbfc"
+    "bg": "#e6ecf3"
   },
   "/images/pg-kalender-juni.webp": {
     "w": 1200,
@@ -681,7 +672,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fdfbfc"
+    "bg": "#f4eaf0"
   },
   "/images/pg-kalender-maerz.webp": {
     "w": 1200,
@@ -690,7 +681,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fefefb"
+    "bg": "#fbf9ea"
   },
   "/images/pg-kalender-mai.webp": {
     "w": 1200,
@@ -699,7 +690,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fcfdfd"
+    "bg": "#f3f5f9"
   },
   "/images/pg-kalender-oktober.webp": {
     "w": 1200,
@@ -708,7 +699,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fdfbf6"
+    "bg": "#f8f0dc"
   },
   "/images/pg-kalender-september.webp": {
     "w": 1200,
@@ -717,7 +708,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fdfbfc"
+    "bg": "#f5edf4"
   },
   "/images/pg-line-study.webp": {
     "w": 1200,
@@ -734,7 +725,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       400,
       640
     ],
-    "bg": "#f4f4f4"
+    "bg": "#ffffff"
   },
   "/images/pg-mindruhe.webp": {
     "w": 1200,
@@ -794,7 +785,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#bcac9d"
+    "bg": "#bc9d85"
   },
   "/images/pg-photo-lowkey.webp": {
     "w": 1200,
@@ -829,23 +820,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       400,
       640
     ],
-    "bg": "#fafafa"
-  },
-  "/images/pg-postcard-2.webp": {
-    "w": 1029,
-    "v": [
-      400,
-      640
-    ],
-    "bg": "#fafafa"
-  },
-  "/images/pg-postcard-3.webp": {
-    "w": 1029,
-    "v": [
-      400,
-      640
-    ],
-    "bg": "#fafafa"
+    "bg": "#ffffff"
   },
   "/images/pg-poster-hologram.webp": {
     "w": 1200,
@@ -854,7 +829,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       640,
       960
     ],
-    "bg": "#fcfcfc"
+    "bg": "#191919"
   },
   "/images/pg-poster-museum.webp": {
     "w": 1200,
@@ -908,6 +883,38 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       960
     ],
     "bg": "#a9a0ca"
+  },
+  "/images/qis-design-system.webp": {
+    "w": 1600,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/qis-final-screens.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ],
+    "bg": "#eeedf0"
+  },
+  "/images/qis-interaction-flow.webp": {
+    "w": 1900,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ],
+    "bg": "#f9f9f9"
   },
   "/images/qis-original-exams.webp": {
     "w": 876,

@@ -33,6 +33,11 @@
  * its slot by `src` and is placed from that; a `src` with a typo in it silently
  * becomes a note in the middle of the card with an arrow to nowhere.
  *
+ * **6. An arrow too short to read as one** (`MILESTONE-012`). Checks 4 and 5
+ * are both about where a stroke goes, and neither can see one that is two
+ * pixels long. Seven of the eleven notes had a stage width at which they drew
+ * exactly that.
+ *
  * **5. An arrow drawn across a picture** (`ISSUE-043`, SESSION-040). The notes
  * are placed and their arrows routed by arithmetic, so "does this card look
  * right" is a question with a number behind it, and it is a number that three
@@ -62,7 +67,6 @@ async function load(entry, name) {
   await build({ entryPoints: [path.join(ROOT, entry)], bundle: true, format: "esm", outfile: out, logLevel: "error" });
   return import(pathToFileURL(out).href);
 }
-const pgCats = await load("src/lib/playground/categories/index.ts", "pg-cats");
 const collage = await load("src/lib/playground/collage.ts", "pg-collage");
 const place = await load("src/lib/playground/placeScribbles.ts", "pg-place");
 
@@ -133,49 +137,55 @@ for (const slug of SLUGS) {
 
 /*
  * ---------------------------------------------------------------------------
- * The playground (SESSION-034).
+ * The playground (SESSION-034, rewritten in `MILESTONE-014`).
  * ---------------------------------------------------------------------------
  *
- * SESSION-033 checked five cross-file links here: the registry against a second
- * list in `home.ts`, a next-category ring, and every project's category. All
- * three are **gone**, because the pages they linked are gone — the playground is
- * one page and the categories are sections of it (`DECISION-026`). A check for
- * a link that no longer exists is not a safety net, it is a thing to maintain.
+ * This used to audit `lib/playground/categories`: `en`/`de` parity across 47
+ * items, their aspects, and the poster rule for clips. **Those files are gone.**
+ * They had had no renderer since `DECISION-027` and were kept on the grounds
+ * that they were the only written record of the captions — which was not true
+ * either, because the collage slots carry their own. Auditing content nothing
+ * renders is how it survived two sessions after it stopped being content.
  *
- * What survives is the pair nothing else can see: `en`/`de` parity across the
- * category items, which `image-manifest.mjs` misses because it reads only `en`
- * there, and the poster rule for clips.
+ * What replaces it audits the thing that *is* rendered. `en`/`de` parity is no
+ * longer checkable-by-comparison, because a collage slot holds both locales on
+ * one object and cannot drift apart — so the check that matters is that neither
+ * side is **empty**. A missing German caption is not a type error (the key is
+ * there, the string is `""`), it is a blank heading over a picture in the
+ * viewer, and a blank `alt` is an image a screen reader cannot describe.
+ *
+ * The poster rule survives, because it survives the move: `ui/LoopVideo`
+ * deliberately never creates the `<video>` under `prefers-reduced-motion`, so a
+ * clip without a poster is a black rectangle for those visitors.
  */
-const registrySlugs = pgCats.categorySlugs;
+const slotSrcs = new Map();
 
-for (const slug of registrySlugs) {
-  const [e, d] = ["en", "de"].map((l) => pgCats.getCategory(slug, l));
-  if (!e || !d) { fail(`playground ${slug}: missing in one locale`); continue; }
+for (const card of collage.default) {
+  for (const [i, slot] of card.slots.entries()) {
+    const at = `collage ${card.index} slots[${i}] (${slot.src})`;
 
-  if (e.items.length !== d.items.length) {
-    fail(`playground ${slug}: ${e.items.length} items in en, ${d.items.length} in de`);
-    continue;
-  }
-  for (const [i, item] of e.items.entries()) {
-    const other = d.items[i];
-    if (item.src !== other.src)
-      fail(`playground ${slug} items[${i}]: en "${item.src ?? "(none)"}" vs de "${other.src ?? "(none)"}"`);
-    if (item.video !== other.video)
-      fail(`playground ${slug} items[${i}]: video en "${item.video ?? "(none)"}" vs de "${other.video ?? "(none)"}"`);
-    if (item.aspect !== other.aspect)
-      fail(`playground ${slug} items[${i}]: aspect en "${item.aspect}" vs de "${other.aspect}"`);
-    if (Boolean(item.note) !== Boolean(other.note))
-      fail(`playground ${slug} items[${i}]: a written note in one locale only`);
-
-    /*
-     * A clip without a poster is a black rectangle for everyone who has
-     * `prefers-reduced-motion` set, because `ui/LoopVideo` deliberately never
-     * creates the `<video>` for them — the poster is the whole fallback.
-     */
-    for (const [loc, it] of [["en", item], ["de", other]]) {
-      if (it.video && !it.src)
-        fail(`playground ${slug} items[${i}] ${loc}: has a video but no poster \`src\``);
+    for (const field of ["caption", "alt"]) {
+      for (const loc of ["en", "de"]) {
+        const value = slot[field]?.[loc];
+        if (typeof value !== "string" || !value.trim())
+          fail(`${at}: ${field}.${loc} is empty`);
+      }
     }
+
+    if (!slot.src) fail(`${at}: no \`src\``);
+    if (slot.video && !slot.src)
+      fail(`${at}: has a video but no poster \`src\``);
+    /*
+     * `film` is the whole clip the viewer fetches on open (`DECISION-030`); a
+     * slot that offers one without a short loop on the card is a slot whose
+     * picture never moves and then plays a minute of footage when opened.
+     */
+    if (slot.film && !slot.video)
+      fail(`${at}: has a \`film\` but no \`video\` loop on the card`);
+
+    if (slotSrcs.has(slot.src))
+      fail(`${at}: this picture is already on card ${slotSrcs.get(slot.src)}`);
+    else slotSrcs.set(slot.src, card.index);
   }
 }
 
@@ -210,12 +220,36 @@ for (const card of collage.default) {
  * to catch is a line lying across a photograph, which measured 394 CSS px on
  * card 1 before the routing was written.
  *
- * Five stage widths, because the notes are fixed CSS pixels over a stage that
- * is not, and the placement is different at every one of them (`ISSUE-043`
- * cause 2). 1280 alone was what let the narrow cards ship broken.
+ * A **sweep** of stage widths, because the notes are fixed CSS pixels over a
+ * stage that is not, and the placement is different at every one of them
+ * (`ISSUE-043` cause 2). 1280 alone was what let the narrow cards ship broken.
+ *
+ * Five hand-picked widths was the next version of the same mistake, and it hid
+ * a real defect for a whole session. The list was `[1440, 1280, 1100, 1000,
+ * 900]`, and **the stage is never as wide as the window**: at a 1440px window
+ * the card measures 1,256 and at 1920 it measures 1,278, so 1440 tested a
+ * layout that cannot occur and nothing tested the one nearly every desktop
+ * actually gets. At 1,256 the card-1 calendar note was 8,900 units from its
+ * picture with 234px of arrow lying across other photographs, and the audit
+ * was green.
+ *
+ * So the widths are swept rather than chosen: 900 to 1320 in 20px steps, which
+ * is every stage the deck produces between the container query's floor and the
+ * widest card a 4K window makes. It is 22 widths against four cards and costs
+ * about a second.
+ *
+ * **900, not 860.** The notes and their arrows share one `.collage-scribble`
+ * gate — `@container (min-width: 900px) and (min-height: 563px)` — and 563 is
+ * 900/1.6, the height below which the stage stops being width-bound. So 900 is
+ * the narrowest stage that ever shows a note, and the two widths below it were
+ * testing a layout nobody can see.
  */
 const OVER_PX = 40;
-for (const stage of [1440, 1280, 1100, 1000, 900]) {
+/** See check 6, below. */
+const MIN_ARROW_PX = 12;
+const STAGES = [];
+for (let stage = 900; stage <= 1320; stage += 20) STAGES.push(stage);
+for (const stage of STAGES) {
   const unitsPerPx = place.stageUnits(stage);
   for (const card of collage.default) {
     for (const note of place.placeScribbles(card.slots, card.scribbles, unitsPerPx)) {
@@ -243,6 +277,40 @@ for (const stage of [1440, 1280, 1100, 1000, 900]) {
           `collage ${card.index} at a ${stage}px stage: the arrow for ${JSON.stringify(note.key)} ` +
             `is drawn ${(outside / unitsPerPx).toFixed(0)} CSS px outside the card, where it is clipped`,
         );
+      /*
+       * **6. An arrow too short to be one** (`MILESTONE-012` task 2).
+       *
+       * The two checks above are both about where a stroke goes and neither
+       * of them can see a stroke that barely exists: a two-pixel arrow crosses
+       * no picture and leaves no card, so it passed every time. Seven of the
+       * eleven notes had a stage width at which they drew one — the worst was
+       * 0.3px — and what reaches the page there is a note with a speck beside
+       * it, which reads as a note about nothing.
+       *
+       * `placeScribbles` prices this now (`shortRun`), so like check 5 this is
+       * a check that the search still finds a seat with room, not a
+       * restatement of what it does. The floor is deliberately well under
+       * `MIN_RUN_PX`: the placement *aims* at 80px and pays to get there, and
+       * a card with no seat that allows 80 should ship its best effort rather
+       * than fail the build.
+       *
+       * **12 is a ratchet, not a target.** The deck's worst arrow is 13px, on
+       * card 1's calendar note at the six narrowest widths that show notes at
+       * all; cards 1, 3 and 4 are genuinely crowded there and the seat search
+       * is choosing between a short arrow and one lying over a photograph.
+       * This is set just under what ships so that it cannot get worse without
+       * somebody deciding it should — the number to move is `MIN_RUN_PX`, and
+       * `ISSUE-053` is the open question about those nine placements.
+       */
+      const chord = Math.hypot(
+        note.samples[note.samples.length - 1].x - note.samples[0].x,
+        note.samples[note.samples.length - 1].y - note.samples[0].y,
+      ) / unitsPerPx;
+      if (chord < MIN_ARROW_PX)
+        fail(
+          `collage ${card.index} at a ${stage}px stage: the arrow for ${JSON.stringify(note.key)} ` +
+            `is only ${chord.toFixed(0)} CSS px long (floor ${MIN_ARROW_PX})`,
+        );
     }
   }
 }
@@ -252,10 +320,12 @@ if (findings) {
   process.exit(1);
 }
 console.log(`content audit: ${SLUGS.length} case studies — language and en/de block shape agree`);
-console.log(`               ${registrySlugs.length} playground categories — en/de items, aspects, clips and posters agree`);
+console.log(
+  `               ${slotSrcs.size} collage slots — every caption and alt written in both locales, every clip has a poster, no picture on two cards`,
+);
 console.log(
   `               ${collage.default.length} collage cards — every note points at a slot on its own card`,
 );
 console.log(
-  `               ${collage.default.length * 5} card layouts — no arrow runs more than ${OVER_PX} CSS px over another picture, none leaves the card`,
+  `               ${collage.default.length * STAGES.length} card layouts (stages ${STAGES[0]}-${STAGES[STAGES.length - 1]}px) — no arrow runs more than ${OVER_PX} CSS px over another picture, none leaves the card, none is shorter than ${MIN_ARROW_PX} CSS px`,
 );

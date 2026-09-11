@@ -15,6 +15,8 @@ const en: Dictionary = {
     menu: "Menu",
     close: "Close",
     modeSwitchLabel: "Site mode",
+    switchToPlayground: "Switch to the playground",
+    switchToPortfolio: "Switch to the portfolio",
     switchToGerman: "Switch to German",
     switchToEnglish: "Switch to English",
   },
@@ -22,13 +24,12 @@ const en: Dictionary = {
     primaryNav: "Primary",
     menu: "Menu",
     footerNav: "Footer",
-    categoryNav: "Category navigation",
     projectNav: "Project navigation",
     processCanvas: "My design process",
   },
   hero: {
     eyebrow: "Digital Designer from Lübeck, Germany",
-    headlineLines: ["Alexsha Maharjan"],
+    headlineLines: ["Hello, I am", "Alexsha Maharjan"],
     intro:
       "I design intuitive digital experiences, and I create brands that mean something and look like nobody else's.",
     tags: "UI/UX · Branding · Visual Design",
@@ -270,13 +271,22 @@ const en: Dictionary = {
   },
   aboutPreview: {
     eyebrow: "About",
-    heading: "How I started designing, and who I am",
-    copy: "I grew up in Nepal making things for other people. Cards, gifts, small handmade objects, always designed around whoever was going to open them. Starting from someone else's point of view is the habit that turned into a career, and it is still how I work.",
-    copyDim: "There is more of it on the about page.",
+    heading: "How did I start designing?",
+    copy:
+      "I grew up in Nepal surrounded by creativity, always making things, experimenting with crafts, and designing personalised gifts for people around me. What I enjoyed most was not just creating something visually appealing, but thinking about the person it was for, what they would like, and what would make it feel meaningful.",
+    /*
+     * The paragraph that fades out (`MILESTONE-012` task 3). It is the about
+     * page's own second paragraph, and it follows `copy` because that is what
+     * it follows there too: `copy` ends on what made a gift feel meaningful and
+     * this one opens on "That way of thinking", so the two run on rather than
+     * restating each other.
+     */
+    copyDim:
+      "That way of thinking eventually led me to design. I realised that many of the things I had naturally enjoyed, understanding people, making thoughtful choices, and shaping ideas visually, were at the heart of user-centred design.",
     linkAbout: "Read the whole story →",
     playgroundHeading: "The playground",
     playgroundCopy: "Everything I make when nobody has asked for it. Personal projects, crafts, experiments, and whatever I happen to be learning at the moment.",
-    linkPlayground: "Open the playground →",
+    linkPlayground: "Open the playground",
     portraitAlt: "Portrait of Alexsha Maharjan.",
   },
   contact: {
@@ -295,25 +305,138 @@ const en: Dictionary = {
     backToTop: "Back to top ↑",
     copyright: "© 2026 Alexsha Maharjan",
   },
-  playgroundNav: {
-    backToPlayground: "← Back to Playground",
-    allCategories: "← All categories",
-    experimentEyebrow: "Playground experiment",
+  legal: {
+    impressumNav: "Impressum",
+    privacyNav: "Privacy",
+    address: ["Alexsha Maharjan", "[ Street and number ]", "[ Postcode and city ]", "Germany"],
+    impressum: {
+      title: "Impressum",
+      intro:
+        "Legal notice for this website, as required of a site published from Germany under § 5 DDG.",
+      updated: "Last updated: September 2026",
+      sections: [
+        {
+          heading: "Information pursuant to § 5 DDG",
+          body: [],
+          address: true,
+        },
+        {
+          heading: "Contact",
+          body: ["Email: alexsha.maharjan1@gmail.com"],
+        },
+        {
+          heading: "Responsible for the content under § 18 (2) MStV",
+          body: ["Alexsha Maharjan, at the address above."],
+        },
+        {
+          heading: "Liability for content",
+          body: [
+            "As a service provider I am responsible for my own content on these pages under the general laws, in accordance with § 7 (1) DDG. Under §§ 8 to 10 DDG, however, I am not obliged to monitor transmitted or stored third-party information, or to investigate circumstances that indicate unlawful activity.",
+            "Obligations to remove or block the use of information under the general laws are unaffected by this. Liability in that respect is only possible from the point at which a concrete infringement becomes known. If I become aware of any such infringement, I will remove the content immediately.",
+          ],
+        },
+        {
+          heading: "Liability for links",
+          body: [
+            "This site links to external websites over whose content I have no influence, so I cannot accept responsibility for that content. The respective provider or operator of a linked site is always responsible for its content.",
+            "The linked pages were checked for possible legal violations at the time they were linked. No unlawful content was apparent at that time. Permanent monitoring of the content of linked pages is not reasonable without concrete evidence of an infringement. If I become aware of any violation, I will remove the link immediately.",
+          ],
+        },
+        {
+          heading: "Copyright",
+          body: [
+            "The content and works on these pages created by me are subject to German copyright law. Reproduction, adaptation, distribution and any kind of exploitation outside the limits of copyright require my written consent. Downloads and copies of this site are permitted for private, non-commercial use only.",
+            "Brands, logos and client material shown inside the project case studies remain the property of their respective rights holders and are reproduced here to document design work.",
+          ],
+        },
+        {
+          heading: "Consumer dispute resolution",
+          body: [
+            "I am neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.",
+          ],
+        },
+      ],
+    },
+    privacy: {
+      title: "Privacy",
+      intro:
+        "What happens to data when you visit this site, and what your rights are under the GDPR.",
+      updated: "Last updated: September 2026",
+      sections: [
+        {
+          heading: "The short version",
+          body: [
+            "This is a personal portfolio. It sets no cookies, runs no analytics or tracking, and has no accounts and no contact form. The only data that arises when you visit are the technical access data the host writes to its logs, and the data your browser sends to Google when it fetches the two typefaces this site uses.",
+          ],
+        },
+        {
+          heading: "Controller",
+          body: ["Email: alexsha.maharjan1@gmail.com"],
+          address: true,
+        },
+        {
+          heading: "Hosting",
+          body: [
+            "This site is hosted on GitHub Pages, a service of GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.",
+            "When you open a page, your browser sends technically necessary data to GitHub's servers, which are recorded there in server log files. These usually include your IP address, the date and time of the request, the address requested, the referring URL, and your browser and operating system. This data is not merged with any other source and I do not have access to it.",
+            "The legal basis is Art. 6 (1) (f) GDPR, my legitimate interest in providing this website securely and reliably. GitHub also processes this data in the United States.",
+          ],
+        },
+        {
+          heading: "Typefaces",
+          body: [
+            "This site loads the typefaces Inter and Caveat from Google Fonts, a service of Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Your browser fetches the font files directly from Google's servers and transmits your IP address in doing so.",
+            "The legal basis is Art. 6 (1) (f) GDPR, my legitimate interest in a consistent presentation of this website.",
+          ],
+        },
+        {
+          heading: "Contacting me by email",
+          body: [
+            "If you write to me, I process your email address and the content of your message in order to answer it. The legal basis is Art. 6 (1) (b) GDPR where your enquiry concerns a contract, and otherwise Art. 6 (1) (f) GDPR. I delete this data once it is no longer needed and no statutory retention period prevents it.",
+          ],
+        },
+        {
+          heading: "External links",
+          body: [
+            "This site links out to external services, among them LinkedIn. The respective provider is responsible for data processing on those pages. No data is transferred to them until you actively follow such a link.",
+          ],
+        },
+        {
+          heading: "Encryption",
+          body: [
+            "This site is served over HTTPS only, so the connection between your browser and the server is encrypted.",
+          ],
+        },
+        {
+          heading: "Your rights",
+          body: [
+            "You have the right to information about the data stored about you (Art. 15 GDPR), and to rectification (Art. 16), erasure (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and objection to processing (Art. 21). Write to the address above to exercise any of them.",
+            "Independently of that, you may lodge a complaint with a data protection supervisory authority (Art. 77 GDPR). This is usually the authority for your place of residence or the authority where I am based.",
+          ],
+        },
+        {
+          heading: "Changes",
+          body: [
+            "I update this notice when the site or the legal position changes. The version published here is the one that applies.",
+          ],
+        },
+      ],
+    },
   },
   about: {
     backToHome: "← Back to home",
     eyebrow: "About",
-    heading: "How I started designing, and who I am",
+    heading: "How did I start designing?",
     portraitAlt: "Portrait of Alexsha.",
     handNoteOrigin: "Nepal → Germany",
     handNoteMaking: "always making something!",
     portraitTags: ["UI/UX Design", "Branding", "Visual Design"],
     biographyHeading: "Biography",
     biography: [
-      "I grew up in Nepal, around design and making things, and I have been drawn to both for as long as I can remember. I loved crafts, and I especially loved designing for other people. I was always making something to give away, and I designed each one around the person who was going to open it.",
-      "That is where the career came from. I like thinking from the other person's point of view and shaping something until it fits them. Usability and user experience were things I was practising long before I knew they had names.",
-      "It is also what brought me 6,570 kilometres from home to Germany, to learn a language, live inside a different culture and collect a completely different set of experiences. I like exploring. It keeps my head open to ideas I would not have had otherwise.",
-      "I am a student now, taking the bachelor's in the field I always wanted, and I am glad to be doing it. I have taught myself to work across UI/UX, web design, branding and visual communication, and I enjoy turning complicated ideas into something clear and good to look at.",
+      "I grew up in Nepal surrounded by creativity, always making things, experimenting with crafts, and designing personalised gifts for people around me. What I enjoyed most was not just creating something visually appealing, but thinking about the person it was for, what they would like, and what would make it feel meaningful.",
+      "That way of thinking eventually led me to design. I realised that many of the things I had naturally enjoyed, understanding people, making thoughtful choices, and shaping ideas visually, were at the heart of user-centred design.",
+      "That journey eventually brought me from Nepal to Germany, where I am pursuing my bachelor’s degree and growing as a multidisciplinary designer focused on UI/UX, visual design, branding, and web design. Living in a new environment has also broadened the way I see people, culture, and design.",
+      "For me, good design is not only about how something looks, but also about understanding who it is for and creating something that feels useful and meaningful.",
     ],
     focusHeading: "Professional focus",
     focusItems: ["UI/UX Design", "Web Design", "Brand Identity", "Graphic Design", "Interaction Design"],
@@ -331,9 +454,27 @@ const en: Dictionary = {
     aiTags: ["Research", "Ideation", "Content", "Prototyping"],
     playgroundHeading: "The playground",
     playgroundCopy: "Everything I make when nobody has asked for it. Personal projects, crafts, experiments, and whatever I happen to be learning at the moment.",
-    linkPlayground: "Open the playground →",
+    linkPlayground: "Open the playground",
     loveIntro: "I love",
-    loveWords: ["drawing", "crafting", "building", "experimenting", "learning", "exploring", "making things by hand"],
+    /*
+     * The words are the owner's own subjects, not a generic maker's vocabulary
+     * (`MILESTONE-013` task 10). Every one of them is something the site can
+     * be asked to show: the beadwork, the paintings and the packaging are
+     * cards in the playground, the typography is the calendar series, and the
+     * gifts are the thing the biography says the whole career came out of.
+     * "drawing, crafting, building, experimenting, learning, exploring" could
+     * have been anybody.
+     */
+    loveWords: [
+      "making things by hand",
+      "making gifts for people",
+      "beadwork",
+      "painting",
+      "typography",
+      "colour",
+      "packaging",
+      "learning languages",
+    ],
     resumeHeading: "Résumé & contact",
     resumeCopy: "Interested in working together? View my résumé or send me a message.",
     resumeCta: "View résumé",

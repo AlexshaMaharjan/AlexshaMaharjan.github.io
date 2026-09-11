@@ -3,6 +3,7 @@ import { useLocale } from "@/lib/useLocale";
 import home from "@/lib/playground/home";
 import collageCards from "@/lib/playground/collage";
 import CardStack from "@/components/playground/CardStack";
+import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 
 /**
@@ -17,10 +18,13 @@ import Seo from "@/components/Seo";
  * (`Portfolio.fig`, page 2), which is where `@/lib/playground/collage` is
  * traced from.
  *
- * The category content in `@/lib/playground/categories` is untouched and still
- * audited. It is no longer rendered — the collages carry the pictures now — but
- * it is the only place the captions and the still-empty slots are written down,
- * so it stays until something replaces it.
+ * **`@/lib/playground/collage` is the only place the pictures live**
+ * (`DECISION-047`). There used to be a parallel set of category files here, and
+ * this comment used to say they were kept because they were "the only place the
+ * captions are written down". That was wrong and stayed wrong for three
+ * sessions: a `CollageSlot` carries its own `caption` and `alt` in both locales,
+ * next to its own coordinates. The categories were deleted in `MILESTONE-014`,
+ * along with everything else that had outlived `DECISION-027`.
  */
 export default function PlaygroundIndex() {
   const locale = useLocale();
@@ -38,29 +42,12 @@ export default function PlaygroundIndex() {
     <>
       <Seo title={`${content.heading} — Alexsha Maharjan`} description={content.intro} />
 
-      {/*
-        The title sits high on the first screen rather than in the middle of it,
-        so the top of the first card is already on screen before anyone scrolls.
-        The height is the homepage's: its process canvas is pinned at `top:
-        70svh` (`HeroProcess.tsx`), and the owner asked for the two pages to
-        start their big scrolling object at the same place. In `svh` that holds
-        at any window height.
-
-        What it costs: the deck starts at this section's height and a card is
-        `100svh - header - 40`, so the sliver showing at rest is `30svh` of a
-        card — about a third of it at a 900px window, where the old 56svh hero
-        showed half. Half a card was SESSION-036's arithmetic; agreeing with
-        the homepage is the owner's instruction, and it wins.
-      */}
-      <section className="flex min-h-[70svh] items-center justify-center px-5 pt-[var(--header-h)]">
-        <div className="container-page text-center">
-          <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-ink-muted">{content.eyebrow}</p>
-          <h1 className="mx-auto mt-5 max-w-[900px] text-page-title font-semibold leading-[1.02] tracking-[-0.028em] text-ink">
-            {content.heading}
-          </h1>
-          <p className="mx-auto mt-7 max-w-[560px] text-[19px] leading-[1.6] text-ink-secondary">{content.intro}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={content.eyebrow}
+        headingLines={[content.heading]}
+        intro={content.intro}
+        tags={content.tags}
+      />
 
       <CardStack
         cards={collageCards}

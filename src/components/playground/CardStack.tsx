@@ -304,7 +304,13 @@ export default function CardStack({
                 className="pointer-events-none absolute inset-0"
                 style={{ ...accentGridBackground(card.accent), opacity: "var(--pg-full)" }}
               />
-              <Collage slots={card.slots} scribbles={card.scribbles} locale={locale} paused={paused} />
+              <Collage
+                slots={card.slots}
+                scribbles={card.scribbles}
+                locale={locale}
+                paused={paused}
+                accent={card.accent}
+              />
               <span
                 aria-hidden="true"
                 className="pg-tint pointer-events-none absolute left-0 top-0 z-10 block p-7 font-mono text-[12px] md:p-9"

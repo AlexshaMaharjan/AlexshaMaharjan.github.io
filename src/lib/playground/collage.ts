@@ -78,6 +78,25 @@ export interface CollageScribble {
   target: string;
   text: Record<Locale, string>;
   tone?: "ink" | "accent";
+  /**
+   * Which side of its picture the note should sit on.
+   *
+   * **Every note carries one now** (`MILESTONE-012` task 2). It was two of
+   * nine, added where the owner had a view; then the owner drew all ten
+   * annotations onto page 2 of `Portfolio.fig` and every one of them is in a
+   * corner of its frame. So this stopped being an exception and became the
+   * data: the four cards take their corners from those frames, and the three
+   * notes that had no `prefer` were not left alone because nobody minded where
+   * they went — they were left alone because nobody had said.
+   *
+   * A **preference, not a position.** `placeScribbles` still decides where the
+   * note actually goes, still refuses to write it over a picture, and still
+   * picks the seat whose arrow has the clearest run — this only breaks the tie,
+   * which on a crowded card is most of the decision. Asking for a corner the
+   * card has nothing free in gets the nearest clear seat to it rather than a
+   * note in the wrong place or no note at all.
+   */
+  prefer?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
 }
 
 export interface CollageCard {
@@ -117,7 +136,7 @@ const cards: CollageCard[] = [
     slots: [
       {
         x: 2723, y: 2044, w: 2201, h: 3267, src: "/images/pg-painting-luffy.webp",
-        caption: { en: "Acrylic painting", de: "Acrylbild" },
+        caption: { en: "Acrylic wanted poster", de: "Acryl-Fahndungsplakat" },
         // The design pulls the crop to the picture's right edge.
         focus: "100% 50%",
         alt: {
@@ -127,33 +146,42 @@ const cards: CollageCard[] = [
       },
       {
         x: 7525, y: 3678, w: 2543, h: 3596, src: "/images/pg-sunset.webp",
-        caption: { en: "Sunset above the clouds", de: "Sonnenuntergang über den Wolken" },
-        alt: { en: "The sun setting over a bank of cloud", de: "Die Sonne geht über einer Wolkendecke unter" },
+        caption: { en: "Sunset, painted in Procreate", de: "Sonnenuntergang, in Procreate gemalt" },
+        alt: {
+          en: "The sun setting over a bank of cloud, painted in Procreate",
+          de: "Die Sonne geht über einer Wolkendecke unter, in Procreate gemalt",
+        },
       },
       {
         x: 5280, y: 2912, w: 1798, h: 2399, src: "/images/pg-autumn.webp",
-        caption: { en: "Autumn path", de: "Herbstweg" },
-        alt: { en: "A path through autumn trees in orange and red", de: "Ein Weg durch herbstliche Bäume in Orange und Rot" },
+        caption: { en: "Autumn path, painted in Procreate", de: "Herbstweg, in Procreate gemalt" },
+        alt: {
+          en: "A path through autumn trees in orange and red, painted in Procreate",
+          de: "Ein Weg durch herbstliche Bäume in Orange und Rot, in Procreate gemalt",
+        },
       },
       {
         x: 4443, y: 5816, w: 2629, h: 2722, src: "/images/pg-flyer.webp",
-        caption: { en: "Event flyer", de: "Veranstaltungsflyer" },
+        caption: { en: "Christmas market flyer", de: "Weihnachtsmarkt-Flyer" },
         alt: {
-          en: "A set of event cards in pink and black, laid out as a grid",
-          de: "Eine Reihe von Veranstaltungskarten in Rosa und Schwarz als Raster",
+          en: "Flyers for a Christmas market, set in pink and black and laid out as a grid",
+          de: "Flyer für einen Weihnachtsmarkt, in Rosa und Schwarz gesetzt und als Raster angelegt",
         },
       },
       {
         x: 2604, y: 5677, w: 1660, h: 1999, src: "/images/pg-packaging-crisps.webp",
-        caption: { en: "Crisp packet", de: "Chips-Verpackung" },
-        alt: { en: "Packaging for a hot and spicy crisp brand", de: "Verpackung für eine scharfe Chips-Marke" },
+        caption: { en: "Crisp packet design", de: "Chips-Verpackung" },
+        alt: {
+          en: "Packaging for a hot and spicy crisp brand, flames across a black bag",
+          de: "Verpackung für eine scharfe Chips-Marke, Flammen auf schwarzem Beutel",
+        },
       },
       {
         x: 13187, y: 4111, w: 2109, h: 2812, src: "/images/pg-painting-framed.webp",
         caption: { en: "Framed sky painting", de: "Gerahmtes Himmelsbild" },
         alt: {
           en: "A painted sky held up against a wall of red bows and fairy lights",
-          de: "Ein gemalter Himmel, hochgehalten vor einer Wand aus roten Schleifen und Lichterketten",
+          de: "Ein gemalter Himmel, vor eine Wand aus roten Schleifen und Lichterketten gehalten",
         },
       },
       {
@@ -190,8 +218,11 @@ const cards: CollageCard[] = [
       },
       {
         x: 681, y: 4348, w: 1595, h: 2128, src: "/images/pg-gift-popup.webp",
-        caption: { en: "Pop-up gift box", de: "Pop-up-Geschenkbox" },
-        alt: { en: "A pop-up birthday box with balloons and lettering", de: "Eine Pop-up-Geburtstagsbox mit Ballons und Schriftzug" },
+        caption: { en: "Pop-up birthday card", de: "Pop-up-Geburtstagskarte" },
+        alt: {
+          en: "A Spider-Man themed pop-up birthday card with balloons and hand lettering",
+          de: "Eine Pop-up-Geburtstagskarte im Spider-Man-Thema, mit Ballons und Handschrift",
+        },
       },
       {
         x: 7881, y: 1459, w: 3347, h: 1883,
@@ -215,15 +246,25 @@ const cards: CollageCard[] = [
       {
         target: "/images/pg-clip-hibi.webp",
         text: { en: "my own\ntask app", de: "meine eigene\nAufgaben-App" },
+        prefer: "top-right",
       },
       {
-        target: "/images/pg-painting-luffy.webp",
-        text: { en: "acrylic on\ncanvas", de: "Acryl auf\nLeinwand" },
+        target: "/images/pg-flyer.webp",
+        text: { en: "event flyer,\npink on black", de: "Flyer, Rosa\nauf Schwarz" },
+        prefer: "bottom-left",
       },
       {
-        target: "/images/pg-kalender-cover.webp",
-        text: { en: "a whole year,\none flower\na month", de: "ein ganzes Jahr,\neine Blüte\nje Monat" },
+        /*
+         * The note names the March page, not the cover (`MILESTONE-011` task
+         * 5). It said "a whole year, one flower a month" and pointed at the
+         * 2027 cover, which is the one picture on the card that shows no month
+         * at all — the sentence is about the series and it now points at a page
+         * of it, which is what makes the idea legible.
+         */
+        target: "/images/pg-kalender-maerz.webp",
+        text: { en: "a whole year,\none flower\na month", de: "ein ganzes\nJahr, eine\nBlüte je Monat" },
         tone: "accent",
+        prefer: "bottom-right",
       },
     ],
   },
@@ -235,49 +276,61 @@ const cards: CollageCard[] = [
     slots: [
       {
         x: 9473, y: 775, w: 1888, h: 2612, src: "/images/pg-bead.webp",
-        caption: { en: "Beaded hanging planter", de: "Perlen-Hängeampel" },
+        caption: { en: "Beaded suncatcher", de: "Perlen-Sonnenfänger" },
         // A tall picture in a shorter box: the design keeps the planter, not the ceiling.
         focus: "50% 59%",
         alt: {
-          en: "A beaded hanging planter among leaves, lit at night",
-          de: "Eine Hängeampel aus Perlen zwischen Blättern, nachts beleuchtet",
+          en: "A beaded crystal suncatcher hung with a trailing plant, lit at night",
+          de: "Ein Sonnenfänger aus Perlen und Kristallen mit einer rankenden Pflanze, nachts beleuchtet",
         },
       },
       {
         x: 5748, y: 7099, w: 3157, h: 2368, src: "/images/pg-painting-blossom.webp",
         caption: { en: "Blossom painting", de: "Blütenbild" },
-        alt: { en: "Blue blossom branches painted in acrylic", de: "Blaue Blütenzweige in Acryl gemalt" },
+        alt: {
+          en: "Blue blossom branches painted in acrylic",
+          de: "Blaue Blütenzweige in Acryl gemalt",
+        },
       },
       {
         x: 10499, y: 3787, w: 2048, h: 2732, src: "/images/pg-portrait.webp",
         caption: { en: "Digital portrait", de: "Digitales Porträt" },
         alt: {
-          en: "A digital portrait of a woman in a green patterned dress",
-          de: "Digitales Porträt einer Frau in grün gemustertem Kleid",
+          en: "A digital portrait of a woman in a patterned dress, drawn in Illustrator",
+          de: "Digitales Porträt einer Frau in gemustertem Kleid, in Illustrator gezeichnet",
         },
       },
       {
         x: 3069, y: 3489, w: 2480, h: 3508, src: "/images/pg-forest.webp",
-        caption: { en: "Forest study", de: "Waldstudie" },
-        alt: { en: "Light falling through a dense green forest", de: "Licht, das durch einen dichten grünen Wald fällt" },
+        caption: { en: "Forest study, painted in Procreate", de: "Waldstudie, in Procreate gemalt" },
+        alt: {
+          en: "Light falling through a dense green forest, painted in Procreate",
+          de: "Licht, das durch einen dichten grünen Wald fällt, in Procreate gemalt",
+        },
       },
       {
         x: 1045, y: 3961, w: 1685, h: 2384, src: "/images/pg-poster-museum.webp",
-        caption: { en: "Museum poster", de: "Museumsplakat" },
+        caption: { en: "Museum poster for children", de: "Museumsplakat für Kinder" },
         alt: {
-          en: "An illustrated children's poster for a museum exhibition",
-          de: "Ein illustriertes Kinderplakat für eine Museumsausstellung",
+          en: "An illustrated poster for a children's exhibition at a museum",
+          de: "Ein illustriertes Plakat für eine Kinderausstellung im Museum",
         },
       },
       {
         x: 5981, y: 534, w: 2924, h: 2714, src: "/images/pg-packaging-perfume-flat.webp",
-        caption: { en: "Perfume box — unfolded", de: "Parfüm-Verpackung — abgewickelt" },
-        alt: { en: "Perfume packaging laid out flat", de: "Parfümverpackung flach ausgelegt" },
+        caption: { en: "Perfume box, unfolded", de: "Parfümverpackung, aufgefaltet" },
+        alt: {
+          en: "The same perfume packaging laid out flat",
+          de: "Dieselbe Parfümverpackung flach ausgelegt",
+        },
       },
       {
         x: 12676, y: 3845, w: 2278, h: 2674, src: "/images/pg-packaging-perfume.webp",
-        caption: { en: "Perfume box", de: "Parfüm-Verpackung" },
-        alt: { en: "A navy perfume box with a floral pattern", de: "Eine dunkelblaue Parfümschachtel mit Blütenmuster" },
+        caption: { en: "Perfume box", de: "Parfümverpackung" },
+        alt: {
+          en: "A navy perfume box with a floral pattern",
+          de: "Eine dunkelblaue Parfümschachtel mit Blütenmuster",
+        },
       },
       {
         x: 5888, y: 3701, w: 4272, h: 2552, src: "/images/pg-mindruhe.webp",
@@ -308,11 +361,22 @@ const cards: CollageCard[] = [
       {
         target: "/images/pg-forest.webp",
         text: { en: "light is the\nwhole subject", de: "das Licht ist\ndas Motiv" },
+        prefer: "bottom-left",
       },
       {
-        target: "/images/pg-packaging-perfume-flat.webp",
+        /*
+         * "flat, then folded" pointing at the flat one was the sentence ending
+         * where it started. It points at the folded one now (`MILESTONE-011`
+         * task 6), so the arrow lands on the finished box and the words carry
+         * the eye from the template to the result.
+         */
+        target: "/images/pg-packaging-perfume.webp",
         text: { en: "perfume: flat,\nthen folded", de: "Parfüm: flach,\ndann gefaltet" },
         tone: "accent",
+        // Above the box and a little to its left, which is where frame 2's
+        // annotation sits and not the top-right corner it looks like on a
+        // first read of the frame.
+        prefer: "top-left",
       },
     ],
   },
@@ -330,11 +394,14 @@ const cards: CollageCard[] = [
       {
         x: 1046, y: 3969, w: 2412, h: 1781, src: "/images/pg-postcard-1.webp",
         caption: { en: "Typographic postcard", de: "Typografische Postkarte" },
-        alt: { en: "A Schiller quote set around a circular path", de: "Ein Schiller-Zitat entlang einer Kreisbahn gesetzt" },
+        alt: {
+          en: "A Schiller quote set around a circular path",
+          de: "Ein Schiller-Zitat entlang einer Kreisbahn gesetzt",
+        },
       },
       {
         x: 6678, y: 838, w: 3154, h: 2280, src: "/images/pg-bookcover.webp",
-        caption: { en: "Book cover", de: "Buchcover" },
+        caption: { en: "Horror book cover", de: "Horror-Buchcover" },
         alt: {
           en: "A book cover for “Glow in the Fog”, front and spine",
           de: "Ein Buchcover für „Glow in the Fog“, Vorderseite und Rücken",
@@ -342,8 +409,11 @@ const cards: CollageCard[] = [
       },
       {
         x: 3580, y: 2129, w: 2109, h: 2811, src: "/images/pg-poster-hologram.webp",
-        caption: { en: "Hologram poster", de: "Hologramm-Plakat" },
-        alt: { en: "A product poster for a holographic watch", de: "Ein Produktplakat für eine holografische Uhr" },
+        caption: { en: "Smart watch poster", de: "Smartwatch-Plakat" },
+        alt: {
+          en: "A product poster for a holographic smart watch",
+          de: "Ein Produktplakat für eine holografische Smartwatch",
+        },
       },
       {
         x: 6029, y: 3479, w: 4452, h: 2505,
@@ -356,10 +426,10 @@ const cards: CollageCard[] = [
       },
       {
         x: 10830, y: 1018.5, w: 1463, h: 2194, src: "/images/pg-line-study.webp",
-        caption: { en: "Line study", de: "Linienstudie" },
+        caption: { en: "Line art", de: "Linienzeichnung" },
         alt: {
-          en: "A couple drawn in single-weight outline, no fill",
-          de: "Ein Paar in gleichmäßiger Linie gezeichnet, ohne Füllung",
+          en: "A couple drawn in single-weight outline in Illustrator, with no fill",
+          de: "Ein Paar in gleichmäßiger Linie in Illustrator gezeichnet, ohne Füllung",
         },
       },
       {
@@ -367,11 +437,14 @@ const cards: CollageCard[] = [
         caption: { en: "Group portrait", de: "Gruppenporträt" },
         // A tall drawing in a shorter box: the design keeps the figures, not the sky.
         focus: "50% 100%",
-        alt: { en: "Three women in saris, drawn as a group portrait", de: "Drei Frauen in Saris als Gruppenporträt gezeichnet" },
+        alt: {
+          en: "Three women in saris, drawn as a group portrait in Illustrator",
+          de: "Drei Frauen in Saris, als Gruppenporträt in Illustrator gezeichnet",
+        },
       },
       {
         x: 10830, y: 3332.5, w: 1884, h: 2825, src: "/images/pg-photo-lowkey.webp",
-        caption: { en: "Low-key portrait", de: "Low-Key-Porträt" },
+        caption: { en: "Low-key portrait photography", de: "Low-Key-Porträtfotografie" },
         alt: {
           en: "A singer lit by red and blue gels against black, mid-phrase with a microphone",
           de: "Eine singende Person in rotem und blauem Licht vor Schwarz, mit Mikrofon",
@@ -392,7 +465,7 @@ const cards: CollageCard[] = [
       },
       {
         x: 6029, y: 6692, w: 2940, h: 2270, src: "/images/pg-photo-stilllife.webp",
-        caption: { en: "Mirrored still life", de: "Gespiegeltes Stillleben" },
+        caption: { en: "Still life photography", de: "Stilllebenfotografie" },
         alt: {
           en: "Forks and grapes mirrored on black glass, arranged to read as a pair of eyes",
           de: "Gabeln und Weintrauben auf schwarzem Glas gespiegelt, angeordnet wie ein Augenpaar",
@@ -403,11 +476,24 @@ const cards: CollageCard[] = [
       {
         target: "/images/pg-poster-hologram.webp",
         text: { en: "holographic watch,\nall concept", de: "Holo-Uhr,\nreines Konzept" },
+        prefer: "top-left",
       },
       {
-        target: "/images/pg-line-study.webp",
-        text: { en: "one weight,\nno fill", de: "eine Strichstärke,\nkeine Füllung" },
+        /*
+         * Card 3's third note (`MILESTONE-012` task 2). The owner's Figma
+         * frame 3 carries three annotations and this card shipped two: the
+         * missing one is the top right, where the arrow springs off the top
+         * corner of the group portrait.
+         */
+        target: "/images/pg-group-portrait.webp",
+        text: { en: "drawn from\none photo", de: "nach einem\neinzigen Foto" },
+        prefer: "top-right",
+      },
+      {
+        target: "/images/pg-desmark-logo.webp",
+        text: { en: "Desmark,\na brand agency", de: "Desmark,\nMarkenagentur" },
         tone: "accent",
+        prefer: "bottom-right",
       },
     ],
   },
@@ -419,68 +505,86 @@ const cards: CollageCard[] = [
     slots: [
       {
         x: 9993, y: 4489, w: 1457, h: 1942, src: "/images/pg-frame.webp",
-        caption: { en: "Handmade frame", de: "Handgemachter Rahmen" },
+        caption: { en: "Hand-painted frame", de: "Handbemalter Rahmen" },
         alt: {
-          en: "A hand-decorated photo frame held up against fairy lights",
-          de: "Ein handverzierter Bilderrahmen vor einer Lichterkette",
+          en: "A hand-painted photo frame held up against fairy lights",
+          de: "Ein handbemalter Bilderrahmen vor einer Lichterkette",
         },
       },
       {
         x: 2483, y: 2739, w: 1677, h: 2235, src: "/images/pg-frame-detail.webp",
-        caption: { en: "Handmade frame — detail", de: "Handgemachter Rahmen — Detail" },
-        alt: { en: "The same frame with beadwork and pressed flowers", de: "Derselbe Rahmen mit Perlen und gepressten Blüten" },
+        caption: { en: "Paper flower frame", de: "Rahmen aus Papierblüten" },
+        alt: {
+          en: "A photo frame built up from layered paper flowers",
+          de: "Ein Bilderrahmen aus geschichteten Papierblüten",
+        },
       },
       {
         x: 10096, y: 1146, w: 2700, h: 2701, src: "/images/pg-gift-cube.webp",
-        caption: { en: "Photo cube gift", de: "Fotowürfel-Geschenk" },
-        alt: { en: "A stack of photo cubes forming a pyramid", de: "Ein Stapel Fotowürfel, zu einer Pyramide gesetzt" },
+        caption: { en: "Pop-up photo cubes", de: "Pop-up-Fotowürfel" },
+        alt: {
+          en: "A stack of photo cubes forming a pyramid",
+          de: "Ein Stapel Fotowürfel, zu einer Pyramide gesetzt",
+        },
       },
       {
         x: 10096, y: 6977, w: 1354, h: 2407,
         src: "/images/pg-clip-riona.webp", video: "/videos/pg-gift-riona.mp4", film: "/videos/pg-gift-riona-full.mp4",
-        caption: { en: "Marble keepsake box", de: "Marmor-Erinnerungsbox" },
+        caption: { en: "Marble pop-up box", de: "Marmorierte Pop-up-Box" },
         alt: {
-          en: "A pink marble keepsake box opening to reveal folded paper inside",
-          de: "Eine rosa Marmorbox öffnet sich und gibt gefaltetes Papier frei",
+          en: "A pink marble box opening to reveal the folded cubes inside",
+          de: "Eine rosa Marmorbox öffnet sich und gibt die gefalteten Würfel darin frei",
         },
       },
       {
         x: 2713, y: 5460, w: 1475, h: 2621,
         src: "/images/pg-clip-popup.webp", video: "/videos/pg-gift-popup.mp4", film: "/videos/pg-gift-popup-full.mp4",
-        caption: { en: "Pop-up box, opened", de: "Pop-up-Box, geöffnet" },
+        caption: { en: "Unicorn pop-up box", de: "Einhorn-Pop-up-Box" },
         alt: {
-          en: "A pink and lilac pop-up box being opened, its photo panels standing up",
-          de: "Eine rosa-lila Pop-up-Box wird geöffnet, die Fotoelemente stellen sich auf",
+          en: "A unicorn themed pop-up box being opened, its panels standing up",
+          de: "Eine Pop-up-Box im Einhorn-Thema wird geöffnet, die Elemente stellen sich auf",
         },
       },
       {
         x: 4401, y: 1650, w: 1918, h: 2557,
         src: "/images/pg-clip-explosion.webp", video: "/videos/pg-gift-explosion.mp4", film: "/videos/pg-gift-explosion-full.mp4",
-        caption: { en: "Explosion box, unfolding", de: "Explosionsbox beim Öffnen" },
+        caption: { en: "Explosion box, opening", de: "Explosionsbox beim Öffnen" },
         alt: {
           en: "Hands unfolding the layers of a black and pink explosion gift box",
-          de: "Hände, die die Ebenen einer schwarz-rosa Explosionsbox auffalten",
+          de: "Hände falten die Ebenen einer schwarz-rosa Explosionsbox auf",
         },
       },
       {
         x: 6592, y: 3733, w: 3127, h: 3947, src: "/images/pg-vtri-store.webp",
         caption: { en: "VTRI storefront", de: "VTRI-Ladenfront" },
-        alt: { en: "The VTRI banner installed above the shop window", de: "Das VTRI-Banner über dem Schaufenster montiert" },
+        alt: {
+          en: "The VTRI banner installed above the shop window",
+          de: "Das VTRI-Banner über dem Schaufenster montiert",
+        },
       },
       {
         x: 570, y: 5165, w: 1930, h: 1287, src: "/images/pg-double-portrait.webp",
         caption: { en: "Double portrait", de: "Doppelporträt" },
-        alt: { en: "Two friends drawn side by side on a pink ground", de: "Zwei Freundinnen nebeneinander auf rosa Grund gezeichnet" },
+        alt: {
+          en: "Two friends drawn side by side on a pink ground in Illustrator",
+          de: "Zwei Freundinnen nebeneinander auf rosa Grund, in Illustrator gezeichnet",
+        },
       },
       {
         x: 11723, y: 6771, w: 1564, h: 2086, src: "/images/pg-scooter.webp",
         caption: { en: "Child on a scooter", de: "Kind auf dem Roller" },
-        alt: { en: "A child on a scooter, drawn in flat colour", de: "Ein Kind auf einem Roller, in flachen Farben gezeichnet" },
+        alt: {
+          en: "A child on a scooter, drawn in flat colour in Illustrator",
+          de: "Ein Kind auf einem Roller, in flachen Farben in Illustrator gezeichnet",
+        },
       },
       {
         x: 6746, y: 8181, w: 2973, h: 849, src: "/images/pg-vtri-banner.webp",
         caption: { en: "VTRI banner", de: "VTRI-Banner" },
-        alt: { en: "A shopfront banner for the VTRI lingerie store", de: "Ein Ladenbanner für den VTRI-Wäschestore" },
+        alt: {
+          en: "A shopfront banner for the VTRI lingerie store",
+          de: "Ein Ladenbanner für den VTRI-Wäschestore",
+        },
       },
       {
         x: 11663, y: 3967, w: 3671, h: 2597, src: "/images/pg-kalender-februar.webp",
@@ -501,7 +605,10 @@ const cards: CollageCard[] = [
       {
         x: 4401, y: 4560, w: 1836, h: 2597, src: "/images/pg-character.webp",
         caption: { en: "Character illustration", de: "Charakter-Illustration" },
-        alt: { en: "A figure holding an oversized red heart", de: "Eine Figur mit einem übergroßen roten Herz" },
+        alt: {
+          en: "A figure holding an oversized red heart, drawn in Illustrator",
+          de: "Eine Figur mit einem übergroßen roten Herz, in Illustrator gezeichnet",
+        },
       },
       {
         x: 6904, y: 836, w: 2192, h: 2686, src: "/images/pg-logo.webp",
@@ -509,8 +616,8 @@ const cards: CollageCard[] = [
         // The design sits the mark high in its box, not centred.
         focus: "50% 34%",
         alt: {
-          en: "A monogram mark for Infrastruktur Technologie und Design",
-          de: "Eine Wortbildmarke für Infrastruktur Technologie und Design",
+          en: "A monogram for Infrastruktur Technologie und Design",
+          de: "Eine Monogramm-Marke für Infrastruktur Technologie und Design",
         },
       },
     ],
@@ -518,15 +625,38 @@ const cards: CollageCard[] = [
       {
         target: "/images/pg-frame-detail.webp",
         text: { en: "beads, ribbon,\nfairy lights", de: "Perlen, Band,\nLichterkette" },
+        prefer: "top-left",
       },
       {
-        target: "/images/pg-character.webp",
-        text: { en: "flat colour,\nno line work", de: "flache Farben,\nkeine Konturen" },
+        /*
+         * The banner artwork, saying where it ended up (`MILESTONE-011` task
+         * 8). The card carries both halves — `pg-vtri-banner` is the flat
+         * design, `pg-vtri-store` the photograph of it installed above the
+         * shop window — and the note goes on the design, because that is the
+         * one whose point is not obvious from looking at it.
+         *
+         * It is also the only one of the two a note can reach: `pg-vtri-store`
+         * has a picture hard against all four of its sides, and every seat near
+         * it puts 79px of arrow across a photograph.
+         */
+        target: "/images/pg-vtri-banner.webp",
+        text: { en: "up on a real\nstorefront", de: "an einer echten\nLadenfront" },
+        prefer: "bottom-left",
       },
       {
         target: "/images/pg-gift-cube.webp",
         text: { en: "photo cubes,\nstacked into\na pyramid", de: "Fotowürfel, zur\nPyramide\ngestapelt" },
         tone: "accent",
+        /*
+         * Frame 4 puts this one *beside* the pyramid, a shade below its middle
+         * — 1.7 widths across and 0.4 heights down — which is `bottom-right`
+         * of the four this can say, not the `top-right` the corner of the
+         * frame suggests. It matters: the pyramid's top edge is already near
+         * the top of the card, so "above and to the right" is a strip with no
+         * room in it, and the note ends up jammed against the picture with an
+         * arrow too short to see.
+         */
+        prefer: "bottom-right",
       },
     ],
   },

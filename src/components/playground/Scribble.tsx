@@ -21,11 +21,16 @@ import type { PlacedScribble } from "@/lib/playground/placeScribbles";
  *
  * **Neither of these decides where it goes.** `lib/playground/placeScribbles`
  * does, from the picture the note names — see that file for why. What is left
- * here is how a note is drawn: the text at a fixed CSS size over a collage that
- * is not (handwriting at 14px is not handwriting, which is also why notes
- * appear only on a card wide enough to spare the room, a container query in
- * `index.css`), and the arrow in the design's own coordinates so that it lands
- * where the picture actually is at any scale.
+ * here is how a note is drawn: the text in CSS pixels over a collage measured
+ * in design units, and the arrow in the design's own coordinates so that it
+ * lands where the picture actually is at any scale.
+ *
+ * **The size comes from `--pg-note-px`, which `Collage` sets from
+ * `placeScribbles.notePx`.** It is 22px on a normal desktop card and eases
+ * down to 18 on the narrowest card that shows notes at all — see `notePx` for
+ * why a fixed size made the narrow cards unplaceable. The floor is 18 because
+ * handwriting at 14px is not handwriting, which is also why notes appear only
+ * on a card wide enough to spare the room (a container query in `index.css`).
  *
  * **The note answers to the card's reveal** (SESSION-037). It is written in
  * blue while the card's pictures are still black and white, and turns to that
@@ -61,7 +66,7 @@ export default function Scribble({ note, locale }: { note: PlacedScribble; local
       }
     >
       <span
-        className="block max-w-[15ch] whitespace-pre-line font-hand text-[22px] font-bold leading-[1.1]"
+        className="block max-w-[15ch] whitespace-pre-line font-hand text-[length:var(--pg-note-px,22px)] font-bold leading-[1.1]"
         style={{ textAlign: note.align }}
       >
         {note.text[locale]}

@@ -50,6 +50,18 @@ import { prefersReducedMotion } from "@/lib/motion";
  * (`DECISION-030`), which is why `loopVideo` exists: an eight-second loop that
  * stops looks broken, and a two-and-a-half-minute one that starts over unasked
  * is a different kind of wrong.
+ *
+ * **`onPrev`/`onNext` step through a set without closing** (`MILESTONE-014`
+ * task 3). Opening a collage piece used to be a round trip: open, look, close,
+ * find the next one on a card of a dozen, open that. Pass either handler and
+ * the dialog grows a pair of edge buttons, a position counter beside the
+ * caption, and the two arrow keys. Pass neither and none of it renders, which
+ * is what the case studies do — a figure there belongs to a section, not to a
+ * gallery, and there is no obvious "next" for it to mean.
+ *
+ * The caller owns the wrapping. This only ever says "the reader asked for the
+ * one after this"; whether that is the first one again is a fact about the set,
+ * which the caller has and this does not.
  */
 export default function Lightbox({
   src,
@@ -59,6 +71,9 @@ export default function Lightbox({
   video,
   loopVideo = true,
   zoomable = true,
+  onPrev,
+  onNext,
+  position,
   onClose,
 }: {
   src: string;
@@ -80,11 +95,20 @@ export default function Lightbox({
    * outside it closes the dialog.
    */
   zoomable?: boolean;
+  /** Step to the previous item. Omit for a figure that is not part of a set. */
+  onPrev?: () => void;
+  onNext?: () => void;
+  /** `[current, total]`, 1-based, shown beside the caption. */
+  position?: [number, number];
   onClose: () => void;
 }) {
+  const hasNav = Boolean(onPrev || onNext);
   const [actualSize, setActualSize] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const imageRef = useRef<HTMLButtonElement>(null);
+  const prevRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   /*
    * Hold the page still behind the overlay. Nothing else in this project
@@ -112,6 +136,16 @@ export default function Lightbox({
     closeRef.current?.focus();
   }, []);
 
+  /*
+   * Stepping to another item resets the zoom. Carrying "actual size" across a
+   * step means the next picture opens scrolled into the middle of itself at a
+   * magnification chosen for a different image — which reads as the dialog
+   * being broken rather than as a setting being remembered.
+   */
+  useEffect(() => {
+    setActualSize(false);
+  }, [src]);
+
   const onKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -119,15 +153,43 @@ export default function Lightbox({
         onClose();
         return;
       }
+      /*
+       * The arrow keys step, when there is something to step to. Guarded on the
+       * handler rather than on `hasNav` so that the first and last items of a
+       * set that does not wrap simply do nothing, without the caller having to
+       * describe that in two places.
+       */
+      if (event.key === "ArrowLeft" && onPrev) {
+        event.preventDefault();
+        onPrev();
+        return;
+      }
+      if (event.key === "ArrowRight" && onNext) {
+        event.preventDefault();
+        onNext();
+        return;
+      }
       if (event.key !== "Tab") return;
-      // A two-element trap: Close and the image itself. A clip has no
-      // fit toggle, so `imageRef` is empty and the guard below lets Tab fall
-      // through to the video's own controls — but a still with no toggle has
-      // nothing else to reach, so Tab must stay on Close rather than walk out
-      // of the dialog into the page behind it.
-      const focusable = [closeRef.current, imageRef.current].filter(Boolean) as HTMLElement[];
+      /*
+       * The trap, in DOM order: Close, then the two steppers, then whichever of
+       * the image toggle or the film is present. It was two elements when there
+       * were only ever two; the shape is the same, the list is just built from
+       * what actually rendered.
+       *
+       * The `<video>` carries a `tabIndex` so it can be in this list at all.
+       * Without it Tab reached the film's own controls by falling out of a trap
+       * that was too short to engage, which happened to work and was not a
+       * design.
+       */
+      const focusable = [
+        closeRef.current,
+        prevRef.current,
+        nextRef.current,
+        imageRef.current,
+        videoRef.current,
+      ].filter(Boolean) as HTMLElement[];
       if (focusable.length < 2) {
-        if (!video && closeRef.current) {
+        if (closeRef.current) {
           event.preventDefault();
           closeRef.current.focus();
         }
@@ -144,7 +206,7 @@ export default function Lightbox({
         first.focus();
       }
     },
-    [onClose],
+    [onClose, onPrev, onNext],
   );
 
   return createPortal(
@@ -166,7 +228,14 @@ export default function Lightbox({
     >
       <div className="flex shrink-0 items-start justify-between gap-4 px-5 py-4 sm:px-8">
         <div className="max-w-[70ch]">
-          <p className="font-mono text-[12px] leading-[1.5] text-white/70">{caption}</p>
+          <p className="font-mono text-[12px] leading-[1.5] text-white/70">
+            {caption}
+            {position ? (
+              <span className="ml-3 text-white/45 [font-variant-numeric:tabular-nums]">
+                {position[0]} / {position[1]}
+              </span>
+            ) : null}
+          </p>
           {description ? (
             <p className="mt-1.5 text-[15px] leading-[1.55] text-white/85">{description}</p>
           ) : null}
@@ -195,6 +264,8 @@ export default function Lightbox({
             {/* Silent by construction: these clips have no audio track at all
                 (`video-clip.mjs` drops it), so there is nothing to caption. */}
             <video
+              ref={videoRef}
+              tabIndex={0}
               src={video}
               poster={src}
               controls
@@ -229,6 +300,59 @@ export default function Lightbox({
           </div>
         )}
       </div>
+
+      {/*
+        The steppers (`MILESTONE-014` task 3).
+
+        They sit on the dialog rather than inside the scroll container, so that
+        at actual size they stay put while the picture pans under them, and so a
+        click on one is never mistaken for a click on the backdrop — which, with
+        `zoomable={false}`, would close the dialog instead of stepping.
+
+        `pointer-events-none` on the rail and `auto` on the buttons: the rail
+        spans the full height so the buttons can be centred against the picture,
+        and a full-height transparent strip down each edge would otherwise eat
+        the backdrop clicks that close the dialog.
+
+        A button that has nowhere to go is not rendered rather than disabled: a
+        disabled control still occupies the tab order and still invites a click,
+        and at the end of a set the honest statement is that there is no next
+        one, not that there is one you may not have.
+      */}
+      {hasNav ? (
+        <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 sm:px-4">
+          {onPrev ? (
+            <button
+              ref={prevRef}
+              type="button"
+              onClick={onPrev}
+              aria-label="Previous"
+              className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white outline-offset-2 backdrop-blur-sm transition-colors hover:bg-white/20"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 5l-7 7 7 7" />
+              </svg>
+            </button>
+          ) : (
+            <span />
+          )}
+          {onNext ? (
+            <button
+              ref={nextRef}
+              type="button"
+              onClick={onNext}
+              aria-label="Next"
+              className="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white outline-offset-2 backdrop-blur-sm transition-colors hover:bg-white/20"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          ) : (
+            <span />
+          )}
+        </div>
+      ) : null}
     </div>,
     document.body,
   );

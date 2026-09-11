@@ -3,6 +3,7 @@ import type { RouteObject } from "react-router-dom";
 import RootLayout from "@/components/RootLayout";
 import PlaygroundLayout from "@/components/playground/PlaygroundLayout";
 import NotFound from "@/pages/NotFound";
+import Legal from "@/pages/Legal";
 
 const Home = lazy(() => import("@/pages/Home"));
 const About = lazy(() => import("@/pages/About"));
@@ -40,6 +41,12 @@ export const routes: RouteObject[] = [
       ...dual("/about", <About />),
       ...dual("/resume", <Resume />),
       ...dual("/contact", <Contact />),
+      /*
+        German legal paths in both locales (`MILESTONE-013` task 9). See
+        `LegalCopy` for why they are not translated.
+      */
+      ...dual("/impressum", <Legal page="impressum" />),
+      ...dual("/datenschutz", <Legal page="privacy" />),
       ...dual("/work/:slug", <CaseStudy />),
       ...dualPlayground(),
       { path: "*", element: <NotFound /> },

@@ -15,6 +15,8 @@ const de: Dictionary = {
     menu: "Menü",
     close: "Schließen",
     modeSwitchLabel: "Ansichtsmodus",
+    switchToPlayground: "Zum Playground wechseln",
+    switchToPortfolio: "Zum Portfolio wechseln",
     switchToGerman: "Zu Deutsch wechseln",
     switchToEnglish: "Zu Englisch wechseln",
   },
@@ -22,13 +24,12 @@ const de: Dictionary = {
     primaryNav: "Hauptnavigation",
     menu: "Menü",
     footerNav: "Fußzeile",
-    categoryNav: "Kategorie-Navigation",
     projectNav: "Projekt-Navigation",
     processCanvas: "Mein Designprozess",
   },
   hero: {
     eyebrow: "Digital Designerin aus Lübeck, Deutschland",
-    headlineLines: ["Alexsha Maharjan"],
+    headlineLines: ["Hallo, ich bin", "Alexsha Maharjan"],
     intro:
       "Ich gestalte intuitive digitale Erlebnisse und entwickle Marken, die etwas bedeuten und wie keine andere aussehen.",
     tags: "UI/UX · Branding · Visual Design",
@@ -270,13 +271,15 @@ const de: Dictionary = {
   },
   aboutPreview: {
     eyebrow: "Über mich",
-    heading: "Wie ich zum Gestalten kam, und wer ich bin",
-    copy: "Ich bin in Nepal aufgewachsen und habe Dinge für andere gemacht. Karten, Geschenke, kleine handgemachte Objekte, immer um die Person herum gestaltet, die sie öffnen würde. Von der Sichtweise eines anderen auszugehen ist die Gewohnheit, aus der ein Beruf wurde, und so arbeite ich bis heute.",
-    copyDim: "Mehr davon steht auf der Seite über mich.",
+    heading: "Wie bin ich zum Design gekommen?",
+    copy:
+      "Ich bin in Nepal aufgewachsen, umgeben von Kreativität. Ich habe ständig etwas gemacht, mit Handarbeit experimentiert und persönliche Geschenke für die Menschen um mich herum gestaltet. Am schönsten war dabei nicht, etwas Hübsches entstehen zu lassen, sondern an die Person zu denken, für die es war: was ihr gefallen würde und was es bedeutsam machen würde.",
+    copyDim:
+      "Dieses Denken hat mich am Ende zum Design gebracht. Mir wurde klar, dass vieles, was mir ohnehin Freude gemacht hat, Menschen zu verstehen, bewusst zu entscheiden und Ideen sichtbar zu machen, genau den Kern von nutzerzentriertem Design ausmacht.",
     linkAbout: "Die ganze Geschichte lesen →",
     playgroundHeading: "Der Playground",
     playgroundCopy: "Alles, was ich mache, wenn niemand danach gefragt hat. Eigene Projekte, Handarbeit, Experimente und was ich gerade lerne.",
-    linkPlayground: "Playground öffnen →",
+    linkPlayground: "Playground öffnen",
     portraitAlt: "Porträt von Alexsha Maharjan.",
   },
   contact: {
@@ -295,25 +298,137 @@ const de: Dictionary = {
     backToTop: "Nach oben ↑",
     copyright: "© 2026 Alexsha Maharjan",
   },
-  playgroundNav: {
-    backToPlayground: "← Zurück zum Playground",
-    allCategories: "← Alle Kategorien",
-    experimentEyebrow: "Playground-Experiment",
+  legal: {
+    impressumNav: "Impressum",
+    privacyNav: "Datenschutz",
+    address: ["Alexsha Maharjan", "[ Straße und Hausnummer ]", "[ PLZ und Ort ]", "Deutschland"],
+    impressum: {
+      title: "Impressum",
+      intro: "Anbieterkennzeichnung für diese Website nach § 5 DDG.",
+      updated: "Stand: September 2026",
+      sections: [
+        {
+          heading: "Angaben gemäß § 5 DDG",
+          body: [],
+          address: true,
+        },
+        {
+          heading: "Kontakt",
+          body: ["E-Mail: alexsha.maharjan1@gmail.com"],
+        },
+        {
+          heading: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
+          body: ["Alexsha Maharjan, Anschrift wie oben."],
+        },
+        {
+          heading: "Haftung für Inhalte",
+          body: [
+            "Als Diensteanbieterin bin ich nach § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG bin ich als Diensteanbieterin jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
+            "Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben davon unberührt. Eine diesbezügliche Haftung ist erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden entsprechender Rechtsverletzungen entferne ich diese Inhalte umgehend.",
+          ],
+        },
+        {
+          heading: "Haftung für Links",
+          body: [
+            "Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Deshalb kann ich für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets die jeweilige Anbieterin oder der jeweilige Anbieter verantwortlich.",
+            "Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zu diesem Zeitpunkt nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen entferne ich derartige Links umgehend.",
+          ],
+        },
+        {
+          heading: "Urheberrecht",
+          body: [
+            "Die von mir erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen meiner schriftlichen Zustimmung. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.",
+            "Marken, Logos und Kundenmaterialien in den Projektdarstellungen bleiben Eigentum der jeweiligen Rechteinhaberinnen und Rechteinhaber und werden hier zur Dokumentation der Gestaltungsarbeit gezeigt.",
+          ],
+        },
+        {
+          heading: "Verbraucherstreitbeilegung",
+          body: [
+            "Ich bin weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
+          ],
+        },
+      ],
+    },
+    privacy: {
+      title: "Datenschutz",
+      intro:
+        "Was beim Besuch dieser Website mit Daten passiert und welche Rechte Sie nach der DSGVO haben.",
+      updated: "Stand: September 2026",
+      sections: [
+        {
+          heading: "Kurz gefasst",
+          body: [
+            "Diese Website ist ein persönliches Portfolio. Sie setzt keine Cookies, bindet keine Analyse- oder Trackingdienste ein und hat weder Nutzerkonten noch ein Kontaktformular. Die einzigen Daten, die beim Besuch anfallen, sind die technischen Zugriffsdaten, die der Hoster protokolliert, und die Daten, die Ihr Browser beim Laden der beiden Schriftarten an Google überträgt.",
+          ],
+        },
+        {
+          heading: "Verantwortliche",
+          body: ["E-Mail: alexsha.maharjan1@gmail.com"],
+          address: true,
+        },
+        {
+          heading: "Hosting",
+          body: [
+            "Diese Website wird von GitHub Pages gehostet, einem Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.",
+            "Beim Aufruf einer Seite überträgt Ihr Browser technisch notwendige Daten an die Server von GitHub, die dort in Server-Logfiles protokolliert werden. Dazu gehören in der Regel die IP-Adresse, Datum und Uhrzeit des Zugriffs, die aufgerufene Adresse, die Referrer-URL sowie Browser und Betriebssystem. Diese Daten werden nicht mit anderen Quellen zusammengeführt, und ich habe keinen Zugriff darauf.",
+            "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, mein berechtigtes Interesse an einer sicheren und zuverlässigen Bereitstellung dieser Website. GitHub verarbeitet diese Daten auch in den USA.",
+          ],
+        },
+        {
+          heading: "Schriftarten",
+          body: [
+            "Diese Website lädt die Schriftarten Inter und Caveat über Google Fonts, einen Dienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Ihr Browser lädt die Schriftdateien direkt von Servern von Google und überträgt dabei Ihre IP-Adresse.",
+            "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, mein berechtigtes Interesse an einer einheitlichen Darstellung dieser Website.",
+          ],
+        },
+        {
+          heading: "Kontaktaufnahme per E-Mail",
+          body: [
+            "Wenn Sie mir schreiben, verarbeite ich Ihre Absenderadresse und den Inhalt Ihrer Nachricht, um die Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit die Anfrage auf einen Vertrag gerichtet ist, ansonsten Art. 6 Abs. 1 lit. f DSGVO. Ich lösche diese Daten, sobald sie nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.",
+          ],
+        },
+        {
+          heading: "Externe Links",
+          body: [
+            "Von dieser Website führen Links zu externen Diensten, unter anderem zu LinkedIn. Für die Datenverarbeitung auf diesen Seiten ist die jeweilige Anbieterin oder der jeweilige Anbieter verantwortlich. Daten werden erst übertragen, wenn Sie einen solchen Link aktiv anklicken.",
+          ],
+        },
+        {
+          heading: "Verschlüsselung",
+          body: [
+            "Diese Website wird ausschließlich über HTTPS ausgeliefert. Die Verbindung zwischen Ihrem Browser und dem Server ist damit verschlüsselt.",
+          ],
+        },
+        {
+          heading: "Ihre Rechte",
+          body: [
+            "Sie haben jederzeit das Recht auf Auskunft über die zu Ihrer Person gespeicherten Daten (Art. 15 DSGVO) sowie auf Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch gegen die Verarbeitung (Art. 21). Wenden Sie sich dafür an die oben genannte Adresse.",
+            "Unabhängig davon können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO). Zuständig ist in der Regel die Behörde Ihres Wohnsitzes oder die Behörde an meinem Sitz.",
+          ],
+        },
+        {
+          heading: "Änderungen",
+          body: [
+            "Ich passe diese Erklärung an, wenn sich die Website oder die Rechtslage ändert. Es gilt jeweils die hier veröffentlichte Fassung.",
+          ],
+        },
+      ],
+    },
   },
   about: {
     backToHome: "← Zurück zur Startseite",
     eyebrow: "Über mich",
-    heading: "Wie ich zum Gestalten kam, und wer ich bin",
+    heading: "Wie bin ich zum Design gekommen?",
     portraitAlt: "Porträt von Alexsha.",
     handNoteOrigin: "Nepal → Deutschland",
     handNoteMaking: "immer am Gestalten!",
     portraitTags: ["UI/UX-Design", "Branding", "Visual Design"],
     biographyHeading: "Biografie",
     biography: [
-      "Ich bin in Nepal aufgewachsen, zwischen Design und Handarbeit, und beides zieht mich an, solange ich denken kann. Ich liebte das Basteln, und ich liebte es besonders, für andere zu gestalten. Ich habe ständig etwas zum Verschenken gemacht und jedes Stück um die Person herum entworfen, die es öffnen würde.",
-      "Daraus wurde der Beruf. Ich denke gerne von der anderen Person aus und forme etwas so lange, bis es zu ihr passt. Usability und User Experience habe ich geübt, lange bevor ich wusste, dass sie Namen haben.",
-      "Das hat mich auch 6.570 Kilometer von zu Hause weg nach Deutschland gebracht, um eine Sprache zu lernen, in einer anderen Kultur zu leben und ganz andere Erfahrungen zu sammeln. Ich erkunde gerne. Das hält meinen Kopf offen für Ideen, auf die ich sonst nicht gekommen wäre.",
-      "Heute studiere ich, im Bachelor und in dem Fach, das ich immer wollte, und ich bin froh darüber. Ich habe mir selbst beigebracht, in UI/UX, Webdesign, Branding und visueller Kommunikation zu arbeiten, und ich mache aus komplizierten Ideen gerne etwas Klares, das gut aussieht.",
+      "Ich bin in Nepal aufgewachsen, umgeben von Kreativität. Ich habe ständig etwas gemacht, mit Handarbeit experimentiert und persönliche Geschenke für die Menschen um mich herum gestaltet. Am schönsten war dabei nicht, etwas Hübsches entstehen zu lassen, sondern an die Person zu denken, für die es war: was ihr gefallen würde und was es bedeutsam machen würde.",
+      "Dieses Denken hat mich am Ende zum Design gebracht. Mir wurde klar, dass vieles, was mir ohnehin Freude gemacht hat, Menschen zu verstehen, bewusst zu entscheiden und Ideen sichtbar zu machen, genau den Kern von nutzerzentriertem Design ausmacht.",
+      "Dieser Weg hat mich von Nepal nach Deutschland geführt. Hier mache ich meinen Bachelor und wachse als multidisziplinäre Designerin mit Schwerpunkt auf UI/UX, Visual Design, Branding und Webdesign. Das Leben in einer neuen Umgebung hat auch meinen Blick auf Menschen, Kultur und Design erweitert.",
+      "Gutes Design ist für mich nicht nur eine Frage des Aussehens. Es geht genauso darum zu verstehen, für wen etwas ist, und etwas zu schaffen, das sich nützlich und bedeutsam anfühlt.",
     ],
     focusHeading: "Schwerpunkte",
     focusItems: ["UI/UX Design", "Webdesign", "Markenidentität", "Grafikdesign", "Interaction Design"],
@@ -331,9 +446,18 @@ const de: Dictionary = {
     aiTags: ["Recherche", "Ideenfindung", "Inhalte", "Prototyping"],
     playgroundHeading: "Der Playground",
     playgroundCopy: "Alles, was ich mache, wenn niemand danach gefragt hat. Eigene Projekte, Handarbeit, Experimente und was ich gerade lerne.",
-    linkPlayground: "Playground öffnen →",
+    linkPlayground: "Playground öffnen",
     loveIntro: "Ich liebe",
-    loveWords: ["Zeichnen", "Basteln", "Bauen", "Experimentieren", "Lernen", "Entdecken", "Handarbeit"],
+    loveWords: [
+      "Handarbeit",
+      "Geschenke gestalten",
+      "Perlenarbeit",
+      "Malen",
+      "Typografie",
+      "Farbe",
+      "Verpackungen",
+      "Sprachen lernen",
+    ],
     resumeHeading: "Lebenslauf & Kontakt",
     resumeCopy: "Interesse an einer Zusammenarbeit? Sehen Sie sich meinen Lebenslauf an oder schreiben Sie mir.",
     resumeCta: "Lebenslauf ansehen",
