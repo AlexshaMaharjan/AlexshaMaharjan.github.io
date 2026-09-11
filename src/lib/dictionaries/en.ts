@@ -28,7 +28,7 @@ const en: Dictionary = {
   },
   hero: {
     eyebrow: "Digital Designer from Lübeck, Germany",
-    headlineLines: ["Design that listens."],
+    headlineLines: ["Alexsha Maharjan"],
     intro:
       "I design intuitive digital experiences, and I create brands that mean something and look like nobody else's.",
     tags: "UI/UX · Branding · Visual Design",
@@ -312,9 +312,7 @@ const en: Dictionary = {
     biography: [
       "I grew up in Nepal, around design and making things, and I have been drawn to both for as long as I can remember. I loved crafts, and I especially loved designing for other people. I was always making something to give away, and I designed each one around the person who was going to open it.",
       "That is where the career came from. I like thinking from the other person's point of view and shaping something until it fits them. Usability and user experience were things I was practising long before I knew they had names.",
-      // [ N ] is a gap the owner left open: they wrote "fly () km away" with the
-      // number blank. It stays blank until they supply it (MILESTONE-010 task 6b).
-      "It is also what brought me [ N ] kilometres from home to Germany, to learn a language, live inside a different culture and collect a completely different set of experiences. I like exploring. It keeps my head open to ideas I would not have had otherwise.",
+      "It is also what brought me 6,570 kilometres from home to Germany, to learn a language, live inside a different culture and collect a completely different set of experiences. I like exploring. It keeps my head open to ideas I would not have had otherwise.",
       "I am a student now, taking the bachelor's in the field I always wanted, and I am glad to be doing it. I have taught myself to work across UI/UX, web design, branding and visual communication, and I enjoy turning complicated ideas into something clear and good to look at.",
     ],
     focusHeading: "Professional focus",

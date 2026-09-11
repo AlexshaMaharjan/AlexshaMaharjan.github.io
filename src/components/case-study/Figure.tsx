@@ -65,7 +65,7 @@ export default function Figure({
         type="button"
         onClick={() => setZoomed(true)}
         aria-label={`${label} — view full size`}
-        className="group block w-full cursor-zoom-in rounded-[10px] outline-offset-4"
+        className="block w-full cursor-pointer rounded-[10px] outline-offset-4"
       >
         <Media
           src={src}
@@ -73,7 +73,7 @@ export default function Figure({
           aspect={aspect}
           caption={caption}
           sizes={sizes}
-          className="rounded-[10px] border border-card-border transition-colors group-hover:border-accent"
+          className="rounded-[10px] border border-card-border"
         />
       </button>
       <figcaption className="mt-2.5 text-[13px] leading-[1.5] text-ink-secondary">{captionText(caption)}</figcaption>

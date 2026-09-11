@@ -47,6 +47,7 @@ One document per working session. Chronological; IDs are permanent.
 | SESSION-037 | 2026-09-10 | The deck arrives in black and white and the scroll puts the colour back: a `RUNWAY` of empty scroll behind every card, one scrubbed `--pg-reveal` per card and the rest arithmetic in CSS; per-card accent colours; hover holds a picture up to the light and names it beside the cursor |
 | SESSION-038 | 2026-09-10 | Notes name their picture instead of their position (`placeScribbles.ts`); white cards on a dotted page; `content-audit` learns to check note targets; **`docs/` consolidated from 159 files to 16** and `MILESTONE-010` written from the owner's fifteen-item list |
 | SESSION-039 | 2026-09-10 | `MILESTONE-010`: the eleven tasks that needed nobody, leaving only the four owner gates. Hero split into title and description; the About page rewritten and its portrait made real after being a solid-black stand-in the whole time; WikiMind's sketches become a bento (`DECISION-032`); nine playground changes; three spacing classes that produced no CSS at all (`ISSUE-047`) |
+| SESSION-040 | 2026-09-11 | The owner answered all four gates and **`MILESTONE-010` closed**. Hero title becomes their name; `[ N ]` becomes 6,570 km; the case-study figure hover removed outright; the playground's arrows routed so they stop crossing pictures, worst 394 → **16 CSS px**, and the build measures it (`DECISION-033`); the process question solved onto one line and the map regularised around it (`DECISION-034`); the clips measured (**no playback bug**) and the whole films shipped on demand at no cost to page weight (`DECISION-030`) |
 
 ### Conventions
 
@@ -1087,6 +1088,121 @@ re-derived every session.
 
 ---
 <a id="session-039"></a>
+
+## SESSION-040 — The owner answered, and `MILESTONE-010` closed
+
+Date: 2026-09-11
+Branch: `milestone-003-content-model`
+Follows: SESSION-039.
+Decisions: `DECISION-033` and `DECISION-034` written. `DECISION-028`, `DECISION-029` and
+`DECISION-030` settled by the owner and rewritten to say what was chosen.
+Issues: `ISSUE-043`, `ISSUE-044` and `ISSUE-045` resolved. Nothing raised.
+Milestones: **`MILESTONE-010` complete**, all fifteen.
+
+### What the owner said
+
+Six answers in one message. Five of them closed a gate that had been open since SESSION-038:
+
+1. the hero title should be their name;
+2. the blank in the biography is **6,570** km;
+3. they had not seen the new cluster positions, but 3b and 3c could both go ahead;
+4. remove the case-study figure hover;
+5. find out why the videos are short, the sources are a minute or two, make them play;
+6. the arrows should point at the nearest image without crossing anything, and the loops
+   should be rounder.
+
+### Two of the five went against the recommendation
+
+The hero title went to **candidate D**, the one the options paper argued against on the
+grounds that the header already carries the name. It does, at 15px, as a wordmark — and a
+wordmark and a hero are not the same statement. The figure hover went **further than the
+quietest option offered**: not a shadow, not a cursor-only compromise, nothing at all. Both
+decisions were rewritten with the reasoning revisited rather than the recommendation quietly
+deleted, because a decision file that only records the answers that agreed with it is not
+worth reading.
+
+### `ISSUE-044` was right to insist on a measurement, and there was no bug
+
+The owner reported the clips playing for "2 3 seconds". The issue refused to let anything be
+re-encoded until that was measured. Driving the built page and reading every `<video>` it
+makes: every clip plays its whole file and loops — 8.92 of 8.97s, 7.93 of 7.96, and so on.
+**The `IntersectionObserver` was never cutting anything short.** They were cut at eight
+seconds by `--seconds 8` and that is the entire cause.
+
+So what shipped is `DECISION-030` option 3 rather than a re-cut of the collage loops: each
+clip slot now carries a **second file**, the whole film, which only the viewer fetches.
+15.2 MB of film across the five, and `/playground` measures **2637 KB**, which is what it
+measured before.
+
+**`scripts/verify/serve.mjs` had to be fixed to test this.** It had no `.mp4` in its type
+table and ignored `Range`, so it served video as `application/octet-stream` in one piece.
+Against that, the 25-second film reported a duration of **4.77** and seeking did nothing.
+Neither is true of GitHub Pages, so the server was inventing a fault rather than finding one —
+which is the opposite of what a harness is for. With `video/mp4` and 206s, all three long
+films report their real duration at `loadedmetadata` and a seek to 120 seconds into the
+142-second one lands at 120.00.
+
+### `ISSUE-043`, third session, and this time with a number
+
+The arrows were the last of it. What was missing every time is that placement worked on the
+**note** and nothing ever looked at the **stroke**: a free seat means the note box clears the
+pictures, and says nothing about the line that has to reach the picture from it.
+
+`DECISION-033` has the design. The measured result, over five stage widths and fifty arrows:
+
+| | Worst arrow over a picture | Total |
+| --- | --- | --- |
+| Before | 394 CSS px | 2,773 px |
+| After | 16 CSS px | ~60 px |
+
+Three things cost a round each, and all three are in the decision: aiming at the picture's
+*nearest* point rather than the ray through its centre; letting both of the curve's control
+points move so a stroke can pass **between** two pictures; and counting "drawn outside the
+card" as a crossing, after a wide bend took one arrow up over the frame's top edge where
+`overflow: hidden` cut the middle out of it.
+
+**The clearance is checked by `content-audit.mjs` now**, at five stage widths, and the check
+was proved by re-injecting the fault: the old single-bend arrow reports 14 findings. This
+issue has been "fixed" twice by looking at one card at one width.
+
+A false negative worth recording: the first clearance test sampled the stroke at points, and
+with twenty-nine samples over a 4,000-unit curve the steps are 140 units long. The card-3
+watch arrow clipped a corner **between two samples** — the test said clear and the eye said
+otherwise. Adding samples only moves the width of the crossing it can miss. It clips each
+segment against each rectangle now, which has no such width.
+
+### The question fits on one line, and the map paid for it
+
+`ISSUE-045` blamed `w-[min(90vw,1000px)]` and `textWrap: balance`. Those are the CSS class and
+the scroll timeline overrides all of it — at the top of the track the question is already one
+line. The wrap is in the **end** state, where the hub is `340 × scale` and the sentence is 457
+units in English and **567 in German**.
+
+`HeroProcess` measures the question's own width at a font size of one pixel and solves for the
+size that fits, so the promise holds in both locales and for whatever the sentence becomes.
+One line at 1920, 1440, 1280, 1100 and 960, in both.
+
+**What it cost is written down in `DECISION-034`, and it is worth knowing before anyone
+"improves" the canvas.** The map has no clear horizontal band: the top row cannot start above
+99 because the header covers the canvas to about there, and the bottom row cannot start below
+about 504 because the tallest cluster in it runs 340 and the map ends at 900. That leaves 31
+units for a question 36 tall. So the question stays in the gap between clusters 1 and 2, and
+that gap is 480 units — which is why the connectors are 72 and not 150. **A wider question
+means shorter connectors. There is no third option at this map size.**
+
+Diagonal connectors radiating from the hub's corners were tried and are wrong: two strokes 16
+units apart at a shared vertex draw a chevron on each end of the sentence, not two
+connectors. Five level rules at different heights, plus one dropping to cluster 5.
+
+### Left alone on purpose
+
+**In the reduced-motion and mobile layout the connectors point at nothing**, because there the
+question is a separate heading above the map. That was equally true before this session — the
+old lines converged on the same empty centre — and redesigning a view the owner has not seen,
+in a session that was already changing the one they had, is how a second round of rework
+starts.
+
+---
 
 ## SESSION-039 — The owner's list, minus the four things only they can answer
 

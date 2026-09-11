@@ -2,14 +2,13 @@
 
 ## Status
 
-**`MILESTONE-010` is eleven-fifteenths done and what is left needs the owner, not a session.**
-SESSION-039 finished every task in it that could be finished without them. The four that
-remain are the four gates, and each now has something on screen rather than a question in the
-abstract.
+**`MILESTONE-010` is complete.** The owner answered all four gates on 2026-09-11 and
+SESSION-040 closed them, along with `ISSUE-043`, `ISSUE-044` and `ISSUE-045` — the last three
+defects on the tracker. Everything still open is a provenance or judgement call for the owner.
 
-**The branch is `milestone-003-content-model` and it is ahead of `main`.** SESSION-037,
-SESSION-038 and SESSION-039 are committed to it but **not merged and not deployed**. The last
-deploy was SESSION-035.
+**The branch is `milestone-003-content-model` and it is ahead of `main`.** SESSION-037 to
+SESSION-040 are committed to it but **not merged and not deployed**. The last deploy was
+SESSION-035.
 
 ```bash
 git checkout main && git merge milestone-003-content-model
@@ -17,60 +16,43 @@ npm run predeploy && npm run deploy
 ```
 
 **Check `git` before trusting any status in these files.** SESSION-039 opened with this file
-claiming two sessions were committed when `HEAD` was three sessions old and all of it was
-sitting uncommitted in the working tree.
+claiming two sessions were committed when `HEAD` was three sessions old.
 
-**Do not deploy without asking.** There is one deliberate placeholder on the live-facing copy:
-see the biography gap below.
+**Do not deploy without asking.** The live-facing copy has no placeholders left in it — the
+biography's `[ N ]` is 6,570 kilometres now — but the deploy is still the owner's call.
 
 ## What the owner has to answer
 
-Four gates and one blank. Nothing else in `MILESTONE-010` is open.
+**Nothing is blocking.** These are the judgement calls that have been open for a while, none
+of which stops any work:
 
-1. **The hero title** (`DECISION-028`). **"Design that listens." is on the site now** so they
-   can look at it, not because it was decided for them. Three other candidates are in
-   [`MILESTONE-010` task 1](milestones.md#milestone-010). Changing it is one string per locale
-   in `dictionaries/{en,de}.ts` and nothing else depends on it.
-
-2. **`[ N ]` in the About biography.** The owner wrote "fly () km away" with the number blank,
-   so the page currently reads "it is also what brought me **[ N ]** kilometres from home to
-   Germany". That is deliberate and it is **visible to anyone who opens `/about`**. Get the
-   number, or cut the clause, before the next deploy.
-
-3. **The process spacing** (task 3b, then 3c). Untouched. 3a is done — the "My process" label
-   is gone. The connectors in `clusters.tsx` must not be redrawn until the owner has seen the
-   new cluster positions; that is their own instruction and doing it twice is the expensive
-   way round.
-
-4. **The case-study figure hover** (`DECISION-029`). Untouched. The accent border is still
-   there. Shadow lift recommended, and note that the playground's own answer has already
-   shipped — `cursor-pointer` and a 1.42 scale — so there is a live example of the gesture,
-   just not in a justified row.
-
-5. **Clip length against page weight** (`DECISION-030`, `ISSUE-044`). Untouched. `/playground`
-   is 2.6 MB at 1440px and 3.5 MB at 390px/3x. **`ISSUE-044` wants a measurement before any
-   re-encoding**: the owner reports 2-3 second clips and the files are 6-9 seconds, so
-   something other than the cut length may be stopping playback.
-
-Still open from before, all provenance or judgement, none blocking:
 [`ISSUE-038`](issues.md#issue-038) part 3 (`Afono/Wireframe.png` is 14,299 × 8,794 and
 entirely white), [`ISSUE-037`](issues.md#issue-037), [`ISSUE-035`](issues.md#issue-035),
 [`ISSUE-034`](issues.md#issue-034), [`ISSUE-033`](issues.md#issue-033),
 [`ISSUE-032`](issues.md#issue-032), [`ISSUE-031`](issues.md#issue-031),
 [`ISSUE-006`](issues.md#issue-006) (now only the designed `og:image` card).
 
-## If the owner is not available
+**Two things SESSION-040 changed that the owner has not seen**, and should:
 
-There is no other unblocked `MILESTONE-010` work. Real options, in order:
+1. **The process canvas.** They authorised 3b and 3c without a review round. The question is
+   on one line and the five clusters and connectors moved to suit — and **it cost the question
+   some size**: `DECISION-034` sets out why 480 units is what the map affords and why the
+   connectors are 72 units rather than 150. If they want a bigger question, something else has
+   to give, and the decision says what.
 
-1. **`ISSUE-043` cause 1 — arrows that cross pictures.** The only part of the playground
-   overlap problem still standing. `arrowBetween` in `placeScribbles.ts` draws one cubic from
-   note to picture and goes over whatever is between them. Routing around obstacles is the
-   work; note *placement* is now measured rather than estimated, so this is the last cause.
-2. **The `og:image`** (`ISSUE-006`). A designed 1200×630 card. The portrait is standing in
-   for it, which is better than the blank rectangle it replaced and is not the answer.
+2. **In the reduced-motion and mobile process layout the connectors point at nothing**,
+   because there the question is a heading above the map rather than in it. That was equally
+   true before SESSION-040 and was deliberately left alone. It is a real thing to fix if the
+   owner cares about that view.
+
+## Real work, in order
+
+1. **The `og:image`** (`ISSUE-006`). A designed 1200×630 card. The portrait is standing in for
+   it, which is better than the blank rectangle it replaced and is not the answer.
+2. **`ISSUE-033`**, `/work/afono` at 2141 KB on a 3x phone across 29 figures. Lowering the
+   variant ladder's quality is worth an experiment, and nobody has run it.
 3. **`ISSUE-047`'s grep**, run over the whole tree rather than `src/`. Three dead spacing
-   classes were found in one file; nothing proves they are the only ones.
+   classes were found in one file; nothing proves they were the only ones.
 
 ## Read before you write a single string
 
@@ -82,6 +64,37 @@ and there are around 100 in shipped content — almost all separating a label fr
 ("Calendar — March", "WikiMind — Corporate Design & Website"). SESSION-039 changed only the
 one that was in prose. Whether the rule covers the separators is the owner's call; do not
 mass-edit them on your own judgement.
+
+## What SESSION-040 changed that you might trip over
+
+**`placeScribbles` is a search now, not a placement** (`DECISION-033`). A seat for a note is
+scored partly on **what the arrow from it would lie across**, and both of the arrow's control
+points are chosen by that search. Three consequences:
+
+- **It costs about 4 ms a card**, up from under 1, and it runs on resize. `stageUnits`
+  quantises the stage measurement to a quarter of a design unit so a window drag does not
+  re-run it every frame. Do not make that finer without re-measuring.
+- **`content-audit.mjs` fails the build** if any arrow runs more than 40 CSS px over another
+  picture, or is drawn outside the card at all, at any of five stage widths. If you change the
+  geometry and the audit goes red, the audit is right — this issue has been "fixed" twice by
+  looking at one card at one width.
+- **The clearance test clips segments, it does not sample points.** Point sampling missed a
+  corner clip **between two samples** and reported it clear. Adding samples only shrinks the
+  crossing it can miss.
+
+**A collage slot can carry two videos.** `video` is the eight-second loop the collage plays;
+`film` is the whole thing and only `ui/Lightbox` asks for it (`DECISION-030`). `Lightbox`
+takes `loopVideo`, which is off wherever a `film` is playing.
+
+**`scripts/verify/serve.mjs` serves `video/mp4` and answers `Range` now.** It did neither, and
+against that a 25-second film reports a duration of 4.77 and cannot be seeked. If you see
+that, check the server before the file.
+
+**The process question sizes itself from a measurement.** `HeroProcess` reads the heading's
+width at a font size of one pixel in `measure()` and solves the end-state size from it. Do not
+replace that with a `clamp()`: German is a quarter wider than English and it is the one that
+sets the width. `HUB_W` and `HUB_Y` live in `branchData.ts` with the connectors, because they
+are the same geometry.
 
 ## What SESSION-039 changed that you might trip over
 
@@ -187,6 +200,11 @@ remounted all 48 slot buttons, detaching the node focus was meant to return to. 
 ```bash
 node scripts/video-clip.mjs <src.mp4> public/videos/<name>.mp4 --from 38 --seconds 8 --width 640
 ```
+
+**`--from 0` hangs.** Use `--from 0.04`: the script waits on a `seeked` event and assigning
+`currentTime = 0` to a video already at zero is not a seek. **Recording is real time**, so a
+142-second film takes 142 seconds, and asking for more `--seconds` than the source has records
+its frozen last frame.
 
 **Choose the in-point by looking at frames, not by guessing**, and **check `currentTime` reads
 back as the value you asked for** — a seek that silently fails records the opening titles.

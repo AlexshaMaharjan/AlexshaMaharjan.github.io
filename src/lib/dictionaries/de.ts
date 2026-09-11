@@ -28,7 +28,7 @@ const de: Dictionary = {
   },
   hero: {
     eyebrow: "Digital Designerin aus Lübeck, Deutschland",
-    headlineLines: ["Design, das zuhört."],
+    headlineLines: ["Alexsha Maharjan"],
     intro:
       "Ich gestalte intuitive digitale Erlebnisse und entwickle Marken, die etwas bedeuten und wie keine andere aussehen.",
     tags: "UI/UX · Branding · Visual Design",
@@ -312,8 +312,7 @@ const de: Dictionary = {
     biography: [
       "Ich bin in Nepal aufgewachsen, zwischen Design und Handarbeit, und beides zieht mich an, solange ich denken kann. Ich liebte das Basteln, und ich liebte es besonders, für andere zu gestalten. Ich habe ständig etwas zum Verschenken gemacht und jedes Stück um die Person herum entworfen, die es öffnen würde.",
       "Daraus wurde der Beruf. Ich denke gerne von der anderen Person aus und forme etwas so lange, bis es zu ihr passt. Usability und User Experience habe ich geübt, lange bevor ich wusste, dass sie Namen haben.",
-      // [ N ] ist eine Lücke, die der Owner offen gelassen hat (MILESTONE-010, 6b).
-      "Das hat mich auch [ N ] Kilometer von zu Hause weg nach Deutschland gebracht, um eine Sprache zu lernen, in einer anderen Kultur zu leben und ganz andere Erfahrungen zu sammeln. Ich erkunde gerne. Das hält meinen Kopf offen für Ideen, auf die ich sonst nicht gekommen wäre.",
+      "Das hat mich auch 6.570 Kilometer von zu Hause weg nach Deutschland gebracht, um eine Sprache zu lernen, in einer anderen Kultur zu leben und ganz andere Erfahrungen zu sammeln. Ich erkunde gerne. Das hält meinen Kopf offen für Ideen, auf die ich sonst nicht gekommen wäre.",
       "Heute studiere ich, im Bachelor und in dem Fach, das ich immer wollte, und ich bin froh darüber. Ich habe mir selbst beigebracht, in UI/UX, Webdesign, Branding und visueller Kommunikation zu arbeiten, und ich mache aus komplizierten Ideen gerne etwas Klares, das gut aussieht.",
     ],
     focusHeading: "Schwerpunkte",

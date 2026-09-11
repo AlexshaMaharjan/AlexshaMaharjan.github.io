@@ -2,9 +2,15 @@
 
 Defects and genuine deficiencies, including UI/UX ones. Resolved issues stay: they explain why the code looks as it does.
 
-47 issues. **34 resolved.** **Ten remain open** — `ISSUE-031` to `ISSUE-035`, `ISSUE-037`,
-`ISSUE-038`, `ISSUE-040`, `ISSUE-044`, `ISSUE-045` — and three are partial: `ISSUE-004`,
-`ISSUE-006` and `ISSUE-043`. None `Investigating`, none `Critical`.
+47 issues. **37 resolved.** **Seven remain open** — `ISSUE-031` to `ISSUE-035`, `ISSUE-037`,
+`ISSUE-038`, `ISSUE-040` — and two are partial: `ISSUE-004`, `ISSUE-006`. None
+`Investigating`, none `Critical`. **Every open one is a provenance or judgement call for the
+owner, not a defect.**
+
+**SESSION-040 closed `ISSUE-043`, `ISSUE-044` and `ISSUE-045`**, which were the last three the
+owner raised in SESSION-038. `ISSUE-043` took three sessions and ends with the build measuring
+what it was about; `ISSUE-044` turned out to have no bug in it at all, which is what the
+measurement it insisted on was for.
 
 `ISSUE-041` to `ISSUE-046` were all raised by the owner in SESSION-038 and are worked as
 [`MILESTONE-010`](milestones.md#milestone-010).
@@ -51,15 +57,15 @@ _None._
 | ISSUE-035 | AFONO's supplied folder: three files not used | Open | Low | One is an empty export; one is competitor imagery `DECISION-016` excludes; one is a moodboard flagged like `ISSUE-032` | [#issue-035](#issue-035) |
 | ISSUE-047 | Three spacing classes produced no CSS at all | **Resolved** | Low | `mt-8.5`, `pt-6.5` and `mt-5.5` are not on Tailwind's scale and were silently dropped | [#issue-047](#issue-047) |
 | ISSUE-042 | Résumé section rules sit flush against the first row | **Resolved** | Low | `pt-5` on the wrapping container, SESSION-039. Still prints to three pages | [#issue-042](#issue-042) |
-| ISSUE-045 | The process question wraps to two lines | Open | Low | `w-[min(90vw,1000px)]` plus `textWrap: balance` splits "How do I bring a project to life?" | [#issue-045](#issue-045) |
+| ISSUE-045 | The process question wraps to two lines | **Resolved** | Low | The size is solved from the element's own measurement now; one line at five widths in both locales | [#issue-045](#issue-045) |
 | ISSUE-046 | Placeholder slots with no assets are still shipping | **Resolved** | Low | All four deleted in SESSION-039, plus the eight About carousel slots. 159 slots to 147 | [#issue-046](#issue-046) |
 | ISSUE-040 | Scrolling the whole playground costs 4 MB on a phone | Open | Medium | Landing is 492 KB and everything is lazy; the 4 MB is paid only by scrolling all 33 pictures. Every remaining lever trades picture quality | [#issue-040](#issue-040) |
 | ISSUE-039 | The playground index crops every card to a fixed aspect | **Resolved** | Medium | The marquee declares `4/3` and the featured cards `16/10` whatever the item is; `object-cover` then crops ~65% off a beaded planter. A redesign, not a defect fix | [#issue-039](#issue-039) |
 | ISSUE-038 | Five supplied files are still unplaced: three videos and two photographs | Open — 2 of 3 closed | Medium | Photographs placed in SESSION-033; SESSION-034 found Chrome's MediaRecorder is an encoder and turned 121 MB of craft video into 1035 KB. Only the blank `Afono/Wireframe.png` remains | [#issue-038](#issue-038) |
 | ISSUE-037 | QIS ships three screenshots of the university's own portal | Open | Medium | The subject of a redesign, captioned as such — but one shows a grade record that was not checked field by field | [#issue-037](#issue-037) |
 | ISSUE-041 | Nav "About" goes to a homepage section, not the About page | **Resolved** | Medium | All three links point at `/about`, SESSION-039 | [#issue-041](#issue-041) |
-| ISSUE-043 | Playground notes and arrows still cross the pictures | **Partially resolved** | Medium | Note sizing is measured, not assumed, and the notes hide on a stage too small for them. The arrows still cross | [#issue-043](#issue-043) |
-| ISSUE-044 | The playground clips are 6-9 second excerpts | Open | Medium | Sources are 20-63s. The owner reports 2-3s, which matches neither: **measure before re-encoding** | [#issue-044](#issue-044) |
+| ISSUE-043 | Playground notes and arrows still cross the pictures | **Resolved** | Medium | Seats are scored on the arrow they would need. Worst crossing 394 → 16 CSS px, and the build measures it | [#issue-043](#issue-043) |
+| ISSUE-044 | The playground clips are 6-9 second excerpts | **Resolved** | Medium | Measured: no playback bug, they were cut at 8s. The whole films now play in the viewer, on demand | [#issue-044](#issue-044) |
 
 And in SESSION-029:
 
@@ -3559,7 +3565,7 @@ designed to be printed and the rule spacing changes the page breaks.
 
 ## ISSUE-043 — Playground notes and arrows still cross the pictures
 
-Status: **Partially resolved** (SESSION-039) — cause 2 is gone, cause 1 stands
+Status: **Resolved** (SESSION-040) — all three causes, and the build now measures it
 Priority: Medium
 Category: Layout
 Discovered: 2026-09-10 (SESSION-038), reported by the owner
@@ -3595,16 +3601,33 @@ wide with an 859px stage. The container query asks for `min-height: 563px` as we
 Measured across five window sizes, the worst note-on-picture overlap goes from 78% of a note
 to 14% of one note's *rotated bounding box*, which is a corner brush rather than a collision.
 
-**Cause 1 stands.** An arrow from a note to a picture on the far side of a crowded card still
-crosses whatever is between them. Routing around obstacles is the remaining work and it is
-not started.
+**Cause 1 is fixed** (SESSION-040, `DECISION-033`). Placement and routing became one search:
+an arrow ends at its picture's *nearest* point rather than on the ray from its centre, a seat
+is scored on what the arrow it would need lies across, and both of the curve's control points
+move independently so a stroke can go **between** two pictures instead of over one.
+
+Measured the same way across five stage widths and fifty arrows:
+
+| | Worst arrow over a picture | Total over pictures |
+| --- | --- | --- |
+| Before | 394 CSS px | 2,773 px |
+| After | 16 CSS px | ~60 px |
+
+Sixteen pixels is a stroke clipping a corner. The fault this was raised for — a line lying
+across a photograph — is gone.
+
+**It is checked rather than looked at now.** `content-audit.mjs` measures every arrow on
+every card at five stage widths and fails the build over 40 CSS px, or over any stroke drawn
+outside the card at all. The check was proved by re-injecting the fault: with the old
+single-bend arrow restored it reports 14 findings. This was the third session on this issue
+and the second time a fix was judged by looking at one card at one width.
 
 ---
 <a id="issue-044"></a>
 
 ## ISSUE-044 — The playground clips are 6 to 9 second excerpts
 
-Status: Open — **needs a measurement before any work**
+Status: **Resolved** (SESSION-040) — measured first, then the whole films shipped on demand
 Priority: Medium
 Category: Content / performance
 Discovered: 2026-09-10 (SESSION-038), reported by the owner
@@ -3622,12 +3645,31 @@ is on screen. Measure the actual playback before re-encoding anything.
 The weight trade is `DECISION-030`. `/playground` is already 2.6 MB at 1440px and 3.5 MB at
 390px/3x.
 
+### The measurement (SESSION-040)
+
+Taken by driving the built `/playground` in Chrome and reading every `<video>` the page makes
+while scrolling the whole deck. **Every clip plays its entire file and repeats**:
+8.92 of 8.97s, 7.93 of 7.96, 7.96 of 7.97, 5.99 of 5.99, 7.98 of 7.98, all with `loop` set and
+none paused. The `IntersectionObserver` in `ui/LoopVideo` is not cutting anything short.
+
+**There was no playback bug.** The clips are short because `video-clip.mjs` was run with
+`--seconds 8`, and that is the whole cause. The owner's "2 3 seconds" was an impression of an
+eight-second loop rather than a fault — which is exactly why this issue insisted the
+measurement come first, and it was right to.
+
+### What shipped
+
+`DECISION-030` option 3. Every clip slot carries a second file: the eight-second loop the
+collage plays, and the **whole film**, which only the viewer asks for. Sources run 23.5s to
+142s and all five are now shippable in full — 15.2 MB across the five, fetched one at a time
+and only on a click, so `/playground` weighs what it weighed before.
+
 ---
 <a id="issue-045"></a>
 
 ## ISSUE-045 — The process question wraps to two lines
 
-Status: Open
+Status: **Resolved** (SESSION-040)
 Priority: Low
 Category: Layout
 Discovered: 2026-09-10 (SESSION-038), reported by the owner
@@ -3641,6 +3683,21 @@ Discovered: 2026-09-10 (SESSION-038), reported by the owner
 The owner wants it on one line, with the five process clusters moved to suit, including into
 the space above the question. The connectors are then redrawn — **but only after the owner
 has approved the new spacing.** See [`MILESTONE-010` task 3](milestones.md#milestone-010).
+
+**The diagnosis above is about the wrong state.** `w-[min(90vw,1000px)]` and
+`textWrap: balance` are the CSS class, and the scroll timeline overrides all of it: at the top
+of the track the question is already `nowrap` on one line, and the two-line break happens in
+the **end** state, where the timeline sets the hub to `340 × scale` wide at `32 × scale`. The
+sentence is 457 units in English and 567 in German. Neither fits 340.
+
+**Resolved in SESSION-040** (`DECISION-034`). The element measures its own width at a font
+size of one pixel, once per resize, and the end size is solved from that against the hub's
+width — so the promise holds in both locales and for whatever the sentence becomes. `nowrap`
+is on throughout and the box is never narrower than the words. Checked at 1920, 1440, 1280,
+1100 and 960 in both locales: one line in all ten.
+
+The clusters and connectors moved with it (task 3c). `DECISION-034` records what the map had
+room for and what had to be given up to get the question on one line.
 
 ---
 <a id="issue-046"></a>

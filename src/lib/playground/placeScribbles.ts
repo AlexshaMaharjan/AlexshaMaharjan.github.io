@@ -55,6 +55,23 @@ const MAX_CH = 15;
  * were originally taken at, and the default when nothing has been measured yet.
  */
 export const UNITS_PER_PX_AT_1280 = FRAME_W / 1280;
+
+/**
+ * Design units to one CSS pixel for a stage this wide, **quantised**.
+ *
+ * A quarter of a unit, which is about twenty pixels of card width around the
+ * 1280 mark. Placement is a search over forty seats and a routing pass over
+ * every arrow (`ISSUE-043`), and it costs a few milliseconds a card: re-running
+ * it on every sub-pixel reflow of a window drag is the one way this gets
+ * expensive. Nothing here is accurate to a quarter unit anyway — the note's
+ * size is an estimate from the type's metrics and `MARGIN` alone carries 340
+ * units of slack.
+ *
+ * The audit measures what ships, so it rounds through here too.
+ */
+export function stageUnits(width: number): number {
+  return Math.round((FRAME_W / width) * 4) / 4;
+}
 /**
  * Air between a note and the picture it is about.
  *
@@ -74,7 +91,7 @@ const GAP = 850;
  * be allowed to stand back from it — the arrow is what keeps the connection, and
  * a longer arrow is a better outcome than a note nobody can read.
  */
-const RINGS = [1, 2.4, 4.2];
+const RINGS = [1, 1.6, 2.4, 3.2, 4.2];
 /** Extra clearance when testing a note against something it must not touch. */
 const CLEAR = 260;
 /**
@@ -112,6 +129,8 @@ export interface PlacedScribble {
   rotate: number;
   /** The arrow, in design units: one flowing curve and a two-stroke head. */
   arrow: { path: string; head: string };
+  /** The stroke flattened, in design units. Exported for the arc-fidelity check. */
+  samples: Point[];
 }
 
 /** FNV-1a. The seed is the note's own words, so a note keeps its place. */
@@ -214,51 +233,151 @@ function edgePoint(box: Rect, toward: { x: number; y: number }, inset: number) {
 }
 
 /**
+ * Where on a picture an arrow lands: **its nearest point to the note**, pulled
+ * a little way inside so the head sits on the picture rather than balanced on
+ * its edge.
+ *
+ * This was the point on the ray from the picture's centre through the note,
+ * which on a wide picture is a different thing entirely: a note above the left
+ * end of a 4,000-unit-wide slot was sent to a landing point near its middle,
+ * so the arrow travelled sideways across the card to reach a picture that was
+ * directly below where it started. The owner's word for the result was
+ * "across". The nearest point is the short way in, and a shorter arrow is one
+ * with less to cross.
+ */
+function aimPoint(box: Rect, from: { x: number; y: number }) {
+  const x = Math.min(Math.max(from.x, box.x), box.x + box.w);
+  const y = Math.min(Math.max(from.y, box.y), box.y + box.h);
+  const cx = box.x + box.w / 2;
+  const cy = box.y + box.h / 2;
+  const dx = cx - x;
+  const dy = cy - y;
+  const away = Math.hypot(dx, dy);
+  if (away === 0) return { x: cx, y: cy };
+  const inside = Math.min(Math.max(Math.min(box.w, box.h) * 0.09, 140), 420, away);
+  return { x: x + (dx / away) * inside, y: y + (dy / away) * inside };
+}
+
+interface Point {
+  x: number;
+  y: number;
+}
+
+/**
+ * The centre and the swept angles of the circle an SVG elliptical arc rides,
+ * so the curl can be sampled for the clearance test like any other stroke.
+ * Circular only, which is all `arrowBetween` draws.
+ */
+function arcOf(a: Point, b: Point, r: number, sweep: 0 | 1) {
+  const mx = (a.x + b.x) / 2;
+  const my = (a.y + b.y) / 2;
+  const half = Math.hypot(b.x - a.x, b.y - a.y) / 2;
+  // A chord longer than the diameter has no circle; SVG grows the radius to
+  // the smallest one that fits, and so does this.
+  const radius = Math.max(r, half);
+  const offset = Math.sqrt(Math.max(0, radius * radius - half * half));
+  // The centre sits on the chord's perpendicular bisector. Which side depends
+  // on the sweep and on whether the long way round was asked for, and the two
+  // flags being equal is the case that puts it on the left of the chord.
+  const ux = (b.x - a.x) / (half * 2 || 1);
+  const uy = (b.y - a.y) / (half * 2 || 1);
+  const side = sweep === 1 ? -1 : 1;
+  const cx = mx + side * -uy * offset;
+  const cy = my + side * ux * offset;
+  const from = Math.atan2(a.y - cy, a.x - cx);
+  let to = Math.atan2(b.y - cy, b.x - cx);
+  if (sweep === 1 && to < from) to += Math.PI * 2;
+  if (sweep === 0 && to > from) to -= Math.PI * 2;
+  return { cx, cy, radius, from, to };
+}
+
+/**
+ * The curl at the note's end: none, or which way round and how tight. The sign
+ * is the direction the pen goes; `2` is the smaller circle, for where the full
+ * one does not fit.
+ */
+type Curl = 0 | 1 | -1 | 2 | -2;
+
+/**
  * One arrow, drawn as a cubic that leans out of the straight line and comes
  * back — the bend is stronger at the note's end than at the picture's, which is
  * what makes a curve read as a stroke somebody made rather than as an arc.
  *
- * `loop` adds the curl some of them start with (`MILESTONE-010` task 14i): a
- * near-closed circle at the note's end before the line sets off, drawn as a
- * single elliptical arc whose end is nudged along the line of travel, because
- * an arc that finishes exactly where it began is dropped by the renderer rather
- * than drawn. Whether a note gets one is decided by its own seed, so a third of
- * them loop and the same third loop on every visit.
+ * `loop` adds the curl some of them start with (`MILESTONE-010` task 14i),
+ * redrawn in SESSION-040 because the first one did not read as a loop. It was
+ * an arc whose chord was its own radius, which is 300 degrees: a C with a
+ * quarter of it missing, joined to the line at an angle the pen would have had
+ * to lift to make. The chord is a third of the radius now, so the curl closes
+ * to within 20 degrees of a full circle, and both its ends run along the line
+ * of travel — the stroke goes round and carries on, which is the gesture.
+ *
+ * `points` is the stroke flattened, for the clearance test. It is the reason
+ * the geometry is worked out here and not in the renderer: whether an arrow
+ * crosses a picture is decided before a seat is chosen, not after.
  */
-function arrowBetween(from: Rect, to: Rect, bend: number, loop: boolean) {
-  const origin = edgePoint(from, { x: to.x + to.w / 2, y: to.y + to.h / 2 }, 0.1);
-  const end = edgePoint(to, { x: from.x + from.w / 2, y: from.y + from.h / 2 }, 0.04);
+function arrowBetween(from: Rect, to: Rect, lean: number, follow: number, loop: Curl) {
+  const end = aimPoint(to, { x: from.x + from.w / 2, y: from.y + from.h / 2 });
+  const origin = edgePoint(from, end, 0);
 
   const runX = end.x - origin.x;
   const runY = end.y - origin.y;
   const run = Math.hypot(runX, runY) || 1;
+  const points: Point[] = [];
+
   /*
-   * The curl is a fraction of the journey, capped so a short arrow does not
-   * become mostly loop, and the line then starts from where the curl ends.
-   *
-   * A short arrow gets none at all: at `run * 0.13` a 970-unit arrow was drawn
-   * a 126-unit loop, which is about ten CSS pixels — a blob on the end of a
-   * line rather than a curl. Below the threshold there is no room to make the
-   * gesture, so it is not made.
+   * A short arrow gets no curl at all: at a proportional radius a 970-unit
+   * arrow was drawn a 126-unit loop, which is about ten CSS pixels — a blob on
+   * the end of a line rather than a curl. Below the threshold there is no room
+   * to make the gesture, so it is not made.
    */
-  const curly = loop && run > 1800;
-  const radius = curly ? Math.min(Math.max(run * 0.13, 240), 460) : 0;
-  const start = curly
-    ? { x: origin.x + (runX / run) * radius, y: origin.y + (runY / run) * radius }
+  const curly = loop !== 0 && run > 1800;
+  // A tight curl as well as a full one: half the reason a loop was dropped was
+  // that at a proportional radius it had nowhere to sit, and a smaller circle
+  // is a better answer there than no circle.
+  const scale = Math.abs(loop) === 2 ? 0.6 : 1;
+  const radius = curly ? Math.min(Math.max(run * 0.14, 260), 520) * scale : 0;
+  /*
+   * The curl stands a radius off the note before it begins. A loop drawn from
+   * the note's own edge is a circle centred a radius away from it, and a
+   * circle centred a radius from an edge covers what is behind that edge: the
+   * first one of these was drawn straight through the words it belonged to.
+   */
+  const mouth = curly
+    ? { x: origin.x + (runX / run) * radius * 1.15, y: origin.y + (runY / run) * radius * 1.15 }
     : origin;
-  const curl = curly
-    ? `M${Math.round(origin.x)} ${Math.round(origin.y)} A ${Math.round(radius)} ${Math.round(radius)} 0 1 1 ${Math.round(start.x)} ${Math.round(start.y)} `
-    : "";
+  const start = curly
+    ? { x: mouth.x + (runX / run) * radius * 0.35, y: mouth.y + (runY / run) * radius * 0.35 }
+    : origin;
+  let curl = "";
+  if (curly) {
+    const sweep: 0 | 1 = loop > 0 ? 1 : 0;
+    curl = `M${Math.round(origin.x)} ${Math.round(origin.y)} L${Math.round(mouth.x)} ${Math.round(mouth.y)} A ${Math.round(radius)} ${Math.round(radius)} 0 1 ${sweep} ${Math.round(start.x)} ${Math.round(start.y)} `;
+    points.push(origin);
+    const arc = arcOf(mouth, start, radius, sweep);
+    for (let i = 0; i <= 24; i += 1) {
+      const angle = arc.from + ((arc.to - arc.from) * i) / 24;
+      points.push({ x: arc.cx + Math.cos(angle) * arc.radius, y: arc.cy + Math.sin(angle) * arc.radius });
+    }
+  }
 
   const vx = end.x - start.x;
   const vy = end.y - start.y;
   const length = Math.hypot(vx, vy) || 1;
   const nx = -vy / length;
   const ny = vx / length;
-  const c1x = start.x + vx * 0.2 + nx * length * bend;
-  const c1y = start.y + vy * 0.2 + ny * length * bend;
-  const c2x = start.x + vx * 0.72 + nx * length * bend * 0.55;
-  const c2y = start.y + vy * 0.72 + ny * length * bend * 0.55;
+  const c1x = start.x + vx * 0.2 + nx * length * lean;
+  const c1y = start.y + vy * 0.2 + ny * length * lean;
+  const c2x = start.x + vx * 0.72 + nx * length * follow;
+  const c2y = start.y + vy * 0.72 + ny * length * follow;
+
+  for (let i = 0; i <= 28; i += 1) {
+    const t = i / 28;
+    const m = 1 - t;
+    points.push({
+      x: m * m * m * start.x + 3 * m * m * t * c1x + 3 * m * t * t * c2x + t * t * t * end.x,
+      y: m * m * m * start.y + 3 * m * m * t * c1y + 3 * m * t * t * c2y + t * t * t * end.y,
+    });
+  }
 
   // The head sits on the curve's own tangent, not on the straight line, or it
   // points somewhere the pen never went.
@@ -274,33 +393,237 @@ function arrowBetween(from: Rect, to: Rect, bend: number, loop: boolean) {
   return {
     path: `${curl}M${round(start.x)} ${round(start.y)} C ${round(c1x)} ${round(c1y)}, ${round(c2x)} ${round(c2y)}, ${round(end.x)} ${round(end.y)}`,
     head: `M${round(end.x)} ${round(end.y)} L${round(hx1)} ${round(hy1)} M${round(end.x)} ${round(end.y)} L${round(hx2)} ${round(hy2)}`,
+    points,
   };
 }
 
 /**
- * The whole card, at a coarse step, for the nearest clear ground to a picture.
+ * How much of a stroke is drawn outside the card.
  *
- * Only reached when all twenty-four seats around the picture are occupied. It
- * is 1,500-odd rectangle tests against twenty obstacles, once per note when the
- * card mounts, which is nothing next to writing a note over a photograph.
+ * The card is `overflow: hidden`, so this is not a matter of taste: a bend big
+ * enough to clear three pictures took the card-1 calendar arrow up over the top
+ * edge of the frame, where the middle of it was simply not drawn and what
+ * reached the page was two strokes with a gap between them. Measured the same
+ * way as a crossing, and paid for at the same rate, so the router treats
+ * leaving the card as exactly what it is: another thing in the way.
  */
-function sweepForGap(
+function outsideOf(points: Point[]): number {
+  let total = 0;
+  for (let i = 1; i < points.length; i += 1) {
+    const a = points[i - 1]!;
+    const b = points[i]!;
+    const out = (p: Point) => p.x < 0 || p.x > FRAME_W || p.y < 0 || p.y > FRAME_H;
+    // Half a step each for an endpoint outside, which is close enough at this
+    // sampling and costs nothing to compute.
+    const step = Math.hypot(b.x - a.x, b.y - a.y) / 2;
+    if (out(a)) total += step;
+    if (out(b)) total += step;
+  }
+  return total;
+}
+
+/**
+ * How much of a stroke runs over something it is not pointing at.
+ *
+ * Segment by segment, clipped against each rectangle, rather than by asking
+ * whether the sample points land inside one. The difference is not pedantry:
+ * with twenty-nine samples over a 4,000-unit curve the steps are 140 units
+ * long, and the card-3 watch arrow clipped the corner of the typography
+ * posters between two of them — the test said clear, the eye said otherwise,
+ * and adding samples only moves the width of the crossing it can miss. Clipping
+ * has no such width.
+ *
+ * The worst rectangle wins per segment rather than the sum, so a stroke over
+ * two pictures that overlap is not charged twice for one crossing.
+ */
+export function crossingOf(points: Point[], obstacles: Rect[]): number {
+  let total = 0;
+  for (let i = 1; i < points.length; i += 1) {
+    const a = points[i - 1]!;
+    const b = points[i]!;
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const length = Math.hypot(dx, dy);
+    if (length === 0) continue;
+    let worst = 0;
+    for (const box of obstacles) {
+      // Liang-Barsky: the parameter window the segment spends inside the box.
+      const edge = [-dx, dx, -dy, dy];
+      const room = [a.x - box.x, box.x + box.w - a.x, a.y - box.y, box.y + box.h - a.y];
+      let enter = 0;
+      let leave = 1;
+      let hits = true;
+      for (let k = 0; k < 4; k += 1) {
+        const p = edge[k]!;
+        const q = room[k]!;
+        if (p === 0) {
+          if (q < 0) {
+            hits = false;
+            break;
+          }
+          continue;
+        }
+        const t = q / p;
+        if (p < 0) {
+          if (t > leave) {
+            hits = false;
+            break;
+          }
+          if (t > enter) enter = t;
+        } else {
+          if (t < enter) {
+            hits = false;
+            break;
+          }
+          if (t < leave) leave = t;
+        }
+      }
+      if (hits && leave > enter) worst = Math.max(worst, (leave - enter) * length);
+    }
+    total += worst;
+  }
+  return total;
+}
+
+const LEANS = [0, 0.15, -0.15, 0.3, -0.3, 0.5, -0.5, 0.75, -0.75, 1, -1];
+
+/**
+ * `follow` is the second control point's offset. It was always `lean * 0.55`,
+ * which is a family of arcs that all bow the same way: it can go round one
+ * thing. Letting the two move independently adds the S, which is what gets an
+ * arrow **between** two pictures rather than over one of them, and it is the
+ * difference between the card-1 calendar note crossing three pictures and
+ * crossing none.
+ */
+const FOLLOWS = [0, 0.15, -0.15, 0.3, -0.3, 0.5, -0.5, 0.75, -0.75];
+
+function scoreArrow(
+  arrow: ReturnType<typeof arrowBetween>,
+  obstacles: Rect[],
+  lean: number,
+  follow: number,
+  bend: number,
+  loop: boolean,
+  curl: Curl,
+) {
+  /*
+   * Distance from the gesture the note asked for is a cost, not a constraint:
+   * a clear run wins, and among equally clear runs the seeded bend wins, so an
+   * arrow with nothing in its way is still drawn the way it was before and the
+   * cards keep their variety.
+   *
+   * The last two terms are what stops a clear route being a bad drawing. A big
+   * offset is a big detour, and two offsets of opposite sign are an S — both
+   * are worth paying for and neither is worth taking for nothing.
+   */
+  return (
+    crossingOf(arrow.points, obstacles) * 6 +
+    outsideOf(arrow.points) * 6 +
+    (Math.abs(lean - bend) + Math.abs(follow - bend * 0.55)) * 700 +
+    (Math.abs(lean) + Math.abs(follow)) * 260 +
+    (lean * follow < 0 ? 420 : 0) +
+    (loop && curl === 0 ? 2200 : 0) +
+    (curl < 0 ? 200 : 0) +
+    (Math.abs(curl) === 2 ? 300 : 0)
+  );
+}
+
+/**
+ * The arrow that gets from this note to this picture over the least other
+ * ground (`ISSUE-043` cause 1, the last one standing).
+ *
+ * The bend used to be one seeded number and the arrow went wherever that put
+ * it. It is a *search* now, over both control points and the three curl states,
+ * scored on how much picture the stroke lies across. A hard bend is a pen going
+ * round something, which is what somebody annotating a page actually does.
+ *
+ * Two passes, because the search is also used to choose the seat. `coarse` is
+ * eleven leans on the old fixed relationship and is cheap enough to run for
+ * every seat in the running; the full grid runs once, on the seat that won.
+ */
+function routeArrow(box: Rect, anchor: Rect, bend: number, loop: boolean, obstacles: Rect[], coarse = false) {
+  const leans = coarse ? LEANS : [bend, ...LEANS];
+  /*
+   * The coarse pass is choosing a seat, and which way a curl turns has never
+   * been what decides that. Trying all five there costs two and a half times
+   * the work for an answer that does not move, and the coarse pass is the one
+   * that runs for every seat.
+   */
+  const loops: Curl[] = loop ? (coarse ? [1, 0] : [1, -1, 2, -2, 0]) : [0];
+  let best: { arrow: ReturnType<typeof arrowBetween>; score: number } | undefined;
+  for (const lean of leans) {
+    const follows = coarse ? [lean * 0.55] : [lean * 0.55, ...FOLLOWS];
+    for (const follow of follows) {
+      for (const curl of loops) {
+        const arrow = arrowBetween(box, anchor, lean, follow, curl);
+        const score = scoreArrow(arrow, obstacles, lean, follow, bend, loop, curl);
+        if (!best || score < best.score) best = { arrow, score };
+      }
+    }
+  }
+  return best!;
+}
+
+/**
+ * The whole card, at a coarse step, for clear ground near a picture.
+ *
+ * Only reached when all forty seats around the picture are occupied, which on
+ * cards 1, 3 and 4 is most of the time. It is 1,500-odd rectangle tests against
+ * twenty obstacles, once per note when the card mounts, which is nothing next
+ * to writing a note over a photograph.
+ *
+ * It used to return the single nearest clear box, and that was where the last
+ * of `ISSUE-043` was hiding: the notes that reach this function are exactly the
+ * ones with the longest arrows, and handing back one box left the arrow no say
+ * in the matter. It returns a **shortlist** now, nearest first and spread at
+ * least a note's width apart so the twelve are twelve different places rather
+ * than twelve neighbouring cells, and the caller picks the one whose arrow has
+ * the clearest run.
+ */
+function sweepForGaps(
   size: { w: number; h: number },
   obstacles: Rect[],
   cx: number,
   cy: number,
-): Rect | undefined {
+): Array<{ box: Rect; score: number }> {
   const STEP = 320;
-  let found: { box: Rect; reach: number } | undefined;
+  const found: Array<{ box: Rect; score: number }> = [];
   for (let x = MARGIN; x + size.w <= FRAME_W - MARGIN; x += STEP) {
     for (let y = MARGIN; y + size.h <= FRAME_H - MARGIN; y += STEP) {
       const box = { x, y, w: size.w, h: size.h };
       if (penaltyOf(box, obstacles) !== 0) continue;
-      const reach = Math.hypot(x + size.w / 2 - cx, y + size.h / 2 - cy);
-      if (!found || reach < found.reach) found = { box, reach };
+      found.push({ box, score: farness(Math.hypot(x + size.w / 2 - cx, y + size.h / 2 - cy)) });
     }
   }
-  return found?.box;
+  found.sort((a, b) => a.score - b.score);
+  const spread: Array<{ box: Rect; score: number }> = [];
+  for (const candidate of found) {
+    if (spread.length >= 12) break;
+    const apart = spread.every(
+      (kept) =>
+        Math.abs(kept.box.x - candidate.box.x) > size.w * 0.8 ||
+        Math.abs(kept.box.y - candidate.box.y) > size.h * 0.8,
+    );
+    if (apart) spread.push(candidate);
+  }
+  return spread;
+}
+
+/**
+ * What a seat's distance from its picture costs.
+ *
+ * Linear up to `NEAR`, and steeper past it. The owner's word for the arrows was
+ * "across", and an arrow that travels two thirds of the card is that word even
+ * when it is drawn over nothing: a note is somebody leaning over the page and
+ * pointing, and a straight-line-of-sight from the other side of the desk is a
+ * different gesture. Past the knee a seat has to be much clearer to be worth
+ * being much further, and the crossing weight is what "much clearer" means.
+ */
+const NEAR = 2600;
+const FAR_SLOPE = 2;
+
+function farness(reach: number): number {
+  return reach + Math.max(0, reach - NEAR) * FAR_SLOPE;
 }
 
 /** The last word on staying on the card, whatever the scoring settled for. */
@@ -336,7 +659,9 @@ export function placeScribbles(
   const placed: Rect[] = [];
 
   return scribbles.map((scribble) => {
-    const target = slots.find((slot) => slot.src === scribble.target);
+    const index = slots.findIndex((slot) => slot.src === scribble.target);
+    const target = index > -1 ? slots[index] : undefined;
+    const targetRect = index > -1 ? rects[index] : undefined;
     const size = sizeOf(scribble.text, unitsPerPx);
     const seed = seedOf(scribble.text.en);
     const next = streamOf(seed);
@@ -388,28 +713,71 @@ export function placeScribbles(
     const cy = anchor.y + anchor.h / 2;
     const reach = (box: Rect) => Math.hypot(box.x + box.w / 2 - cx, box.y + box.h / 2 - cy);
 
-    let free: { box: Rect; score: number } | undefined;
+    const bend = (0.2 + next() * 0.26) * (next() < 0.5 ? -1 : 1);
+    const wantsLoop = (seed >>> 7) % 2 === 0;
+    /*
+     * What the arrow must not cross: every other picture on the card, the two
+     * pieces of furniture, and the notes already placed. Not the picture it is
+     * pointing at, which it is supposed to end inside.
+     */
+    const crossable = [
+      ...rects.filter((rect) => rect !== targetRect),
+      ...furniture,
+      ...placed,
+    ];
+
+    const free: Array<{ box: Rect; score: number }> = [];
     let best: { box: Rect; cost: number } | undefined;
     for (const { box: candidate, bias } of candidates) {
       const cost = penaltyOf(candidate, obstacles);
-      if (cost === 0) {
-        const score = reach(candidate) + bias;
-        if (!free || score < free.score) free = { box: candidate, score };
-      } else if (!best || cost < best.cost) {
-        best = { box: candidate, cost };
+      if (cost === 0) free.push({ box: candidate, score: farness(reach(candidate)) + bias });
+      else if (!best || cost < best.cost) best = { box: candidate, cost };
+    }
+    free.sort((a, b) => a.score - b.score);
+
+    /*
+     * Now the part `ISSUE-043` cause 1 was waiting for. A seat being free says
+     * the *note* clears every picture; it says nothing about the stroke that
+     * has to get from it to the one it is about, and on a crowded card the
+     * nearest free seat is often the one on the far side of two photographs.
+     *
+     * So the five nearest free seats are each given their best available arrow
+     * and re-scored on what that arrow lies across. Five, because routing is
+     * eleven bends against three curl states against every obstacle on the
+     * card and doing that for all twenty-four seats is work spent on seats no
+     * scoring would ever have picked.
+     */
+    /*
+     * The ring rarely offers much on a dense card, so the sweep is not a
+     * fallback for when it offers nothing — it runs whenever the ring has left
+     * the router fewer than four seats to choose between. One seat is not a
+     * choice, and one seat is what cards 1, 3 and 4 mostly gave: raising and
+     * lowering the crossing weight over a factor of six moved nothing at all,
+     * which is what a search with no alternatives looks like from the outside.
+     */
+    const seats =
+      [...free, ...sweepForGaps(size, obstacles, cx, cy)];
+
+    let seat: Rect | undefined;
+    let seatScore = Infinity;
+    for (const option of seats) {
+      const routed = routeArrow(option.box, anchor, bend, wantsLoop, [...crossable, option.box], true);
+      const total = option.score + routed.score;
+      if (total < seatScore) {
+        seatScore = total;
+        seat = option.box;
       }
     }
 
-    // Every seat taken. Card 1 is dense enough for this to happen, and the
-    // answer is not to write over a picture — it is to look at the rest of the
-    // card and take the closest clear ground to the one being talked about.
-    const box = clampToFrame(free?.box ?? sweepForGap(size, obstacles, cx, cy) ?? best?.box ?? anchor);
+    const box = clampToFrame(seat ?? best?.box ?? anchor);
     placed.push(box);
 
     // Anchored on the side away from the picture, so the note grows outwards
     // and the arrow leaves from the edge nearest what it points at.
     const align: "left" | "right" = box.x + box.w / 2 > anchor.x + anchor.w / 2 ? "left" : "right";
-    const bend = (0.2 + next() * 0.26) * (next() < 0.5 ? -1 : 1);
+    // A clamped or swept box is not the one that was routed, so that arrow is
+    // re-drawn from where the note actually ended up.
+    const arrow = routeArrow(box, anchor, bend, wantsLoop, [...crossable, box]).arrow;
 
     return {
       key: scribble.text.en,
@@ -420,11 +788,8 @@ export function placeScribbles(
       align,
       // Never square: a note at true horizontal is a caption.
       rotate: Math.round((next() * 11 - 7) * 10) / 10 || -3,
-      // Half of them ask for the curl; the short ones do not get it, so what
-      // reaches the card is fewer than half. Taken from the seed rather than
-      // from `next()` so adding it did not reshuffle every bend and angle
-      // already on the cards.
-      arrow: arrowBetween(box, anchor, bend, (seed >>> 7) % 2 === 0),
+      arrow: { path: arrow.path, head: arrow.head },
+      samples: arrow.points,
     };
   });
 }

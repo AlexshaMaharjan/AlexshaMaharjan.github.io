@@ -142,7 +142,7 @@ the uncommitted working tree; recover it with `git show HEAD:src/components/Proj
 | `clusters.tsx` | 630 | five illustrated collages (`Cluster1`–`Cluster5`) — polaroids with `clip-path` torn edges, pins, dark panels, sketches. Hard-coded English labels |
 | `icons.tsx` | 209 | 20 inline SVG icons + `branchIcons` / `tileIcons` arrays |
 | `BranchGroup.tsx` | 89 | one branch: number, title button, question, cluster, close button |
-| `branchData.ts` | 51 | five `BranchLayout` records — `left`/`top` %, SVG path, endpoint caps |
+| `branchData.ts` | 117 | five `BranchLayout` records — `left`/`top` %, SVG path, endpoint caps — plus `HUB_W`/`HUB_Y`, the question's own box. The file's header is the reasoning: what the map has room for, and why the connectors are 72 units (`DECISION-034`) |
 
 This is the most intricate area of the codebase. Read `ARCH-04` before changing it.
 
@@ -160,7 +160,7 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 | `ContentsNav.tsx` | 116 | sticky rail from `xl` + collapsible `<details>` below it, both marking the section being read. `useActiveSection` runs an `IntersectionObserver` rebuilt on every pathname change (never mount-only — `ARCH-01`); the rail's left edge fills as a progress track |
 | `Section.tsx` | 195 | one section: number + nav label, optional `intro` slot, heading, `body[]` blocks, then its set pieces and media. One render path; `first` and `outro` vary only spacing, scale and (for `outro`) heading-beside-text. Text sits at a 680px measure, everything else runs wider. `BodyBlock` switches on the block kind — paragraph / `h3` / `list` / `quote` / `note` / `figure` (`DECISION-014`) |
 | `SectionMedia.tsx` | 159 | groups figures into runs, then justifies each run into rows of at most three. **Every figure in a row shares one height** (`MAX_FIGURE_HEIGHT`, 640px, or less when the 960px column binds) and its width follows from its own aspect — `flex-grow: <ratio>` against `flex-basis: 0`, so the browser does the justification and nothing is cropped (`DECISION-019`). Stacks below 768px. A nested reveal, deliberately (`DECISION-008`) |
-| `Figure.tsx` | 72 | a case-study image slot: `Media` plus a `<figcaption>` when `src` is set. A real figure is also the button that opens `ui/Lightbox`; a placeholder is not |
+| `Figure.tsx` | 72 | a case-study image slot: `Media` plus a `<figcaption>` when `src` is set. A real figure is also the button that opens `ui/Lightbox`; a placeholder is not. **No hover state at all** — `cursor-pointer` is the whole affordance (`DECISION-029`) |
 | `NextProjectNav.tsx` | 52 | prev/next preview cards + "View all work" |
 
 ### Playground (`src/components/playground/`)
@@ -179,7 +179,7 @@ This is the most intricate area of the codebase. Read `ARCH-04` before changing 
 | File | Lines | Controls |
 | --- | --- | --- |
 | `ui/Image.tsx` | 32 | `<img>` wrapper, `fill` only, builds a `srcset` from `imageVariants` |
-| `ui/Lightbox.tsx` | 141 | full-screen view of one figure, portalled to `body` at `z-[210]` (over the header's `z-[200]`). Opens fitted, tap toggles the image's natural size inside a pannable scroller. Escape closes, focus starts on Close and returns to the figure. Exists because a dense figure is unreadable at 350px on a phone |
+| `ui/Lightbox.tsx` | 234 | full-screen view of one figure, portalled to `body` at `z-[210]` (over the header's `z-[200]`). Opens fitted, tap toggles the image's natural size inside a pannable scroller (`zoomable`, off on the playground). Escape closes, focus starts on Close and returns to the figure. Also plays a clip: `video`, with `loopVideo` off for a whole film (`DECISION-030`). Exists because a dense figure is unreadable at 350px on a phone |
 | `PlaceholderImage.tsx` | 23 | hatched `role="img"` box with bracketed caption |
 | `about/LoveLine.tsx` | 65 | cycling word with measured width transition |
 | `resume/PrintButton.tsx` | 11 | `window.print()` |
@@ -309,7 +309,8 @@ model.
 
 | File | Lines | Contents |
 | --- | --- | --- |
-| `collage.ts` | ~430 | **what the page renders** (`DECISION-027`): four cards, 48 slots traced from `Portfolio.fig` page 2. Each slot holds `x/y/w/h` in the design's own pixels on its 16000 × 10000 frame, plus `src`, an optional `video`, both locales' `alt`, and `focus`/`rotate` where the design crops or turns a picture |
+| `collage.ts` | ~535 | **what the page renders** (`DECISION-027`): four cards, 48 slots traced from `Portfolio.fig` page 2. Each slot holds `x/y/w/h` in the design's own pixels on its 16000 × 10000 frame, plus `src`, both locales' `alt`, and `focus`/`rotate` where the design crops or turns a picture. A clip slot carries **two** videos: `video`, the eight-second loop the collage plays, and `film`, the whole thing, which only the viewer fetches (`DECISION-030`) |
+| `placeScribbles.ts` | 795 | where every note goes and what its arrow does. A seat is scored on the picture it would sit on **and on what the arrow from it would lie across**, and the arrow's two control points are searched over so a stroke can pass between pictures rather than over one (`DECISION-033`). `stageUnits` quantises the stage measurement, because this runs on resize. `crossingOf` is exported for `content-audit.mjs`, which fails the build over 40 CSS px of arrow on a picture |
 | `types.ts` | 69 | `PlaygroundItem`, `PlaygroundCategoryContent`, `PlaygroundHomeContent` |
 | `home.ts` | 44 | the page's copy. Only `eyebrow`, `heading`, `intro`, `pauseMotion` and `playMotion` are read now; the rest is kept |
 | `categories/index.ts` | 29 | registry + `getCategory` / `getAllCategories` |

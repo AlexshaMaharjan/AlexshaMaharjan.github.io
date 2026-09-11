@@ -28,6 +28,22 @@
  * The file is served over HTTP from this script rather than read as `file://`:
  * a canvas drawn from a cross-origin or file-scheme video is tainted, and
  * `captureStream` on a tainted canvas throws.
+ *
+ * **`--from 0` hangs. Use `--from 0.04`.** The recording waits on a `seeked`
+ * event, and assigning `currentTime = 0` to a video already at zero is not a
+ * seek, so the event never comes and the script waits for ever. Any value the
+ * browser has to move to works; the first frames are identical anyway.
+ *
+ * **Pass the source's real length to `--seconds`, not more.** Recording is a
+ * wall clock, and the canvas keeps being drawn after the video ends — ask for
+ * longer than the film and the surplus is recorded as its frozen last frame.
+ *
+ * **What comes out is a fragmented MP4** — `moov` at the front, then `moof`
+ * and `mdat` per fragment. It carries its duration and seeks correctly, but
+ * only from a server that sends `video/mp4` and answers `Range`. Against one
+ * that does neither, a 25-second film reports a duration of 4.77 and grows:
+ * that is the server, not the file (SESSION-040, and `scripts/verify/serve.mjs`
+ * does both now).
  */
 import { createServer } from "node:http";
 import { readFileSync, writeFileSync, statSync } from "node:fs";

@@ -2353,10 +2353,10 @@ that decides, not the window's.
 ---
 <a id="decision-028"></a>
 
-## DECISION-028 — The hero is a short title over a description, and the title is the owner's to pick
+## DECISION-028 — The hero is a short title over a description, and the title is the owner's name
 
-Status: **Under review** — candidate A is on the site so the owner can see it, not because it is settled
-Date: 2026-09-10 (SESSION-038), shipped provisionally 2026-09-10 (SESSION-039)
+Status: **Active** — settled by the owner 2026-09-11 (SESSION-040)
+Date: 2026-09-10 (SESSION-038), shipped provisionally 2026-09-10 (SESSION-039), settled 2026-09-11 (SESSION-040)
 Scope: `hero.headlineLines`, `hero.intro` in both dictionaries; `process/HeroProcess.tsx`
 
 ### Context
@@ -2379,13 +2379,22 @@ About page spends four paragraphs saying, which is that this designer starts fro
 person's point of view. A hero that repeats the name (candidate D) competes with the header;
 a hero that describes the discipline repeats the description underneath it.
 
-### What is on the site now
+### What the owner chose
 
-SESSION-039 shipped **candidate A**, "Design that listens." / "Design, das zuhört.", with the
-description under it. That is the recommendation put on screen rather than a decision taken
-for the owner: a title is judged by looking at it, and four candidates in a table is not
-looking at it. **Swapping it is one string per locale in `dictionaries/{en,de}.ts`** — nothing
-else in the hero depends on which one wins.
+**Candidate D: their own name.** Having looked at candidate A on the site, they asked for
+"my name instead", and `headlineLines` is `["Alexsha Maharjan"]` in both locales as of
+SESSION-040.
+
+The recommendation was A, and it was wrong about one thing. The argument against D was that
+"the header already carries the name two centimetres above it" — and it does, at 15px in the
+top-left corner, as a wordmark. A wordmark and a hero are not the same statement, and a
+portfolio whose first line is the person's name is stating who this is rather than making a
+claim about the work. The claim now lives where the owner put it: in the description
+underneath, which is the sentence they wrote.
+
+One consequence worth naming: **the name is the same string in both locales**, which is the
+only hero line that has ever been. `content-audit` compares shape rather than content, so
+this passes, and it should.
 
 ### Consequences
 
@@ -2397,10 +2406,10 @@ else in the hero depends on which one wins.
 ---
 <a id="decision-029"></a>
 
-## DECISION-029 — A case-study figure signals "openable" without a colour or a scale
+## DECISION-029 — A case-study figure signals "openable" with the cursor and nothing else
 
-Status: **Under review** — the owner chooses between three options
-Date: 2026-09-10 (SESSION-038)
+Status: **Active** — settled by the owner 2026-09-11 (SESSION-040)
+Date: 2026-09-10 (SESSION-038), settled 2026-09-11 (SESSION-040)
 Scope: `components/case-study/Figure.tsx`
 
 ### Context
@@ -2420,6 +2429,22 @@ So the affordance is one of the three options in
 [`MILESTONE-010` task 13](milestones.md#milestone-010), recommended **A, a soft shadow lift
 with no movement**.
 
+### What the owner chose
+
+**Option C, and further than C: "remove the hover in the case studies."** No border, no
+shadow, no movement. `Figure.tsx` keeps `cursor-pointer` and the focus ring, and that is the
+whole affordance.
+
+This is a smaller signal than any of the three options offered, and it is defensible on this
+surface for a reason the options paper undersold: a case-study figure sits in a justified row
+of figures that are **all** openable, so a hover state distinguishes nothing — it only says
+"the pointer is here", which the pointer already says. The rows are dense; a lift on every
+one of twenty-nine figures on `/work/afono` is twenty-nine things twitching.
+
+What is lost is discoverability on touch, where there is no cursor and now no hint. That was
+already true of option C and the owner has the same information; it is recorded here so the
+next session does not read the bare figure as an oversight.
+
 ### Consequences
 
 - The two surfaces deliberately behave differently. That is a considered inconsistency, not
@@ -2430,11 +2455,12 @@ with no movement**.
 ---
 <a id="decision-030"></a>
 
-## DECISION-030 — Full-length playground clips, or a lighter page
+## DECISION-030 — The collage loops an excerpt, the viewer plays the whole film
 
-Status: **Under review** — the owner decides
-Date: 2026-09-10 (SESSION-038)
-Scope: `public/videos/pg-*.mp4`, `scripts/video-clip.mjs`
+Status: **Active** — settled by the owner 2026-09-11 (SESSION-040)
+Date: 2026-09-10 (SESSION-038), settled and implemented 2026-09-11 (SESSION-040)
+Scope: `public/videos/pg-*.mp4`, `public/videos/pg-*-full.mp4`, `CollageSlot.film`,
+`ui/Lightbox`
 
 ### Context
 
@@ -2458,12 +2484,49 @@ grow roughly eightfold.
 **Recommended: 3.** It gives the owner the whole film where somebody has asked to watch it,
 and costs the page nothing, at the price of two files per clip.
 
-### What must be measured first
+### The measurement, taken before anything was re-encoded
 
-The owner's report is "only 2 3 seconds", and the clips are 6 to 9. That gap is not
-explained. Before re-encoding anything, check whether the viewer is playing from the start
-and whether the collage clip is being stopped early by the `IntersectionObserver` in
-`ui/LoopVideo`. **A re-cut will not fix a playback bug.**
+`ISSUE-044` insisted on this and it was right to. Driving the built `/playground` in Chrome
+and reading every `<video>` the page makes, scrolling the whole deck:
+
+| Clip | File | Played | Loops |
+| --- | --- | --- | --- |
+| `pg-hibi.mp4` | 8.97s | 8.92s | yes |
+| `pg-motorbike.mp4` | 7.96s | 7.93s | yes |
+| `pg-gift-explosion.mp4` | 7.97s | 7.96s | yes |
+| `pg-gift-riona.mp4` | 5.99s | 5.99s | yes |
+| `pg-gift-popup.mp4` | 7.98s | 7.98s | yes |
+
+**Every clip plays its whole file and repeats. There is no playback bug**, and the
+`IntersectionObserver` in `ui/LoopVideo` is not cutting anything short. The clips are short
+because `video-clip.mjs` was run with `--seconds 8`, and that is the entire cause. The
+owner's "2 3 seconds" was an impression of an eight-second loop, not a fault.
+
+### What shipped
+
+**Option 3.** Each clip slot now carries a second file: `video` is the eight-second loop the
+collage plays, `film` is the whole thing and only the viewer asks for it.
+
+| Slot | Loop | Whole film | Source |
+| --- | --- | --- | --- |
+| Hibi | 8.97s, 189 KB | 25.3s, 451 KB | 25.4s |
+| Motorbike | 7.96s, 443 KB | 62.9s, 2691 KB | 63.0s |
+| Gift, explosion | 7.97s, 358 KB | 23.4s, 989 KB | 23.5s |
+| Gift, pop-up | 7.98s, 487 KB | 47.7s, 2128 KB | 47.8s |
+| Gift, Riona | 5.99s, 215 KB | 141.9s, 8913 KB | 142.0s |
+
+15.2 MB of film, and **`/playground` weighs exactly what it weighed before**: a `<video>` for
+the full film is only created once the dialog is open, which is the same trade `ui/Video`
+makes for the 12 MB kitchen walkthrough (`DECISION-022`).
+
+`Lightbox` gained `loopVideo`, off wherever a `film` is playing. An eight-second excerpt that
+stops looks broken; a two-and-a-half-minute film that starts over unasked is a different kind
+of wrong.
+
+**They were cut at 640px and 900 kbps**, which is a smaller frame than the sources and much
+smaller than the estimate: the longest is 8.9 MB rather than the ~20 MB a linear estimate from
+the excerpts gave, because these are handheld shots of small still objects and the encoder has
+little to do. Recording is real time — five minutes for the five of them, paid once.
 
 ---
 <a id="decision-031"></a>
@@ -2555,3 +2618,159 @@ does not, and it cannot. Both columns scale linearly with the row's height, so t
 aspect is fixed at roughly 2.2:1 whatever size it is drawn at — the tall figure at 0.665 and
 the two wide ones at 2.75 and 3.48 do not admit a square arrangement. What the owner asked
 for is the *arrangement*, and that is what shipped.
+
+---
+<a id="decision-033"></a>
+
+## DECISION-033 — A note's seat is chosen by the arrow it would need
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-040)
+Scope: `src/lib/playground/placeScribbles.ts`, check 5 in `scripts/content-audit.mjs`
+Closes: `ISSUE-043` cause 1, the last one standing
+
+### Context
+
+The owner, on the playground's notes:
+
+> "for the issue with the arrows, i want you to point at the nearest image not across
+> anything because it is causing overlapping and the loops in the arrows do not look good
+> too make the loops rounder and better."
+
+`SESSION-038` made note placement geometric and `SESSION-039` made it measured, and both
+worked on the **note**. Neither looked at the stroke. A seat being free says the note box
+clears every picture; it says nothing about the arrow that has to get from it to the one it
+is about, and on a crowded card the nearest free seat is regularly on the far side of two
+photographs. Measured across five stage widths, fifty arrows: the worst lay **394 CSS px**
+across other pictures, and 2,773 px of stroke was over a picture in total.
+
+### The decision
+
+**Placement and routing are one search, and crossing is what it minimises.**
+
+1. **An arrow ends at the picture's nearest point to the note**, not at the point on the ray
+   from the picture's centre. On a 4,000-unit-wide slot those are different places: a note
+   above the left end was sent to a landing point near the middle, so the stroke travelled
+   sideways across the card to reach a picture directly below where it started. The owner's
+   word for that was "across".
+
+2. **A seat is scored on the arrow it would need.** Every free seat around the picture, plus
+   a shortlist of twelve clear places found by sweeping the whole card, is given its best
+   available arrow and re-scored on what that arrow lies across.
+
+3. **The bend is a search, not a seeded number.** Both control points move independently over
+   a grid, which is what lets a stroke go **between** two pictures rather than over one. The
+   seeded bend is still preferred on anything close, so an arrow with a clear run is drawn the
+   way it always was and the cards keep their variety.
+
+4. **Leaving the card counts as crossing.** The card is `overflow: hidden`, and a bend wide
+   enough to clear three pictures took one arrow up over the frame's top edge, where the
+   middle of it simply was not drawn.
+
+**Result: the worst crossing is 16 CSS px and the total is about 60.** From 394 and 2,773.
+
+### The loop, redrawn
+
+The curl was an arc whose chord was its own radius — 300 degrees, so a C with a quarter
+missing, joined to the line at an angle the pen would have had to lift to make. The chord is
+a third of the radius now, which closes it to within 20 degrees of a full circle, and both
+its ends run along the line of travel.
+
+It also **stands a radius off the note before it begins**. A loop drawn from the note's own
+edge is a circle centred a radius away from that edge, and a circle centred a radius from an
+edge covers what is behind it: the first one was drawn straight through the words it belonged
+to.
+
+Two radii and two directions are offered to the search, so a curl that will not fit one way
+is drawn tighter or the other way round rather than dropped. Seven of fifty arrows curl.
+
+### Why it is checked rather than looked at
+
+`content-audit.mjs` measures every arrow on every card at five stage widths and fails the
+build over 40 CSS px, and over any stroke drawn outside the card. **The check was proved by
+re-injecting the fault**: with the single-bend arrow restored it reports 14 findings.
+
+This is the project's third session on `ISSUE-043` and the second time a fix has been judged
+by looking at one card at one width. A number that the build enforces is what stops there
+being a fourth.
+
+### Cost
+
+Placement runs about 4 ms a card, up from under 1. It runs on mount and on resize, so
+`stageUnits` quantises the stage measurement to a quarter of a design unit — about twenty
+pixels of card width — which cuts the re-runs during a window drag by a factor of twenty-five.
+Nothing here is accurate to a quarter unit anyway: the note's size is an estimate from the
+type's metrics, and `MARGIN` alone carries 340 units of slack.
+
+---
+<a id="decision-034"></a>
+
+## DECISION-034 — The process question's size is solved from its own measurement
+
+Status: **Active**
+Date: 2026-09-11 (SESSION-040)
+Scope: `src/components/process/HeroProcess.tsx`, `src/components/process/branchData.ts`
+Closes: `ISSUE-045`, `MILESTONE-010` tasks 3b and 3c
+
+### Context
+
+"How do I bring a project to life?" wrapped to two lines once the process map arrived, and the
+owner wants it on one. The hub it sits in was 340 units wide at 32px, and the sentence is 457
+units in English and **567 in German** — German is the one that sets the width, and neither
+fitted.
+
+### The decision
+
+**The element measures itself and the size follows.** `measure()` reads the question's width
+at a font size of one pixel, once per resize, and the end-state size is
+`min(32 × scale, (hub − 24) / that)` with a floor of 18. `white-space: nowrap` is on the whole
+way through, and the box is never allowed narrower than the words, so nothing spills during
+the transition either.
+
+A hard-coded `clamp()` cannot keep this promise. The German sentence is a quarter wider than
+the English one, the hub is a fraction of a map that scales with the window, and the sentence
+is a string in a dictionary that somebody will rewrite. Measured, it holds in all three cases.
+Verified at five widths from 1920 to 960 in both locales: **one line in every one**.
+
+### The map has less room than it looks
+
+Two numbers, both found by measuring rather than choosing:
+
+- **The top row cannot start above 99.** The fixed header covers the canvas down to about
+  there once it is full-bleed, and a row at 30 had its numbers and titles behind the header.
+- **The bottom row cannot start below about 504.** The tallest cluster in it runs 340 units
+  and the map ends at 900. Moving that row to 566 to open a band across the middle cut the
+  bottom off both illustrations.
+
+So the two rows own 99–473 and 504–844 and **there is no clear horizontal band between them**
+— 31 units, against a question 36 tall. The question therefore stays where it always was, in
+the gap between clusters 1 and 2, and that gap is what limits it: 480 units, which reads at
+about 26px against the map's own scale.
+
+**This is the trade, stated plainly: a wider question means shorter connectors.** 480 leaves
+71 units of air on each side and the connectors are 72. The owner asked for the question on
+one line and the question is what the canvas is about.
+
+### The connectors (task 3c)
+
+Five strokes, each **72 units**: four level rules flanking the question, two above its centre
+line and two below, and one dropping from its foot to cluster 5. They were 82, 134, 141, 180
+and 197 units at five unrelated angles, anchored to nothing in particular — one ended at a
+cluster's title, another halfway up its side, a third in open space.
+
+**Diagonals were tried first and are wrong here.** Radiating them out of the hub's corners
+puts two strokes 16 units apart at a shared vertex, and what that draws is a chevron on each
+end of the sentence rather than two connectors. Level rules at different heights separate the
+pair without any splay.
+
+**Clusters 2 and 4 moved right.** They were placed at a fixed `left`, so their differing
+widths left right-hand margins of 86 and 32 against 65 on the left, and the gaps beside the
+question were uneven. They are placed by their **inner** edge now, mirroring clusters 1 and 3
+about x = 720, because the inner edge is the one the eye reads against the question.
+
+### What this does not fix
+
+**In the reduced-motion and mobile layout the connectors point at nothing.** There, the
+question is a separate heading above the map, so the five strokes converge on an empty centre.
+That was equally true before — the old lines converged on the same hole — and it is left
+alone rather than quietly redesigned, because the owner has not seen that view either.

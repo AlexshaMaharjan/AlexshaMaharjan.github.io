@@ -1,18 +1,20 @@
 # Current State
 
-Snapshot: **2026-09-10**, after SESSION-039. **Not deployed** — the last deploy was
-SESSION-035, and SESSION-036 through SESSION-039 sit on `milestone-003-content-model`.
+Snapshot: **2026-09-11**, after SESSION-040. **Not deployed** — the last deploy was
+SESSION-035, and SESSION-036 through SESSION-040 sit on `milestone-003-content-model`.
 
-**[`MILESTONE-010`](milestones.md#milestone-010) is eleven-fifteenths done and what remains
-needs the owner, not a session.** SESSION-039 finished every task in it that could be
-finished without them: the hero, the About page and its landing section, three case studies,
-the résumé, the navigation and all nine playground changes. The four gates — the hero title,
-the process spacing, the case-study hover and the clip length — each have something on screen
-to look at.
+**[`MILESTONE-010`](milestones.md#milestone-010) is complete.** The owner answered the four
+gates on 2026-09-11 and SESSION-040 closed them: the hero title is their name, the case-study
+figure hover is gone, the process question is on one line with the map regularised around it,
+and the playground's clips were measured (no playback bug) before the whole films were shipped
+on demand. `ISSUE-043`, `ISSUE-044` and `ISSUE-045` closed with it.
 
-**One deliberate placeholder is on a live-facing page.** The About biography reads "brought me
-**[ N ]** kilometres from home to Germany": the owner left the number blank and it stays blank
-until they supply it. Read [next_session.md](next_session.md) before deploying.
+**There are no placeholders left on live-facing copy.** The About biography's `[ N ]` is
+6,570 kilometres. Read [next_session.md](next_session.md) before deploying anyway — the deploy
+is the owner's call.
+
+**Every open issue is now a provenance or judgement call**, not a defect. The tracker's
+defects are closed.
 
 **`docs/` was rebuilt in SESSION-038**: 159 files to 16, one per kind, anchored by ID.
 

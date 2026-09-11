@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
-import { branchLayout } from "./branchData";
+import { branchLayout, HUB_W, HUB_Y } from "./branchData";
 import BranchGroup from "./BranchGroup";
 
 const EASE_LO = 0;
@@ -37,6 +37,18 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
   const trackHRef = useRef(0);
   const cTop0Ref = useRef(0);
   const qhRef = useRef(90);
+  /**
+   * The question's width at a font size of one pixel, measured from the element
+   * itself (`MILESTONE-010` task 3b).
+   *
+   * The question has to stay on one line, and "pick a size that fits" is a
+   * promise nobody can keep by hand: the German sentence is a quarter wider
+   * than the English one, the hub is a fraction of a map that scales with the
+   * window, and the sentence is a string in a dictionary that somebody will
+   * rewrite. Measuring the text and solving for the size that fits holds in all
+   * three cases; a hard-coded `clamp()` holds in none of them.
+   */
+  const qEmRef = useRef(0.5);
 
   const active = locked ?? hovered;
 
@@ -110,6 +122,17 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       trackHRef.current = track.offsetHeight;
       cTop0Ref.current = Math.max(0.7 * H, heroBottom + 24);
       qhRef.current = q.offsetHeight || 90;
+      // One forced layout per resize, which is where `measure` already is.
+      const width = q.style.width;
+      const size = q.style.fontSize;
+      const wrap = q.style.whiteSpace;
+      q.style.whiteSpace = "nowrap";
+      q.style.width = "auto";
+      q.style.fontSize = "100px";
+      qEmRef.current = q.scrollWidth / 100 || 0.5;
+      q.style.width = width;
+      q.style.fontSize = size;
+      q.style.whiteSpace = wrap;
     };
 
     const frame = () => {
@@ -135,14 +158,27 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       const st = (H - 900 * s) / 2;
       const m = smoothstep(p, 0.6, 0.78);
       const qwBase = Math.min(1040, 0.9 * W);
-      const qw = lerp(qwBase, 340 * s, m);
       const visCenter = (H - top) / 2;
 
-      q.style.whiteSpace = m === 0 ? "nowrap" : "normal";
+      /*
+       * The hub, once the map is up: `HUB_W` wide at the map's own scale, and
+       * whatever size keeps the sentence on one line inside it, never above 32
+       * and never below 18. `nowrap` the whole way through, so the promise is
+       * kept by construction rather than by the size happening to be small
+       * enough — and the box is never narrower than the words, so nothing
+       * spills during the transition either.
+       */
+      const hubW = Math.min(HUB_W * s, 0.86 * cw);
+      const qEndSize = Math.max(18, Math.min(32 * s, (hubW - 24) / qEmRef.current));
+      const qSize = lerp(Math.min(44, 0.032 * W + 14, qwBase / 18), qEndSize, m);
+      const qw = Math.max(lerp(qwBase, hubW, m), qEmRef.current * qSize + 24);
+      q.style.whiteSpace = "nowrap";
       q.style.width = qw + "px";
       q.style.left = (cw - qw) / 2 + "px";
-      q.style.top = lerp(Math.max(96, visCenter - qhRef.current / 2), st + 0.405 * 900 * s, m) + "px";
-      q.style.fontSize = lerp(Math.min(44, 0.032 * W + 14, qwBase / 18), Math.max(20, 32 * s), m) + "px";
+      // `HUB_Y` is the sentence's centre line, so its top moves with its size.
+      q.style.top =
+        lerp(Math.max(96, visCenter - qhRef.current / 2), st + HUB_Y * s - qSize * 0.56, m) + "px";
+      q.style.fontSize = qSize + "px";
 
       map.style.transform = "translate(-50%,-50%) scale(" + s + ")";
       const mo = smoothstep(p, 0.62, 0.72);
