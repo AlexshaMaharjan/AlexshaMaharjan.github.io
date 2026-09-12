@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!--
+      The typefaces are served from this origin (ISSUE-055). Two preloads, for
+      the only faces every page needs before first paint: Inter regular and
+      Inter semibold, latin. Everything else is declared in index.css and
+      fetched when a glyph actually needs it.
+    -->
+    <link rel="preload" href="/fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-600-latin.woff2" as="font" type="font/woff2" crossorigin />
 
     <title>Résumé — Alexsha Maharjan</title>
     <meta name="description" content="Designing intuitive digital experiences and unique brands. Portfolio of Alexsha Maharjan, a digital designer from Lübeck, Germany." />
@@ -30,8 +32,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Alexsha Maharjan — Portfolio" />
     <meta name="twitter:card" content="summary_large_image" />
-    <script type="module" crossorigin src="/assets/index-TXj24Ols.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Y8-30PF-.css">
+    <script type="module" crossorigin src="/assets/index-BqxOoe2S.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-B1oXTdkJ.css">
   </head>
   <body>
     <div id="root"></div>
