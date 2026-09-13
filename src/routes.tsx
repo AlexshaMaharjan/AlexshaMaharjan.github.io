@@ -27,13 +27,15 @@ const ArchiveEditor = import.meta.env.DEV
   ? lazy(() => import("@/pages/playground/ArchiveEditor"))
   : null;
 
-/** Registers `path` at both the default (unprefixed) and `/de`-prefixed locale. */
+/** Registers `path` at the default bare locale (German), `/en`-prefixed (English), and redirects legacy `/de` paths. */
 function dual(path: string, element: ReactElement): RouteObject[] {
   const bare = path === "/" ? "/" : path;
+  const en = path === "/" ? "/en" : `/en${path}`;
   const de = path === "/" ? "/de" : `/de${path}`;
   return [
     { path: bare, element },
-    { path: de, element },
+    { path: en, element },
+    { path: de, element: <Navigate to={bare} replace /> },
   ];
 }
 
@@ -53,10 +55,12 @@ function dualArchive(): RouteObject[] {
   ];
   return [
     { path: ARCHIVE_PATH, element: <PlaygroundLayout />, children },
-    { path: `/de${ARCHIVE_PATH}`, element: <PlaygroundLayout />, children },
+    { path: `/en${ARCHIVE_PATH}`, element: <PlaygroundLayout />, children },
+    { path: `/de${ARCHIVE_PATH}`, element: <Navigate to={ARCHIVE_PATH} replace /> },
     ...(ArchiveEditor ? [{ path: `${ARCHIVE_PATH}/edit`, element: <ArchiveEditor /> }] : []),
     { path: ARCHIVE_LEGACY_PATH, element: <Navigate to={ARCHIVE_PATH} replace /> },
-    { path: `/de${ARCHIVE_LEGACY_PATH}`, element: <Navigate to={`/de${ARCHIVE_PATH}`} replace /> },
+    { path: `/en${ARCHIVE_LEGACY_PATH}`, element: <Navigate to={`/en${ARCHIVE_PATH}`} replace /> },
+    { path: `/de${ARCHIVE_LEGACY_PATH}`, element: <Navigate to={ARCHIVE_PATH} replace /> },
   ];
 }
 

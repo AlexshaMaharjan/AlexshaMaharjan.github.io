@@ -8,8 +8,8 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
   return (
     <section id="about" className="bg-white py-[120px] pb-[160px]">
       <div className="container-page">
-        <div data-inview className="grid grid-cols-1 items-start gap-10 md:grid-cols-[280px_1fr] md:gap-16">
-          <div>
+        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[280px_1fr] md:gap-16">
+          <div data-inview="up">
             {/*
               280px, not 460 (`MILESTONE-018` task 3). The owner's note was that
               the portrait reads too big in both about sections; this is ~60% of
@@ -28,7 +28,7 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
             </div>
           </div>
 
-          <div>
+          <div data-inview="text">
             <span className="block text-[14px] text-accent">{dictionary.aboutPreview.eyebrow}</span>
             <h2 className="mt-6 text-section font-semibold leading-[1.08] tracking-[-0.025em] text-ink">
               {dictionary.aboutPreview.heading}

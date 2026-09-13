@@ -49,7 +49,7 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
   const { tag, onPoint, onUnpoint } = useCursorTag();
 
   return (
-    <div data-inview="stagger" className="flex flex-col gap-10 md:gap-10">
+    <div className="flex flex-col gap-10 md:gap-10">
       {tag}
       {rows.map((row, i) => {
         const { ratios, height, width } = rowMetrics(
@@ -59,7 +59,12 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
           MAX_CARD_HEIGHT,
         );
         return (
-          <div key={i} className="mx-auto flex w-full flex-col gap-8 md:flex-row md:gap-6" style={{ maxWidth: width }}>
+          <div
+            key={i}
+            data-inview="stagger"
+            className="mx-auto flex w-full flex-col gap-8 md:flex-row md:gap-6"
+            style={{ maxWidth: width }}
+          >
             {row.map((project, n) => (
               <Link
                 key={project.slug}

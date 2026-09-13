@@ -193,6 +193,19 @@ export function useScrollBehavior(): void {
       });
     }
 
+    const navState = location.state as { preserveScroll?: boolean; scrollY?: number } | null;
+    if (navState?.preserveScroll && typeof navState.scrollY === "number" && !location.hash) {
+      const restoreTo = navState.scrollY;
+      let lastHeight = -1;
+      return untilReady(() => {
+        if (jumpTo(restoreTo)) return true;
+        const height = document.documentElement.scrollHeight;
+        const settled = height === lastHeight;
+        lastHeight = height;
+        return settled;
+      });
+    }
+
     if (!location.hash) {
       jumpTo(0);
       return;
@@ -272,5 +285,5 @@ export function useScrollBehavior(): void {
         if (!found) jumpTo(0);
       },
     );
-  }, [location.key, location.pathname, location.hash, navigationType]);
+  }, [location.key, location.pathname, location.hash, location.state, navigationType]);
 }

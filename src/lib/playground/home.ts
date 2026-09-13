@@ -27,7 +27,7 @@ const home: PlaygroundHomeLocaleContent = {
   de: {
     eyebrow: "Sammlung persönlicher Arbeiten",
     heading: "Persönliche Arbeiten und Experimente.",
-    intro: "Persönliche Projekte, Handarbeit und Experimente, die sich mit der Zeit gesammelt haben, von Dingen, die einfach aus Spaß entstehen, bis zu Ideen, mit denen ich etwas Neues lerne.",
+    intro: "Persönliche Projekte, Handarbeit und Experimente im Laufe der Zeit – von Dingen aus Freude bis zu Ideen, mit denen ich Neues lerne.",
     tags: "Handarbeit · Digitale Kunst · Grafikdesign · Apps · Fotografie & 3D",
     pauseMotion: "Clips anhalten",
     playMotion: "Clips abspielen",

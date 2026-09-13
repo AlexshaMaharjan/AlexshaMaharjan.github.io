@@ -66,7 +66,7 @@ export default function Scribble({ note, locale }: { note: PlacedScribble; local
       }
     >
       <span
-        className="pencil-ink block max-w-[15ch] whitespace-pre-line font-hand text-[length:var(--pg-note-px,22px)] font-bold leading-[1.1]"
+        className="pencil-ink block max-w-[24ch] whitespace-pre-line font-hand text-[length:var(--pg-note-px,22px)] font-bold leading-[1.1]"
         style={{ textAlign: note.align }}
       >
         {note.text[locale]}

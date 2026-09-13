@@ -85,7 +85,7 @@ const PANEL_MAX_W = `calc(${FRAME_W / FRAME_H} * (100svh - var(--header-h) - 40p
  * decides a layout rather than sets one.
  */
 const META_W = 320;
-const META_STACKED_H = 150;
+const META_STACKED_H = 80;
 const GUTTER = 28;
 
 /**
@@ -367,6 +367,8 @@ export default function PieceViewer({
     .replace("{n}", String(index + 1))
     .replace("{total}", String(slots.length));
 
+  const isBead = slot.src === "/images/pg-bead.webp";
+
   const media = clip ? (
     /*
      * `muted` is the *initial* attribute and the sound button owns the property
@@ -398,11 +400,23 @@ export default function PieceViewer({
       key={slot.src}
       src={slot.src}
       alt={slot.alt[locale]}
+      style={
+        isBead
+          ? {
+              aspectRatio: `${slot.w} / ${slot.h}`,
+              objectPosition: slot.focus ?? "50% 59%",
+            }
+          : undefined
+      }
       onLoad={(e) => {
         const img = e.currentTarget;
-        if (img.naturalWidth && img.naturalHeight) setRatio(img.naturalWidth / img.naturalHeight);
+        if (!isBead && img.naturalWidth && img.naturalHeight) {
+          setRatio(img.naturalWidth / img.naturalHeight);
+        }
       }}
-      className="max-h-full max-w-full rounded-[10px] object-contain"
+      className={`max-h-full max-w-full rounded-[10px] ${
+        isBead ? "object-cover" : "object-contain"
+      }`}
     />
   );
 
@@ -599,8 +613,10 @@ export default function PieceViewer({
           */}
           <div
             ref={bodyRef}
-            className={`flex min-h-0 flex-1 gap-6 overflow-y-auto p-6 sm:p-8 ${
-              stacked ? "flex-col" : "flex-col sm:flex-row"
+            className={`flex min-h-0 flex-1 overflow-y-auto ${
+              stacked
+                ? "flex-col gap-3 p-4 sm:gap-4 sm:px-8 sm:py-4"
+                : "flex-col gap-6 p-6 sm:flex-row sm:p-8"
             }`}
           >
             {/*
@@ -617,47 +633,44 @@ export default function PieceViewer({
             </div>
 
             {/*
-              Under a landscape picture the text runs as **two columns**
-              (`MILESTONE-022` task 8, owner: *"when text needs to be positioned
-              below a visual, use a two-column text layout where appropriate so
-              the content remains balanced and readable"*).
-
-              It is the same two blocks the side-by-side layout stacks — the
-              description, and the Made / Tools / Type list — laid beside each
-              other instead of one under the other. That is what makes stacking
-              affordable: the text is half as tall as it would be in one column,
-              so the picture keeps the height it would otherwise have paid, and
-              a description does not run to a 1,200px measure.
-
-              One column below `sm`, where there is no room for two and the
-              panel scrolls anyway.
+              Under a landscape picture the text runs as a space-efficient
+              flex layout prioritizing media display size while keeping
+              descriptions and metadata cleanly arranged and readable.
             */}
             <div
               className={
                 stacked
-                  ? "grid w-full shrink-0 gap-x-8 gap-y-4 sm:grid-cols-2"
+                  ? "flex w-full shrink-0 flex-col gap-x-8 gap-y-3 sm:flex-row sm:items-start sm:justify-between"
                   : "shrink-0 sm:w-[260px] lg:w-[320px]"
               }
             >
-              {slot.description ? (
-                <p className="text-[15px] leading-[1.6] text-ink-body">{slot.description[locale]}</p>
-              ) : null}
-              {slot.prototypeUrl ? (
-                <a
-                  href={slot.prototypeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="tap-target mt-2 inline-flex items-center gap-1.5 text-[14px] font-medium hover:underline"
-                  style={{ color: accent }}
-                >
-                  {copy.prototypeLink}
-                  <span aria-hidden="true">↗</span>
-                </a>
-              ) : null}
+              <div className={stacked ? "min-w-0 sm:max-w-[58%]" : undefined}>
+                {slot.description ? (
+                  <p className="text-[14px] leading-[1.55] text-ink-body sm:text-[15px] sm:leading-[1.6]">
+                    {slot.description[locale]}
+                  </p>
+                ) : null}
+                {slot.prototypeUrl ? (
+                  <a
+                    href={slot.prototypeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="tap-target mt-2 inline-flex items-center gap-1.5 text-[14px] font-medium hover:underline"
+                    style={{ color: accent }}
+                  >
+                    {copy.prototypeLink}
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                ) : null}
+              </div>
 
               <dl
                 className={
-                  stacked ? "flex flex-wrap gap-x-8 gap-y-4" : slot.description ? "mt-6" : ""
+                  stacked
+                    ? "flex shrink-0 flex-wrap gap-x-6 gap-y-2 text-[13px] sm:max-w-[40%]"
+                    : slot.description
+                      ? "mt-6"
+                      : ""
                 }
               >
                 {slot.made ? (
@@ -678,7 +691,7 @@ export default function PieceViewer({
                            card it came off rather than to the viewer. */
                         <span
                           key={tag}
-                          className="rounded-full px-2.5 py-1 text-[12px] font-medium"
+                          className="rounded-full px-2.5 py-0.5 text-[11px] font-medium"
                           style={{ backgroundColor: `${accent}1A`, color: accent }}
                         >
                           {tag}

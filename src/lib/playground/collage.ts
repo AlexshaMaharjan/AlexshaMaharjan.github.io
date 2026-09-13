@@ -314,22 +314,15 @@ const cards: CardFrame[] = [
     accent: "#D65A18",
     slots: [
       {
-        /*
-         * Down 7% from 2201 x 3267, about its own centre (`MILESTONE-023` task
-         * 9: *"make the acrylic wanted poster slightly smaller"*). Centred
-         * rather than corner-anchored because nothing was said about which way
-         * it should shrink, and its neighbours are on both sides of it — the
-         * gift box to the left and the autumn path to the right.
-         */
-        x: 2800, y: 2158, w: 2047, h: 3038, src: "/images/pg-painting-luffy.webp",
-        // The design pulls the crop to the picture's right edge.
-        focus: "100% 50%",
+        x: 2604, y: 2158, w: 1798, h: 2399, src: "/images/pg-autumn.webp",
       },
       {
         x: 7525, y: 3678, w: 2543, h: 3596, src: "/images/pg-sunset.webp",
       },
       {
-        x: 5280, y: 2912, w: 1798, h: 2399, src: "/images/pg-autumn.webp",
+        x: 4800, y: 2500, w: 2047, h: 3038, src: "/images/pg-painting-luffy.webp",
+        // The design pulls the crop to the picture's right edge.
+        focus: "100% 50%",
       },
       {
         x: 4443, y: 5816, w: 2629, h: 2722, src: "/images/pg-flyer.webp",
@@ -347,22 +340,6 @@ const cards: CardFrame[] = [
         x: 7192, y: 7676, w: 2882, h: 2037, src: "/images/pg-kalender-oktober.webp", viewer: "beside",
       },
       {
-        /*
-         * Up 8%, and then moved (`MILESTONE-023` task 9).
-         *
-         * The owner asked for this and the Hibi clip to grow **from the
-         * top-left, with the bottom-right corner fixed**, and for the gap
-         * between the two to stay exactly as it was. Those two instructions
-         * cannot both be taken literally: December sits to the *left* of the
-         * clip, so a clip that grows leftwards closes the gap — at +8% it went
-         * from 356 units to 88, which at a 1280px stage is 28px down to 7.
-         *
-         * So the resize is the literal one — 1563 x 1106 becomes 1688 x 1194
-         * about the bottom-right corner at (7525, 2597) — and then the whole
-         * box is translated left by 268, exactly as far as the clip's left edge
-         * moved. The gap is 356 before and 356 after, and the pair grows
-         * together instead of one closing on the other.
-         */
         x: 5569, y: 1403, w: 1688, h: 1194, src: "/images/pg-kalender-dezember.webp", viewer: "beside",
       },
       {
@@ -372,12 +349,6 @@ const cards: CardFrame[] = [
         x: 681, y: 4348, w: 1595, h: 2128, src: "/images/pg-gift-popup.webp",
       },
       {
-        /*
-         * Up 8% about its bottom-right corner at (11228, 3342), which is the
-         * literal reading of the owner's "resize from the top-left, keep the
-         * bottom-right where it is". See the December calendar above for the
-         * half of the instruction that had to be resolved.
-         */
         x: 7613, y: 1308, w: 3615, h: 2034,
         src: "/images/pg-clip-hibi.webp", video: "/videos/pg-hibi.mp4", film: "/videos/pg-hibi-full.mp4",
         filmHd: "/videos/pg-hibi-hd.mp4",
@@ -389,24 +360,17 @@ const cards: CardFrame[] = [
     scribbles: [
       {
         target: "/images/pg-clip-hibi.webp",
-        text: { en: "my own\ntask app", de: "meine eigene\nAufgaben-App" },
+        text: { en: "I developed an\nend-to-end web app", de: "Ich habe eine End-to-End-\nWeb-App entwickelt" },
         prefer: "top-right",
       },
       {
         target: "/images/pg-flyer.webp",
-        text: { en: "event flyer,\npink on black", de: "Flyer, Rosa\nauf Schwarz" },
+        text: { en: "I design posters too", de: "Ich gestalte auch Plakate" },
         prefer: "bottom-left",
       },
       {
-        /*
-         * The note names the March page, not the cover (`MILESTONE-011` task
-         * 5). It said "a whole year, one flower a month" and pointed at the
-         * 2027 cover, which is the one picture on the card that shows no month
-         * at all — the sentence is about the series and it now points at a page
-         * of it, which is what makes the idea legible.
-         */
-        target: "/images/pg-kalender-maerz.webp",
-        text: { en: "a whole year,\none flower\na month", de: "ein ganzes\nJahr, eine\nBlüte je Monat" },
+        target: "/images/pg-kalender-juni.webp",
+        text: { en: "calendar design for 2027", de: "Kalenderdesign für 2027" },
         tone: "accent",
         prefer: "bottom-right",
       },
@@ -455,22 +419,13 @@ const cards: CardFrame[] = [
     scribbles: [
       {
         target: "/images/pg-forest.webp",
-        text: { en: "light is the\nwhole subject", de: "das Licht ist\ndas Motiv" },
+        text: { en: "digital painting on iPad", de: "Digitales Malen auf dem iPad" },
         prefer: "bottom-left",
       },
       {
-        /*
-         * "flat, then folded" pointing at the flat one was the sentence ending
-         * where it started. It points at the folded one now (`MILESTONE-011`
-         * task 6), so the arrow lands on the finished box and the words carry
-         * the eye from the template to the result.
-         */
         target: "/images/pg-packaging-perfume.webp",
-        text: { en: "perfume: flat,\nthen folded", de: "Parfüm: flach,\ndann gefaltet" },
+        text: { en: "packaging design", de: "Verpackungsdesign" },
         tone: "accent",
-        // Above the box and a little to its left, which is where frame 2's
-        // annotation sits and not the top-right corner it looks like on a
-        // first read of the frame.
         prefer: "top-left",
       },
     ],
@@ -523,23 +478,17 @@ const cards: CardFrame[] = [
     scribbles: [
       {
         target: "/images/pg-poster-hologram.webp",
-        text: { en: "holographic watch,\nall concept", de: "Holo-Uhr,\nreines Konzept" },
+        text: { en: "advertisement poster", de: "Werbeplakat" },
         prefer: "top-left",
       },
       {
-        /*
-         * Card 3's third note (`MILESTONE-012` task 2). The owner's Figma
-         * frame 3 carries three annotations and this card shipped two: the
-         * missing one is the top right, where the arrow springs off the top
-         * corner of the group portrait.
-         */
         target: "/images/pg-group-portrait.webp",
-        text: { en: "drawn from\none photo", de: "nach einem\neinzigen Foto" },
+        text: { en: "digital illustration", de: "Digitale Illustration" },
         prefer: "top-right",
       },
       {
         target: "/images/pg-desmark-logo.webp",
-        text: { en: "Desmark,\na brand agency", de: "Desmark,\nMarkenagentur" },
+        text: { en: "logo for a\ndesign agency", de: "Logo für eine\nDesignagentur" },
         tone: "accent",
         prefer: "bottom-right",
       },
@@ -553,101 +502,66 @@ const cards: CardFrame[] = [
     accent: "#6A34B0",
     slots: [
       {
-        x: 9993, y: 4489, w: 1457, h: 1942, src: "/images/pg-frame.webp",
+        x: 3447, y: 1303, w: 1750, h: 1190, src: "/images/pg-double-portrait.webp",
       },
       {
-        x: 2483, y: 2739, w: 1677, h: 2235, src: "/images/pg-frame-detail.webp",
+        x: 5514, y: 1076, w: 3977, h: 1190, src: "/images/pg-vtri-banner.webp",
       },
       {
         x: 10096, y: 1146, w: 2700, h: 2701, src: "/images/pg-gift-cube.webp",
       },
       {
-        x: 10096, y: 6977, w: 1354, h: 2407,
-        src: "/images/pg-clip-riona.webp", video: "/videos/pg-gift-riona.mp4", film: "/videos/pg-gift-riona-full.mp4",
-        filmHd: "/videos/pg-gift-riona-hd.mp4",
-      },
-      {
-        x: 2713, y: 5460, w: 1475, h: 2621,
-        src: "/images/pg-clip-popup.webp", video: "/videos/pg-gift-popup.mp4", film: "/videos/pg-gift-popup-full.mp4",
-        filmHd: "/videos/pg-gift-popup-hd.mp4",
-      },
-      {
-        x: 4401, y: 1650, w: 1918, h: 2557,
+        x: 1104, y: 3973, w: 1475, h: 1967,
         src: "/images/pg-clip-explosion.webp", video: "/videos/pg-gift-explosion.mp4", film: "/videos/pg-gift-explosion-full.mp4",
         filmHd: "/videos/pg-gift-explosion-hd.mp4",
       },
       {
-        x: 6592, y: 3733, w: 3127, h: 3947, src: "/images/pg-vtri-store.webp",
+        x: 2483, y: 2739, w: 1677, h: 2235, src: "/images/pg-frame-detail.webp",
       },
       {
-        x: 570, y: 5165, w: 1930, h: 1287, src: "/images/pg-double-portrait.webp",
+        x: 4256, y: 2627, w: 1729, h: 2573,
+        src: "/images/pg-clip-riona.webp", video: "/videos/pg-gift-riona.mp4", film: "/videos/pg-gift-riona-full.mp4",
+        filmHd: "/videos/pg-gift-riona-hd.mp4",
       },
       {
-        x: 11723, y: 6771, w: 1564, h: 2086, src: "/images/pg-scooter.webp",
+        x: 6570, y: 2493, w: 2939, h: 1907, src: "/images/pg-kalender-februar.webp", viewer: "beside",
       },
       {
-        x: 6746, y: 8181, w: 2973, h: 849, src: "/images/pg-vtri-banner.webp",
+        x: 9776, y: 3600, w: 2288, h: 2000, src: "/images/pg-kalender-september.webp", viewer: "beside",
       },
       {
-        x: 11663, y: 3967, w: 3671, h: 2597, src: "/images/pg-kalender-februar.webp", viewer: "beside",
+        x: 12422, y: 3867, w: 1564, h: 2086, src: "/images/pg-scooter.webp",
       },
       {
-        x: 4401, y: 7503, w: 1918, h: 1356, src: "/images/pg-kalender-september.webp", viewer: "beside",
-      },
-      {
-        x: 4401, y: 4560, w: 1836, h: 2597, src: "/images/pg-character.webp",
-      },
-      {
-        /*
-         * **Contained, not cropped** (`MILESTONE-023` task 10). The slot is
-         * 2192 x 2686 — 0.816 — and the artwork is 803 x 1115 — 0.720 — so
-         * `object-cover` scaled it to the slot's width and took 12% of its
-         * height off the top and bottom, which on a monogram is the ascender
-         * and the baseline. `fit: "contain"` keeps the box exactly where the
-         * design puts it and shows the whole mark inside it; the card is white,
-         * so the letterbox is invisible.
-         */
-        x: 6904, y: 836, w: 2192, h: 2686, src: "/images/pg-logo.webp", fit: "contain",
-        // The design sits the mark high in its box, not centred.
+        x: 2700, y: 5667, w: 1400, h: 1800, src: "/images/pg-logo.webp", fit: "contain",
         focus: "50% 34%",
+      },
+      {
+        x: 4401, y: 5333, w: 1836, h: 2597, src: "/images/pg-character.webp",
+      },
+      {
+        x: 6628, y: 5269, w: 2863, h: 3853, src: "/images/pg-vtri-store.webp",
+      },
+      {
+        x: 9809, y: 6402, w: 2227, h: 2380, src: "/images/pg-gift-popupbox.webp",
       },
     ],
     scribbles: [
       {
         target: "/images/pg-frame-detail.webp",
-        text: { en: "beads, ribbon,\nfairy lights", de: "Perlen, Band,\nLichterkette" },
+        text: { en: "I do crafts too", de: "Ich mache auch Handarbeit" },
         prefer: "top-left",
       },
       {
-        /*
-         * The banner artwork, saying where it ended up (`MILESTONE-011` task
-         * 8). The card carries both halves — `pg-vtri-banner` is the flat
-         * design, `pg-vtri-store` the photograph of it installed above the
-         * shop window — and the note goes on the design, because that is the
-         * one whose point is not obvious from looking at it.
-         *
-         * It is also the only one of the two a note can reach: `pg-vtri-store`
-         * has a picture hard against all four of its sides, and every seat near
-         * it puts 79px of arrow across a photograph.
-         */
-        target: "/images/pg-vtri-banner.webp",
-        text: { en: "up on a real\nstorefront", de: "an einer echten\nLadenfront" },
+        target: "/images/pg-vtri-store.webp",
+        text: { en: "my design in a\nreal store", de: "Mein Design in\neinem echten Laden" },
         prefer: "bottom-left",
       },
       {
         target: "/images/pg-gift-cube.webp",
-        text: { en: "photo cubes,\nstacked into\na pyramid", de: "Fotowürfel, zur\nPyramide\ngestapelt" },
+        text: { en: "I love making\ncustom gifts.", de: "Ich liebe persönliche\nGeschenke." },
         tone: "accent",
-        /*
-         * Frame 4 puts this one *beside* the pyramid, a shade below its middle
-         * — 1.7 widths across and 0.4 heights down — which is `bottom-right`
-         * of the four this can say, not the `top-right` the corner of the
-         * frame suggests. It matters: the pyramid's top edge is already near
-         * the top of the card, so "above and to the right" is a strip with no
-         * room in it, and the note ends up jammed against the picture with an
-         * arrow too short to see.
-         */
-        prefer: "bottom-right",
+        prefer: "top-right",
       },
     ],
   },

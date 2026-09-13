@@ -96,7 +96,7 @@ export function notePx(unitsPerPx: number): number {
  * as tall again as the one anybody had written. Keep both locales' lines inside
  * 15 characters unless the extra row is the intention.
  */
-const MAX_CH = 15;
+const MAX_CH = 24;
 
 /**
  * Design units to one CSS pixel on a 1280px stage — the width these estimates

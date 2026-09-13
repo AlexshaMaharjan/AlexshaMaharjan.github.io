@@ -3,7 +3,7 @@ import { getDictionary, type Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
 
 export function localeFromPathname(pathname: string): Locale {
-  return pathname === "/de" || pathname.startsWith("/de/") ? "de" : "en";
+  return pathname === "/en" || pathname.startsWith("/en/") ? "en" : "de";
 }
 
 export function useLocale(): Locale {

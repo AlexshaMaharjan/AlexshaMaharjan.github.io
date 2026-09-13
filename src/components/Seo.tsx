@@ -83,11 +83,11 @@ export default function Seo({
     // a search engine had no way to connect /work/x with /de/work/x. The path
     // prefix is the whole difference (DECISION-002), so the pair is derivable.
     const bare = stripLocale(pathname, locale);
-    const english = absoluteUrl(bare);
-    const german = absoluteUrl(bare === "/" ? "/de/" : `/de${bare}`);
+    const german = absoluteUrl(bare);
+    const english = absoluteUrl(bare === "/" ? "/en" : `/en${bare}`);
     setAlternate("en", english);
     setAlternate("de", german);
-    setAlternate("x-default", english);
+    setAlternate("x-default", german);
   }, [title, description, image, pathname, locale, dictionary]);
 
   return null;

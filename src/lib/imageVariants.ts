@@ -641,6 +641,17 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#99979b"
   },
+  "/images/pg-gift-popupbox.webp": {
+    "w": 3349,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ],
+    "bg": "#84a1fa"
+  },
   "/images/pg-group-portrait.webp": {
     "w": 1200,
     "v": [

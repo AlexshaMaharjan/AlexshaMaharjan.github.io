@@ -103,7 +103,7 @@ export default function PageHero({
             </span>
           ))}
         </h1>
-        <p className="mx-auto mt-7 min-h-[91px] max-w-[560px] text-[19px] leading-[1.6] text-ink-secondary">
+        <p className="mx-auto mt-7 min-h-[91px] max-w-[640px] text-[19px] leading-[1.6] text-ink-secondary">
           {intro}
         </p>
         <p className="mt-6 font-mono text-[13px] text-accent">{tags}</p>

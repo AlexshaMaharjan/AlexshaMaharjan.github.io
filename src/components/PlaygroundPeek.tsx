@@ -154,10 +154,10 @@ export default function PlaygroundPeek({
         */}
         <span
           aria-hidden="true"
-          className="pointer-events-none relative mt-2 block md:absolute md:left-full md:top-1/2 md:mt-0 md:-translate-y-1/2 md:pl-3"
+          className="pointer-events-none relative mt-2 block md:absolute md:left-full md:top-1/2 md:mt-0 md:-translate-y-1/2 md:pl-5"
         >
-          <span className="hidden items-center gap-3 whitespace-nowrap text-accent [transform:rotate(-4deg)] md:flex">
-            <HandArrow direction="down-left" shape="tick" width={62} className="shrink-0" />
+          <span className="hidden items-center gap-4 whitespace-nowrap text-accent [transform:rotate(-2deg)] md:flex">
+            <HandArrow direction="down-left" shape="tick" width={56} className="shrink-0 -mb-0.5" />
             <span className="pencil-ink font-hand text-[23px] font-bold leading-none">{peek.note}</span>
           </span>
           <span className="flex items-start justify-center gap-2 whitespace-nowrap text-accent [transform:rotate(-3deg)] md:hidden">

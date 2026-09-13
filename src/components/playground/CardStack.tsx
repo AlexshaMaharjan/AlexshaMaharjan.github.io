@@ -518,7 +518,7 @@ export default function CardStack({
   }, [cards.length]);
 
   return (
-    <div ref={rootRef} className="container-page">
+    <div ref={rootRef} className="mx-auto max-w-[1440px] px-2.5 sm:px-5 md:px-20">
       {/*
         The motion control, parked at the bottom of the screen for as long as
         the deck is on it (WCAG 2.2.2). It has no height of its own, so it

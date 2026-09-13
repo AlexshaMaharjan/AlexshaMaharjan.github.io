@@ -61,7 +61,7 @@ async function loadRoutes() {
     // locales, which is why they are written out rather than translated.
     "/impressum", "/datenschutz",
   ];
-  return paths.flatMap((p) => [p, p === "/" ? "/de/" : `/de${p}`]);
+  return paths.flatMap((p) => [p, p === "/" ? "/en/" : `/en${p}`]);
 }
 
 // ---------------------------------------------------------------- server
@@ -165,7 +165,7 @@ try {
         const meta = (sel) => (document.head.querySelector(sel) || {}).content || "";
         const link = (rel) => (document.head.querySelector('link[rel="' + rel + '"]') || {}).href || "";
         return JSON.stringify({
-          lang: document.documentElement.lang || "en",
+          lang: document.documentElement.lang || "de",
           title: document.title,
           description: meta('meta[name="description"]'),
           ogTitle: meta('meta[property="og:title"]'),

@@ -988,7 +988,7 @@
       "en": "A motorbike through a rain-lit city, seen from above. I modelled the bike in Blender, built the environment and shot the camera moves in Unreal Engine, and did the post production in After Effects.",
       "de": "Ein Motorrad durch eine regennasse Stadt, von oben gesehen. Das Motorrad habe ich in Blender modelliert, die Umgebung gebaut und die Kamerafahrten in Unreal Engine aufgenommen, die Nachbearbeitung lief in After Effects."
     },
-    "made": "[ year ]",
+    "made": "2026",
     "tools": {
       "en": [
         "Blender",
@@ -1733,6 +1733,41 @@
         "Logo",
         "Branding",
         "Typografie"
+      ]
+    }
+  },
+  "/images/pg-gift-popupbox.webp": {
+    "caption": {
+      "en": "Pop Up Gift Box",
+      "de": "Pop-up-Geschenkbox"
+    },
+    "alt": {
+      "en": "An explosion gift box unfolded in pink and black, showing heart layers and a birthday card in the centre",
+      "de": "Eine aufgeklappte Explosionsbox in Rosa und Schwarz mit Herzlagen und einer Geburtstagskarte in der Mitte"
+    },
+    "description": {
+      "en": "An explosion box made in a pink and black theme as a personalised gift.",
+      "de": "Eine handgefertigte Explosionsbox in Rosa und Schwarz, gestaltet als persönliches Geschenk."
+    },
+    "made": "2016",
+    "tools": {
+      "en": [
+        "Paper craft",
+        "Handmade"
+      ],
+      "de": [
+        "Papierkunst",
+        "Handarbeit"
+      ]
+    },
+    "tags": {
+      "en": [
+        "Paper craft",
+        "Handmade"
+      ],
+      "de": [
+        "Papierkunst",
+        "Handarbeit"
       ]
     }
   }
