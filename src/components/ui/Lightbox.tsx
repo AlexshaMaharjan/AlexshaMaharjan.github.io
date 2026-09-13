@@ -227,7 +227,7 @@ export default function Lightbox({
       style={prefersReducedMotion() ? undefined : { animation: "figure-zoom-in 160ms ease-out" }}
     >
       <div className="flex shrink-0 items-start justify-between gap-4 px-5 py-4 sm:px-8">
-        <div className="max-w-[70ch]">
+        <div className="min-w-0 max-w-[70ch]">
           <p className="font-mono text-[12px] leading-[1.5] text-white/70">
             {caption}
             {position ? (
@@ -244,7 +244,7 @@ export default function Lightbox({
           ref={closeRef}
           type="button"
           onClick={onClose}
-          className="tap-target -mt-1 shrink-0 rounded-md px-3 py-1.5 font-mono text-[13px] text-white/80 outline-offset-2 hover:bg-white/10 hover:text-white"
+          className="tap-target -mt-1 shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 font-mono text-[13px] text-white/80 outline-offset-2 hover:bg-white/10 hover:text-white"
         >
           Close
         </button>

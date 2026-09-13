@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n";
+import pieces from "./pieces.json";
 
 /**
  * The playground's four collages, traced from `Portfolio.fig`, page 2, frames
@@ -18,7 +19,7 @@ import type { Locale } from "@/lib/i18n";
  * by side is what keeps them from drifting the way the category files had to be
  * audited for (`scripts/content-audit.mjs`).
  */
-export interface CollageSlot {
+export interface CollageSlot extends PieceContent {
   /** Left edge, in design px on the 16000-wide frame. */
   x: number;
   /** Top edge, in design px on the 10000-tall frame. */
@@ -41,9 +42,73 @@ export interface CollageSlot {
    * dialog is open.
    */
   film?: string;
-  /** What the piece is. Shown as the viewer's heading when a slot is opened. */
-  caption: Record<Locale, string>;
-  alt: Record<Locale, string>;
+  /**
+   * The same film at viewer quality, fetched only when the piece is opened
+   * (`MILESTONE-022` task 6).
+   *
+   * **Two files, because the two places have nothing in common.** A collage tile
+   * is about 360 CSS px wide and plays by itself as the card scrolls past, five
+   * of them across the deck; the viewer's panel is up to 1,300 and plays
+   * because somebody asked. One file cannot be right for both, and the one file
+   * this used to be was cut for the tile: 640 x 360 at 340 kbps, which is what
+   * the owner reported as *"blurry… important content/details are no longer
+   * clear"*. At that bitrate a rain-lit city and a screen recording of an
+   * interface are both mud.
+   *
+   * So `film` stays the tile's — full length, no cuts, cheap enough that five
+   * of them autoplaying is the page weight it always was — and `filmHd` is the
+   * same footage at 1280 wide (810 or 720 for the portrait ones) and four to
+   * five times the bitrate. The page never fetches it: no `<video>` for it
+   * exists until the dialog is open, which is the trade `ui/Video` already
+   * makes for the 12 MB kitchen walkthrough (`DECISION-022`).
+   *
+   * Measured, motorbike: 640 x 360 at 340 kbps became 1280 x 720 at 1,735.
+   */
+  filmHd?: string;
+  /**
+   * Whether `filmHd` carries a soundtrack (`MILESTONE-022` task 7).
+   *
+   * **Only the viewer's file ever has one.** The tile plays unasked and a page
+   * that makes noise unasked is indefensible, so `video-clip.mjs` strips audio
+   * from everything except an explicit `--audio` run — there is no track on a
+   * card's film to unmute by accident. This flag is what puts the sound control
+   * in the viewer's title bar, and it is off by default there too: the reader
+   * asks for the sound, and gets it at `ARCHIVE_VOLUME` rather than at the
+   * level the original was recorded at.
+   */
+  audio?: boolean;
+  /**
+   * @see {@link PieceContent} — the caption, the alt text and the four
+   * metadata fields are merged in from `pieces.json` and are not written here.
+   */
+  /**
+   * How the picture sits in its slot. `cover` — fill the box and crop — is the
+   * default and is right for a photograph or a painting, where the frame is a
+   * crop of a larger scene.
+   *
+   * `contain` is for artwork whose **edges are part of it**: a logo, a mark, a
+   * layout with a margin the designer chose. Cropping one of those is not a
+   * tighter composition, it is a mistake (`MILESTONE-023` task 10).
+   */
+  fit?: "cover" | "contain";
+  /**
+   * Which way the viewer lays this piece out, when the shape rule gets it wrong
+   * (`MILESTONE-023` task 2).
+   *
+   * `PieceViewer.layout()` decides by shape: wider than 1.25:1 puts the text
+   * under the picture, because a landscape picture beside a narrow column reads
+   * badly. The **calendar pages are the exception the owner asked for**, and
+   * the reason is in the artwork rather than in the ratio: a calendar page is
+   * mostly white paper with a drawn flower and a grid on it, so it carries its
+   * own margins and does not need the panel's full width to be legible. Beside
+   * the text it stays comfortably readable and the panel stops being two thirds
+   * empty.
+   *
+   * Set it on a slot only when the shape rule is wrong about that *piece*.
+   * Anything set here is a small, argued exception, not a preference — the rule
+   * is what keeps forty-eight pieces from being forty-eight decisions.
+   */
+  viewer?: "beside" | "under";
   /**
    * `object-position`, for the slots where the design's own crop is not the
    * centre of the picture. Figma expresses these as an oversized child with a
@@ -105,6 +170,22 @@ export interface CollageCard {
   /** Names the card for screen readers. */
   label: Record<Locale, string>;
   /**
+   * The card's own short name, for the viewer's filter (`MILESTONE-022` task
+   * 10, renamed in `MILESTONE-023` task 3).
+   *
+   * It was the card's palette — "Warm", "Cool", "Dark", "Pink and lilac" —
+   * taken from `label`, and the owner's verdict is that those *"feel
+   * unnecessary/weird"*. They were: a colour word is a label for the ink the
+   * card turns, and the reader is choosing between **decks**, not between
+   * hues. So the chips say which card they are, and the dot beside each one
+   * still carries the colour — which is the part that was doing real work,
+   * because it is the same colour that card's notes and ruling arrive at.
+   *
+   * `label` stays what it is: a screen-reader name, a sentence about a position
+   * in a deck.
+   */
+  name: Record<Locale, string>;
+  /**
    * The colour this card turns once every picture on it has its colour back
    * (`SESSION-037`).
    *
@@ -127,119 +208,182 @@ export interface CollageCard {
 export const FRAME_W = 16000;
 export const FRAME_H = 10000;
 
-const cards: CollageCard[] = [
+/**
+ * Everything about a piece that is **words** (`MILESTONE-022` task 11).
+ *
+ * These six fields used to sit on the slot, in this file, between the
+ * coordinates and the crop — which meant that correcting a description was
+ * editing a TypeScript literal in a 1,100-line layout file, and the owner had
+ * to ask for every change. They live in `pieces.json` now, keyed by the slot's
+ * `src`, and `/archive/edit` is a form over that file (dev only; see
+ * `pages/playground/ArchiveEditor`).
+ *
+ * **The split is along the seam that was already there.** What stays in this
+ * file is the design: where a piece sits on the 16000 x 10000 frame, how it is
+ * cropped, which film it plays. What moves out is everything a person writes
+ * and rewrites. Nothing needs to know about both, which is why the merge below
+ * is four lines and why `content-audit.mjs`, `image-manifest.mjs` and
+ * `copy-export.mjs` did not have to change: they read the merged export, as
+ * they always did.
+ */
+export interface PieceContent {
+  /** What the piece is. Shown as the viewer's heading when a slot is opened. */
+  caption: Record<Locale, string>;
+  /** What a screen reader is told. A description of the *image*, not of the work. */
+  alt: Record<Locale, string>;
+  /**
+   * The four fields the viewer shows beside a picture, and the only things here
+   * that are about the *work* rather than about the card it is arranged on.
+   *
+   * Opening a piece used to give you the picture, its caption and its alt text
+   * doing duty as a description. That is enough for a photograph and nothing
+   * like enough for the rest: the archive is fourteen calendar pages, five
+   * pop-up boxes, a 3D film and a logo, and what a reader wants of any of them
+   * is what it is, when it was made, what it was made with, and what kind of
+   * thing it is. `alt` cannot carry that — it is a different sentence with a
+   * different job, and using it twice is why the viewer read as thin.
+   *
+   * All four are optional and the viewer renders only what is filled, so a new
+   * picture can go on a card with nothing but a caption and an alt.
+   *
+   * **`made` is the owner's to fill** and most of them still say `[ year ]`:
+   * the medium of a piece is visible in it, the year it was made is not in the
+   * picture, not in the repository and not inferable. `[ … ]` is this project's
+   * own convention for a marked blank (`DECISION-011`).
+   */
+  description?: Record<Locale, string>;
+  /**
+   * A Figma prototype for this piece, shown as a link under the description.
+   * Not localised — a share URL is the same for both readers.
+   */
+  prototypeUrl?: string;
+  /** When it was made. `[ year ]` wherever the owner has not said. */
+  made?: string;
+  /** What it was made with — an app, a material, a camera. */
+  tools?: Record<Locale, string[]>;
+  /** What kind of work it is: painting, graphic design, photography, 3D. */
+  tags?: Record<Locale, string[]>;
+  /**
+   * Set by the editor when the owner has rewritten the English and the German
+   * has not caught up.
+   *
+   * The owner writes English (*"I will provide/write the English content
+   * only"*); the German is written for them, in the tone the rest of the
+   * archive is in, and it cannot be produced by the form itself. So the form
+   * marks it instead: this flag is how the next session finds the twelve
+   * pieces that need a German pass rather than re-reading all forty-eight.
+   */
+  deStale?: boolean;
+}
+
+/** A slot as it is written below: the design, with no words in it. */
+type SlotFrame = Omit<CollageSlot, keyof PieceContent>;
+/** A card as it is written below. */
+type CardFrame = Omit<CollageCard, "slots"> & { slots: SlotFrame[] };
+
+const BLANK: Record<Locale, string> = { en: "", de: "" };
+const content = pieces as Record<string, Partial<PieceContent> | undefined>;
+
+/**
+ * The design, with the words put back.
+ *
+ * A missing entry is a blank caption rather than a crash, and
+ * `content-audit.mjs` fails the build on exactly that — a slot whose caption or
+ * alt text is empty in either locale. So a picture added to a card without a
+ * line written for it is caught by the gate that already exists, not by a type
+ * error in a file the owner does not open.
+ */
+function withContent(cards: CardFrame[]): CollageCard[] {
+  return cards.map((card) => ({
+    ...card,
+    slots: card.slots.map((slot) => ({
+      caption: BLANK,
+      alt: BLANK,
+      ...content[slot.src],
+      ...slot,
+    })),
+  }));
+}
+
+const cards: CardFrame[] = [
   {
     index: "01",
-    label: { en: "Collage 1 of 4 — warm work", de: "Collage 1 von 4 — warme Arbeiten" },
+    label: { en: "Collage 1 of 4: warm work", de: "Collage 1 von 4: warme Arbeiten" },
+    name: { en: "Card 1", de: "Karte 1" },
     /* orange */
     accent: "#D65A18",
     slots: [
       {
-        x: 2723, y: 2044, w: 2201, h: 3267, src: "/images/pg-painting-luffy.webp",
-        caption: { en: "Acrylic wanted poster", de: "Acryl-Fahndungsplakat" },
+        /*
+         * Down 7% from 2201 x 3267, about its own centre (`MILESTONE-023` task
+         * 9: *"make the acrylic wanted poster slightly smaller"*). Centred
+         * rather than corner-anchored because nothing was said about which way
+         * it should shrink, and its neighbours are on both sides of it — the
+         * gift box to the left and the autumn path to the right.
+         */
+        x: 2800, y: 2158, w: 2047, h: 3038, src: "/images/pg-painting-luffy.webp",
         // The design pulls the crop to the picture's right edge.
         focus: "100% 50%",
-        alt: {
-          en: "A hand-painted wanted poster in the style of a manga bounty notice",
-          de: "Ein handgemaltes Fahndungsplakat im Stil eines Manga-Steckbriefs",
-        },
       },
       {
         x: 7525, y: 3678, w: 2543, h: 3596, src: "/images/pg-sunset.webp",
-        caption: { en: "Sunset, painted in Procreate", de: "Sonnenuntergang, in Procreate gemalt" },
-        alt: {
-          en: "The sun setting over a bank of cloud, painted in Procreate",
-          de: "Die Sonne geht über einer Wolkendecke unter, in Procreate gemalt",
-        },
       },
       {
         x: 5280, y: 2912, w: 1798, h: 2399, src: "/images/pg-autumn.webp",
-        caption: { en: "Autumn path, painted in Procreate", de: "Herbstweg, in Procreate gemalt" },
-        alt: {
-          en: "A path through autumn trees in orange and red, painted in Procreate",
-          de: "Ein Weg durch herbstliche Bäume in Orange und Rot, in Procreate gemalt",
-        },
       },
       {
         x: 4443, y: 5816, w: 2629, h: 2722, src: "/images/pg-flyer.webp",
-        caption: { en: "Christmas market flyer", de: "Weihnachtsmarkt-Flyer" },
-        alt: {
-          en: "Flyers for a Christmas market, set in pink and black and laid out as a grid",
-          de: "Flyer für einen Weihnachtsmarkt, in Rosa und Schwarz gesetzt und als Raster angelegt",
-        },
       },
       {
         x: 2604, y: 5677, w: 1660, h: 1999, src: "/images/pg-packaging-crisps.webp",
-        caption: { en: "Crisp packet design", de: "Chips-Verpackung" },
-        alt: {
-          en: "Packaging for a hot and spicy crisp brand, flames across a black bag",
-          de: "Verpackung für eine scharfe Chips-Marke, Flammen auf schwarzem Beutel",
-        },
       },
       {
         x: 13187, y: 4111, w: 2109, h: 2812, src: "/images/pg-painting-framed.webp",
-        caption: { en: "Framed sky painting", de: "Gerahmtes Himmelsbild" },
-        alt: {
-          en: "A painted sky held up against a wall of red bows and fairy lights",
-          de: "Ein gemalter Himmel, vor eine Wand aus roten Schleifen und Lichterketten gehalten",
-        },
       },
       {
-        x: 10342, y: 6013, w: 2571, h: 1820, src: "/images/pg-kalender-maerz.webp",
-        caption: { en: "Calendar — March", de: "Kalender — März" },
-        alt: {
-          en: "The March page of a typographic calendar, its flower drawn from the month's name",
-          de: "Das März-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
-        },
+        x: 10342, y: 6013, w: 2571, h: 1820, src: "/images/pg-kalender-maerz.webp", viewer: "beside",
       },
       {
-        x: 7192, y: 7676, w: 2882, h: 2037, src: "/images/pg-kalender-oktober.webp",
-        caption: { en: "Calendar — October", de: "Kalender — Oktober" },
-        alt: {
-          en: "The October page of a typographic calendar, its flower drawn from the month's name",
-          de: "Das Oktober-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
-        },
+        x: 7192, y: 7676, w: 2882, h: 2037, src: "/images/pg-kalender-oktober.webp", viewer: "beside",
       },
       {
-        x: 5962, y: 1491, w: 1563, h: 1106, src: "/images/pg-kalender-dezember.webp",
-        caption: { en: "Calendar — December", de: "Kalender — Dezember" },
-        alt: {
-          en: "The December page of a typographic calendar, its flower drawn from the month's name",
-          de: "Das Dezember-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
-        },
+        /*
+         * Up 8%, and then moved (`MILESTONE-023` task 9).
+         *
+         * The owner asked for this and the Hibi clip to grow **from the
+         * top-left, with the bottom-right corner fixed**, and for the gap
+         * between the two to stay exactly as it was. Those two instructions
+         * cannot both be taken literally: December sits to the *left* of the
+         * clip, so a clip that grows leftwards closes the gap — at +8% it went
+         * from 356 units to 88, which at a 1280px stage is 28px down to 7.
+         *
+         * So the resize is the literal one — 1563 x 1106 becomes 1688 x 1194
+         * about the bottom-right corner at (7525, 2597) — and then the whole
+         * box is translated left by 268, exactly as far as the clip's left edge
+         * moved. The gap is 356 before and 356 after, and the pair grows
+         * together instead of one closing on the other.
+         */
+        x: 5569, y: 1403, w: 1688, h: 1194, src: "/images/pg-kalender-dezember.webp", viewer: "beside",
       },
       {
-        x: 10342, y: 3952, w: 2438, h: 1725, src: "/images/pg-kalender-juni.webp",
-        caption: { en: "Calendar — June", de: "Kalender — Juni" },
-        alt: {
-          en: "The June page of a typographic calendar, its flower drawn from the month's name",
-          de: "Das Juni-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
-        },
+        x: 10342, y: 3952, w: 2438, h: 1725, src: "/images/pg-kalender-juni.webp", viewer: "beside",
       },
       {
         x: 681, y: 4348, w: 1595, h: 2128, src: "/images/pg-gift-popup.webp",
-        caption: { en: "Pop-up birthday card", de: "Pop-up-Geburtstagskarte" },
-        alt: {
-          en: "A Spider-Man themed pop-up birthday card with balloons and hand lettering",
-          de: "Eine Pop-up-Geburtstagskarte im Spider-Man-Thema, mit Ballons und Handschrift",
-        },
       },
       {
-        x: 7881, y: 1459, w: 3347, h: 1883,
+        /*
+         * Up 8% about its bottom-right corner at (11228, 3342), which is the
+         * literal reading of the owner's "resize from the top-left, keep the
+         * bottom-right where it is". See the December calendar above for the
+         * half of the instruction that had to be resolved.
+         */
+        x: 7613, y: 1308, w: 3615, h: 2034,
         src: "/images/pg-clip-hibi.webp", video: "/videos/pg-hibi.mp4", film: "/videos/pg-hibi-full.mp4",
-        caption: { en: "Hibi — task app", de: "Hibi — Aufgaben-App" },
-        alt: {
-          en: "The Hibi task app, its to-do list and upcoming tasks on screen",
-          de: "Die Aufgaben-App Hibi mit To-do-Liste und anstehenden Aufgaben",
-        },
+        filmHd: "/videos/pg-hibi-hd.mp4",
       },
       {
-        x: 11561, y: 1887, w: 2530, h: 1791, src: "/images/pg-kalender-cover.webp",
-        caption: { en: "Typographic calendar — cover", de: "Typografischer Kalender — Cover" },
-        alt: {
-          en: "The cover of a 2027 typographic calendar, its title over an outlined floral pattern",
-          de: "Das Cover eines typografischen Kalenders 2027, Titel über einem Blütenmuster in Konturlinien",
-        },
+        x: 11561, y: 1887, w: 2530, h: 1791, src: "/images/pg-kalender-cover.webp", viewer: "beside",
       },
     ],
     scribbles: [
@@ -270,91 +414,42 @@ const cards: CollageCard[] = [
   },
   {
     index: "02",
-    label: { en: "Collage 2 of 4 — blue work", de: "Collage 2 von 4 — blaue Arbeiten" },
+    label: { en: "Collage 2 of 4: blue work", de: "Collage 2 von 4: blaue Arbeiten" },
+    name: { en: "Card 2", de: "Karte 2" },
     /* green */
     accent: "#1B7A4E",
     slots: [
       {
         x: 9473, y: 775, w: 1888, h: 2612, src: "/images/pg-bead.webp",
-        caption: { en: "Beaded suncatcher", de: "Perlen-Sonnenfänger" },
         // A tall picture in a shorter box: the design keeps the planter, not the ceiling.
         focus: "50% 59%",
-        alt: {
-          en: "A beaded crystal suncatcher hung with a trailing plant, lit at night",
-          de: "Ein Sonnenfänger aus Perlen und Kristallen mit einer rankenden Pflanze, nachts beleuchtet",
-        },
       },
       {
         x: 5748, y: 7099, w: 3157, h: 2368, src: "/images/pg-painting-blossom.webp",
-        caption: { en: "Blossom painting", de: "Blütenbild" },
-        alt: {
-          en: "Blue blossom branches painted in acrylic",
-          de: "Blaue Blütenzweige in Acryl gemalt",
-        },
       },
       {
         x: 10499, y: 3787, w: 2048, h: 2732, src: "/images/pg-portrait.webp",
-        caption: { en: "Digital portrait", de: "Digitales Porträt" },
-        alt: {
-          en: "A digital portrait of a woman in a green patterned dress, drawn in Illustrator",
-          de: "Digitales Porträt einer Frau in grün gemustertem Kleid, in Illustrator gezeichnet",
-        },
       },
       {
         x: 3069, y: 3489, w: 2480, h: 3508, src: "/images/pg-forest.webp",
-        caption: { en: "Forest study, painted in Procreate", de: "Waldstudie, in Procreate gemalt" },
-        alt: {
-          en: "Light falling through a dense green forest, painted in Procreate",
-          de: "Licht, das durch einen dichten grünen Wald fällt, in Procreate gemalt",
-        },
       },
       {
         x: 1045, y: 3961, w: 1685, h: 2384, src: "/images/pg-poster-museum.webp",
-        caption: { en: "Museum poster for children", de: "Museumsplakat für Kinder" },
-        alt: {
-          en: "An illustrated poster for a children's exhibition at a museum",
-          de: "Ein illustriertes Plakat für eine Kinderausstellung im Museum",
-        },
       },
       {
         x: 5981, y: 534, w: 2924, h: 2714, src: "/images/pg-packaging-perfume-flat.webp",
-        caption: { en: "Perfume box, unfolded", de: "Parfümverpackung, aufgefaltet" },
-        alt: {
-          en: "The same perfume packaging laid out flat",
-          de: "Dieselbe Parfümverpackung flach ausgelegt",
-        },
       },
       {
         x: 12676, y: 3845, w: 2278, h: 2674, src: "/images/pg-packaging-perfume.webp",
-        caption: { en: "Perfume box", de: "Parfümverpackung" },
-        alt: {
-          en: "A navy perfume box with a floral pattern",
-          de: "Eine dunkelblaue Parfümschachtel mit Blütenmuster",
-        },
       },
       {
         x: 5888, y: 3701, w: 4272, h: 2552, src: "/images/pg-mindruhe.webp",
-        caption: { en: "MindRuhe — web design", de: "MindRuhe — Webdesign" },
-        alt: {
-          en: "The MindRuhe landing page on a laptop, its calming methods arranged in a fan",
-          de: "Die MindRuhe-Startseite auf einem Laptop, die Beruhigungsmethoden fächerförmig angeordnet",
-        },
       },
       {
-        x: 2858, y: 1114, w: 2784, h: 1970, src: "/images/pg-kalender-mai.webp",
-        caption: { en: "Calendar — May", de: "Kalender — Mai" },
-        alt: {
-          en: "The May page of a typographic calendar, its flower drawn from the month's name",
-          de: "Das Mai-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
-        },
+        x: 2858, y: 1114, w: 2784, h: 1970, src: "/images/pg-kalender-mai.webp", viewer: "beside",
       },
       {
-        x: 9248, y: 7099, w: 2969, h: 2102, src: "/images/pg-kalender-juli.webp",
-        caption: { en: "Calendar — July", de: "Kalender — Juli" },
-        alt: {
-          en: "The July page of a typographic calendar, its flower drawn from the month's name",
-          de: "Das Juli-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
-        },
+        x: 9248, y: 7099, w: 2969, h: 2102, src: "/images/pg-kalender-juli.webp", viewer: "beside",
       },
     ],
     scribbles: [
@@ -382,94 +477,47 @@ const cards: CollageCard[] = [
   },
   {
     index: "03",
-    label: { en: "Collage 3 of 4 — dark work", de: "Collage 3 von 4 — dunkle Arbeiten" },
+    label: { en: "Collage 3 of 4: dark work", de: "Collage 3 von 4: dunkle Arbeiten" },
+    name: { en: "Card 3", de: "Karte 3" },
     /* black */
     accent: "#141414",
     slots: [
       {
         x: 9265, y: 7852, w: 1669, h: 1230, src: "/images/pg-abstract.webp", rotate: -90,
-        caption: { en: "Abstract shape poster", de: "Abstraktes Formplakat" },
-        alt: { en: "A black and white burst of radiating shapes", de: "Ein schwarz-weißer Strahlenkranz aus Formen" },
       },
       {
         x: 1046, y: 3969, w: 2412, h: 1781, src: "/images/pg-postcard-1.webp",
-        caption: { en: "Typographic postcard", de: "Typografische Postkarte" },
-        alt: {
-          en: "A Schiller quote set around a circular path",
-          de: "Ein Schiller-Zitat entlang einer Kreisbahn gesetzt",
-        },
       },
       {
         x: 6678, y: 838, w: 3154, h: 2280, src: "/images/pg-bookcover.webp",
-        caption: { en: "Horror book cover", de: "Horror-Buchcover" },
-        alt: {
-          en: "A book cover for “Glow in the Fog”, front and spine",
-          de: "Ein Buchcover für „Glow in the Fog“, Vorderseite und Rücken",
-        },
       },
       {
         x: 3580, y: 2129, w: 2109, h: 2811, src: "/images/pg-poster-hologram.webp",
-        caption: { en: "Smart watch poster", de: "Smartwatch-Plakat" },
-        alt: {
-          en: "A product poster for a holographic smart watch",
-          de: "Ein Produktplakat für eine holografische Smartwatch",
-        },
       },
       {
         x: 6029, y: 3479, w: 4452, h: 2505,
         src: "/images/pg-clip-motorbike.webp", video: "/videos/pg-motorbike.mp4", film: "/videos/pg-motorbike-full.mp4",
-        caption: { en: "3D motorbike — Unreal", de: "3D-Motorrad — Unreal" },
-        alt: {
-          en: "A motorbike riding through a rain-lit city, seen from above",
-          de: "Ein Motorrad fährt durch eine regennasse Stadt, von oben gesehen",
-        },
+        filmHd: "/videos/pg-motorbike-hd.mp4", audio: true,
       },
       {
         x: 10830, y: 1018.5, w: 1463, h: 2194, src: "/images/pg-line-study.webp",
-        caption: { en: "Line art", de: "Linienzeichnung" },
-        alt: {
-          en: "A couple drawn in single-weight outline in Illustrator, with no fill",
-          de: "Ein Paar in gleichmäßiger Linie in Illustrator gezeichnet, ohne Füllung",
-        },
       },
       {
         x: 12859, y: 4050, w: 2091, h: 2485, src: "/images/pg-group-portrait.webp",
-        caption: { en: "Group portrait", de: "Gruppenporträt" },
         // A tall drawing in a shorter box: the design keeps the figures, not the sky.
         focus: "50% 100%",
-        alt: {
-          en: "Three women in saris, drawn as a group portrait in Illustrator",
-          de: "Drei Frauen in Saris, als Gruppenporträt in Illustrator gezeichnet",
-        },
       },
       {
         x: 10830, y: 3332.5, w: 1884, h: 2825, src: "/images/pg-photo-lowkey.webp",
-        caption: { en: "Low-key portrait photography", de: "Low-Key-Porträtfotografie" },
-        alt: {
-          en: "A singer lit by red and blue gels against black, mid-phrase with a microphone",
-          de: "Eine singende Person in rotem und blauem Licht vor Schwarz, mit Mikrofon",
-        },
       },
       {
         x: 3580, y: 5291, w: 2259, h: 3348, src: "/images/pg-typography-posters.webp",
-        caption: { en: "Typographic posters", de: "Typografische Plakate" },
-        alt: {
-          en: "Six typographic posters, each setting a word to act out its own meaning",
-          de: "Sechs typografische Plakate, jedes setzt ein Wort so, dass es seine Bedeutung vorführt",
-        },
       },
       {
         x: 9155, y: 6535, w: 3559, h: 1075, src: "/images/pg-desmark-logo.webp",
-        caption: { en: "Desmark logo", de: "Desmark-Logo" },
-        alt: { en: "A logo lockup for the Desmark brand agency", de: "Eine Wort-Bild-Marke für die Markenagentur Desmark" },
       },
       {
         x: 6029, y: 6692, w: 2940, h: 2270, src: "/images/pg-photo-stilllife.webp",
-        caption: { en: "Still life photography", de: "Stilllebenfotografie" },
-        alt: {
-          en: "Forks and grapes mirrored on black glass, arranged to read as a pair of eyes",
-          de: "Gabeln und Weintrauben auf schwarzem Glas gespiegelt, angeordnet wie ein Augenpaar",
-        },
       },
     ],
     scribbles: [
@@ -499,126 +547,69 @@ const cards: CollageCard[] = [
   },
   {
     index: "04",
-    label: { en: "Collage 4 of 4 — pink and lilac work", de: "Collage 4 von 4 — rosa und lila Arbeiten" },
+    label: { en: "Collage 4 of 4: pink and lilac work", de: "Collage 4 von 4: rosa und lila Arbeiten" },
+    name: { en: "Card 4", de: "Karte 4" },
     /* purple */
     accent: "#6A34B0",
     slots: [
       {
         x: 9993, y: 4489, w: 1457, h: 1942, src: "/images/pg-frame.webp",
-        caption: { en: "Hand-painted frame", de: "Handbemalter Rahmen" },
-        alt: {
-          en: "A hand-painted photo frame held up against fairy lights",
-          de: "Ein handbemalter Bilderrahmen vor einer Lichterkette",
-        },
       },
       {
         x: 2483, y: 2739, w: 1677, h: 2235, src: "/images/pg-frame-detail.webp",
-        caption: { en: "Paper flower frame", de: "Rahmen aus Papierblüten" },
-        alt: {
-          en: "A photo frame built up from layered paper flowers",
-          de: "Ein Bilderrahmen aus geschichteten Papierblüten",
-        },
       },
       {
         x: 10096, y: 1146, w: 2700, h: 2701, src: "/images/pg-gift-cube.webp",
-        caption: { en: "Pop-up photo cubes", de: "Pop-up-Fotowürfel" },
-        alt: {
-          en: "A stack of photo cubes forming a pyramid",
-          de: "Ein Stapel Fotowürfel, zu einer Pyramide gesetzt",
-        },
       },
       {
         x: 10096, y: 6977, w: 1354, h: 2407,
         src: "/images/pg-clip-riona.webp", video: "/videos/pg-gift-riona.mp4", film: "/videos/pg-gift-riona-full.mp4",
-        caption: { en: "Marble pop-up box", de: "Marmorierte Pop-up-Box" },
-        alt: {
-          en: "A pink marble box opening to reveal the folded cubes inside",
-          de: "Eine rosa Marmorbox öffnet sich und gibt die gefalteten Würfel darin frei",
-        },
+        filmHd: "/videos/pg-gift-riona-hd.mp4",
       },
       {
         x: 2713, y: 5460, w: 1475, h: 2621,
         src: "/images/pg-clip-popup.webp", video: "/videos/pg-gift-popup.mp4", film: "/videos/pg-gift-popup-full.mp4",
-        caption: { en: "Unicorn pop-up box", de: "Einhorn-Pop-up-Box" },
-        alt: {
-          en: "A unicorn themed pop-up box being opened, its panels standing up",
-          de: "Eine Pop-up-Box im Einhorn-Thema wird geöffnet, die Elemente stellen sich auf",
-        },
+        filmHd: "/videos/pg-gift-popup-hd.mp4",
       },
       {
         x: 4401, y: 1650, w: 1918, h: 2557,
         src: "/images/pg-clip-explosion.webp", video: "/videos/pg-gift-explosion.mp4", film: "/videos/pg-gift-explosion-full.mp4",
-        caption: { en: "Explosion box, opening", de: "Explosionsbox beim Öffnen" },
-        alt: {
-          en: "Hands unfolding the layers of a black and pink explosion gift box",
-          de: "Hände falten die Ebenen einer schwarz-rosa Explosionsbox auf",
-        },
+        filmHd: "/videos/pg-gift-explosion-hd.mp4",
       },
       {
         x: 6592, y: 3733, w: 3127, h: 3947, src: "/images/pg-vtri-store.webp",
-        caption: { en: "VTRI storefront", de: "VTRI-Ladenfront" },
-        alt: {
-          en: "The VTRI banner installed above the shop window",
-          de: "Das VTRI-Banner über dem Schaufenster montiert",
-        },
       },
       {
         x: 570, y: 5165, w: 1930, h: 1287, src: "/images/pg-double-portrait.webp",
-        caption: { en: "Double portrait", de: "Doppelporträt" },
-        alt: {
-          en: "Two friends drawn side by side on a pink ground in Illustrator",
-          de: "Zwei Freundinnen nebeneinander auf rosa Grund, in Illustrator gezeichnet",
-        },
       },
       {
         x: 11723, y: 6771, w: 1564, h: 2086, src: "/images/pg-scooter.webp",
-        caption: { en: "Child on a scooter", de: "Kind auf dem Roller" },
-        alt: {
-          en: "A child on a scooter, drawn in flat colour in Illustrator",
-          de: "Ein Kind auf einem Roller, in flachen Farben in Illustrator gezeichnet",
-        },
       },
       {
         x: 6746, y: 8181, w: 2973, h: 849, src: "/images/pg-vtri-banner.webp",
-        caption: { en: "VTRI banner", de: "VTRI-Banner" },
-        alt: {
-          en: "A shopfront banner for the VTRI lingerie store",
-          de: "Ein Ladenbanner für den VTRI-Wäschestore",
-        },
       },
       {
-        x: 11663, y: 3967, w: 3671, h: 2597, src: "/images/pg-kalender-februar.webp",
-        caption: { en: "Calendar — February", de: "Kalender — Februar" },
-        alt: {
-          en: "The February page of a typographic calendar, its flower drawn from the month's name",
-          de: "Das Februar-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
-        },
+        x: 11663, y: 3967, w: 3671, h: 2597, src: "/images/pg-kalender-februar.webp", viewer: "beside",
       },
       {
-        x: 4401, y: 7503, w: 1918, h: 1356, src: "/images/pg-kalender-september.webp",
-        caption: { en: "Calendar — September", de: "Kalender — September" },
-        alt: {
-          en: "The September page of a typographic calendar, its flower drawn from the month's name",
-          de: "Das September-Blatt eines typografischen Kalenders, die Blüte aus dem Monatsnamen gezeichnet",
-        },
+        x: 4401, y: 7503, w: 1918, h: 1356, src: "/images/pg-kalender-september.webp", viewer: "beside",
       },
       {
         x: 4401, y: 4560, w: 1836, h: 2597, src: "/images/pg-character.webp",
-        caption: { en: "Character illustration", de: "Charakter-Illustration" },
-        alt: {
-          en: "A figure holding an oversized red heart, drawn in Illustrator",
-          de: "Eine Figur mit einem übergroßen roten Herz, in Illustrator gezeichnet",
-        },
       },
       {
-        x: 6904, y: 836, w: 2192, h: 2686, src: "/images/pg-logo.webp",
-        caption: { en: "Logo study", de: "Logostudie" },
+        /*
+         * **Contained, not cropped** (`MILESTONE-023` task 10). The slot is
+         * 2192 x 2686 — 0.816 — and the artwork is 803 x 1115 — 0.720 — so
+         * `object-cover` scaled it to the slot's width and took 12% of its
+         * height off the top and bottom, which on a monogram is the ascender
+         * and the baseline. `fit: "contain"` keeps the box exactly where the
+         * design puts it and shows the whole mark inside it; the card is white,
+         * so the letterbox is invisible.
+         */
+        x: 6904, y: 836, w: 2192, h: 2686, src: "/images/pg-logo.webp", fit: "contain",
         // The design sits the mark high in its box, not centred.
         focus: "50% 34%",
-        alt: {
-          en: "A monogram for Infrastruktur Technologie und Design",
-          de: "Eine Monogramm-Marke für Infrastruktur Technologie und Design",
-        },
       },
     ],
     scribbles: [
@@ -662,4 +653,4 @@ const cards: CollageCard[] = [
   },
 ];
 
-export default cards;
+export default withContent(cards);

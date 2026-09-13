@@ -1,22 +1,54 @@
 import type { CaseStudyLocaleContent } from "./types";
+import { PROJECT_TAGS } from "./tags";
 
+/**
+ * Sync FM, rewritten from the owner's own copy deck (`promt.pdf`, section 12).
+ *
+ * **This is the one study where the rewrite changes what the project does**, not
+ * just how it is described. The controls used to be three dials of one kind:
+ * Sync Dial for information depth, Mood Bar for presenter tone, Opinion Filter
+ * for journalistic interpretation. In the owner's account they are two levels.
+ * The **Sync Dial switches between news categories** chosen during onboarding,
+ * and **three sliders** (news tone, location, information depth) shape the
+ * active stream, with a **verification indicator** kept deliberately outside
+ * the controls as system feedback. The section count goes from nine to twelve
+ * because that model needs the room.
+ *
+ * Two changes of shape in the second pass, both the owner's:
+ *
+ * - **The personas are cards, not the exported sheet.** `sync-fm-personas.webp`
+ *   is set in German, so it could only ever be right on one of the two pages.
+ *   Leo, Sarah and Walter are now written out in both locales in the same card
+ *   the WikiMind personas use, and the file is no longer referenced.
+ * - **§05 through §07 are `split` blocks.** A lone figure takes the full 960px
+ *   column, which is far too much page for a colour chip sheet, a wireframe
+ *   sketch or a dial. Colour and typography sit two-up; the wireframes, the
+ *   Sync Dial, the news filters and the verification indicator each sit beside
+ *   their own paragraph.
+ *
+ * Four figures the deck asks for have no asset and are hatched placeholders:
+ * the Sync Dial, the news filters, the expanded player with its verification
+ * read-out, and the final player in its light and dark themes. The owner asked
+ * for the last of those as a pair rather than as the all-screens board, and
+ * dropped the final-UI-kit slot entirely.
+ */
 const syncFm: CaseStudyLocaleContent = {
   en: {
     slug: "sync-fm",
     name: "Sync FM",
-    headline: "Giving listeners control without turning radio into another dashboard.",
+    headline: "Bringing personalisation to the flow of radio.",
     summary:
-      "Sync FM is an interactive AI-radio concept that combines the continuous experience of traditional radio with selected controls from personalised streaming. Listeners can adjust information depth, presenter tone and journalistic interpretation without having to assemble every programme manually.",
-    tags: ["Interaction Design", "AI Concept", "Mobile UI", "Audio Experience", "Prototyping"],
+      "Sync FM is an interactive AI-radio concept that combines the continuous experience of traditional radio with selected controls from personalised streaming.",
+    tags: [...PROJECT_TAGS["sync-fm"]],
+    context: "Semester project",
     role: "Interaction & UI Designer",
-    contribution: "Co-developed the concept and interface with one teammate.",
-    type: "Semester project · team",
+    team: "Two-person team",
+    contribution: "",
     tools: "",
-    deliverables: "",
     heroImage: {
       src: "/images/hero-sync-fm.webp",
-      alt: "Five Sync FM screens beside the case-study title",
-      aspect: "1578/1088",
+      alt: "Five Sync FM screens beside the project name",
+      aspect: "1920/1080",
     },
     sections: [
       {
@@ -25,134 +57,218 @@ const syncFm: CaseStudyLocaleContent = {
         number: "01",
         heading: "The project at a glance",
         body: [
-          "The project investigates the space between passive radio consumption and active streaming. Traditional radio provides continuity, moderation and companionship, but can become repetitive and superficial. Streaming platforms provide control, but require frequent decisions and often lack editorial context.",
-          "Sync FM introduces an AI journalist that creates a continuous news flow while allowing the listener to influence how the information is prepared. The prototype focuses on news because it exposes questions of depth, tone, interpretation and algorithmic influence more clearly than music alone.",
+          "Sync FM is built around an AI journalist whose delivery can be adjusted through a small set of controls. Listeners can influence what kind of news they hear and how the stream is shaped while staying within one continuous listening experience.",
+          "As part of a two-person team, I worked on the interaction concept and interface, defining how the controls behave, how information is structured and how the system responds to the listener.",
         ],
       },
       {
         id: "challenge",
-        navLabel: "Challenge",
+        navLabel: "Context & challenge",
         number: "02",
-        heading: "Radio is effortless, but rarely personal.",
+        heading: "The ease of radio, with more personal control",
         body: [
-          "Traditional radio allows people to listen without planning every next step. This creates a sense of flow and companionship. However, standard programming is often designed around short listening periods, creating repetition during longer sessions.",
-          "Streaming solves the repetition problem through personal control. It also transfers responsibility to the listener, who must choose content, playlists, programmes and transitions. The design challenge was to introduce meaningful control without destroying the effortless character that makes radio attractive.",
+          "Traditional radio is effortless because listeners do not have to choose every next step. But fixed programming can become repetitive and gives people little control over what they hear.",
+          "Streaming offers much more choice, but it also asks listeners to make constant decisions about content, playlists and what comes next.",
+          "The challenge was to find a balance between both experiences: adding meaningful control without losing the continuous flow that makes radio easy to listen to.",
         ],
         designQuestion:
-          "How might an auditory interface give listeners agency without overwhelming them with continuous decisions?",
+          "How can an audio interface give listeners more control without asking them to constantly make decisions?",
       },
       {
         id: "research",
-        navLabel: "Analysis & personas",
+        navLabel: "Research",
         number: "03",
-        heading: "Existing AI-radio systems automate content, but provide little transparency.",
+        heading: "Looking at how AI is already used in radio",
         body: [
-          "The project compared regional and international examples, including AI-generated weather and traffic segments, AI-hosted web radio and AI-supported music recommendations. Existing systems generally use AI to automate presentation or generate content. Their internal selection logic remains largely invisible to listeners.",
-          "Sync FM takes a different position. Instead of only automating the host, it exposes selected editorial controls to the user. The listener becomes a form of personal editor who can influence depth, tone and interpretation.",
-          { kind: "h3", text: "Exploring different relationships with information" },
-          "Three personas were used to consider different age groups, listening contexts and attitudes towards information. They represented needs such as efficient access to facts, calm background listening, more energetic presentation, greater contextual depth and protection from information overload.",
-          "These personas were generated with Gemini and then used as concept-development tools. They are therefore labelled as hypothesis personas, not as direct evidence from primary user research.",
+          "We compared existing examples of AI-generated weather and traffic reports, AI-hosted radio and AI-supported recommendations.",
+          "Most systems used AI to automate or generate content, while giving listeners little insight into how that content was selected or shaped. This led us to explore a different approach: making some of that control visible to the listener.",
+          { kind: "h3", text: "Exploring different listening needs" },
+          "We used three AI-assisted hypothesis personas to explore different listening habits and relationships with information: an exploratory younger listener, a fact-focused listener and a traditional radio listener.",
+          "They helped us think about needs such as quick access to facts, deeper context, calm background listening and avoiding information overload.",
           {
             kind: "note",
-            text: "Label: AI-assisted hypothesis persona",
+            text: "The personas were created with Gemini and used only as concept-development tools, not as findings from user research.",
           },
           {
-            kind: "figures",
+            kind: "cards",
             items: [
-              { aspect: "1600/738", caption: "[ personas ]", src: "/images/sync-fm-personas.webp", alt: "The three hypothesis personas: Leo, 19, the explorer; Sarah, 42, the fact-seeker; and Walter, 73, the traditional listener" },
+              {
+                heading: "Leo, 19",
+                label: "The explorer",
+                body: "Leo listens while doing something else and follows whatever catches his attention. He wants to come across subjects he would not have searched for, and drops out of anything that takes too long to get to the point.",
+                needs: "Discovery · Variety · Short formats",
+              },
+              {
+                heading: "Sarah, 42",
+                label: "The fact-seeker",
+                body: "Sarah listens on the way to work and wants to arrive informed. She is interested in what happened and why it matters, and has no patience for padding or for a tone that tells her how to feel about it.",
+                needs: "Quick access to facts · Context · Neutral delivery",
+              },
+              {
+                heading: "Walter, 73",
+                label: "The traditional listener",
+                body: "Walter has the radio on for most of the day and values the familiarity of a programme that simply runs. He does not want to operate an interface, and too much at once is worse for him than too little.",
+                needs: "Calm background listening · Familiar structure · No overload",
+              },
             ],
           },
         ],
       },
       {
-        id: "direction",
+        id: "strategy",
         navLabel: "Interaction strategy",
         number: "04",
-        heading: "Control through a few expressive decisions",
+        heading: "Adding control without adding complexity",
         body: [
-          "Rather than providing dozens of settings, the interface concentrates control into three high-level dimensions. These controls affect the ongoing audio flow rather than forcing listeners to select every individual item.",
-          {
-            kind: "list",
-            items: [
-              "How much information should be presented?",
-              "How should the presenter sound?",
-              "How much interpretation should be included?",
-            ],
-          },
-          "The radio metaphor provides a familiar mental model. The system behaves like a continuous station, while the controls allow its character to be adjusted.",
+          "We wanted listeners to influence the news stream without turning radio into an interface full of decisions.",
+          "This led to a layered interaction model. The Sync Dial handles the main choice by switching between selected news categories. Three sliders then allow the listener to fine-tune the active stream.",
+          "Verification was kept separate from these controls. It appears as system feedback rather than something the listener can change.",
+          "This created a clear hierarchy: choose the topic, adjust the stream, then understand how the system evaluates the current story.",
         ],
       },
       {
-        id: "development",
-        navLabel: "The three controls",
+        id: "identity",
+        navLabel: "Visual identity",
         number: "05",
-        heading: "The three controls",
+        heading: "Giving Sync FM its own visual language",
         body: [
-          "Sync Dial — The central dial adjusts the depth of information. Turning it towards the lower end reduces stories to brief headlines. Turning it towards the higher end introduces longer explanations, context and analysis. A responsive waveform provides visual feedback.",
-          "Mood Bar — The Mood Bar adjusts the personality and rhythm of the AI presenter. A calm setting uses slower pacing, neutral language and longer pauses. A more energetic setting increases pace. This changes presentation, not the factual content itself.",
-          "Opinion Filter — The Opinion Filter controls the amount of journalistic interpretation. The control is intended to make framing visible. It also introduces an important ethical risk: users may remove uncomfortable perspectives and reinforce an existing worldview.",
-          { kind: "h3", text: "Combining the familiarity of radio with a digital AI system" },
-          "The visual language uses circular forms, rounded containers and wave-based feedback to connect the interface to audio and radio. Purple creates a distinctive technological identity while remaining less clinical than the blue systems frequently used by technology products. Futura is used for prominent headings, while Segoe UI supports longer interface and news text.",
+          "The visual identity needed to feel connected to radio and audio without looking like a traditional broadcast interface.",
+          "Circular forms, rounded containers and waveform elements became recurring visual cues. Purple gives Sync FM a distinctive character, while the type system keeps the interface clear and easy to scan.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1014", caption: "[ colour palette ]", src: "/images/sync-fm-colour.webp", alt: "The five-step purple palette with its hex values, from near-black to off-white" },
-              { aspect: "1600/586", caption: "[ typography ]", src: "/images/sync-fm-typography.webp", alt: "Futura TP for headings, Segoe UI for body text" },
+              { aspect: "1600/1014", wide: false, caption: "Purple colour system used across the Sync FM interface.", src: "/images/sync-fm-colour.webp", alt: "The five-step purple palette with its hex values, from near-black to off-white" },
+              { aspect: "1600/586", wide: false, caption: "Futura for prominent headings and Segoe UI for interface and news text.", src: "/images/sync-fm-typography.webp", alt: "Futura TP for headings, Segoe UI for body text" },
             ],
           },
-          "The logo transforms a traditional radio into a simple character-like form. Initial concepts were generated with Gemini and then adjusted and refined by the team into a flat vector system. This AI-assisted stage is disclosed within the process.",
+          { kind: "h3", text: "Developing the logo" },
+          "The logo translates the shape of a traditional radio into a simple character-like symbol. Early ideas were generated with Gemini, then selected, redrawn and refined by the team into the final vector mark.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/557", caption: "[ logo iterations ]", src: "/images/sync-fm-logo-system.webp", alt: "Four logo iterations, from a teal robot to an outlined radio, beside the final purple mark" },
-              { aspect: "820/598", caption: "[ wireframes ]", src: "/images/sync-fm-wireframes.webp", alt: "Low-fidelity wireframes for the home, expanded home and preferences screens" },
-              { aspect: "1600/1664", caption: "[ components ]", src: "/images/sync-fm-components.webp", alt: "The component library: voice pickers, model list, menu bar, dial states light and dark, sliders and speed controls" },
+              { aspect: "1600/557", caption: "Logo development from early AI-assisted concepts to the final Sync FM mark.", src: "/images/sync-fm-logo-system.webp", alt: "Four logo iterations, from a teal robot to an outlined radio, beside the final purple mark" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "structure",
+        navLabel: "Wireframes & structure",
+        number: "06",
+        heading: "Exploring how the interaction could work",
+        body: [
+          {
+            kind: "split",
+            body: [
+              "With the visual direction in place, we used low-fidelity wireframes to explore how listeners could move between the main radio view, expanded controls and personal settings.",
+              "The wireframes helped us simplify the interface, test the hierarchy and decide which controls needed to stay immediately accessible.",
+            ],
+            figure: { aspect: "820/598", caption: "Early wireframes: the main radio screen, controls and preferences.", src: "/images/sync-fm-wireframes.webp", alt: "Low-fidelity wireframes for the home, expanded home and preferences screens" },
+          },
+        ],
+      },
+      {
+        id: "controls",
+        navLabel: "Listening controls",
+        number: "07",
+        heading: "Shaping the news without interrupting the radio",
+        body: [
+          "The final interaction system uses two levels of control. The Sync Dial changes the active news category, while three sliders shape the selected stream. A verification indicator adds transparency to the current story.",
+          {
+            kind: "split",
+            heading: "Sync Dial",
+            body: [
+              "During onboarding, listeners choose the news categories they care about. The Sync Dial lets them switch between these categories while the radio continues playing.",
+              "Instead of searching for individual stories, listeners can redirect the stream with one simple interaction.",
+            ],
+            figure: { aspect: "4/3", caption: "The Sync Dial used to switch between the selected news categories." },
+          },
+          {
+            kind: "split",
+            heading: "News filters",
+            body: [
+              "Once a category is selected, three sliders shape the stream. News tone runs from negative through neutral to positive, location from local through balanced to global, and information depth from brief through balanced to in-depth.",
+              "These filters adjust which stories are prioritised and how much context the listener receives without interrupting the radio flow.",
+            ],
+            figure: { aspect: "4/3", caption: "The three news filters in the expanded player." },
+          },
+          {
+            kind: "split",
+            heading: "Verification indicator",
+            body: [
+              "The player also shows a verification-confidence value for the current story. This makes the system more transparent without turning trust into something the listener controls.",
+            ],
+            figure: { aspect: "4/3", caption: "Expanded player view showing the three sliders and the verification-confidence indicator." },
+          },
+        ],
+      },
+      {
+        id: "system",
+        navLabel: "Interface system",
+        number: "08",
+        heading: "Bringing the controls into one consistent system",
+        body: [
+          "Once the main interactions were defined, we built a reusable interface system around them. Components for navigation, sliders, buttons, cards and preference settings helped keep the experience consistent across the different screens.",
+          "The system also helped maintain a clear hierarchy between the main listening experience and secondary settings.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1664", caption: "Reusable interface components used across Sync FM.", src: "/images/sync-fm-components.webp", alt: "The component library: voice pickers, model list, menu bar, dial states light and dark, sliders and speed controls" },
             ],
           },
         ],
       },
       {
         id: "outcome",
-        navLabel: "Final experience",
-        number: "06",
-        heading: "A continuous information flow shaped in real time",
+        navLabel: "Final interface",
+        number: "09",
+        heading: "Keeping listening at the centre",
         body: [
-          "The final prototype presents a mobile radio experience centred on the current audio stream. The Sync Dial remains visually dominant because it controls the broadest change. Secondary controls adjust presenter tone and interpretation without interrupting listening.",
-          "The result is not a complete functioning AI-radio service. It is an interaction prototype demonstrating how editorial control could be introduced without requiring a complex settings dashboard.",
+          "In the final interface, the player remains the main visual focus. Category switching stays close to the listening experience, while the filters sit one level deeper for people who want more control.",
+          "Verification appears as supporting information rather than another setting. This hierarchy keeps the controls accessible without making the experience feel like a settings dashboard.",
         ],
-        images: [{ aspect: "1600/2548", caption: "[ final mobile screens — large showcase ]", src: "/images/sync-fm-final-screens.webp", alt: "Every screen of the Figma prototype: home and expanded home in light and dark, registration, the preference flow, and the profile and settings screens" }],
+        images: [
+          { aspect: "3/4", wide: false, caption: "The final player and its expanded controls, in the light theme." },
+          { aspect: "3/4", wide: false, caption: "The same screens in the dark theme." },
+        ],
       },
       {
-        id: "testing",
+        id: "ethics",
         navLabel: "Evaluation & ethics",
-        number: "07",
-        heading: "Control is not automatically neutral.",
+        number: "10",
+        heading: "Designing controls that are easy to understand",
         body: [
-          "The interface should be evaluated against three questions: can users understand the effect of each control before activating it, can they adjust the system without interrupting listening, and do they understand when content represents fact, analysis or interpretation?",
-          "The opinion control creates the most important unresolved risk. Giving users control over journalistic framing may increase transparency, but it may also create filter bubbles and remove necessary opposing perspectives.",
+          "One of the main challenges was making personalisation useful without making the interface too complex.",
+          "The controls needed clear labels, visible feedback and a structure that showed what could be changed and what was only informational. This became especially important for the verification indicator, which should support transparency rather than look like another setting.",
+          "The concept also made me think more carefully about how much influence an interface should give users over news content. Personalisation can make an experience more relevant, but the design still needs to separate preference from factual information.",
+          "If I developed the project further, I would test whether people understand the controls as intended and whether the interface clearly communicates the difference between personalisation and verification.",
+        ],
+      },
+      {
+        id: "prototype",
+        navLabel: "Prototype",
+        number: "11",
+        heading: "Try it yourself",
+        body: [
+          "Here you can explore the interactive prototype and move through the experience yourself.",
           {
-            kind: "list",
-            items: [
-              "Visible source information",
-              "Clear labels for fact, context and interpretation",
-              "Limits preventing complete removal of alternative perspectives",
-              "Explanations of why certain stories appear",
-              "A reset to a balanced editorial mode",
-            ],
+            kind: "prototype",
+            embed: "https://embed.figma.com/proto/3nAOERr1P63NJy28QyD4HI/Sync-FM?node-id=5-2&p=f&viewport=300%2C306%2C0.07&scaling=scale-down&content-scaling=fixed&starting-point-node-id=5%3A2&show-proto-sidebar=1&page-id=0%3A1&embed-host=share",
+            href: "https://www.figma.com/proto/3nAOERr1P63NJy28QyD4HI/Sync-FM?node-id=5-2&p=f&viewport=300%2C306%2C0.07&scaling=scale-down&content-scaling=fixed&starting-point-node-id=5%3A2&show-proto-sidebar=1&page-id=0%3A1",
+            label: "Sync FM app prototype",
+            aspect: "16/9",
           },
         ],
       },
       {
         id: "reflection",
-        navLabel: "Limitations & reflection",
-        number: "08",
-        heading: "Separating concept, prototype and future behaviour",
+        navLabel: "Reflection",
+        number: "12",
+        heading: "What I learned",
         body: [
-          "The personas were AI-assisted hypotheses rather than findings from interviews. The project documentation does not provide enough evidence for strong claims about long-term usability, trust or listening behaviour. The concept also depends on technology that was not implemented within the prototype, including real-time audio generation, source verification and content moderation.",
-          "The case study therefore distinguishes clearly between interaction concept, visual prototype, tested interface elements and future technical behaviour.",
-          { kind: "h3", text: "What I learned" },
-          "Sync FM showed me that personalisation becomes more valuable when it is expressed through a small number of understandable controls. Adding every possible setting would have recreated the complexity the concept was intended to remove.",
-          "The project also revealed that control is not automatically neutral. Allowing users to shape journalistic framing creates ethical consequences that need to be designed as carefully as the interface itself. A future version should combine interaction testing with research on trust, media literacy and algorithmic transparency.",
+          "Sync FM changed how I think about control in interfaces. Giving people more options does not automatically create a better experience. Sometimes the more important design decision is deciding which controls are useful and which ones would only add complexity.",
+          "I also learned that designing an AI-based interface requires a clear separation between user preference, system behaviour and system feedback. Making those differences visible became just as important as the controls themselves.",
+          "If I continued the project, I would test the concept with real listeners and simplify anything that still needs explanation.",
         ],
       },
     ],
@@ -160,19 +276,19 @@ const syncFm: CaseStudyLocaleContent = {
   de: {
     slug: "sync-fm",
     name: "Sync FM",
-    headline: "Hörerinnen und Hörern Kontrolle geben, ohne Radio in ein weiteres Dashboard zu verwandeln.",
+    headline: "Personalisierung in den kontinuierlichen Fluss des Radios bringen.",
     summary:
-      "Sync FM ist ein interaktives KI-Radio, das das kontinuierliche Erlebnis des klassischen Radios mit ausgewählten Steuerungsmöglichkeiten personalisierter Streaming-Dienste verbindet. Nutzer können Informationstiefe, Moderationston und journalistische Einordnung anpassen, ohne jedes Programm manuell zusammenstellen zu müssen.",
-    tags: ["Interaction Design", "AI Concept", "Mobile UI", "Audio Experience", "Prototyping"],
+      "Sync FM ist ein interaktives KI-Radio-Konzept, das das kontinuierliche Erlebnis des klassischen Radios mit ausgewählten Steuerungsmöglichkeiten personalisierter Streaming-Dienste verbindet.",
+    tags: [...PROJECT_TAGS["sync-fm"]],
+    context: "Semesterprojekt",
     role: "Interaction & UI Designerin",
-    contribution: "Konzept und Interface gemeinsam mit einem Teammitglied entwickelt.",
-    type: "Semesterprojekt · Team",
+    team: "Zweierteam",
+    contribution: "",
     tools: "",
-    deliverables: "",
     heroImage: {
       src: "/images/hero-sync-fm.webp",
-      alt: "Fünf Sync-FM-Screens neben dem Titel der Fallstudie",
-      aspect: "1578/1088",
+      alt: "Fünf Sync-FM-Screens neben dem Projektnamen",
+      aspect: "1920/1080",
     },
     sections: [
       {
@@ -181,134 +297,218 @@ const syncFm: CaseStudyLocaleContent = {
         number: "01",
         heading: "Das Projekt auf einen Blick",
         body: [
-          "Das Projekt untersucht den Raum zwischen passivem Radiokonsum und aktivem Streaming. Klassisches Radio bietet Kontinuität, Moderation und Begleitung, kann jedoch repetitiv und oberflächlich werden. Streaming-Plattformen bieten Kontrolle, verlangen jedoch häufige Entscheidungen und verfügen oft über wenig redaktionellen Kontext.",
-          "Sync FM führt einen KI-Journalisten ein, der einen kontinuierlichen Nachrichtenfluss erstellt. Gleichzeitig können Hörer beeinflussen, wie die Informationen aufbereitet werden. Der Prototyp konzentriert sich auf Nachrichten, da sich daran Fragen zu Tiefe, Tonalität, Interpretation und algorithmischem Einfluss deutlicher untersuchen lassen als an Musik allein.",
+          "Sync FM basiert auf einem KI-Journalisten, dessen Art der Nachrichtenvermittlung über wenige gezielte Steuerelemente angepasst werden kann. Hörer können beeinflussen, welche Nachrichten sie hören und wie der Stream gestaltet wird, während sie in einem kontinuierlichen Hörerlebnis bleiben.",
+          "Als Teil eines Zweierteams arbeitete ich am Interaktionskonzept und Interface und definierte, wie die Steuerelemente funktionieren, wie Informationen strukturiert sind und wie das System auf die Eingaben der Hörer reagiert.",
         ],
       },
       {
         id: "challenge",
-        navLabel: "Herausforderung",
+        navLabel: "Kontext & Herausforderung",
         number: "02",
-        heading: "Radio ist mühelos, aber selten persönlich.",
+        heading: "Die Einfachheit von Radio, mit mehr persönlicher Kontrolle",
         body: [
-          "Klassisches Radio ermöglicht Zuhören, ohne jeden nächsten Schritt planen zu müssen. Dadurch entstehen ein kontinuierlicher Ablauf und ein Gefühl von Begleitung. Standardprogramme sind jedoch häufig auf kurze Hörzeiten ausgelegt und wiederholen sich bei längerer Nutzung.",
-          "Streaming löst das Problem der Wiederholung durch persönliche Kontrolle. Gleichzeitig überträgt es die Verantwortung auf die Hörer, die Inhalte, Playlists, Programme und Übergänge selbst auswählen müssen. Die gestalterische Herausforderung bestand darin, sinnvolle Kontrolle einzuführen, ohne den mühelosen Charakter zu zerstören, der Radio attraktiv macht.",
+          "Klassisches Radio ist unkompliziert, weil Hörer nicht jeden nächsten Schritt selbst auswählen müssen. Ein festes Programm kann jedoch repetitiv werden und bietet wenig Einfluss auf die Inhalte.",
+          "Streaming bietet deutlich mehr Auswahl, verlangt aber auch ständig Entscheidungen über Inhalte, Playlists und das, was als Nächstes kommt.",
+          "Die Herausforderung bestand darin, eine Balance zwischen beiden Erlebnissen zu finden: mehr sinnvolle Kontrolle zu ermöglichen, ohne den kontinuierlichen Radiofluss zu verlieren.",
         ],
         designQuestion:
-          "Wie kann ein auditives Interface Handlungsspielraum bieten, ohne Hörer mit ständigen Entscheidungen zu überfordern?",
+          "Wie kann ein Audio-Interface mehr Kontrolle ermöglichen, ohne ständig neue Entscheidungen zu verlangen?",
       },
       {
         id: "research",
-        navLabel: "Analyse & Personas",
+        navLabel: "Recherche",
         number: "03",
-        heading: "Bestehende KI-Radios automatisieren Inhalte, bieten jedoch wenig Transparenz.",
+        heading: "Wie KI bereits im Radio eingesetzt wird",
         body: [
-          "Das Projekt verglich regionale und internationale Beispiele, darunter KI-generierte Wetter- und Verkehrsmeldungen, KI-moderierte Webradios und KI-gestützte Musikempfehlungen. Bestehende Systeme nutzen KI hauptsächlich zur Automatisierung von Moderation oder Inhaltserstellung. Die interne Auswahl- und Aufbereitungslogik bleibt für Hörer weitgehend unsichtbar.",
-          "Sync FM nimmt eine andere Position ein. Anstatt ausschließlich die Moderation zu automatisieren, stellt das System ausgewählte redaktionelle Steuerungsmöglichkeiten bereit. Die Hörer werden zu persönlichen Redakteuren und können Tiefe, Tonalität und Interpretation beeinflussen.",
-          { kind: "h3", text: "Unterschiedliche Beziehungen zu Informationen untersuchen" },
-          "Drei Personas wurden verwendet, um unterschiedliche Altersgruppen, Hörsituationen und Einstellungen zu Informationen zu betrachten. Sie repräsentierten Bedürfnisse wie effizienten Zugang zu Fakten, ruhiges Hören im Hintergrund, energetischere Präsentation, größere inhaltliche Tiefe und Schutz vor Informationsüberlastung.",
-          "Die Personas wurden mit Gemini erstellt und anschließend als Werkzeuge für die Konzeptentwicklung genutzt. Sie werden deshalb als Hypothesen-Personas und nicht als direkte Ergebnisse primärer Nutzerforschung bezeichnet.",
+          "Wir verglichen bestehende Beispiele für KI-generierte Wetter- und Verkehrsmeldungen, KI-moderiertes Radio und KI-gestützte Empfehlungen.",
+          "Die meisten Systeme nutzten KI zur Automatisierung oder Erstellung von Inhalten, während für Hörer kaum sichtbar war, wie diese Inhalte ausgewählt oder aufbereitet wurden. Daraus entstand die Idee, einen Teil dieser Kontrolle für die Hörer sichtbar zu machen.",
+          { kind: "h3", text: "Unterschiedliche Hörbedürfnisse untersuchen" },
+          "Wir nutzten drei KI-gestützte Hypothesen-Personas, um unterschiedliche Hörgewohnheiten und Beziehungen zu Informationen zu betrachten: einen jüngeren, entdeckungsfreudigen Hörer, eine faktenorientierte Hörerin und einen klassischen Radiohörer.",
+          "Sie halfen uns, Bedürfnisse wie schnellen Zugang zu Fakten, mehr Kontext, ruhiges Hören im Hintergrund und Schutz vor Informationsüberlastung zu berücksichtigen.",
           {
             kind: "note",
-            text: "Kennzeichnung: KI-gestützte Hypothesen-Persona",
+            text: "Die Personas wurden mit Gemini erstellt und ausschließlich als Werkzeuge für die Konzeptentwicklung genutzt, nicht als Ergebnisse einer Nutzerforschung.",
           },
           {
-            kind: "figures",
+            kind: "cards",
             items: [
-              { aspect: "1600/738", caption: "[ personas ]", src: "/images/sync-fm-personas.webp", alt: "Die drei Hypothesen-Personas: Leo, 19, der Entdecker; Sarah, 42, die Fakten-Sucherin; und Walter, 73, der traditionelle Hörer" },
+              {
+                heading: "Leo, 19",
+                label: "Der Entdecker",
+                body: "Leo hört nebenbei und folgt dem, was seine Aufmerksamkeit weckt. Er möchte auf Themen stoßen, nach denen er nicht gesucht hätte, und steigt aus, wenn ein Beitrag zu lange braucht, um zum Punkt zu kommen.",
+                needs: "Entdecken · Abwechslung · Kurze Formate",
+              },
+              {
+                heading: "Sarah, 42",
+                label: "Die Fakten-Sucherin",
+                body: "Sarah hört auf dem Weg zur Arbeit und möchte informiert ankommen. Sie interessiert, was passiert ist und warum es zählt. Für Füllmaterial oder einen Ton, der ihr vorgibt, wie sie etwas zu bewerten hat, hat sie keine Geduld.",
+                needs: "Schneller Zugang zu Fakten · Kontext · Neutrale Vermittlung",
+              },
+              {
+                heading: "Walter, 73",
+                label: "Der klassische Radiohörer",
+                body: "Walter hat das Radio fast den ganzen Tag an und schätzt die Vertrautheit eines Programms, das einfach läuft. Er möchte kein Interface bedienen, und zu viel auf einmal ist für ihn schlimmer als zu wenig.",
+                needs: "Ruhiges Hören im Hintergrund · Vertraute Struktur · Keine Überlastung",
+              },
             ],
           },
         ],
       },
       {
-        id: "direction",
+        id: "strategy",
         navLabel: "Interaktionsstrategie",
         number: "04",
-        heading: "Kontrolle durch wenige ausdrucksstarke Entscheidungen",
+        heading: "Kontrolle ermöglichen, ohne Komplexität hinzuzufügen",
         body: [
-          "Anstatt zahlreiche Einstellungen anzubieten, konzentriert das Interface die Steuerung auf drei übergeordnete Dimensionen. Diese Einstellungen beeinflussen den fortlaufenden Audiofluss, anstatt die Hörer zur Auswahl jedes einzelnen Beitrags zu zwingen.",
-          {
-            kind: "list",
-            items: [
-              "Wie viele Informationen sollen vermittelt werden?",
-              "Wie soll die Moderation klingen?",
-              "Wie stark sollen Interpretationen einbezogen werden?",
-            ],
-          },
-          "Die Radio-Metapher schafft ein vertrautes mentales Modell. Das System verhält sich wie ein kontinuierlicher Sender, während die Steuerungen seinen Charakter anpassbar machen.",
+          "Wir wollten Hörern Einfluss auf den Nachrichtenstream geben, ohne Radio in ein Interface voller Entscheidungen zu verwandeln.",
+          "Daraus entstand ein mehrstufiges Interaktionsmodell. Der Sync Dial übernimmt die zentrale Auswahl und wechselt zwischen den ausgewählten Nachrichtenkategorien. Drei Slider ermöglichen anschließend eine feinere Anpassung des aktiven Streams.",
+          "Die Verifikation bleibt davon getrennt und erscheint als Systemfeedback statt als veränderbare Einstellung.",
+          "Dadurch entsteht eine klare Hierarchie: Thema wählen, Stream anpassen und anschließend verstehen, wie das System die aktuelle Nachricht bewertet.",
         ],
       },
       {
-        id: "development",
-        navLabel: "Die drei Steuerungen",
+        id: "identity",
+        navLabel: "Visuelle Identität",
         number: "05",
-        heading: "Die drei Steuerungen",
+        heading: "Eine eigene visuelle Sprache für Sync FM",
         body: [
-          "Sync Dial — Der zentrale Drehregler steuert die Informationstiefe. Eine Bewegung zum unteren Bereich reduziert Beiträge auf kurze Schlagzeilen. Eine Bewegung zum höheren Bereich führt zu ausführlicheren Erklärungen, Kontext und Analyse. Eine reagierende Wellenform gibt visuelles Feedback.",
-          "Mood Bar — Die Mood Bar verändert Persönlichkeit und Rhythmus der KI-Moderation. Eine ruhige Einstellung nutzt langsameres Sprechen, neutrale Sprache und längere Pausen. Eine energetischere Einstellung erhöht das Tempo. Dabei verändert sich die Präsentation und nicht der faktische Inhalt.",
-          "Opinion Filter — Der Opinion Filter steuert den Anteil journalistischer Interpretation. Die Steuerung soll Framing sichtbar machen. Sie bringt jedoch ein wichtiges ethisches Risiko mit sich: Nutzer könnten unangenehme Perspektiven ausblenden und bestehende Weltbilder verstärken.",
-          { kind: "h3", text: "Die Vertrautheit des Radios mit einem digitalen KI-System verbinden" },
-          "Die visuelle Sprache verwendet kreisförmige Elemente, abgerundete Container und wellenbasierte Rückmeldungen, um eine Verbindung zu Audio und Radio herzustellen. Lila schafft eine eigenständige technologische Identität und wirkt weniger klinisch als viele blaue Technologiesysteme. Futura wird für prominente Überschriften eingesetzt, während Segoe UI längere Interface- und Nachrichtentexte unterstützt.",
+          "Die visuelle Identität sollte eine Verbindung zu Radio und Audio schaffen, ohne wie ein klassisches Broadcast-Interface zu wirken.",
+          "Kreisförmige Formen, abgerundete Container und Wellenformen wurden zu wiederkehrenden visuellen Elementen. Lila gibt Sync FM einen eigenen Charakter, während das Schriftsystem das Interface klar und leicht erfassbar hält.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1014", caption: "[ colour palette ]", src: "/images/sync-fm-colour.webp", alt: "Die fünfstufige Lila-Palette mit Hex-Werten, von Fast-Schwarz bis Off-White" },
-              { aspect: "1600/586", caption: "[ typography ]", src: "/images/sync-fm-typography.webp", alt: "Futura TP für Überschriften, Segoe UI für Fließtext" },
+              { aspect: "1600/1014", wide: false, caption: "Das lila Farbsystem des Sync-FM-Interfaces.", src: "/images/sync-fm-colour.webp", alt: "Die fünfstufige Lila-Palette mit Hex-Werten, von Fast-Schwarz bis Off-White" },
+              { aspect: "1600/586", wide: false, caption: "Futura für markante Überschriften und Segoe UI für Interface- und Nachrichtentexte.", src: "/images/sync-fm-typography.webp", alt: "Futura TP für Überschriften, Segoe UI für Fließtext" },
             ],
           },
-          "Das Logo verwandelt ein traditionelles Radio in eine einfache, charakterähnliche Form. Erste Konzepte wurden mit Gemini generiert und anschließend vom Team zu einem flachen Vektorsystem angepasst und verfeinert. Diese KI-gestützte Phase wird im Prozess transparent dargestellt.",
+          { kind: "h3", text: "Das Logo entwickeln" },
+          "Das Logo übersetzt die Form eines klassischen Radios in ein einfaches, charakterähnliches Symbol. Erste Ideen wurden mit Gemini generiert, anschließend vom Team ausgewählt, neu gezeichnet und zum finalen Vektorzeichen weiterentwickelt.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/557", caption: "[ logo iterations ]", src: "/images/sync-fm-logo-system.webp", alt: "Vier Logo-Iterationen, vom türkisen Roboter bis zum umrissenen Radio, neben der finalen lila Marke" },
-              { aspect: "820/598", caption: "[ wireframes ]", src: "/images/sync-fm-wireframes.webp", alt: "Low-Fidelity-Wireframes für Home, erweitertes Home und Präferenzen" },
-              { aspect: "1600/1664", caption: "[ components ]", src: "/images/sync-fm-components.webp", alt: "Die Komponentenbibliothek: Stimmauswahl, Modell-Liste, Menüleiste, Regler-Zustände hell und dunkel, Slider und Geschwindigkeit" },
+              { aspect: "1600/557", caption: "Logoentwicklung von ersten KI-gestützten Ideen bis zum finalen Sync-FM-Zeichen.", src: "/images/sync-fm-logo-system.webp", alt: "Vier Logo-Iterationen, vom türkisen Roboter bis zum umrissenen Radio, neben der finalen lila Marke" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "structure",
+        navLabel: "Wireframes & Struktur",
+        number: "06",
+        heading: "Die Interaktion weiterentwickeln",
+        body: [
+          {
+            kind: "split",
+            body: [
+              "Nachdem die visuelle Richtung feststand, nutzten wir Low-Fidelity-Wireframes, um zu untersuchen, wie Hörer zwischen der zentralen Radioansicht, erweiterten Steuerungen und persönlichen Einstellungen wechseln können.",
+              "Die Wireframes halfen uns, das Interface zu vereinfachen, die Hierarchie zu testen und zu entscheiden, welche Steuerungen direkt erreichbar sein sollten.",
+            ],
+            figure: { aspect: "820/598", caption: "Frühe Wireframes: die zentrale Radioansicht, Steuerungen und Einstellungen.", src: "/images/sync-fm-wireframes.webp", alt: "Low-Fidelity-Wireframes für Home, erweitertes Home und Präferenzen" },
+          },
+        ],
+      },
+      {
+        id: "controls",
+        navLabel: "Hörsteuerung",
+        number: "07",
+        heading: "Nachrichten beeinflussen, ohne den Radiofluss zu unterbrechen",
+        body: [
+          "Das finale Interaktionssystem nutzt zwei Ebenen der Steuerung. Mit dem Sync Dial wird die aktive Nachrichtenkategorie gewechselt, während drei Slider den ausgewählten Stream anpassen. Eine Verifikationsanzeige schafft zusätzliche Transparenz für die aktuelle Nachricht.",
+          {
+            kind: "split",
+            heading: "Sync Dial",
+            body: [
+              "Beim Onboarding wählen Hörer die Nachrichtenkategorien aus, die sie interessieren. Mit dem Sync Dial können sie später zwischen diesen Kategorien wechseln, während das Radio weiterläuft.",
+              "Statt einzelne Beiträge suchen zu müssen, lässt sich die Richtung des Streams mit einer einfachen Interaktion verändern.",
+            ],
+            figure: { aspect: "4/3", caption: "Der Sync Dial zum Wechsel zwischen den gewählten Nachrichtenkategorien." },
+          },
+          {
+            kind: "split",
+            heading: "Nachrichtenfilter",
+            body: [
+              "Sobald eine Kategorie gewählt ist, passen drei Slider den Stream an. Der Nachrichtenton reicht von negativ über neutral bis positiv, der Standort von lokal über ausgewogen bis global und die Informationstiefe von kurz über ausgewogen bis vertieft.",
+              "Diese Filter beeinflussen, welche Beiträge stärker priorisiert werden und wie viel Kontext die Hörer erhalten, ohne den Radiofluss zu unterbrechen.",
+            ],
+            figure: { aspect: "4/3", caption: "Die drei Nachrichtenfilter in der erweiterten Player-Ansicht." },
+          },
+          {
+            kind: "split",
+            heading: "Verifikationsanzeige",
+            body: [
+              "Im Player wird zusätzlich ein Verifikationswert für die aktuelle Nachricht angezeigt. Dadurch wird transparenter, wie sicher das System die Informationen einschätzt, ohne Vertrauen selbst zu einer steuerbaren Einstellung zu machen.",
+            ],
+            figure: { aspect: "4/3", caption: "Erweiterte Player-Ansicht mit den drei Slidern und der Verifikationsanzeige." },
+          },
+        ],
+      },
+      {
+        id: "system",
+        navLabel: "Interface-System",
+        number: "08",
+        heading: "Die Steuerungen in ein konsistentes System bringen",
+        body: [
+          "Nachdem die zentralen Interaktionen feststanden, entwickelten wir darum ein wiederverwendbares Interface-System. Komponenten für Navigation, Slider, Buttons, Karten und Einstellungen sorgten für Konsistenz über die verschiedenen Screens hinweg.",
+          "Das System half außerdem dabei, die Hierarchie zwischen dem zentralen Hörerlebnis und den sekundären Einstellungen klar zu halten.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1664", caption: "Wiederverwendbare Interface-Komponenten von Sync FM.", src: "/images/sync-fm-components.webp", alt: "Die Komponentenbibliothek: Stimmauswahl, Modell-Liste, Menüleiste, Regler-Zustände hell und dunkel, Slider und Geschwindigkeit" },
             ],
           },
         ],
       },
       {
         id: "outcome",
-        navLabel: "Ergebnis",
-        number: "06",
-        heading: "Ein kontinuierlicher Informationsfluss, der in Echtzeit angepasst wird",
+        navLabel: "Finales Interface",
+        number: "09",
+        heading: "Das Hören im Mittelpunkt halten",
         body: [
-          "Der finale Prototyp zeigt ein mobiles Radioerlebnis, das sich auf den aktuellen Audiofluss konzentriert. Der Sync Dial bleibt visuell dominant, da er die umfassendste Veränderung steuert. Sekundäre Steuerungen verändern Moderationston und Interpretation, ohne das Zuhören zu unterbrechen.",
-          "Das Ergebnis ist kein vollständig funktionierender KI-Radiosender. Es handelt sich um einen Interaktionsprototyp, der zeigt, wie redaktionelle Kontrolle eingeführt werden könnte, ohne ein komplexes Einstellungs-Dashboard zu erzeugen.",
+          "Im finalen Interface bleibt der Player der wichtigste visuelle Fokus. Der Wechsel zwischen Kategorien bleibt nah am Hörerlebnis, während die Filter eine Ebene tiefer liegen, wenn mehr Kontrolle gewünscht ist.",
+          "Die Verifikation erscheint als unterstützende Information und nicht als weitere Einstellung. Diese Hierarchie hält die Steuerungen erreichbar, ohne das Erlebnis wie ein Einstellungs-Dashboard wirken zu lassen.",
         ],
-        images: [{ aspect: "1600/2548", caption: "[ final mobile screens — large showcase ]", src: "/images/sync-fm-final-screens.webp", alt: "Alle Screens des Figma-Prototyps: Home und erweitertes Home in Hell und Dunkel, Registrierung, der Präferenz-Flow sowie Profil- und Einstellungsseiten" }],
+        images: [
+          { aspect: "3/4", wide: false, caption: "Der finale Player und die erweiterten Steuerungen im hellen Theme." },
+          { aspect: "3/4", wide: false, caption: "Dieselben Screens im dunklen Theme." },
+        ],
       },
       {
-        id: "testing",
+        id: "ethics",
         navLabel: "Evaluation & Ethik",
-        number: "07",
-        heading: "Kontrolle ist nicht automatisch neutral.",
+        number: "10",
+        heading: "Steuerungen verständlich gestalten",
         body: [
-          "Das Interface sollte anhand von drei Fragen evaluiert werden: Verstehen Nutzer die Wirkung jeder Steuerung vor ihrer Aktivierung? Können sie das System anpassen, ohne den Hörfluss zu unterbrechen? Erkennen sie, wann Inhalte Fakten, Analyse oder Interpretation darstellen?",
-          "Die Meinungssteuerung erzeugt das wichtigste ungelöste Risiko. Kontrolle über journalistisches Framing kann Transparenz erhöhen, aber auch Filterblasen erzeugen und notwendige Gegenperspektiven entfernen.",
+          "Eine der größten Herausforderungen bestand darin, die Personalisierung nützlich zu machen, ohne das Interface zu komplex werden zu lassen.",
+          "Die Steuerungen brauchten klare Bezeichnungen, sichtbares Feedback und eine Struktur, die zeigt, was verändert werden kann und was nur als Information dient. Besonders wichtig war das bei der Verifikationsanzeige, die Transparenz schaffen sollte, statt wie eine weitere Einstellung zu wirken.",
+          "Das Konzept brachte mich außerdem dazu, genauer darüber nachzudenken, wie viel Einfluss ein Interface auf Nachrichteninhalte geben sollte. Personalisierung kann ein Erlebnis relevanter machen, dennoch muss das Design klar zwischen persönlichen Präferenzen und faktischen Informationen unterscheiden.",
+          "Bei einer Weiterentwicklung würde ich testen, ob die Steuerungen so verstanden werden wie beabsichtigt und ob das Interface den Unterschied zwischen Personalisierung und Verifikation klar vermittelt.",
+        ],
+      },
+      {
+        id: "prototype",
+        navLabel: "Prototyp",
+        number: "11",
+        heading: "Selbst ausprobieren",
+        body: [
+          "Hier können Sie den interaktiven Prototyp erkunden und sich selbst durch das Erlebnis bewegen.",
           {
-            kind: "list",
-            items: [
-              "Sichtbare Quelleninformationen",
-              "Klare Kennzeichnungen für Fakt, Kontext und Interpretation",
-              "Grenzen, die eine vollständige Entfernung alternativer Perspektiven verhindern",
-              "Erklärungen, warum bestimmte Beiträge erscheinen",
-              "Eine Rückkehr zu einem ausgewogenen redaktionellen Modus",
-            ],
+            kind: "prototype",
+            embed: "https://embed.figma.com/proto/3nAOERr1P63NJy28QyD4HI/Sync-FM?node-id=5-2&p=f&viewport=300%2C306%2C0.07&scaling=scale-down&content-scaling=fixed&starting-point-node-id=5%3A2&show-proto-sidebar=1&page-id=0%3A1&embed-host=share",
+            href: "https://www.figma.com/proto/3nAOERr1P63NJy28QyD4HI/Sync-FM?node-id=5-2&p=f&viewport=300%2C306%2C0.07&scaling=scale-down&content-scaling=fixed&starting-point-node-id=5%3A2&show-proto-sidebar=1&page-id=0%3A1",
+            label: "Sync FM App-Prototyp",
+            aspect: "16/9",
           },
         ],
       },
       {
         id: "reflection",
-        navLabel: "Grenzen & Reflexion",
-        number: "08",
-        heading: "Konzept, Prototyp und zukünftiges Verhalten klar unterscheiden",
+        navLabel: "Reflexion",
+        number: "12",
+        heading: "Was ich gelernt habe",
         body: [
-          "Die Personas waren KI-gestützte Hypothesen und keine Ergebnisse aus Interviews. Die Dokumentation bietet nicht genügend Evidenz für starke Aussagen zu langfristiger Benutzerfreundlichkeit, Vertrauen oder Hörverhalten. Das Konzept ist außerdem von Technologien abhängig, die im Prototyp nicht implementiert wurden, darunter Echtzeit-Audiogenerierung, Quellenprüfung und Inhaltsmoderation.",
-          "Die Fallstudie unterscheidet deshalb klar zwischen Interaktionskonzept, visuellem Prototyp, getesteten Interface-Elementen und zukünftigem technischen Verhalten.",
-          { kind: "h3", text: "Was ich gelernt habe" },
-          "Sync FM hat mir gezeigt, dass Personalisierung wertvoller wird, wenn sie durch wenige verständliche Steuerungen ausgedrückt wird. Das Hinzufügen jeder möglichen Einstellung hätte genau die Komplexität erzeugt, die das Konzept reduzieren sollte.",
-          "Das Projekt verdeutlichte außerdem, dass Kontrolle nicht automatisch neutral ist. Wenn Nutzer journalistisches Framing beeinflussen können, entstehen ethische Konsequenzen, die ebenso sorgfältig gestaltet werden müssen wie das Interface selbst. Eine zukünftige Version sollte Interaktionstests mit Forschung zu Vertrauen, Medienkompetenz und algorithmischer Transparenz verbinden.",
+          "Sync FM hat verändert, wie ich über Kontrolle in Interfaces denke. Mehr Auswahl bedeutet nicht automatisch ein besseres Erlebnis. Manchmal liegt die wichtigere Designentscheidung darin, zu bestimmen, welche Steuerungen sinnvoll sind und welche nur zusätzliche Komplexität schaffen würden.",
+          "Ich habe außerdem gelernt, dass ein KI-basiertes Interface eine klare Trennung zwischen Nutzerpräferenz, Systemverhalten und Systemfeedback braucht. Diese Unterschiede sichtbar zu machen wurde genauso wichtig wie die Steuerungen selbst.",
+          "Bei einer Weiterentwicklung würde ich das Konzept mit echten Hörern testen und alles vereinfachen, was noch erklärt werden muss.",
         ],
       },
     ],

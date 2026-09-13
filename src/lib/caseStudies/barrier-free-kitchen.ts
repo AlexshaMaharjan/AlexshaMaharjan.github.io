@@ -1,19 +1,49 @@
 import type { CaseStudyLocaleContent } from "./types";
+import { PROJECT_TAGS } from "./tags";
 
+/**
+ * The barrier-free kitchen, rewritten from the owner's own copy deck
+ * (`promt.pdf`, section 13).
+ *
+ * Two things the deck's figure list does not account for, and why they stay:
+ *
+ * - **`[HERO / FINAL KITCHEN RENDER]` in §01 is the page's own hero.** The deck
+ *   lists it there because that is where it sits when you read the page; it is
+ *   `heroImage`, already filled, so §01 gains no figure of its own.
+ * - **The reach study, the prototype details and the paper containers keep
+ *   their slots.** The deck names one figure where §05 and §06 each have three,
+ *   and dropping two exported photographs to match a list is not what a shorter
+ *   caption list asks for. They sit in the same groups under their own captions.
+ *
+ * Gone with the rewrite: the "Key barriers" list in §04 and the six-item
+ * limitations list in §08. Both are the owner's cuts. §04 now closes on the
+ * three design areas, three-up, and §08 states its limits in prose.
+ *
+ * Two corrections from the owner's second pass:
+ *
+ * - **`kitchen-simulation.webp` is cropped to its first panel.** The board held
+ *   three photographs side by side, which at the column's width made each one
+ *   about 300px across. `kitchen-simulation-hob.webp` is panel one on its own,
+ *   in a row of three with the two observation shots, so all three read at the
+ *   same size.
+ * - **`kitchen-reach-study.webp` is not a reach study.** It is two overhead
+ *   shots of a control dial with a raised marker and tactile studs around it.
+ *   It had carried the wrong caption and the wrong alt since it was added.
+ */
 const barrierFreeKitchen: CaseStudyLocaleContent = {
   en: {
     slug: "barrier-free-kitchen",
     name: "Barrier-Free Kitchen",
     headline: "Designing a kitchen through reach, sight and touch.",
     summary:
-      "This inclusive-design project explores how a kitchen can better support wheelchair users and people with cataracts. The concept was developed through observation, an interview, embodied testing, physical prototypes and a final animated Blender environment.",
-    tags: ["Inclusive Design", "Design Research", "Spatial Design", "Physical Prototyping", "3D Visualisation"],
+      "An inclusive kitchen concept developed around the needs of wheelchair users and people with visual impairments, particularly cataracts.",
+    tags: [...PROJECT_TAGS["barrier-free-kitchen"]],
+    context: "Collaborative university project",
     role: "Prototyping & 3D Designer",
-    contribution: "Created paper and 3D models, materials and textures, and participated in testing.",
-    type: "Semester project · team",
-    tools: "",
-    deliverables: "Final rendering by a team member.",
-    heroImage: { src: "/images/hero-barrier-free-kitchen.webp", alt: "The barrier-free kitchen rendered in 3D, beside the case-study title", aspect: "1900/1069" },
+    team: "",
+    contribution: "Physical Prototyping · 3D Modelling · Materials & Textures · Testing",
+    tools: "Blender",
+    heroImage: { src: "/images/hero-barrier-free-kitchen.webp", alt: "The barrier-free kitchen in three 3D renders, beside the project name", aspect: "1920/1080" },
     sections: [
       {
         id: "overview",
@@ -21,81 +51,77 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         number: "01",
         heading: "The project at a glance",
         body: [
-          "The project focused on two user groups: wheelchair users and people with visual impairment, particularly cataracts.",
-          "The process began with the investigation of existing kitchens and everyday tasks. The team then developed spatial concepts using wooden blocks and Lego, mapped a complete cooking journey, built full-scale paper prototypes and translated the resulting system into a Blender environment with an animated wheelchair user.",
+          "The project explored how everyday kitchen tasks change when reach, mobility or vision is limited.",
+          "Our process moved from observing existing kitchens and everyday actions to spatial experiments, full-scale paper prototypes and a final 3D environment. My main focus was translating the ideas into physical and digital prototypes, developing materials and textures, and taking part in the testing process.",
         ],
       },
       {
         id: "challenge",
-        navLabel: "Challenge",
+        navLabel: "Context & challenge",
         number: "02",
-        heading: "Standard kitchen layouts assume a narrow range of bodies and abilities.",
+        heading: "When standard dimensions become barriers",
         body: [
-          "Conventional kitchens frequently place storage, controls and work surfaces outside the comfortable reach of wheelchair users. They also depend heavily on visual cues such as small text, weak contrast, smooth touch controls and transparent containers.",
-          "These barriers can make simple actions slower, unsafe or impossible without assistance.",
+          "Conventional kitchens often place storage, work surfaces and controls outside the comfortable reach of wheelchair users. At the same time, small labels, weak contrast and touch-based controls can make everyday tasks more difficult for people with visual impairments.",
+          "The challenge was to rethink these ordinary design decisions so that more tasks could be completed safely and independently.",
         ],
         designQuestion:
-          "How might a kitchen support more independent use when reach, mobility and visual perception are limited?",
+          "How can a kitchen support more independent use when reach, mobility and visual perception are limited?",
       },
       {
         id: "research",
         navLabel: "Research",
         number: "03",
-        heading: "Studying real actions rather than isolated dimensions",
+        heading: "Studying everyday actions, not only dimensions",
         body: [
+          "We combined observation, an interview and simulated scenarios to understand where everyday kitchen tasks become difficult.",
+          "The research included:",
           {
             kind: "list",
             items: [
-              "An interview with a person affected by cataracts",
-              "Observation of a participant using a kitchen",
-              "Simulated wheelchair-use scenarios",
-              "Simulated visual impairment using cataract glasses",
-              "Task-based testing with three participants",
+              "an interview with a person affected by cataracts",
+              "observation of a participant using a conventional kitchen",
+              "simulated wheelchair-use scenarios",
+              "simulated visual impairment using cataract glasses",
+              "task-based testing with three participants",
             ],
           },
-          "The team examined typical actions including opening cabinets, locating objects, operating appliances, using the sink, reading labels, sitting at a table and identifying controls through touch.",
+          "We looked at actions such as reaching storage, using the sink and appliances, finding objects, reading labels and identifying controls through touch.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/3465", caption: "[ kitchen observation ]", src: "/images/kitchen-observation.webp", alt: "A seated user reaching for the upper cabinet in a conventional kitchen" },
-              { aspect: "1600/3465", caption: "[ observation — the fridge ]", src: "/images/kitchen-observation-fridge.webp", alt: "The same user reaching into the upper shelves of a standard fridge" },
-              { aspect: "1600/790", caption: "[ simulation testing ]", src: "/images/kitchen-simulation.webp", alt: "Three simulated tasks from a seated position: the hob, the fridge and a wall cabinet" },
+              { aspect: "1600/3465", caption: "Observing reach and access to storage in a conventional kitchen.", src: "/images/kitchen-observation.webp", alt: "A seated user reaching for the upper cabinet in a conventional kitchen" },
+              { aspect: "1600/3465", caption: "Testing access to different areas of a standard refrigerator.", src: "/images/kitchen-observation-fridge.webp", alt: "The same user reaching into the upper shelves of a standard fridge" },
+              { aspect: "920/1988", caption: "Reaching the hob controls from a seated position.", src: "/images/kitchen-simulation-hob.webp", alt: "A seated user turning the hob controls in a conventional kitchen" },
             ],
           },
+          { kind: "h3", text: "A note on simulation" },
           {
             kind: "note",
-            text: "Research note: Simulation can reveal obvious spatial and perceptual barriers, but it does not reproduce the lived experience of disability.",
+            text: "The simulations helped reveal obvious spatial and visual barriers, but they could not reproduce the lived experience of disability. We used them as a way to identify design questions, not as a substitute for research with disabled people.",
           },
         ],
       },
       {
         id: "direction",
-        navLabel: "Framework",
+        navLabel: "Design framework",
         number: "04",
-        heading: "Sight, action and tactile space",
+        heading: "Turning barriers into three design areas",
+        body: [
+          "We grouped the research findings into three areas that could guide the design and help us evaluate later concepts.",
+        ],
+        insightColumns: 3,
         insights: [
           {
             heading: "Sight",
-            body: "What can be seen, distinguished and understood visually? Contrast · text size · lighting · object differentiation · visibility of controls · visual organisation",
+            body: "What needs to be clearly seen and distinguished? Contrast · text size · lighting · clear labels · visible controls · object differentiation",
           },
           {
             heading: "Action",
-            body: "Where can a person reach, move and perform an action? Turning space · reach distance · worktop height · under-clearance · cabinet depth · access to appliances",
+            body: "What needs to be comfortably reached and used? Reach distance · turning space · worktop height · under-clearance · cabinet depth · access to appliances",
           },
           {
             heading: "Touch",
-            body: "What can be identified and controlled through touch? Tactile markers · distinct handle forms · physical buttons · control position · surface differences · feedback",
-          },
-        ],
-        body: [
-          { kind: "h3", text: "Key barriers" },
-          {
-            kind: "list",
-            items: [
-              "Sight — Small labels · weak contrast · transparent containers · thin markings · dark storage · similar containers",
-              "Reach — High cabinets · deep surfaces · inaccessible taps · insufficient clearance · narrow entrances · objects too far back",
-              "Touch — Similar controls · small tactile markers · touch surfaces without feedback · identical handles · unclear induction areas",
-            ],
+            body: "What needs to be understood without relying only on vision? Tactile markers · distinct handles · physical buttons · surface differences · clear feedback",
           },
         ],
       },
@@ -103,92 +129,100 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         id: "development",
         navLabel: "Concept development",
         number: "05",
-        heading: "Moving from observations to spatial relationships",
+        heading: "From first ideas to a more detailed layout",
         body: [
-          "Wooden blocks were used to explore the general relationship between storage, work surfaces, appliances and movement areas. Lego Serious Play allowed the team to compare different room arrangements and discuss where important actions should occur.",
+          "We started with wooden blocks to explore the first rough ideas for the kitchen layout. This helped us quickly compare different arrangements before developing the concept further.",
+          "We then used Lego to build the layout in more detail and explore the position and proportion of the different kitchen elements.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1074", caption: "[ wooden blocks ]", src: "/images/kitchen-wooden-blocks.webp", alt: "Wooden blocks standing in for the counter, sink and storage while the layout was arranged" },
-              { aspect: "1600/991", caption: "[ reach study ]", src: "/images/kitchen-reach-study.webp", alt: "Two overhead reach studies marking how far a seated user can comfortably extend" },
-              { aspect: "1600/444", caption: "[ lego study ]", src: "/images/kitchen-lego.webp", alt: "The kitchen units rebuilt in Lego to test heights and proportions" },
-              { aspect: "1600/932", caption: "[ lego study — annotated ]", src: "/images/kitchen-lego-annotated.webp", alt: "The Lego model labelled with fridge, cupboard, sink, hob, worktop, containers and dining table" },
+              { aspect: "1600/1074", wide: false, caption: "First spatial ideas explored with wooden blocks.", src: "/images/kitchen-wooden-blocks.webp", alt: "Wooden blocks standing in for the counter, sink and storage while the layout was arranged" },
+              { aspect: "1600/991", wide: false, caption: "Control-knob ideas: a raised marker and tactile studs around the dial.", src: "/images/kitchen-reach-study.webp", alt: "Two overhead studies of a control dial, each with a raised green marker and small studs placed around the rim" },
             ],
           },
-          "A journey map then connected these spatial decisions to a complete sequence. This prevented the design from focusing on isolated features without considering the complete cooking process.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/213", caption: "[ journey map ]", src: "/images/kitchen-journey-map.webp", alt: "The cooking sequence as a flow: fridge and shelving, sink, worktop, hob and oven, dining table" },
+              { aspect: "1600/444", caption: "A more detailed exploration of the kitchen layout using Lego.", src: "/images/kitchen-lego.webp", alt: "The kitchen units rebuilt in Lego to test heights and proportions" },
+              { aspect: "1600/932", caption: "The developed layout with the main kitchen functions identified.", src: "/images/kitchen-lego-annotated.webp", alt: "The Lego model labelled with fridge, cupboard, sink, hob, worktop, containers and dining table" },
             ],
           },
+          { kind: "h3", text: "Designing around the cooking process" },
           {
-            kind: "list",
-            ordered: true,
+            kind: "figures",
             items: [
-              "Storage or refrigerator",
-              "Sink",
-              "Work surface",
-              "Hob and oven",
-              "Dining area",
+              { aspect: "1600/213", caption: "The cooking sequence: storage, sink, worktop, hob and dining.", src: "/images/kitchen-journey-map.webp", alt: "The cooking sequence as a flow: fridge and shelving, sink, worktop, hob and oven, dining table" },
             ],
           },
         ],
       },
       {
         id: "testing",
-        navLabel: "Full-scale testing",
+        navLabel: "Full-scale prototyping",
         number: "06",
-        heading: "Testing the kitchen at the scale of the body",
+        heading: "Testing the concept at full scale",
         body: [
-          "Paper prototypes were built at full scale to test cabinet positions, work surfaces, sink access, oven controls, handles and movement space. This stage revealed problems that were difficult to identify in small models. Reach distances, turning areas and control positions could be evaluated through actual movement.",
+          "We built full-scale paper prototypes to test the kitchen concept more realistically before moving into the final 3D environment.",
+          "The prototypes helped us explore how the ideas worked at the scale of the body and allowed us to test dimensions, reach, storage, sink access, controls and wheelchair movement.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/535", caption: "[ full-scale prototype ]", src: "/images/kitchen-paper-prototype.webp", alt: "Full-scale paper prototypes of the pull-out drawers and the lowered sink" },
-              { aspect: "1600/743", caption: "[ prototype details ]", src: "/images/kitchen-paper-details.webp", alt: "Prototype details: the cardboard control dials and the reach arc drawn on paper" },
-              { aspect: "1600/430", caption: "[ prototype containers ]", src: "/images/kitchen-paper-containers.webp", alt: "Paper prototypes of the transparent containers and the pull-down shelf" },
+              { aspect: "1600/535", caption: "Full-scale paper prototypes used to test the kitchen concept and its dimensions.", src: "/images/kitchen-paper-prototype.webp", alt: "Full-scale paper prototypes of the pull-out drawers and the lowered sink" },
+              { aspect: "1600/743", caption: "Prototype details: cardboard control dials and the reach arc.", src: "/images/kitchen-paper-details.webp", alt: "Prototype details: the cardboard control dials and the reach arc drawn on paper" },
+              { aspect: "1600/430", caption: "Paper prototypes of the transparent containers and the pull-down shelf.", src: "/images/kitchen-paper-containers.webp", alt: "Paper prototypes of the transparent containers and the pull-down shelf" },
             ],
           },
-          "Observations were translated directly into revisions rather than being treated as final confirmation.",
+          { kind: "h3", text: "Refining through physical testing" },
+          "Working at full scale made it easier to notice issues that were difficult to judge in smaller models. We used these observations to refine the concept and adjust individual elements before developing the final design.",
         ],
       },
       {
         id: "outcome",
         navLabel: "Principles & outcome",
         number: "07",
-        heading: "Five final principles",
-        insights: [
-          {
-            heading: "Adjustable reach",
-            body: "Height-adjustable worktops, storage and selected appliances allow the environment to respond to different seated and standing users.",
-          },
-          {
-            heading: "Clear movement",
-            body: "Turning space and under-clearance allow wheelchair users to approach work areas more directly.",
-          },
-          {
-            heading: "Strong visual contrast",
-            body: "Black and white contrast makes handles, labels, controls and functional areas easier to distinguish.",
-          },
-          {
-            heading: "Tactile differentiation",
-            body: "Buttons, handles and control areas use different physical forms. Tactile squares on the induction surface help users locate cooking zones without relying only on vision.",
-          },
-          {
-            heading: "Organised storage",
-            body: "Frequently used items are placed within accessible zones and should be distinguishable through position, labelling and container form.",
-          },
-        ],
+        /*
+         * The owner's deck heads this section "Turning the research into design
+         * principles" and closes it with "Translating the concept into 3D".
+         * They are swapped here because `Section` renders `insights` **after**
+         * `body` and has no slot for prose between them: with the principles
+         * as the section's `insights` they can only come last, so the sentence
+         * that introduces them has to come last too. Both of the owner's
+         * sub-headings survive; only which of the two is the section heading
+         * changed.
+         */
+        heading: "Translating the concept into 3D",
         body: [
-          { kind: "h3", text: "Translating research into a spatial prototype" },
-          "The final design was modelled in Blender and populated with appliances, storage, work surfaces and accessibility features. An animated wheelchair user demonstrates how the kitchen could function across different tasks.",
+          "After the physical prototypes, I developed the kitchen as a 3D environment in Blender. I worked on the modelling, materials and textures, and helped translate the tested spatial ideas into the digital version.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/382", caption: "[ 3d model process ]", src: "/images/kitchen-3d-structure.webp", alt: "The kitchen's grey-box model in Blender, before materials" },
-              { aspect: "1024/576", caption: "[ blender environment + animation ]", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "The finished kitchen in Blender: a seated user at the lowered worktop beside the pull-down shelving" },
+              { aspect: "1600/382", caption: "The kitchen model in Blender before materials and textures were applied.", src: "/images/kitchen-3d-structure.webp", alt: "The kitchen's grey-box model in Blender, before materials" },
+              { aspect: "1024/576", caption: "The finished kitchen in Blender, with an animated wheelchair user.", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "The finished kitchen in Blender: a seated user at the lowered worktop beside the pull-down shelving" },
             ],
+          },
+          { kind: "h3", text: "Turning the research into design principles" },
+          "The final concept was guided by five principles that came directly from the research and prototyping.",
+        ],
+        insights: [
+          {
+            heading: "Adjustable reach",
+            body: "Worktops, storage and selected elements adapt to different seated and standing users.",
+          },
+          {
+            heading: "Clear movement",
+            body: "Turning space and under-clearance make it easier to approach and use the main work areas.",
+          },
+          {
+            heading: "Strong visual contrast",
+            body: "High contrast helps distinguish handles, controls, labels and functional areas.",
+          },
+          {
+            heading: "Tactile differentiation",
+            body: "Different shapes, surfaces and physical controls make important functions easier to identify through touch.",
+          },
+          {
+            heading: "Organised storage",
+            body: "Frequently used items stay within accessible areas and are easier to distinguish through position, labels and container design.",
           },
         ],
       },
@@ -198,22 +232,11 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         number: "08",
         heading: "Formative evidence, not comprehensive validation",
         body: [
-          "The process provides useful formative evidence through observation, one interview, three participant tests and full-scale prototyping. It does not represent comprehensive validation with a diverse group of wheelchair users and people with different forms and stages of visual impairment.",
-          {
-            kind: "list",
-            items: [
-              "Simulated disability experience",
-              "Small number of participants",
-              "No long-term kitchen use",
-              "No engineering validation and no safety or building-code verification",
-              "No physical production of the adjustable mechanisms",
-              "Reduced final render quality",
-            ],
-          },
-          "A future phase should include co-design with disabled participants from the beginning, occupational-therapy expertise and technical feasibility testing.",
+          "The project was tested through observation, one interview, participant testing and full-scale prototypes, but not with a broad group of wheelchair users or people with visual impairments.",
+          "A future version should involve disabled participants more directly and include technical feasibility testing.",
           { kind: "h3", text: "What I learned" },
-          "This project showed me that accessibility problems are often created by ordinary design decisions that are treated as neutral. A cabinet height, smooth control surface or low-contrast label may appear minor until it prevents a person from completing a basic action independently.",
-          "The most valuable stage was full-scale testing. Several issues only became visible when the environment was experienced through movement rather than viewed as a drawing. The next iteration should involve disabled participants as design partners rather than relying mainly on simulation.",
+          "The project showed me how small design decisions, such as reach, contrast or the position of controls, can strongly affect independence.",
+          "Testing at full scale was especially valuable because some problems only became clear once we physically moved through the space.",
         ],
       },
     ],
@@ -223,14 +246,14 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
     name: "Barrierefreie Küche",
     headline: "Eine Küche durch Reichweite, Sehen und Berührung gestalten.",
     summary:
-      "Dieses Inclusive-Design-Projekt untersucht, wie eine Küche Menschen im Rollstuhl und Personen mit Grauem Star besser unterstützen kann. Das Konzept entstand durch Beobachtung, ein Interview, Selbsterfahrung, physische Prototypen und eine abschließende animierte Blender-Umgebung.",
-    tags: ["Inclusive Design", "Design Research", "Spatial Design", "Physical Prototyping", "3D Visualisation"],
+      "Ein inklusives Küchenkonzept, entwickelt rund um die Bedürfnisse von Menschen im Rollstuhl und Personen mit Sehbeeinträchtigungen, insbesondere Grauem Star.",
+    tags: [...PROJECT_TAGS["barrier-free-kitchen"]],
+    context: "Gemeinsames Hochschulprojekt",
     role: "Prototyping & 3D Design",
-    contribution: "Papier- und 3D-Modelle, Materialien und Texturen erstellt sowie an Tests mitgewirkt.",
-    type: "Semesterprojekt · Team",
-    tools: "",
-    deliverables: "Finales Rendering von einem Teammitglied.",
-    heroImage: { src: "/images/hero-barrier-free-kitchen.webp", alt: "Die barrierefreie Küche als 3D-Rendering, neben dem Titel der Fallstudie", aspect: "1900/1069" },
+    team: "",
+    contribution: "Physical Prototyping · 3D Modelling · Materialien & Texturen · Testing",
+    tools: "Blender",
+    heroImage: { src: "/images/hero-barrier-free-kitchen.webp", alt: "Die barrierefreie Küche in drei 3D-Renderings, neben dem Projektnamen", aspect: "1920/1080" },
     sections: [
       {
         id: "overview",
@@ -238,81 +261,77 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         number: "01",
         heading: "Das Projekt auf einen Blick",
         body: [
-          "Im Mittelpunkt standen zwei Nutzergruppen: Menschen im Rollstuhl und Menschen mit einer Sehbeeinträchtigung, insbesondere Grauem Star.",
-          "Der Prozess begann mit der Untersuchung bestehender Küchen und alltäglicher Handlungen. Anschließend entwickelte das Team räumliche Konzepte mit Holzklötzen und Lego, erstellte eine vollständige Journey Map, baute Papierprototypen im Maßstab 1:1 und übertrug das resultierende System in eine Blender-Umgebung mit einer animierten Rollstuhlnutzerin.",
+          "Das Projekt untersuchte, wie sich alltägliche Aufgaben in der Küche verändern, wenn Reichweite, Mobilität oder Sehen eingeschränkt sind.",
+          "Unser Prozess führte von der Beobachtung bestehender Küchen und alltäglicher Handlungen über räumliche Experimente und Papierprototypen im Maßstab 1:1 bis zu einer finalen 3D-Umgebung. Mein Schwerpunkt lag darauf, die Ideen in physische und digitale Prototypen zu übersetzen, Materialien und Texturen zu entwickeln und an den Tests mitzuwirken.",
         ],
       },
       {
         id: "challenge",
-        navLabel: "Herausforderung",
+        navLabel: "Kontext & Herausforderung",
         number: "02",
-        heading: "Standardküchen setzen einen engen Bereich körperlicher Fähigkeiten voraus.",
+        heading: "Wenn Standardmaße zu Barrieren werden",
         body: [
-          "Konventionelle Küchen platzieren Stauraum, Bedienelemente und Arbeitsflächen häufig außerhalb der komfortablen Reichweite von Menschen im Rollstuhl. Gleichzeitig verlassen sie sich stark auf visuelle Hinweise wie kleine Schrift, schwache Kontraste, glatte Touch-Bedienungen und transparente Behälter.",
-          "Diese Barrieren können einfache Handlungen verlangsamen, unsicher machen oder ohne Unterstützung unmöglich werden lassen.",
+          "Konventionelle Küchen platzieren Stauraum, Arbeitsflächen und Bedienelemente häufig außerhalb der komfortablen Reichweite von Menschen im Rollstuhl. Gleichzeitig können kleine Beschriftungen, schwache Kontraste und Touch-Bedienungen alltägliche Aufgaben für Menschen mit Sehbeeinträchtigungen erschweren.",
+          "Die Herausforderung bestand darin, diese alltäglichen Designentscheidungen neu zu denken, damit mehr Aufgaben sicher und selbstständig ausgeführt werden können.",
         ],
         designQuestion:
           "Wie kann eine Küche selbstständigere Nutzung unterstützen, wenn Reichweite, Mobilität und visuelle Wahrnehmung eingeschränkt sind?",
       },
       {
         id: "research",
-        navLabel: "Research",
+        navLabel: "Recherche",
         number: "03",
-        heading: "Reale Handlungen statt isolierter Maße untersuchen",
+        heading: "Alltägliche Handlungen statt nur Maße untersuchen",
         body: [
+          "Wir kombinierten Beobachtungen, ein Interview und simulierte Situationen, um zu verstehen, wo alltägliche Aufgaben in der Küche schwierig werden.",
+          "Die Recherche umfasste:",
           {
             kind: "list",
             items: [
-              "Ein Interview mit einer Person mit Grauem Star",
-              "Beobachtung einer Testperson bei der Küchennutzung",
-              "Simulierte Nutzung aus einer Rollstuhl-Situation",
-              "Simulierte Sehbeeinträchtigung mit einer Grauer-Star-Brille",
-              "Aufgabenbasierte Tests mit drei Teilnehmenden",
+              "ein Interview mit einer Person mit Grauem Star",
+              "die Beobachtung einer Person in einer konventionellen Küche",
+              "simulierte Nutzung aus einer Rollstuhl-Situation",
+              "simulierte Sehbeeinträchtigung mit einer Grauer-Star-Brille",
+              "aufgabenbasierte Tests mit drei Teilnehmenden",
             ],
           },
-          "Untersucht wurden typische Handlungen wie das Öffnen von Schränken, das Finden von Gegenständen, die Bedienung von Geräten, die Nutzung der Spüle, das Lesen von Beschriftungen, das Sitzen am Tisch und das Erkennen von Bedienelementen durch Berührung.",
+          "Wir betrachteten unter anderem das Erreichen von Stauraum, die Nutzung von Spüle und Geräten, das Finden von Gegenständen, das Lesen von Beschriftungen und das Erkennen von Bedienelementen durch Berührung.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/3465", caption: "[ kitchen observation ]", src: "/images/kitchen-observation.webp", alt: "Eine sitzende Nutzerin greift in einer konventionellen Küche nach dem Oberschrank" },
-              { aspect: "1600/3465", caption: "[ observation — the fridge ]", src: "/images/kitchen-observation-fridge.webp", alt: "Dieselbe Nutzerin greift in die oberen Fächer eines üblichen Kühlschranks" },
-              { aspect: "1600/790", caption: "[ simulation testing ]", src: "/images/kitchen-simulation.webp", alt: "Drei simulierte Handlungen aus sitzender Position: Kochfeld, Kühlschrank und Hängeschrank" },
+              { aspect: "1600/3465", caption: "Beobachtung von Reichweite und Zugang zu Stauraum in einer konventionellen Küche.", src: "/images/kitchen-observation.webp", alt: "Eine sitzende Nutzerin greift in einer konventionellen Küche nach dem Oberschrank" },
+              { aspect: "1600/3465", caption: "Untersuchung der Erreichbarkeit verschiedener Bereiche eines üblichen Kühlschranks.", src: "/images/kitchen-observation-fridge.webp", alt: "Dieselbe Nutzerin greift in die oberen Fächer eines üblichen Kühlschranks" },
+              { aspect: "920/1988", caption: "Die Bedienelemente des Kochfelds aus sitzender Position erreichen.", src: "/images/kitchen-simulation-hob.webp", alt: "Eine sitzende Nutzerin bedient die Knöpfe des Kochfelds in einer konventionellen Küche" },
             ],
           },
+          { kind: "h3", text: "Ein Hinweis zur Simulation" },
           {
             kind: "note",
-            text: "Hinweis: Simulation kann offensichtliche räumliche und wahrnehmungsbezogene Barrieren sichtbar machen, ersetzt jedoch nicht die gelebte Erfahrung von Behinderung.",
+            text: "Die Simulationen halfen dabei, offensichtliche räumliche und visuelle Barrieren sichtbar zu machen, konnten jedoch die gelebte Erfahrung von Behinderung nicht nachbilden. Wir nutzten sie daher, um Designfragen zu erkennen, nicht als Ersatz für Forschung mit Menschen mit Behinderungen.",
           },
         ],
       },
       {
         id: "direction",
-        navLabel: "Framework",
+        navLabel: "Design-Framework",
         number: "04",
-        heading: "Sehraum, Wirkraum und Tastraum",
+        heading: "Barrieren in drei Gestaltungsbereiche übersetzen",
+        body: [
+          "Wir ordneten die Erkenntnisse aus der Recherche drei Bereichen zu, die uns bei der Gestaltung und Bewertung späterer Konzepte leiteten.",
+        ],
+        insightColumns: 3,
         insights: [
           {
-            heading: "Sehraum",
-            body: "Was kann visuell gesehen, unterschieden und verstanden werden? Kontrast · Textgröße · Beleuchtung · Unterscheidbarkeit · Sichtbarkeit der Bedienelemente · visuelle Ordnung",
+            heading: "Sehen",
+            body: "Was muss klar gesehen und unterschieden werden können? Kontrast · Textgröße · Beleuchtung · klare Beschriftungen · sichtbare Bedienelemente · unterscheidbare Objekte",
           },
           {
-            heading: "Wirkraum",
-            body: "Wo kann eine Person hinreichen, sich bewegen und eine Handlung ausführen? Wendefläche · Reichweite · Arbeitshöhe · Unterfahrbarkeit · Schranktiefe · Zugang zu Geräten",
+            heading: "Handeln",
+            body: "Was muss bequem erreicht und genutzt werden können? Reichweite · Wendefläche · Arbeitshöhe · Unterfahrbarkeit · Schranktiefe · Zugang zu Geräten",
           },
           {
-            heading: "Tastraum",
-            body: "Was kann durch Berührung erkannt und gesteuert werden? Taktile Marker · unterscheidbare Griffe · physische Tasten · Position der Bedienelemente · Oberflächenunterschiede · Feedback",
-          },
-        ],
-        body: [
-          { kind: "h3", text: "Zentrale Barrieren" },
-          {
-            kind: "list",
-            items: [
-              "Sehen — Kleine Beschriftungen · schwacher Kontrast · transparente Behälter · dünne Markierungen · dunkler Stauraum · ähnliche Behälter",
-              "Reichweite — Hohe Schränke · tiefe Flächen · unzugängliche Armaturen · fehlende Unterfahrbarkeit · schmale Zugänge · zu weit entfernte Objekte",
-              "Tasten — Ähnliche Bedienelemente · kleine taktile Marker · Touch-Flächen ohne Feedback · identische Griffe · unklare Induktionsbereiche",
-            ],
+            heading: "Tasten",
+            body: "Was muss auch ohne ausschließlich visuelle Hinweise verständlich sein? Taktile Marker · unterscheidbare Griffe · physische Tasten · Oberflächenunterschiede · klares Feedback",
           },
         ],
       },
@@ -320,92 +339,90 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         id: "development",
         navLabel: "Konzeptentwicklung",
         number: "05",
-        heading: "Beobachtungen in räumliche Beziehungen übersetzen",
+        heading: "Von ersten Ideen zu einem detaillierteren Layout",
         body: [
-          "Holzklötze wurden verwendet, um die grundlegenden Beziehungen zwischen Stauraum, Arbeitsflächen, Geräten und Bewegungsbereichen zu untersuchen. Lego Serious Play ermöglichte den Vergleich verschiedener Raumaufteilungen und half bei der Diskussion, wo wichtige Handlungen stattfinden sollten.",
+          "Wir begannen mit Holzklötzen, um erste grobe Ideen für das Küchenlayout zu untersuchen. So konnten wir verschiedene Anordnungen schnell vergleichen, bevor wir das Konzept weiterentwickelten.",
+          "Anschließend nutzten wir Lego, um das Layout detaillierter aufzubauen und Position sowie Proportion der verschiedenen Küchenelemente zu untersuchen.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1074", caption: "[ wooden blocks ]", src: "/images/kitchen-wooden-blocks.webp", alt: "Holzklötze als Platzhalter für Arbeitsplatte, Spüle und Stauraum beim Anordnen des Grundrisses" },
-              { aspect: "1600/991", caption: "[ reach study ]", src: "/images/kitchen-reach-study.webp", alt: "Zwei Reichweiten-Studien von oben, die den bequem erreichbaren Bereich markieren" },
-              { aspect: "1600/444", caption: "[ lego study ]", src: "/images/kitchen-lego.webp", alt: "Die Küchenmodule in Lego nachgebaut, um Höhen und Proportionen zu prüfen" },
-              { aspect: "1600/932", caption: "[ lego study — annotated ]", src: "/images/kitchen-lego-annotated.webp", alt: "Das Lego-Modell beschriftet mit Kühlschrank, Schrank, Spüle, Herd, Arbeitsfläche, Behältern und Esstisch" },
+              { aspect: "1600/1074", wide: false, caption: "Erste räumliche Ideen mit Holzklötzen.", src: "/images/kitchen-wooden-blocks.webp", alt: "Holzklötze als Platzhalter für Arbeitsplatte, Spüle und Stauraum beim Anordnen des Grundrisses" },
+              { aspect: "1600/991", wide: false, caption: "Ideen für die Bedienknöpfe: erhabene Markierung und taktile Punkte.", src: "/images/kitchen-reach-study.webp", alt: "Zwei Aufnahmen eines Drehknopfs von oben, jeweils mit einer erhabenen grünen Markierung und kleinen Punkten am Rand" },
             ],
           },
-          "Eine Journey Map verband diese räumlichen Entscheidungen anschließend zu einer vollständigen Abfolge. Dadurch konzentrierte sich das Design nicht nur auf einzelne Funktionen, sondern auf den vollständigen Kochprozess.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/213", caption: "[ journey map ]", src: "/images/kitchen-journey-map.webp", alt: "Der Kochablauf als Fluss: Kühlschrank und Regal, Spüle, Arbeitsplatte, Herd und Ofen, Esstisch" },
+              { aspect: "1600/444", caption: "Detailliertere Untersuchung des Küchenlayouts mit Lego.", src: "/images/kitchen-lego.webp", alt: "Die Küchenmodule in Lego nachgebaut, um Höhen und Proportionen zu prüfen" },
+              { aspect: "1600/932", caption: "Das weiterentwickelte Layout mit den wichtigsten Küchenfunktionen.", src: "/images/kitchen-lego-annotated.webp", alt: "Das Lego-Modell beschriftet mit Kühlschrank, Schrank, Spüle, Herd, Arbeitsfläche, Behältern und Esstisch" },
             ],
           },
+          { kind: "h3", text: "Den Kochablauf berücksichtigen" },
           {
-            kind: "list",
-            ordered: true,
+            kind: "figures",
             items: [
-              "Stauraum oder Kühlschrank",
-              "Spüle",
-              "Arbeitsfläche",
-              "Herd und Ofen",
-              "Essbereich",
+              { aspect: "1600/213", caption: "Der Kochablauf: Stauraum, Spüle, Arbeitsfläche, Herd und Essbereich.", src: "/images/kitchen-journey-map.webp", alt: "Der Kochablauf als Fluss: Kühlschrank und Regal, Spüle, Arbeitsplatte, Herd und Ofen, Esstisch" },
             ],
           },
         ],
       },
       {
         id: "testing",
-        navLabel: "Test im Maßstab 1:1",
+        navLabel: "Full-Scale Prototyping",
         number: "06",
-        heading: "Die Küche im Maßstab des Körpers testen",
+        heading: "Das Konzept im Maßstab 1:1 testen",
         body: [
-          "Papierprototypen wurden im Maßstab 1:1 gebaut, um Schrankpositionen, Arbeitsflächen, Spülenzugang, Ofenbedienung, Griffe und Bewegungsflächen zu testen. Diese Phase machte Probleme sichtbar, die in kleinen Modellen schwer zu erkennen waren. Reichweiten, Wendeflächen und Positionen von Bedienelementen konnten durch tatsächliche Bewegung überprüft werden.",
+          "Wir bauten Papierprototypen im Maßstab 1:1, um das Küchenkonzept realistischer zu testen, bevor wir die finale 3D-Umgebung entwickelten.",
+          "Die Prototypen halfen uns zu untersuchen, wie die Ideen im Maßstab des Körpers funktionieren. Dabei konnten wir Maße, Reichweiten, Stauraum, Zugang zur Spüle, Bedienelemente und Bewegungsraum für den Rollstuhl testen.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/535", caption: "[ full-scale prototype ]", src: "/images/kitchen-paper-prototype.webp", alt: "Papierprototypen im Maßstab 1:1 der Auszüge und der abgesenkten Spüle" },
-              { aspect: "1600/743", caption: "[ prototype details ]", src: "/images/kitchen-paper-details.webp", alt: "Prototyp-Details: die Bedienknöpfe aus Karton und der auf Papier gezeichnete Reichweitenbogen" },
-              { aspect: "1600/430", caption: "[ prototype containers ]", src: "/images/kitchen-paper-containers.webp", alt: "Papierprototypen der transparenten Behälter und des Absenkregals" },
+              { aspect: "1600/535", caption: "Papierprototypen im Maßstab 1:1 zum Testen des Küchenkonzepts und seiner Maße.", src: "/images/kitchen-paper-prototype.webp", alt: "Papierprototypen im Maßstab 1:1 der Auszüge und der abgesenkten Spüle" },
+              { aspect: "1600/743", caption: "Prototyp-Details: Bedienknöpfe aus Karton und der Reichweitenbogen.", src: "/images/kitchen-paper-details.webp", alt: "Prototyp-Details: die Bedienknöpfe aus Karton und der auf Papier gezeichnete Reichweitenbogen" },
+              { aspect: "1600/430", caption: "Papierprototypen der transparenten Behälter und des Absenkregals.", src: "/images/kitchen-paper-containers.webp", alt: "Papierprototypen der transparenten Behälter und des Absenkregals" },
             ],
           },
-          "Die Beobachtungen wurden direkt in Überarbeitungen übersetzt und nicht als reine Bestätigung des ersten Konzepts behandelt.",
+          { kind: "h3", text: "Durch physisches Testen weiterentwickeln" },
+          "Im Maßstab 1:1 wurden Probleme sichtbar, die sich in kleineren Modellen nur schwer beurteilen ließen. Diese Beobachtungen nutzten wir, um das Konzept weiterzuentwickeln und einzelne Elemente vor dem finalen Design anzupassen.",
         ],
       },
       {
         id: "outcome",
         navLabel: "Prinzipien & Ergebnis",
         number: "07",
-        heading: "Fünf Gestaltungsprinzipien",
-        insights: [
-          {
-            heading: "Anpassbare Reichweite",
-            body: "Höhenverstellbare Arbeitsflächen, Stauraum und ausgewählte Geräte lassen die Umgebung auf unterschiedliche sitzende und stehende Nutzer reagieren.",
-          },
-          {
-            heading: "Klare Bewegung",
-            body: "Wendeflächen und Unterfahrbarkeit ermöglichen Rollstuhlnutzern einen direkteren Zugang zu Arbeitsbereichen.",
-          },
-          {
-            heading: "Starker visueller Kontrast",
-            body: "Schwarz-Weiß-Kontraste machen Griffe, Beschriftungen, Bedienelemente und Funktionsbereiche leichter unterscheidbar.",
-          },
-          {
-            heading: "Taktile Unterscheidung",
-            body: "Tasten, Griffe und Bedienbereiche nutzen unterschiedliche physische Formen. Taktile Quadrate auf dem Induktionsfeld helfen, Kochzonen ohne reinen Sehbezug zu finden.",
-          },
-          {
-            heading: "Organisierter Stauraum",
-            body: "Häufig genutzte Gegenstände liegen in erreichbaren Zonen und sind durch Position, Beschriftung und Behälterform unterscheidbar.",
-          },
-        ],
+        heading: "Das Konzept in 3D übersetzen",
         body: [
-          { kind: "h3", text: "Recherche in einen räumlichen Prototyp übersetzen" },
-          "Das finale Design wurde in Blender modelliert und mit Geräten, Stauraum, Arbeitsflächen und barrierearmen Funktionen ergänzt. Eine animierte Rollstuhlnutzerin zeigt, wie die Küche bei unterschiedlichen Aufgaben funktionieren könnte.",
+          "Nach den physischen Prototypen entwickelte ich die Küche als 3D-Umgebung in Blender weiter. Mein Schwerpunkt lag auf Modellierung, Materialien und Texturen sowie darauf, die getesteten räumlichen Ideen in die digitale Version zu übertragen.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/382", caption: "[ 3d model process ]", src: "/images/kitchen-3d-structure.webp", alt: "Das Graustufen-Modell der Küche in Blender, vor den Materialien" },
-              { aspect: "1024/576", caption: "[ blender environment + animation ]", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "Die fertige Küche in Blender: eine sitzende Nutzerin an der abgesenkten Arbeitsplatte neben dem Absenkregal" },
+              { aspect: "1600/382", caption: "Das Küchenmodell in Blender vor der Anwendung von Materialien und Texturen.", src: "/images/kitchen-3d-structure.webp", alt: "Das Graustufen-Modell der Küche in Blender, vor den Materialien" },
+              { aspect: "1024/576", caption: "Die fertige Küche in Blender, mit einer animierten Rollstuhlnutzerin.", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "Die fertige Küche in Blender: eine sitzende Nutzerin an der abgesenkten Arbeitsplatte neben dem Absenkregal" },
             ],
+          },
+          { kind: "h3", text: "Die Recherche in Gestaltungsprinzipien übersetzen" },
+          "Das finale Konzept wurde von fünf Prinzipien geleitet, die direkt aus der Recherche und dem Prototyping entstanden.",
+        ],
+        insights: [
+          {
+            heading: "Anpassbare Reichweite",
+            body: "Arbeitsflächen, Stauraum und ausgewählte Elemente passen sich an unterschiedliche sitzende und stehende Nutzer an.",
+          },
+          {
+            heading: "Klare Bewegungsflächen",
+            body: "Wendeflächen und Unterfahrbarkeit erleichtern den Zugang zu den wichtigsten Arbeitsbereichen.",
+          },
+          {
+            heading: "Starker visueller Kontrast",
+            body: "Hohe Kontraste helfen dabei, Griffe, Bedienelemente, Beschriftungen und Funktionsbereiche besser zu unterscheiden.",
+          },
+          {
+            heading: "Taktile Unterscheidbarkeit",
+            body: "Unterschiedliche Formen, Oberflächen und physische Bedienelemente machen wichtige Funktionen auch über Berührung leichter erkennbar.",
+          },
+          {
+            heading: "Organisierter Stauraum",
+            body: "Häufig genutzte Gegenstände bleiben in gut erreichbaren Bereichen und lassen sich durch Position, Beschriftung und Behältergestaltung leichter unterscheiden.",
           },
         ],
       },
@@ -415,22 +432,11 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         number: "08",
         heading: "Formative Erkenntnisse, keine umfassende Validierung",
         body: [
-          "Der Prozess liefert nützliche formative Erkenntnisse durch Beobachtung, ein Interview, Tests mit drei Personen und Prototyping im Maßstab 1:1. Er stellt keine umfassende Validierung mit einer vielfältigen Gruppe von Rollstuhlnutzern und Personen mit unterschiedlichen Formen visueller Beeinträchtigung dar.",
-          {
-            kind: "list",
-            items: [
-              "Simulierte Behinderungserfahrung",
-              "Kleine Anzahl an Teilnehmenden",
-              "Keine langfristige Küchennutzung",
-              "Keine technische Validierung und keine Prüfung von Sicherheits- oder Bauvorschriften",
-              "Keine physische Umsetzung der verstellbaren Mechanismen",
-              "Reduzierte Qualität des finalen Renderings",
-            ],
-          },
-          "Eine zukünftige Phase sollte Co-Design mit behinderten Teilnehmenden von Beginn an, ergotherapeutische Expertise und technische Machbarkeitstests einbeziehen.",
+          "Das Projekt wurde durch Beobachtung, ein Interview, Tests mit Teilnehmenden und Prototypen im Maßstab 1:1 untersucht, jedoch nicht mit einer breiten Gruppe von Menschen im Rollstuhl oder Personen mit Sehbeeinträchtigungen.",
+          "Eine Weiterentwicklung sollte Menschen mit Behinderungen stärker einbeziehen und zusätzlich die technische Machbarkeit prüfen.",
           { kind: "h3", text: "Was ich gelernt habe" },
-          "Dieses Projekt hat mir gezeigt, dass Barrieren häufig durch alltägliche Designentscheidungen entstehen, die als neutral betrachtet werden. Eine Schrankhöhe, eine glatte Bedienoberfläche oder eine kontrastarme Beschriftung kann unbedeutend erscheinen, bis sie eine selbstständige Handlung verhindert.",
-          "Die wertvollste Phase war das Testen im Maßstab 1:1. Mehrere Probleme wurden erst sichtbar, als die Umgebung durch Bewegung erlebt und nicht nur als Zeichnung betrachtet wurde. Die nächste Iteration sollte behinderte Menschen als Designpartner einbeziehen, anstatt sich hauptsächlich auf Simulation zu verlassen.",
+          "Das Projekt hat mir gezeigt, wie stark kleine Designentscheidungen wie Reichweite, Kontrast oder die Position von Bedienelementen die Selbstständigkeit beeinflussen können.",
+          "Besonders wertvoll war das Testen im Maßstab 1:1, weil einige Probleme erst sichtbar wurden, als wir uns tatsächlich durch den Raum bewegten.",
         ],
       },
     ],

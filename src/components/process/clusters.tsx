@@ -51,6 +51,16 @@ function Pin({ tone = "gray", left = "50%" }: { tone?: "gray" | "blue"; left?: s
   return (
     <span
       aria-hidden="true"
+      /*
+       * `process-pin` is not decoration, it is an exemption
+       * (`MILESTONE-023` task 7). On the phone card, `.process-bento .pb-col >
+       * *` forces every child of a column to the card's full width — which is
+       * right for the panels stacked inside it and catastrophic for this,
+       * because a 15px absolutely positioned dot became a 287px blue bar
+       * lying across step 01 and out over the card's edge. The class is what
+       * that rule tests for.
+       */
+      className="process-pin"
       style={{
         position: "absolute",
         left,
@@ -198,7 +208,7 @@ export function Cluster1() {
           <InterviewSketch />
         </div>
         <p
-          style={{ fontFamily: "Caveat,'Segoe Script','Bradley Hand',cursive" }}
+          style={{ fontFamily: "var(--font-hand, 'Caveat', 'Segoe Script', 'Bradley Hand', cursive)" }}
           className="mt-[11px] text-[15px] leading-[1.15] text-[#1B1C1E]"
         >
           &ldquo;I just want something that actually works for me.&rdquo;
@@ -319,7 +329,7 @@ function SitemapSketch() {
       <text
         x={x + w / 2}
         y={y + h / 2 + 4}
-        style={{ fontFamily: "Caveat,'Segoe Script','Bradley Hand',cursive", fontSize: fs, fill: "#3A3B37", stroke: "none", textAnchor: "middle" }}
+        style={{ fontFamily: "var(--font-hand, 'Caveat', 'Segoe Script', 'Bradley Hand', cursive)", fontSize: fs, fill: "#3A3B37", stroke: "none", textAnchor: "middle" }}
       >
         {label}
       </text>
@@ -394,7 +404,7 @@ function CheckItem({ label, checked }: { label: string; checked: boolean }) {
  * German. A child with `w-full` takes a line of its own, by construction, in
  * both locales and at every scale the map is drawn at.
  */
-export function Cluster3() {
+export function Cluster3({ stacked = false }: ClusterProps) {
   return (
     <>
       {/*
@@ -417,7 +427,7 @@ export function Cluster3() {
                 <path d="M11 3 L5 7 L11 12" />
               </svg>
               <p
-                style={{ fontFamily: "Caveat,'Segoe Script','Bradley Hand',cursive" }}
+                style={{ fontFamily: "var(--font-hand, 'Caveat', 'Segoe Script', 'Bradley Hand', cursive)" }}
                 className="mt-0.5 text-[15px] leading-[1.1] text-[#1B3FE0]"
               >
                 Simplify navigation
@@ -463,7 +473,7 @@ export function Cluster3() {
       </div>
 
       <div className="pb-row flex w-full flex-wrap items-start gap-2.5">
-        <div className="relative" style={{ width: 222 }}>
+        <div className={clsx("relative", stacked && "pb-fixed")} style={{ width: stacked ? 138 : 222 }}>
           {/* The strip of tape. It belongs to the sitemap and moves with it. */}
           <span
             aria-hidden="true"
@@ -485,7 +495,7 @@ export function Cluster3() {
             </div>
           </Polaroid>
         </div>
-        <div className="pb-col flex flex-col gap-2.5" style={{ width: 104 }}>
+        <div className={clsx("flex flex-col gap-2.5", !stacked && "pb-col")} style={{ width: stacked ? undefined : 104, flex: stacked ? "1 1 0%" : undefined }}>
           <DarkPanel>
             <p className="m-0 text-[10px] leading-[1.4] text-[#C4C9D0]">Exploring structure and flow.</p>
           </DarkPanel>
@@ -543,7 +553,10 @@ export function Cluster4({ stacked = false }: ClusterProps) {
           </div>
         </div>
 
-        <div className="pb-col flex flex-col gap-4" style={{ width: 88 }}>
+        <div
+          className={clsx("flex flex-col gap-4", !stacked && "pb-col")}
+          style={{ width: stacked ? undefined : 88, flex: stacked ? "0 0 auto" : undefined }}
+        >
           <div className="relative" style={{ width: 88 }}>
             <Pin left="54%" />
             {/*
@@ -571,8 +584,14 @@ export function Cluster4({ stacked = false }: ClusterProps) {
           </div>
           <div className="relative" style={{ width: 88 }}>
             <Pin />
+            {/*
+              On the phone card the states panel sits beside the palette and
+              icon row rather than below it, and its height is set to match
+              that combination exactly — 40px palette + 14px gap + 40px icons
+              — so the two blocks read as one aligned unit.
+            */}
             <div
-              style={{ height: 104, transform: stacked ? "none" : "rotate(1.2deg)" }}
+              style={{ height: stacked ? 94 : 104, transform: stacked ? "none" : "rotate(1.2deg)" }}
               className="box-border flex flex-col gap-[5px] border border-white/10 bg-[#101116] p-2"
             >
               <span className={monoLabel}>states</span>

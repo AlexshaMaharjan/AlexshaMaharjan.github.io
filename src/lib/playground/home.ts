@@ -11,9 +11,9 @@ import type { PlaygroundHomeLocaleContent } from "./types";
  */
 const home: PlaygroundHomeLocaleContent = {
   en: {
-    eyebrow: "Playground — personal work",
-    heading: "Things I make without a brief.",
-    intro: "Drawings, objects, experiments and ideas created through curiosity.",
+    eyebrow: "Personal work collection",
+    heading: "Personal work and experiments.",
+    intro: "Personal projects, crafts and experiments collected over time, from things I make for fun to ideas I use to learn something new.",
     /*
      * The kinds of making that are actually on the four collages, in the
      * homepage's own tag idiom so the two first screens read as one site
@@ -25,9 +25,9 @@ const home: PlaygroundHomeLocaleContent = {
     playMotion: "Play the clips",
   },
   de: {
-    eyebrow: "Playground — persönliche Arbeiten",
-    heading: "Dinge, die ich ohne Briefing gestalte.",
-    intro: "Zeichnungen, Objekte, Experimente und Ideen, die aus Neugier entstehen.",
+    eyebrow: "Sammlung persönlicher Arbeiten",
+    heading: "Persönliche Arbeiten und Experimente.",
+    intro: "Persönliche Projekte, Handarbeit und Experimente, die sich mit der Zeit gesammelt haben, von Dingen, die einfach aus Spaß entstehen, bis zu Ideen, mit denen ich etwas Neues lerne.",
     tags: "Handarbeit · Digitale Kunst · Grafikdesign · Apps · Fotografie & 3D",
     pauseMotion: "Clips anhalten",
     playMotion: "Clips abspielen",

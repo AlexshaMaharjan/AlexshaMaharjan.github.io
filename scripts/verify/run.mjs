@@ -241,7 +241,7 @@ async function checkWeight() {
     which is the weight of the 404 page. **A route that stops existing does not
     fail this check, it flatters it.**
   */
-  const pages = ["/", "/work/sync-fm", "/work/afono", "/work/surugami", "/work/wikimind", "/playground"];
+  const pages = ["/", "/work/sync-fm", "/work/afono", "/work/surugami", "/work/wikimind", "/archive"];
   console.log("whole page, uncached, gzipped:");
   for (const p of pages) {
     for (const [w, dpr, mobile] of [[1440, 1, false], [390, 3, true]]) {

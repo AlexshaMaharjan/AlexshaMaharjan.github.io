@@ -12,7 +12,7 @@ export default function ContactSection({ dictionary, locale }: { dictionary: Dic
       className="bg-near-black py-[140px]"
     >
       <div className="container-page">
-        <div data-inview className="mx-auto flex flex-col items-center text-center">
+        <div data-inview="text" className="mx-auto flex flex-col items-center text-center">
           <span className="block text-[14px] text-accent-on-dark">{dictionary.contact.eyebrow}</span>
           <h2 className="mx-auto mt-6 max-w-3xl text-section font-semibold leading-[1.05] tracking-[-0.025em] text-white">
             {dictionary.contact.heading}

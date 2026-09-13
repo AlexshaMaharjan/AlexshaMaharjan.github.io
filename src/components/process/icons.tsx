@@ -1,3 +1,23 @@
+/**
+ * The nine line icons the process map's clusters draw with
+ * (`components/process/clusters`).
+ *
+ * **It held twenty-three** until `MILESTONE-020` task 7. Twelve of them, plus
+ * two arrays collecting them — `branchIcons` and `tileIcons` — were left over
+ * from earlier shapes of the map: one icon per branch when a branch had a
+ * badge, one per tile when the clusters were a grid of them. Both ideas are
+ * gone from `clusters.tsx` and the drawings had stayed, exported, rendered by
+ * nothing, and passing every check the harness runs — `tsc` and ESLint have no
+ * opinion about an export nobody imports.
+ *
+ * That is over half the file, and the cost of keeping it was not the bytes: it
+ * was that a reader looking for the map's icon vocabulary found twenty-three
+ * candidates for nine slots, with nothing to say which nine.
+ *
+ * All nine share `base`, which is the actual reason this file exists — one
+ * stroke weight, one cap style, one 24-unit box, so the map's icons are a set
+ * rather than a collection.
+ */
 import type { SVGProps } from "react";
 
 const base: SVGProps<SVGSVGElement> = {
@@ -21,129 +41,11 @@ export function ResearchIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function ChallengeIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="5" />
-      <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-export function ExploreIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M4 20 18 6" />
-      <path d="M9.5 6H18v8.5" />
-    </svg>
-  );
-}
-
-export function DesignIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" />
-      <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" />
-      <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" />
-      <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" />
-    </svg>
-  );
-}
-
-export function RefineIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M5 12.5 9.5 17 19 6" />
-    </svg>
-  );
-}
-
-export const branchIcons = [ResearchIcon, ChallengeIcon, ExploreIcon, DesignIcon, RefineIcon];
-
-export function ChartIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M4 20V10" />
-      <path d="M10.5 20V4" />
-      <path d="M17 20v-7" />
-    </svg>
-  );
-}
-
-export function PersonIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <circle cx="12" cy="8" r="3.5" />
-      <path d="M4.5 20c1.4-3.8 4.6-6 7.5-6s6.1 2.2 7.5 6" />
-    </svg>
-  );
-}
-
-export function SketchIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M3.5 20.5 5 15l11-11 3.5 3.5-11 11z" />
-      <path d="M14 6.5 17.5 10" />
-    </svg>
-  );
-}
-
-export function PaletteIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <circle cx="7.5" cy="9" r="1.4" fill="currentColor" stroke="none" />
-      <circle cx="12" cy="6" r="1.4" fill="currentColor" stroke="none" />
-      <circle cx="16.5" cy="9" r="1.4" fill="currentColor" stroke="none" />
-      <path d="M4 13c0-5 3.6-9 8.5-9C17.7 4 21 7.3 21 11.5c0 3-2 4.5-4.5 4.5H15c-1 0-1.5.7-1 1.6.6 1.1-.2 2.4-1.6 2.4C7.3 20 4 17.2 4 13Z" />
-    </svg>
-  );
-}
-
-export function CompareIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <path d="M8 3v18" />
-      <path d="M16 3v18" />
-      <path d="M3 8h4M3 16h4" />
-      <path d="M17 8h4M17 16h4" />
-    </svg>
-  );
-}
-
-export const tileIcons = [ChartIcon, PersonIcon, SketchIcon, PaletteIcon, CompareIcon];
-
 export function EyeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...base} {...props}>
       <ellipse cx="12" cy="12" rx="8" ry="5" />
       <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-export function DiamondIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <rect x="8.5" y="8.5" width="7" height="7" transform="rotate(45 12 12)" />
-    </svg>
-  );
-}
-
-export function FlowIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <line x1="4" y1="12" x2="17" y2="12" />
-      <path d="M13 8l4 4-4 4" />
-    </svg>
-  );
-}
-
-export function ComponentIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg {...base} {...props}>
-      <rect x="4" y="4" width="16" height="16" rx="3" />
-      <rect x="9" y="9" width="6" height="6" />
     </svg>
   );
 }

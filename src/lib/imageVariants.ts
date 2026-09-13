@@ -299,17 +299,18 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#b4b4b4"
   },
   "/images/hero-afono.webp": {
-    "w": 1600,
+    "w": 1920,
     "v": [
       400,
       640,
       960,
-      1280
+      1280,
+      1600
     ],
-    "bg": "#f7f4f2"
+    "bg": "#f7f4f3"
   },
   "/images/hero-barrier-free-kitchen.webp": {
-    "w": 1900,
+    "w": 1920,
     "v": [
       400,
       640,
@@ -317,10 +318,10 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1280,
       1600
     ],
-    "bg": "#eaf1ef"
+    "bg": "#ecf4ef"
   },
   "/images/hero-qis-portal.webp": {
-    "w": 1900,
+    "w": 1920,
     "v": [
       400,
       640,
@@ -328,10 +329,10 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1280,
       1600
     ],
-    "bg": "#fcf5f6"
+    "bg": "#fcf4f5"
   },
   "/images/hero-surugami.webp": {
-    "w": 1900,
+    "w": 1920,
     "v": [
       400,
       640,
@@ -339,20 +340,10 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1280,
       1600
     ],
-    "bg": "#f8e1e7"
+    "bg": "#fcedef"
   },
   "/images/hero-sync-fm.webp": {
-    "w": 1578,
-    "v": [
-      400,
-      640,
-      960,
-      1280
-    ],
-    "bg": "#f0edf1"
-  },
-  "/images/hero-wikimind.webp": {
-    "w": 1900,
+    "w": 1920,
     "v": [
       400,
       640,
@@ -360,7 +351,18 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1280,
       1600
     ],
-    "bg": "#fcfdfe"
+    "bg": "#f4f0f8"
+  },
+  "/images/hero-wikimind.webp": {
+    "w": 1920,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ],
+    "bg": "#eef1fc"
   },
   "/images/kitchen-3d-structure.webp": {
     "w": 1600,
@@ -470,15 +472,13 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#b4b1ac"
   },
-  "/images/kitchen-simulation.webp": {
-    "w": 1600,
+  "/images/kitchen-simulation-hob.webp": {
+    "w": 920,
     "v": [
       400,
-      640,
-      960,
-      1280
+      640
     ],
-    "bg": "#cdcfca"
+    "bg": "#7a7b73"
   },
   "/images/kitchen-wooden-blocks.webp": {
     "w": 1600,
@@ -905,6 +905,86 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#a9a0ca"
   },
+  "/images/qis-chart-content-vs-interface-de.webp": {
+    "w": 1720,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/qis-chart-content-vs-interface-en.webp": {
+    "w": 1720,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/qis-chart-low-use-sections-de.webp": {
+    "w": 1720,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/qis-chart-low-use-sections-en.webp": {
+    "w": 1720,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/qis-chart-occasional-use-de.webp": {
+    "w": 1720,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/qis-chart-occasional-use-en.webp": {
+    "w": 1720,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/qis-chart-requested-features-de.webp": {
+    "w": 1720,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/qis-chart-requested-features-en.webp": {
+    "w": 1720,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
   "/images/qis-design-system.webp": {
     "w": 1600,
     "v": [
@@ -916,7 +996,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#ffffff"
   },
   "/images/qis-final-screens.webp": {
-    "w": 1900,
+    "w": 3200,
     "v": [
       400,
       640,
@@ -925,6 +1005,17 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1600
     ],
     "bg": "#eeedf0"
+  },
+  "/images/qis-first-iteration.webp": {
+    "w": 2600,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ],
+    "bg": "#ffffff"
   },
   "/images/qis-interaction-flow.webp": {
     "w": 1900,
@@ -1100,27 +1191,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#f0edf1"
   },
-  "/images/sync-fm-final-screens.webp": {
-    "w": 1600,
-    "v": [
-      400,
-      640,
-      960,
-      1280
-    ],
-    "bg": "#f0edf1"
-  },
   "/images/sync-fm-logo-system.webp": {
-    "w": 1600,
-    "v": [
-      400,
-      640,
-      960,
-      1280
-    ],
-    "bg": "#f0edf1"
-  },
-  "/images/sync-fm-personas.webp": {
     "w": 1600,
     "v": [
       400,
@@ -1223,36 +1294,6 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       960
     ],
     "bg": "#f8f8f8"
-  },
-  "/images/wikimind-persona-01.webp": {
-    "w": 1600,
-    "v": [
-      400,
-      640,
-      960,
-      1280
-    ],
-    "bg": "#f9f9f9"
-  },
-  "/images/wikimind-persona-02.webp": {
-    "w": 1600,
-    "v": [
-      400,
-      640,
-      960,
-      1280
-    ],
-    "bg": "#f9f9f9"
-  },
-  "/images/wikimind-persona-03.webp": {
-    "w": 1600,
-    "v": [
-      400,
-      640,
-      960,
-      1280
-    ],
-    "bg": "#f9f9f9"
   },
   "/images/wikimind-sitemap.webp": {
     "w": 1600,

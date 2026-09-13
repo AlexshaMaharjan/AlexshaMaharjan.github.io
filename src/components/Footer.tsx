@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { localeHref, stripLocale, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import LanguageSwitch from "@/components/LanguageSwitch";
+import { ARCHIVE_PATH } from "@/lib/site";
 
 /**
  * An ordinary footer: who this is, where else to go, how to get in touch, and
@@ -44,7 +45,7 @@ export default function Footer({
 }) {
   const pathname = useLocation().pathname ?? "/";
   const bare = stripLocale(pathname, locale);
-  const isPlayground = bare.startsWith("/playground");
+  const isPlayground = bare.startsWith(ARCHIVE_PATH);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -53,20 +54,36 @@ export default function Footer({
     });
   };
 
-  const links = [
-    /*
-      Portfolio first, and it is not a duplicate of the wordmark above it
-      (`MILESTONE-015` task 4). The footer listed Playground and not its
-      counterpart, so the two modes the header toggles between were one link and
-      one wordmark down here — which reads as the playground being a place and
-      the portfolio being a logo.
-    */
-    { href: localeHref(locale, "/"), label: dictionary.nav.portfolio },
-    { href: localeHref(locale, "/#work"), label: dictionary.nav.projects },
-    { href: localeHref(locale, "/about"), label: dictionary.nav.about },
-    { href: localeHref(locale, "/playground"), label: dictionary.nav.playground },
-    { href: localeHref(locale, "/#contact"), label: dictionary.nav.contact },
-    { href: localeHref(locale, "/resume"), label: dictionary.footer.resume },
+  /*
+    Two columns, each written out as its own list rather than six links poured
+    into a two-column grid (`MILESTONE-019` task 7).
+
+    The grid filled *across* the rows, so the reading order down each column was
+    Portfolio / About / Contact and Projects / Playground / Résumé — the three
+    whole places the site has, split across both columns and interleaved with
+    the three sections inside the portfolio. That is the "jumbled" the owner
+    saw, and no amount of ordering fixes it while the flow is row-major.
+
+    Column one is the three destinations that are their own place; column two is
+    the three parts of the portfolio itself.
+
+    Portfolio is first and is not a duplicate of the wordmark above it
+    (`MILESTONE-015` task 4). The footer listed Playground and not its
+    counterpart, so the two modes the header toggles between were one link and
+    one wordmark down here — which reads as the playground being a place and
+    the portfolio being a logo.
+  */
+  const linkColumns = [
+    [
+      { href: localeHref(locale, "/"), label: dictionary.nav.portfolio },
+      { href: localeHref(locale, ARCHIVE_PATH), label: dictionary.nav.playground },
+      { href: localeHref(locale, "/resume"), label: dictionary.footer.resume },
+    ],
+    [
+      { href: localeHref(locale, "/#work"), label: dictionary.nav.projects },
+      { href: localeHref(locale, "/about"), label: dictionary.nav.about },
+      { href: localeHref(locale, "/#contact"), label: dictionary.nav.contact },
+    ],
   ];
 
   return (
@@ -96,13 +113,38 @@ export default function Footer({
               />
             </Link>
             <p className="mt-2 text-[14px] text-ink-secondary">{dictionary.footer.tagline}</p>
-            {/* A small blue mark tying the footer to the accent the rest of the
-                page uses, and the one piece of information a visitor at the
-                bottom of a portfolio is actually looking for. */}
-            <p className="mt-5 flex items-center gap-2 text-[13px] font-medium text-accent">
+            {/*
+              A small blue mark tying the footer to the accent the rest of the
+              page uses, and the one piece of information a visitor at the
+              bottom of a portfolio is actually looking for.
+
+              **It is a link to the contact section** (owner, SESSION-049). A
+              line that says the owner is open to work, sitting in the one place
+              a reader reaches when they have finished looking, is an offer — and
+              an offer with nothing to click is a dead end. The three footer
+              links a few centimetres to the right include Contact, so the
+              destination was always there; what was missing was that the
+              sentence itself went anywhere.
+
+              `/#contact` rather than a separate page: the contact form is a
+              section of the homepage, and `useScrollBehavior` resolves the hash
+              after the route settles.
+            */}
+            <Link
+              to={localeHref(locale, "/#contact")}
+              className="group mt-5 inline-flex items-center gap-2 text-[13px] font-medium text-accent"
+            >
               <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-accent" />
-              {dictionary.footer.availability}
-            </p>
+              <span className="border-b border-transparent transition-colors group-hover:border-accent">
+                {dictionary.footer.availability}
+              </span>
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+              >
+                →
+              </span>
+            </Link>
           </div>
 
           {/* Wraps rather than overflows: between 768px and 839px two columns
@@ -111,23 +153,33 @@ export default function Footer({
           <div className="flex flex-wrap gap-x-14 gap-y-8">
             {/*
               Two columns, split by what the links are for
-              (`MILESTONE-016` task 3). One column of six read as a list of
-              everything; these are two kinds of destination — the two modes the
-              header toggles between, and the pages inside the portfolio — and
-              saying so in the layout costs nothing and halves the height.
+              (`MILESTONE-016` task 3, re-cut in `MILESTONE-019` task 7). One
+              column of six read as a list of everything; these are two kinds of
+              destination — the whole places the site has, and the pages inside
+              the portfolio — and saying so in the layout costs nothing and
+              halves the height.
+
+              Each column is its own `ul`, so the order down a column is the
+              order in the markup. A `grid-cols-2` over one flat list is the
+              same picture and the wrong reading order.
             */}
             <nav
               aria-label={dictionary.landmarks.footerNav}
-              className="grid grid-cols-2 gap-x-12 gap-y-3 text-[14px] text-ink"
+              className="flex gap-x-12 text-[14px] text-ink"
             >
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className="tap-target w-fit border-b border-transparent transition-colors hover:border-accent hover:text-accent"
-                >
-                  {link.label}
-                </Link>
+              {linkColumns.map((column) => (
+                <ul key={column[0]!.label} className="flex list-none flex-col gap-y-3 p-0">
+                  {column.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        to={link.href}
+                        className="tap-target block w-fit border-b border-transparent transition-colors hover:border-accent hover:text-accent"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               ))}
             </nav>
             <div className="flex flex-col gap-3 font-mono text-[12px] text-ink-muted">

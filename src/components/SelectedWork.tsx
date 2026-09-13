@@ -12,7 +12,7 @@ export default function SelectedWork({ dictionary, locale }: { dictionary: Dicti
       className="bg-white pb-10 pt-[160px]"
     >
       <div className="container-page">
-        <div data-inview className="mb-[110px] flex flex-col items-center gap-4 text-center">
+        <div data-inview="text" className="mb-[110px] flex flex-col items-center gap-4 text-center">
           <span className="block text-[14px] text-accent">{dictionary.selectedWork.eyebrow}</span>
           <div className="max-w-[1120px]">
             <h2 className="text-section font-semibold leading-[1.04] tracking-[-0.025em] text-ink">

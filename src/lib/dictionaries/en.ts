@@ -1,21 +1,22 @@
 import type { Dictionary } from "./types";
+import { PROJECT_TAGS } from "@/lib/caseStudies/tags";
 
 const en: Dictionary = {
   meta: {
-    title: "Alexsha Maharjan — Portfolio",
+    title: "Alexsha Maharjan · Portfolio",
     description:
-      "Designing intuitive digital experiences and unique brands. Portfolio of Alexsha Maharjan, a digital designer from Lübeck, Germany.",
+      "I design digital experiences and brand identities with their own character. Portfolio of Alexsha Maharjan, a multidisciplinary designer based in Lübeck, Germany.",
   },
   nav: {
     portfolio: "Portfolio",
-    playground: "Playground",
+    playground: "Archive",
     projects: "Projects",
     about: "About me",
     contact: "Contact",
     menu: "Menu",
     close: "Close",
     modeSwitchLabel: "Site mode",
-    switchToPlayground: "Switch to the playground",
+    switchToPlayground: "Switch to the archive",
     switchToPortfolio: "Switch to the portfolio",
     switchToGerman: "Switch to German",
     switchToEnglish: "Switch to English",
@@ -28,24 +29,24 @@ const en: Dictionary = {
     processCanvas: "My design process",
   },
   hero: {
-    eyebrow: "Digital Designer from Lübeck, Germany",
+    eyebrow: "Multidisciplinary Designer · Lübeck, Germany",
     headlineLines: ["Hello, I am", "Alexsha Maharjan"],
     intro:
-      "I design intuitive digital experiences, and I create brands that mean something and look like nobody else's.",
+      "I design digital experiences and brand identities with their own character, always keeping the people they are for in mind.",
     tags: "UI/UX · Branding · Visual Design",
   },
   process: {
     scrollCue: "Scroll to explore ↓",
     question: "How do I bring a project to life?",
     srSummary:
-      "My process, in five steps: understand what feels unclear to people, define what is worth solving, explore possibilities through sketches and wireframes, design how the experience should feel, and refine it through testing and iteration.",
+      "My process, in five steps: understand what I need to learn before I begin, define what is actually worth solving, explore possibilities through sketches and wireframes, design how it should look and feel, and refine it through testing and iteration.",
     branches: [
       {
         number: "01",
         title: "Understand",
-        question: "What feels unclear to people?",
+        question: "What do I need to learn before I begin?",
         ariaLabel:
-          "Step 1: Understand. What feels unclear to people? Interviews, SWOT market analysis and frustration ratings.",
+          "Step 1: Understand. What do I need to learn before I begin? Interviews, SWOT market analysis and frustration ratings.",
       },
       {
         number: "02",
@@ -64,9 +65,9 @@ const en: Dictionary = {
       {
         number: "04",
         title: "Design",
-        question: "What should the experience feel like?",
+        question: "What should it look and feel like?",
         ariaLabel:
-          "Step 4: Design. What should the experience feel like? Type, colour, components and brand applications.",
+          "Step 4: Design. What should it look and feel like? Type, colour, components and brand applications.",
       },
       {
         number: "05",
@@ -76,95 +77,94 @@ const en: Dictionary = {
           "Step 5: Refine. How do I know it works? Before and after, usability testing, validation and iteration.",
       },
     ],
-    closeSelection: "Close selection",
   },
   selectedWork: {
     eyebrow: "Selected Projects",
-    heading: "Thoughtful design, meaningful impact",
-    copy: "My work focuses on creating visual identities and digital experiences that are clear, engaging, and purposeful. From brand systems to user interfaces and experimental projects, I explore how design can communicate ideas, solve problems, and create better experiences for users.",
+    heading: "Different projects, different perspectives",
+    copy: "My work moves between UI/UX, branding, visual design and experimentation. Each project brings a different challenge and gives me room to explore a different side of design.",
   },
   projects: [
-    {
-      slug: "wikimind",
-      name: "WikiMind",
-      headline: "Making artificial intelligence feel clear, useful and approachable.",
-      description:
-        "Making complex AI services easier to understand through an approachable identity and a clearly structured website.",
-      tags: ["Branding", "UI/UX", "Web Design"],
-      role: "Brand & UI/UX Designer",
-      year: "2026",
-      image: "/images/hero-wikimind.webp",
-      imageAlt: "The WikiMind homepage shown on a laptop, beside the case-study title",
-      imageAspect: "1900/1066",
-    },
     {
       slug: "afono",
       name: "AFONO",
       headline: "Translating Nepali identity into contemporary streetwear.",
-      description:
-        "A culturally rooted streetwear identity connecting brand strategy, clothing graphics and e-commerce design.",
-      tags: ["Branding", "E-commerce", "Graphic Design"],
-      role: "Brand, Fashion & UI/UX Designer",
+      description: "A fictional streetwear brand built from the ground up, from its identity and clothing graphics to its website and digital shopping experience.",
+      tags: [...PROJECT_TAGS.afono],
+      role: "Brand, Graphic & UI/UX Designer",
       year: "2026",
       image: "/images/hero-afono.webp",
-      imageAlt: "Print lettering from AFONO's HIMAL series",
-      imageAspect: "1600/900",
+      imageAlt: "The AFONO name beside the shop and landing pages in browser windows",
+      imageAspect: "1920/1080",
+      accent: "#0A0A0A",
+    },
+    {
+      slug: "surugami",
+      name: "Surugami",
+      headline: "Building a visual identity around the craft of origami.",
+      description: "An origami-inspired brand explored across illustration, print and web design.",
+      tags: [...PROJECT_TAGS.surugami],
+      role: "Concept, Graphic & Web Designer",
+      year: "",
+      image: "/images/hero-surugami.webp",
+      imageAlt: "The Surugami name beside the website shown across a stack of screens",
+      imageAspect: "1920/1080",
+      accent: "#D0254D",
+    },
+    {
+      slug: "wikimind",
+      name: "WikiMind",
+      headline: "Making AI services clear, useful and approachable.",
+      description: "A brand identity and website concept for an AI company offering workshops, chatbots and software solutions.",
+      tags: [...PROJECT_TAGS.wikimind],
+      role: "Brand & UI/UX Designer",
+      year: "2026",
+      image: "/images/hero-wikimind.webp",
+      imageAlt: "The WikiMind name beside the homepage shown on a laptop",
+      imageAspect: "1920/1080",
+      accent: "#1D28A8",
     },
     {
       slug: "sync-fm",
       name: "Sync FM",
-      headline: "Giving listeners control without turning radio into another dashboard.",
-      description:
-        "An interactive AI-radio concept that lets listeners shape information depth, presenter tone and journalistic framing.",
-      tags: ["Interaction Design", "Mobile UI", "AI Concept"],
+      headline: "Bringing personalisation to the flow of radio.",
+      description: "An interactive AI-radio concept combining the continuous experience of traditional radio with selected controls from personalised streaming.",
+      tags: [...PROJECT_TAGS["sync-fm"]],
       role: "Interaction & UI Designer",
       year: "",
       image: "/images/hero-sync-fm.webp",
-      imageAlt: "Sync FM's home screen with the news dial",
-      imageAspect: "1578/1088",
+      imageAlt: "The Sync FM name beside a fan of the app's phone screens",
+      imageAspect: "1920/1080",
+      accent: "#5B377C",
     },
     {
       slug: "barrier-free-kitchen",
       name: "Barrier-Free Kitchen",
       headline: "Designing a kitchen through reach, sight and touch.",
-      description:
-        "An inclusive kitchen developed through observation, full-scale testing and 3D environmental design.",
-      tags: ["Inclusive Design", "Design Research", "3D"],
+      description: "An inclusive kitchen concept developed around the needs of wheelchair users and people with visual impairments.",
+      tags: [...PROJECT_TAGS["barrier-free-kitchen"]],
       role: "Prototyping & 3D Designer",
       year: "",
       image: "/images/hero-barrier-free-kitchen.webp",
-      imageAlt: "The barrier-free kitchen modelled in 3D",
-      imageAspect: "1900/1069",
-    },
-    {
-      slug: "surugami",
-      name: "Surugami",
-      headline: "Making origami feel social, contemporary and easy to enter.",
-      description:
-        "An origami-inspired identity translated into a coherent print campaign and digital experience.",
-      tags: ["Branding", "Print Design", "Web Design"],
-      role: "Illustration, Poster & Web Design",
-      year: "",
-      image: "/images/hero-surugami.webp",
-      imageAlt: "A Surugami poster inviting people to fold",
-      imageAspect: "1900/1189",
+      imageAlt: "The Barrier-Free Kitchen name beside three 3D renders of the kitchen in use",
+      imageAspect: "1920/1080",
+      accent: "#1C5B4A",
     },
     {
       slug: "qis-portal",
       name: "QIS Portal Redesign",
-      headline: "Turning a fragmented university portal into a clearer student service.",
-      description:
-        "A research-led redesign simplifying essential university-administration tasks for students.",
-      tags: ["UX Research", "Information Architecture", "Product Design"],
+      headline: "Redesigning a fragmented university portal around student tasks.",
+      description: "A research-led redesign of a student portal, focused on information architecture, navigation and clearer task flows.",
+      tags: [...PROJECT_TAGS["qis-portal"]],
       role: "UX/UI Designer & Researcher",
       year: "2024",
       image: "/images/hero-qis-portal.webp",
-      imageAlt: "The redesigned QIS Portal exam page",
-      imageAspect: "1900/1069",
+      imageAlt: "The QIS Portal name beside the redesigned portal in browser windows",
+      imageAspect: "1920/1080",
+      accent: "#A80D26",
     },
   ],
   resume: {
-    metaTitle: "Résumé — Alexsha Maharjan",
+    metaTitle: "Résumé · Alexsha Maharjan",
     name: "Alexsha Maharjan",
     tagline: "UX/UI Design · Corporate Design · Frontend",
     location: "Lübeck, Germany",
@@ -204,7 +204,7 @@ const en: Dictionary = {
     projectsHeading: "Selected Projects",
     projects: [
       {
-        name: "WikiMind — Corporate Design & Website for an AI Company",
+        name: "WikiMind: Corporate Design & Website for an AI Company",
         period: "2025",
         place: "Semester project, Technische Hochschule Lübeck, Lübeck",
         bullets: [
@@ -213,7 +213,7 @@ const en: Dictionary = {
         ],
       },
       {
-        name: "Surugami — Brand Identity, Print & Web Design",
+        name: "Surugami: Brand Identity, Print & Web Design",
         period: "2025",
         place: "Semester project, Technische Hochschule Lübeck, Lübeck",
         bullets: [
@@ -222,7 +222,7 @@ const en: Dictionary = {
         ],
       },
       {
-        name: "Hibi — Productivity Web App, Design & Development",
+        name: "Hibi: Productivity Web App, Design & Development",
         period: "2025",
         place: "Personal project, Lübeck",
         bullets: [
@@ -273,7 +273,7 @@ const en: Dictionary = {
     eyebrow: "About me",
     heading: "How did I start designing?",
     copy:
-      "I grew up in Nepal surrounded by creativity, always making things, experimenting with crafts, and designing personalised gifts for people around me.",
+      "I grew up in Nepal surrounded by creativity, always making things, experimenting with crafts and creating personalised gifts for people around me. What I enjoyed most was thinking about who it was for, what they would like and what would make it feel meaningful.",
     /*
      * The paragraph that fades out (`MILESTONE-012` task 3). It is the about
      * page's own second paragraph, and it follows `copy` because that is what
@@ -282,22 +282,22 @@ const en: Dictionary = {
      * restating each other.
      */
     copyDim:
-      "What I enjoyed most was not just creating something visually appealing, but thinking about the person it was for, what they would like, and what would make it feel meaningful.",
+      "That way of thinking eventually led me to design, where understanding people and shaping ideas visually became part of how I work.",
     linkAbout: "Read the whole story →",
-    playgroundHeading: "The playground",
-    playgroundCopy: "Everything I make when nobody has asked for it. Personal projects, crafts, experiments, and whatever I happen to be learning at the moment.",
-    linkPlayground: "Open the playground",
+    playgroundHeading: "The archive",
+    playgroundCopy: "A collection of personal projects, crafts and experiments where I explore ideas, learn and try something new.",
+    linkPlayground: "Open the archive",
     portraitAlt: "Portrait of Alexsha Maharjan.",
   },
   contact: {
     eyebrow: "Contact",
-    heading: "Available for design opportunities.",
-    copy: "Interested in my work? View my résumé or contact me about a role, project or collaboration.",
+    heading: "Open to design opportunities.",
+    copy: "If my work feels like a fit, take a look at my résumé or get in touch about a role, project or collaboration.",
     resumeCta: "View résumé",
     contactCta: "Contact me",
   },
   footer: {
-    tagline: "UI/UX, Brand and Visual Designer",
+    tagline: "UI/UX · Branding · Visual Design",
     email: "alexsha.maharjan1@gmail.com",
     linkedin: "linkedin.com/in/alexsham",
     linkedinHref: "https://www.linkedin.com/in/alexsham",
@@ -307,14 +307,27 @@ const en: Dictionary = {
     copyright: "© 2026 Alexsha Maharjan",
   },
   playgroundOutro: {
-    eyebrow: "End of the playground",
-    heading: "That is everything I make for myself.",
-    copy: "The other half is the work with a brief behind it: six case studies, the process I run and the people I made it for.",
-    cta: "Back to the portfolio",
+    eyebrow: "End of the archive",
+    heading: "More professional work, this way.",
+    copy: "Head back to the portfolio to see my case studies, design process and selected project work.",
+    cta: "Back to the portfolio →",
+  },
+  playgroundViewer: {
+    made: "Made",
+    tools: "Tools",
+    type: "Type",
+    close: "Close",
+    previous: "Previous piece",
+    next: "Next piece",
+    position: "{n} of {total}",
+    collections: "Collections",
+    soundOn: "Sound on",
+    soundOff: "Sound off",
+    prototypeLink: "Figma prototype",
   },
   playgroundPeek: {
-    openLabel: "Open the playground",
-    cta: "Open the playground",
+    openLabel: "Open the archive",
+    cta: "Open the archive",
     note: "have a look",
   },
   legal: {
@@ -378,7 +391,7 @@ const en: Dictionary = {
         {
           heading: "The short version",
           body: [
-            "This is a personal portfolio. It sets no cookies, runs no analytics or tracking, and has no accounts and no contact form. Nothing on these pages is loaded from a third party: the typefaces are served from this site itself. The only data that arises when you visit are the technical access data the host writes to its logs.",
+            "This is a personal portfolio. It sets no cookies of its own, runs no analytics or tracking, and has no accounts and no contact form. The typefaces are served from this site itself. There is one thing loaded from elsewhere: five of the case studies end in an interactive prototype hosted by Figma, and that prototype loads as you reach it. Everything else that arises when you visit are the technical access data the host writes to its logs.",
           ],
         },
         {
@@ -398,6 +411,13 @@ const en: Dictionary = {
           heading: "Contacting me by email",
           body: [
             "If you write to me, I process your email address and the content of your message in order to answer it. The legal basis is Art. 6 (1) (b) GDPR where your enquiry concerns a contract, and otherwise Art. 6 (1) (f) GDPR. I delete this data once it is no longer needed and no statutory retention period prevents it.",
+          ],
+        },
+        {
+          heading: "Figma prototypes",
+          body: [
+            "Five of the case studies contain an interactive prototype hosted by Figma, Inc., 760 Market St, San Francisco, CA 94102, USA, in a section headed \u201cTry it yourself\u201d. It is embedded in the page and loads as you scroll down to it; it is not loaded on pages that do not contain one, and not before you reach it.",
+            "When it loads, your browser connects to figma.com and transmits the data a connection requires, among them your IP address, and Figma may set cookies of their own. The legal basis is Art. 6 (1) (f) GDPR, my legitimate interest in showing the work itself rather than only screenshots of it. I have no access to this data and receive nothing back from Figma. Figma also processes it in the United States. If you would rather it were not loaded, most browsers can block third-party frames and content, and the case studies are complete without it.",
           ],
         },
         {
@@ -430,56 +450,52 @@ const en: Dictionary = {
   },
   about: {
     backToHome: "← Back to home",
-    eyebrow: "About me",
+    eyebrow: "About",
     heading: "How did I start designing?",
     portraitAlt: "Portrait of Alexsha.",
     handNoteOrigin: "Nepal → Germany",
     handNoteMaking: "always making something!",
-    portraitTags: ["UI/UX Design", "Branding", "Visual Design"],
+    handNoteTools: "and still adding to this list",
     biographyHeading: "Biography",
     biography: [
-      "I grew up in Nepal surrounded by creativity, always making things, experimenting with crafts, and designing personalised gifts for people around me. What I enjoyed most was not just creating something visually appealing, but thinking about the person it was for, what they would like, and what would make it feel meaningful.",
-      "That way of thinking eventually led me to design. I realised that many of the things I had naturally enjoyed, understanding people, making thoughtful choices, and shaping ideas visually, were at the heart of user-centred design.",
-      "That journey eventually brought me from Nepal to Germany, where I am pursuing my bachelor’s degree and growing as a multidisciplinary designer focused on UI/UX, visual design, branding, and web design. Living in a new environment has also broadened the way I see people, culture, and design.",
-      "For me, good design is not only about how something looks, but also about understanding who it is for and creating something that feels useful and meaningful.",
+      "I grew up in Nepal surrounded by creativity, always making things, experimenting with crafts and creating personalised gifts for people around me. What I enjoyed most was not just making something visually appealing, but thinking about who it was for, what they would like and what would make it feel meaningful.",
+      "That way of thinking eventually led me to design. I realised that understanding people, making thoughtful choices and shaping ideas visually were already part of how I naturally approached things.",
+      "That path brought me from Nepal to Germany, where I am pursuing my bachelor’s degree in Information Technology and Design. Along the way, I have developed as a multidisciplinary designer working across UI/UX, branding, visual design and web design.",
+      "For me, good design is not only about how something looks. It is about understanding who it is for and creating something useful, clear and meaningful.",
     ],
     focusHeading: "Professional focus",
-    focusItems: ["UI/UX Design", "Web Design", "Brand Identity", "Graphic Design", "Interaction Design"],
-    toolsHeading: "Tools I have learned",
+    focusItems: ["UI/UX Design", "Brand Identity", "Visual Design", "Web Design", "Interaction Design"],
+    toolsHeading: "Tools I use",
     tools: [
       { name: "Figma" },
       { name: "Adobe Illustrator" },
       { name: "Adobe Photoshop" },
       { name: "Blender" },
       { name: "After Effects" },
-      { name: "Artificial Intelligence", accent: true },
+      { name: "AI tools", accent: true },
     ],
     aiBody:
-      "I use AI to think wider, faster: condensing research, playing out directions, sharpening copy, making ideas testable early. The judgement, the craft and the final decisions stay mine.",
+      "I use AI when it helps me explore ideas, organise information or test directions faster. I still make the final design decisions myself and use AI as a tool within the process, not as a replacement for it.",
     aiTags: ["Research", "Ideation", "Content", "Prototyping"],
-    playgroundHeading: "The playground",
-    playgroundCopy: "Everything I make when nobody has asked for it. Personal projects, crafts, experiments, and whatever I happen to be learning at the moment.",
-    linkPlayground: "Open the playground",
+    playgroundHeading: "The archive",
+    playgroundCopy: "A collection of personal projects, crafts and experiments where I explore ideas, learn and try something new.",
+    linkPlayground: "Open the archive",
     loveIntro: "I love",
     /*
-     * The words are the owner's own subjects, not a generic maker's vocabulary
-     * (`MILESTONE-013` task 10). Every one of them is something the site can
-     * be asked to show: the beadwork, the paintings and the packaging are
-     * cards in the playground, the typography is the calendar series, and the
-     * gifts are the thing the biography says the whole career came out of.
-     * "drawing, crafting, building, experimenting, learning, exploring" could
-     * have been anybody.
+     * The owner's own five, given verbatim (`MILESTONE-019` task 4).
+     *
+     * `MILESTONE-013` task 10 had picked eight subjects instead — beadwork,
+     * typography, packaging, learning languages — on the reasoning that every
+     * one of them was something the playground could be asked to show. The
+     * owner's answer is that they are not the words they would use about
+     * themselves, and that is the only test this line has to pass. It is
+     * "I love ___", not a list of tags.
+     *
+     * Five also happens to be the length this reads best at: `LoveLine`
+     * reserves the width of the longest word so the sentence never reflows, and
+     * a ninth word only ever widens that reservation.
      */
-    loveWords: [
-      "making things by hand",
-      "making gifts for people",
-      "beadwork",
-      "painting",
-      "typography",
-      "colour",
-      "packaging",
-      "learning languages",
-    ],
+    loveWords: ["designing", "creating", "painting", "learning new things", "crafting"],
     resumeHeading: "Résumé & contact",
     resumeCopy: "Interested in working together? View my résumé or send me a message.",
     resumeCta: "View résumé",
@@ -491,17 +507,22 @@ const en: Dictionary = {
     backToProjects: "← Back to projects",
     onThisPage: "On this page",
     designQuestion: "Design question",
-    previousProject: "← Previous project",
-    nextProject: "Next project →",
+    moreProjects: "More projects",
     viewAllWork: "View all work",
+    previousProject: "Previous",
+    nextProject: "Next",
+    context: "Context",
     role: "Role",
+    team: "Team",
     contribution: "Contribution",
-    type: "Type",
     tools: "Tools",
-    deliverables: "Deliverables",
+    needs: "Needs",
+    prototypeLive: "Live prototype",
+    prototypeHint: "Click, scroll and explore the main flows.",
+    prototypeNote: "Click to explore the prototype",
   },
   notFound: {
-    metaTitle: "Page not found — Alexsha Maharjan",
+    metaTitle: "Page not found · Alexsha Maharjan",
     eyebrow: "404",
     heading: "This page doesn't exist.",
     copy: "The page you're looking for may have been moved or never existed.",

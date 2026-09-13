@@ -52,9 +52,11 @@ async function loadRoutes() {
   const paths = [
     "/", "/about", "/resume", "/contact",
     ...caseStudySlugs.map((s) => `/work/${s}`),
-    // The playground is one page now (`DECISION-026`): its five categories are
-    // sections of it, not routes.
-    "/playground",
+    // The archive is one page (`DECISION-026`): its five categories were
+    // sections of it, not routes. It was `/playground` until `MILESTONE-022`
+    // task 4; the old path is a client-side redirect (`routes.tsx`) and is
+    // deliberately not prerendered, so it stays out of `sitemap.xml`.
+    "/archive",
     // The two legal pages (`MILESTONE-013` task 9). German paths in both
     // locales, which is why they are written out rather than translated.
     "/impressum", "/datenschutz",

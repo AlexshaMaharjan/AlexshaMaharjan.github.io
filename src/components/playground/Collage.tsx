@@ -7,10 +7,10 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Image from "@/components/ui/Image";
-import Lightbox from "@/components/ui/Lightbox";
 import { useCursorTag } from "@/lib/useCursorTag";
 import LoopVideo from "@/components/ui/LoopVideo";
 import Scribble, { ScribbleArrow } from "@/components/playground/Scribble";
+import { PencilFilter } from "@/components/PencilInk";
 import type { Locale } from "@/lib/i18n";
 import { FRAME_H, FRAME_W, type CollageScribble, type CollageSlot } from "@/lib/playground/collage";
 import { notePx, placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/playground/placeScribbles";
@@ -34,12 +34,19 @@ import { notePx, placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/
  * stretching would silently re-crop forty-eight pictures. The card sets
  * `container-type: size`, which is what those units are measured against.
  *
- * **The card arrives in black and white** (SESSION-037). Every slot carries a
- * `--pg-order` — its place in an order shuffled once per card, per visit — and
- * the card's scroll runway drives `--pg-reveal` against it, so the pictures get
- * their colour back one at a time and in a different sequence each time anyone
- * comes. The arithmetic is all in `index.css`; the only thing this file decides
- * is who is next.
+ * **The card's pieces pin themselves up** (`MILESTONE-020` task 6). Every slot
+ * carries a `--pg-order` — its place in an order shuffled once per card, per
+ * visit — and a `--pg-tilt`, and `index.css` turns the pair into a staggered
+ * entrance: each picture fades in from a little low, a little small and a few
+ * degrees off square as the card comes into view. The only thing this file
+ * decides is who is next.
+ *
+ * That shuffle used to drive a **colour reveal** — the card arrived in black
+ * and white and the scroll put the colour back one picture at a time — and the
+ * pictures are simply in colour now. See `index.css` for why: a tester did not
+ * notice the mechanic, did not know to scroll for it, and therefore looked at
+ * a grey version of the work. Same machinery, pointed at something that cannot
+ * hide the content.
  *
  * **Hovering holds one up to the light.** A collage shows a piece at a few
  * hundred pixels and the viewer shows it at full size, but between those two
@@ -51,11 +58,18 @@ import { notePx, placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/
  *
  * **Every slot opens** (SESSION-036). A collage shows a piece at a few hundred
  * pixels; the viewer shows it at the size it was made, with what it is written
- * under it, and plays the clips with their controls. `ui/Lightbox` already owned
- * the dialog — the scroll lock, the focus trap, the z-index that clears the
- * fixed header — so it learned about video rather than being duplicated.
+ * beside or under it, and plays the clips with their controls.
+ *
+ * **The viewer itself is not here** (`DECISION-062`, `MILESTONE-022` task 10).
+ * It was — an index into this card's slots — which is exactly why it could only
+ * ever step through this card. `CardStack` owns what is open now, because it is
+ * the only thing that knows there are four cards; this component reports a
+ * click through `onOpenPiece` and goes back to its own job, which is where the
+ * pictures are and which one the pointer is over.
  */
 const pct = (value: number, of: number) => `${(value / of) * 100}%`;
+
+let nextPencil = 0;
 
 /**
  * The width a slot actually renders at, for `srcset` selection. The stage is
@@ -68,15 +82,129 @@ function slotSizes(slot: CollageSlot): string {
 }
 
 /**
- * The order the card's pictures come back in — a Fisher-Yates shuffle, indexed
- * by slot, so `order[i]` is slot `i`'s place in the sequence.
+ * Which cell a piece takes in the phone bento, and whether it is cropped to it
+ * (`MILESTONE-023` task 6).
+ *
+ * The grid's rows are a fixed unit (`index.css`, `.collage-bento`), so a cell
+ * is a whole number of rows and there are only three shapes a piece can have:
+ * one row is about 2:1, two rows is square, three rows is 2:3. The piece takes
+ * whichever of those is **closest to its own shape**, measured in log ratio so
+ * that "twice as wide as it should be" and "half as wide" count the same.
+ *
+ * `contain` is the other half, and it is what keeps this honest. The owner's
+ * instruction is *"do not simply crop away important content to make it fit"*,
+ * and a cell that is 25% off a piece's real shape crops a quarter of it. Rather
+ * than hand-pick the pieces that can take it, anything further than that from
+ * its cell is **contained** instead — it sits inside the cell whole, with the
+ * card's white paper around it. A bento of mixed full-bleed and inset pieces is
+ * what a well-made one looks like anyway; a bento where the logo has lost its
+ * ascender is not.
+ *
+ * 0.22 in log terms is about 25%. Below it the crop is a trim; above it, it is
+ * an edit.
+ */
+const BENTO_CELLS: { rows: number; ratio: number }[] = [
+  { rows: 1, ratio: 2.05 },
+  { rows: 2, ratio: 1.0 },
+  { rows: 3, ratio: 0.67 },
+];
+const BENTO_DRIFT = 0.22;
+
+function bentoRows(slot: CollageSlot): number {
+  const ratio = slot.w / slot.h;
+  let best = BENTO_CELLS[1]!;
+  let drift = Infinity;
+  for (const cell of BENTO_CELLS) {
+    const d = Math.abs(Math.log(ratio / cell.ratio));
+    if (d < drift) {
+      drift = d;
+      best = cell;
+    }
+  }
+  return best.rows;
+}
+
+/** How far a piece's own shape is from the cell it has ended up in. */
+function driftOf(slot: CollageSlot, rows: number): number {
+  const cell = BENTO_CELLS.find((c) => c.rows === rows);
+  // A padded cell is taller than any of the three; measure against what it is.
+  const ratio = cell ? cell.ratio : BENTO_CELLS[2]!.ratio * (3 / rows);
+  return Math.abs(Math.log(slot.w / slot.h / ratio));
+}
+
+export interface BentoCell {
+  /** 1-based, both of them: CSS grid lines, not array indices. */
+  column: number;
+  row: number;
+  rows: number;
+  contain: boolean;
+}
+
+/**
+ * Where every piece goes in the phone bento, placed rather than flowed
+ * (`MILESTONE-023` task 6).
+ *
+ * **CSS cannot give a straight bottom edge here and this can.** `dense`
+ * auto-flow fills holes in the middle of a grid, which is most of what a bento
+ * needs, but the three columns still end wherever their contents end — measured
+ * on card 01 at 390px, three columns finishing 55px apart, which is exactly the
+ * ragged edge the owner reported. Nothing in CSS grid balances columns.
+ *
+ * So the placement is arithmetic, and it is the same two lines any masonry
+ * uses: each piece goes in the column that is currently **shortest**, and then
+ * the last piece in every short column is **grown to the common bottom**. The
+ * first line keeps the columns within one cell of each other; the second closes
+ * that last cell exactly. Every column ends on the same row line, which is a
+ * rectangle by construction rather than by luck.
+ *
+ * Growing a piece changes its cell's shape, so `contain` is decided *after* the
+ * padding rather than before: a piece stretched two rows past its own aspect is
+ * shown whole inside its cell instead of being cropped to it.
+ *
+ * The DOM order is untouched — this writes `grid-column` and `grid-row`, so
+ * reading order, focus order and the pin-up sequence are all still the order
+ * the card is written in.
+ */
+function bentoPlan(slots: CollageSlot[], columns: number): BentoCell[] {
+  const heights = new Array<number>(columns).fill(0);
+  const plan = slots.map((slot) => {
+    const rows = bentoRows(slot);
+    let column = 0;
+    for (let c = 1; c < columns; c += 1) if (heights[c]! < heights[column]!) column = c;
+    const row = heights[column]!;
+    heights[column] = row + rows;
+    return { column: column + 1, row: row + 1, rows, contain: false };
+  });
+
+  const bottom = Math.max(...heights);
+  for (let c = 0; c < columns; c += 1) {
+    const short = bottom - heights[c]!;
+    if (short <= 0) continue;
+    for (let i = plan.length - 1; i >= 0; i -= 1) {
+      if (plan[i]!.column === c + 1) {
+        plan[i]!.rows += short;
+        break;
+      }
+    }
+  }
+
+  plan.forEach((cell, i) => {
+    const slot = slots[i]!;
+    cell.contain = slot.fit === "contain" || driftOf(slot, cell.rows) > BENTO_DRIFT;
+  });
+  return plan;
+}
+
+/**
+ * The order the card's pictures pin up in — a Fisher-Yates shuffle, indexed by
+ * slot, so `order[i]` is slot `i`'s place in the sequence.
  *
  * Shuffled per card and per visit rather than written into the data, because a
  * fixed sequence is a choreography somebody has to author forty-eight times and
  * a reader only ever sees once. Both layouts read the same array, so a picture
  * keeps its place in the sequence whichever one is showing.
  */
-function revealOrder(count: number): number[] {
+function pinUpOrder(count: number): number[] {
   const order = Array.from({ length: count }, (_, i) => i);
   for (let i = count - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -87,7 +215,18 @@ function revealOrder(count: number): number[] {
   return order;
 }
 
-function Picture({ slot, locale, paused }: { slot: CollageSlot; locale: Locale; paused: boolean }) {
+function Picture({
+  slot,
+  locale,
+  paused,
+  contain,
+}: {
+  slot: CollageSlot;
+  locale: Locale;
+  paused: boolean;
+  /** The bento's own verdict, which can contain a piece the design crops. */
+  contain?: boolean;
+}) {
   const alt = slot.alt[locale];
   const sizes = slotSizes(slot);
   /*
@@ -117,7 +256,16 @@ function Picture({ slot, locale, paused }: { slot: CollageSlot; locale: Locale; 
    * `focus` is data, and Tailwind can only emit utilities it can read in the
    * source. The utility here is static; only the value moves.
    */
-  return <Image src={slot.src} alt={alt} sizes={sizes} className="object-cover [object-position:var(--focus,50%_50%)]" />;
+  return (
+    <Image
+      src={slot.src}
+      alt={alt}
+      sizes={sizes}
+      className={`[object-position:var(--focus,50%_50%)] ${
+        contain || slot.fit === "contain" ? "object-contain" : "object-cover"
+      }`}
+    />
+  );
 }
 
 /**
@@ -131,19 +279,18 @@ function Picture({ slot, locale, paused }: { slot: CollageSlot; locale: Locale; 
  */
 function Opener({
   slot,
-  order,
   locale,
   paused,
+  contain,
   className,
   onOpen,
   onPoint,
   onUnpoint,
 }: {
   slot: CollageSlot;
-  /** This slot's place in its card's reveal sequence (`revealOrder`). */
-  order: number;
   locale: Locale;
   paused: boolean;
+  contain?: boolean;
   className: string;
   onOpen: (slot: CollageSlot, trigger: HTMLButtonElement) => void;
   onPoint: (slot: CollageSlot, event: ReactPointerEvent<HTMLButtonElement>) => void;
@@ -159,13 +306,12 @@ function Opener({
       onPointerEnter={(event) => onPoint(slot, event)}
       onPointerMove={(event) => onPoint(slot, event)}
       onPointerLeave={onUnpoint}
-      style={{ "--pg-order": order } as CSSProperties}
       /* `cursor-pointer`, not `cursor-zoom-in`: the owner does not want the
           magnifying glass, and the viewer this opens no longer zooms
           (`MILESTONE-010` tasks 14d and 14e). */
       className={`pg-piece block cursor-pointer outline-offset-4 ${className}`}
     >
-      <Picture slot={slot} locale={locale} paused={paused} />
+      <Picture slot={slot} locale={locale} paused={paused} contain={contain} />
     </button>
   );
 }
@@ -176,6 +322,8 @@ export default function Collage({
   locale,
   paused,
   accent,
+  cardIndex,
+  onOpenPiece,
 }: {
   slots: CollageSlot[];
   scribbles: CollageScribble[];
@@ -187,22 +335,25 @@ export default function Collage({
    * (`MILESTONE-014` task 5).
    */
   accent: string;
+  /**
+   * Which card this collage is, and what to do when one of its pieces is
+   * opened (`MILESTONE-022` task 10).
+   *
+   * **The viewer is not here any more.** It used to be this component's state —
+   * an index into *this* card's slots — which is exactly why it could only ever
+   * step through this card. The owner asked to keep going into the other cards
+   * from inside it, grouped by their colour, so the open piece is now
+   * `CardStack`'s business: it is the only thing that knows there are four
+   * cards, and it is also the thing that can scroll to one when the viewer
+   * closes on a different card from the one it opened on.
+   *
+   * What is left here is what a collage genuinely owns: where its pieces are,
+   * which one the pointer is over, and which one was clicked.
+   */
+  cardIndex: number;
+  onOpenPiece: (card: number, slot: number, trigger: HTMLButtonElement) => void;
 }) {
-  /*
-   * **An index, not a slot** (`MILESTONE-014` task 3). The viewer steps through
-   * the card now, so what is open has to be a position in a sequence rather
-   * than the object at it. Both layouts map over this same `slots` array, so
-   * one index means the same picture in the design and in the masonry.
-   */
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const open = openIndex === null ? null : slots[openIndex] ?? null;
-  /*
-   * `Lightbox` returns focus to whatever opened it only if the caller says
-   * where that was — it cannot know, and each slot appears in both layouts.
-   */
-  const triggerRef = useRef<HTMLButtonElement | null>(null);
-
-  const sequence = useMemo(() => revealOrder(slots.length), [slots]);
+  const sequence = useMemo(() => pinUpOrder(slots.length), [slots]);
   /*
    * Where the notes go and how their arrows run. Worked out from the pictures
    * they name rather than written down beside them — `placeScribbles` says why.
@@ -221,6 +372,40 @@ export default function Collage({
    */
   const stageRef = useRef<HTMLDivElement>(null);
   const [unitsPerPx, setUnitsPerPx] = useState(UNITS_PER_PX_AT_1280);
+  /*
+   * The id of this card's pencil. Per card, because four cards are mounted at
+   * once and each has its own `unitsPerPx` — one shared id would give them all
+   * whichever card rendered last.
+   */
+  const [pencilId] = useState(() => `pencil-collage-${(nextPencil += 1)}`);
+
+  /*
+   * How many columns the phone bento has. It mirrors the container query in
+   * `index.css` exactly — three below a 560px card, four at or above it —
+   * because the two have to agree: the query draws the columns and
+   * `bentoPlan` decides what goes in them.
+   *
+   * Measured off the **card**, not the window, for the same reason everything
+   * else on this deck is: a card is a viewport tall and its width follows the
+   * deck's 16:10 cap, so a portrait tablet's card is not a phone's.
+   */
+  const bentoRef = useRef<HTMLDivElement>(null);
+  const [columns, setColumns] = useState(3);
+
+  useEffect(() => {
+    const el = bentoRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver(([entry]) => {
+      const width = entry?.contentRect.width ?? 0;
+      // Zero while the design layout is the one showing: keep what we had.
+      if (width <= 0) return;
+      setColumns(width >= 560 ? 4 : 3);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const plan = useMemo(() => bentoPlan(slots, columns), [slots, columns]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -241,9 +426,25 @@ export default function Collage({
     () => placeScribbles(slots, scribbles, unitsPerPx),
     [slots, scribbles, unitsPerPx],
   );
-  /* The shuffle is a permutation of the slot list, so the fallback is dead —
-     it is here because the index signature says it might not be. */
-  const orderOf = (index: number) => sequence[index] ?? index;
+  /*
+   * What a slot needs for its entrance: its place in the shuffle and the angle
+   * it arrives at.
+   *
+   * The tilt is derived from the order rather than drawn from the shuffle's own
+   * stream, because it has to be *stable* — a `--pg-tilt` that changed between
+   * renders would re-run the animation from a different angle — and because a
+   * spread of five whole degrees over the sequence is all the variety a
+   * half-second entrance can show. It settles to 0 regardless: the design's
+   * positions are exact, and the tilt is how a picture arrives, not where it
+   * ends up.
+   *
+   * The shuffle is a permutation of the slot list, so the `?? index` fallback
+   * is dead — it is here because the index signature says it might not be.
+   */
+  const entranceOf = (index: number) => {
+    const order = sequence[index] ?? index;
+    return { "--pg-order": order, "--pg-tilt": `${(order % 5) - 2}deg` } as CSSProperties;
+  };
 
   /*
    * The cursor tag, from `lib/useCursorTag` — the homepage's project cards use
@@ -255,29 +456,19 @@ export default function Collage({
   const onPoint = (slot: CollageSlot, event: ReactPointerEvent<HTMLButtonElement>) =>
     pointAt(slot.caption[locale], event);
 
-  const openSlot = (slot: CollageSlot, trigger: HTMLButtonElement) => {
-    triggerRef.current = trigger;
-    setOpenIndex(slots.indexOf(slot));
-  };
-
-  const close = () => {
-    setOpenIndex(null);
-    triggerRef.current?.focus();
-    triggerRef.current = null;
-  };
-
   /*
-   * Stepping wraps, because a collage is a loop and not a list: there is no
-   * first or last picture on a card, only the one you started at. The cursor
-   * tag is dismissed on the way, since the pointer has not moved and the tag
-   * would otherwise still be naming the piece you just stepped away from.
+   * A slot is still identified by its **index**, not by the object: both
+   * layouts map over this same array, so one index means the same picture in
+   * the design and in the masonry — and `CardStack` can address any piece on
+   * any card with a pair of numbers.
+   *
+   * The cursor tag is dismissed on the way out, since the pointer is about to
+   * be under a dialog and the tag would otherwise be left naming the piece
+   * behind it.
    */
-  const step = (delta: number) => {
-    setOpenIndex((current) => {
-      if (current === null) return current;
-      return (current + delta + slots.length) % slots.length;
-    });
+  const openSlot = (slot: CollageSlot, trigger: HTMLButtonElement) => {
     onUnpoint();
+    onOpenPiece(cardIndex, slots.indexOf(slot), trigger);
   };
 
   return (
@@ -303,7 +494,6 @@ export default function Collage({
           }
         >
           {slots.map((slot, i) => {
-            const style = { "--focus": slot.focus } as CSSProperties;
             return (
               <div
                 key={slot.src}
@@ -313,8 +503,9 @@ export default function Collage({
                   top: pct(slot.y, FRAME_H),
                   width: pct(slot.w, FRAME_W),
                   height: pct(slot.h, FRAME_H),
-                  ...style,
-                }}
+                  "--focus": slot.focus,
+                  ...entranceOf(i),
+                } as CSSProperties}
               >
                 {slot.rotate ? (
                   /*
@@ -333,7 +524,6 @@ export default function Collage({
                   >
                     <Opener
                       slot={slot}
-                      order={orderOf(i)}
                       locale={locale}
                       paused={paused}
                       className="absolute inset-0"
@@ -345,7 +535,6 @@ export default function Collage({
                 ) : (
                   <Opener
                     slot={slot}
-                    order={orderOf(i)}
                     locale={locale}
                     paused={paused}
                     className="absolute inset-0"
@@ -376,8 +565,19 @@ export default function Collage({
             viewBox={`0 0 ${FRAME_W} ${FRAME_H}`}
             fill="none"
           >
+            {/*
+              One pencil for the card's arrows (`MILESTONE-020` task 3). It
+              lives here because `unitsPerPx` does: the filter's grain is stated
+              in CSS pixels and has to be converted into this SVG's user space,
+              which is the design frame, and only the measured stage knows the
+              ratio. Every arrow on the card shares it, so they share a grain —
+              they are notes on one sheet of paper.
+            */}
+            <defs>
+              <PencilFilter id={pencilId} unitsPerPx={unitsPerPx} />
+            </defs>
             {notes.map((note) => (
-              <ScribbleArrow key={note.key} note={note} />
+              <ScribbleArrow key={note.key} note={note} pencil={pencilId} unitsPerPx={unitsPerPx} />
             ))}
           </svg>
           {notes.map((note) => (
@@ -405,53 +605,62 @@ export default function Collage({
         which the container query switches off below 5/4 — so this is the half
         that was left.
       */}
-      <div className="collage-masonry relative h-full overflow-hidden px-3 pt-[68px]">
-        <div className="collage-columns gap-1.5 [column-fill:balance]">
-          {slots.map((slot, i) => {
-            const style = { "--focus": slot.focus } as CSSProperties;
-            return (
-              <div
-                key={slot.src}
-                className="pg-slot relative mb-1.5 w-full break-inside-avoid overflow-hidden rounded-[3px]"
-                style={{ aspectRatio: `${slot.w} / ${slot.h}`, ...style }}
-              >
-                <Opener
-                  slot={slot}
-                  order={orderOf(i)}
-                  locale={locale}
-                  paused={paused}
-                  className="absolute inset-0"
-                  onOpen={openSlot}
-                  onPoint={onPoint}
-                  onUnpoint={onUnpoint}
-                />
-              </div>
-            );
-          })}
+      <div ref={bentoRef} className="collage-masonry relative h-full">
+        {/*
+          **The bento scrolls** (`MILESTONE-023` task 6, owner: *"some cards
+          become too small on mobile, causing the image to be partially
+          hidden… make the card content scrollable where appropriate, so the
+          complete visual can still be viewed"*).
+
+          Fourteen pieces at a size worth looking at do not fit a phone-height
+          card, and the two ways out of that are to shrink them until they do or
+          to let the card be read. The card is pinned under the header while it
+          is on screen, so scrolling its contents is a natural gesture rather
+          than a trap: the deck holds still, the proof sheet moves, and the page
+          carries on at either end because nothing here blocks scroll chaining.
+
+          The fade is a **sibling** of the scroller rather than a child of it.
+          Inside, `bottom-0` is the bottom of the *content* — it would have sat
+          under the last row and scrolled with it; outside, it stays on the
+          card's own edge, where it says there is more below.
+        */}
+        <div className="h-full overflow-y-auto px-3 pb-3 pt-[68px]">
+          <div className="collage-bento">
+            {slots.map((slot, i) => {
+              const cell = plan[i]!;
+              return (
+                <div
+                  key={slot.src}
+                  className="pg-slot relative overflow-hidden rounded-[3px]"
+                  style={{
+                    gridColumn: cell.column,
+                    gridRow: `${cell.row} / span ${cell.rows}`,
+                    "--focus": slot.focus,
+                    ...entranceOf(i),
+                  } as CSSProperties}
+                >
+                  <Opener
+                    slot={slot}
+                    locale={locale}
+                    paused={paused}
+                    contain={cell.contain}
+                    className="absolute inset-0"
+                    onOpen={openSlot}
+                    onPoint={onPoint}
+                    onUnpoint={onUnpoint}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div
           aria-hidden="true"
-          className="pg-fade pointer-events-none absolute inset-x-0 bottom-0 h-16"
+          className="pg-fade pointer-events-none absolute inset-x-0 bottom-0 h-10"
         />
       </div>
 
       {tag}
-
-      {open && openIndex !== null ? (
-        <Lightbox
-          src={open.src}
-          video={open.film ?? open.video}
-          loopVideo={!open.film}
-          alt={open.alt[locale]}
-          caption={open.caption[locale]}
-          description={open.alt[locale]}
-          zoomable={false}
-          position={[openIndex + 1, slots.length]}
-          onPrev={slots.length > 1 ? () => step(-1) : undefined}
-          onNext={slots.length > 1 ? () => step(1) : undefined}
-          onClose={close}
-        />
-      ) : null}
     </>
   );
 }

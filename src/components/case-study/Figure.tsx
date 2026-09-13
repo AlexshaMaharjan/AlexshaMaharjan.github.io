@@ -65,7 +65,7 @@ export default function Figure({
         type="button"
         onClick={() => setZoomed(true)}
         aria-label={`${label} — view full size`}
-        className="block w-full cursor-pointer rounded-[10px] outline-offset-4"
+        className="block w-full cursor-zoom-in rounded-[10px] outline-offset-4"
       >
         <Media
           src={src}

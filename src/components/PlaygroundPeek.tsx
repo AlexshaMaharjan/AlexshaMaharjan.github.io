@@ -1,8 +1,11 @@
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
+import HandArrow from "@/components/HandArrow";
 import Image from "@/components/ui/Image";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
+import { ARCHIVE_PATH } from "@/lib/site";
 
 /**
  * A look inside the playground, and the door into it.
@@ -46,19 +49,26 @@ import { localeHref, type Locale } from "@/lib/i18n";
  * eighteen pixels away is a decoration in the way rather than a direction.
  */
 /*
- * One piece from each collage card, in card order.
+ * One piece from each collage card, in card order — **the owner's four**
+ * (`MILESTONE-018` task 4). The first set was chosen for range; these were
+ * chosen by the person whose work it is, which is the better reason.
  *
  * **Their angles are in `index.css`, not here.** They started as inline
  * `style={{ transform }}` and the fan silently never worked: an inline style
  * outranks a stylesheet rule, so `.pg-peek:hover` was being written and then
  * overruled on every frame. The resting angle and the fanned angle are two
  * states of one property and they belong in the same place.
+ *
+ * `focus` is the same `--focus` idiom `Collage` uses. A 94x124 window is a
+ * hard crop, and three of these four have their subject somewhere other than
+ * the middle: the calendar page is a landscape sheet whose *flower* is the
+ * half the owner asked for, and it sits on the right.
  */
-const PIECES = [
-  "/images/pg-painting-luffy.webp",
-  "/images/pg-portrait.webp",
-  "/images/pg-photo-lowkey.webp",
-  "/images/pg-frame.webp",
+const PIECES: { src: string; focus: string }[] = [
+  { src: "/images/pg-sunset.webp", focus: "50% 38%" },
+  { src: "/images/pg-kalender-mai.webp", focus: "78% 50%" },
+  { src: "/images/pg-group-portrait.webp", focus: "50% 56%" },
+  { src: "/images/pg-vtri-store.webp", focus: "50% 42%" },
 ];
 
 export default function PlaygroundPeek({
@@ -72,7 +82,7 @@ export default function PlaygroundPeek({
   align?: "left" | "center";
 }) {
   const peek = dictionary.playgroundPeek;
-  const href = localeHref(locale, "/playground");
+  const href = localeHref(locale, ARCHIVE_PATH);
 
   return (
     <div className={clsx("mt-8 flex flex-col", align === "center" ? "items-center" : "items-start")}>
@@ -82,18 +92,24 @@ export default function PlaygroundPeek({
         className="pg-peek block rounded-[14px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-focus"
       >
         <span className="flex items-end">
-          {PIECES.map((src, i) => (
+          {PIECES.map((piece, i) => (
             <span
-              key={src}
+              key={piece.src}
               aria-hidden="true"
               className={clsx(
                 "relative block h-[124px] w-[94px] shrink-0 overflow-hidden rounded-[8px] border border-card-border bg-surface",
                 "shadow-[0_10px_26px_rgba(17,23,45,0.13)]",
                 i > 0 && "-ml-5",
               )}
-              style={{ zIndex: i + 1 }}
+              style={{ zIndex: i + 1, "--focus": piece.focus } as CSSProperties}
             >
-              <Image src={src} alt="" fill sizes="94px" className="object-cover" />
+              <Image
+                src={piece.src}
+                alt=""
+                fill
+                sizes="94px"
+                className="object-cover [object-position:var(--focus,50%_50%)]"
+              />
             </span>
           ))}
         </span>
@@ -108,26 +124,45 @@ export default function PlaygroundPeek({
           {peek.cta}
         </Link>
 
-        {/* The hand note, pointing back down into the button. */}
+        {/*
+          The hand note, pointing back into the button.
+
+          **This used to draw its own arrow** — a 52 x 30 SVG at a 2.2px stroke,
+          inline, right here. It was the third arrow implementation on the site
+          and by some distance the faintest: about 4% of the weight of the pen
+          the owner's own annotations are drawn with, which is what "some of the
+          arrows are so small" was pointing at (`MILESTONE-020` task 3). It is
+          `HandArrow`'s `tick` now, at the site's own weight and through the
+          same pencil, so there is one arrow on this site rather than three.
+
+          A flex row rather than the old `padding-left` and an absolutely
+          positioned SVG inside the text: the arrow is a sibling of the words
+          with a gap between them, which is the arrangement `MILESTONE-019`
+          task 5 settled for the About notes and the reason a drawing can change
+          size here without anybody re-measuring an offset.
+        */}
+        {/*
+          Beside the button where there is room, under it where there is not
+          (`MILESTONE-023` task 8).
+
+          It was `md:block` — gone on a phone — and `left-full` is why: the note
+          hangs in the margin to the *right* of the button, and a phone has no
+          margin to hang it in. So below `md` it is a row in the flow under the
+          button instead, with the arrow mirrored to point back up at it. Same
+          drawing, same pen, same words; the only thing that changes is which
+          side of the button the hand was standing on.
+        */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-full top-1/2 hidden -translate-y-1/2 pl-3 md:block"
+          className="pointer-events-none relative mt-2 block md:absolute md:left-full md:top-1/2 md:mt-0 md:-translate-y-1/2 md:pl-3"
         >
-          <span className="relative block whitespace-nowrap pl-[62px] font-hand text-[23px] font-bold leading-none text-accent [transform:rotate(-4deg)]">
-            {peek.note}
-            <svg
-              viewBox="0 0 62 40"
-              fill="none"
-              className="absolute left-0 top-1/2 h-[30px] w-[52px] -translate-y-1/2"
-            >
-              <path
-                d="M56 20C42 20 24 15 8 21"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-              />
-              <path d="M17 13 L7 21 L18 27" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+          <span className="hidden items-center gap-3 whitespace-nowrap text-accent [transform:rotate(-4deg)] md:flex">
+            <HandArrow direction="down-left" shape="tick" width={62} className="shrink-0" />
+            <span className="pencil-ink font-hand text-[23px] font-bold leading-none">{peek.note}</span>
+          </span>
+          <span className="flex items-start justify-center gap-2 whitespace-nowrap text-accent [transform:rotate(-3deg)] md:hidden">
+            <HandArrow direction="up-right" shape="tick" width={60} className="shrink-0" />
+            <span className="pencil-ink mt-1 font-hand text-[19px] font-bold leading-none">{peek.note}</span>
           </span>
         </span>
       </div>

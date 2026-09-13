@@ -13,15 +13,44 @@
  * asks for the fonts. The files are fetched from the same connection that is
  * already serving the page.
  *
- * **Only `latin` and `latin-ext` are kept.** Google serves Caveat and Inter in
- * up to eleven subsets each; this site is English and German, and the other
- * nine are Cyrillic, Greek and Vietnamese. Keeping the `unicode-range` on each
- * face is what makes the split work: a browser downloads `latin-ext` only if
- * the page actually uses a character in it.
+ * **Only `latin` and `latin-ext` are kept.** Google serves these families in up
+ * to eleven subsets each; this site is English and German, and the other nine
+ * are Cyrillic, Greek and Vietnamese. Keeping the `unicode-range` on each face
+ * is what makes the split work: a browser downloads `latin-ext` only if the
+ * page actually uses a character in it.
  *
- * **Caveat 600 is not here.** Nothing sets it. The notes are `font-bold` (700)
- * and the process clusters use Caveat at its default weight, which CSS font
- * matching resolves to the 500 below.
+ * **The hand is Caveat, at 500 and 700** — and it came back (owner,
+ * SESSION-049: *"I didn't want the words to be changed but the font. I was
+ * talking about the font. I wanted that handwritten type of look"*).
+ *
+ * `MILESTONE-020` task 3 read the owner's *"written with pencil/crayon, the
+ * rough type"* as a brief for the **typeface** and swapped Caveat out for
+ * Caveat Brush. It was the wrong half of the sentence. Caveat Brush is a
+ * *brush marker*: even strokes, blunt terminals, no join between letters — a
+ * sign-writer's hand, not a person's. What the owner was describing is the
+ * *texture* of the ink, and that arrived in the same task and stays:
+ * `components/PencilInk` roughens the rendered ink with two chained
+ * displacement maps, which is where the crayon actually lives.
+ *
+ * So the site has both, doing their own jobs: **Caveat is the handwriting, the
+ * pencil is the pen it is written with.** Caveat sets a real cursive with
+ * joined letters and a thick-to-thin modulation across every stroke, and the
+ * fibre pass frays the edges of exactly that.
+ *
+ * Nothing had to be re-tuned to bring it back, which is the tell that it was a
+ * pure swap in the first place: `placeScribbles`'s `LINE_PX` and `CHAR_PX` are
+ * still documented, correctly again, as the metrics of 22px Caveat, and the
+ * eight faces measured this session put Caveat at **97%** of Caveat Brush on
+ * the longest note the playground carries (Patrick Hand 101%, Indie Flower
+ * 109%, Kalam 119%, Architects Daughter 131%). A note's width is what the seat
+ * search collision-tests, so a swap outside about 110% would have been a
+ * re-tune of the whole placement rather than a change of font.
+ *
+ * **500 and 700, and the notes are `font-bold`.** 600 is not here because
+ * nothing sets it, and CSS font matching resolves a missing weight to the
+ * nearest real one rather than synthesising it. The one thing to know before
+ * setting handwriting anywhere new: Caveat's thin strokes are a hairline below
+ * about 17px, which is what `NOTE_PX_NARROW`'s floor of 18 is protecting.
  */
 
 @font-face {
@@ -159,7 +188,23 @@
     --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
     --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial,
       sans-serif;
-    --font-caveat: "Caveat", "Segoe Script", "Bradley Hand", cursive;
+    /*
+     * The hand, in one place. It was written out as a string literal in three
+     * more — inline `fontFamily` on the process clusters — which is how a font
+     * swap turns into a hunt (`MILESTONE-020` task 7). Everything that wants
+     * handwriting now reads this token, or the `.font-hand` utility built on it
+     * a few hundred lines below.
+     *
+     * **Every reader of it passes the stack as the `var()` fallback too**, and
+     * that is not belt and braces, it is the fix for `ISSUE-059`: a
+     * `font-family` whose only value is an undefined custom property is invalid
+     * at computed-value time, so the declaration is thrown away and the element
+     * quietly *inherits* — which on this site means every note, every arrow
+     * label and every annotation silently set in Inter, with nothing in the
+     * console and nothing in the diff. With the fallback spelled out, the worst
+     * a missing token can do is stop being a single point of truth.
+     */
+    --font-hand: "Caveat", "Segoe Script", "Bradley Hand", cursive;
   }
 
   * {
@@ -262,6 +307,41 @@
   }
   100% {
     transform: translateX(400%);
+  }
+}
+
+/* The next word arriving in the About page's "I love ___" line
+   (`about/LoveLine`). The word that is leaving rises and fades on an inline
+   transition; this is the other half of the roll, and it has to be a keyframe
+   rather than a transition because the incoming word is a freshly mounted
+   element — there is no previous state for it to transition *from*.
+
+   The global reduced-motion rule in @layer base switches it off, which is what
+   makes the swap under that setting a plain replacement. */
+@keyframes love-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.32em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Leaving, upward, so the pair reads as one roll rather than a cross-fade.
+   It is a keyframe too, and not the inline transition it started as, because
+   an animation with `fill-mode: both` sits in the animation cascade origin and
+   beats an inline `opacity` — the word would have arrived and then refused to
+   leave. */
+@keyframes love-word-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-0.32em);
   }
 }
 
@@ -372,9 +452,17 @@
    * right-hand column stretched to fill the card while the spacing and states
    * cards inside it stayed 88px and sat against its left edge. These are the
    * three places a width is written one level down from the row.
+   *
+   * **`.process-pin` is exempt, and it has to be** (`MILESTONE-023` task 7).
+   * The pin holding step 01's SWOT card is a 15px absolutely positioned dot,
+   * and a rule that widens every child of the column widened that too: on a
+   * 390px phone it drew a 287px blue bar across the step and out past the
+   * card's rounded edge, which is what the owner was seeing when they said 01
+   * still needed refinement. The rule is about the panels *in the flow*; a
+   * decoration pinned on top of them is not one of those.
    */
   .process-bento .pb-col,
-  .process-bento .pb-col > * {
+  .process-bento .pb-col > *:not(.process-pin) {
     width: 100% !important;
   }
 
@@ -494,51 +582,148 @@
   }
 
   /*
-   * The masonry's columns are set here rather than with `columns-3 sm:columns-4`
-   * because those are viewport breakpoints and this has to follow the card:
-   * a portrait tablet's card is twice a phone's width, and a Tailwind utility
-   * would also outrank the container query, utilities being the later layer.
+   * **The phone layout is a bento grid, not a masonry** (`MILESTONE-023` task
+   * 6, owner: *"the bottom edge of the grid currently looks uneven. I want the
+   * bento layout to visually form a clean rectangle."*).
+   *
+   * It was `columns: 3` with `column-fill: balance`, every piece at its own
+   * aspect ratio. Three columns of freely flowing heights end wherever they end
+   * — three different places — and the card clipped whatever crossed its bottom
+   * edge, which is the uneven edge the owner is describing. A fade over it made
+   * it softer and no straighter.
+   *
+   * A grid on a **fixed row unit** cannot do that: every piece spans a whole
+   * number of rows, so every row lines up across all three columns and the only
+   * straight edge the layout can produce is the one it produces everywhere.
+   * `Collage.tsx` picks each piece's span from its own shape — see `bentoCell`
+   * there, which also decides when a piece should be contained rather than
+   * cropped.
+   *
+   * The row unit is written out rather than guessed: at three columns the
+   * content box is `100cqw - 24px` (the scroller's padding) less two 6px gaps,
+   * so a column is `(100cqw - 36px) / 3` and a **two-row cell is square**,
+   * which makes the arithmetic below readable — one row is half a column less
+   * half a gap. `cqw` resolves against the card, which sets `container-type:
+   * size`, so this follows the card rather than the window.
+   *
+   * **Nothing is auto-flowed.** `Collage.bentoPlan` writes `grid-column` and
+   * `grid-row` on every piece: it fills the shortest column each time and then
+   * grows the last piece in each short column to the common bottom, which is
+   * what makes the edge straight. CSS has no way to balance grid columns, and
+   * `dense` — which was here first — only fills holes in the middle.
    */
-  .collage-columns {
-    columns: 3;
+  .collage-bento {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: calc((100cqw - 36px) / 6 - 3px);
+    gap: 6px;
   }
 
   @container (min-width: 560px) {
-    .collage-columns {
-      columns: 4;
+    .collage-bento {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: calc((100cqw - 42px) / 8 - 3px);
     }
   }
 
   /*
-   * The colour reveal (SESSION-037).
+   * **The pictures are in colour, and they pin themselves up**
+   * (`MILESTONE-020` task 6).
    *
-   * A card arrives in black and white on a blue-grey desk, and the scroll is
-   * what puts the colour back: once a card has landed on the stack there is a
-   * runway of empty scroll behind it (`CardStack.tsx`) during which nothing in
-   * the deck moves, and `--pg-reveal` is driven from 0 to 1 across it.
+   * What was here was a *colour reveal*: every card arrived in black and white
+   * and the scroll put the colour back one picture at a time, in an order
+   * shuffled per visit. It was a nice piece of arithmetic and it was the wrong
+   * idea, which a tester found the hard way — they did not notice it, did not
+   * know to scroll for it, and so spent their time on the playground looking at
+   * a grey version of the work. An interaction that hides the content until the
+   * visitor guesses the trick has inverted the deal: this is a gallery, and the
+   * pictures are the point.
    *
-   * Everything downstream of that is arithmetic in CSS rather than a tween per
-   * picture, which is why forty-eight slots cost one scrubbed value each card
-   * and no React render at all:
+   * So the colour is simply there, from the first frame, and the delight moved
+   * to something that cannot hide anything: as a card comes into view its
+   * pieces **pin up** — each one fading in from 18px low, a touch small and a
+   * few degrees off square, one after another, settling square. Photographs
+   * going onto a board. It needs no discovery, no scrolling at the right pace
+   * and no explanation, and a visitor who never reads a single note still sees
+   * every picture at full strength.
    *
-   * - `--pg-sweep` is the first 82% of the runway, over which the pictures
-   *   light up one after another;
-   * - `--pg-full` runs from the start of the runway to 60% of it, over which
+   * Two things survive the change, and it is worth saying which:
+   *
+   * - **`--pg-order`**, the per-card shuffle. It used to say which picture got
+   *   its colour back next and now says which one is pinned up next, so the
+   *   deck still arrives in a different sequence every visit. Same machinery,
+   *   better job.
+   * - **`--pg-full`**, scrubbed from the card's own scroll runway, over which
    *   the notes, the arrows and the ruling turn from muted blue to the card's
-   *   accent. It used to be the *last* 18%, which made the colour snap on at
-   *   the end; the owner asked for it to start as soon as the card lands, so
-   *   it now arrives gradually alongside the pictures (`MILESTONE-010` 14g).
+   *   accent (`MILESTONE-010` 14g). That one was never about the pictures — it
+   *   is the card finding its own colour — so it stays exactly as it was.
    *
-   * A card sets `--pg-steps` (its own slot count plus one) and every slot sets
-   * `--pg-order` — its place in an order shuffled per card, so the pictures
-   * come back in a different sequence on every visit. `--pg-lit` is then that
-   * slot's own share of the sweep, taken at 2.5x so a picture arrives with a
-   * snap rather than dissolving for the whole of its window.
+   * `--pg-sweep`, `--pg-lit` and `--pg-steps` are gone with the greyscale.
    *
-   * The fallbacks matter: a missing `--pg-order` or `--pg-steps` would make the
-   * whole `filter` invalid at computed-value time and leave the picture in
-   * whatever state it was last painted in.
+   * **Nothing is hidden unless the script is running.** `data-pinup` is written
+   * by `CardStack` from a layout effect and removed under
+   * `prefers-reduced-motion`, so a card whose JavaScript never runs is a card
+   * with all its pictures visible — the same rule `useScrollReveals` follows
+   * for the same reason (`ISSUE-001`).
    */
+  /*
+   * **The card at rest is a ghost of itself, not an empty sheet**
+   * (`MILESTONE-022` task 5, owner: *"the canvas in the first Archive card
+   * currently appears blank… I don't want the card to feel empty or show a
+   * completely blank canvas"*).
+   *
+   * The at-rest state was `opacity: 0`, and on the **first** card that is what
+   * the visitor lands on: the pin-up is held until the first scroll (see
+   * `CardStack`, `armed`), deliberately, so that card 1's entrance is not spent
+   * while the reader is still on the page title. Correct, and the cost was a
+   * white rectangle where the work is — with the same collage already visible
+   * in the band on the homepage, which is how the owner noticed.
+   *
+   * So the resting state is the finished card at `--pg-rest-opacity`, drained
+   * of most of its colour, sitting where the entrance begins: 18px low, a touch
+   * small, a few degrees off square. It reads as a layout pencilled onto the
+   * board — the arrangement is all there and none of it is finished — and then
+   * each piece pins up into full colour and square.
+   *
+   * **The keyframe's `from` is the resting state, exactly.** Same opacity, same
+   * saturation, same transform, so a piece begins its entrance from where it
+   * was already sitting rather than jumping to a start position. That is the
+   * one thing to keep if either is edited.
+   *
+   * It is also, deliberately, the retired colour reveal doing a job it can do
+   * safely. That mechanic hid the work until the visitor guessed the trick
+   * (a tester looked at a grey playground for a whole session); this is an
+   * *entrance*, over in half a second, and it never gates the content — the
+   * pictures are in colour the moment the card is looked at.
+   */
+  @keyframes pg-pin-up {
+    from {
+      opacity: var(--pg-rest-opacity);
+      filter: saturate(var(--pg-rest-saturate));
+      transform: translateY(18px) scale(0.93) rotate(var(--pg-tilt, 0deg));
+    }
+    to {
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+  }
+
+  .pg-card[data-pinup="idle"] .pg-slot {
+    opacity: var(--pg-rest-opacity);
+    filter: saturate(var(--pg-rest-saturate));
+    transform: translateY(18px) scale(0.93) rotate(var(--pg-tilt, 0deg));
+  }
+
+  .pg-card[data-pinup="in"] .pg-slot {
+    /*
+     * 46ms apart: a fourteen-piece card is fully up in about a second, which is
+     * quick enough that nobody is kept waiting for a picture and slow enough
+     * that they arrive one at a time rather than as one block.
+     */
+    animation: pg-pin-up 520ms var(--ease-out) both;
+    animation-delay: calc(var(--pg-order, 0) * 46ms);
+  }
   /*
    * The playground's two grounds: blue-toned paper, and grey panels lifted off
    * it, which is what makes the deck read as objects on a desk rather than as
@@ -569,8 +754,15 @@
   .pg-card {
     background-color: #ffffff;
     --pg-reveal: 0;
-    --pg-sweep: clamp(0, calc(var(--pg-reveal) / 0.82), 1);
     --pg-full: clamp(0, calc(var(--pg-reveal) / 0.6), 1);
+    /*
+     * How the card's pieces sit before they pin up. One pair of numbers, read
+     * by both the resting rule and the keyframe it hands over to, so the two
+     * cannot drift apart. 0.22 is faint enough to read as unfinished and strong
+     * enough that the arrangement is legible across the card.
+     */
+    --pg-rest-opacity: 0.22;
+    --pg-rest-saturate: 0.3;
   }
 
   /* The masonry's last row runs past the bottom edge; this turns the overflow
@@ -580,17 +772,7 @@
   }
 
   .pg-piece {
-    --pg-lit: clamp(0, calc((var(--pg-sweep, 1) * var(--pg-steps, 1) - var(--pg-order, 0)) * 2.5), 1);
-    /* A little extra contrast while it is grey: a desaturated photograph goes
-       flat, and the lift is what keeps the black-and-white state looking
-       chosen. It comes back out as the colour arrives. */
-    filter: grayscale(calc(1 - var(--pg-lit))) contrast(calc(1 + 0.09 * (1 - var(--pg-lit))));
-    /* `filter` is transitioned too, and shorter than the rest: hovering a
-       picture that has not had its turn yet brings its colour back, and that
-       needs to arrive rather than snap. Kept well under the scrub's own frame
-       budget so it softens the scroll reveal instead of trailing behind it. */
-    transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out),
-      filter 180ms var(--ease-out);
+    transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
   }
 
   /*
@@ -608,11 +790,6 @@
          than over it, and no transform on the piece can escape that. */
       transform: scale(1.42);
       box-shadow: 0 26px 60px rgba(16, 26, 54, 0.3);
-      /* Out of turn, but in colour. Holding a picture up to the light and
-         being shown the black-and-white one is the wrong answer to the
-         gesture; the scroll still owns the order, and this is a look ahead
-         that costs the reveal nothing once the pointer leaves. */
-      --pg-lit: 1;
     }
 
     .pg-slot:hover {
@@ -621,9 +798,10 @@
   }
 
   /*
-   * The notes, the card's index, and anything else that answers to the reveal:
-   * blue until the card's pictures are all back, and then the card's own colour
-   * — orange, green, black, purple, one per card (`collage.ts`).
+   * The notes, the card's index, and anything else that answers to the card's
+   * own scroll: muted blue as the card lands, turning to the card's own colour
+   * — orange, green, black, purple, one per card (`collage.ts`) — across the
+   * first 60% of its runway.
    *
    * `--pg-accent` is inherited from the card, so a note does not have to know
    * which card it is on. `color-mix` is guarded because the un-mixed base is a
@@ -658,6 +836,84 @@
   @media (hover: none) {
     .pg-cursor-tag {
       display: none;
+    }
+  }
+
+  /*
+   * Handwriting, roughened (`MILESTONE-020` task 3).
+   *
+   * The pencil itself is `components/PencilInk`, mounted once by `RootLayout`;
+   * this is the one line that puts a note's *text* through it. The arrows reach
+   * the same filter through their own `<defs>`, because their parameters have
+   * to be converted into each drawing's user space and text's never does — see
+   * that file.
+   *
+   * **The `@supports` guard is about the property, not about the filter.** A
+   * `filter: url(#…)` whose target is missing does not degrade to plain text —
+   * per spec the element is not rendered at all — so the thing that actually
+   * keeps these notes on the page is that `PencilInk` is mounted by
+   * `RootLayout` itself, above the router, and is therefore in the prerendered
+   * HTML of every route as well as in every client render. The guard covers the
+   * narrower case of an engine that does not take `url()` as a filter value,
+   * where the declaration would otherwise be dropped and this rule would leave
+   * nothing behind. It costs one line.
+   *
+   * Not skipped under `prefers-reduced-motion`, deliberately: nothing here
+   * moves. The texture is static ink, and asking for less motion is not asking
+   * for less texture.
+   */
+  .pencil-ink {
+    /* No filter by default: see the guard below. */
+    filter: none;
+  }
+  @supports (filter: url("#x")) {
+    .pencil-ink {
+      filter: url("#pencil-ink-text");
+    }
+  }
+
+  /*
+   * Paper does not print. A filtered note on the résumé or on a printed case
+   * study is a raster the printer has to resolve at its own DPI, and it comes
+   * out muddy where the plain outline comes out crisp.
+   */
+  @media print {
+    .pencil-ink {
+      filter: none;
+    }
+  }
+
+  /*
+   * The live dot on a case study's prototype frame (`MILESTONE-020` task 2).
+   *
+   * A recording-light, which is the one convention that reads as "this is
+   * running" without a word of explanation. It is a `span` rather than an
+   * emoji or an icon because it has to pulse, and it is `aria-hidden` because
+   * the words beside it already say "Live prototype" — a screen reader gains
+   * nothing from a dot.
+   *
+   * The halo is a second box-shadow rather than a pseudo-element, so the whole
+   * thing is one node in a flex row with the label. The global
+   * `prefers-reduced-motion` rule in `@layer base` stops the animation, leaving
+   * a plain dot, which is the correct resting state rather than a degraded one.
+   */
+  .cs-live-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    flex: 0 0 auto;
+    border-radius: 9999px;
+    background: currentColor;
+    animation: cs-live-pulse 2s var(--ease-out) infinite;
+  }
+
+  @keyframes cs-live-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(27, 63, 224, 0.45);
+    }
+    50% {
+      box-shadow: 0 0 0 5px rgba(27, 63, 224, 0);
     }
   }
 
@@ -741,9 +997,31 @@
  * here is the belt to that braces, because a nav bar reproduced at the top of
  * somebody's PDF is the most visible thing on it.
  */
+/*
+ * **18mm down the page, 16mm across** (owner, this session: "when the user
+ * tries to print the resume, the margins are very small").
+ *
+ * 12mm is 0.47in, which is under every convention a printed CV is read
+ * against — Word's narrow preset is 12.7mm and its normal one 25.4 — and it is
+ * also below what some office printers can image, so the first and last line
+ * of each page were at risk of being clipped by the hardware rather than by
+ * the design. 18/16 is a hair over half an inch on the long edge and reads as
+ * a document somebody set rather than one that overflowed.
+ *
+ * **It costs 4.5% of the page and the document still fits two.** Printable
+ * height goes 1,032 → 986 CSS px and width 703 → 673, so the measure wraps
+ * slightly more often as well. The slack that pays for it is the 41mm standing
+ * empty at the foot of both pages — `break-inside: avoid` had already pushed
+ * the Surugami entry to page two, so page one was never full. Re-measured
+ * after the change: still two pages, with headroom on both.
+ *
+ * Asymmetric on purpose: vertical margins carry the header and footer a
+ * printer may add and are the ones the eye reads as "margin", so they get the
+ * extra 2mm; horizontal margin is paid for twice over by every line of text.
+ */
 @page {
   size: A4;
-  margin: 12mm;
+  margin: 18mm 16mm;
 }
 
 @media print {
@@ -754,6 +1032,17 @@
 
   body {
     background: #fff;
+  }
+
+  /*
+   * So is the page's own grey. `RootLayout` paints `bg-page` across the whole
+   * column, and with "Background graphics" ticked in the print dialog that
+   * reached the sheet as a full-bleed grey panel behind a black-and-white
+   * document — an expensive way to print nothing. The dialog's default is off,
+   * which is why it was never noticed.
+   */
+  .bg-page {
+    background: #fff !important;
   }
 
   header,
@@ -767,9 +1056,23 @@
     padding-bottom: 0;
   }
 
-  /* The section stack: 40px gaps become 20. */
+  /*
+   * The section stack: 40px gaps become 17.
+   *
+   * 20 until the margins went to 18/16mm, which costs 4.5% of every page. The
+   * English document absorbed that out of the 41mm standing empty at the foot
+   * of both its pages; the **German** one did not — it is a longer language in
+   * every field, it was already using page two to its last entry, and the
+   * "Sprachen" row alone tipped it onto a third page.
+   *
+   * So the space the margins took is given back out of the gaps between
+   * sections, the padding inside an entry and the skills rows, in that order —
+   * the same principle `MILESTONE-011` task 12 settled, that on a document this
+   * dense the pages are won from *space* and never from type size. Three
+   * numbers move by two or three pixels each and both locales print on two.
+   */
   .resume-sheet .resume-block {
-    margin-top: 20px;
+    margin-top: 17px;
   }
 
   /* A heading never ends a page, and an entry never straddles one. */
@@ -782,8 +1085,8 @@
   .resume-sheet .resume-entry {
     break-inside: avoid;
     page-break-inside: avoid;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .resume-sheet .resume-entry:first-child {
@@ -813,7 +1116,17 @@
   }
 
   .resume-sheet .resume-skills {
-    row-gap: 8px;
+    row-gap: 6px;
+  }
+
+  /*
+   * A skills row is a label and its list, and the two belong on one page. The
+   * grid is `display: contents` per row, so there is no element to protect —
+   * the cells are direct children of the grid and each has to say so itself.
+   */
+  .resume-sheet .resume-skills > * {
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   /* Links print as text; a URL in brackets after every one of them is noise on
@@ -821,5 +1134,40 @@
   .resume-sheet a {
     text-decoration: none;
     color: inherit;
+  }
+}
+
+@layer utilities {
+  /*
+   * **The handwriting utility lives here and not in `tailwind.config.ts`**
+   * (`ISSUE-059`, owner task 2: *"the font used for the arrows still has not
+   * been updated… fix the underlying issue rather than just adding another
+   * override"*).
+   *
+   * It was `fontFamily.hand` in the Tailwind config, and it failed twice over
+   * in a way nothing could report:
+   *
+   * 1. **The token it named did not exist.** The config said
+   *    `var(--font-caveat)` and `:root` declares `--font-hand`. An undefined
+   *    custom property makes the whole `font-family` invalid at computed-value
+   *    time, so the declaration is dropped and the element inherits — which is
+   *    `body`'s Inter. Every note and arrow label on the site was set in the
+   *    body face, and a computed style of "Inter" is exactly what a correctly
+   *    inherited font looks like, so nothing anywhere said so.
+   * 2. **Fixing the config did not reach the running dev server.** A
+   *    `tailwind.config.ts` edit is not a file the Vite graph watches the way it
+   *    watches CSS, so the owner's localhost kept serving the compiled
+   *    `var(--font-caveat)` rule after the config was corrected. That is the
+   *    same trap the playground's two grounds are in this file to avoid (see
+   *    `.pg-page`), and the same answer: **things that can silently go stale
+   *    belong in the stylesheet, which does hot-reload.**
+   *
+   * So the utility is one CSS rule, with the family spelled out as the `var()`
+   * fallback, and the config no longer carries a `hand` family at all. Nothing
+   * else about `font-hand` changes: it is still the class every note uses, and
+   * it is in the utilities layer, so it still outranks `body`'s `font-sans`.
+   */
+  .font-hand {
+    font-family: var(--font-hand, "Caveat", "Segoe Script", "Bradley Hand", cursive);
   }
 }

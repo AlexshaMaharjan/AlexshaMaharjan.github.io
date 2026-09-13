@@ -1,22 +1,41 @@
 import type { CaseStudyLocaleContent } from "./types";
+import { PROJECT_TAGS } from "./tags";
 
+/**
+ * WikiMind, rewritten from the owner's own copy deck (`promt.pdf`, section 10).
+ *
+ * Two things changed shape rather than wording. The three personas are **named
+ * people** now (Markus Weber, Prof. Dr. Elena Schmidt, Sabine Richter) where
+ * they used to be anonymous roles, so each card carries the name as its
+ * heading, the role under it and the needs run as its own closing line rather
+ * than as a sentence tacked onto the body. And the five brand-value bullets and
+ * the paragraph on verbal tone are gone: the owner's §05 makes its case in
+ * prose instead.
+ *
+ * The figure order in §05 is the owner's, and is sequential: early
+ * explorations, then the selected direction, then the final variants.
+ *
+ * The mascot closes §05 as a `split` rather than as a full-column figure
+ * (owner, second pass: "the image is too big"). It is an illustration of the
+ * paragraph beside it, not a board to be read.
+ */
 const wikimind: CaseStudyLocaleContent = {
   en: {
     slug: "wikimind",
     name: "WikiMind",
-    headline: "Making artificial intelligence feel clear, useful and approachable.",
+    headline: "Making AI services clear, useful and approachable.",
     summary:
-      "WikiMind is a brand identity and website concept for an AI company offering workshops, chatbots and software solutions. The project translates complex services into a friendly and structured experience for people with limited technical knowledge.",
-    tags: ["Brand Strategy", "Visual Identity", "UI/UX Design", "Web Design", "Prototyping"],
+      "A brand identity and website concept for WikiMind, an AI company offering workshops, chatbots and software solutions.",
+    tags: [...PROJECT_TAGS.wikimind],
+    context: "Semester project",
     role: "Brand & UI/UX Designer",
-    contribution: "Entire project completed independently.",
-    type: "Semester project · solo",
+    team: "Solo project",
+    contribution: "",
     tools: "Figma · Adobe Illustrator",
-    deliverables: "Brand identity · Logo system · Mascot · Website design · UI kit · Interactive prototype",
     heroImage: {
       src: "/images/hero-wikimind.webp",
-      alt: "The WikiMind homepage shown on a laptop, beside the case-study title",
-      aspect: "1900/1066",
+      alt: "The WikiMind homepage shown on a laptop, beside the project name",
+      aspect: "1920/1080",
     },
     sections: [
       {
@@ -25,21 +44,21 @@ const wikimind: CaseStudyLocaleContent = {
         number: "01",
         heading: "The project at a glance",
         body: [
-          "WikiMind wanted to communicate artificial intelligence to people who were interested in using it but did not necessarily understand the underlying technology. The challenge was not the range of services itself. It was how those services were presented.",
-          "Many AI websites rely on technical terminology, abstract visualisations and dark interfaces. While this can signal technological capability, it may also make the subject feel distant, complicated or inaccessible. The goal was therefore to create an identity and digital experience that maintained professional credibility while making AI easier to understand.",
+          "WikiMind wanted to grow and reach people who were interested in AI but did not necessarily have a technical background. The challenge was to explain its different services clearly and show their practical value without overwhelming visitors with technical language.",
+          "I developed a visual identity and website concept that presented WikiMind in a professional and approachable way while making its services easier to understand. The project covered everything from the logo and mascot to the website structure, interface and interactive prototype.",
         ],
       },
       {
         id: "challenge",
         navLabel: "Context & challenge",
         number: "02",
-        heading: "AI was available, but it did not always feel accessible.",
+        heading: "Approachable, without losing credibility",
         body: [
-          "Artificial intelligence is becoming part of everyday products and professional workflows. Yet many potential users still experience it as abstract, intimidating or difficult to apply. This creates a communication problem for companies such as WikiMind.",
-          "The website needed to explain different services without assuming technical knowledge. At the same time, the brand could not become childish, overly playful or less credible.",
+          "WikiMind needed to speak to people with different levels of technical knowledge. The website had to explain workshops, chatbots and software solutions in simple terms, while still presenting the company as capable and professional.",
+          "This created an important balance. AI needed to feel easier to approach without making the brand childish, overly playful or less credible.",
         ],
         designQuestion:
-          "How might WikiMind make complex AI services understandable and approachable without losing professional trust?",
+          "How can WikiMind make its AI services easier to understand and approach without losing professional credibility?",
       },
       {
         id: "research",
@@ -47,24 +66,36 @@ const wikimind: CaseStudyLocaleContent = {
         number: "03",
         heading: "Understanding how AI companies communicate",
         body: [
-          "I conducted a qualitative visual and structural analysis of existing AI and technology websites. The comparison focused on visual tone, information hierarchy, content structure, language, navigation, animation and methods of establishing trust.",
-          "The analysis revealed a common tension. Dark and highly technical interfaces often appeared modern, but they could also feel cold or exclusive. Clearer layouts and restrained animation made information easier to follow and helped services feel more understandable.",
-          {
-            kind: "figures",
-            items: [
-            ],
-          },
+          "I compared AI and technology websites to see how they explained complex services and built trust. I looked at their visual language, structure, navigation, wording and use of animation.",
+          "I found that highly technical interfaces could make AI feel more distant, while clearer layouts and simpler communication made the services easier to approach.",
           { kind: "h3", text: "Translating the audience into design needs" },
-          "Three working personas represented different professional contexts: a business decision-maker looking for practical automation, an academic leader seeking understandable AI education and a customer-service manager needing reliable operational support.",
-          "Although their responsibilities differed, their needs shared a consistent pattern. They required clear explanations, visible credibility and practical value before they could trust an AI provider.",
+          "I created three working personas to represent different people WikiMind could speak to: a business decision-maker, an academic leader and a customer-service manager.",
+          "Although their situations were different, they shared three important needs: clear explanations, credibility and a clear practical benefit.",
           {
-            kind: "figures",
+            kind: "cards",
             items: [
-              { aspect: "1600/1131", wide: true, caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona one: a logistics managing director, with his personality, responsibilities and online behaviour" },
-              { aspect: "1600/1131", wide: true, caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona two: a university dean, with her personality, responsibilities and online behaviour" },
-              { aspect: "1600/1131", wide: true, caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona three: an e-commerce customer service lead, with her personality, responsibilities and online behaviour" },
+              {
+                heading: "Markus Weber",
+                label: "CEO, logistics & manufacturing",
+                body: "Markus wants to understand where AI can actually save his company time and money. He is interested in automation, but sceptical of technical hype and needs a provider he can trust.",
+                needs: "Clear business value · Simple explanations · Credibility",
+              },
+              {
+                heading: "Prof. Dr. Elena Schmidt",
+                label: "Dean, business & digital sciences",
+                body: "Elena wants students to understand and confidently use tools such as ChatGPT. She is looking for practical AI education that is credible, understandable and relevant to their future careers.",
+                needs: "Understandable education · Expertise · Practical application",
+              },
+              {
+                heading: "Sabine Richter",
+                label: "Head of Customer Service, e-commerce",
+                body: "Sabine’s team spends too much time on repetitive customer requests. She is looking for a reliable way to automate part of the workload and reduce pressure on her team.",
+                needs: "Practical automation · Reliability · Clear benefits",
+              },
             ],
           },
+          { kind: "h3", text: "Shared needs" },
+          "Despite their different roles, all three personas needed the same thing from WikiMind: a clear understanding of what AI could do for them, why it was useful, and why they could trust the company.",
         ],
       },
       {
@@ -74,20 +105,20 @@ const wikimind: CaseStudyLocaleContent = {
         heading: "Key insights",
         insights: [
           {
-            heading: "Clarity matters more than technical detail.",
-            body: "Users first need to understand what a service does for them. Technical explanations should support this understanding, not lead the communication.",
+            heading: "Clarity comes before technical detail",
+            body: "People first need to understand what a service can do for them. Technical information should support that understanding, not lead it.",
           },
           {
-            heading: "A human element can reduce distance.",
-            body: "A recognisable character can make AI feel less abstract, provided it is used carefully and does not undermine professional credibility.",
+            heading: "A human element can reduce distance",
+            body: "A recognisable character can make AI feel less abstract without making the brand feel less professional.",
           },
           {
-            heading: "Trust must be designed into the structure.",
-            body: "Predictable navigation, understandable service descriptions and visible calls to action create more confidence than decorative technological imagery.",
+            heading: "Trust comes from clear structure",
+            body: "Simple navigation, clear service descriptions and obvious next steps help people move through the website with confidence.",
           },
           {
-            heading: "Motion should guide, not distract.",
-            body: "Animation should support orientation, explain relationships or draw attention to important actions. It should not compete with the content.",
+            heading: "Motion should guide, not distract",
+            body: "Animation should support orientation or highlight important actions, not compete with the content.",
           },
         ],
       },
@@ -95,46 +126,35 @@ const wikimind: CaseStudyLocaleContent = {
         id: "direction",
         navLabel: "Strategy & identity",
         number: "05",
-        heading: "Positioning AI as a capable assistant",
+        heading: "Turning the strategy into a visual identity",
         body: [
-          "The central strategic decision was to present AI not as an abstract technical system, but as a supportive tool that helps people learn, automate work and solve practical problems.",
-          {
-            kind: "list",
-            items: [
-              "Trust through transparent communication",
-              "Accessibility through friendly visuals and plain language",
-              "Clarity through structured information",
-              "Innovation through modern but controlled digital details",
-              "Competence through a consistent and professional system",
-            ],
-          },
-          "The verbal tone avoids unnecessary terminology and prioritises user benefits over technical specifications.",
+          "I positioned AI as a practical assistant rather than an abstract technology. This led to a brand direction built around simple communication, a light visual language and a clear focus on what WikiMind’s services can do for people.",
           { kind: "h3", text: "A light and structured visual language" },
-          "The visual direction combines a white and neutral background with several blue tones and restrained gradients. Blue supports associations with trust, intelligence and technology, while the lighter environment prevents the brand from feeling heavy or intimidating. Inter was selected for its screen readability and neutral character.",
+          "I used neutral backgrounds, blue tones, restrained gradients and Inter as the main typeface. Together, they created a clean and readable system without making the brand feel too technical or heavy.",
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1153", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.webp", alt: "The visual reference board: blue tones, dolphin imagery, interface examples and the gradient wordmark" },
-              { aspect: "1600/515", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "The five brand colours with their hex values, beside the four Inter weights" },
+              { aspect: "1400/1153", caption: "Visual references that shaped the colour, imagery and overall direction of WikiMind.", src: "/images/wikimind-moodboard.webp", alt: "The visual reference board: blue tones, dolphin imagery, interface examples and the gradient wordmark" },
+              { aspect: "1600/515", caption: "The core colour palette and Inter type system.", src: "/images/wikimind-colour-type.webp", alt: "The five brand colours with their hex values, beside the four Inter weights" },
             ],
           },
-          { kind: "h3", text: "A symbol for connected knowledge" },
-          "The WikiMind symbol combines the initials W and M with the continuous form of an infinity sign. The mark represents connected knowledge, continuous learning and the open-ended potential of artificial intelligence. Rounded forms make the identity more approachable, while sharper details prevent the wordmark from appearing overly playful.",
+          { kind: "h3", text: "A symbol for connected and infinite knowledge" },
+          "The logo combines the letters W and M in a continuous form inspired by the infinity symbol. Rounded shapes make it feel more approachable, while sharper details keep it precise.",
           {
             kind: "figures",
             items: [
-              { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines", stackWithNext: true },
-              { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "The WikiMind logo in gradient, in solid black and in its horizontal lockups" },
-              { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
+              { aspect: "1200/1805", caption: "Early sketches exploring different ways to connect the W and M.", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
+              { aspect: "1420/516", caption: "The selected idea combining the WikiMind initials into one continuous mark.", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines", stackWithNext: true },
+              { aspect: "1600/460", caption: "Final logo versions for different colours and layouts.", src: "/images/wikimind-logo-variants.webp", alt: "The WikiMind logo in gradient, in solid black and in its horizontal lockups" },
             ],
           },
-          { kind: "h3", text: "A controlled human element" },
-          "A dolphin was introduced as a controlled brand character. Dolphins are commonly associated with intelligence, curiosity and social behaviour, which supported the desired perception of WikiMind. The mascot is used selectively in the hero, educational explanations and transitional moments rather than across every section of the website.",
           {
-            kind: "figures",
-            items: [
-              { aspect: "1600/1317", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
+            kind: "split",
+            heading: "A character with a purpose",
+            body: [
+              "I introduced a dolphin as WikiMind’s brand character, drawing on associations with intelligence, curiosity and social behaviour. Headphones and glasses give it an attentive, approachable presence, and a tailored suit signals a professional, tech-savvy character, while hands let it interact with the interface directly for a more human touch. I used it selectively so it could add personality without taking over the identity.",
             ],
+            figure: { aspect: "1600/1317", caption: "Development of the WikiMind dolphin mascot.", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
           },
         ],
       },
@@ -142,23 +162,23 @@ const wikimind: CaseStudyLocaleContent = {
         id: "development",
         navLabel: "Structure & system",
         number: "06",
-        heading: "Turning multiple services into a guided journey",
+        heading: "Making the services easier to navigate",
         body: [
-          "After establishing the brand direction, the website content was organised into a sitemap and reusable page system. The structure was designed to help visitors understand what WikiMind offers, identify the service relevant to them and move towards a clear next action.",
+          "Once the brand direction was established, I organised the website around the services people were looking for. The sitemap defined the main pages, while wireframes helped establish hierarchy, content flow and clear next steps before moving into visual design.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/485", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "The site structure: a home page over four sections and three sub-pages" },
-              { aspect: "1400/1311", caption: "[ wireframes ]", src: "/images/wikimind-wireframes.webp", alt: "Wireframes for eight pages: home, the three service pages, team, contact and the legal pages" },
+              { aspect: "1600/485", caption: "Sitemap organising WikiMind’s main services and supporting pages.", src: "/images/wikimind-sitemap.webp", alt: "The site structure: a home page over four sections and three sub-pages" },
+              { aspect: "1400/1311", caption: "Wireframes exploring page structure and content hierarchy.", src: "/images/wikimind-wireframes.webp", alt: "Wireframes for eight pages: home, the three service pages, team, contact and the legal pages" },
             ],
           },
-          { kind: "h3", text: "Building consistency through reusable components" },
-          "The interface system uses rounded containers, generous spacing and a limited visual hierarchy to soften the technical subject. Reusable components were created for navigation, buttons, content cards, input fields, service sections, icons, footer, hover states and feedback animations. The component approach keeps the website visually consistent while supporting future expansion.",
+          { kind: "h3", text: "Building a reusable interface system" },
+          "I turned recurring interface patterns into reusable components for navigation, buttons, cards, forms and service sections. Consistent spacing, rounded containers and a simple hierarchy helped keep the different pages visually connected.",
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1369", caption: "[ component library ]", src: "/images/wikimind-components.webp", alt: "The component library: navigation, buttons, the logo strip, team cards and the footer" },
-              { aspect: "1600/1034", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "The interface kit: logo, navigation, mascot, type scale, colour, icons, buttons and the footer" },
+              { aspect: "1400/1369", caption: "Reusable components used across the website.", src: "/images/wikimind-components.webp", alt: "The component library: navigation, buttons, the logo strip, team cards and the footer" },
+              { aspect: "1600/1034", caption: "The final UI kit: typography, colours, icons, buttons and brand elements.", src: "/images/wikimind-ui-kit.webp", alt: "The interface kit: logo, navigation, mascot, type scale, colour, icons, buttons and the footer" },
             ],
           },
         ],
@@ -167,29 +187,44 @@ const wikimind: CaseStudyLocaleContent = {
         id: "outcome",
         navLabel: "Final outcome",
         number: "07",
-        heading: "A calmer entry point into artificial intelligence",
+        heading: "Bringing the system together",
         body: [
-          "The final concept brings the brand identity, service communication and interface system together in a light and structured website. Large headings establish a clear hierarchy. Service cards divide complex topics into understandable entry points. The mascot introduces a human and recognisable element.",
+          "The final concept brings the identity, service structure and interface system together in one website. Large headings and service cards make the content easier to scan, while the mascot adds a recognisable element without dominating the interface.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Five pages of the finished site shown side by side" },
+              { aspect: "1600/714", caption: "Final WikiMind screens showing the main pages of the website.", src: "/images/wikimind-final-screens.webp", alt: "Five pages of the finished site shown side by side" },
             ],
           },
-          "The result is an interactive Figma prototype that demonstrates the main page system, navigation behaviour and visual language of WikiMind.",
+          "The project resulted in an interactive Figma prototype demonstrating the main page system, navigation and visual language.",
+        ],
+      },
+      {
+        id: "prototype",
+        navLabel: "Prototype",
+        number: "08",
+        heading: "Try it yourself",
+        body: [
+          "Here you can explore the interactive prototype and move through the experience yourself.",
+          {
+            kind: "prototype",
+            embed: "https://embed.figma.com/proto/4LNx8YmhFeut0fBu6oMdkN/Wikimind?node-id=70-12936&starting-point-node-id=40%3A2449&page-id=0%3A1&scaling=scale-down&content-scaling=fixed&embed-host=share",
+            href: "https://www.figma.com/proto/4LNx8YmhFeut0fBu6oMdkN/Wikimind?node-id=70-12936&starting-point-node-id=40%3A2449&page-id=0%3A1&scaling=scale-down&content-scaling=fixed",
+            label: "WikiMind website prototype",
+            aspect: "6/5",
+          },
         ],
       },
       {
         id: "reflection",
         navLabel: "Limitations & reflection",
-        number: "08",
-        heading: "Evaluating the system against the original goals",
+        number: "09",
+        heading: "What was validated and what was not",
         body: [
-          "The concept was refined through iterative comparison, self-evaluation and feedback loops. However, the project did not include a formal moderated usability study with representative users. The case study therefore does not claim a measured improvement in usability or conversion.",
-          "A future validation phase should test: whether first-time visitors understand the services, whether the mascot strengthens or reduces credibility, whether users can locate a relevant service quickly, whether the language is understandable without AI knowledge, whether animation supports orientation, and whether contrast, keyboard navigation and screen-reader structure meet accessibility requirements.",
+          "I refined the concept through comparison, self-evaluation and informal feedback, but I did not conduct formal usability testing with representative users. Because of this, I cannot claim measured improvements in usability or conversion.",
           { kind: "h3", text: "What I learned" },
-          "WikiMind showed me that making technology approachable does not mean simplifying the visual identity until it becomes generic. The stronger solution came from balancing emotional warmth with professional structure.",
-          "The mascot, colour system and rounded components created accessibility at the visual level. The content hierarchy, service organisation and reusable interface system created clarity at the functional level. The next iteration should focus less on adding new visual elements and more on validating comprehension, improving accessibility and refining the website through direct user observation.",
+          "WikiMind taught me that making technology easier to approach does not mean making the identity generic. The stronger solution came from combining a warmer visual character with a clear and professional structure.",
+          "If I continued the project, I would focus less on adding new visual elements and more on testing comprehension, accessibility and the experience with real users.",
         ],
       },
     ],
@@ -197,19 +232,19 @@ const wikimind: CaseStudyLocaleContent = {
   de: {
     slug: "wikimind",
     name: "WikiMind",
-    headline: "Künstliche Intelligenz klar, nützlich und zugänglich gestalten.",
+    headline: "KI-Services klar, nützlich und zugänglich gestalten.",
     summary:
-      "WikiMind ist ein Marken- und Website-Konzept für ein KI-Unternehmen, das Workshops, Chatbots und Softwarelösungen anbietet. Das Projekt übersetzt komplexe Leistungen in eine freundliche und klar strukturierte Erfahrung für Menschen mit wenig technischem Vorwissen.",
-    tags: ["Brand Strategy", "Visual Identity", "UI/UX Design", "Web Design", "Prototyping"],
+      "Eine Markenidentität und ein Website-Konzept für WikiMind, ein KI-Unternehmen mit Workshops, Chatbots und Softwarelösungen.",
+    tags: [...PROJECT_TAGS.wikimind],
+    context: "Semesterprojekt",
     role: "Brand & UI/UX Designerin",
-    contribution: "Das gesamte Projekt wurde eigenständig umgesetzt.",
-    type: "Semesterprojekt · allein",
+    team: "Soloprojekt",
+    contribution: "",
     tools: "Figma · Adobe Illustrator",
-    deliverables: "Markenidentität · Logosystem · Maskottchen · Website-Design · UI-Kit · Interaktiver Prototyp",
     heroImage: {
       src: "/images/hero-wikimind.webp",
-      alt: "Die WikiMind-Startseite auf einem Laptop, neben dem Titel der Fallstudie",
-      aspect: "1900/1066",
+      alt: "Die WikiMind-Startseite auf einem Laptop, neben dem Projektnamen",
+      aspect: "1920/1080",
     },
     sections: [
       {
@@ -218,21 +253,21 @@ const wikimind: CaseStudyLocaleContent = {
         number: "01",
         heading: "Das Projekt auf einen Blick",
         body: [
-          "WikiMind wollte künstliche Intelligenz Menschen vermitteln, die an ihrer Nutzung interessiert sind, die zugrunde liegende Technologie jedoch nicht unbedingt verstehen. Die Herausforderung lag nicht im Leistungsangebot selbst, sondern in seiner Darstellung.",
-          "Viele KI-Websites arbeiten mit technischen Begriffen, abstrakten Visualisierungen und dunklen Oberflächen. Diese Gestaltung kann technologische Kompetenz vermitteln, das Thema jedoch zugleich distanziert, kompliziert oder schwer zugänglich erscheinen lassen. Ziel war deshalb eine Identität und digitale Erfahrung, die professionell wirkt und KI gleichzeitig leichter verständlich macht.",
+          "WikiMind wollte wachsen und Menschen erreichen, die sich für KI interessieren, aber nicht unbedingt einen technischen Hintergrund haben. Die Herausforderung bestand darin, die verschiedenen Leistungen klar zu erklären und ihren praktischen Nutzen zu zeigen, ohne Besucher mit Fachsprache zu überfordern.",
+          "Ich entwickelte eine visuelle Identität und ein Website-Konzept, das WikiMind professionell und zugänglich präsentiert und die angebotenen Leistungen leichter verständlich macht. Das Projekt umfasste alles vom Logo und Maskottchen bis zur Website-Struktur, zum Interface und zum interaktiven Prototyp.",
         ],
       },
       {
         id: "challenge",
         navLabel: "Kontext & Herausforderung",
         number: "02",
-        heading: "KI war verfügbar, wirkte jedoch nicht immer zugänglich.",
+        heading: "Zugänglich, ohne an Glaubwürdigkeit zu verlieren",
         body: [
-          "Künstliche Intelligenz wird zunehmend Teil alltäglicher Produkte und beruflicher Arbeitsprozesse. Trotzdem erleben viele potenzielle Nutzer das Thema weiterhin als abstrakt, einschüchternd oder schwer anwendbar. Für Unternehmen wie WikiMind entsteht dadurch vor allem ein Kommunikationsproblem.",
-          "Die Website musste unterschiedliche Leistungen erklären, ohne technisches Vorwissen vorauszusetzen. Gleichzeitig durfte die Marke nicht kindlich, übermäßig verspielt oder weniger glaubwürdig wirken.",
+          "WikiMind musste Menschen mit unterschiedlichem technischem Vorwissen ansprechen. Die Website sollte Workshops, Chatbots und Softwarelösungen einfach erklären und das Unternehmen gleichzeitig kompetent und professionell präsentieren.",
+          "Dabei entstand eine wichtige Balance. KI sollte zugänglicher wirken, ohne dass die Marke kindlich, zu verspielt oder weniger glaubwürdig erscheint.",
         ],
         designQuestion:
-          "Wie kann WikiMind komplexe KI-Leistungen verständlich und zugänglich vermitteln, ohne professionelles Vertrauen zu verlieren?",
+          "Wie kann WikiMind seine KI-Services verständlicher und zugänglicher machen, ohne an professioneller Glaubwürdigkeit zu verlieren?",
       },
       {
         id: "research",
@@ -240,24 +275,36 @@ const wikimind: CaseStudyLocaleContent = {
         number: "03",
         heading: "Wie KI-Unternehmen kommunizieren",
         body: [
-          "Ich führte eine qualitative visuelle und strukturelle Analyse bestehender KI- und Technologie-Websites durch. Untersucht wurden visuelle Tonalität, Informationshierarchie, Inhaltsstruktur, Sprache, Navigation, Animation und Methoden zum Aufbau von Vertrauen.",
-          "Die Analyse zeigte ein wiederkehrendes Spannungsfeld. Dunkle und stark technische Oberflächen wirkten häufig modern, konnten jedoch gleichzeitig kühl oder exklusiv erscheinen. Klarere Layouts und zurückhaltende Animationen erleichterten die Orientierung und machten Leistungen verständlicher.",
-          {
-            kind: "figures",
-            items: [
-            ],
-          },
+          "Ich verglich KI- und Technologie-Websites, um zu verstehen, wie sie komplexe Leistungen erklären und Vertrauen aufbauen. Dabei betrachtete ich ihre visuelle Sprache, Struktur, Navigation, Formulierungen und den Einsatz von Animationen.",
+          "Dabei zeigte sich, dass stark technische Interfaces KI distanzierter wirken lassen können, während klarere Layouts und einfachere Kommunikation den Zugang erleichtern.",
           { kind: "h3", text: "Zielgruppen in konkrete Designanforderungen übersetzen" },
-          "Drei Arbeits-Personas repräsentierten unterschiedliche berufliche Kontexte: eine Führungskraft auf der Suche nach praktischer Automatisierung, eine akademische Leitung mit Bedarf an verständlicher KI-Vermittlung und eine Kundenservice-Leitung mit Bedarf an verlässlicher operativer Unterstützung.",
-          "Trotz unterschiedlicher Verantwortungsbereiche zeigten sich gemeinsame Bedürfnisse. Die Nutzer benötigten verständliche Erklärungen, sichtbare Glaubwürdigkeit und einen klaren praktischen Nutzen, bevor sie einem KI-Anbieter vertrauen konnten.",
+          "Ich entwickelte drei Arbeits-Personas für unterschiedliche Menschen, die WikiMind ansprechen könnte: eine Führungskraft, eine akademische Leitung und eine Kundenservice-Leitung.",
+          "Ihre Situationen waren unterschiedlich, doch drei Bedürfnisse tauchten immer wieder auf: klare Erklärungen, Glaubwürdigkeit und ein klarer praktischer Nutzen.",
           {
-            kind: "figures",
+            kind: "cards",
             items: [
-              { aspect: "1600/1131", wide: true, caption: "[ persona 01 ]", src: "/images/wikimind-persona-01.webp", alt: "Persona 1: Geschäftsführer eines Logistikunternehmens, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
-              { aspect: "1600/1131", wide: true, caption: "[ persona 02 ]", src: "/images/wikimind-persona-02.webp", alt: "Persona 2: Dekanin einer Hochschule, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
-              { aspect: "1600/1131", wide: true, caption: "[ persona 03 ]", src: "/images/wikimind-persona-03.webp", alt: "Persona 3: Leiterin Kundenservice im E-Commerce, mit Persönlichkeit, Verantwortlichkeiten und Online-Verhalten" },
+              {
+                heading: "Markus Weber",
+                label: "Geschäftsführer, Logistik & Fertigung",
+                body: "Markus möchte verstehen, wo KI seinem Unternehmen tatsächlich Zeit und Kosten sparen kann. Er interessiert sich für Automatisierung, steht technischem Hype aber skeptisch gegenüber und braucht einen Anbieter, dem er vertrauen kann.",
+                needs: "Klarer geschäftlicher Nutzen · Einfache Erklärungen · Glaubwürdigkeit",
+              },
+              {
+                heading: "Prof. Dr. Elena Schmidt",
+                label: "Dekanin, Wirtschaft & digitale Wissenschaften",
+                body: "Elena möchte, dass Studierende Tools wie ChatGPT verstehen und sicher einsetzen können. Sie sucht nach praxisnaher KI-Vermittlung, die verständlich, glaubwürdig und für ihre berufliche Zukunft relevant ist.",
+                needs: "Verständliche Vermittlung · Fachliche Kompetenz · Praxisbezug",
+              },
+              {
+                heading: "Sabine Richter",
+                label: "Leiterin Kundenservice, E-Commerce",
+                body: "Sabines Team verbringt zu viel Zeit mit wiederkehrenden Kundenanfragen. Sie sucht nach einer verlässlichen Möglichkeit, einen Teil dieser Arbeit zu automatisieren und ihr Team zu entlasten.",
+                needs: "Praktische Automatisierung · Verlässlichkeit · Klarer Nutzen",
+              },
             ],
           },
+          { kind: "h3", text: "Gemeinsame Bedürfnisse" },
+          "Trotz ihrer unterschiedlichen Rollen brauchten alle drei Personas dasselbe von WikiMind: ein klares Verständnis dafür, was KI für sie tun kann, welchen Nutzen sie bringt und warum sie dem Unternehmen vertrauen können.",
         ],
       },
       {
@@ -267,20 +314,20 @@ const wikimind: CaseStudyLocaleContent = {
         heading: "Zentrale Erkenntnisse",
         insights: [
           {
-            heading: "Klarheit ist wichtiger als technische Detailtiefe.",
-            body: "Nutzer müssen zuerst verstehen, welchen konkreten Nutzen eine Leistung für sie hat. Technische Erklärungen sollten dieses Verständnis unterstützen und nicht die Kommunikation dominieren.",
+            heading: "Klarheit kommt vor technischen Details",
+            body: "Menschen müssen zuerst verstehen, was eine Leistung für sie tun kann. Technische Informationen sollten dieses Verständnis unterstützen und nicht im Vordergrund stehen.",
           },
           {
-            heading: "Ein menschliches Element kann Distanz reduzieren.",
-            body: "Eine wiedererkennbare Figur kann KI weniger abstrakt erscheinen lassen, sofern sie gezielt eingesetzt wird und die professionelle Glaubwürdigkeit nicht beeinträchtigt.",
+            heading: "Ein menschliches Element kann Distanz reduzieren",
+            body: "Eine wiedererkennbare Figur kann KI weniger abstrakt wirken lassen, ohne dass die Marke dadurch an Professionalität verliert.",
           },
           {
-            heading: "Vertrauen muss in die Struktur integriert werden.",
-            body: "Vorhersehbare Navigation, verständliche Leistungsbeschreibungen und sichtbare Handlungsoptionen schaffen mehr Sicherheit als rein dekorative Technologie-Visualisierungen.",
+            heading: "Vertrauen entsteht durch klare Strukturen",
+            body: "Einfache Navigation, verständliche Leistungsbeschreibungen und klare nächste Schritte helfen Menschen, sich sicher durch die Website zu bewegen.",
           },
           {
-            heading: "Animation sollte führen und nicht ablenken.",
-            body: "Animation sollte Orientierung unterstützen, Zusammenhänge erklären oder Aufmerksamkeit auf wichtige Handlungen lenken. Sie sollte nicht mit dem Inhalt konkurrieren.",
+            heading: "Animation sollte führen und nicht ablenken",
+            body: "Animation sollte bei der Orientierung helfen oder wichtige Handlungen hervorheben, statt mit den Inhalten zu konkurrieren.",
           },
         ],
       },
@@ -288,46 +335,35 @@ const wikimind: CaseStudyLocaleContent = {
         id: "direction",
         navLabel: "Strategie & Identität",
         number: "05",
-        heading: "KI als kompetenten Assistenten positionieren",
+        heading: "Die Strategie in eine visuelle Identität übersetzen",
         body: [
-          "Die zentrale strategische Entscheidung bestand darin, KI nicht als abstraktes technisches System, sondern als unterstützendes Werkzeug zu vermitteln, das Menschen beim Lernen, Automatisieren und Lösen praktischer Probleme hilft.",
-          {
-            kind: "list",
-            items: [
-              "Vertrauen durch transparente Kommunikation",
-              "Zugänglichkeit durch freundliche Visuals und einfache Sprache",
-              "Klarheit durch strukturierte Informationen",
-              "Innovation durch moderne, aber kontrollierte digitale Details",
-              "Kompetenz durch ein konsistentes und professionelles System",
-            ],
-          },
-          "Die sprachliche Tonalität vermeidet unnötige Fachbegriffe und stellt den Nutzen für die Anwender vor technische Spezifikationen.",
+          "Ich positionierte KI als praktischen Assistenten und nicht als abstrakte Technologie. Daraus entstand eine Markenrichtung mit einfacher Kommunikation, einer hellen visuellen Sprache und einem klaren Fokus darauf, was die Leistungen von WikiMind für Menschen tun können.",
           { kind: "h3", text: "Eine helle und strukturierte visuelle Sprache" },
-          "Die visuelle Richtung kombiniert einen weißen und neutralen Hintergrund mit mehreren Blautönen und zurückhaltenden Farbverläufen. Blau unterstützt Assoziationen mit Vertrauen, Intelligenz und Technologie. Die helle Umgebung verhindert gleichzeitig, dass die Marke schwer oder einschüchternd wirkt. Inter wurde aufgrund der guten Lesbarkeit am Bildschirm und des neutralen Charakters ausgewählt.",
+          "Ich verwendete neutrale Hintergründe, Blautöne, zurückhaltende Farbverläufe und Inter als Hauptschrift. Zusammen entstand ein klares und gut lesbares System, ohne dass die Marke zu technisch oder schwer wirkt.",
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1153", caption: "[ moodboard ]", src: "/images/wikimind-moodboard.webp", alt: "Das visuelle Referenzboard: Blautöne, Delfin-Motive, Interface-Beispiele und die Wortmarke mit Farbverlauf" },
-              { aspect: "1600/515", caption: "[ colour + type system ]", src: "/images/wikimind-colour-type.webp", alt: "Die fünf Markenfarben mit ihren Hex-Werten, neben den vier Inter-Schnitten" },
+              { aspect: "1400/1153", caption: "Visuelle Referenzen für Farben, Bildsprache und die grundlegende Richtung von WikiMind.", src: "/images/wikimind-moodboard.webp", alt: "Das visuelle Referenzboard: Blautöne, Delfin-Motive, Interface-Beispiele und die Wortmarke mit Farbverlauf" },
+              { aspect: "1600/515", caption: "Die zentrale Farbpalette und das Schriftsystem mit Inter.", src: "/images/wikimind-colour-type.webp", alt: "Die fünf Markenfarben mit ihren Hex-Werten, neben den vier Inter-Schnitten" },
             ],
           },
-          { kind: "h3", text: "Ein Symbol für vernetztes Wissen" },
-          "Das WikiMind-Symbol verbindet die Initialen W und M mit der kontinuierlichen Form eines Unendlichkeitszeichens. Die Marke steht für vernetztes Wissen, fortlaufendes Lernen und das offene Potenzial künstlicher Intelligenz. Abgerundete Formen machen die Identität zugänglicher, präzisere Details verhindern, dass die Wortmarke zu verspielt wirkt.",
+          { kind: "h3", text: "Ein Symbol für vernetztes und unendliches Wissen" },
+          "Das Logo verbindet die Buchstaben W und M in einer durchgehenden Form, die vom Unendlichkeitszeichen inspiriert ist. Abgerundete Formen machen es zugänglicher, während präzisere Details dem Zeichen Klarheit geben.",
           {
             kind: "figures",
             items: [
-              { aspect: "1420/516", caption: "[ logo sketches ]", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M", stackWithNext: true },
-              { aspect: "1600/460", caption: "[ logo variants ]", src: "/images/wikimind-logo-variants.webp", alt: "Das WikiMind-Logo mit Farbverlauf, in Schwarz und in den horizontalen Varianten" },
-              { aspect: "1200/1805", caption: "[ initial sketches ]", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
+              { aspect: "1200/1805", caption: "Erste Skizzen mit unterschiedlichen Möglichkeiten, W und M miteinander zu verbinden.", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
+              { aspect: "1420/516", caption: "Die ausgewählte Idee, bei der die WikiMind-Initialen zu einem durchgehenden Zeichen verbunden werden.", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M", stackWithNext: true },
+              { aspect: "1600/460", caption: "Finale Logo-Versionen für unterschiedliche Farben und Anwendungen.", src: "/images/wikimind-logo-variants.webp", alt: "Das WikiMind-Logo mit Farbverlauf, in Schwarz und in den horizontalen Varianten" },
             ],
           },
-          { kind: "h3", text: "Ein gezielt eingesetztes menschliches Element" },
-          "Ein Delfin wurde als gezielt eingesetzter Markencharakter entwickelt. Delfine werden häufig mit Intelligenz, Neugier und sozialem Verhalten verbunden und unterstützen damit die gewünschte Wahrnehmung von WikiMind. Das Maskottchen wird selektiv im Hero-Bereich, in erklärenden Inhalten und bei Übergängen eingesetzt, nicht auf jeder Website-Sektion.",
           {
-            kind: "figures",
-            items: [
-              { aspect: "1600/1317", caption: "[ mascot development ]", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
+            kind: "split",
+            heading: "Ein Charakter mit einer klaren Aufgabe",
+            body: [
+              "Ich führte einen Delfin als Markencharakter ein, inspiriert von Assoziationen mit Intelligenz, Neugier und sozialem Verhalten. Kopfhörer und Brille geben ihm eine aufmerksame, zugängliche Ausstrahlung, ein maßgeschneiderter Anzug signalisiert einen professionellen, technikaffinen Charakter, und Hände lassen ihn direkt mit der Oberfläche interagieren, was ihm eine menschlichere Note gibt. Ich setzte ihn bewusst nur an ausgewählten Stellen ein, damit er Persönlichkeit schafft, ohne die Identität zu dominieren.",
             ],
+            figure: { aspect: "1600/1317", caption: "Entwicklung des WikiMind-Delfin-Maskottchens.", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
           },
         ],
       },
@@ -335,23 +371,23 @@ const wikimind: CaseStudyLocaleContent = {
         id: "development",
         navLabel: "Struktur & System",
         number: "06",
-        heading: "Unterschiedliche Leistungen in eine geführte Nutzerreise übersetzen",
+        heading: "Die Leistungen leichter zugänglich machen",
         body: [
-          "Nach der Definition der Markenrichtung wurden die Inhalte der Website in einer Sitemap und einem wiederverwendbaren Seitensystem organisiert. Die Struktur hilft Besuchern dabei, das Angebot von WikiMind zu verstehen, eine relevante Leistung zu finden und zu einer klaren nächsten Handlung zu gelangen.",
+          "Nachdem die Markenrichtung feststand, strukturierte ich die Website rund um die Leistungen, nach denen Besucher suchen. Die Sitemap definierte die wichtigsten Seiten, während die Wireframes Hierarchie, Inhaltsfluss und klare nächste Schritte festlegten, bevor das visuelle Design entstand.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/485", caption: "[ sitemap ]", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
-              { aspect: "1400/1311", caption: "[ wireframes ]", src: "/images/wikimind-wireframes.webp", alt: "Wireframes für acht Seiten: Startseite, die drei Leistungsseiten, Team, Kontakt und die Rechtsseiten" },
+              { aspect: "1600/485", caption: "Sitemap mit den wichtigsten Leistungen und unterstützenden Seiten von WikiMind.", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
+              { aspect: "1400/1311", caption: "Wireframes zur Erkundung von Seitenstruktur und Inhaltshierarchie.", src: "/images/wikimind-wireframes.webp", alt: "Wireframes für acht Seiten: Startseite, die drei Leistungsseiten, Team, Kontakt und die Rechtsseiten" },
             ],
           },
-          { kind: "h3", text: "Konsistenz durch wiederverwendbare Komponenten schaffen" },
-          "Das Interface-System arbeitet mit abgerundeten Containern, großzügigen Abständen und einer reduzierten visuellen Hierarchie. Wiederverwendbare Komponenten wurden für Navigation, Buttons, Inhaltskarten, Eingabefelder, Leistungsbereiche, Icons, Footer, Hover-Zustände und Feedback-Animationen entwickelt. Der modulare Ansatz hält die Website visuell konsistent und ermöglicht spätere Erweiterungen.",
+          { kind: "h3", text: "Ein wiederverwendbares Interface-System" },
+          "Wiederkehrende Interface-Elemente setzte ich als wiederverwendbare Komponenten für Navigation, Buttons, Karten, Formulare und Leistungsbereiche um. Einheitliche Abstände, abgerundete Container und eine einfache Hierarchie verbinden die unterschiedlichen Seiten visuell miteinander.",
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1369", caption: "[ component library ]", src: "/images/wikimind-components.webp", alt: "Die Komponentenbibliothek: Navigation, Buttons, Logoleiste, Teamkarten und Fußzeile" },
-              { aspect: "1600/1034", caption: "[ ui kit ]", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Logo, Navigation, Maskottchen, Typoskala, Farben, Icons, Buttons und Fußzeile" },
+              { aspect: "1400/1369", caption: "Wiederverwendbare Komponenten für die verschiedenen Seiten der Website.", src: "/images/wikimind-components.webp", alt: "Die Komponentenbibliothek: Navigation, Buttons, Logoleiste, Teamkarten und Fußzeile" },
+              { aspect: "1600/1034", caption: "Das finale UI-Kit mit Typografie, Farben, Icons, Buttons und Markenelementen.", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Logo, Navigation, Maskottchen, Typoskala, Farben, Icons, Buttons und Fußzeile" },
             ],
           },
         ],
@@ -360,29 +396,44 @@ const wikimind: CaseStudyLocaleContent = {
         id: "outcome",
         navLabel: "Ergebnis",
         number: "07",
-        heading: "Ein ruhigerer Einstieg in künstliche Intelligenz",
+        heading: "Das System zusammenbringen",
         body: [
-          "Das finale Konzept verbindet Markenidentität, Leistungsbeschreibung und Interface-System in einer hellen und klar strukturierten Website. Große Überschriften schaffen eine deutliche Hierarchie. Leistungskarten teilen komplexe Themen in verständliche Einstiegspunkte. Das Maskottchen bringt ein menschliches und wiedererkennbares Element ein.",
+          "Das finale Konzept verbindet Identität, Leistungsstruktur und Interface-System in einer Website. Große Überschriften und Service-Karten machen die Inhalte leichter erfassbar, während das Maskottchen Wiedererkennung schafft, ohne das Interface zu dominieren.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/714", caption: "[ final screens — large showcase ]", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
+              { aspect: "1600/714", caption: "Finale WikiMind-Screens mit den wichtigsten Seiten der Website.", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
             ],
           },
-          "Das Ergebnis ist ein interaktiver Figma-Prototyp, der das zentrale Seitensystem, das Navigationsverhalten und die visuelle Sprache von WikiMind demonstriert.",
+          "Das Projekt mündete in einen interaktiven Figma-Prototyp, der das zentrale Seitensystem, die Navigation und die visuelle Sprache zeigt.",
+        ],
+      },
+      {
+        id: "prototype",
+        navLabel: "Prototyp",
+        number: "08",
+        heading: "Selbst ausprobieren",
+        body: [
+          "Hier können Sie den interaktiven Prototyp erkunden und sich selbst durch das Erlebnis bewegen.",
+          {
+            kind: "prototype",
+            embed: "https://embed.figma.com/proto/4LNx8YmhFeut0fBu6oMdkN/Wikimind?node-id=70-12936&starting-point-node-id=40%3A2449&page-id=0%3A1&scaling=scale-down&content-scaling=fixed&embed-host=share",
+            href: "https://www.figma.com/proto/4LNx8YmhFeut0fBu6oMdkN/Wikimind?node-id=70-12936&starting-point-node-id=40%3A2449&page-id=0%3A1&scaling=scale-down&content-scaling=fixed",
+            label: "WikiMind Website-Prototyp",
+            aspect: "6/5",
+          },
         ],
       },
       {
         id: "reflection",
         navLabel: "Grenzen & Reflexion",
-        number: "08",
-        heading: "Das System anhand der ursprünglichen Ziele bewerten",
+        number: "09",
+        heading: "Was validiert wurde und was nicht",
         body: [
-          "Das Konzept wurde durch iterative Vergleiche, Selbstevaluation und Feedback-Schleifen weiterentwickelt. Das Projekt umfasste jedoch keine formale moderierte Usability-Studie mit repräsentativen Nutzern. Die Fallstudie behauptet deshalb keine gemessene Verbesserung der Benutzerfreundlichkeit oder Conversion.",
-          "Eine zukünftige Validierungsphase sollte untersuchen: ob Erstbesucher die Leistungen verstehen, ob das Maskottchen die Glaubwürdigkeit stärkt oder reduziert, ob eine relevante Leistung schnell gefunden wird, ob die Sprache ohne KI-Vorwissen verständlich ist, ob Animation die Orientierung unterstützt und ob Kontraste, Tastaturbedienung und Screenreader-Struktur die Anforderungen an Barrierefreiheit erfüllen.",
+          "Ich entwickelte das Konzept durch Vergleiche, Selbstevaluation und informelles Feedback weiter, führte jedoch keine formale Usability-Studie mit repräsentativen Nutzern durch. Deshalb kann ich keine gemessene Verbesserung der Benutzerfreundlichkeit oder Conversion behaupten.",
           { kind: "h3", text: "Was ich gelernt habe" },
-          "WikiMind hat mir gezeigt, dass zugängliche Technologiegestaltung nicht bedeutet, eine visuelle Identität so stark zu vereinfachen, dass sie generisch wird. Die stärkere Lösung entstand durch das Gleichgewicht zwischen emotionaler Wärme und professioneller Struktur.",
-          "Maskottchen, Farbsystem und abgerundete Komponenten erzeugten visuelle Zugänglichkeit. Inhaltshierarchie, Leistungsstruktur und das wiederverwendbare Interface-System schufen funktionale Klarheit. Die nächste Iteration sollte sich weniger auf zusätzliche visuelle Elemente konzentrieren und stärker auf Verständlichkeit, Barrierefreiheit und direkte Nutzerbeobachtung.",
+          "WikiMind hat mir gezeigt, dass zugänglichere Technologie nicht bedeutet, die visuelle Identität generisch zu machen. Die stärkere Lösung entstand durch die Verbindung eines wärmeren visuellen Charakters mit einer klaren und professionellen Struktur.",
+          "Bei einer Weiterentwicklung würde ich weniger Zeit in zusätzliche visuelle Elemente investieren und mich stärker auf Verständlichkeit, Barrierefreiheit und Tests mit echten Nutzern konzentrieren.",
         ],
       },
     ],

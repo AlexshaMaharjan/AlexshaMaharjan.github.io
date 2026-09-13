@@ -1,23 +1,37 @@
 import type { CaseStudyLocaleContent } from "./types";
+import { PROJECT_TAGS } from "./tags";
 
+/**
+ * Surugami, rewritten from the owner's own copy deck (`promt.pdf`, section 14).
+ *
+ * **§07 is prose now, and no longer a `testing` step strip.** It used to be the
+ * three labelled lines (Observation, Interpretation, Revision) quoted from
+ * the session; the owner's copy tells the same story in three sentences, and
+ * running both would state the workshop finding twice on one screen. The
+ * `testing` field and its renderer are untouched and unused; this was the only
+ * study that carried one.
+ *
+ * §04 gains a lead-in line ("The research led to four ideas…") because the
+ * owner's deck heads that section with a sentence rather than with the bare
+ * words "Key insights".
+ */
 const surugami: CaseStudyLocaleContent = {
   en: {
     slug: "surugami",
     name: "Surugami",
-    headline: "Making origami feel social, contemporary and easy to enter.",
+    headline: "Building a visual identity around the craft of origami.",
     summary:
-      "Surugami is an origami-inspired brand and digital experience that connects learning, workshops, visual storytelling and community participation through one coherent identity.",
-    tags: ["Brand Identity", "Graphic Design", "Print Design", "Web Design", "Prototyping"],
-    role: "Illustration, Poster & Web Design",
-    contribution: "Created illustrations, one poster, mock-ups and co-designed the website.",
-    type: "Semester project · team",
+      "Surugami is an origami-inspired brand explored across illustration, print and web design.",
+    tags: [...PROJECT_TAGS.surugami],
+    context: "Semester project",
+    role: "Concept, Graphic & Web Designer",
+    team: "Collaborative team project",
+    contribution: "Illustration, one poster and mock-ups · Website co-designed · Brand direction developed with the team",
     tools: "",
-    deliverables:
-      "Illustration, one poster and mock-ups by Alexsha · Website co-designed · Brand direction collaborative",
     heroImage: {
       src: "/images/hero-surugami.webp",
-      alt: "The Surugami website shown across four screens, beside the case-study title",
-      aspect: "1900/1189",
+      alt: "The Surugami website shown across four screens, beside the project name",
+      aspect: "1920/1080",
     },
     sections: [
       {
@@ -26,60 +40,69 @@ const surugami: CaseStudyLocaleContent = {
         number: "01",
         heading: "The project at a glance",
         body: [
-          "Surugami was developed as a community-oriented origami brand. The project includes visual research, brand positioning, identity development, posters, banners, flyers, campaign material and an interactive website prototype.",
-          "The concept treats origami not only as a finished paper object, but as a process involving curiosity, learning and shared creation.",
+          "The project explored how the visual qualities of origami could be translated into a contemporary and consistent brand language across print and digital applications.",
+          "We developed the concept and visual identity collaboratively. I contributed throughout the process, including conceptual development, illustration, poster design, mock-ups and the website.",
         ],
       },
       {
         id: "challenge",
-        navLabel: "Challenge",
+        navLabel: "Context & challenge",
         number: "02",
-        heading: "A familiar craft can still feel difficult to enter.",
+        heading: "Making a precise craft feel easier to enter",
         body: [
-          "Origami is visually recognisable, but beginners may associate it with complex instructions, precision and individual practice.",
-          "A new brand needed to communicate both the calm craft of folding and the energy of a contemporary creative community. It had to remain playful enough to invite participation without looking childish or visually uncontrolled.",
+          "Origami is easy to recognise, but for beginners it can also feel difficult, technical and focused on getting every fold right.",
+          "The design challenge was to create a visual identity that kept the calm and precision of origami while making the brand feel more open, playful and contemporary.",
         ],
         designQuestion:
-          "How might an origami brand preserve the character of the craft while making it inviting to beginners and a wider creative community?",
+          "How can the visual language of origami feel inviting to beginners without losing the character of the craft?",
       },
       {
         id: "research",
         navLabel: "Research",
         number: "03",
-        heading: "Looking beyond traditional craft branding",
+        heading: "Finding the right balance between craft and playfulness",
         body: [
-          "The research combined visual market analysis, inspiration from educational and interactive digital products, mood boards, concept mapping, audience profiles, brand-value exploration and comparative layout studies.",
-          "The references suggested that educational content becomes more engaging when information is divided into clear steps, supported by strong visual storytelling and presented through an identifiable personality. Surugami therefore needed to operate as more than a shop or tutorial archive. It had to feel like a place where people could learn, participate and see what others had created.",
+          "We explored visual references from craft brands, educational platforms and interactive digital products to understand how Surugami could feel playful without becoming visually confusing.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/760", caption: "[ research board ]", src: "/images/surugami-research-board.webp", alt: "The creation matrix and control wheel used to position the brand" },
-              { aspect: "1600/1133", caption: "[ concept map ]", src: "/images/surugami-concept-map.webp", alt: "A concept map of the origami company: target audience, values, tonality, aesthetic and offerings" },
+              { aspect: "1600/760", caption: "Visual research and positioning exercises for the brand direction.", src: "/images/surugami-research-board.webp", alt: "The creation matrix and control wheel used to position the brand" },
             ],
           },
+          "The research also helped us define the audience, brand values, tone and overall positioning.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1133", caption: "Mapping the audience, values, tone, visual direction and possible brand activities.", src: "/images/surugami-concept-map.webp", alt: "A concept map of the origami company: target audience, values, tonality, aesthetic and offerings" },
+            ],
+          },
+          { kind: "h3", text: "Designing for learning" },
+          "One useful observation was that instructional content becomes easier to approach when information is broken into clear steps and supported by strong visuals.",
+          "This influenced how we later approached both the brand language and the structure of the website.",
         ],
       },
       {
         id: "insights",
         navLabel: "Key insights",
         number: "04",
-        heading: "Key insights",
+        heading: "Turning research into design principles",
+        body: ["The research led to four ideas that guided the design:"],
         insights: [
           {
-            heading: "Beginners need a visible point of entry.",
-            body: "Tutorials, workshops and navigation should clearly communicate difficulty and required time.",
+            heading: "Clear entry points",
+            body: "Tutorials, workshops and navigation should make difficulty and time easy to understand.",
           },
           {
-            heading: "Community makes the craft feel less solitary.",
-            body: "Showing participant work, events and shared projects can turn origami from an isolated activity into a social experience.",
+            heading: "Community over isolation",
+            body: "Showing events and work from others can make origami feel more social.",
           },
           {
-            heading: "Playfulness needs structure.",
-            body: "Colour and expressive forms can create energy, but a consistent grid and typographic hierarchy are necessary for educational clarity.",
+            heading: "Playfulness needs structure",
+            body: "Expressive colours and shapes work best with a clear grid and hierarchy.",
           },
           {
-            heading: "Folding can become a complete visual language.",
-            body: "The logic of planes, creases and transformation can connect logo, posters, navigation and motion.",
+            heading: "Folding as a visual language",
+            body: "Planes, creases and transformation could connect the identity across different formats.",
           },
         ],
       },
@@ -87,16 +110,17 @@ const surugami: CaseStudyLocaleContent = {
         id: "direction",
         navLabel: "Concept & identity",
         number: "05",
-        heading: "From a single fold to a shared community.",
+        heading: "Building a system from the idea of folding",
         body: [
-          "The central idea transforms folding from a technical action into a metaphor for participation. A single sheet becomes a form through a sequence of decisions. In the same way, individual contributions can become part of a larger creative community. The brand should communicate curiosity, accessibility, transformation, creativity and shared learning.",
-          { kind: "h3", text: "Turning folds into a repeatable graphic system" },
-          "The identity uses angular shapes, layered planes and directional lines inspired by folded paper. A colour system based on coral, mint, teal and light neutral tones creates a contemporary and approachable character.",
-          "The strongest part of the identity is not one individual shape. It is the ability to reconfigure the same visual logic across different formats.",
+          "The name Surugami echoes the sound of origami, creating an immediate connection to the craft while still giving the brand its own identity.",
+          "We used folding not only as a reference to origami, but as the main visual principle of the brand. The logo uses a simplified folded-swan form, turning the idea of folded paper into a recognisable symbol that could work across print and digital applications.",
+          "Angular shapes, layered planes and directional lines extend this logic into the wider identity. Combined with coral, mint, teal and light neutral colours, they create a visual language that feels playful but still structured.",
+          "Space Grotesk supports the system with a clear and contemporary typographic character.",
+          "The strength of the identity comes from using the same folding logic in different ways rather than repeating one fixed graphic.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1245", caption: "[ brand system ]", src: "/images/surugami-brand-system.webp", alt: "The Surugami identity: colour palette, Space Grotesk, and the folded-swan mark with its construction grid and colourways" },
+              { aspect: "1600/1245", caption: "The Surugami identity: logo, colour palette, typography and graphic system.", src: "/images/surugami-brand-system.webp", alt: "The Surugami identity: colour palette, Space Grotesk, and the folded-swan mark with its construction grid and colourways" },
             ],
           },
         ],
@@ -105,30 +129,36 @@ const surugami: CaseStudyLocaleContent = {
         id: "development",
         navLabel: "Print & website",
         number: "06",
-        heading: "Extending one identity across physical communication",
+        heading: "Applying one identity across different formats",
         body: [
-          "The print system includes posters, flyers, banners and promotional formats. Each application uses the same fold-based visual logic while adapting to different information priorities. Posters can prioritise emotional impact. Flyers need clearer event details. Banners require rapid recognition from a distance.",
+          "For print, the fold-based system was adapted depending on what each format needed to communicate. Posters could be more expressive, while flyers and banners needed clearer information and faster recognition.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1159", caption: "[ poster campaign ]", src: "/images/surugami-posters.webp", alt: "The poster campaign, from first sketches to mock-ups in a stairwell, a corridor and outdoors" },
-              { aspect: "1400/1228", caption: "[ flyer + banner ]", src: "/images/surugami-flyer.webp", alt: "Paper prototypes above the finished three-fold flyer, shown open and folded" },
+              { aspect: "1600/1159", caption: "Poster development from early sketches to final campaign mock-ups.", src: "/images/surugami-posters.webp", alt: "The poster campaign, from first sketches to mock-ups in a stairwell, a corridor and outdoors" },
+              { aspect: "1400/1228", caption: "Paper prototypes and the final folded flyer and banner applications.", src: "/images/surugami-flyer.webp", alt: "Paper prototypes above the finished three-fold flyer, shown open and folded" },
             ],
           },
-          { kind: "h3", text: "Creating a digital home for learning and participation" },
-          "The website brings together the brand's educational and community functions. Its content structure prioritises: discovering origami, finding workshops, following tutorials, viewing community work, learning about the organisation, and joining or contacting the community.",
+          { kind: "h3", text: "Structuring the digital experience" },
+          "For the website, we first organised the content around tutorials, workshops, events, community work and information about Surugami.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/751", caption: "[ sitemap ]", src: "/images/surugami-sitemap.webp", alt: "The site structure: a homepage over tutorials, gallery, courses, events, about and blog" },
+              { aspect: "1600/751", caption: "Sitemap defining the main content and navigation structure.", src: "/images/surugami-sitemap.webp", alt: "The site structure: a homepage over tutorials, gallery, courses, events, about and blog" },
             ],
           },
-          "Early wireframes established the main page hierarchy before the visual brand was applied. The final interface translates the folded-paper system into cards, navigation, image masks, transitions and section boundaries without compromising readability.",
+          "Wireframes helped us establish the page hierarchy before applying the visual identity.",
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1051", caption: "[ wireframes ]", src: "/images/surugami-wireframes.webp", alt: "Wireframes for ten pages, starting from a paper prototype of the homepage" },
-              { aspect: "1600/797", caption: "[ website — co-designed ]", src: "/images/surugami-website.webp", alt: "Six pages of the finished Surugami website" },
+              { aspect: "1400/1051", caption: "Wireframes developed from the first paper prototype into the main page layouts.", src: "/images/surugami-wireframes.webp", alt: "Wireframes for ten pages, starting from a paper prototype of the homepage" },
+            ],
+          },
+          "In the final interface, the folding language appears through cards, image shapes, section transitions and layout details without taking attention away from the content.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/797", caption: "Final Surugami website, co-designed as part of the team.", src: "/images/surugami-website.webp", alt: "Six pages of the finished Surugami website" },
             ],
           },
         ],
@@ -137,32 +167,48 @@ const surugami: CaseStudyLocaleContent = {
         id: "testing",
         navLabel: "Testing",
         number: "07",
-        heading: "Observation, interpretation, revision",
-        testing: [
-          { label: "Observation", body: '"The user hesitated when locating a workshop."' },
-          { label: "Interpretation", body: '"Workshop information did not have sufficient visual priority."' },
-          { label: "Revision", body: '"The navigation label, card hierarchy and call to action were clarified."' },
+        heading: "Testing whether the structure was clear",
+        body: [
+          "Overall, participants responded positively to the visual direction and were able to move through most of the website successfully.",
+          "One issue appeared when a participant hesitated while looking for a workshop. We traced this to weak visual priority and revised the navigation label, card hierarchy and call to action to make workshops easier to find.",
+          "The testing confirmed that the overall structure worked while also showing where small changes could improve orientation.",
         ],
       },
       {
         id: "outcome",
         navLabel: "Final outcome",
         number: "08",
-        heading: "One folding principle across brand, print and web",
+        heading: "One visual system across print and web",
         body: [
-          "The final Surugami system uses a common visual principle across identity, campaign material and digital interaction. The print work creates recognition and emotional energy. The website converts that personality into a structured environment for learning, workshops and community content.",
-          "The result demonstrates how a concept can remain consistent without producing identical layouts across every medium.",
+          "The final design uses the same folding principle across the identity, campaign material and website, while adapting it to the needs of each format.",
+          "Rather than repeating the same layout everywhere, the system keeps the brand consistent through shared shapes, colour, typography and visual rhythm.",
         ],
-        images: [{ aspect: "16/9", caption: "[ final system — large showcase ]" }],
+        images: [{ aspect: "16/9", caption: "Final Surugami identity shown across print and digital applications." }],
+      },
+      {
+        id: "prototype",
+        navLabel: "Prototype",
+        number: "09",
+        heading: "Try it yourself",
+        body: [
+          "Here you can explore the interactive prototype and move through the experience yourself.",
+          {
+            kind: "prototype",
+            embed: "https://embed.figma.com/proto/GQhDPsYmRDDJWBMkE0cuTa/Surugami?node-id=242-3229&starting-point-node-id=242%3A3229&page-id=0%3A1&scaling=scale-down&content-scaling=fixed&embed-host=share",
+            href: "https://www.figma.com/proto/GQhDPsYmRDDJWBMkE0cuTa/Surugami?node-id=242-3229&starting-point-node-id=242%3A3229&page-id=0%3A1&scaling=scale-down&content-scaling=fixed",
+            label: "Surugami website prototype",
+            aspect: "5/4",
+          },
+        ],
       },
       {
         id: "reflection",
         navLabel: "Reflection",
-        number: "09",
+        number: "10",
         heading: "What I learned",
         body: [
-          "Surugami taught me that a visual metaphor becomes useful only when it can support information, not merely decorate it. The fold concept worked best when it helped organise content, direct attention or connect formats. When used too frequently, the same device created visual noise.",
-          "The final portfolio version therefore shows fewer applications and explains more clearly how each one responds to its context.",
+          "Surugami taught me that a visual idea becomes useful when it helps organise information, not when it is added only as decoration.",
+          "The folding language worked best when it guided attention or connected different formats. Using it too often created visual noise, which taught me when to simplify and let the content take priority.",
         ],
       },
     ],
@@ -170,20 +216,19 @@ const surugami: CaseStudyLocaleContent = {
   de: {
     slug: "surugami",
     name: "Surugami",
-    headline: "Origami sozial, zeitgemäß und leicht zugänglich gestalten.",
+    headline: "Eine visuelle Identität rund um Origami entwickeln.",
     summary:
-      "Surugami ist eine von Origami inspirierte Marke und digitale Erfahrung, die Lernen, Workshops, visuelles Storytelling und Community-Teilnahme in einer konsistenten Identität verbindet.",
-    tags: ["Brand Identity", "Graphic Design", "Print Design", "Web Design", "Prototyping"],
-    role: "Illustration, Poster- & Webdesign",
-    contribution: "Illustrationen, ein Poster und Mock-ups gestaltet sowie die Website mitentwickelt.",
-    type: "Semesterprojekt · Team",
+      "Surugami ist eine von Origami inspirierte Marke, die durch Illustration, Print- und Webdesign umgesetzt wurde.",
+    tags: [...PROJECT_TAGS.surugami],
+    context: "Semesterprojekt",
+    role: "Concept, Graphic & Web Designerin",
+    team: "Gemeinsames Teamprojekt",
+    contribution: "Illustration, ein Poster und Mock-ups · Website gemeinsam gestaltet · Markenrichtung im Team entwickelt",
     tools: "",
-    deliverables:
-      "Illustration, ein Poster und Mock-ups von Alexsha · Website gemeinsam gestaltet · Markenrichtung im Team entwickelt",
     heroImage: {
       src: "/images/hero-surugami.webp",
-      alt: "Die Surugami-Website auf vier Bildschirmen, neben dem Titel der Fallstudie",
-      aspect: "1900/1189",
+      alt: "Die Surugami-Website auf vier Bildschirmen, neben dem Projektnamen",
+      aspect: "1920/1080",
     },
     sections: [
       {
@@ -192,60 +237,69 @@ const surugami: CaseStudyLocaleContent = {
         number: "01",
         heading: "Das Projekt auf einen Blick",
         body: [
-          "Surugami wurde als community-orientierte Origami-Marke entwickelt. Das Projekt umfasst visuelle Recherche, Markenpositionierung, Identitätsentwicklung, Poster, Banner, Flyer, Kampagnenmaterial und einen interaktiven Website-Prototyp.",
-          "Das Konzept betrachtet Origami nicht nur als fertiges Papierobjekt, sondern als Prozess aus Neugier, Lernen und gemeinsamem Gestalten.",
+          "Das Projekt untersuchte, wie sich die visuellen Eigenschaften von Origami in eine zeitgemäße und konsistente Markensprache für Print- und digitale Anwendungen übersetzen lassen.",
+          "Wir entwickelten das Konzept und die visuelle Identität gemeinsam. Ich war über den gesamten Prozess hinweg beteiligt, unter anderem an der Konzeptentwicklung, Illustration, dem Posterdesign, den Mock-ups und der Website.",
         ],
       },
       {
         id: "challenge",
-        navLabel: "Herausforderung",
+        navLabel: "Kontext & Herausforderung",
         number: "02",
-        heading: "Ein bekanntes Handwerk kann trotzdem schwer zugänglich wirken.",
+        heading: "Ein präzises Handwerk leichter zugänglich machen",
         body: [
-          "Origami ist visuell leicht wiederzuerkennen. Anfänger können es jedoch mit komplexen Anleitungen, hoher Präzision und individueller Übung verbinden.",
-          "Eine neue Marke musste sowohl die ruhige Qualität des Faltens als auch die Energie einer zeitgenössischen kreativen Community vermitteln. Sie sollte einladend und spielerisch wirken, ohne kindlich oder visuell unkontrolliert zu werden.",
+          "Origami ist leicht wiederzuerkennen, kann für Anfänger aber auch schwierig, technisch und stark auf perfekte Faltungen ausgerichtet wirken.",
+          "Die gestalterische Herausforderung bestand darin, eine visuelle Identität zu entwickeln, die die Ruhe und Präzision von Origami bewahrt und gleichzeitig offener, spielerischer und zeitgemäßer wirkt.",
         ],
         designQuestion:
-          "Wie kann eine Origami-Marke den Charakter des Handwerks bewahren und es gleichzeitig für Anfänger und eine größere kreative Community zugänglich machen?",
+          "Wie kann die visuelle Sprache von Origami Anfänger einladen, ohne den Charakter des Handwerks zu verlieren?",
       },
       {
         id: "research",
-        navLabel: "Research",
+        navLabel: "Recherche",
         number: "03",
-        heading: "Über traditionelle Handwerksmarken hinausblicken",
+        heading: "Die richtige Balance zwischen Handwerk und Spiel finden",
         body: [
-          "Die Recherche kombinierte visuelle Marktanalyse, Inspiration durch interaktive und edukative digitale Produkte, Moodboards, Concept Mapping, Zielgruppenprofile, die Untersuchung von Markenwerten und vergleichende Layoutstudien.",
-          "Die Referenzen deuteten darauf hin, dass Lerninhalte ansprechender werden, wenn Informationen in klare Schritte unterteilt, durch starkes visuelles Storytelling unterstützt und mit einer wiedererkennbaren Persönlichkeit vermittelt werden. Surugami sollte deshalb mehr sein als ein Shop oder Tutorial-Archiv. Die Marke sollte sich wie ein Ort anfühlen, an dem Menschen lernen, teilnehmen und die Arbeiten anderer entdecken können.",
+          "Wir untersuchten visuelle Referenzen aus Handwerksmarken, Lernplattformen und interaktiven digitalen Produkten, um herauszufinden, wie Surugami spielerisch wirken kann, ohne visuell unübersichtlich zu werden.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/760", caption: "[ research-board ]", src: "/images/surugami-research-board.webp", alt: "Creation Matrix und Control Wheel zur Positionierung der Marke" },
-              { aspect: "1600/1133", caption: "[ concept map ]", src: "/images/surugami-concept-map.webp", alt: "Eine Concept Map des Origami-Unternehmens: Zielgruppe, Werte, Tonalität, Ästhetik und Angebot" },
+              { aspect: "1600/760", caption: "Visuelle Recherche und Positionierungsübungen für die Markenrichtung.", src: "/images/surugami-research-board.webp", alt: "Creation Matrix und Control Wheel zur Positionierung der Marke" },
             ],
           },
+          "Die Recherche half uns außerdem dabei, Zielgruppe, Markenwerte, Tonalität und Positionierung zu definieren.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/1133", caption: "Mapping von Zielgruppe, Werten, Tonalität, visueller Richtung und möglichen Markenaktivitäten.", src: "/images/surugami-concept-map.webp", alt: "Eine Concept Map des Origami-Unternehmens: Zielgruppe, Werte, Tonalität, Ästhetik und Angebot" },
+            ],
+          },
+          { kind: "h3", text: "Für Lernen gestalten" },
+          "Eine wichtige Beobachtung war, dass Lerninhalte leichter zugänglich werden, wenn Informationen in klare Schritte gegliedert und visuell unterstützt werden.",
+          "Das beeinflusste später sowohl die Markensprache als auch die Struktur der Website.",
         ],
       },
       {
         id: "insights",
         navLabel: "Zentrale Erkenntnisse",
         number: "04",
-        heading: "Zentrale Erkenntnisse",
+        heading: "Recherche in Gestaltungsprinzipien übersetzen",
+        body: ["Aus der Recherche entstanden vier Ideen, die den weiteren Entwurf leiteten:"],
         insights: [
           {
-            heading: "Anfänger benötigen einen sichtbaren Einstiegspunkt.",
-            body: "Tutorials, Workshops und Navigation sollten Schwierigkeitsgrad und Zeitaufwand klar vermitteln.",
+            heading: "Klare Einstiegspunkte",
+            body: "Tutorials, Workshops und Navigation sollten Schwierigkeitsgrad und Zeitaufwand leicht verständlich machen.",
           },
           {
-            heading: "Community lässt das Handwerk weniger isoliert wirken.",
-            body: "Arbeiten von Teilnehmenden, Veranstaltungen und gemeinsame Projekte können Origami von einer Einzelaktivität in ein soziales Erlebnis verwandeln.",
+            heading: "Community statt Isolation",
+            body: "Events und Arbeiten anderer können Origami sozialer wirken lassen.",
           },
           {
-            heading: "Spielerische Gestaltung benötigt Struktur.",
-            body: "Farbe und ausdrucksstarke Formen können Energie erzeugen. Für verständliche Lerninhalte sind jedoch ein konsistentes Raster und eine klare typografische Hierarchie notwendig.",
+            heading: "Spielerische Gestaltung braucht Struktur",
+            body: "Ausdrucksstarke Farben und Formen funktionieren am besten mit einem klaren Raster und einer verständlichen Hierarchie.",
           },
           {
-            heading: "Falten kann zu einer vollständigen visuellen Sprache werden.",
-            body: "Die Logik von Flächen, Faltlinien und Transformation kann Logo, Poster, Navigation und Bewegung miteinander verbinden.",
+            heading: "Falten als visuelle Sprache",
+            body: "Flächen, Faltlinien und Transformation konnten die Identität über verschiedene Formate hinweg verbinden.",
           },
         ],
       },
@@ -253,16 +307,17 @@ const surugami: CaseStudyLocaleContent = {
         id: "direction",
         navLabel: "Konzept & Identität",
         number: "05",
-        heading: "Von einer einzelnen Falte zu einer gemeinsamen Community.",
+        heading: "Ein System aus der Idee des Faltens entwickeln",
         body: [
-          "Die zentrale Idee übersetzt das Falten von einer technischen Handlung in eine Metapher für Teilnahme. Ein einzelnes Blatt wird durch eine Abfolge von Entscheidungen zu einer Form. Auf ähnliche Weise können individuelle Beiträge Teil einer größeren kreativen Community werden. Die Marke sollte Neugier, Zugänglichkeit, Transformation, Kreativität und gemeinsames Lernen vermitteln.",
-          { kind: "h3", text: "Faltungen in ein wiederholbares grafisches System übersetzen" },
-          "Die Identität verwendet kantige Formen, überlagerte Flächen und gerichtete Linien, die von gefaltetem Papier inspiriert sind. Ein Farbsystem aus Korall, Mint, Petrol und hellen neutralen Tönen schafft einen zeitgemäßen und zugänglichen Charakter.",
-          "Die größte Stärke der Identität liegt nicht in einer einzelnen Form. Entscheidend ist die Fähigkeit, dieselbe visuelle Logik über verschiedene Formate hinweg neu zu konfigurieren.",
+          "Der Name Surugami erinnert klanglich an Origami und stellt dadurch sofort eine Verbindung zum Handwerk her, während die Marke trotzdem eine eigene Identität behält.",
+          "Wir nutzten Falten nicht nur als Verweis auf Origami, sondern als zentrales visuelles Prinzip der Marke. Das Logo verwendet eine vereinfachte Form eines gefalteten Schwans und übersetzt die Idee von gefaltetem Papier in ein wiedererkennbares Symbol für Print und digitale Anwendungen.",
+          "Kantige Formen, überlagerte Flächen und gerichtete Linien führen diese Logik in der gesamten Identität weiter. Zusammen mit Korall, Mint, Petrol und hellen neutralen Tönen entsteht eine visuelle Sprache, die spielerisch und gleichzeitig strukturiert wirkt.",
+          "Space Grotesk ergänzt das System mit einem klaren und zeitgemäßen typografischen Charakter.",
+          "Die Stärke der Identität liegt darin, dieselbe Faltlogik unterschiedlich einzusetzen, statt eine feste Grafik immer wieder zu wiederholen.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1245", caption: "[ brand-system ]", src: "/images/surugami-brand-system.webp", alt: "Die Surugami-Identität: Farbpalette, Space Grotesk und die gefaltete Schwan-Marke mit Konstruktionsraster und Farbvarianten" },
+              { aspect: "1600/1245", caption: "Die Surugami-Identität: Logo, Farbpalette, Typografie und grafisches System.", src: "/images/surugami-brand-system.webp", alt: "Die Surugami-Identität: Farbpalette, Space Grotesk und die gefaltete Schwan-Marke mit Konstruktionsraster und Farbvarianten" },
             ],
           },
         ],
@@ -271,30 +326,36 @@ const surugami: CaseStudyLocaleContent = {
         id: "development",
         navLabel: "Print & Website",
         number: "06",
-        heading: "Eine Identität auf physische Kommunikation übertragen",
+        heading: "Eine Identität auf unterschiedliche Formate übertragen",
         body: [
-          "Das Printsystem umfasst Poster, Flyer, Banner und weitere Werbeformate. Jede Anwendung nutzt dieselbe faltbasierte visuelle Logik und passt sie gleichzeitig an unterschiedliche Informationsprioritäten an. Poster können emotionale Wirkung priorisieren. Flyer benötigen klarere Veranstaltungsdetails. Banner müssen aus größerer Entfernung schnell erkennbar sein.",
+          "Im Printbereich wurde das faltbasierte System an die jeweilige Aufgabe angepasst. Poster konnten ausdrucksstärker sein, während Flyer und Banner klarere Informationen und schnelle Wiedererkennbarkeit brauchten.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1159", caption: "[ Plakatkampagne ]", src: "/images/surugami-posters.webp", alt: "Die Plakatkampagne, von ersten Skizzen bis zu Mock-ups im Treppenhaus, im Flur und im Außenraum" },
-              { aspect: "1400/1228", caption: "[ flyer + banner ]", src: "/images/surugami-flyer.webp", alt: "Papierprototypen über dem fertigen Wickelfalz-Flyer, offen und gefaltet" },
+              { aspect: "1600/1159", caption: "Posterentwicklung von ersten Skizzen bis zu finalen Kampagnen-Mock-ups.", src: "/images/surugami-posters.webp", alt: "Die Plakatkampagne, von ersten Skizzen bis zu Mock-ups im Treppenhaus, im Flur und im Außenraum" },
+              { aspect: "1400/1228", caption: "Papierprototypen sowie der finale gefaltete Flyer und Banner-Anwendungen.", src: "/images/surugami-flyer.webp", alt: "Papierprototypen über dem fertigen Wickelfalz-Flyer, offen und gefaltet" },
             ],
           },
-          { kind: "h3", text: "Ein digitales Zuhause für Lernen und Teilnahme schaffen" },
-          "Die Website verbindet die edukativen und gemeinschaftlichen Funktionen der Marke. Die Inhaltsstruktur priorisiert: Origami entdecken, Workshops finden, Tutorials folgen, Arbeiten der Community ansehen, mehr über die Organisation erfahren sowie der Community beitreten oder Kontakt aufnehmen.",
+          { kind: "h3", text: "Das digitale Erlebnis strukturieren" },
+          "Für die Website organisierten wir zunächst die Inhalte rund um Tutorials, Workshops, Events, Community-Arbeiten und Informationen über Surugami.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/751", caption: "[ sitemap ]", src: "/images/surugami-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über Tutorials, Galerie, Kursen, Events, Über uns und Blog" },
+              { aspect: "1600/751", caption: "Sitemap zur Definition der wichtigsten Inhalte und Navigationsstruktur.", src: "/images/surugami-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über Tutorials, Galerie, Kursen, Events, Über uns und Blog" },
             ],
           },
-          "Frühe Wireframes definierten die zentrale Seitenhierarchie, bevor die visuelle Marke angewendet wurde. Das finale Interface übersetzt das Faltpapier-System in Karten, Navigation, Bildmasken, Übergänge und Abschnittsgrenzen, ohne die Lesbarkeit zu beeinträchtigen.",
+          "Mit Wireframes entwickelten wir anschließend die Seitenhierarchie, bevor die visuelle Identität angewendet wurde.",
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1051", caption: "[ wireframes ]", src: "/images/surugami-wireframes.webp", alt: "Wireframes für zehn Seiten, ausgehend von einem Papierprototyp der Startseite" },
-              { aspect: "1600/797", caption: "[ website — gemeinsam gestaltet ]", src: "/images/surugami-website.webp", alt: "Sechs Seiten der fertigen Surugami-Website" },
+              { aspect: "1400/1051", caption: "Wireframes vom ersten Papierprototyp bis zu den wichtigsten Seitenlayouts.", src: "/images/surugami-wireframes.webp", alt: "Wireframes für zehn Seiten, ausgehend von einem Papierprototyp der Startseite" },
+            ],
+          },
+          "Im finalen Interface zeigt sich die Faltlogik in Karten, Bildformen, Übergängen und Layoutdetails, ohne vom Inhalt abzulenken.",
+          {
+            kind: "figures",
+            items: [
+              { aspect: "1600/797", caption: "Finale Surugami-Website, gemeinsam im Team gestaltet.", src: "/images/surugami-website.webp", alt: "Sechs Seiten der fertigen Surugami-Website" },
             ],
           },
         ],
@@ -303,32 +364,48 @@ const surugami: CaseStudyLocaleContent = {
         id: "testing",
         navLabel: "Testing",
         number: "07",
-        heading: "Beobachtung, Interpretation, Überarbeitung",
-        testing: [
-          { label: "Beobachtung", body: "„Die Testperson zögerte bei der Suche nach einem Workshop.“" },
-          { label: "Interpretation", body: "„Workshop-Informationen hatten keine ausreichende visuelle Priorität.“" },
-          { label: "Überarbeitung", body: "„Navigationsbezeichnung, Kartenhierarchie und Call-to-Action wurden klarer gestaltet.“" },
+        heading: "Testen, ob die Struktur verständlich ist",
+        body: [
+          "Insgesamt reagierten die Teilnehmenden positiv auf die visuelle Richtung und konnten sich erfolgreich durch den Großteil der Website bewegen.",
+          "Ein Problem zeigte sich, als eine Testperson bei der Suche nach einem Workshop zögerte. Wir führten dies auf eine zu schwache visuelle Priorität zurück und überarbeiteten Navigationsbezeichnung, Kartenhierarchie und Call-to-Action.",
+          "Die Tests bestätigten, dass die grundlegende Struktur funktionierte, und zeigten gleichzeitig, wo kleine Anpassungen die Orientierung verbessern konnten.",
         ],
       },
       {
         id: "outcome",
         navLabel: "Ergebnis",
         number: "08",
-        heading: "Ein Faltprinzip für Marke, Print und Web",
+        heading: "Ein visuelles System für Print und Web",
         body: [
-          "Das finale Surugami-System verwendet ein gemeinsames visuelles Prinzip für Identität, Kampagnenmaterial und digitale Interaktion. Die Printarbeit schafft Wiedererkennung und emotionale Energie. Die Website übersetzt diese Persönlichkeit in eine strukturierte Umgebung für Lernen, Workshops und Community-Inhalte.",
-          "Das Ergebnis zeigt, wie ein Konzept konsistent bleiben kann, ohne über alle Medien hinweg identische Layouts zu erzeugen.",
+          "Das finale Design nutzt dasselbe Faltprinzip für Identität, Kampagnenmaterial und Website und passt es gleichzeitig an die Anforderungen der jeweiligen Formate an.",
+          "Statt überall dasselbe Layout zu wiederholen, entsteht Konsistenz durch gemeinsame Formen, Farben, Typografie und visuellen Rhythmus.",
         ],
-        images: [{ aspect: "16/9", caption: "[ finales system — große präsentation ]" }],
+        images: [{ aspect: "16/9", caption: "Finale Surugami-Identität über Print- und digitale Anwendungen hinweg." }],
+      },
+      {
+        id: "prototype",
+        navLabel: "Prototyp",
+        number: "09",
+        heading: "Selbst ausprobieren",
+        body: [
+          "Hier können Sie den interaktiven Prototyp erkunden und sich selbst durch das Erlebnis bewegen.",
+          {
+            kind: "prototype",
+            embed: "https://embed.figma.com/proto/GQhDPsYmRDDJWBMkE0cuTa/Surugami?node-id=242-3229&starting-point-node-id=242%3A3229&page-id=0%3A1&scaling=scale-down&content-scaling=fixed&embed-host=share",
+            href: "https://www.figma.com/proto/GQhDPsYmRDDJWBMkE0cuTa/Surugami?node-id=242-3229&starting-point-node-id=242%3A3229&page-id=0%3A1&scaling=scale-down&content-scaling=fixed",
+            label: "Surugami Website-Prototyp",
+            aspect: "5/4",
+          },
+        ],
       },
       {
         id: "reflection",
         navLabel: "Reflexion",
-        number: "09",
+        number: "10",
         heading: "Was ich gelernt habe",
         body: [
-          "Surugami hat mir gezeigt, dass eine visuelle Metapher erst dann nützlich wird, wenn sie Informationen unterstützt und nicht nur dekoriert. Das Faltkonzept funktionierte am besten, wenn es Inhalte organisierte, Aufmerksamkeit lenkte oder unterschiedliche Formate miteinander verband. Bei zu häufiger Verwendung erzeugte dasselbe Element visuelle Unruhe.",
-          "Die finale Portfolio-Version zeigt deshalb weniger Anwendungen und erklärt klarer, wie jede Anwendung auf ihren jeweiligen Kontext reagiert.",
+          "Surugami hat mir gezeigt, dass eine visuelle Idee dann sinnvoll wird, wenn sie Informationen unterstützt und nicht nur dekorativ eingesetzt wird.",
+          "Die Faltlogik funktionierte am besten, wenn sie Aufmerksamkeit lenkte oder verschiedene Formate miteinander verband. Bei zu häufiger Verwendung entstand visuelle Unruhe. Dadurch lernte ich besser einzuschätzen, wann Gestaltung zurückgenommen werden sollte und der Inhalt im Vordergrund stehen muss.",
         ],
       },
     ],

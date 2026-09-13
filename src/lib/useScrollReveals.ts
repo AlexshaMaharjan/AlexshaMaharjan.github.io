@@ -8,6 +8,7 @@ import {
   revealVariant,
   revealed,
   stagger,
+  staggerText,
   TRIGGER_START,
   type RevealVariant,
 } from "@/lib/motion";
@@ -30,7 +31,9 @@ function revealTargets(): HTMLElement[] {
 
 /** What a reveal animates: the element itself, or its children for `stagger`. */
 function subjectsOf(el: HTMLElement, variant: RevealVariant): HTMLElement[] {
-  return variant === "stagger" ? (Array.from(el.children) as HTMLElement[]) : [el];
+  return variant === "stagger" || variant === "text"
+    ? (Array.from(el.children) as HTMLElement[])
+    : [el];
 }
 
 /**
@@ -97,9 +100,12 @@ export function useScrollReveals(): void {
       const variant = revealVariant(el.dataset.inview);
       return gsap.fromTo(subjectsOf(el, variant), atRest(variant), {
         ...revealed(variant),
-        // A group arrives as a group: one trigger on the container, its
-        // children following each other in.
-        stagger: variant === "stagger" ? stagger : 0,
+        /*
+         * A group arrives as a group: one trigger on the container, its
+         * children following each other in. Text waits longer between its
+         * children than a grid does — see `staggerText`.
+         */
+        stagger: variant === "text" ? staggerText : variant === "stagger" ? stagger : 0,
         scrollTrigger: { trigger: el, start: TRIGGER_START },
       });
     });

@@ -27,7 +27,10 @@ export default function CaseStudyIntro({
   dictionary: Dictionary;
 }) {
   return (
-    <div className="mb-12">
+    /* The page's first words arrive in the order they are read
+       (`MILESTONE-023` task 5): the headline, then the summary, then the tags
+       and the facts. `text` is the typographic stagger in `lib/motion`. */
+    <div data-inview="text" className="mb-12">
       <h1 className="m-0 text-feature font-semibold leading-[1.08] tracking-[-0.025em] text-ink">
         {content.headline}
       </h1>

@@ -65,7 +65,19 @@ export default function PageHero({
         a side and left a 390px phone 310px to set in — eleven pixels less than
         the German eyebrow needs, so "DEUTSCHLAND" fell to a line by itself.
       */}
-      <div className="container-page w-full text-center">
+      {/*
+        **The first screen arrives in reading order** (`MILESTONE-023` task 5):
+        eyebrow, heading, intro, tags, one after another rather than as one
+        block. `text` is the typographic stagger — 12px of travel and a breath
+        between children; see `lib/motion`.
+
+        **Only when this hero is not the pinned one.** On the homepage
+        `HeroProcess` writes `opacity` and a transform onto this section every
+        frame as the canvas rises, and a reveal that sets the same properties on
+        its children is a second author for the same pixels. `innerRef` is
+        exactly the signal — it is passed only by the pinned flow.
+      */}
+      <div className="container-page w-full text-center" data-inview={innerRef ? undefined : "text"}>
         {/*
           Tighter below `sm`: at 12px with 0.16em of tracking the portfolio
           eyebrow is 337px wide and the phone gutter leaves it 310, so

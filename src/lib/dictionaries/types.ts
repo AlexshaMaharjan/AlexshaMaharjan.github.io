@@ -1,7 +1,7 @@
 /**
  * A project, as the case-study prev/next ring needs it.
  *
- * `NextProjectNav` is the only reader, and it uses `slug`, `name`, `tags`,
+ * `MoreProjectsNav` is the only reader, and it uses `slug`, `name`, `tags`,
  * `image` and `imageAlt` — nothing else. `projectTag`, `placeholderLabel`,
  * `imageAspect` and `featured` were left over from the editorial homepage that
  * `DECISION-010` replaced with the bento, and were removed once that decision
@@ -30,8 +30,27 @@ export interface ProjectCopy {
    * is that a cover is shown at its own proportions rather than cropped to a
    * tile. It must match the exported file exactly; `ui/Image` paints with
    * `object-cover`, so a mismatch is a silent crop.
+   *
+   * All six are `"1920/1080"` since `MILESTONE-018` task 1 — the covers were
+   * rebuilt in Figma as one set at 1600x900 and exported at 2x, so the grid now
+   * lays out two even rows instead of six different rectangles.
    */
   imageAspect: string;
+  /**
+   * The project's own colour, taken from the title on its cover.
+   *
+   * It is the cover's accent and nothing else's: the site's `accent` token is
+   * one blue for the whole site, and this is the blue/purple/red/green each
+   * project is actually drawn in. `WorkGrid` paints the "View case study" tag
+   * that follows the cursor in it (`MILESTONE-018` task 2), which is the same
+   * rule the playground already follows — `DECISION-049` put the hover tag on a
+   * collage piece in its own card's colour rather than in the site's ink.
+   *
+   * Written as a hex literal rather than a token because these are six
+   * one-off brand colours, not a palette: nothing else on the site may use
+   * them, and a token would invite exactly that.
+   */
+  accent: string;
 }
 
 /**
@@ -197,12 +216,18 @@ export interface Dictionary {
     intro: string;
     tags: string;
   };
+  /**
+   * `exploreCue` and `closeSelection` were here until SESSION-049. Both existed
+   * only because the map answered to a pointer — one told a reader the clusters
+   * had gone live, the other labelled the ✕ that released a locked one — and
+   * the map does not (`process/HeroProcess`). `scrollCue` stays: it invites the
+   * reader into a sequence that is still there.
+   */
   process: {
     scrollCue: string;
     question: string;
     srSummary: string;
     branches: ProcessBranchCopy[];
-    closeSelection: string;
   };
   selectedWork: {
     eyebrow: string;
@@ -247,6 +272,34 @@ export interface Dictionary {
     copy: string;
     cta: string;
   };
+  /**
+   * The piece viewer — what opens when a picture on a collage is clicked
+   * (`SESSION-049`, owner task 9).
+   *
+   * Five labels and three control names. They are here rather than on the slot
+   * because they are the *viewer's* chrome and do not vary by picture, which is
+   * also what makes them the first thing on this page to be translated rather
+   * than hard-coded: `ui/Lightbox` still says "Close", "Previous" and "Next" in
+   * English on a German page, and the playground no longer goes through it.
+   */
+  playgroundViewer: {
+    /** Row labels down the right-hand column. */
+    made: string;
+    tools: string;
+    type: string;
+    close: string;
+    previous: string;
+    next: string;
+    /** `"3 of 14"` — `{n}` and `{total}` are substituted. */
+    position: string;
+    /** Names the viewer's colour filter for a screen reader. */
+    collections: string;
+    /** The sound toggle, which says the state it is in. */
+    soundOn: string;
+    soundOff: string;
+    /** The link under a piece's description, when it has a Figma prototype. */
+    prototypeLink: string;
+  };
   /** The clickable sample of the playground, and the arrow into its button. */
   playgroundPeek: {
     /** The stack's accessible name; the button beside it says the same thing. */
@@ -263,7 +316,7 @@ export interface Dictionary {
     portraitAlt: string;
     handNoteOrigin: string;
     handNoteMaking: string;
-    portraitTags: string[];
+    handNoteTools: string;
     biographyHeading: string;
     biography: string[];
     focusHeading: string;
@@ -273,6 +326,13 @@ export interface Dictionary {
        task 6c). It is data rather than an index check in About.tsx so the
        German list can mark a different position if it ever reorders. */
     tools: { name: string; accent?: boolean }[];
+    /*
+     * The AI paragraph is deliberately unheaded. It was given an "How I use AI"
+     * heading for one pass, on the reasoning that the owner's copy deck heads
+     * it that way; the owner's answer was to take it off again. It sits inside
+     * the tools column, under the chip row and above nothing, and a heading
+     * there makes a footnote look like a sixth section of the page.
+     */
     aiBody: string;
     aiTags: string[];
     playgroundHeading: string;
@@ -292,14 +352,39 @@ export interface Dictionary {
     backToProjects: string;
     onThisPage: string;
     designQuestion: string;
+    moreProjects: string;
+    viewAllWork: string;
     previousProject: string;
     nextProject: string;
-    viewAllWork: string;
+    /** The facts strip's labels, in `FactsStrip`'s own order. */
+    context: string;
     role: string;
+    team: string;
     contribution: string;
-    type: string;
     tools: string;
-    deliverables: string;
+    /** The label over a persona card's closing needs line. */
+    needs: string;
+    /**
+     * The three labels on a `prototype` block's frame (`MILESTONE-020` task 2).
+     *
+     * A tester scrolled past an embedded Figma prototype believing it was one
+     * more screenshot, which it had every reason to look like: the player sat
+     * in the same bordered, rounded box as every `Figure` on the page, under a
+     * caption in the same type. These are the words that say otherwise —
+     * `prototypeLive` names the thing, `prototypeHint` says what to do with it,
+     * and `prototypeNote` is the same instruction in the owner's own hand.
+     *
+     * **All three are instructions now** (owner, SESSION-049). The note read
+     * *"this one really works"*, which is a claim about the artefact rather than
+     * an invitation to the reader: it answers "is this real?", a question nobody
+     * had asked, and leaves "what do I do with it?" unanswered. The owner asked
+     * for the imperative instead, and the hint moved with it so the two are not
+     * the same sentence twice — the note says *what* (use the website), the hint
+     * says *how* (click, drag, scroll).
+     */
+    prototypeLive: string;
+    prototypeHint: string;
+    prototypeNote: string;
   };
   notFound: {
     metaTitle: string;

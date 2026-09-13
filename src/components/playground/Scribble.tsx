@@ -66,7 +66,7 @@ export default function Scribble({ note, locale }: { note: PlacedScribble; local
       }
     >
       <span
-        className="block max-w-[15ch] whitespace-pre-line font-hand text-[length:var(--pg-note-px,22px)] font-bold leading-[1.1]"
+        className="pencil-ink block max-w-[15ch] whitespace-pre-line font-hand text-[length:var(--pg-note-px,22px)] font-bold leading-[1.1]"
         style={{ textAlign: note.align }}
       >
         {note.text[locale]}
@@ -80,23 +80,62 @@ export default function Scribble({ note, locale }: { note: PlacedScribble; local
  *
  * It lives in that SVG rather than beside its note because it is drawn in the
  * frame's coordinates — that is the only way a line can start at the note and
- * end on the picture when the two are measured in different units. The stroke
- * is `non-scaling-stroke`, so a 2.2px pen stays a 2.2px pen however far the
- * collage is scaled down.
+ * end on the picture when the two are measured in different units.
+ *
+ * **The pen is 4 CSS px, converted into design units rather than declared with
+ * `vector-effect: non-scaling-stroke`** (`MILESTONE-020` task 3). It was the
+ * latter, which is the right answer when nothing knows the scale — and since
+ * `MILESTONE-010` task 14h something does: `Collage` measures the stage and
+ * feeds `unitsPerPx` to the placement, so the same number can size the stroke.
+ *
+ * The reason to change it is the pencil. `non-scaling-stroke` takes the stroke
+ * out of user space and draws it at device resolution, while a filter's
+ * `feDisplacementMap` moves ink *in* user space — so the roughening had nothing
+ * predictable to act on and came out invisible at the collage's scale. Written
+ * as real geometry, the pen is 4px wide for the same reason it was before and
+ * the filter displaces it by the 1.6px it is asked for.
+ *
+ * **Drawn with the pencil** (`MILESTONE-020` task 3). The filter comes from the
+ * card rather than from here, and has to: `feTurbulence`'s grain is stated in
+ * the *user space* of what it filters, and this SVG's user space is the
+ * 16000 x 10000 design frame, so the conversion needs the card's own
+ * `unitsPerPx` — which `Collage` has and a single note does not. One filter
+ * serves every arrow on a card, which is right rather than merely cheap: they
+ * are drawn on one sheet of paper and share its grain.
+ *
+ * **4px, not 2.2** (`MILESTONE-019` task 5). The owner's own annotations are
+ * drawn at a stroke width of 60 units in a frame where the whole arrow is
+ * 700–1,300 units across — between 4.6% and 8.4% of the arrow's own width. At
+ * 2.2px on a shaft that runs 80–125px, this pen was about 2%, which is the
+ * difference between somebody's marker and a hairline callout, and it is most
+ * of why these did not look like the file they came from.
  */
-export function ScribbleArrow({ note }: { note: PlacedScribble }) {
+/** The pen, in CSS pixels. See the note above on why this is not `vector-effect`. */
+const PEN_PX = 4;
+
+export function ScribbleArrow({
+  note,
+  pencil,
+  unitsPerPx,
+}: {
+  note: PlacedScribble;
+  pencil: string;
+  /** Design units to one CSS pixel on this card's stage, from `Collage`. */
+  unitsPerPx: number;
+}) {
   return (
     <g
       className="pg-tint"
       style={{ "--pg-tint-base": base(note.tone) } as CSSProperties}
       stroke="currentColor"
-      strokeWidth="2.2"
+      strokeWidth={PEN_PX * unitsPerPx}
       strokeLinecap="round"
       strokeLinejoin="round"
       fill="none"
+      filter={`url(#${pencil})`}
     >
-      <path d={note.arrow.path} vectorEffect="non-scaling-stroke" />
-      <path d={note.arrow.head} vectorEffect="non-scaling-stroke" />
+      <path d={note.arrow.path} />
+      <path d={note.arrow.head} />
     </g>
   );
 }

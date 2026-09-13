@@ -76,7 +76,7 @@ const CHAR_PX = 9.3;
  * did not predict is `ISSUE-043` again — a box tested smaller than the ink
  * that lands on the page.
  */
-export const NOTE_PX = 22;
+const NOTE_PX = 22;
 const NOTE_PX_NARROW = 18;
 const NOTE_FULL_STAGE = 1180;
 const NOTE_NARROW_STAGE = 900;
@@ -121,14 +121,42 @@ export function stageUnits(width: number): number {
   return Math.round((FRAME_W / width) * 4) / 4;
 }
 /**
- * Air between a note and the picture it is about.
+ * Air between a note and the picture it is about, **in CSS pixels**
+ * (`MILESTONE-020` task 3; this closes `ISSUE-053`).
  *
- * It is set by the arrow rather than by the note: at 380 the two boxes were
- * almost touching and the arrow came out a 40px stub with nowhere to bend. This
- * is roughly the length the old hand-drawn arrow was, which is the length a
- * curve needs to read as one.
+ * It was 850 *design units*, and that one word is the whole defect. Three
+ * quantities decide how long a shaft comes out, and until now two of them were
+ * pixels and one was units:
+ *
+ * | | was | at a 1280px stage | at a 900px stage |
+ * | --- | --- | --- | --- |
+ * | note to picture (`GAP`) | 850 units | 68px | **48px** |
+ * | tip held off the picture (`TIP_GAP_PX`) | 22px | 22px | 22px |
+ * | stroke held off the words (`START_GAP_PX`) | 20px | 20px | 20px |
+ * | **shaft left over** | | **26px** | **6px** |
+ *
+ * A design-unit gap is a *shrinking* gap: the narrower the card, the fewer
+ * pixels 850 units is, while the two pixel gaps that eat it do not move. So the
+ * arrows did not fail because the crowded cards are crowded. They failed
+ * because on a narrow card there was nothing left to draw with — which is
+ * exactly why `ISSUE-053` found every one of its nine failures "only below
+ * about 1,100px" and read that as a coincidence of those particular cards.
+ *
+ * `MILESTONE-010` task 14h had already learned this lesson about the note's
+ * *size* — fixed CSS type over a stage that is not — and moved `LINE_PX` and
+ * `CHAR_PX` into pixels. `GAP` is the same mistake, one line further down, and
+ * it survived because nothing measured the shaft it was paying for.
+ *
+ * **125 is the sum of what the shaft needs and what is taken off it**:
+ * `MIN_RUN_PX` (80) + `TIP_GAP_PX` (22) + `START_GAP_PX` (20), rounded up. A
+ * note seated on the near ring is now, by construction, far enough away to
+ * draw the arrow the router is asked for — at every stage width, rather than at
+ * the one it happened to be tuned on.
  */
-const GAP = 850;
+const GAP_PX = 125;
+
+/** `GAP_PX` in the design units everything else here is measured in. */
+const gapOf = (unitsPerPx: number) => GAP_PX * unitsPerPx;
 
 /**
  * How far out to stand off, when the ring at `GAP` is full.
@@ -139,7 +167,17 @@ const GAP = 850;
  * be allowed to stand back from it — the arrow is what keeps the connection, and
  * a longer arrow is a better outcome than a note nobody can read.
  */
-const RINGS = [1, 1.6, 2.4, 3.2, 4.2];
+/**
+ * The rings, as multiples of `GAP_PX`.
+ *
+ * Pulled in from `[1, 1.6, 2.4, 3.2, 4.2]` when the base gap grew: the base is
+ * roughly double what it was, so the old outer ring would now stand a note
+ * 525px off its picture, which on a 1,280px stage is most of the way across the
+ * card. The far ring is still a long way out — it is the seat of last resort on
+ * a crowded card — but it is a gesture somebody could make rather than a
+ * different room.
+ */
+const RINGS = [1, 1.35, 1.8, 2.4, 3.1];
 /** Extra clearance when testing a note against something it must not touch. */
 const CLEAR = 260;
 /**
@@ -238,8 +276,9 @@ function boxAt(
   size: { w: number; h: number },
   [dx, dy]: readonly [number, number],
   ring: number,
+  unitsPerPx: number,
 ): Rect {
-  const gap = GAP * ring;
+  const gap = gapOf(unitsPerPx) * ring;
   const x = dx < 0 ? target.x - gap - size.w : dx > 0 ? target.x + target.w + gap : target.x + target.w / 2 - size.w / 2;
   const y = dy < 0 ? target.y - gap - size.h : dy > 0 ? target.y + target.h + gap : target.y + target.h / 2 - size.h / 2;
   return { x, y, w: size.w, h: size.h };
@@ -276,6 +315,51 @@ const TIP_GAP_PX = 22;
 const HEAD_PX = 26;
 
 /**
+ * How far clear of the note the arrow *starts*, in CSS pixels
+ * (`MILESTONE-019` task 5).
+ *
+ * `TIP_GAP_PX` already kept the head off the picture, and the reasoning there
+ * — "a note points at a picture; it does not touch it" — applies just as much
+ * at the other end, where nothing was enforcing it: the stroke began exactly on
+ * `edgePoint(noteBox)`, so it left the ink flush against the words and, where
+ * the box under-estimates the text, *inside* them.
+ *
+ * The box is an estimate. `sizeOf` measures the note from `CHAR_PX`, an average
+ * Caveat advance, which is right on a line of ordinary lowercase and short on
+ * one with capitals or a long ascender — and a stroke that starts on an
+ * estimated edge is a stroke that starts on top of the word whenever the
+ * estimate is low. A gap is what makes that structurally impossible instead of
+ * usually fine.
+ *
+ * 20 rather than 22 only because it is the start of a line rather than its
+ * point; the owner's own annotations stand much further off than either — their
+ * two Figma arrows leave their text boxes about 1,450 and 320 design units
+ * clear — so this is the conservative end of what they drew, chosen because
+ * every unit of it is a unit the shaft no longer has (`MIN_RUN_PX`).
+ */
+const START_GAP_PX = 20;
+
+/**
+ * The most of a seat's room the two gaps above may take, between them.
+ *
+ * 0.42, so a cramped arrow is always at least 58% ink. It is a ceiling and not
+ * a target: at the separation `GAP_PX` is built to give (125px) the full 42px
+ * of air is 34% of the room and this never binds, which is the point — it only
+ * has anything to say on the seats where the card itself has run out of room.
+ */
+const AIR_SHARE = 0.42;
+
+/**
+ * The shaft `START_GAP_PX` is never allowed to eat into, in CSS pixels.
+ *
+ * 16, which is four pixels clear of `content-audit`'s floor of 12 and three
+ * clear of the 13px the deck's worst placement actually ships. It is a
+ * last-resort number: it only ever binds on a seat where the note is almost
+ * touching its picture, and everywhere else the gap is taken in full.
+ */
+const KEEP_PX = 16;
+
+/**
  * The shortest shaft that still reads as an arrow, in CSS pixels.
  *
  * 34 when this was only defending against a negative run — `CLEAR` lets a seat
@@ -299,6 +383,41 @@ const HEAD_PX = 26;
  */
 const MIN_RUN_PX = 80;
 
+/**
+ * The length below which a stroke stops being an arrow at all, in CSS pixels
+ * (`MILESTONE-020` task 3).
+ *
+ * `MIN_RUN_PX` is what the placement *aims* for and `shortRun` charges a flat
+ * rate per pixel it falls short. A flat rate cannot tell the difference between
+ * the two things that being short means, and the difference is not a matter of
+ * degree:
+ *
+ * - a **70px** arrow is a slightly tight annotation on a crowded card, and
+ *   paying a few hundred points to keep the corner the owner drew it in is the
+ *   right trade;
+ * - a **17px** arrow is a speck. It is not a worse arrow, it is not one, and
+ *   no corner is worth it.
+ *
+ * The linear rate priced those identically per pixel, and the arithmetic is
+ * unforgiving: card 3's Desmark note at a 900px stage drew 17px and paid
+ * 13,350, while a seat one corner away with a **205px** arrow cost 21,356 —
+ * 9,000 of it `PREFER_MISS` and the rest distance. The speck won by 4,135.
+ *
+ * So there is a knee. Below `FLOOR_RUN_PX` the rate goes up by
+ * `FLOOR_WEIGHT`, which is enough that no seat drawing less than about 40px can
+ * outbid a clear one in the wrong corner, and above it nothing changes at all —
+ * every note already drawing 55px or more keeps exactly the seat it had. That
+ * is the property worth having: this rescues the specks without re-placing the
+ * deck.
+ *
+ * 55 is where the arrowhead (`HEAD_PX`, 26, capped at half the run) is still
+ * drawn at full size. Under it the head is being shortened to fit, which is the
+ * geometry's own way of saying the stroke has run out.
+ */
+const FLOOR_RUN_PX = 55;
+const RUN_WEIGHT = 12;
+const FLOOR_WEIGHT = 24;
+
 interface Point {
   x: number;
   y: number;
@@ -319,21 +438,27 @@ interface Point {
  * What changed is the last step: `+ gap` outward along the approach where it
  * used to be `- inside`.
  */
-function aimPoint(box: Rect, from: { x: number; y: number }, unitsPerPx: number) {
+function aimPoint(box: Rect, from: { x: number; y: number }) {
   const x = Math.min(Math.max(from.x, box.x), box.x + box.w);
   const y = Math.min(Math.max(from.y, box.y), box.y + box.h);
   let dx = from.x - x;
   let dy = from.y - y;
   let away = Math.hypot(dx, dy);
   if (away === 0) {
-    // The note is over its own picture, which `GAP` normally prevents. Leave
+    // The note is over its own picture, which `GAP_PX` normally prevents. Leave
     // along the line from the picture's centre rather than dividing by zero.
     dx = from.x - (box.x + box.w / 2);
     dy = from.y - (box.y + box.h / 2);
     away = Math.hypot(dx, dy) || 1;
   }
-  const gap = TIP_GAP_PX * unitsPerPx;
-  return { x: x + (dx / away) * gap, y: y + (dy / away) * gap };
+  /*
+   * The bare landing point, with no air in front of it, plus the unit vector
+   * the approach arrives along. `TIP_GAP_PX` used to be added here, and it
+   * could not be: how much air the tip can afford depends on how much room
+   * there is between the note and the picture, which is not known until the
+   * note's own edge has been found. See `AIR_SHARE`.
+   */
+  return { x, y, ux: dx / away, uy: dy / away };
 }
 
 /**
@@ -358,8 +483,73 @@ function aimPoint(box: Rect, from: { x: number; y: number }, unitsPerPx: number)
  * crosses a picture is decided before a seat is chosen, not after.
  */
 function arrowBetween(from: Rect, to: Rect, lean: number, follow: number, unitsPerPx: number) {
-  const end = aimPoint(to, { x: from.x + from.w / 2, y: from.y + from.h / 2 }, unitsPerPx);
-  const start = edgePoint(from, end, 0);
+  const land = aimPoint(to, { x: from.x + from.w / 2, y: from.y + from.h / 2 });
+  /*
+   * Off the note's edge and then `START_GAP_PX` further, along the line it was
+   * about to travel anyway. Pushing out along the *edge normal* was the other
+   * option and it is worse: on a note four times wider than it is tall the
+   * normal is almost always vertical, so an arrow heading sideways would be
+   * lifted straight up off the text and then have to bend back down.
+   */
+  const reach = edgePoint(from, land, 0);
+  /*
+   * How much room this seat actually has: from the note's own edge to the
+   * nearest point of the picture, with no air taken off either end yet.
+   */
+  const separation = Math.hypot(land.x - reach.x, land.y - reach.y) || 1;
+  /*
+   * The air, rationed (`MILESTONE-020` task 3).
+   *
+   * `TIP_GAP_PX` and `START_GAP_PX` are both right, and both were taken as
+   * fixed amounts off whatever room the seat had: 42 CSS px of nothing, spent
+   * before a single pixel of ink. On a seat with 200px of room that is correct
+   * and invisible. On card 3's Desmark note at a 1,000px stage, where the card
+   * is not wide enough to the right of the logo to give the note more than 69px
+   * of separation at all, it spent 61% of the gap on air and drew **27px**.
+   *
+   * Which is the wrong trade, and obviously so once it is put as a trade: an
+   * arrow that comes a little closer to the picture than the ideal still reads
+   * as an arrow, and one that is two thirds air does not. So the two gaps now
+   * scale together, and never take more than `AIR_SHARE` of the room. A
+   * cramped seat keeps most of what it has as visible ink; a roomy one is
+   * unaffected, because its full 42px is already well under its share.
+   *
+   * This is not a substitute for `shortRun` — the pressure to find a seat with
+   * real room stays exactly where it was. It is what stops the *drawing* from
+   * making a cramped seat worse than it needs to be.
+   */
+  const air = (TIP_GAP_PX + START_GAP_PX) * unitsPerPx;
+  const share = Math.min(1, (separation * AIR_SHARE) / air);
+  const end = {
+    x: land.x + land.ux * TIP_GAP_PX * unitsPerPx * share,
+    y: land.y + land.uy * TIP_GAP_PX * unitsPerPx * share,
+  };
+  const edge = edgePoint(from, end, 0);
+  const outward = Math.hypot(end.x - edge.x, end.y - edge.y) || 1;
+  /*
+   * The shaft is paid first and the gap gets what is left.
+   *
+   * Taking a flat 20px off the front cost `content-audit` three placements
+   * straight away — card 1's calendar note at the 900, 920 and 940px stages,
+   * where the note is seated almost against its picture and the whole run is
+   * about 17px. The deck's worst arrow ships at 13px and the audit floor is a
+   * ratchet at 12; a gap that spends the shaft's last four pixels turns a short
+   * arrow into a speck, which is the fault `MILESTONE-012` task 2 fixed.
+   *
+   * So `KEEP_PX` of shaft is reserved before any gap is taken. On a crowded
+   * seat that leaves a gap of a pixel or two rather than none, and on a seat
+   * with room it changes nothing — the full 20px is there long before the run
+   * is down to 36. The pressure to find a seat with room stays where it
+   * belongs, on `shortRun`, which prices the shaft this leaves behind.
+   */
+  const startGap = Math.max(
+    0,
+    Math.min(START_GAP_PX * unitsPerPx * share, outward - KEEP_PX * unitsPerPx),
+  );
+  const start = {
+    x: edge.x + ((end.x - edge.x) / outward) * startGap,
+    y: edge.y + ((end.y - edge.y) / outward) * startGap,
+  };
   const points: Point[] = [];
 
   const vx = end.x - start.x;
@@ -385,7 +575,26 @@ function arrowBetween(from: Rect, to: Rect, lean: number, follow: number, unitsP
   // short run is drawn back over the note's own first line, which is what the
   // card-2 forest note looked like.
   const head = Math.min(HEAD_PX * unitsPerPx, length * 0.5);
-  const spread = 0.42;
+  /*
+   * How far either arm sits off the shaft, in radians
+   * (`MILESTONE-020` task 3).
+   *
+   * 0.42 — 24 degrees — until the arrows were looked at at five times
+   * magnification. `MILESTONE-013` task 1 had already fixed the *direction* the
+   * head hangs from, by building it on the chord the ink actually draws rather
+   * than on the curve's tangent, and that was correct. It left a second problem
+   * that only shows on a steeply bowed arrow: at 24 degrees an arm is close
+   * enough to the shaft that over a 26px head the two are barely 10px apart, so
+   * on card 1's calendar note — which arrives almost vertically out of a strong
+   * bow — the lower arm merged into the shaft and the head read as one long
+   * barb and one stub.
+   *
+   * 0.55 is 31.5 degrees, which is also where the owner's own arrowheads sit
+   * (the two on page 2 of the Figma file measure 30 and 34 degrees). Wide
+   * enough that the arms are unmistakably a pair at every bend the router can
+   * choose, and still an open V rather than a barb.
+   */
+  const spread = 0.55;
 
   /*
    * Which way the head points: **the chord the ink actually draws over the
@@ -565,6 +774,30 @@ const LEANS = [0.28, -0.28, 0.18, -0.18, 0.38, -0.38, 0.5, -0.5, 0];
  */
 const FOLLOWS = [0.28, -0.28, 0.18, -0.18, 0.38, -0.38, 0.5, -0.5, 0];
 
+/**
+ * What a unit of stroke lying over a picture, or off the card, costs.
+ *
+ * **6 until `MILESTONE-020` task 3, and 6 was only ever enough because nothing
+ * else in the scoring was expensive.** `shortRun`'s new floor surcharge is, by
+ * design — it has to outbid a 9,000-point `PREFER_MISS` to rescue a 17px
+ * arrow — and at 6 a unit it immediately outbid *crossing* as well: three
+ * placements bought their length by drawing up to 137 CSS px of stroke across
+ * another photograph, which `content-audit` caught in one run.
+ *
+ * That is `ISSUE-043` reopened, and the two faults are not equivalent. A short
+ * arrow is a weak drawing; a stroke lying over a photograph is a defect. So the
+ * ordering has to be structural rather than a matter of which number happens
+ * to be larger: at 60 a unit, a graze of even 10 CSS px costs more than the
+ * deepest surcharge `shortRun` can levy, so no amount of shortness can ever
+ * buy a crossing. The router simply has to find another way round, and where
+ * there is none the note moves instead.
+ *
+ * It applies to `outsideOf` at the same rate for the same reason: the card is
+ * `overflow: hidden`, so ink outside it is not a compromise, it is ink nobody
+ * ever sees.
+ */
+const CROSS_WEIGHT = 60;
+
 function scoreArrow(
   arrow: ReturnType<typeof arrowBetween>,
   obstacles: Rect[],
@@ -583,17 +816,18 @@ function scoreArrow(
    * that is what stops the four cards drawing one gesture four times.
    *
    * Crossing still dwarfs it. A stroke lying 500 units over a photograph pays
-   * 3,000 where the whole of the shape term tops out near 540, so a card with
-   * no room to curve gets a straight arrow rather than a curved one over a
-   * picture — the shape is a preference and the clearance is a rule.
+   * `CROSS_WEIGHT` times that where the whole of the shape term tops out near
+   * 540, so a card with no room to curve gets a straight arrow rather than a
+   * curved one over a picture — the shape is a preference and the clearance is
+   * a rule.
    *
    * The last term is what stops a clear route being a bad drawing: two offsets
    * of opposite sign are an S, which is worth paying for when it threads
    * between two pictures and is never worth taking for nothing.
    */
   return (
-    crossingOf(arrow.points, obstacles) * 6 +
-    outsideOf(arrow.points) * 6 +
+    crossingOf(arrow.points, obstacles) * CROSS_WEIGHT +
+    outsideOf(arrow.points) * CROSS_WEIGHT +
     (Math.abs(Math.abs(lean) - BOW) + Math.abs(Math.abs(follow) - BOW)) * 960 +
     (lean * follow < 0 ? 420 : 0)
   );
@@ -824,16 +1058,20 @@ function preferMiss(box: Rect, anchor: Rect, prefer: CollageScribble["prefer"]):
  * seat loop routes one per candidate to score what it crosses — so measuring
  * the real thing costs nothing but the hypotenuse.
  *
- * Weight 12, from the same sweep as `MIN_RUN_PX`: 8 left a third of the
- * placements short, and 16 began buying length with corners the owner had
- * asked for.
+ * `RUN_WEIGHT` is 12, from the same sweep as `MIN_RUN_PX`: 8 left a third of
+ * the placements short, and 16 began buying length with corners the owner had
+ * asked for. `FLOOR_WEIGHT` is the surcharge under `FLOOR_RUN_PX` and is the
+ * reason 16 is not needed — see there for why one rate could not do both jobs.
  */
 function shortRun(points: Point[], unitsPerPx: number): number {
   const start = points[0]!;
   const end = points[points.length - 1]!;
   const run = Math.hypot(end.x - start.x, end.y - start.y);
   const want = MIN_RUN_PX * unitsPerPx;
-  return run >= want ? 0 : (want - run) * 12;
+  const floor = FLOOR_RUN_PX * unitsPerPx;
+  return (
+    Math.max(0, want - run) * RUN_WEIGHT + Math.max(0, floor - run) * FLOOR_WEIGHT
+  );
 }
 
 /** The last word on staying on the card, whatever the scoring settled for. */
@@ -861,10 +1099,39 @@ export function placeScribbles(
    * over: the card's index in the top-left corner, and the motion control,
    * which is pinned to the foot of the window and lands in the bottom-right of
    * whichever card is on screen.
+   *
+   * **The motion control's box was 3,200 x 1,300 and it is measured now**
+   * (`MILESTONE-020` task 3, second pass). The button had never been measured —
+   * it was estimated generously, on the sound instinct that a note written over
+   * the pause control is worse than a note somewhere else. But the estimate was
+   * 50% too wide, and the cost of that is specific: the bottom-right quadrant is
+   * where three of the nine notes are drawn, and at 3,200 units between 53% and
+   * 60% of those quadrants was furniture. Those notes were squeezed against the
+   * card's right margin instead, which is exactly where a 23px arrow comes from.
+   *
+   * Driven through Chrome at three window sizes, reading the button's own
+   * `getBoundingClientRect` against the stage's:
+   *
+   * | window | stage | button, in design units | gap below it |
+   * | --- | --- | --- | --- |
+   * | 1440 x 900 | 1256px | 1827 x 478 | 803 |
+   * | 1280 x 800 | 1083px | 2119 x 554 | 808 |
+   * | 1600 x 1100 | 1278px | 1796 x 469 | below the stage |
+   *
+   * So 2,300 wide covers the widest case with room to spare, and 1,400 tall
+   * covers the whole band the button can occupy — it sits about 800 units up
+   * from the stage's foot on a short window and drops off the bottom edge
+   * entirely on a tall one. `CLEAR` adds 260 units of its own on top of this in
+   * `seatCost`, so the effective standoff is comfortably past the 2,119 measured
+   * worst case.
+   *
+   * The index's 1,500 x 1,000 is left alone. It is also generous, and no note on
+   * the deck is short because of it: the two that ask for a top-left corner draw
+   * 42px and 43px at their worst.
    */
   const furniture: Rect[] = [
     { x: 0, y: 0, w: 1500, h: 1000 },
-    { x: FRAME_W - 3200, y: FRAME_H - 1300, w: 3200, h: 1300 },
+    { x: FRAME_W - 2300, y: FRAME_H - 1400, w: 2300, h: 1400 },
   ];
   const placed: Rect[] = [];
 
@@ -919,7 +1186,11 @@ export function placeScribbles(
          * hard against the card's top margin, out to the right. They are
          * still scored like any other seat and still lose to a better one.
          */
-        if (dir) candidates.push({ box: clampToFrame(boxAt(anchor, size, dir, ring)), bias: i * 250 });
+        if (dir)
+          candidates.push({
+            box: clampToFrame(boxAt(anchor, size, dir, ring, unitsPerPx)),
+            bias: i * 250,
+          });
       }
     }
 
@@ -959,31 +1230,42 @@ export function placeScribbles(
       box: candidate,
       score: seatCost(candidate, obstacles, reach(candidate)) + bias,
     }));
-    free.sort((a, b) => a.score - b.score);
-
     /*
-     * Now the part `ISSUE-043` cause 1 was waiting for. A seat being free says
-     * the *note* clears every picture; it says nothing about the stroke that
-     * has to get from it to the one it is about, and on a crowded card the
-     * nearest free seat is often the one on the far side of two photographs.
+     * Both seat sources, de-duplicated, ready to be scored on the arrow each
+     * one would actually draw.
      *
-     * So the five nearest free seats are each given their best available arrow
-     * and re-scored on what that arrow lies across. Five, because routing is
-     * seven bends against every obstacle on the card, and doing that for all
-     * twenty-four seats is work spent on seats no scoring would ever have
-     * picked.
+     * **Both always run and both are priced by `seatCost`**, so the ring — the
+     * seats somebody would pick by hand, tucked around the picture — and the
+     * sweep — the whole card on a coarse grid — go into one list and compete on
+     * equal terms. This is the part `ISSUE-043` cause 1 was waiting for: a seat
+     * being clear says the *note* misses every picture and says nothing at all
+     * about the stroke that has to get from it to the one it is about, and on a
+     * crowded card the nearest clear seat is often the one on the far side of
+     * two photographs. So every candidate is routed and re-scored below on what
+     * its arrow lies across, how long it comes out, and whether it kept the
+     * corner the note was drawn in.
+     *
+     * **One entry per distinct box** (`MILESTONE-020` task 7).
+     * `clampToFrame` slides a ring seat that fell off the card back onto it,
+     * and for a picture near an edge every ring in that direction clamps to the
+     * *same box* — five rings, one position. Routing is 81 curves flattened to
+     * 29 points each and tested against every obstacle on the card, so those
+     * were four identical searches whose results were then compared with
+     * themselves; the diagnostic that found this showed the winning box five
+     * times at the top of the list, byte for byte. Keyed on the rounded box,
+     * because that is what identical means here, and the lowest `bias` of a
+     * group survives — the same seat the old sort would have preferred.
      */
-    /*
-     * The ring is the seats a note would choose by hand; the sweep is the whole
-     * card on a coarse grid. Both always run, and both are priced by
-     * `seatCost`, so they can be sorted into one list and compared.
-     */
-    const seats =
-      [...free, ...sweepForGaps(size, obstacles, cx, cy)];
+    const seen = new Map<string, { box: Rect; score: number }>();
+    for (const option of [...free, ...sweepForGaps(size, obstacles, cx, cy)]) {
+      const key = `${Math.round(option.box.x)},${Math.round(option.box.y)}`;
+      const kept = seen.get(key);
+      if (!kept || option.score < kept.score) seen.set(key, option);
+    }
 
     let seat: Rect | undefined;
     let seatScore = Infinity;
-    for (const option of seats) {
+    for (const option of seen.values()) {
       const routed = routeArrow(option.box, anchor, [...crossable, option.box], unitsPerPx, true);
       const total =
         option.score +

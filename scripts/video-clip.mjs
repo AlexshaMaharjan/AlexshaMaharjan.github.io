@@ -5,6 +5,7 @@
  *
  *   node scripts/video-clip.mjs <src> <out> [--from 4] [--seconds 8]
  *                              [--width 540] [--fps 24] [--kbps 900] [--port 9333]
+ *                              [--audio] [--akbps 96]
  *
  * `DECISION-022` established that this machine has no way to make a video
  * smaller: `ffmpeg` is not installed and `avconvert` grew two of four test
@@ -21,9 +22,29 @@
  * Recording is real time: eight seconds of output takes eight seconds. That is
  * the whole cost, and it is paid once per clip at build time.
  *
- * **Audio is dropped on purpose**, not to save bytes. These loop by themselves
- * on a page, and a page that makes noise unasked is indefensible — so there is
- * no audio track to accidentally unmute.
+ * **Audio is dropped unless `--audio` is passed**, and the default is the
+ * important half of that: the card tier loops by itself on a page, and a page
+ * that makes noise unasked is indefensible, so those files carry no audio track
+ * to accidentally unmute.
+ *
+ * `--audio` exists for the **viewer tier** (`MILESTONE-022` task 7). The owner
+ * asked for a sound control on the motorbike film, and a control needs
+ * something to switch on: the track is carried in the file the *viewer* fetches
+ * on open, never in the one the card autoplays. It is captured from the
+ * element's own `captureStream()` and added to the canvas stream, so the video
+ * is still the downscaled canvas and only the audio comes from the source.
+ *
+ * Two things it needs that the silent path does not, and both are why it is a
+ * flag rather than the default:
+ *
+ * - **the element cannot be muted**, because a muted element captures silence.
+ *   So the Chrome this drives has to be started with
+ *   `--autoplay-policy=no-user-gesture-required`, or `play()` is refused and
+ *   the recording is a still frame.
+ * - **it is recorded at the source's own level.** Nothing here normalises or
+ *   attenuates; the motorbike film is loud, and what makes it comfortable is
+ *   `ARCHIVE_VOLUME` in `PieceViewer`, which is a number a reader can also
+ *   override with the player's own control.
  *
  * The file is served over HTTP from this script rather than read as `file://`:
  * a canvas drawn from a cross-origin or file-scheme video is tainted, and
@@ -63,6 +84,8 @@ const seconds = arg("seconds", 8);
 const width = arg("width", 540);
 const fps = arg("fps", 24);
 const kbps = arg("kbps", 900);
+const audio = process.argv.includes("--audio");
+const akbps = arg("akbps", 96);
 const port = arg("port", 9333);
 
 const bytes = readFileSync(src);
@@ -114,9 +137,23 @@ await sleep(400);
  * to the poster either way, so this decides how often that fallback is all a
  * visitor gets.
  */
+/*
+ * **The audio path must not name a `codecs=` string at all**, and both halves
+ * of that were measured on the same six seconds of the motorbike film:
+ * `video/mp4;codecs=avc1.42E01E` — the silent path's first choice — accepts the
+ * stream, reports no error and writes **32 KB** where 790 was expected, because
+ * the type names a video codec and no audio one; adding `,mp4a.40.2` is
+ * reported as supported and then records **nothing at all**. Bare `video/mp4`
+ * lets Chrome pick both and produces the file. So the two paths ask different
+ * questions, and the silent one keeps the list it always had.
+ */
 const codec = await evaluate(
   cdp,
-  `["video/mp4;codecs=avc1.42E01E","video/mp4","video/webm;codecs=vp9","video/webm"]
+  `${JSON.stringify(
+    audio
+      ? ["video/mp4", "video/webm;codecs=vp9,opus", "video/webm"]
+      : ["video/mp4;codecs=avc1.42E01E", "video/mp4", "video/webm;codecs=vp9", "video/webm"],
+  )}
      .find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) ?? ""`,
 );
 if (!codec) {
@@ -128,7 +165,7 @@ const dataUrl = await evaluate(
   cdp,
   `(async () => {
     const v = document.createElement("video");
-    v.src = "/clip.mp4"; v.muted = true; v.playsInline = true;
+    v.src = "/clip.mp4"; v.muted = ${audio ? "false" : "true"}; v.volume = 1; v.playsInline = true;
     await new Promise((ok, no) => { v.onloadedmetadata = ok; v.onerror = () => no(new Error("load")); });
 
     const w = ${width}, h = Math.round(${width} * v.videoHeight / v.videoWidth / 2) * 2;
@@ -141,7 +178,24 @@ const dataUrl = await evaluate(
     await new Promise((ok) => { v.onseeked = ok; });
 
     const stream = c.captureStream(${fps});
-    const rec = new MediaRecorder(stream, { mimeType: ${JSON.stringify(codec)}, videoBitsPerSecond: ${kbps * 1000} });
+    /*
+     * The picture is the canvas and the sound is the source. Adding the
+     * element's own audio track to the canvas stream is what keeps those two
+     * separable: the video is recorded at the width asked for, and the audio is
+     * whatever the file carries.
+     */
+    let audioTrack = null;
+    if (${audio}) {
+      const from = v.captureStream ? v.captureStream() : v.mozCaptureStream?.();
+      audioTrack = from?.getAudioTracks?.()[0] ?? null;
+      if (!audioTrack) throw new Error("no audio track on the source");
+      stream.addTrack(audioTrack);
+    }
+    const rec = new MediaRecorder(stream, {
+      mimeType: ${JSON.stringify(codec)},
+      videoBitsPerSecond: ${kbps * 1000},
+      ...(${audio} ? { audioBitsPerSecond: ${akbps * 1000} } : {}),
+    });
     const chunks = [];
     rec.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
 
@@ -159,15 +213,15 @@ const dataUrl = await evaluate(
     const blob = new Blob(chunks, { type: ${JSON.stringify(codec)} });
     const fr = new FileReader();
     const url = await new Promise((ok) => { fr.onload = () => ok(fr.result); fr.readAsDataURL(blob); });
-    return JSON.stringify({ url, w, h, duration: v.duration });
+    return JSON.stringify({ url, w, h, duration: v.duration, audio: Boolean(audioTrack) });
   })()`,
 );
 
-const { url, w, h } = JSON.parse(dataUrl);
+const { url, w, h, audio: gotAudio } = JSON.parse(dataUrl);
 writeFileSync(out, Buffer.from(url.split(",")[1], "base64"));
 server.close();
 
 const kb = Math.round(statSync(out).size / 1024);
 const wasKb = Math.round(statSync(src).size / 1024);
-console.log(`${out}  ${w}x${h}  ${seconds}s  ${kb} KB   (from ${wasKb} KB, ${codec.split(";")[0]})`);
+console.log(`${out}  ${w}x${h}  ${seconds}s  ${kb} KB   (from ${wasKb} KB, ${codec.split(";")[0]}${gotAudio ? ", with audio" : ""})`);
 process.exit(0);

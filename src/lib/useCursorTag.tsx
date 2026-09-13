@@ -18,6 +18,14 @@ import { createPortal } from "react-dom";
  * coordinates; rendering it with the label would place it at 0,0 for one frame
  * before the first move.
  *
+ * **The colour arrives with the label, not with the hook.** A collage is one
+ * card in one colour, so `Collage` sets it once and never changes it; the
+ * homepage's work grid is six projects in six colours, and the tag has to be
+ * the colour of the *cover the cursor is over* (`MILESTONE-018` task 2). So the
+ * hook-level `background` is the default and `onPoint` may override it per
+ * element — one state object, because the label and the colour always change
+ * together and two `useState` calls would repaint twice for one crossing.
+ *
  * **Mouse only.** A touch "hover" is a tap on its way to opening something, and
  * a pen is no better placed to read a label under its own nib. `.pg-cursor-tag`
  * also hides itself under `@media (hover: none)`, so this is belt and braces.
@@ -25,11 +33,14 @@ import { createPortal } from "react-dom";
  * `aria-hidden`: every caller's element already has an accessible name that says
  * the same thing. This is that promise repeated visually, not new information.
  */
+/** The site's accent, for a caller that names no colour of its own. */
+const DEFAULT = "#1B3FE0";
+
 export function useCursorTag({ background }: { background?: string } = {}) {
-  const [label, setLabel] = useState<string | null>(null);
+  const [tagged, setTagged] = useState<{ label: string; colour: string } | null>(null);
   const ref = useRef<HTMLDivElement>(null);
 
-  const onPoint = (next: string, event: ReactPointerEvent<Element>) => {
+  const onPoint = (next: string, event: ReactPointerEvent<Element>, colour?: string) => {
     if (event.pointerType !== "mouse") return;
     const el = ref.current;
     if (el) {
@@ -39,10 +50,19 @@ export function useCursorTag({ background }: { background?: string } = {}) {
       const y = Math.max(12, Math.min(event.clientY + 20, window.innerHeight - el.offsetHeight - 12));
       el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     }
-    setLabel((current) => (current === next ? current : next));
+    const paint = colour ?? background ?? DEFAULT;
+    setTagged((current) =>
+      current && current.label === next && current.colour === paint ? current : { label: next, colour: paint },
+    );
   };
 
-  const onUnpoint = () => setLabel(null);
+  const onUnpoint = () => setTagged(null);
+
+  // Survives the null that starts the fade, so the tag keeps its colour while
+  // it disappears. A ref, not state: nothing re-renders when it changes, and it
+  // is read during the render that is already happening.
+  const last = useRef(background ?? DEFAULT);
+  if (tagged) last.current = tagged.colour;
 
   const tag = createPortal(
     <div
@@ -50,15 +70,20 @@ export function useCursorTag({ background }: { background?: string } = {}) {
       aria-hidden="true"
       className="pg-cursor-tag whitespace-nowrap rounded-full px-3.5 py-2 text-[12.5px] font-medium leading-none text-white shadow-[0_8px_24px_rgba(10,16,36,0.34)] transition-opacity duration-150"
       style={{
-        opacity: label ? 1 : 0,
-        backgroundColor: background ?? "#1B3FE0",
+        opacity: tagged ? 1 : 0,
+        /*
+          The last colour is kept while the tag fades out. Falling back to the
+          default here would make a red tag flash blue on the way out, which is
+          the one frame the eye is most likely to catch.
+        */
+        backgroundColor: last.current,
         // A flat 12% of ink over the colour, so a light accent still carries
         // white text. Written as a gradient rather than as `color-mix` so the
         // two declarations cannot be reordered into the shorthand resetting it.
         backgroundImage: "linear-gradient(rgba(10,10,12,0.12), rgba(10,10,12,0.12))",
       } as CSSProperties}
     >
-      {label}
+      {tagged?.label}
     </div>,
     document.body,
   );

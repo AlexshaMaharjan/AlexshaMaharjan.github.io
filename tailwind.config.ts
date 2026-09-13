@@ -61,7 +61,14 @@ const config: Config = {
           "sans-serif",
         ],
         mono: ["ui-monospace", "Menlo", "Consolas", "monospace"],
-        hand: ["var(--font-caveat)", "cursive"],
+        /*
+         * `hand` is deliberately not here. It named a custom property that did
+         * not exist (`var(--font-caveat)` against a `--font-hand` token), which
+         * silently set every handwritten note on the site in the body face, and
+         * correcting it here did not reach a dev server that was already
+         * running. `.font-hand` is a plain rule in `src/index.css` now, with the
+         * family spelled out as the `var()` fallback — see `ISSUE-059`.
+         */
       },
       borderRadius: {
         canvas: "40px",

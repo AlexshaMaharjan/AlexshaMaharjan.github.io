@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 import { branchLayout, HUB_W, HUB_Y } from "./branchData";
 import BranchGroup from "./BranchGroup";
@@ -8,49 +8,203 @@ const EASE_LO = 0;
 const EASE_HI = 1;
 
 /**
- * When each of the five clusters arrives, as a fraction of the track's scroll
- * (`MILESTONE-011` task 2).
+ * **The five steps arrive strictly one at a time** (`MILESTONE-022` task 1,
+ * owner: *"each step should finish its animation completely before the next
+ * step begins (also the connection line). There should not be overlapping step
+ * animations."*).
  *
- * These were four loose numbers in `frame()` and they had a bug in them that
- * only arithmetic finds. Cluster 05 was revealed over `0.90 → 1.02`, and a
- * track cannot scroll past 1: at the very bottom of the runway it had reached
- * 93% opacity and was still moving. It never *looked* like it was still moving,
- * because `INTERACTIVE_ON` fired at 0.90 — the same instant cluster 05 began —
- * and the moment the map goes interactive `applyBranchState` writes every
- * cluster to full opacity. So 05 did not arrive: it was switched on, in one
- * frame, at the exact point the other four had finished.
+ * Every previous version of this overlapped on purpose. `STEP_STAGGER` was
+ * 0.0425 of the track against a `STEP_DUR` of 0.13, so three clusters were
+ * fading in at once at the middle of the runway — which is why `litUntil` had
+ * to exist, a whole constant whose job was to hand the blue on early because
+ * the steps themselves could not be told apart. That machinery is gone. What
+ * replaces it is a **turn**: each step owns a slice of the runway and nothing
+ * else moves inside it.
  *
- * The schedule now ends before the map goes live, which is the whole fix. The
- * rest is the owner's "slower, and more room around 05":
+ * ## One turn, and the line arrives *with* its step
  *
- * - **The track is 340svh, up from 280.** The band below is a *fraction* of the
- *   runway, so lengthening the runway is what buys real scrolling distance
- *   without changing the shape of the sequence. One cluster now takes about
- *   32svh to arrive where it took 22.
- * - **Each cluster is given slightly longer than the one before it**
- *   (`STEP_DUR_GROWTH`), so the sequence settles rather than stopping dead. 05
- *   takes 0.154 of the track against 01's 0.130.
- * - **`STEPS_DONE` is derived, not typed.** It is what stops this drifting back
- *   into the state it was in: change a stagger or a duration and the interactive
- *   threshold moves with it, instead of quietly clipping the last cluster again.
+ * The order the owner asked for first is still here — *"the square closer to
+ * the question, then the line animated from the question to the step, and
+ * finally the other square"* — and the geometry already agreed with it: every
+ * `line` in `branchData` is written starting at `capA`, the end just inside the
+ * question, so a `stroke-dashoffset` unwinding from 1 draws *away* from the
+ * question.
+ *
+ * What changed in `MILESTONE-023` task 4 is what the line is timed against.
+ * The stroke used to draw in a window of its own and the cluster began only
+ * after it had finished, which is a sequence of two events where the owner
+ * wanted one gesture: *"the animation of the connecting lines should begin at
+ * the same time as the animation of the corresponding step… so both feel like
+ * one continuous animation."*
+ *
+ * So a turn is three phases, not five:
+ *
+ * | phase | what moves | weight |
+ * | --- | --- | --- |
+ * | `capA` | the square at the question, on its own | 0.8 |
+ * | `draw` | **the stroke and the cluster together** | 5.0 |
+ * | `rest` | nothing, and the connector cooling to a hairline | 0.9 |
+ *
+ * Inside `draw` the two are not identical, and that is the part worth keeping:
+ * the stroke finishes at `LINE_SHARE` of the window — four fifths of it — and
+ * the cluster takes the whole of it. The line therefore *reaches* the step
+ * while the step is still arriving, which reads as the connector delivering it
+ * rather than as two things fading up in parallel. `capB`, the square at the
+ * far end, lands exactly where the stroke stops, which is what it did before.
+ *
+ * **Weights, not fractions.** The five turns share whatever is left of the
+ * runway after `SEQ_START`, so lengthening the intro or the track re-times the
+ * sequence without anybody rebalancing the numbers — and the last step is
+ * guaranteed to finish exactly at the end of the animation rather than at 1.02
+ * of it, which is the arithmetic bug `MILESTONE-011` found the hard way.
  */
-const STEP_FIRST = 0.64;
-const STEP_STAGGER = 0.0425;
-const STEP_DUR = 0.13;
-const STEP_DUR_GROWTH = 0.006;
-
-const stepStart = (i: number) => STEP_FIRST + STEP_STAGGER * i;
-const stepEnd = (i: number) => stepStart(i) + STEP_DUR + STEP_DUR_GROWTH * i;
-
-/** The point every cluster has finished arriving. Derived — see above. */
-const STEPS_DONE = stepEnd(4);
 /**
- * The map takes hover, focus and clicks only once the sequence has finished,
- * with a gap below it to come back out of. Both were 0.9/0.85, which is to say
- * both were inside the sequence.
+ * Where the five steps sit when there is no map to hang them on
+ * (`MILESTONE-023` task 7).
+ *
+ * Below 880px the canvas is a column of cards rather than a 1440 x 900 map
+ * (`ISSUE-049`), and until this session that column was five identical cards on
+ * one centre line — a timeline, which is the one thing the owner asked it not
+ * to be. This is the same five steps *placed*: alternating sides, four widths,
+ * and a centre for each one that the connectors are drawn between.
+ *
+ * `centre` is a percentage of the column, and it is the card's own middle, not
+ * its edge — a stroke that runs centre to centre lands under the step it comes
+ * from however wide that step happens to be. 01 and 05 are the widest and the
+ * closest to the middle, which is where the map puts them too: the first step
+ * and the last one are the only two that are not part of a pair.
+ *
+ * Read with `branchLayout`, which is the same idea for the map: geometry as
+ * data, in one table, so re-cutting it is five lines rather than five branches
+ * in a JSX tree.
  */
-const INTERACTIVE_ON = Math.min(0.99, STEPS_DONE + 0.011);
-const INTERACTIVE_OFF = INTERACTIVE_ON - 0.025;
+const STACK_LAYOUT = [
+  { justify: "justify-start", width: "w-[94%]", centre: 47 },
+  { justify: "justify-end", width: "w-[88%]", centre: 56 },
+  { justify: "justify-start", width: "w-[90%]", centre: 45 },
+  { justify: "justify-end", width: "w-[86%]", centre: 57 },
+  { justify: "justify-center", width: "w-[96%]", centre: 50 },
+] as const;
+
+const SEQ_START = 0.42;
+const PHASES = { capA: 0.8, draw: 5.0, rest: 0.9 } as const;
+const PHASE_SUM = PHASES.capA + PHASES.draw + PHASES.rest;
+const STEPS = 5;
+
+/**
+ * How much of the shared `draw` window the stroke takes. The cluster takes all
+ * of it, so at 0.8 the line has arrived while the step is still settling — one
+ * gesture that ends on the step rather than two that end together.
+ */
+const LINE_SHARE = 0.8;
+
+/** One step's share of the runway, and one unit of weight inside it. */
+const TURN = (1 - SEQ_START) / STEPS;
+const UNIT = TURN / PHASE_SUM;
+
+/** The start of step `i`'s turn, and of each phase inside it. */
+const turnAt = (i: number) => SEQ_START + i * TURN;
+const capAFrom = (i: number) => turnAt(i);
+/** The stroke and the cluster start here, together. */
+const stepFrom = (i: number) => capAFrom(i) + PHASES.capA * UNIT;
+const stepDone = (i: number) => stepFrom(i) + PHASES.draw * UNIT;
+/** Where the stroke stops, and therefore where its far square appears. */
+const lineDone = (i: number) => stepFrom(i) + PHASES.draw * LINE_SHARE * UNIT;
+
+/**
+ * How tall the pinned runway is, and how much of it the finished map holds
+ * still for.
+ *
+ * **400svh until `MILESTONE-022` task 1** (owner: *"the black process card
+ * currently requires slightly too much scrolling"*), and the two halves of that
+ * complaint pull in opposite directions, which is why this is 330 and not 250:
+ * the *sequence* got longer this session, because five steps that no longer
+ * overlap need more room than five that did, and the *intro* got much shorter.
+ * At a 900px window the section is 2,070px of scroll against 2,700 — a fifth
+ * less — and the five steps have 1,065px of it rather than 862.
+ *
+ * The hold is the stillness after the last step lands. It was a viewport when
+ * the map was something you could hover and click, and it is a beat now that it
+ * is a diagram: long enough that cluster 05 is not snatched away, short enough
+ * that the next wheel notch is already moving the page. It is expressed in
+ * `svh` and converted against the measured track at run time rather than
+ * written as a fraction, because a fraction is only correct at one window
+ * height.
+ */
+const TRACK_SVH = 330;
+const HOLD_SVH = 26;
+
+/**
+ * The most of the track the hold may take, however short the window is.
+ *
+ * A ceiling rather than a tuning knob: `HOLD_SVH / range` grows without limit
+ * as the window gets shorter, and at the point where the hold claimed most of
+ * the runway the five clusters would be crammed into what was left. It binds
+ * below about a 560px-tall window, where the deck has bigger problems anyway.
+ */
+const HOLD_MAX = 0.45;
+
+/**
+ * The last thing the section does: **it lets the page move** (`MILESTONE-022`
+ * task 1, owner: *"near the end of Step 5, allow the overall page to scroll
+ * slightly downward so the user gets a subtle indication that there is more
+ * content below… however, don't scroll so far that the user loses the
+ * opportunity to comfortably read Step 5"*).
+ *
+ * Both halves of that are in two numbers. The canvas lifts by `PEEK_SVH` — 8%
+ * of the window, about 72px at a 900px one — which is enough that a strip of
+ * the white page appears under a canvas that has been edge-to-edge black for
+ * two thousand pixels, and far too little to take step 05 anywhere: the cluster
+ * sits at 68.7% of a map that is centred in the canvas, so it rises by those
+ * same 72px and stays comfortably on screen.
+ *
+ * It is driven by the **raw** track progress rather than by the animation's,
+ * and that is the whole trick. `p` saturates at 1 with `HOLD_SVH` still to
+ * scroll, so anything keyed to it is frozen through the hold; the lift keeps
+ * going through it, and the stillness the hold promises becomes the *map*
+ * standing still while the page underneath it is visibly on the move.
+ *
+ * Where it starts is written in *animation* progress and converted, though.
+ * `PEEK_FROM` is 0.975 of the sequence — three quarters of the way through
+ * cluster 05's own fade, so the lift begins under a step that is all but
+ * arrived rather than under one that is still arriving. Written as a raw
+ * fraction instead it would drift with the window, because the hold's share of
+ * the track is a function of the viewport height.
+ */
+const PEEK_SVH = 8;
+const PEEK_FROM = 0.975;
+
+/**
+ * How long a connector stays lit, and how long it takes to cool.
+ *
+ * The blue means "this is the step arriving": a connector lights the instant
+ * its own square appears at the question, stays lit while its stroke draws and
+ * while its cluster fades up, and returns to the resting hairline over the beat
+ * that follows. Exactly one is ever lit, which is what the owner asked for in
+ * `SESSION-049` and what the schedule above can finally deliver literally —
+ * `litUntil`, the constant that used to hand the blue on early because three
+ * steps were arriving at once, is gone with the overlap that made it necessary.
+ *
+ * The rise is instant and the fall is not: a connector coming on is an event
+ * and should read as a switch, while five switches going *off* in sequence
+ * would flicker.
+ */
+
+const LIT_FADE = PHASES.rest * UNIT;
+
+/**
+ * The connector's own weight, resting and drawing (owner: remove the blue
+ * line and the end squares, animate the normal line itself instead).
+ *
+ * What used to read as "arriving now" through a colour swap and two endpoint
+ * markers now reads through the stroke's own opacity and width: a connector
+ * lifts off its resting hairline while it draws and while its cluster settles,
+ * then eases back — one property, no second colour, no markers to place.
+ */
+const REST_OPACITY = 0.22;
+const ACTIVE_OPACITY = 0.55;
+const REST_WIDTH = 1;
+const ACTIVE_WIDTH = 1.6;
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
@@ -62,11 +216,30 @@ function smoothstep(p: number, a: number, b: number) {
   return t * t * (3 - 2 * t);
 }
 
+/**
+ * **The map is a diagram, not a control** (owner, SESSION-049, task 6:
+ * "remove the hover state from the process card").
+ *
+ * Every cluster used to answer to a pointer: hovering one dimmed the other four
+ * to 35%, grew it to 105%, lit its connector blue and showed the two endpoint
+ * caps, and clicking locked that state until an ✕ released it. `MILESTONE-020`
+ * had just finished adding a second scroll cue to tell people the thing was
+ * live, which is the tell — a decoration that needs a caption explaining it is
+ * a decoration that is doing the wrong job. Four of the five steps dimmed is
+ * also, read plainly, four fifths of the diagram hidden to emphasise one fifth
+ * that was already legible.
+ *
+ * What is gone with it: `hovered`, `locked`, `active`, `applyBranchState`,
+ * `interactiveOn`, `INTERACTIVE_ON`/`OFF`, the `inert` toggle, the ✕ button,
+ * the `process.exploreCue` and `process.closeSelection` strings, and the
+ * `<button>` that carried each step's title — which is now the `h3` it always
+ * read as.
+ *
+ * The blue did not go with them. It moved onto the scroll, where it has
+ * something to say (see `frame`).
+ */
 export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) {
   const [staticFlow, setStaticFlow] = useState(true);
-  const [hovered, setHovered] = useState<number | null>(null);
-  const [locked, setLocked] = useState<number | null>(null);
-  const [interactiveOn, setInteractiveOn] = useState(false);
 
   const trackRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
@@ -77,7 +250,6 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
   const lineRefs = useRef<(SVGPathElement | null)[]>([]);
   const groupRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const interactiveOnRef = useRef(false);
   const trackTopRef = useRef(0);
   const trackHRef = useRef(0);
   const cTop0Ref = useRef(0);
@@ -95,26 +267,6 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
    */
   const qEmRef = useRef(0.5);
 
-  const active = locked ?? hovered;
-
-  const applyBranchState = useCallback(() => {
-    groupRefs.current.forEach((g, i) => {
-      if (!g) return;
-      const isActive = active === null || active === i;
-      g.style.opacity = active === null ? "1" : isActive ? "1" : "0.35";
-    });
-    lineRefs.current.forEach((l, i) => {
-      if (!l) return;
-      const on = active === i;
-      l.style.stroke = on ? "#1B3FE0" : active === null ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.12)";
-      l.style.strokeWidth = on ? "1.5" : "1";
-    });
-  }, [active]);
-
-  useEffect(() => {
-    if (interactiveOn) applyBranchState();
-  }, [interactiveOn, applyBranchState]);
-
   // Decide static vs pinned flow based on viewport width + reduced motion, matching the
   // coded reference's own breakpoints (max-width:880px, prefers-reduced-motion).
   useEffect(() => {
@@ -131,12 +283,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
   }, []);
 
   useEffect(() => {
-    if (staticFlow) {
-      setInteractiveOn(true);
-      return;
-    }
-    setInteractiveOn(false);
-    interactiveOnRef.current = false;
+    if (staticFlow) return;
 
     const track = trackRef.current;
     const hero = heroRef.current;
@@ -177,25 +324,51 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
     const frame = () => {
       const H = window.innerHeight;
       const W = window.innerWidth;
-      const p = Math.min(
-        1,
-        Math.max(0, (window.scrollY - trackTopRef.current) / Math.max(1, trackHRef.current - H)),
-      );
+      /*
+       * `p` is progress through the **animation**, not through the track, and
+       * the difference between those two is the hold (see `HOLD_SVH`). It
+       * reaches 1 with `HOLD_SVH` of runway still to go and stays there, so
+       * every line below this — the canvas, the hero, the question, the map,
+       * the connectors, the clusters — finishes early and then simply keeps
+       * being told the same thing while the reader scrolls the rest.
+       *
+       * Written here rather than by shortening the schedule because the
+       * schedule divides whatever runway it is given into five equal turns
+       * (`TURN`); rescaling the input leaves every phase boundary in the same
+       * place relative to the others and still buys the stillness.
+       *
+       * `raw` is the other one — progress through the **track**, hold included.
+       * Only the peek reads it, and only because the peek is the one thing that
+       * must still be moving after the animation has finished.
+       */
+      const range = Math.max(1, trackHRef.current - H);
+      const hold = Math.min(HOLD_MAX, ((HOLD_SVH / 100) * H) / range);
+      const raw = Math.min(1, Math.max(0, (window.scrollY - trackTopRef.current) / range));
+      const p = Math.min(1, raw / (1 - hold));
 
-      const top = lerp(cTop0Ref.current || 0.7 * H, 0, smoothstep(p, 0, 0.55));
-      canvas.style.top = top + "px";
-      const cw = lerp(Math.min(0.92 * W, 1320), W, smoothstep(p, 0.22, 0.6));
+      /*
+       * The page moving under the finished map (see `PEEK_SVH`). Off `raw`
+       * rather than `p`, so it is still running while everything else has
+       * stopped: it begins inside step 05's own fade and carries on through the
+       * hold, which is what turns a stretch of dead scroll into a promise that
+       * there is something below.
+       */
+      const peek = (PEEK_SVH / 100) * H * smoothstep(raw, PEEK_FROM * (1 - hold), 1);
+
+      const top = lerp(cTop0Ref.current || 0.7 * H, 0, smoothstep(p, 0, 0.3));
+      canvas.style.top = top - peek + "px";
+      const cw = lerp(Math.min(0.92 * W, 1320), W, smoothstep(p, 0.1, 0.32));
       canvas.style.width = cw + "px";
-      canvas.style.height = lerp(0.78 * H, H, smoothstep(p, 0.22, 0.6)) + "px";
-      canvas.style.borderRadius = lerp(44, 0, smoothstep(p, 0.35, 0.62)) + "px";
+      canvas.style.height = lerp(0.78 * H, H, smoothstep(p, 0.1, 0.32)) + "px";
+      canvas.style.borderRadius = lerp(44, 0, smoothstep(p, 0.18, 0.34)) + "px";
 
-      hero.style.opacity = String(1 - smoothstep(p, 0.12, 0.45));
-      hero.style.transform = "translateY(" + -140 * smoothstep(p, 0, 0.55) + "px)";
-      cue.style.opacity = String(1 - smoothstep(p, 0.04, 0.18));
+      hero.style.opacity = String(1 - smoothstep(p, 0.05, 0.24));
+      hero.style.transform = "translateY(" + -140 * smoothstep(p, 0, 0.3) + "px)";
+      cue.style.opacity = String(1 - smoothstep(p, 0.02, 0.12));
 
       const s = Math.max(0.5, Math.min(W / 1440, H / 900));
       const st = (H - 900 * s) / 2;
-      const m = smoothstep(p, 0.6, 0.78);
+      const m = smoothstep(p, 0.3, 0.4);
       const qwBase = Math.min(1040, 0.9 * W);
       const visCenter = (H - top) / 2;
 
@@ -220,42 +393,47 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
       q.style.fontSize = qSize + "px";
 
       map.style.transform = "translate(-50%,-50%) scale(" + s + ")";
-      const mo = smoothstep(p, 0.62, 0.72);
-      map.style.opacity = String(mo);
-      map.style.pointerEvents = p >= INTERACTIVE_ON ? "auto" : "none";
+      map.style.opacity = String(smoothstep(p, 0.32, 0.4));
 
-      // A connector is drawn just ahead of the cluster it reaches, so the
-      // stroke arrives first and the cluster arrives along it.
+      /*
+       * **One connector, one turn** (`MILESTONE-022` task 1, re-timed in
+       * `MILESTONE-023` task 4 — see the schedule at the top of this file).
+       *
+       * The square at the question opens the turn on its own; then the stroke
+       * and the cluster run **in the same window**, the stroke finishing first
+       * so it reaches the step while the step is still arriving. Nothing here
+       * overlaps with step `i + 1`, because `stepDone(i)` plus the beat *is*
+       * `capAFrom(i + 1)`.
+       */
       lineRefs.current.forEach((l, i) => {
         if (!l) return;
-        l.style.strokeDashoffset = String(
-          100 * (1 - smoothstep(p, stepStart(i) - 0.03, stepStart(i) + 0.07)),
-        );
+        /*
+         * The stroke, drawn from the question outwards. `pathLength` is 100 on
+         * every connector, so one dash offset serves five paths of five
+         * different lengths, and `branchData` writes each `d` starting at the
+         * end nearest the question — which is what makes "away from the
+         * question" the natural direction rather than something to reverse.
+         */
+        l.style.strokeDashoffset = String(100 * (1 - smoothstep(p, stepFrom(i), lineDone(i))));
+
+        /*
+         * Lifted from the moment its own turn opens until its cluster has
+         * finished arriving, then easing back over the beat that follows —
+         * the same window the blue used to own, expressed now as the line's
+         * own opacity and width rather than a second colour.
+         */
+        const lit =
+          p < capAFrom(i) ? 0 : 1 - smoothstep(p, stepDone(i), stepDone(i) + LIT_FADE);
+        l.style.opacity = String(lerp(REST_OPACITY, ACTIVE_OPACITY, lit));
+        l.style.strokeWidth = String(lerp(REST_WIDTH, ACTIVE_WIDTH, lit));
       });
 
-      if (p >= INTERACTIVE_ON && !interactiveOnRef.current) {
-        interactiveOnRef.current = true;
-        setInteractiveOn(true);
-      } else if (p < INTERACTIVE_OFF && interactiveOnRef.current) {
-        interactiveOnRef.current = false;
-        setInteractiveOn(false);
-        setLocked(null);
-        setHovered(null);
-        lineRefs.current.forEach((l) => {
-          if (!l) return;
-          l.style.stroke = "rgba(255,255,255,0.22)";
-          l.style.strokeWidth = "1";
-        });
-      }
-
-      if (!interactiveOnRef.current) {
-        groupRefs.current.forEach((g, i) => {
-          if (!g) return;
-          const b = smoothstep(p, stepStart(i), stepEnd(i));
-          g.style.opacity = String(b);
-          g.style.transform = "translateY(" + 26 * (1 - b) + "px)";
-        });
-      }
+      groupRefs.current.forEach((g, i) => {
+        if (!g) return;
+        const b = smoothstep(p, stepFrom(i), stepDone(i));
+        g.style.opacity = String(b);
+        g.style.transform = "translateY(" + 26 * (1 - b) + "px)";
+      });
 
       if (running) rafId = requestAnimationFrame(frame);
     };
@@ -359,39 +537,80 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
           </h2>
 
           {/*
-            One card per step, with a dashed tick between them
-            (`MILESTONE-013` task 4). The connector is drawn between cards
-            rather than on them because only this loop knows which card is the
-            last one, and a stroke under step 05 points at the end of the
-            section.
+            One card per step, **placed rather than stacked**
+            (`MILESTONE-023` task 7, owner: *"on smaller screens the layout
+            becomes too vertical… I do not want the mobile layout to simply
+            become a vertical timeline. Preserve the randomness / asymmetric
+            grid character of the desktop design as much as reasonably
+            possible."*).
+
+            What was here was five identical cards at one width down one centre
+            line, with a straight dashed tick between each pair — which is a
+            timeline, exactly. The map it is standing in for is not: it is four
+            steps hung off the corners of a question with a fifth below it, and
+            what makes it read as a map is that **no two steps sit in the same
+            place and the strokes between them lean**.
+
+            Both of those survive a phone. The cards alternate sides and widths
+            (`STACK_LAYOUT`), so the column has a swing to it instead of an
+            edge, and each connector runs from the centre of one card to the
+            centre of the next — a diagonal, the way the map's are, rather than
+            a vertical tick. At 390px the swing is about 50px and at 768 about
+            110; below either, the cards are still full-width enough to read.
+
+            `STACK_LAYOUT` is a table rather than five `clsx` conditions because
+            it is *design*: somebody will want to re-cut where the steps sit,
+            and the place to do that should be five lines, not five branches in
+            a JSX tree.
           */}
-          <ol className="mx-auto mt-10 flex w-full max-w-[600px] list-none flex-col px-5">
-            {branches.map((branch, i) => (
-              <li key={branch.number}>
-                <BranchGroup
-                  stacked
-                  branch={branch}
-                  layout={branchLayout[i]!}
-                  index={i}
-                  active={active === i}
-                  locked={locked === i}
-                  closeLabel={dictionary.process.closeSelection}
-                  onEnter={() => setHovered(i)}
-                  onLeave={() => setHovered(null)}
-                  onClick={() => setLocked((cur) => (cur === i ? null : i))}
-                  onClose={() => setLocked(null)}
-                  groupRef={(el) => {
-                    groupRefs.current[i] = el;
-                  }}
-                />
-                {i < branches.length - 1 && (
-                  <span
-                    aria-hidden="true"
-                    className="mx-auto block h-9 w-px border-l border-dashed border-white/25"
-                  />
-                )}
-              </li>
-            ))}
+          <ol className="mx-auto mt-10 flex w-full max-w-[680px] list-none flex-col px-5">
+            {branches.map((branch, i) => {
+              const here = STACK_LAYOUT[i]!;
+              const next = STACK_LAYOUT[i + 1];
+              return (
+                <li key={branch.number} className="flex flex-col">
+                  <div className={`flex ${here.justify}`}>
+                    <div className={here.width}>
+                      <BranchGroup
+                        stacked
+                        branch={branch}
+                        layout={branchLayout[i]!}
+                        index={i}
+                        groupRef={(el) => {
+                          groupRefs.current[i] = el;
+                        }}
+                      />
+                    </div>
+                  </div>
+                  {next && (
+                    /*
+                      The stroke between two cards, drawn in the *section's* own
+                      width rather than in the card's: it has to start under one
+                      card and end under another, and those are at different
+                      offsets. `preserveAspectRatio="none"` lets one 100 x 24
+                      viewBox stretch to whatever the column is, and
+                      `vector-effect` keeps the hairline a hairline while it
+                      does.
+                    */
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 100 24"
+                      preserveAspectRatio="none"
+                      className="pointer-events-none block h-9 w-full shrink-0"
+                    >
+                      <path
+                        d={`M${here.centre} 0 L${next.centre} 24`}
+                        fill="none"
+                        stroke="rgba(255,255,255,0.25)"
+                        strokeWidth={1}
+                        strokeDasharray="3 4"
+                        vectorEffect="non-scaling-stroke"
+                      />
+                    </svg>
+                  )}
+                </li>
+              );
+            })}
           </ol>
         </section>
       </>
@@ -399,7 +618,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
   }
 
   return (
-    <div ref={trackRef} className="relative" style={{ height: "340svh" }}>
+    <div ref={trackRef} className="relative" style={{ height: `${TRACK_SVH}svh` }}>
       <div className="sticky top-0 h-svh overflow-hidden bg-white">
         <PageHero
           innerRef={heroRef}
@@ -431,16 +650,17 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
             {dictionary.process.scrollCue}
           </span>
 
+
           {/*
-            `inert` until the track says the map is interactive. Without it the
-            five branch buttons stay in the tab order while the map is
-            invisible (ancestor opacity 0) and inert to activation
-            (pointer-events: none) — a keyboard user tabbed into five controls
-            they could neither see nor use (ISSUE-031).
+            The map holds no controls any more (task 6), so it holds no `inert`
+            either. `ISSUE-031` was a keyboard user tabbing into five buttons
+            they could neither see nor use; there are no buttons, and what is
+            left is five headings and five questions — real content, which a
+            screen reader should reach rather than be walled out of. It stays
+            `pointer-events-none` because nothing in it answers to a pointer.
           */}
           <div
             ref={mapRef}
-            inert={!interactiveOn}
             className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[1440px] -translate-x-1/2 -translate-y-1/2 opacity-0"
           >
             <svg
@@ -458,23 +678,15 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
                   d={b.line}
                   pathLength={100}
                   style={{
-                    stroke: "rgba(255,255,255,0.22)",
-                    strokeWidth: 1,
+                    stroke: "#FFFFFF",
+                    strokeWidth: REST_WIDTH,
                     fill: "none",
                     strokeDasharray: 100,
                     strokeDashoffset: 100,
+                    opacity: REST_OPACITY,
                     vectorEffect: "non-scaling-stroke",
                   }}
                 />
-              ))}
-              {branchLayout.map((b, i) => (
-                <g
-                  key={i}
-                  style={{ opacity: interactiveOn && active === i ? 1 : 0, transition: "opacity .18s ease" }}
-                >
-                  <rect x={b.capA.x - 3.5} y={b.capA.y - 3.5} width={7} height={7} style={{ fill: "#FFFFFF", stroke: "#1B3FE0", strokeWidth: 1.5 }} />
-                  <rect x={b.capB.x - 3.5} y={b.capB.y - 3.5} width={7} height={7} style={{ fill: "#FFFFFF", stroke: "#1B3FE0", strokeWidth: 1.5 }} />
-                </g>
               ))}
             </svg>
             {branches.map((branch, i) => (
@@ -483,17 +695,9 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
                 branch={branch}
                 layout={branchLayout[i]!}
                 index={i}
-                active={interactiveOn && active === i}
-                locked={interactiveOn && locked === i}
-                closeLabel={dictionary.process.closeSelection}
-                onEnter={() => interactiveOn && setHovered(i)}
-                onLeave={() => interactiveOn && setHovered(null)}
-                onClick={() => interactiveOn && setLocked((cur) => (cur === i ? null : i))}
-                onClose={() => setLocked(null)}
                 groupRef={(el) => {
                   groupRefs.current[i] = el;
                 }}
-                pointerEvents={interactiveOn}
               />
             ))}
           </div>

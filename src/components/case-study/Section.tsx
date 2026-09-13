@@ -3,6 +3,7 @@ import type { Block, CaseStudySection } from "@/lib/caseStudies/types";
 import type { Dictionary } from "@/lib/dictionaries";
 import Figure from "./Figure";
 import SectionMedia from "./SectionMedia";
+import HandArrow from "@/components/HandArrow";
 
 /**
  * The reading measure.
@@ -21,6 +22,30 @@ import SectionMedia from "./SectionMedia";
  */
 const MEASURE = "max-w-full";
 
+/**
+ * The player's URL with its own chrome turned off (owner, SESSION-049).
+ *
+ * A Figma embed draws a toolbar inside the iframe, and it is charged to the
+ * design: on a 600px-tall player it is around 8% of the height, which on a
+ * height-bound prototype comes straight off the scale the screens are drawn at.
+ * The "open in Figma" pill under the frame is the escape hatch it removes.
+ *
+ * Added here rather than in the five data files so that the five URLs stay what
+ * the owner pasted out of Figma's share dialog — they are a record of what was
+ * shared, and a display parameter is not part of that record. `URL` rather than
+ * string concatenation because two of the five already carry a query string and
+ * two do not.
+ */
+function embedSrc(embed: string): string {
+  try {
+    const url = new URL(embed);
+    url.searchParams.set("hide-ui", "1");
+    return url.toString();
+  } catch {
+    return embed;
+  }
+}
+
 /** A bare string in `body[]` is shorthand for a paragraph (ISSUE-024). */
 function normalize(block: Block): Exclude<Block, string> {
   return typeof block === "string" ? { kind: "p", text: block } : block;
@@ -30,8 +55,20 @@ function normalize(block: Block): Exclude<Block, string> {
  * Renders one `body[]` block. `first` only affects the top margin — the block
  * opening a section sits closer to its heading than blocks that follow one
  * another.
+ *
+ * `dictionary` is here for one block: the `prototype` frame carries three UI
+ * labels of its own (`MILESTONE-020` task 2), which are chrome rather than
+ * content and so live in the dictionary rather than in the case-study data.
  */
-function BodyBlock({ block, first }: { block: Block; first: boolean }) {
+function BodyBlock({
+  block,
+  first,
+  dictionary,
+}: {
+  block: Block;
+  first: boolean;
+  dictionary: Dictionary;
+}) {
   const b = normalize(block);
 
   switch (b.kind) {
@@ -98,6 +135,249 @@ function BodyBlock({ block, first }: { block: Block; first: boolean }) {
       // `SectionMedia` already carries its own top margin, so this only has to
       // hand over the array.
       return <SectionMedia images={b.items} />;
+
+    case "prototype":
+      return (
+        /*
+          **Wider than the reading column, and taller than a figure**
+          (owner, SESSION-049: "the prototype is embedded but looks so small").
+
+          It was a 16/9 box at the column's own 960px, and the arithmetic says
+          the complaint was exact. A 1440-wide Figma frame in a 940px player
+          (960 less the 2px border and 8px mount either side) is drawn at
+          940/1440 = 65% — except the box was 529px tall and those frames are
+          900 or more, so the binding constraint was the *height*: 529/900 =
+          **58.8%**, and the width it was given went unused. Three changes, in
+          the order of how much each is worth:
+
+          - **The default box is 16/10 rather than 16/9.** Figma's own desktop
+            frames are 900 to 1024 tall against 1440 wide; a 16/9 box is
+            narrower than any of them, so every one of them was height-bound.
+            At 16/10 the two constraints meet and nothing is wasted. `aspect`
+            still overrides it per prototype — Sync FM is a phone and stays 4/3.
+          - **`hide-ui=1` on the embed** hands the player's own toolbar back to
+            the design. It is applied in `embedSrc` rather than typed into five
+            data files, so a sixth prototype gets it by existing.
+          - **40px of breakout to the right**, which is exactly the distance
+            between this column's 960px cap and the container's edge, and only
+            from 1440px up — below that the grid's `1fr` is under 1000px and the
+            column is not capped, so the same rule would push the page sideways
+            (`ISSUE-026` is what that looks like).
+
+          Together: 58.8% \u2192 about 69% before the toolbar is counted.
+        */
+        <div className={`${first ? "mt-8" : "mt-10"} min-[1440px]:w-[calc(100%+40px)]`}>
+          {/*
+            **A note in the owner's hand, pointing at the player**
+            (`MILESTONE-020` task 2).
+
+            A tester read this block as one more screenshot and scrolled past
+            it. That is not a failure of attention: the player was in the same
+            10px-radius, hairline-bordered, grey-filled box as every `Figure` on
+            the page, with a caption under it in the same type as every other
+            caption. Nothing about it said *interactive* — the only thing
+            distinguishing an embedded prototype from a picture of one was that
+            this one happened to respond if you clicked it.
+
+            So three things now say it, in the order somebody notices them: a
+            hand-written note with an arrow into the frame, the frame's own
+            accent border, and a label strip naming it. Three, because each
+            works for a different reader — the note catches the eye that is
+            skimming, the border catches the eye that is scanning shapes, and
+            the strip answers the reader who has stopped and is deciding whether
+            to bother.
+
+            The note is `md:` and up. Below that the arrow has nowhere to point
+            from, and the strip is carrying the message on its own — which is the
+            same reason the playground's collages drop their notes on a phone
+            (`MILESTONE-013` task 5).
+
+            `-mb-7` puts the arrowhead through the frame's top edge rather than
+            stopping above it, which is the whole difference between an arrow
+            that points at something and one that points near it
+            (`MILESTONE-020` task 4 made the same fix on the About portrait).
+          */}
+          <div
+            aria-hidden="true"
+            className="relative z-[1] mb-0 flex flex-col items-start"
+          >
+            <span className="pencil-ink font-hand text-[18px] font-bold leading-none text-accent [transform:rotate(-3deg)] md:text-[21px]">
+              {dictionary.caseStudy.prototypeNote}
+            </span>
+            <HandArrow direction="down-right" width={48} className="-mb-6 mt-1 shrink-0 text-accent md:hidden" />
+            <HandArrow direction="down-right" width={56} className="-mb-7 mt-1.5 hidden shrink-0 text-accent md:block" />
+          </div>
+
+          {/*
+            The frame. A 2px accent border and an `accent-soft` mount, against
+            the hairline `card-border` and grey fill a `Figure` gets — the
+            difference is deliberate and it is the point. A reader who has seen
+            eight figures on this page reads "same box" as "same kind of thing",
+            so the box has to change.
+          */}
+          <div className="overflow-hidden rounded-[16px] border-2 border-accent bg-accent-soft p-2 shadow-[0_10px_34px_rgba(27,63,224,0.14)]">
+            {/*
+              The label strip. It is not a caption — it names what the thing is
+              and what to do with it — so it sits *above* the player where a
+              window's chrome would, rather than under it where this page's
+              captions live.
+            */}
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-2 pb-2.5 pt-1">
+              <span className="flex items-center gap-2 font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-accent">
+                <span aria-hidden="true" className="cs-live-dot" />
+                {dictionary.caseStudy.prototypeLive}
+              </span>
+              <span className="text-[13px] font-medium text-accent">
+                {dictionary.caseStudy.prototypeHint}
+              </span>
+            </div>
+            <div
+              className="relative w-full overflow-hidden rounded-[9px] bg-surface"
+              style={{ aspectRatio: b.aspect ?? "16/10", maxHeight: "82svh" }}
+            >
+            {/*
+              It loads with the page (owner, SESSION-046). It was behind a
+              "Load the prototype" button for one session — the two-click
+              pattern — and the owner asked for it to run without being asked
+              twice. `legal.privacy` says so: the Figma section is now a
+              third-party embed disclosed under Art. 6 (1) (f) rather than a
+              consent under (a).
+
+              `loading="lazy"` is the one thing that survives from that,
+              and it is not a privacy measure — it is the reason a case study
+              still weighs what it did at the top of the page. A Figma player
+              is megabytes of application, and this section sits eight
+              headings down; the browser fetches it when the reader is nearly
+              there.
+
+              `allow="fullscreen"` is not decoration either: without it the
+              prototype's own full-screen button is inert.
+            */}
+              <iframe
+                title={b.label}
+                src={embedSrc(b.embed)}
+                loading="lazy"
+                allowFullScreen
+                allow="fullscreen"
+                className="absolute inset-0 h-full w-full border-0"
+              />
+            </div>
+          </div>
+          {/*
+            Out to Figma in its own tab. A bordered pill rather than the bare
+            link it was: next to a frame that now announces itself, an
+            underlined phrase read as the block's caption — which is exactly the
+            confusion the rest of this is undoing.
+          */}
+          <p className="mt-4">
+            <a
+              href={b.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tap-target inline-flex items-center gap-2 rounded-full border border-accent px-5 text-[14px] font-medium text-accent transition-colors hover:bg-accent hover:text-white"
+            >
+              {b.label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          </p>
+        </div>
+      );
+
+    case "split":
+      /*
+        Text and figure side by side. `items-start` rather than `items-center`
+        so the figure's top edge lines up with the first line of prose — a
+        centred short figure beside a long paragraph floats in the middle of
+        the column with nothing to relate to.
+
+        `min-w-0` on both tracks because a `1fr` grid track refuses to shrink
+        below its content otherwise, and a wide figure would push the row past
+        the reading column.
+      */
+      return (
+        <div className={`grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2 ${first ? "mt-8" : "mt-12"}`}>
+          <div className={`min-w-0 ${b.figureFirst ? "md:order-2" : ""}`}>
+            {b.heading && (
+              <h3 className="text-[22px] font-semibold leading-[1.3] tracking-[-0.015em]">{b.heading}</h3>
+            )}
+            {b.body.map((text, i) => (
+              <p
+                key={i}
+                className={`text-[19px] leading-[1.75] text-ink-body ${i === 0 && !b.heading ? "" : "mt-4"}`}
+              >
+                {text}
+              </p>
+            ))}
+          </div>
+          <div className={`min-w-0 ${b.figureFirst ? "md:order-1" : ""}`}>
+            {/* Half the column, so the candidate widths halve with it. */}
+            <Figure {...b.figure} sizes="(min-width: 768px) min(460px, 46vw), calc(100vw - 40px)" />
+          </div>
+        </div>
+      );
+
+    case "steps":
+      /*
+        A path, not an inventory. The arrows are decorative and hidden from
+        assistive technology; the `ol` keeps the steps ordered for anyone who
+        is not looking at them.
+      */
+      return (
+        <ol className={`flex list-none flex-wrap items-center gap-x-3 gap-y-3 p-0 ${first ? "mt-7" : "mt-8"}`}>
+          {b.items.map((item, i) => (
+            <li key={i} className="flex items-center gap-3">
+              <span className="rounded-full border border-surface-2 bg-white px-4 py-2 text-[15px] leading-[1.4] text-ink-body">
+                {item}
+              </span>
+              {i < b.items.length - 1 && (
+                <span aria-hidden="true" className="text-[16px] text-accent">
+                  &rarr;
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+      );
+
+    case "cards":
+      return (
+        <ul
+          className={`grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3 ${first ? "mt-8" : "mt-10"}`}
+        >
+          {b.items.map((card, i) => (
+            // The same card the section's own `insights` are set in — border,
+            // 14px radius, white on the reading column — so a set in the middle
+            // of a section and a set at the end of one are recognisably the
+            // same object. The eyebrow is the difference: written, not counted.
+            <li key={i} className="flex flex-col rounded-[14px] border border-surface-2 bg-white p-6">
+              {/*
+                Name above role, not the other way round (owner, second pass):
+                the deck heads each persona with the person and puts the job
+                title under it, and a card that leads with "CEO, logistics"
+                reads as a segment rather than as somebody.
+              */}
+              <h4 className="text-[18px] font-semibold leading-[1.3] tracking-[-0.01em]">{card.heading}</h4>
+              {card.label && (
+                <span className="mt-1.5 text-[13px] leading-[1.45] text-ink-muted">{card.label}</span>
+              )}
+              <p className="mt-3.5 text-[15px] leading-[1.6] text-ink-secondary">{card.body}</p>
+              {/*
+                The needs line is pushed to the bottom of the card (`mt-auto`)
+                so that in a row of three cards with bodies of different
+                lengths the three rules still align.
+              */}
+              {card.needs && (
+                <div className="mt-auto pt-5">
+                  <span className="block border-t border-surface-2 pt-4 font-mono text-[11px] uppercase tracking-[0.08em] text-accent">
+                    {dictionary.caseStudy.needs}
+                  </span>
+                  <p className="mt-2 text-[14px] leading-[1.5] text-ink-secondary">{card.needs}</p>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      );
   }
 }
 
@@ -157,21 +437,30 @@ export default function Section({
 
   const body = (
     <>
-      {section.body?.map((block, i) => <BodyBlock key={i} block={block} first={i === 0} />)}
+      {section.body?.map((block, i) => (
+        <BodyBlock key={i} block={block} first={i === 0} dictionary={dictionary} />
+      ))}
 
       {section.designQuestion && (
-        <div className="mt-14 rounded-[14px] bg-accent-soft px-7 py-8 sm:px-9 sm:py-10">
+        // Centred (owner, second pass). The band is the one thing on the page
+        // that is a question rather than an account of one, and centring is
+        // what stops it reading as another paragraph with a tint behind it.
+        <div className="mt-14 rounded-[14px] bg-accent-soft px-7 py-8 text-center sm:px-9 sm:py-10">
           <span className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">
             {dictionary.caseStudy.designQuestion}
           </span>
-          <p className="mt-4 text-lead font-medium leading-[1.3] tracking-[-0.015em] text-ink">
+          <p className="mx-auto mt-4 max-w-[720px] text-lead font-medium leading-[1.3] tracking-[-0.015em] text-ink">
             {section.designQuestion}
           </p>
         </div>
       )}
 
       {section.insights && (
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div
+          className={`mt-12 grid grid-cols-1 gap-5 ${
+            section.insightColumns === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2"
+          }`}
+        >
           {section.insights.map((insight, i) => (
             <div key={i} className="rounded-[14px] border border-surface-2 bg-white p-6">
               <span className="font-mono text-[12px] text-accent">{String(i + 1).padStart(2, "0")}</span>

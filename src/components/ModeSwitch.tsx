@@ -3,6 +3,7 @@ import clsx from "clsx";
 import type { Locale } from "@/lib/i18n";
 import { localeHref } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
+import { ARCHIVE_PATH } from "@/lib/site";
 
 /**
  * Portfolio or playground, at two sizes.
@@ -55,7 +56,7 @@ export default function ModeSwitch({
   if (compact) {
     return (
       <Link
-        to={localeHref(locale, isPlayground ? "/" : "/playground")}
+        to={localeHref(locale, isPlayground ? "/" : ARCHIVE_PATH)}
         aria-label={isPlayground ? dictionary.nav.switchToPortfolio : dictionary.nav.switchToPlayground}
         className={clsx(
           "inline-flex h-10 items-center rounded-full border p-[3px] transition-colors focus-visible:outline-2 focus-visible:outline-accent-focus",
@@ -101,7 +102,7 @@ export default function ModeSwitch({
         {dictionary.nav.portfolio}
       </Link>
       <Link
-        to={localeHref(locale, "/playground")}
+        to={localeHref(locale, ARCHIVE_PATH)}
         aria-current={isPlayground ? "page" : undefined}
         className={clsx(
           "flex min-h-[44px] items-center rounded-full px-[22px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-accent-focus",

@@ -7,6 +7,7 @@ import type { Dictionary } from "@/lib/dictionaries";
 import ModeSwitch from "@/components/ModeSwitch";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import MobileMenu from "@/components/MobileMenu";
+import { ARCHIVE_PATH } from "@/lib/site";
 
 export default function Header({
   locale,
@@ -17,7 +18,7 @@ export default function Header({
 }) {
   const pathname = useLocation().pathname ?? "/";
   const bare = stripLocale(pathname, locale);
-  const isPlayground = bare.startsWith("/playground");
+  const isPlayground = bare.startsWith(ARCHIVE_PATH);
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 

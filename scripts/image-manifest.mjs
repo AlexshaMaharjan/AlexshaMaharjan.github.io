@@ -33,7 +33,13 @@ const dict = await load("src/lib/dictionaries/index.ts", "dictionaries");
 const home = await load("src/lib/playground/home.ts", "home");
 const collage = await load("src/lib/playground/collage.ts", "collage");
 
-const SLUGS = ["wikimind", "afono", "sync-fm", "barrier-free-kitchen", "surugami", "qis-portal"];
+/*
+ * The six, in the owner's running order — read from `caseStudies/index.ts`
+ * rather than typed here (`MILESTONE-022` task 3). It was a hand-written copy
+ * of that list in three scripts, and a re-cut of the order left all three
+ * reporting the old one.
+ */
+const SLUGS = cs.caseStudySlugs;
 const rows = [];
 const add = (surface, where, caption, aspect, width, filled, dataPath) =>
   rows.push({ surface, where, caption, aspect, width, filled, dataPath });
@@ -69,9 +75,18 @@ const en = dict.getDictionary("en");
  * `de`, which is the check that caught Sync FM's German hero.
  */
 function sectionImages(section) {
-  const inBody = (section.body ?? []).flatMap((block) =>
-    block && typeof block === "object" && block.kind === "figures" ? (block.items ?? []) : [],
-  );
+  const inBody = (section.body ?? []).flatMap((block) => {
+    if (!block || typeof block !== "object") return [];
+    if (block.kind === "figures") return block.items ?? [];
+    // A `split` carries exactly one figure and a bare `figure` block is one on
+    // its own. Both were invisible here for the length of one session, which is
+    // the same fault this function's own comment warns about: a slot nothing
+    // walks is a slot the `en`/`de` src diff below cannot compare, so a German
+    // object pointing at the wrong file would report as fine.
+    if (block.kind === "split") return block.figure ? [block.figure] : [];
+    if (block.kind === "figure") return [block];
+    return [];
+  });
   return [...inBody, ...(section.images ?? [])];
 }
 
@@ -122,10 +137,33 @@ for (const card of collage.default) {
  * Nothing that checks for broken images can see it. This can.
  */
 const localeMismatches = [];
+/**
+ * A picture whose *content* is translated, marked by an `-en` / `-de` suffix.
+ *
+ * The rule above — same file in both locales, translated alt — is right for
+ * every photograph, board and screenshot on this site, because the words in
+ * them are the words of the artefact. It is wrong for a chart drawn from
+ * numbers: the QIS survey charts carry their own axis labels, and shipping the
+ * English ones on the German page would be a German paragraph over an English
+ * bar chart.
+ *
+ * So a `-en`/`-de` pair is allowed through, and is still checked — the stems
+ * have to match, **and the suffix has to be the locale it was found in**, which
+ * catches the copy-paste that leaves the German object pointing at the English
+ * chart. That is the same fault this whole comparison exists to catch, one
+ * level down.
+ */
+const LOCALISED = /^(.*)-(en|de)(\.[a-z0-9]+)$/;
+function localeKey(src, locale) {
+  const m = typeof src === "string" ? src.match(LOCALISED) : null;
+  if (!m) return src;
+  // Wrong-locale suffix: return something that cannot match the other side.
+  return m[2] === locale ? m[1] + m[3] : `${src} (expected -${locale})`;
+}
 function compareLocales(label, dataPath, enSrcs, deSrcs) {
   const n = Math.max(enSrcs.length, deSrcs.length);
   for (let i = 0; i < n; i++) {
-    if (enSrcs[i] !== deSrcs[i]) {
+    if (localeKey(enSrcs[i], "en") !== localeKey(deSrcs[i], "de")) {
       localeMismatches.push({ label, dataPath: dataPath(i),
         en: enSrcs[i] ?? "(missing)", de: deSrcs[i] ?? "(missing)" });
     }

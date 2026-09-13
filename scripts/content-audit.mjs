@@ -70,7 +70,13 @@ async function load(entry, name) {
 const collage = await load("src/lib/playground/collage.ts", "pg-collage");
 const place = await load("src/lib/playground/placeScribbles.ts", "pg-place");
 
-const SLUGS = ["wikimind", "afono", "sync-fm", "barrier-free-kitchen", "surugami", "qis-portal"];
+/*
+ * The six, in the owner's running order — read from `caseStudies/index.ts`
+ * rather than typed here (`MILESTONE-022` task 3). It was a hand-written copy
+ * of that list in three scripts, and a re-cut of the order left all three
+ * reporting the old one.
+ */
+const SLUGS = cs.caseStudySlugs;
 
 /*
  * Function words only. Content words are cognates or loanwords far too often
@@ -90,8 +96,14 @@ const EN = /\b(the|and|with|from|that|which|were|was|through|using|based|inspire
  */
 const textsOf = (b) =>
   typeof b === "string" ? [b]
-  : b.kind === "list" ? (b.items ?? [])
+  : b.kind === "list" || b.kind === "steps" ? (b.items ?? [])
   : b.kind === "figures" ? []
+  // A split carries a heading and its own paragraphs; a cards block carries
+  // three of everything. Both were invisible to this check until the owner's
+  // second pass moved real prose into them.
+  : b.kind === "split" ? [b.heading ?? "", ...(b.body ?? [])]
+  : b.kind === "cards"
+    ? (b.items ?? []).flatMap((c) => [c.label ?? "", c.heading ?? "", c.body ?? "", c.needs ?? ""])
   : [b.text ?? ""];
 
 const shapeOf = (b) => (typeof b === "string" ? "p" : b.kind);
@@ -246,7 +258,7 @@ for (const card of collage.default) {
  */
 const OVER_PX = 40;
 /** See check 6, below. */
-const MIN_ARROW_PX = 12;
+const MIN_ARROW_PX = 20;
 const STAGES = [];
 for (let stage = 900; stage <= 1320; stage += 20) STAGES.push(stage);
 for (const stage of STAGES) {
@@ -294,13 +306,42 @@ for (const stage of STAGES) {
        * a card with no seat that allows 80 should ship its best effort rather
        * than fail the build.
        *
-       * **12 is a ratchet, not a target.** The deck's worst arrow is 13px, on
-       * card 1's calendar note at the six narrowest widths that show notes at
-       * all; cards 1, 3 and 4 are genuinely crowded there and the seat search
-       * is choosing between a short arrow and one lying over a photograph.
-       * This is set just under what ships so that it cannot get worse without
-       * somebody deciding it should — the number to move is `MIN_RUN_PX`, and
-       * `ISSUE-053` is the open question about those nine placements.
+       * **20 is a ratchet, not a target.** It was 12, set just under the 13px
+       * the deck drew at the time, and `ISSUE-053` was the open question about
+       * the nine placements that needed it. `MILESTONE-020` task 3 fixed three
+       * faults behind those, none of them tuning:
+       *
+       * - `GAP`, the air between a note and its picture, was in **design
+       *   units** while the two gaps that consume it are in CSS pixels, so it
+       *   shrank as the card narrowed and there was nothing left to draw with
+       *   below about 1,100px (`GAP_PX`);
+       * - `shortRun` charged a flat rate per pixel short, which priced a 70px
+       *   arrow and a 17px speck the same way per pixel and let the speck
+       *   outbid a clear seat one corner away (`FLOOR_RUN_PX`);
+       * - the tip and start gaps took a fixed 42px of air off every shaft,
+       *   however little room the seat had — 61% of it, on the worst one
+       *   (`AIR_SHARE`).
+       *
+       * Measured over these 242 placements, with the owner's own note texts and
+       * their own `prefer` corners both left exactly as written: the shortest
+       * arrow went **16px → 23px**, the tenth percentile **16 → 35**, and the
+       * count under 40px **66 → 41**.
+       *
+       * **It reached 34px / 45 / 9 at one point, and that version is not what
+       * ships.** It depended on three of the notes being trimmed from three
+       * lines to two, and the owner asked for their wording back
+       * (*"you changed the text beside the arrows, i liked the previous one"*).
+       * Which settles it: the words are content and the arrow is decoration.
+       *
+       * The floor that remains is arithmetic rather than a shortfall. The
+       * shortest arrow on the deck belongs to card 1's calendar note, whose
+       * picture sits about 122 CSS px above the foot of the card while the note
+       * itself is three lines — 64px — tall. That leaves 39px of separation, of
+       * which `AIR_SHARE` lets the tip and start gaps take 42%. No corner
+       * improves it: every one was swept, and the two that free the axis put the
+       * note in a region full of photographs and draw 8px instead.
+       *
+       * 20 is under the 23 that ships, for the same reason 12 was under 13.
        */
       const chord = Math.hypot(
         note.samples[note.samples.length - 1].x - note.samples[0].x,

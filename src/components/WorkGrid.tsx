@@ -40,6 +40,11 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
     for the one that follows the cursor, which is also the better of the two
     here — a label pinned to the middle of a designed title card lands on the
     title, and this one never does.
+
+    **No colour is passed to the hook.** Six covers are six colours, so the
+    colour comes from the card the cursor is on, at `onPoint` (`MILESTONE-018`
+    task 2) — the tag is painted in the same accent the project's own name is
+    printed in on the cover under it.
   */
   const { tag, onPoint, onUnpoint } = useCursorTag();
 
@@ -73,8 +78,8 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
                   `label-content-name-mismatch`.
                 */
                 aria-label={`${project.name} — ${project.tags.join(" · ")}`}
-                onPointerEnter={(event) => onPoint(dictionary.caseStudy.viewCaseStudy, event)}
-                onPointerMove={(event) => onPoint(dictionary.caseStudy.viewCaseStudy, event)}
+                onPointerEnter={(event) => onPoint(dictionary.caseStudy.viewCaseStudy, event, project.accent)}
+                onPointerMove={(event) => onPoint(dictionary.caseStudy.viewCaseStudy, event, project.accent)}
                 onPointerLeave={onUnpoint}
                 className="group block"
                 style={{ flex: `${ratios[n]} 1 0%` } as CSSProperties}

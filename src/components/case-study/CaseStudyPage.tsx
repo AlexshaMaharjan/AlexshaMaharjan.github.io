@@ -6,24 +6,22 @@ import CaseStudyHero from "./CaseStudyHero";
 import CaseStudyIntro from "./CaseStudyIntro";
 import ContentsNav from "./ContentsNav";
 import Section from "./Section";
-import NextProjectNav from "./NextProjectNav";
+import MoreProjectsNav from "./MoreProjectsNav";
 
 export default function CaseStudyPage({
   content,
   dictionary,
   locale,
-  prev,
-  next,
+  others,
 }: {
   content: CaseStudyContent;
   dictionary: Dictionary;
   locale: Locale;
-  prev: ProjectCopy;
-  next: ProjectCopy;
+  others: ProjectCopy[];
 }) {
   // The closing section leaves the reading column and gets its own band, so the
   // case study ends on something deliberate rather than running straight into
-  // the prev/next cards (SUGGESTION-003).
+  // the other projects (SUGGESTION-003).
   const outro = content.sections.length > 1 ? content.sections[content.sections.length - 1] : undefined;
   const reading = outro ? content.sections.slice(0, -1) : content.sections;
 
@@ -73,7 +71,7 @@ export default function CaseStudyPage({
         </section>
       )}
 
-      <NextProjectNav prev={prev} next={next} dictionary={dictionary} locale={locale} />
+      <MoreProjectsNav others={others} slug={content.slug} dictionary={dictionary} locale={locale} />
     </article>
   );
 }

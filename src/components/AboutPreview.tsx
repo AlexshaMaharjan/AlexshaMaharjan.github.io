@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Image from "@/components/ui/Image";
-import PlaygroundPeek from "@/components/PlaygroundPeek";
+import PlaygroundBand from "@/components/PlaygroundBand";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
 
@@ -8,14 +8,21 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
   return (
     <section id="about" className="bg-white py-[120px] pb-[160px]">
       <div className="container-page">
-        <div data-inview className="grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-16">
+        <div data-inview className="grid grid-cols-1 items-start gap-10 md:grid-cols-[280px_1fr] md:gap-16">
           <div>
-            <div className="relative aspect-[3/4] w-full max-w-[460px] overflow-hidden rounded-[10px] border border-card-border bg-surface-2">
+            {/*
+              280px, not 460 (`MILESTONE-018` task 3). The owner's note was that
+              the portrait reads too big in both about sections; this is ~60% of
+              the width it had. The column is sized to the picture rather than to
+              a fraction of the grid, because a 5fr column around a 280px picture
+              is 200px of white pretending to be a gutter.
+            */}
+            <div className="relative aspect-[3/4] w-full max-w-[280px] overflow-hidden rounded-[10px] border border-card-border bg-surface-2">
               <Image
                 src="/images/alexsha-portrait.webp"
                 alt={dictionary.aboutPreview.portraitAlt}
                 fill
-                sizes="(min-width: 1180px) 460px, (min-width: 768px) 40vw, calc(100vw - 40px)"
+                sizes="(min-width: 768px) 280px, min(280px, calc(100vw - 40px))"
                 className="object-cover"
               />
             </div>
@@ -83,22 +90,26 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
               {dictionary.aboutPreview.linkAbout}
             </Link>
 
-            <h3 className="mt-12 text-[24px] font-semibold leading-[1.2] tracking-[-0.02em] text-ink">
-              {dictionary.aboutPreview.playgroundHeading}
-            </h3>
-            <p className="mt-4 max-w-[600px] text-[18px] leading-[1.6] text-ink-secondary">
-              {dictionary.aboutPreview.playgroundCopy}
-            </p>
-            {/*
-              A look inside, and the door (`MILESTONE-017`). This was a pill
-              under two lines of grey text, which described the playground
-              without showing any of it — see `PlaygroundPeek` for why four real
-              pieces do the job the copy could not. The pill is still here; it
-              is inside the component now, with the arrow.
-            */}
-            <PlaygroundPeek locale={locale} dictionary={dictionary} />
           </div>
         </div>
+
+        {/*
+          The playground offer, centred across the page (`MILESTONE-018` task
+          4). It used to run down this section's right-hand column under the
+          biography, which put a stack of four bright pictures in a text column
+          and left it competing with the paragraph above it for the same
+          measure. The owner liked the About page's centred band and asked for
+          that one here, so both pages render the same component now — see
+          `PlaygroundBand`, which also carries the light-blue grid paper.
+        */}
+        <PlaygroundBand
+          locale={locale}
+          dictionary={dictionary}
+          as="h3"
+          heading={dictionary.aboutPreview.playgroundHeading}
+          copy={dictionary.aboutPreview.playgroundCopy}
+          className="mt-[110px]"
+        />
       </div>
     </section>
   );

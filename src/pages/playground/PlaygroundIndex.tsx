@@ -56,6 +56,7 @@ export default function PlaygroundIndex() {
       <CardStack
         cards={collageCards}
         locale={locale}
+        dictionary={dictionary}
         paused={paused}
         motionLabel={paused ? content.playMotion : content.pauseMotion}
         onToggleMotion={() => setPaused((p) => !p)}

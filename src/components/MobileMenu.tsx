@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import LanguageSwitch from "@/components/LanguageSwitch";
+import { ARCHIVE_PATH } from "@/lib/site";
 
 /**
  * The narrow-viewport navigation: a hamburger, and a drawer off the right-hand
@@ -103,7 +104,7 @@ export default function MobileMenu({
     { href: localeHref(locale, "/about"), label: dictionary.nav.about },
     { href: localeHref(locale, "/#contact"), label: dictionary.nav.contact },
     {
-      href: localeHref(locale, isPlayground ? "/" : "/playground"),
+      href: localeHref(locale, isPlayground ? "/" : ARCHIVE_PATH),
       label: isPlayground ? dictionary.nav.portfolio : dictionary.nav.playground,
     },
     { href: localeHref(locale, "/resume"), label: dictionary.footer.resume },

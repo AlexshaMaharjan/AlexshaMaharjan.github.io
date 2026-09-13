@@ -11,12 +11,23 @@ import type { CaseStudyContent, CaseStudyLocaleContent } from "./types";
  * resolves from memory and `caseStudyPromise` hands back the same promise it
  * did the first time.
  */
+/**
+ * **The order is the owner's running order** (`MILESTONE-022` task 3), and it
+ * is the same one `dictionary.projects` lists the six in: AFONO, Surugami,
+ * WikiMind, Sync FM, Barrier-Free Kitchen, QIS.
+ *
+ * It matters here and not only in the dictionary because `caseStudySlugs` is
+ * read by `scripts/prerender.mjs`, so this object decides the order the six
+ * studies appear in `sitemap.xml`. Two lists, one order: if one of them is
+ * re-cut and the other is not, the site says one thing and its sitemap says
+ * another.
+ */
 const loaders = {
-  wikimind: () => import("./wikimind"),
   afono: () => import("./afono"),
+  surugami: () => import("./surugami"),
+  wikimind: () => import("./wikimind"),
   "sync-fm": () => import("./sync-fm"),
   "barrier-free-kitchen": () => import("./barrier-free-kitchen"),
-  surugami: () => import("./surugami"),
   "qis-portal": () => import("./qis-portal"),
 } as const;
 

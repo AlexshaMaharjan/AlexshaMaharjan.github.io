@@ -26,13 +26,15 @@ export default function CaseStudy() {
 
   if (!content || index === -1) return <NotFound />;
 
-  const prev = projects[(index - 1 + projects.length) % projects.length]!;
-  const next = projects[(index + 1) % projects.length]!;
+  // Everything except the one being read, in the homepage's order
+  // (`MILESTONE-019` task 6) — see `MoreProjectsNav` for why it is all five and
+  // no longer a previous and a next.
+  const others = projects.filter((p) => p.slug !== slug);
 
   return (
     <>
       <Seo title={`${content.name} — Alexsha Maharjan`} description={content.summary} image={content.heroImage.src || undefined} />
-      <CaseStudyPage content={content} dictionary={dictionary} locale={locale} prev={prev} next={next} />
+      <CaseStudyPage content={content} dictionary={dictionary} locale={locale} others={others} />
     </>
   );
 }

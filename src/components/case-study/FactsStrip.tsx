@@ -12,10 +12,16 @@ import type { Dictionary } from "@/lib/dictionaries";
  * now sit inside the Overview section, in the reading column, where a wide grid
  * has nowhere to go.
  *
- * `year` is gone (owner, 2026-08-25). `type` carries "Semester project" for
- * every study, because every one of them is coursework, and says solo or team
- * beside it — `DECISION-011` does not allow collaborative work to read as
- * independent.
+ * `year` is gone (owner, 2026-08-25). The five that remain are the owner's own
+ * deck: **context, role, team, contribution, tools**, in that order.
+ *
+ * `type` and `deliverables` were the previous shape and are gone with the
+ * second pass. `type` packed context and team into one string
+ * ("Semester project · team") which the deck states as two facts, and got the
+ * barrier-free kitchen wrong either way, since that one is a collaborative
+ * university project rather than a semester project. `contribution` stays and
+ * is what keeps `DECISION-011` honest: on a team project it says which part of
+ * it was this designer's, so a collaboration cannot read as solo work.
  */
 export default function FactsStrip({
   content,
@@ -25,11 +31,11 @@ export default function FactsStrip({
   dictionary: Dictionary;
 }) {
   const facts = [
-    { label: dictionary.caseStudy.type, value: content.type },
+    { label: dictionary.caseStudy.context, value: content.context },
     { label: dictionary.caseStudy.role, value: content.role },
+    { label: dictionary.caseStudy.team, value: content.team },
     { label: dictionary.caseStudy.contribution, value: content.contribution },
     { label: dictionary.caseStudy.tools, value: content.tools },
-    { label: dictionary.caseStudy.deliverables, value: content.deliverables },
   ].filter((fact) => fact.value);
 
   if (facts.length === 0) return null;

@@ -16,7 +16,6 @@ import { pathToFileURL } from "node:url";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const GUIDE = path.join(ROOT, "CONTENT_GUIDE.md");
-const SLUGS = ["wikimind", "afono", "sync-fm", "barrier-free-kitchen", "surugami", "qis-portal"];
 
 async function loadCaseStudies() {
   const out = path.join(mkdtempSync(path.join(tmpdir(), "content-guide-")), "caseStudies.mjs");
@@ -140,6 +139,14 @@ const header = [
   "are only valid for the current text**. This part of the guide is generated — after any",
   "content change, rerun `node scripts/content-guide-case-studies.mjs --write` to refresh it.",
 ];
+
+/*
+ * The six, in the owner's running order — read from `caseStudies/index.ts`
+ * rather than typed here (`MILESTONE-022` task 3). It was a hand-written copy
+ * of that list in three scripts, and a re-cut of the order left all three
+ * reporting the old one.
+ */
+const SLUGS = (await loadCaseStudies()).caseStudySlugs;
 
 const body = [];
 for (const [i, slug] of SLUGS.entries()) {
