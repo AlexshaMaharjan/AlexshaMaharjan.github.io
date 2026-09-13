@@ -1,5 +1,5 @@
 import type { Dictionary } from "./types";
-import { PROJECT_TAGS } from "@/lib/caseStudies/tags";
+import { PROJECT_TAGS } from "../caseStudies/tags";
 
 const de: Dictionary = {
   meta: {
