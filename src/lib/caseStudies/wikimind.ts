@@ -277,9 +277,9 @@ const wikimind: CaseStudyLocaleContent = {
         body: [
           "Ich verglich KI- und Technologie-Websites, um zu verstehen, wie sie komplexe Leistungen erklären und Vertrauen aufbauen. Dabei betrachtete ich ihre visuelle Sprache, Struktur, Navigation, Formulierungen und den Einsatz von Animationen.",
           "Dabei zeigte sich, dass stark technische Interfaces KI distanzierter wirken lassen können, während klarere Layouts und einfachere Kommunikation den Zugang erleichtern.",
-          { kind: "h3", text: "Zielgruppen in konkrete Designanforderungen übersetzen" },
+          { kind: "h3", text: "Verstehen, was die Zielgruppen brauchen" },
           "Ich entwickelte drei Arbeits-Personas für unterschiedliche Menschen, die WikiMind ansprechen könnte: eine Führungskraft, eine akademische Leitung und eine Kundenservice-Leitung.",
-          "Ihre Situationen waren unterschiedlich, doch drei Bedürfnisse tauchten immer wieder auf: klare Erklärungen, Glaubwürdigkeit und ein klarer praktischer Nutzen.",
+          "Ihre Situationen waren unterschiedlich, aber drei Bedürfnisse waren bei allen wichtig: klare Erklärungen, Glaubwürdigkeit und ein praktischer Nutzen.",
           {
             kind: "cards",
             items: [
@@ -405,7 +405,7 @@ const wikimind: CaseStudyLocaleContent = {
               { aspect: "1600/714", caption: "Finale WikiMind-Screens der Website.", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
             ],
           },
-          "Das Projekt mündete in einen interaktiven Figma-Prototyp, der das zentrale Seitensystem, die Navigation und die visuelle Sprache zeigt.",
+          "Am Ende entstand ein interaktiver Figma-Prototyp, der das Seitensystem, die Navigation und die visuelle Sprache zeigt.",
         ],
       },
       {
@@ -414,7 +414,7 @@ const wikimind: CaseStudyLocaleContent = {
         number: "08",
         heading: "Selbst ausprobieren",
         body: [
-          "Hier können Sie den interaktiven Prototyp erkunden und sich selbst durch das Erlebnis bewegen.",
+          "Der interaktive Prototyp kann hier direkt ausprobiert werden.",
           {
             kind: "prototype",
             embed: "https://embed.figma.com/proto/4LNx8YmhFeut0fBu6oMdkN/Wikimind?node-id=70-12936&starting-point-node-id=40%3A2449&page-id=0%3A1&scaling=scale-down&content-scaling=fixed&embed-host=share",
@@ -430,9 +430,9 @@ const wikimind: CaseStudyLocaleContent = {
         number: "09",
         heading: "Was validiert wurde und was nicht",
         body: [
-          "Ich entwickelte das Konzept durch Vergleiche, Selbstevaluation und informelles Feedback weiter, führte jedoch keine formale Usability-Studie mit repräsentativen Nutzern durch. Deshalb kann ich keine gemessene Verbesserung der Benutzerfreundlichkeit oder Conversion behaupten.",
+          "Ich entwickelte das Konzept durch Vergleiche, eigene Überprüfung und informelles Feedback weiter, führte jedoch keine formale Usability-Studie mit repräsentativen Nutzern durch. Deshalb kann ich keine gemessene Verbesserung der Benutzerfreundlichkeit oder Conversion behaupten.",
           { kind: "h3", text: "Was ich gelernt habe" },
-          "WikiMind hat mir gezeigt, dass zugänglichere Technologie nicht bedeutet, die visuelle Identität generisch zu machen. Die stärkere Lösung entstand durch die Verbindung eines wärmeren visuellen Charakters mit einer klaren und professionellen Struktur.",
+          "WikiMind hat mir gezeigt, dass Technologie zugänglicher zu machen nicht bedeutet, die visuelle Identität generisch zu machen. Die stärkere Lösung entstand durch die Verbindung eines wärmeren visuellen Charakters mit einer klaren und professionellen Struktur.",
           "Bei einer Weiterentwicklung würde ich weniger Zeit in zusätzliche visuelle Elemente investieren und mich stärker auf Verständlichkeit, Barrierefreiheit und Tests mit echten Nutzern konzentrieren.",
         ],
       },

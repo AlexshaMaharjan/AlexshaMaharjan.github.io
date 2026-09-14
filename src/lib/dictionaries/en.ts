@@ -333,7 +333,7 @@ const en: Dictionary = {
   legal: {
     impressumNav: "Impressum",
     privacyNav: "Privacy",
-    address: ["Alexsha Maharjan", "Anschützstr. 7", "23562 Lübeck", "Germany"],
+    address: ["Alexsha Maharjan", "23562 Lübeck", "Germany"],
     impressum: {
       title: "Impressum",
       intro:
@@ -466,17 +466,22 @@ const en: Dictionary = {
     focusHeading: "Professional focus",
     focusItems: ["UI/UX Design", "Brand Identity", "Visual Design", "Web Design", "Interaction Design"],
     toolsHeading: "Tools I use",
-    tools: [
-      { name: "Figma" },
-      { name: "Adobe Illustrator" },
-      { name: "Adobe Photoshop" },
-      { name: "Blender" },
-      { name: "After Effects" },
-      { name: "AI tools", accent: true },
+    toolsDesignLabel: "Design",
+    toolsDesign: ["Figma", "Illustrator", "Photoshop", "Blender", "After Effects"],
+    toolsDevLabel: "Development",
+    toolsDev: ["HTML", "CSS", "JavaScript", "Vue.js", "Tailwind CSS"],
+    toolsAiLabel: "AI & building",
+    toolsAi: ["Claude Code", "Claude", "Antigravity", "ChatGPT", "Gemini"],
+    aiHeading: "How I use AI",
+    aiParagraphs: [
+      "AI is part of my design and development process. I use it to plan projects, research topics, brainstorm ideas, explore different design directions, prototype, build interfaces and iterate quickly.",
+      "I also work with AI agents and coding tools such as Claude Code and Antigravity to turn ideas into working experiences faster.",
+      "The final direction and design decisions still come from me.",
     ],
-    aiBody:
-      "I use AI when it helps me explore ideas, organise information or test directions faster. I still make the final design decisions myself and use AI as a tool within the process, not as a replacement for it.",
-    aiTags: ["Research", "Ideation", "Content", "Prototyping"],
+    projectsHeading: "Projects",
+    projectsCopy: "Selected works in UI/UX design, brand identity and web design — from initial concept to final experience.",
+    linkProjects: "View projects",
+    projectsNote: "this way",
     playgroundHeading: "The archive",
     playgroundCopy: "A collection of personal projects, crafts and experiments where I explore ideas, learn and try something new.",
     linkPlayground: "Open the archive",

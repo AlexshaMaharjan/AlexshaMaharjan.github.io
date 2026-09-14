@@ -332,10 +332,10 @@ const afono: CaseStudyLocaleContent = {
         heading: "Verstehen, was kulturelle Mode alltagstauglich macht",
         body: [
           "Ich führte fünf qualitative Interviews mit nepalesischen Teilnehmenden zu kulturell inspirierter Kleidung, lokalen Modemarken und Alltagskleidung.",
-          "Sie waren daran interessiert, Marken mit Nepal-Bezug zu unterstützen, äußerten aber Bedenken zu Qualität, Haltbarkeit, Verfügbarkeit und austauschbarem Design. Kulturelle Prints wurden häufig als zu auffällig oder zu detailliert für den Alltag wahrgenommen.",
+          "Sie waren daran interessiert, Marken mit Nepal-Bezug zu unterstützen, nannten aber Probleme wie Qualität, Haltbarkeit, Verfügbarkeit und zu generisches Design. Kulturelle Prints wurden häufig als zu auffällig oder zu detailliert für den Alltag wahrgenommen.",
           { kind: "h3", text: "Lokale und internationale Modemarken vergleichen" },
-          "Zusätzlich verglich ich nepalesische Modereferenzen mit internationalen Streetwear-Marken. Lokale Marken zeigten oft eine stärkere kulturelle Identität, während internationale Marken ihre Produkte durch Layout, Fotografie und Typografie meist konsistenter präsentierten.",
-          "Daraus entstand die Chance für AFONO: eine klare kulturelle Identität mit der visuellen Konsistenz einer zeitgenössischen Streetwear-Marke zu verbinden.",
+          "Zusätzlich verglich ich Beispiele aus der nepalesischen Mode mit internationalen Streetwear-Marken. Lokale Marken zeigten oft eine stärkere kulturelle Identität, während internationale Marken ihre Produkte durch Layout, Fotografie und Typografie meist konsistenter präsentierten.",
+          "Daraus entstand die Richtung für AFONO: eine klare kulturelle Identität mit der visuellen Konsistenz einer zeitgenössischen Streetwear-Marke zu verbinden.",
           {
             kind: "figures",
             items: [
@@ -438,7 +438,7 @@ const afono: CaseStudyLocaleContent = {
           },
           { kind: "h3", text: "Die Marke ohne physische Produkte visualisieren" },
           "Da die Kollektion nur als Konzept existierte, standen keine fertigen Kleidungsstücke für ein reales Fotoshooting zur Verfügung. Ich nutzte ChatGPT, um Modelbilder zu generieren und zu zeigen, wie AFONO in einer Fashion-Kampagne und in einem realen Kontext wirken könnte.",
-          "Die generierten Bilder dienten zur Visualisierung und nicht als Darstellung tatsächlich produzierter Kleidungsstücke.",
+          "Die Bilder dienten nur zur Visualisierung und zeigen keine tatsächlich produzierten Kleidungsstücke.",
           {
             kind: "figures",
             items: [
@@ -451,7 +451,7 @@ const afono: CaseStudyLocaleContent = {
             ],
           },
           { kind: "h3", text: "Das Einkaufserlebnis planen" },
-          "Bevor ich in das finale Interface ging, entwickelte ich Wireframes, um Produkthierarchie, Navigation und die wichtigsten Shopping-Flows zu strukturieren.",
+          "Bevor ich das finale Interface gestaltete, entwickelte ich Wireframes, um Produkthierarchie, Navigation und die wichtigsten Shopping-Flows zu strukturieren.",
           {
             kind: "figures",
             items: [
@@ -530,7 +530,7 @@ const afono: CaseStudyLocaleContent = {
         number: "09",
         heading: "Selbst ausprobieren",
         body: [
-          "Hier können Sie den interaktiven Prototyp erkunden und sich selbst durch das Erlebnis bewegen.",
+          "Der interaktive Prototyp kann hier direkt ausprobiert werden.",
           {
             kind: "prototype",
             embed: "https://embed.figma.com/proto/72iUPqI5IbmVRD79vJbfIY/Afono?node-id=18-18100&starting-point-node-id=18%3A18100&page-id=10%3A3&embed-host=share",

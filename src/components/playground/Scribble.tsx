@@ -59,7 +59,7 @@ export default function Scribble({ note, locale }: { note: PlacedScribble; local
           "--pg-tint-base": base(note.tone),
           [note.align === "right" ? "right" : "left"]:
             note.align === "right" ? `${100 - (note.x / FRAME_W) * 100}%` : `${(note.x / FRAME_W) * 100}%`,
-          top: `${(note.y / FRAME_H) * 100}%`,
+          top: `${((note.y + (note.textOffsetY ?? 0)) / FRAME_H) * 100}%`,
           transform: `rotate(${note.rotate}deg)`,
           transformOrigin: note.align === "right" ? "100% 0" : "0 0",
         } as CSSProperties

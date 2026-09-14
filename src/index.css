@@ -402,6 +402,38 @@
   }
 
   /*
+   * The projects peek fan animation on the portfolio destination card.
+   * Mirrors the playful deck feel of the archive peek, adapted for project covers.
+   */
+  .project-peek > span > span,
+  .project-peek img {
+    transition: transform 420ms var(--ease-out);
+  }
+
+  /* At rest: gentle fanned stack */
+  .project-peek > span > span:nth-child(1) { transform: rotate(-6deg); }
+  .project-peek > span > span:nth-child(2) { transform: rotate(3deg) translateY(-8px); }
+  .project-peek > span > span:nth-child(3) { transform: rotate(-3deg) translateY(3px); }
+  .project-peek > span > span:nth-child(4) { transform: rotate(5.5deg) translateY(-5px); }
+
+  /* Fanned: wider angles and lifted pieces */
+  .project-peek:hover > span > span:nth-child(1) { transform: rotate(-12deg) translate(-10px, -4px); }
+  .project-peek:hover > span > span:nth-child(2) { transform: rotate(-3deg) translate(-3px, -14px); }
+  .project-peek:hover > span > span:nth-child(3) { transform: rotate(3deg) translate(3px, -2px); }
+  .project-peek:hover > span > span:nth-child(4) { transform: rotate(11deg) translate(10px, -10px); }
+  .project-peek:hover img { transform: scale(1.06); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-peek > span > span,
+    .project-peek img { transition: none; }
+    .project-peek:hover > span > span:nth-child(1) { transform: rotate(-6deg); }
+    .project-peek:hover > span > span:nth-child(2) { transform: rotate(3deg) translateY(-8px); }
+    .project-peek:hover > span > span:nth-child(3) { transform: rotate(-3deg) translateY(3px); }
+    .project-peek:hover > span > span:nth-child(4) { transform: rotate(5.5deg) translateY(-5px); }
+    .project-peek:hover img { transform: none; }
+  }
+
+  /*
    * The process steps as a bento on a phone (`MILESTONE-015` task 1).
    *
    * The five clusters are drawn for a 1440 x 900 map, where every piece has a

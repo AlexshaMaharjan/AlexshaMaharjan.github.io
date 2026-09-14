@@ -276,9 +276,9 @@ const syncFm: CaseStudyLocaleContent = {
   de: {
     slug: "sync-fm",
     name: "Sync FM",
-    headline: "Personalisierung in den kontinuierlichen Fluss des Radios bringen.",
+    headline: "Personalisierung in den Radiofluss bringen.",
     summary:
-      "Sync FM ist ein interaktives KI-Radio-Konzept, das das kontinuierliche Erlebnis des klassischen Radios mit ausgewählten Steuerungsmöglichkeiten personalisierter Streaming-Dienste verbindet.",
+      "Sync FM ist ein interaktives KI-Radio-Konzept, das das kontinuierliche Hörerlebnis des klassischen Radios mit ausgewählten Steuerungen aus personalisiertem Streaming verbindet.",
     tags: [...PROJECT_TAGS["sync-fm"]],
     context: "Semesterprojekt",
     role: "Interaction & UI Designerin",
@@ -297,7 +297,7 @@ const syncFm: CaseStudyLocaleContent = {
         number: "01",
         heading: "Das Projekt auf einen Blick",
         body: [
-          "Sync FM basiert auf einem KI-Journalisten, dessen Art der Nachrichtenvermittlung über wenige gezielte Steuerelemente angepasst werden kann. Hörer können beeinflussen, welche Nachrichten sie hören und wie der Stream gestaltet wird, während sie in einem kontinuierlichen Hörerlebnis bleiben.",
+          "Sync FM basiert auf einem KI-Journalisten, dessen Nachrichten sich mit wenigen Steuerelementen anpassen lassen. Hörer können beeinflussen, welche Nachrichten sie hören und wie der Stream gestaltet wird, ohne den Radiofluss zu verlassen.",
           "Als Teil eines Zweierteams arbeitete ich am Interaktionskonzept und Interface und definierte, wie die Steuerelemente funktionieren, wie Informationen strukturiert sind und wie das System auf die Eingaben der Hörer reagiert.",
         ],
       },
@@ -358,10 +358,10 @@ const syncFm: CaseStudyLocaleContent = {
         id: "strategy",
         navLabel: "Interaktionsstrategie",
         number: "04",
-        heading: "Kontrolle ermöglichen, ohne Komplexität hinzuzufügen",
+        heading: "Mehr Kontrolle, ohne das Interface komplizierter zu machen",
         body: [
           "Wir wollten Hörern Einfluss auf den Nachrichtenstream geben, ohne Radio in ein Interface voller Entscheidungen zu verwandeln.",
-          "Daraus entstand ein mehrstufiges Interaktionsmodell. Der Sync Dial übernimmt die zentrale Auswahl und wechselt zwischen den ausgewählten Nachrichtenkategorien. Drei Slider ermöglichen anschließend eine feinere Anpassung des aktiven Streams.",
+          "Daraus entstand ein einfaches System mit zwei Ebenen. Der Sync Dial übernimmt die zentrale Auswahl und wechselt zwischen den ausgewählten Nachrichtenkategorien. Drei Slider ermöglichen anschließend eine feinere Anpassung des aktiven Streams.",
           "Die Verifikation bleibt davon getrennt und erscheint als Systemfeedback statt als veränderbare Einstellung.",
           "Dadurch entsteht eine klare Hierarchie: Thema wählen, Stream anpassen und anschließend verstehen, wie das System die aktuelle Nachricht bewertet.",
         ],
@@ -372,8 +372,8 @@ const syncFm: CaseStudyLocaleContent = {
         number: "05",
         heading: "Eine eigene visuelle Sprache für Sync FM",
         body: [
-          "Die visuelle Identität sollte eine Verbindung zu Radio und Audio schaffen, ohne wie ein klassisches Broadcast-Interface zu wirken.",
-          "Kreisförmige Formen, abgerundete Container und Wellenformen wurden zu wiederkehrenden visuellen Elementen. Lila gibt Sync FM einen eigenen Charakter, während das Schriftsystem das Interface klar und leicht erfassbar hält.",
+          "Die visuelle Identität sollte eine Verbindung zu Radio und Audio schaffen, ohne wie ein klassisches Radio-Interface zu wirken.",
+          "Kreisförmige Formen, abgerundete Container und Wellenformen wurden zu wiederkehrenden visuellen Elementen. Lila gibt Sync FM einen eigenen Charakter, während das Schriftsystem das Interface klar und übersichtlich hält.",
           {
             kind: "figures",
             items: [
@@ -382,7 +382,7 @@ const syncFm: CaseStudyLocaleContent = {
             ],
           },
           { kind: "h3", text: "Das Logo entwickeln" },
-          "Das Logo übersetzt die Form eines klassischen Radios in ein einfaches, charakterähnliches Symbol. Erste Ideen wurden mit Gemini generiert, anschließend vom Team ausgewählt, neu gezeichnet und zum finalen Vektorzeichen weiterentwickelt.",
+          "Das Logo übersetzt die Form eines klassischen Radios in ein einfaches Symbol mit eigenem Charakter. Erste Ideen wurden mit Gemini generiert, anschließend vom Team ausgewählt, neu gezeichnet und zum finalen Vektorzeichen weiterentwickelt.",
           {
             kind: "figures",
             items: [
@@ -464,7 +464,7 @@ const syncFm: CaseStudyLocaleContent = {
         number: "09",
         heading: "Das Hören im Mittelpunkt halten",
         body: [
-          "Im finalen Interface bleibt der Player der wichtigste visuelle Fokus. Der Wechsel zwischen Kategorien bleibt nah am Hörerlebnis, während die Filter eine Ebene tiefer liegen, wenn mehr Kontrolle gewünscht ist.",
+          "Im finalen Interface bleibt der Player im Mittelpunkt. Der Wechsel zwischen Kategorien bleibt nah am Hörerlebnis, während die Filter eine Ebene tiefer liegen, wenn mehr Kontrolle gewünscht ist.",
           "Die Verifikation erscheint als unterstützende Information und nicht als weitere Einstellung. Diese Hierarchie hält die Steuerungen erreichbar, ohne das Erlebnis wie ein Einstellungs-Dashboard wirken zu lassen.",
         ],
         images: [
@@ -480,7 +480,7 @@ const syncFm: CaseStudyLocaleContent = {
         body: [
           "Eine der größten Herausforderungen bestand darin, die Personalisierung nützlich zu machen, ohne das Interface zu komplex werden zu lassen.",
           "Die Steuerungen brauchten klare Bezeichnungen, sichtbares Feedback und eine Struktur, die zeigt, was verändert werden kann und was nur als Information dient. Besonders wichtig war das bei der Verifikationsanzeige, die Transparenz schaffen sollte, statt wie eine weitere Einstellung zu wirken.",
-          "Das Konzept brachte mich außerdem dazu, genauer darüber nachzudenken, wie viel Einfluss ein Interface auf Nachrichteninhalte geben sollte. Personalisierung kann ein Erlebnis relevanter machen, dennoch muss das Design klar zwischen persönlichen Präferenzen und faktischen Informationen unterscheiden.",
+          "Das Konzept brachte mich außerdem dazu, genauer darüber nachzudenken, wie viel Einfluss ein Interface auf Nachrichteninhalte geben sollte. Personalisierung kann ein Erlebnis relevanter machen, dennoch muss das Design klar zwischen persönlichen Einstellungen und Fakten unterscheiden.",
           "Bei einer Weiterentwicklung würde ich testen, ob die Steuerungen so verstanden werden wie beabsichtigt und ob das Interface den Unterschied zwischen Personalisierung und Verifikation klar vermittelt.",
         ],
       },
@@ -490,7 +490,7 @@ const syncFm: CaseStudyLocaleContent = {
         number: "11",
         heading: "Selbst ausprobieren",
         body: [
-          "Hier können Sie den interaktiven Prototyp erkunden und sich selbst durch das Erlebnis bewegen.",
+          "Der interaktive Prototyp kann hier direkt ausprobiert werden.",
           {
             kind: "prototype",
             embed: "https://embed.figma.com/proto/3nAOERr1P63NJy28QyD4HI/Sync-FM?node-id=5-2&p=f&viewport=300%2C306%2C0.07&scaling=scale-down&content-scaling=fixed&starting-point-node-id=5%3A2&show-proto-sidebar=1&page-id=0%3A1&embed-host=share",

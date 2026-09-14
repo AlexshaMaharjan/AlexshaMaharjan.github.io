@@ -5,7 +5,8 @@ import { localeHref } from "@/lib/i18n";
 import Image from "@/components/ui/Image";
 import LoveLine from "@/components/about/LoveLine";
 import HandArrow from "@/components/HandArrow";
-import PlaygroundBand from "@/components/PlaygroundBand";
+import PlaygroundPeek from "@/components/PlaygroundPeek";
+import ProjectsPeek from "@/components/ProjectsPeek";
 import Seo from "@/components/Seo";
 
 export default function About() {
@@ -135,9 +136,10 @@ export default function About() {
         </div>
       </section>
 
+      {/* Professional focus & Tools I use */}
       <section className="pt-[96px]">
         <div className="container-page">
-          <div data-inview className="grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2">
+          <div data-inview className="grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2 md:gap-x-12">
             <div>
               <h2 className="mt-2.5 text-subheading font-semibold tracking-[-0.02em]">
                 {about.focusHeading}
@@ -153,75 +155,130 @@ export default function About() {
                 ))}
               </ul>
             </div>
+
             <div>
               <h2 className="mt-2.5 text-subheading font-semibold tracking-[-0.02em]">
                 {about.toolsHeading}
               </h2>
-              <div className="mt-7 flex max-w-[520px] flex-wrap gap-2.5">
-                {about.tools.map((tool) => (
-                  <span
-                    key={tool.name}
-                    className={`rounded-full border px-4 py-2 text-[14px] ${
-                      tool.accent ? "border-accent text-accent" : "border-border text-ink-body"
-                    }`}
-                  >
-                    {tool.name}
-                  </span>
-                ))}
-                {/*
-                  The note is *in* the chip row, as its last item, and it has no
-                  arrow (owner, SESSION-046). It only ever pointed at the chip
-                  immediately before it — the accent-coloured "Artificial
-                  Intelligence" one, the newest thing on a list called "Tools I
-                  have learned" — and a drawn arrow spanning the 10px between
-                  two things that are already touching is a gesture with nothing
-                  to cross. Sitting next to it says the same thing.
+              <div className="mt-7 max-w-[520px] space-y-6">
+                <div>
+                  <h3 className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+                    {about.toolsDesignLabel}
+                  </h3>
+                  <div className="mt-3 flex flex-wrap items-center gap-2.5">
+                    {about.toolsDesign.map((tool) => (
+                      <span
+                        key={tool}
+                        className="rounded-full border border-border px-4 py-2 text-[14px] text-ink-body"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-                  A flex item rather than a line underneath, so it wraps with
-                  the chips: on a narrow column it follows whichever row the
-                  last chip lands on instead of stranding itself below an empty
-                  half-row.
-                */}
-                <span
-                  aria-hidden="true"
-                  className="pencil-ink self-center pl-1 font-hand text-[15px] font-bold leading-[1.05] text-accent [transform:rotate(-2deg)] md:text-[17px]"
-                >
-                  {about.handNoteTools}
-                </span>
-              </div>
+                <div>
+                  <h3 className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+                    {about.toolsDevLabel}
+                  </h3>
+                  <div className="mt-3 flex flex-wrap items-center gap-2.5">
+                    {about.toolsDev.map((tool) => (
+                      <span
+                        key={tool}
+                        className="rounded-full border border-border px-4 py-2 text-[14px] text-ink-body"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-              <div className="mt-8.5 max-w-[520px] border-t border-surface-2 pt-6.5">
-                <p className="text-[16px] leading-[1.65] text-accent">{about.aiBody}</p>
-                <div className="mt-5 flex flex-wrap gap-2.5">
-                  {about.aiTags.map((tag) => (
+                <div>
+                  <h3 className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+                    {about.toolsAiLabel}
+                  </h3>
+                  <div className="mt-3 flex flex-wrap items-center gap-2.5">
+                    {about.toolsAi.map((tool) => (
+                      <span
+                        key={tool}
+                        className="rounded-full border border-border px-4 py-2 text-[14px] text-ink-body"
+                      >
+                        {tool}
+                      </span>
+                    ))}
                     <span
-                      key={tag}
-                      className="rounded-full border border-dashed border-accent px-4 py-2 text-[14px] text-accent"
+                      aria-hidden="true"
+                      className="pencil-ink self-center pl-1 font-hand text-[15px] font-bold leading-[1.05] text-accent [transform:rotate(-2deg)] md:text-[17px]"
                     >
-                      {tag}
+                      {about.handNoteTools}
                     </span>
-                  ))}
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* How I use AI - Newspaper 2-column balanced layout */}
+      <section className="pt-[96px] md:pt-[116px]">
+        <div className="container-page">
+          <div data-inview className="w-full">
+            <h2 className="text-subheading font-semibold tracking-[-0.02em] text-ink">
+              {about.aiHeading}
+            </h2>
+            <div className="mt-7 columns-1 md:columns-2 gap-8 md:gap-12 lg:gap-16 [column-fill:balance]">
+              {about.aiParagraphs.map((paragraph, i) => (
+                <p key={i} className="mb-4.5 break-inside-avoid text-[17px] leading-[1.75] text-ink-body last:mb-0">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* 2-Grid Destinations: Projects & The Archive */}
       <section className="py-[110px]">
-        {/*
-          The same offer the homepage makes, and now literally the same
-          component (`MILESTONE-018` task 4). The arrangement here was already
-          the centred one; what is new is the light-blue grid paper under it,
-          which is the playground's own ruling — see `PlaygroundBand`.
-        */}
         <div className="container-page">
-          <PlaygroundBand
-            locale={locale}
-            dictionary={dictionary}
-            heading={about.playgroundHeading}
-            copy={about.playgroundCopy}
-          />
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+            {/* Card 1: Projects */}
+            <div
+              data-inview="up"
+              className="relative flex h-full flex-col justify-between overflow-hidden rounded-[20px] border border-card-border bg-[#F8F9FB] px-6 py-12 sm:px-8 sm:py-14 md:px-10 md:py-16"
+            >
+              <div data-inview="text" className="relative flex flex-1 flex-col items-center justify-between text-center">
+                <div>
+                  <h2 className="text-subheading font-semibold tracking-[-0.02em] text-ink">
+                    {about.projectsHeading}
+                  </h2>
+                  <p className="mt-4 max-w-[480px] text-[17px] leading-[1.65] text-ink-body">
+                    {about.projectsCopy}
+                  </p>
+                </div>
+                <ProjectsPeek locale={locale} dictionary={dictionary} align="center" />
+              </div>
+            </div>
+
+            {/* Card 2: The Archive */}
+            <div
+              data-inview="up"
+              className="relative flex h-full flex-col justify-between overflow-hidden rounded-[20px] border border-card-border bg-[#F8F9FB] px-6 py-12 sm:px-8 sm:py-14 md:px-10 md:py-16"
+            >
+              <div data-inview="text" className="relative flex flex-1 flex-col items-center justify-between text-center">
+                <div>
+                  <h2 className="text-subheading font-semibold tracking-[-0.02em] text-ink">
+                    {about.playgroundHeading}
+                  </h2>
+                  <p className="mt-4 max-w-[480px] text-[17px] leading-[1.65] text-ink-body">
+                    {about.playgroundCopy}
+                  </p>
+                </div>
+                <PlaygroundPeek locale={locale} dictionary={dictionary} align="center" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

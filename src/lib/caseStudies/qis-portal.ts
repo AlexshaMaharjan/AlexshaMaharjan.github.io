@@ -337,9 +337,9 @@ const qisPortal: CaseStudyLocaleContent = {
   de: {
     slug: "qis-portal",
     name: "QIS-Portal Redesign",
-    headline: "Ein fragmentiertes Hochschulportal rund um die Aufgaben der Studierenden neu gestalten.",
+    headline: "Ein fragmentiertes Hochschulportal rund um studentische Aufgaben neu gestalten.",
     summary:
-      "Ein forschungsbasiertes Redesign des QIS-Studierendenportals mit Fokus auf Informationsarchitektur, Navigation und klarere Aufgabenabläufe.",
+      "Ein forschungsbasiertes Redesign des QIS-Studierendenportals mit Fokus auf Informationsarchitektur, Navigation und klare Aufgabenabläufe.",
     tags: [...PROJECT_TAGS["qis-portal"]],
     context: "Semesterprojekt",
     role: "UX/UI Designerin & Researcherin",
@@ -362,7 +362,7 @@ const qisPortal: CaseStudyLocaleContent = {
             kind: "note",
             text: "201 Umfrage-Antworten aus zwei Umfragen · 21 → 14 Seiten · 12 Test-Teilnehmende · ≈ 90,6 durchschnittlicher SUS-Wert",
           },
-          "QIS wird von Studierenden der Technischen Hochschule Lübeck für Aufgaben wie Prüfungsanmeldung, Noteneinsicht, den Download von Bescheinigungen und die Verwaltung von Semesterinformationen genutzt.",
+          "QIS wird von Studierenden der Technischen Hochschule Lübeck für Aufgaben wie Prüfungsanmeldung, Noten prüfen, Bescheinigungen herunterladen und die Verwaltung von Semesterinformationen genutzt.",
           "Ich übernahm den größten Teil der UX-, Interface- und Usability-Arbeit, während das Team die Umfragen unterstützte. Das Redesign konzentrierte sich darauf, das Portal rund um studentische Aufgaben zu strukturieren und gleichzeitig ein klareres, moderneres und leichter navigierbares Interface zu entwickeln.",
           {
             kind: "figures",
@@ -426,7 +426,7 @@ const qisPortal: CaseStudyLocaleContent = {
             body: [
               "Auf die Frage, was sie schneller erreichen wollten, nannten Studierende praktische Aufgaben im Studienalltag deutlich häufiger als alles andere.",
             ],
-            figure: { aspect: "860/458", caption: "Die vier am häufigsten gewünschten Abkürzungen, nach Anzahl der Nennungen.", src: "/images/qis-chart-requested-features-de.webp", alt: "Balkendiagramm der gewünschten Funktionen: Prüfungspläne 92, Krankmeldung hochladen 67, Kontaktdaten der Lehrenden 45, Studentenmail 29" },
+            figure: { aspect: "860/458", caption: "Die vier am häufigsten gewünschten Funktionen, nach Anzahl der Nennungen.", src: "/images/qis-chart-requested-features-de.webp", alt: "Balkendiagramm der gewünschten Funktionen: Prüfungspläne 92, Krankmeldung hochladen 67, Kontaktdaten der Lehrenden 45, Studentenmail 29" },
           },
           {
             kind: "note",
@@ -477,7 +477,7 @@ const qisPortal: CaseStudyLocaleContent = {
         heading: "Erst strukturieren, dann gestalten",
         body: [
           "Das bestehende Portal umfasste 21 Seiten, darunter mehrere eng verwandte oder redundante Pfade.",
-          "Wir strukturierten die Inhalte nach Aufgaben neu und reduzierten die Architektur auf 14 Seiten, während die zentralen Funktionen erhalten blieben. Verwandte Inhalte wurden zusammengeführt und sekundäre Informationen niedriger priorisiert.",
+          "Wir strukturierten die Inhalte nach Aufgaben neu und reduzierten die Architektur auf 14 Seiten, während die zentralen Funktionen erhalten blieben. Verwandte Inhalte wurden zusammengeführt und weniger wichtige Informationen rückten in den Hintergrund.",
           {
             kind: "figures",
             items: [
@@ -487,7 +487,7 @@ const qisPortal: CaseStudyLocaleContent = {
           },
           { kind: "h3", text: "Die neue Struktur erkunden" },
           "Bevor wir mit dem detaillierten Interface-Design begannen, entwickelten wir Low-Fidelity-Prototypen für Bereiche wie Prüfungsanmeldung, Noten, Studienverlauf, Bescheinigungen und Gebühren.",
-          "So konnten wir Seitenbeziehungen, Informationspriorität und die Schritte für häufige Aufgaben untersuchen.",
+          "So konnten wir prüfen, wie die Seiten zusammenhängen, welche Informationen wichtiger sind und wie viele Schritte eine Aufgabe braucht.",
           {
             kind: "figures",
             items: [
@@ -503,7 +503,7 @@ const qisPortal: CaseStudyLocaleContent = {
         heading: "Die neue Struktur in ein Interface übersetzen",
         body: [
           "Nachdem die neue Architektur feststand, entwickelten wir darauf aufbauend ein visuelles und interaktives System.",
-          "Ziel war nicht nur, QIS moderner aussehen zu lassen. Das Interface sollte Hierarchien klarer machen, vorhersehbare Muster schaffen und den Aufwand reduzieren, der nötig ist, um eine Seite zu verstehen.",
+          "Ziel war nicht nur, QIS moderner aussehen zu lassen. Das Interface sollte die Hierarchie klarer machen, bekannte Muster verwenden und jede Seite schneller verständlich machen.",
           { kind: "h3", text: "Farbe und Typografie" },
           "Die Verbindung zur Technischen Hochschule Lübeck blieb durch Rot, Weiß und Schwarz sowie hellere Abstufungen erhalten. Zusätzliche Statusfarben halfen dabei, positive, negative und dazwischenliegende Zustände zu unterscheiden.",
           "Die Typografie erhielt eine klarere Hierarchie mit stärker hervorgehobenen Überschriften und besser lesbaren Interface-Texten.",
@@ -587,7 +587,7 @@ const qisPortal: CaseStudyLocaleContent = {
         heading: "Ein Portal rund um studentische Handlungen",
         body: [
           "Das finale Konzept verbindet die forschungsbasierte Informationsarchitektur und die getesteten Aufgabenabläufe mit einem klareren visuellen System.",
-          "Die wichtigste Veränderung liegt nicht nur darin, wie QIS aussieht. Das neu gestaltete Interface priorisiert die Aufgaben, die Studierende tatsächlich erledigen müssen, statt die interne Struktur des Hochschulsystems abzubilden.",
+          "Die wichtigste Veränderung ist nicht nur, wie QIS aussieht. Das neu gestaltete Interface priorisiert die Aufgaben, die Studierende tatsächlich erledigen müssen, statt die interne Struktur des Hochschulsystems abzubilden.",
           {
             kind: "figures",
             items: [
@@ -604,7 +604,7 @@ const qisPortal: CaseStudyLocaleContent = {
         number: "10",
         heading: "Selbst ausprobieren",
         body: [
-          "Hier können Sie den interaktiven Prototyp erkunden und sich selbst durch das Erlebnis bewegen.",
+          "Der interaktive Prototyp kann hier direkt ausprobiert werden.",
           {
             kind: "prototype",
             embed: "https://embed.figma.com/proto/vOFDY00wGrtDhnOLxVtuKo/Qis-Modern?node-id=10-3752&starting-point-node-id=9%3A3669&page-id=4%3A3669&scaling=scale-down&content-scaling=fixed&embed-host=share",

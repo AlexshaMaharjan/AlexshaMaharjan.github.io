@@ -235,9 +235,9 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
   de: {
     slug: "barrier-free-kitchen",
     name: "Barrierefreie Küche",
-    headline: "Eine Küche durch Reichweite, Sehen und Berührung gestalten.",
+    headline: "Eine Küche für unterschiedliche Bedürfnisse beim Greifen, Sehen und Tasten gestalten.",
     summary:
-      "Ein inklusives Küchenkonzept, entwickelt rund um die Bedürfnisse von Menschen im Rollstuhl und Personen mit Sehbeeinträchtigungen, insbesondere Grauem Star.",
+      "Ein inklusives Küchenkonzept, entwickelt rund um die Bedürfnisse von Menschen im Rollstuhl und Personen mit Sehbeeinträchtigungen, insbesondere Menschen mit Grauem Star.",
     tags: [...PROJECT_TAGS["barrier-free-kitchen"]],
     context: "Gemeinsames Hochschulprojekt",
     role: "Prototyping & 3D Design",
@@ -262,11 +262,11 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         number: "02",
         heading: "Wenn Standardmaße zu Barrieren werden",
         body: [
-          "Konventionelle Küchen platzieren Stauraum, Arbeitsflächen und Bedienelemente häufig außerhalb der komfortablen Reichweite von Menschen im Rollstuhl. Gleichzeitig können kleine Beschriftungen, schwache Kontraste und Touch-Bedienungen alltägliche Aufgaben für Menschen mit Sehbeeinträchtigungen erschweren.",
+          "In konventionellen Küchen liegen Stauraum, Arbeitsflächen und Bedienelemente oft außerhalb der komfortablen Reichweite von Menschen im Rollstuhl. Gleichzeitig können kleine Beschriftungen, schwache Kontraste und Touch-Bedienungen alltägliche Aufgaben für Menschen mit Sehbeeinträchtigungen erschweren.",
           "Die Herausforderung bestand darin, diese alltäglichen Designentscheidungen neu zu denken, damit mehr Aufgaben sicher und selbstständig ausgeführt werden können.",
         ],
         designQuestion:
-          "Wie kann eine Küche selbstständigere Nutzung unterstützen, wenn Reichweite, Mobilität und visuelle Wahrnehmung eingeschränkt sind?",
+          "Wie kann eine Küche mehr selbstständige Nutzung ermöglichen, wenn Reichweite, Mobilität und Sehen eingeschränkt sind?",
       },
       {
         id: "research",
@@ -281,7 +281,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             items: [
               "ein Interview mit einer Person mit Grauem Star",
               "die Beobachtung einer Person in einer konventionellen Küche",
-              "simulierte Nutzung aus einer Rollstuhl-Situation",
+              "simulierte Nutzung im Rollstuhl",
               "simulierte Sehbeeinträchtigung mit einer Grauer-Star-Brille",
               "aufgabenbasierte Tests mit drei Teilnehmenden",
             ],
@@ -321,8 +321,8 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             body: "Was muss bequem erreicht und genutzt werden können? Reichweite · Wendefläche · Arbeitshöhe · Unterfahrbarkeit · Schranktiefe · Zugang zu Geräten",
           },
           {
-            heading: "Tasten",
-            body: "Was muss auch ohne ausschließlich visuelle Hinweise verständlich sein? Taktile Marker · unterscheidbare Griffe · physische Tasten · Oberflächenunterschiede · klares Feedback",
+            heading: "Fühlen",
+            body: "Was muss auch verständlich sein, ohne sich nur auf das Sehen zu verlassen? Taktile Marker · unterscheidbare Griffe · physische Tasten · Oberflächenunterschiede · klares Feedback",
           },
         ],
       },
@@ -349,7 +349,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
             ],
           },
           { kind: "h3", text: "Den Kochablauf berücksichtigen" },
-          "Wir haben den gesamten Ablauf bei der Zubereitung kartiert, um nahtlose Übergänge zwischen Vorrat, Spüle, Arbeitsfläche und Kochfeld ohne unnötigen Kraftaufwand zu ermöglichen.",
+          "Wir ordneten den Kochablauf von Vorrat und Spüle bis zu Arbeitsfläche, Herd und Esstisch. So konnten wir sehen, wie die Bereiche im Alltag zusammenhängen.",
           {
             kind: "figures",
             items: [
@@ -365,7 +365,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         heading: "Das Konzept im Maßstab 1:1 testen",
         body: [
           "Wir bauten Papierprototypen im Maßstab 1:1, um das Küchenkonzept realistischer zu testen, bevor wir die finale 3D-Umgebung entwickelten.",
-          "Die Prototypen halfen uns zu untersuchen, wie die Ideen im Maßstab des Körpers funktionieren. Dabei konnten wir Maße, Reichweiten, Stauraum, Zugang zur Spüle, Bedienelemente und Bewegungsraum für den Rollstuhl testen.",
+          "Die Prototypen halfen uns zu untersuchen, wie die Ideen in echter Größe funktionieren. Dabei konnten wir Maße, Reichweiten, Stauraum, Zugang zur Spüle, Bedienelemente und Bewegungsraum für den Rollstuhl testen.",
           {
             kind: "figures",
             items: [
@@ -422,7 +422,7 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         id: "reflection",
         navLabel: "Grenzen & Reflexion",
         number: "08",
-        heading: "Formative Erkenntnisse, keine umfassende Validierung",
+        heading: "Was getestet wurde und was noch fehlt",
         body: [
           "Das Projekt wurde durch Beobachtung, ein Interview, Tests mit Teilnehmenden und Prototypen im Maßstab 1:1 untersucht, jedoch nicht mit einer breiten Gruppe von Menschen im Rollstuhl oder Personen mit Sehbeeinträchtigungen.",
           "Eine Weiterentwicklung sollte Menschen mit Behinderungen stärker einbeziehen und zusätzlich die technische Machbarkeit prüfen.",

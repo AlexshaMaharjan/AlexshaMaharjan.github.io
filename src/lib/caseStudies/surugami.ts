@@ -256,7 +256,7 @@ const surugami: CaseStudyLocaleContent = {
         heading: "Ein präzises Handwerk leichter zugänglich machen",
         body: [
           "Origami ist leicht wiederzuerkennen, kann für Anfänger aber auch schwierig, technisch und stark auf perfekte Faltungen ausgerichtet wirken.",
-          "Die gestalterische Herausforderung bestand darin, eine visuelle Identität zu entwickeln, die die Ruhe und Präzision von Origami bewahrt und gleichzeitig offener, spielerischer und zeitgemäßer wirkt.",
+          "Die Herausforderung war, eine visuelle Identität zu entwickeln, die die Ruhe und Präzision von Origami bewahrt und gleichzeitig offener, spielerischer und zeitgemäßer wirkt.",
         ],
         designQuestion:
           "Wie kann die visuelle Sprache von Origami Anfänger einladen, ohne den Charakter des Handwerks zu verlieren?",
@@ -282,7 +282,7 @@ const surugami: CaseStudyLocaleContent = {
               { aspect: "1600/1133", caption: "Concept-Map: Zielgruppe, Werte und Tonalität.", src: "/images/surugami-concept-map.webp", alt: "Eine Concept Map des Origami-Unternehmens: Zielgruppe, Werte, Tonalität, Ästhetik und Angebot" },
             ],
           },
-          { kind: "h3", text: "Für Lernen gestalten" },
+          { kind: "h3", text: "Lernen leichter machen" },
           "Eine wichtige Beobachtung war, dass Lerninhalte leichter zugänglich werden, wenn Informationen in klare Schritte gegliedert und visuell unterstützt werden.",
           "Das beeinflusste später sowohl die Markensprache als auch die Struktur der Website.",
         ],
@@ -291,7 +291,7 @@ const surugami: CaseStudyLocaleContent = {
         id: "insights",
         navLabel: "Zentrale Erkenntnisse",
         number: "04",
-        heading: "Recherche in Gestaltungsprinzipien übersetzen",
+        heading: "Aus der Recherche wurden Designprinzipien",
         body: ["Aus der Recherche entstanden vier Ideen, die den weiteren Entwurf leiteten:"],
         insights: [
           {
@@ -300,7 +300,7 @@ const surugami: CaseStudyLocaleContent = {
           },
           {
             heading: "Community statt Isolation",
-            body: "Events und Arbeiten anderer können Origami sozialer wirken lassen.",
+            body: "Events und Arbeiten anderer können Origami gemeinschaftlicher machen.",
           },
           {
             heading: "Spielerische Gestaltung braucht Struktur",
@@ -318,7 +318,7 @@ const surugami: CaseStudyLocaleContent = {
         number: "05",
         heading: "Ein System aus der Idee des Faltens entwickeln",
         body: [
-          "Der Name Surugami erinnert klanglich an Origami und stellt dadurch sofort eine Verbindung zum Handwerk her, während die Marke trotzdem eine eigene Identität behält.",
+          "Der Name Surugami erinnert klanglich an Origami und stellt sofort eine Verbindung zum Falten her, während die Marke trotzdem eine eigene Identität behält.",
           "Wir nutzten Falten nicht nur als Verweis auf Origami, sondern als zentrales visuelles Prinzip der Marke. Das Logo verwendet eine vereinfachte Form eines gefalteten Schwans und übersetzt die Idee von gefaltetem Papier in ein wiedererkennbares Symbol für Print und digitale Anwendungen.",
           "Kantige Formen, überlagerte Flächen und gerichtete Linien führen diese Logik in der gesamten Identität weiter. Zusammen mit Korall, Mint, Petrol und hellen neutralen Tönen entsteht eine visuelle Sprache, die spielerisch und gleichzeitig strukturiert wirkt.",
           "Space Grotesk ergänzt das System mit einem klaren und zeitgemäßen typografischen Charakter.",
@@ -371,7 +371,7 @@ const surugami: CaseStudyLocaleContent = {
       },
       {
         id: "testing",
-        navLabel: "Testing",
+        navLabel: "Tests",
         number: "07",
         heading: "Testen, ob die Struktur verständlich ist",
         body: [
@@ -404,7 +404,7 @@ const surugami: CaseStudyLocaleContent = {
         number: "09",
         heading: "Selbst ausprobieren",
         body: [
-          "Hier können Sie den interaktiven Prototyp erkunden und sich selbst durch das Erlebnis bewegen.",
+          "Der interaktive Prototyp kann hier direkt ausprobiert werden.",
           {
             kind: "prototype",
             embed: "https://embed.figma.com/proto/GQhDPsYmRDDJWBMkE0cuTa/Surugami?node-id=242-3229&starting-point-node-id=242%3A3229&page-id=0%3A1&scaling=scale-down&content-scaling=fixed&embed-host=share",

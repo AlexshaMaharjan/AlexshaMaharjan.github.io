@@ -322,19 +322,18 @@ export interface Dictionary {
     focusHeading: string;
     focusItems: string[];
     toolsHeading: string;
-    /* `accent` marks the one chip rendered in the accent blue (MILESTONE-010
-       task 6c). It is data rather than an index check in About.tsx so the
-       German list can mark a different position if it ever reorders. */
-    tools: { name: string; accent?: boolean }[];
-    /*
-     * The AI paragraph is deliberately unheaded. It was given an "How I use AI"
-     * heading for one pass, on the reasoning that the owner's copy deck heads
-     * it that way; the owner's answer was to take it off again. It sits inside
-     * the tools column, under the chip row and above nothing, and a heading
-     * there makes a footnote look like a sixth section of the page.
-     */
-    aiBody: string;
-    aiTags: string[];
+    toolsDesignLabel: string;
+    toolsDesign: string[];
+    toolsDevLabel: string;
+    toolsDev: string[];
+    toolsAiLabel: string;
+    toolsAi: string[];
+    aiHeading: string;
+    aiParagraphs: string[];
+    projectsHeading: string;
+    projectsCopy: string;
+    linkProjects: string;
+    projectsNote: string;
     playgroundHeading: string;
     playgroundCopy: string;
     linkPlayground: string;

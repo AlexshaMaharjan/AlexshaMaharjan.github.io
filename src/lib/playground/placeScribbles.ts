@@ -204,6 +204,8 @@ export interface PlacedScribble {
   x: number;
   /** The top of the note, in design units. */
   y: number;
+  /** Optional vertical offset for the text in design units. */
+  textOffsetY?: number;
   /**
    * Which edge `x` anchors. The note is anchored on the side *away* from its
    * picture so it grows outwards into the space it was given, and an absolutely
@@ -1313,6 +1315,7 @@ export function placeScribbles(
       tone: scribble.tone ?? "ink",
       x: align === "right" ? box.x + box.w : box.x,
       y: box.y,
+      textOffsetY: scribble.textOffsetY,
       align,
       // Never square: a note at true horizontal is a caption.
       rotate: Math.round((next() * 11 - 7) * 10) / 10 || -3,

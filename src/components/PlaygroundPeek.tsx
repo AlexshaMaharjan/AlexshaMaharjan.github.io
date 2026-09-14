@@ -116,21 +116,18 @@ export default function PlaygroundPeek({
 
 
       <div className="relative mt-7 flex w-full justify-center">
-        <Link
-          to={href}
-          className="inline-flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-focus"
-        >
-          {peek.cta}
-        </Link>
-
+        {/* Hand-drawn note and arrow positioned to the LEFT of the button */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-[calc(50%+90px)] top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-4 text-accent whitespace-nowrap sm:gap-5"
+          className="pointer-events-none absolute right-[calc(50%+88px)] top-1/2 hidden -translate-y-1/2 items-center gap-2 text-accent whitespace-nowrap sm:flex xl:gap-3"
         >
+          <span className="pencil-ink font-hand text-[19px] font-bold leading-none sm:text-[21px]">
+            {peek.note}
+          </span>
           <svg
             viewBox="0 0 56 28"
             fill="none"
-            className="h-[24px] w-[52px] shrink-0 sm:h-[26px] sm:w-[56px]"
+            className="h-[22px] w-[46px] shrink-0 [transform:scaleX(-1)] sm:h-[24px] sm:w-[50px]"
             aria-hidden="true"
           >
             <path
@@ -147,10 +144,14 @@ export default function PlaygroundPeek({
               strokeLinejoin="round"
             />
           </svg>
-          <span className="pencil-ink font-hand text-[21px] font-bold leading-none sm:text-[23px]">
-            {peek.note}
-          </span>
         </span>
+
+        <Link
+          to={href}
+          className="inline-flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-focus"
+        >
+          {peek.cta}
+        </Link>
       </div>
     </div>
   );

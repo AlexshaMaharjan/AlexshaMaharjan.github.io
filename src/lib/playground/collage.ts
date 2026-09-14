@@ -166,6 +166,8 @@ export interface CollageScribble {
   position?: { x: number; y: number };
   align?: "left" | "right";
   arrowStart?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+  /** Optional vertical offset for the text in 16000x10000 frame units, keeping arrow position unchanged. */
+  textOffsetY?: number;
 }
 
 export interface CollageCard {
@@ -364,8 +366,9 @@ const cards: CardFrame[] = [
     scribbles: [
       {
         target: "/images/pg-clip-hibi.webp",
-        text: { en: "I developed an\nend-to-end web app", de: "Ich habe eine End-to-End-\nWeb-App entwickelt" },
+        text: { en: "I developed an\nend-to-end web app", de: "Ich habe eine Web-App von Anfang bis Ende entwickelt" },
         prefer: "top-right",
+        textOffsetY: 350,
       },
       {
         target: "/images/pg-flyer.webp",
@@ -423,7 +426,7 @@ const cards: CardFrame[] = [
     scribbles: [
       {
         target: "/images/pg-forest.webp",
-        text: { en: "digital painting on iPad", de: "Digitales Malen auf dem iPad" },
+        text: { en: "digital painting on iPad", de: "Digitale Malerei auf dem iPad" },
         prefer: "bottom-left",
       },
       {
@@ -552,7 +555,7 @@ const cards: CardFrame[] = [
     scribbles: [
       {
         target: "/images/pg-frame-detail.webp",
-        text: { en: "I do crafts too", de: "Ich mache auch\nHandwerk" },
+        text: { en: "I do crafts too", de: "Ich bastle auch gern" },
         position: { x: 340, y: 1750 },
         align: "left",
         arrowStart: "bottom-right",
@@ -564,7 +567,7 @@ const cards: CardFrame[] = [
       },
       {
         target: "/images/pg-clip-unboxing.webp",
-        text: { en: "I love making custom gifts.", de: "Ich liebe individuelle Geschenke." },
+        text: { en: "I love making custom gifts.", de: "Ich liebe es, persönliche Geschenke zu machen." },
         tone: "accent",
         prefer: "bottom-right",
       },
