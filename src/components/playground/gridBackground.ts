@@ -48,7 +48,7 @@ export const gridBackground = grid("rgba(43,74,191,0.045)", "rgba(43,74,191,0.01
  * antialiased rather than stepped.
  */
 export const dotBackground: CSSProperties = {
-  backgroundImage: "radial-gradient(circle at center, rgba(43,74,191,0.26) 1.3px, transparent 1.6px)",
+  backgroundImage: "radial-gradient(circle at center, rgba(43,74,191,0.13) 1.2px, transparent 1.5px)",
   backgroundSize: "24px 24px",
 };
 

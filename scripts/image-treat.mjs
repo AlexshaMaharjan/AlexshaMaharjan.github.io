@@ -101,10 +101,15 @@ for (const job of jobs) {
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, ${w}, ${h});
       ctx.filter = "brightness(${g.brightness ?? 1}) saturate(${g.saturate ?? 1}) contrast(${g.contrast ?? 1})";
+      const [padL, padT, padR, padB] = ${JSON.stringify(job.pad ?? [0, 0, 0, 0])};
+      const dx = Math.round(${w} * padL);
+      const dy = Math.round(${h} * padT);
+      const dw = Math.round(${w} * (1 - padL - padR));
+      const dh = Math.round(${h} * (1 - padT - padB));
       ctx.drawImage(img,
         Math.round(img.naturalWidth * cx), Math.round(img.naturalHeight * cy),
         Math.round(img.naturalWidth * cw), Math.round(img.naturalHeight * ch),
-        0, 0, ${w}, ${h});
+        dx, dy, dw, dh);
       ctx.filter = "none";
       ${g.tint ? `ctx.globalAlpha = ${g.tintAlpha ?? 0.15};
       ctx.fillStyle = "${g.tint}";

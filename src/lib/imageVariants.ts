@@ -6,6 +6,14 @@
 // `bg` behind a contained image so the mat matches the picture rather than
 // being a white slab (`SUGGESTION-012`, `DECISION-025`).
 export const imageVariants: Record<string, { w: number; v: number[]; bg: string }> = {
+  "/images/afono-buttons.webp": {
+    "w": 894,
+    "v": [
+      400,
+      640
+    ],
+    "bg": "#ffffff"
+  },
   "/images/afono-cart.webp": {
     "w": 768,
     "v": [
@@ -218,11 +226,14 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#ffffff"
   },
   "/images/afono-social-grid.webp": {
-    "w": 476,
+    "w": 1600,
     "v": [
-      400
+      400,
+      640,
+      960,
+      1280
     ],
-    "bg": "#f6f6f6"
+    "bg": "#ab8da2"
   },
   "/images/afono-social-system.webp": {
     "w": 800,
@@ -351,7 +362,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1280,
       1600
     ],
-    "bg": "#f4f0f8"
+    "bg": "#f3eff9"
   },
   "/images/hero-wikimind.webp": {
     "w": 1920,
@@ -556,18 +567,25 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#34221b"
   },
   "/images/pg-clip-popup.webp": {
-    "w": 720,
+    "w": 540,
     "v": [
       400
     ],
-    "bg": "#786433"
+    "bg": "#886b3f"
   },
   "/images/pg-clip-riona.webp": {
-    "w": 720,
+    "w": 540,
     "v": [
       400
     ],
-    "bg": "#aaabad"
+    "bg": "#dadfe9"
+  },
+  "/images/pg-clip-unboxing.webp": {
+    "w": 540,
+    "v": [
+      400
+    ],
+    "bg": "#727890"
   },
   "/images/pg-desmark-logo.webp": {
     "w": 1200,
@@ -997,12 +1015,13 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#ffffff"
   },
   "/images/qis-design-system.webp": {
-    "w": 1600,
+    "w": 3040,
     "v": [
       400,
       640,
       960,
-      1280
+      1280,
+      1600
     ],
     "bg": "#ffffff"
   },
@@ -1029,7 +1048,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#ffffff"
   },
   "/images/qis-interaction-flow.webp": {
-    "w": 1900,
+    "w": 2560,
     "v": [
       400,
       640,
@@ -1065,44 +1084,46 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#ffffff"
   },
   "/images/qis-paper-prototypes.webp": {
-    "w": 1600,
+    "w": 2800,
     "v": [
       400,
       640,
       960,
-      1280
+      1280,
+      1600
     ],
     "bg": "#ffffff"
   },
   "/images/qis-structure-14.webp": {
-    "w": 1600,
+    "w": 1900,
     "v": [
       400,
       640,
       960,
-      1280
+      1280,
+      1600
     ],
-    "bg": "#ffffff"
+    "bg": "#fefefe"
   },
   "/images/qis-structure-21.webp": {
-    "w": 1600,
+    "w": 1658,
     "v": [
       400,
       640,
       960,
       1280
     ],
-    "bg": "#ffffff"
+    "bg": "#fefefe"
   },
   "/images/qis-sus-chart.webp": {
-    "w": 1600,
+    "w": 1672,
     "v": [
       400,
       640,
       960,
       1280
     ],
-    "bg": "#ffffff"
+    "bg": "#fefefe"
   },
   "/images/surugami-brand-system.webp": {
     "w": 1600,
@@ -1115,12 +1136,24 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#feffe8"
   },
   "/images/surugami-concept-map.webp": {
-    "w": 1600,
+    "w": 2400,
     "v": [
       400,
       640,
       960,
-      1280
+      1280,
+      1600
+    ],
+    "bg": "#fefcfc"
+  },
+  "/images/surugami-final-identity.webp": {
+    "w": 2400,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
     ],
     "bg": "#ffffff"
   },
@@ -1132,6 +1165,17 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       960
     ],
     "bg": "#ffffe6"
+  },
+  "/images/surugami-moodboard.webp": {
+    "w": 2400,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ],
+    "bg": "#fffffe"
   },
   "/images/surugami-posters.webp": {
     "w": 1600,
@@ -1193,7 +1237,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "bg": "#ffffff"
   },
   "/images/sync-fm-components.webp": {
-    "w": 1600,
+    "w": 1760,
     "v": [
       400,
       640,
@@ -1201,6 +1245,35 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1280
     ],
     "bg": "#f0edf1"
+  },
+  "/images/sync-fm-dark.webp": {
+    "w": 1526,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
+  },
+  "/images/sync-fm-dial.webp": {
+    "w": 1322,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#f3f3f3"
+  },
+  "/images/sync-fm-light.webp": {
+    "w": 1526,
+    "v": [
+      400,
+      640,
+      960,
+      1280
+    ],
+    "bg": "#ffffff"
   },
   "/images/sync-fm-logo-system.webp": {
     "w": 1600,
@@ -1212,6 +1285,15 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     ],
     "bg": "#f0edf1"
   },
+  "/images/sync-fm-slider.webp": {
+    "w": 1320,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#f3f3f3"
+  },
   "/images/sync-fm-typography.webp": {
     "w": 1600,
     "v": [
@@ -1221,6 +1303,15 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
       1280
     ],
     "bg": "#ffffff"
+  },
+  "/images/sync-fm-verification.webp": {
+    "w": 1302,
+    "v": [
+      400,
+      640,
+      960
+    ],
+    "bg": "#d8c4ea"
   },
   "/images/sync-fm-wireframes.webp": {
     "w": 820,

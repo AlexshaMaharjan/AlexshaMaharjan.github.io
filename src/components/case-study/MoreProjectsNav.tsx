@@ -107,37 +107,41 @@ export default function MoreProjectsNav({
         </h2>
 
         {/*
-          Five across only at `xl`, where the row is wide enough for a 16:9
-          cover to still be a picture. Below that it steps 3 / 2 / 1 — five in a
-          three-column grid leaves two on the last row, which is a gap rather
-          than a fault, and is better than five covers 140px wide.
+          Show only the remaining 3 projects in a clean 3-column grid to avoid
+          cluttering the footer alongside the previous and next step cards.
         */}
-        <ul className="mt-8 grid list-none grid-cols-1 gap-x-6 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {others.map((project) => (
-            <li key={project.slug}>
-              <Link to={localeHref(locale, `/work/${project.slug}`)} className="group block">
-                <div
-                  className="relative overflow-hidden rounded-[10px] border border-card-border bg-surface transition-colors duration-[250ms] ease-out group-hover:border-accent"
-                  style={{ aspectRatio: project.imageAspect }}
-                >
-                  <Image
-                    src={project.image}
-                    alt={project.imageAlt}
-                    fill
-                    sizes="(min-width: 1280px) 230px, (min-width: 1024px) calc(33vw - 80px), (min-width: 480px) calc(50vw - 96px), calc(100vw - 40px)"
-                    className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.02]"
-                  />
-                </div>
-                <h3 className="mt-3 text-[15px] font-semibold leading-[1.3] tracking-[-0.01em] text-ink">
-                  {project.name}
-                </h3>
-                <p className="mt-1 font-mono text-[12px] leading-[1.4] text-ink-secondary">
-                  {project.tags.join(" · ")}
-                </p>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {(() => {
+          const remaining = others.filter((p) => p.slug !== prev?.slug && p.slug !== next?.slug).slice(0, 3);
+          const displayProjects = remaining.length > 0 ? remaining : others.slice(0, 3);
+          return (
+            <ul className="mt-8 grid list-none grid-cols-1 gap-x-6 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
+              {displayProjects.map((project) => (
+                <li key={project.slug}>
+                  <Link to={localeHref(locale, `/work/${project.slug}`)} className="group block">
+                    <div
+                      className="relative overflow-hidden rounded-[10px] border border-card-border bg-surface transition-colors duration-[250ms] ease-out group-hover:border-accent"
+                      style={{ aspectRatio: project.imageAspect }}
+                    >
+                      <Image
+                        src={project.image}
+                        alt={project.imageAlt}
+                        fill
+                        sizes="(min-width: 1024px) calc(33vw - 80px), (min-width: 480px) calc(50vw - 96px), calc(100vw - 40px)"
+                        className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.02]"
+                      />
+                    </div>
+                    <h3 className="mt-3 text-[15px] font-semibold leading-[1.3] tracking-[-0.01em] text-ink">
+                      {project.name}
+                    </h3>
+                    <p className="mt-1 font-mono text-[12px] leading-[1.4] text-ink-secondary">
+                      {project.tags.join(" · ")}
+                    </p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          );
+        })()}
 
         <div className="mt-10 text-center">
           <Link to={localeHref(locale, "/#work")} className="tap-target text-[15px] font-medium text-accent hover:underline">

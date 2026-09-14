@@ -107,7 +107,7 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
                   disciplines appear nowhere else, so without this line the card
                   says what the project is called and never what it is.
                 */}
-                <p className="mt-3 font-mono text-[12px] leading-[1.4] text-ink-secondary">
+                <p className="mt-3 truncate font-mono text-[12px] leading-[1.4] text-ink-secondary">
                   {project.tags.join(" · ")}
                 </p>
               </Link>

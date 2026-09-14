@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type { ComponentType, ReactNode, SVGProps } from "react";
+import type { Locale } from "@/lib/i18n";
 import {
   EyeIcon,
   ResearchIcon,
@@ -149,6 +150,7 @@ function DarkPanel({
  */
 interface ClusterProps {
   stacked?: boolean;
+  locale?: Locale;
 }
 
 const monoLabel = "font-mono text-[9px] text-ink-on-dark-muted";
@@ -200,7 +202,8 @@ function InterviewSketch() {
   );
 }
 
-export function Cluster1() {
+export function Cluster1({ locale = "de" }: ClusterProps) {
+  const isDe = locale === "de";
   return (
     <>
       <Polaroid variant="a" rotate={-1.4} padding="9px 9px 12px" width={146}>
@@ -211,9 +214,11 @@ export function Cluster1() {
           style={{ fontFamily: "var(--font-hand, 'Caveat', 'Segoe Script', 'Bradley Hand', cursive)" }}
           className="mt-[11px] text-[15px] leading-[1.15] text-[#1B1C1E]"
         >
-          &ldquo;I just want something that actually works for me.&rdquo;
+          {isDe ? "„Ich will einfach etwas, das wirklich für mich funktioniert.“" : "“I just want something that actually works for me.”"}
         </p>
-        <p className="mt-[7px] font-mono text-[8px] text-[#696559]">— Interview participant</p>
+        <p className="mt-[7px] font-mono text-[8px] text-[#696559]">
+          {isDe ? "— Interviewteilnehmer" : "— Interview participant"}
+        </p>
       </Polaroid>
 
       {/*
@@ -225,7 +230,7 @@ export function Cluster1() {
         stranded beside the badges.
       */}
       <DarkPanel width={132}>
-        <span className={monoLabel}>Frustration rating</span>
+        <span className={monoLabel}>{isDe ? "Frustrationsgrad" : "Frustration rating"}</span>
         <div className="mt-2.5 flex h-[34px] items-end gap-[5px]">
           {[9, 15, 22, 34, 18].map((h, i) => (
             <span
@@ -249,10 +254,10 @@ export function Cluster1() {
         <Polaroid variant="b" rotate={1.4} padding="14px 13px 15px" width={178}>
           <div className="flex items-baseline justify-between gap-1.5">
             <p className="m-0 text-xs font-semibold tracking-[-0.01em] text-[#17181A]">SWOT</p>
-            <span className="font-mono text-[8px] text-[#696559]">market view</span>
+            <span className="font-mono text-[8px] text-[#696559]">{isDe ? "Marktüberblick" : "market view"}</span>
           </div>
           <div className="mt-[9px] grid grid-cols-2 border border-[#B9B4A8]">
-            {["Strengths", "Weaknesses", "Opportunities", "Threats"].map((label, i) => (
+            {(isDe ? ["Stärken", "Schwächen", "Chancen", "Risiken"] : ["Strengths", "Weaknesses", "Opportunities", "Threats"]).map((label, i) => (
               <div
                 key={label}
                 className={clsx(
@@ -270,15 +275,16 @@ export function Cluster1() {
         </Polaroid>
       </div>
 
-      <IconBadge icon={EyeIcon} label="Icon: observation" active />
-      <IconBadge icon={ResearchIcon} label="Icon: research" />
+      <IconBadge icon={EyeIcon} label={isDe ? "Icon: Beobachtung" : "Icon: observation"} active />
+      <IconBadge icon={ResearchIcon} label={isDe ? "Icon: Recherche" : "Icon: research"} />
     </>
   );
 }
 
 /* ---------- 02 · Define ---------- */
 
-export function Cluster2() {
+export function Cluster2({ locale = "de" }: ClusterProps) {
+  const isDe = locale === "de";
   return (
     <>
       {/*
@@ -292,18 +298,22 @@ export function Cluster2() {
       */}
       <DarkPanel width={186}>
         <div className="flex items-start justify-between gap-2">
-          <span className={monoLabel}>Define problems</span>
+          <span className={monoLabel}>{isDe ? "Probleme definieren" : "Define problems"}</span>
           <TargetIcon className="h-3.5 w-3.5 shrink-0 text-[#A9B1FF]" />
         </div>
         <p className="mt-[9px] text-[10.5px] leading-[1.45] text-[#C4C9D0]">
-          What is the problem? What needs to be solved?
+          {isDe ? "Was ist das Problem? Was muss gelöst werden?" : "What is the problem? What needs to be solved?"}
         </p>
       </DarkPanel>
 
       <Polaroid variant="a" rotate={1.3} padding="14px 13px 17px" width={186}>
-        <p className="m-0 text-xs font-semibold tracking-[-0.01em] text-[#17181A]">Opportunity statement</p>
+        <p className="m-0 text-xs font-semibold tracking-[-0.01em] text-[#17181A]">
+          {isDe ? "Chancenaussage" : "Opportunity statement"}
+        </p>
         <p className="mt-2.5 text-[11.5px] leading-[1.5] text-[#33342E]">
-          Help users move from scattered inputs to clear, confident action.
+          {isDe
+            ? "Nutzern helfen, von verstreuten Eingaben zu klaren, sicheren Handlungen zu gelangen."
+            : "Help users move from scattered inputs to clear, confident action."}
         </p>
         <span aria-hidden="true" className="mt-2 block h-0.5 w-[78%] bg-[#1B3FE0]" />
         <span aria-hidden="true" className="mt-[3px] block h-px w-[54%] bg-[#1B3FE0] opacity-55" />
@@ -311,10 +321,12 @@ export function Cluster2() {
 
       <DarkPanel width={186} tone="accent">
         <div className="flex items-start justify-between gap-2">
-          <span className="font-mono text-[9px] text-white/60">Defining Goals</span>
+          <span className="font-mono text-[9px] text-white/60">{isDe ? "Ziele definieren" : "Defining Goals"}</span>
           <SparkleIcon className="h-3.5 w-3.5 shrink-0 text-white" />
         </div>
-        <p className="mt-[9px] text-[10.5px] leading-[1.45] text-white">What needs to be achieved?</p>
+        <p className="mt-[9px] text-[10.5px] leading-[1.45] text-white">
+          {isDe ? "Was soll erreicht werden?" : "What needs to be achieved?"}
+        </p>
       </DarkPanel>
     </>
   );
@@ -322,7 +334,8 @@ export function Cluster2() {
 
 /* ---------- 03 · Explore ---------- */
 
-function SitemapSketch() {
+function SitemapSketch({ locale }: { locale?: Locale }) {
+  const isDe = locale === "de";
   const node = (key: string, x: number, y: number, w: number, h: number, rot: number, label: string, fs = 11) => (
     <g key={key}>
       <rect x={x} y={y} width={w} height={h} rx={2} transform={`rotate(${rot} ${x + w / 2} ${y + h / 2})`} />
@@ -341,16 +354,16 @@ function SitemapSketch() {
       aria-hidden="true"
       style={{ display: "block", width: "100%", height: "auto", fill: "none", stroke: "#4A4B47", strokeWidth: 1.3, strokeLinecap: "round" }}
     >
-      {node("home", 74, 3, 60, 23, -0.6, "Home", 12)}
+      {node("home", 74, 3, 60, 23, -0.6, isDe ? "Start" : "Home", 12)}
       <path d="M104 26.5 L104 46 M22 46 L186 46 M22 46 L22 58 M104 46 L104 58 M186 46 L186 58" />
-      {node("work", 0, 58, 48, 22, 0.8, "Work")}
-      {node("about", 80, 58, 48, 22, -0.7, "About")}
-      {node("contact", 160, 58, 48, 22, 0.6, "Contact")}
+      {node("work", 0, 58, 48, 22, 0.8, isDe ? "Projekte" : "Work")}
+      {node("about", 80, 58, 48, 22, -0.7, isDe ? "Über mich" : "About")}
+      {node("contact", 160, 58, 48, 22, 0.6, isDe ? "Kontakt" : "Contact")}
       <path d="M24 80 L24 96 M6 96 L44 96 M6 96 L6 106 M44 96 L44 106" />
-      {node("case-1", -1, 106, 30, 19, -1, "Case", 10)}
-      {node("case-2", 33, 106, 30, 19, 0.9, "Case", 10)}
+      {node("case-1", -1, 106, 30, 19, -1, isDe ? "Fall" : "Case", 10)}
+      {node("case-2", 33, 106, 30, 19, 0.9, isDe ? "Fall" : "Case", 10)}
       <path d="M186 80 L186 92 M170 92 h32" style={{ opacity: 0.5 }} />
-      {node("form", 158, 96, 56, 19, 0, "form", 10)}
+      {node("form", 158, 96, 56, 19, 0, isDe ? "Formular" : "form", 10)}
     </svg>
   );
 }
@@ -404,7 +417,8 @@ function CheckItem({ label, checked }: { label: string; checked: boolean }) {
  * German. A child with `w-full` takes a line of its own, by construction, in
  * both locales and at every scale the map is drawn at.
  */
-export function Cluster3({ stacked = false }: ClusterProps) {
+export function Cluster3({ stacked = false, locale = "de" }: ClusterProps) {
+  const isDe = locale === "de";
   return (
     <>
       {/*
@@ -430,7 +444,7 @@ export function Cluster3({ stacked = false }: ClusterProps) {
                 style={{ fontFamily: "var(--font-hand, 'Caveat', 'Segoe Script', 'Bradley Hand', cursive)" }}
                 className="mt-0.5 text-[15px] leading-[1.1] text-[#1B3FE0]"
               >
-                Simplify navigation
+                {isDe ? "Navigation vereinfachen" : "Simplify navigation"}
               </p>
             </div>
           </div>
@@ -439,18 +453,20 @@ export function Cluster3({ stacked = false }: ClusterProps) {
 
       <div className="pb-row flex w-full flex-wrap items-start gap-2.5">
         <DarkPanel width={150}>
-          <p className="m-0 text-xs font-semibold tracking-[-0.01em] text-white">Concept direction</p>
+          <p className="m-0 text-xs font-semibold tracking-[-0.01em] text-white">
+            {isDe ? "Konzeptrichtung" : "Concept direction"}
+          </p>
           <div className="mt-3 flex flex-col gap-[9px]">
-            <CheckItem label="One clear path" checked />
-            <CheckItem label="Grouped by task" checked />
-            <CheckItem label="Everything at once" checked={false} />
+            <CheckItem label={isDe ? "Ein klarer Pfad" : "One clear path"} checked />
+            <CheckItem label={isDe ? "Nach Aufgaben gruppiert" : "Grouped by task"} checked />
+            <CheckItem label={isDe ? "Alles auf einmal" : "Everything at once"} checked={false} />
           </div>
         </DarkPanel>
         <div
           style={{ width: 78, height: 84 }}
           className="box-border flex flex-col justify-between rounded-lg border border-white/10 bg-[#101116] p-2"
         >
-          <span className={monoLabel}>flow</span>
+          <span className={monoLabel}>{isDe ? "Ablauf" : "flow"}</span>
           <svg viewBox="0 0 60 14" aria-hidden="true" style={{ display: "block", width: "100%", height: "auto", fill: "none", stroke: "#8FA6FF", strokeWidth: 1.3, strokeLinecap: "round" }}>
             <circle cx="6" cy="7" r="4" />
             <path d="M11 7h11" />
@@ -461,7 +477,7 @@ export function Cluster3({ stacked = false }: ClusterProps) {
         </div>
         <div
           role="img"
-          aria-label="Wireframe sketch: header block and text lines"
+          aria-label={isDe ? "Wireframe-Skizze: Kopfbereich und Textzeilen" : "Wireframe sketch: header block and text lines"}
           className="box-border flex flex-col gap-1 rounded-lg bg-[#EDEAE3]"
           style={{ width: 58, height: 64, padding: "9px 10px" }}
         >
@@ -491,16 +507,18 @@ export function Cluster3({ stacked = false }: ClusterProps) {
           />
           <Polaroid variant="a" rotate={-0.7}>
             <div className="p-2.5" style={{ backgroundImage: "radial-gradient(rgba(23,24,26,0.16) 1px,transparent 1px)", backgroundSize: "9px 9px" }}>
-              <SitemapSketch />
+              <SitemapSketch locale={locale} />
             </div>
           </Polaroid>
         </div>
         <div className={clsx("flex flex-col gap-2.5", !stacked && "pb-col")} style={{ width: stacked ? undefined : 104, flex: stacked ? "1 1 0%" : undefined }}>
           <DarkPanel>
-            <p className="m-0 text-[10px] leading-[1.4] text-[#C4C9D0]">Exploring structure and flow.</p>
+            <p className="m-0 text-[10px] leading-[1.4] text-[#C4C9D0]">
+              {isDe ? "Struktur und Ablauf erkunden." : "Exploring structure and flow."}
+            </p>
           </DarkPanel>
           <div className="flex flex-col gap-1.5 rounded-lg border border-white/10 bg-[#101116] p-2 box-border" style={{ height: 62 }}>
-            <span className={monoLabel}>variants</span>
+            <span className={monoLabel}>{isDe ? "Varianten" : "variants"}</span>
             <div className="grid flex-1 grid-cols-3 gap-[5px]">
               <div className="flex items-end justify-center rounded-[3px] border border-[#2F55F0] bg-[#15192B] pb-0.5">
                 <span className="font-mono text-[7px] text-accent-on-dark">A</span>
@@ -521,7 +539,8 @@ export function Cluster3({ stacked = false }: ClusterProps) {
 
 /* ---------- 04 · Design ---------- */
 
-export function Cluster4({ stacked = false }: ClusterProps) {
+export function Cluster4({ stacked = false, locale = "de" }: ClusterProps) {
+  const isDe = locale === "de";
   return (
     <>
       {/*
@@ -539,7 +558,7 @@ export function Cluster4({ stacked = false }: ClusterProps) {
         <div className={clsx("flex flex-col gap-3.5", stacked ? "items-start" : "mt-[92px] items-end")}>
           <div
             role="img"
-            aria-label="Colour palette: ink, paper, black, cobalt"
+            aria-label={isDe ? "Farbpalette: Tinte, Papier, Schwarz, Kobalt" : "Colour palette: ink, paper, black, cobalt"}
             className="flex h-10 items-center gap-[5px] rounded-lg border border-white/10 bg-[#101116] p-[9px] box-border"
           >
             {["#33353B", "#F1EFE9", "#0A0A0C", "#1B3FE0"].map((c) => (
@@ -547,9 +566,9 @@ export function Cluster4({ stacked = false }: ClusterProps) {
             ))}
           </div>
           <div className="flex gap-2.5">
-            <IconBadge icon={ContrastIcon} label="Icon: contrast" />
-            <IconBadge icon={RadiusIcon} label="Icon: radius" />
-            <IconBadge icon={GridDotsIcon} label="Icon: grid" />
+            <IconBadge icon={ContrastIcon} label={isDe ? "Icon: Kontrast" : "Icon: contrast"} />
+            <IconBadge icon={RadiusIcon} label={isDe ? "Icon: Radius" : "Icon: radius"} />
+            <IconBadge icon={GridDotsIcon} label={isDe ? "Icon: Raster" : "Icon: grid"} />
           </div>
         </div>
 
@@ -573,7 +592,7 @@ export function Cluster4({ stacked = false }: ClusterProps) {
                 }}
                 className="box-border flex flex-col justify-between bg-[#EDEAE3] p-[9px_10px]"
               >
-              <span className="font-mono text-[8px] text-[#696559]">spacing</span>
+              <span className="font-mono text-[8px] text-[#696559]">{isDe ? "Abstände" : "spacing"}</span>
               <div className="flex flex-col gap-1">
                 <span className="block h-[3px] w-[30%] bg-[#B9B4A8]" />
                 <span className="block h-[3px] w-[58%] bg-[#B9B4A8]" />
@@ -594,11 +613,13 @@ export function Cluster4({ stacked = false }: ClusterProps) {
               style={{ height: stacked ? 94 : 104, transform: stacked ? "none" : "rotate(1.2deg)" }}
               className="box-border flex flex-col gap-[5px] border border-white/10 bg-[#101116] p-2"
             >
-              <span className={monoLabel}>states</span>
-              <span className="block rounded-full bg-[#1B3FE0] py-[3px] text-center text-[8px] text-white">Default</span>
+              <span className={monoLabel}>{isDe ? "Zustände" : "states"}</span>
+              <span className="block rounded-full bg-[#1B3FE0] py-[3px] text-center text-[8px] text-white">
+                {isDe ? "Standard" : "Default"}
+              </span>
               <span className="block rounded-full bg-[#2F55F0] py-[3px] text-center text-[8px] text-white">Hover</span>
               <span className="block rounded-full border border-white/[0.18] py-[3px] text-center text-[8px] text-[#7B7E84]">
-                Disabled
+                {isDe ? "Inaktiv" : "Disabled"}
               </span>
             </div>
           </div>
@@ -608,7 +629,7 @@ export function Cluster4({ stacked = false }: ClusterProps) {
       <div className={clsx("pb-row flex w-full flex-wrap items-start gap-2.5", stacked ? "justify-start" : "justify-end")}>
         <div style={{ width: 198 }} className="box-border rounded-lg bg-[#F1EFE9] p-[13px]">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[9px] text-[#6C6C6C]">Focus</span>
+            <span className="font-mono text-[9px] text-[#6C6C6C]">{isDe ? "Fokus" : "Focus"}</span>
             <span aria-hidden="true" className="flex flex-col gap-[3px]">
               <span className="block h-[1.4px] w-[13px] bg-[#5C5E62]" />
               <span className="block h-[1.4px] w-[13px] bg-[#5C5E62]" />
@@ -616,10 +637,10 @@ export function Cluster4({ stacked = false }: ClusterProps) {
             </span>
           </div>
           <p style={{ textWrap: "balance" }} className="mt-3 text-[15px] font-semibold leading-[1.25] tracking-[-0.015em] text-[#17181A]">
-            Designing frames in Figma
+            {isDe ? "Frames in Figma gestalten" : "Designing frames in Figma"}
           </p>
           <span className="mt-3.5 inline-block rounded-full bg-[#1B3FE0] px-3 py-[7px] text-[10px] font-medium text-white">
-            Get started →
+            {isDe ? "Loslegen →" : "Get started →"}
           </span>
         </div>
 
@@ -632,7 +653,7 @@ export function Cluster4({ stacked = false }: ClusterProps) {
           </span>
           <div>
             <span className="block text-[9.5px] text-[#5C5E62]">Inter Display</span>
-            <span className="block font-mono text-[9px] text-[#6C6C6C]">Mono labels</span>
+            <span className="block font-mono text-[9px] text-[#6C6C6C]">{isDe ? "Mono-Labels" : "Mono labels"}</span>
           </div>
         </div>
       </div>
@@ -660,17 +681,18 @@ function Avatar({ bg, offset }: { bg: string; offset: boolean }) {
   );
 }
 
-export function Cluster5() {
+export function Cluster5({ locale = "de" }: ClusterProps) {
+  const isDe = locale === "de";
   return (
     <>
       <div
         style={{ width: 104, height: 120 }}
         className="box-border flex flex-col gap-[9px] rounded-lg border border-white/10 bg-[#141519] p-2.5"
       >
-        <span className={monoLabel}>Before</span>
+        <span className={monoLabel}>{isDe ? "Vorher" : "Before"}</span>
         <div
           role="img"
-          aria-label="Earlier interface: dense, crowded layout"
+          aria-label={isDe ? "Frühere Oberfläche: dichtes, überladenes Layout" : "Earlier interface: dense, crowded layout"}
           className="box-border flex flex-1 flex-col gap-[3px] rounded-sm bg-[#1B1C21] p-[7px]"
         >
           <span className="block h-[3px]" style={{ background: "rgba(255,255,255,0.24)" }} />
@@ -690,7 +712,7 @@ export function Cluster5() {
         <Pin />
         <div style={{ height: 120 }} className="box-border flex flex-col items-center rounded-lg bg-[#1B3FE0] p-2.5">
           <span style={{ color: "rgba(255,255,255,0.85)" }} className="self-start font-mono text-[9px]">
-            After
+            {isDe ? "Nachher" : "After"}
           </span>
           <svg
             viewBox="0 0 48 48"
@@ -707,13 +729,15 @@ export function Cluster5() {
 
       <div style={{ width: 120 }}>
         <Polaroid variant="b" rotate={1.6} padding="11px 11px 14px">
-          <span className="font-mono text-[9px] text-[#696559]">User testing</span>
+          <span className="font-mono text-[9px] text-[#696559]">{isDe ? "Nutzertests" : "User testing"}</span>
           <div className="mt-2.5 flex">
             <Avatar bg="#DAD4C8" offset={false} />
             <Avatar bg="#CFC9BC" offset />
             <Avatar bg="#DAD4C8" offset />
           </div>
-          <p className="mt-2.5 text-[11px] leading-[1.45] text-[#33342E]">&ldquo;This just makes sense.&rdquo;</p>
+          <p className="mt-2.5 text-[11px] leading-[1.45] text-[#33342E]">
+            {isDe ? "„Das ergibt einfach Sinn.“" : "“This just makes sense.”"}
+          </p>
         </Polaroid>
       </div>
 
@@ -721,14 +745,14 @@ export function Cluster5() {
         style={{ width: 158 }}
         className="box-border flex items-center justify-between rounded-lg border border-white/[0.12] bg-[#0A0A0C] p-[10px_12px]"
       >
-        <span className="text-[11px] text-[#DDE1E6]">Validated</span>
+        <span className="text-[11px] text-[#DDE1E6]">{isDe ? "Validiert" : "Validated"}</span>
         <ValidatedIcon className="h-[17px] w-[17px] text-accent-on-dark" strokeWidth={1.6} />
       </div>
       <div
         style={{ width: 158 }}
         className="box-border flex items-center justify-between rounded-lg border border-white/[0.12] bg-[#0A0A0C] p-[10px_12px]"
       >
-        <span className="text-[11px] text-[#DDE1E6]">Iterate</span>
+        <span className="text-[11px] text-[#DDE1E6]">{isDe ? "Iterieren" : "Iterate"}</span>
         <LoopIcon className="h-[17px] w-[17px] text-accent-on-dark" strokeWidth={1.6} />
       </div>
     </>

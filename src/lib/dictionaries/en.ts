@@ -310,7 +310,7 @@ const en: Dictionary = {
     eyebrow: "End of the archive",
     heading: "More professional work, this way.",
     copy: "Head back to the portfolio to see my case studies, design process and selected project work.",
-    cta: "Back to the portfolio →",
+    cta: "Back to the portfolio",
   },
   playgroundViewer: {
     made: "Made",

@@ -55,6 +55,12 @@ export default function ContentsNav({
   dictionary: Dictionary;
 }) {
   const active = useActiveSection(sections);
+  const [isOpen, setIsOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -92,34 +98,60 @@ export default function ContentsNav({
 
       {/*
         Sticky under the header below `xl` (`MILESTONE-016` task 2).
-
-        The desktop rail is a sticky column beside the article; below `xl` there
-        is no column to put it in, so it was a `<details>` at the top of the page
-        that scrolled away with the first section. On a case study that is nine
-        sections and several thousand words long, "on this page" is worth having
-        *while* you are on the page, which is the whole reason the desktop rail
-        is sticky too.
-
-        `z-[100]` clears the article and stays under the header (`z-[200]`), and
-        the background is opaque because sections scroll underneath it.
+        Floating pill with 12px clearance under navbar, compact height,
+        and auto-closing drawer on item selection.
       */}
-      <details className="sticky top-[var(--header-h)] z-[100] mb-10 rounded-lg border border-border bg-white p-3.5 shadow-[0_2px_10px_rgba(20,30,60,0.06)] xl:hidden">
-        <summary className="cursor-pointer text-[14px] font-medium">
-          {dictionary.caseStudy.onThisPage}
-          <span className="ml-2 font-normal text-ink-secondary">
-            · {sections[active]?.navLabel}
+      <details
+        open={isOpen}
+        onToggle={(e) => setIsOpen((e.currentTarget as HTMLDetailsElement).open)}
+        className="sticky top-[calc(var(--header-h)+12px)] z-[100] mb-8 rounded-lg border border-border bg-white/95 px-3.5 py-2 shadow-[0_4px_16px_rgba(20,30,60,0.08)] backdrop-blur-md transition-all xl:hidden"
+      >
+        <summary
+          onClick={(e) => {
+            e.preventDefault();
+            setIsOpen((prev) => !prev);
+          }}
+          className="flex cursor-pointer list-none items-center justify-between text-[13px] font-medium select-none [&::-webkit-details-marker]:hidden"
+        >
+          <span className="flex items-center gap-1.5 truncate">
+            <span>{dictionary.caseStudy.onThisPage}</span>
+            <span className="truncate font-normal text-ink-secondary">
+              · {sections[active]?.navLabel}
+            </span>
           </span>
+          <svg
+            className={`ml-2 h-4 w-4 shrink-0 text-ink-muted transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+            aria-hidden="true"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
         </summary>
-        <nav aria-label={dictionary.caseStudy.onThisPage} className="flex flex-col gap-2.5 pt-3.5">
+        <nav
+          aria-label={dictionary.caseStudy.onThisPage}
+          className="mt-2 flex max-h-[48vh] flex-col gap-0.5 overflow-y-auto border-t border-border/60 pt-2 text-[13px]"
+        >
           {sections.map((section, i) => (
             <a
               key={section.id}
               href={`#${section.id}`}
+              onClick={() => setIsOpen(false)}
               aria-current={i === active ? "location" : undefined}
-              className={`text-[14px] ${i === active ? "text-accent" : "text-ink-secondary hover:text-accent"}`}
+              className={`flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors ${
+                i === active
+                  ? "bg-accent/10 font-medium text-accent"
+                  : "text-ink-secondary hover:bg-surface hover:text-accent"
+              }`}
             >
-              <span className="mr-2 font-mono text-[12px] text-ink-muted">{section.number}</span>
-              {section.navLabel}
+              <span className={`font-mono text-[11px] ${i === active ? "text-accent" : "text-ink-muted"}`}>
+                {section.number}
+              </span>
+              <span className="truncate">{section.navLabel}</span>
             </a>
           ))}
         </nav>

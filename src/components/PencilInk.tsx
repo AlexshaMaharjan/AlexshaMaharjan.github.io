@@ -82,17 +82,15 @@ const WOBBLE_JITTER_PX = 2.2;
 /**
  * The fast pass: finer than the pen is wide, which is the whole trick.
  *
- * 2.6px against a 4px arrow stroke. Above about 4 — once the wavelength passes
+ * 2.0px against a 3px arrow stroke. Above about 3 — once the wavelength passes
  * the stroke width — the two edges start moving together again and the effect
  * collapses back into more wobble.
  *
- * 1.8px of stray is deliberately the largest number here and it is still safe:
- * `placeScribbles` prices arrow clearance to the pixel, and `content-audit`
- * already tolerates 40 CSS px of graze over a picture, so under 2px of fray
- * cannot turn a clear arrow into a crossing one.
+ * 1.35px of stray is safe: `placeScribbles` prices arrow clearance to the pixel,
+ * and `content-audit` already tolerates 40 CSS px of graze over a picture.
  */
-const FIBRE_WAVELENGTH_PX = 2.6;
-const FIBRE_JITTER_PX = 1.8;
+const FIBRE_WAVELENGTH_PX = 2.0;
+const FIBRE_JITTER_PX = 1.35;
 
 /**
  * Text takes a lighter hand than a 4px pen.

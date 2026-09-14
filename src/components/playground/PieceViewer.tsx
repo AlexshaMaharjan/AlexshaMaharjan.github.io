@@ -640,11 +640,11 @@ export default function PieceViewer({
             <div
               className={
                 stacked
-                  ? "flex w-full shrink-0 flex-col gap-x-8 gap-y-3 sm:flex-row sm:items-start sm:justify-between"
+                  ? "flex w-full shrink-0 flex-col gap-3 max-w-[860px]"
                   : "shrink-0 sm:w-[260px] lg:w-[320px]"
               }
             >
-              <div className={stacked ? "min-w-0 sm:max-w-[58%]" : undefined}>
+              <div>
                 {slot.description ? (
                   <p className="text-[14px] leading-[1.55] text-ink-body sm:text-[15px] sm:leading-[1.6]">
                     {slot.description[locale]}
@@ -667,7 +667,7 @@ export default function PieceViewer({
               <dl
                 className={
                   stacked
-                    ? "flex shrink-0 flex-wrap gap-x-6 gap-y-2 text-[13px] sm:max-w-[40%]"
+                    ? "flex shrink-0 flex-wrap items-center gap-x-6 gap-y-2 text-[13px]"
                     : slot.description
                       ? "mt-6"
                       : ""

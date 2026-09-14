@@ -482,16 +482,22 @@ function aimPoint(box: Rect, from: { x: number; y: number }) {
  * the geometry is worked out here and not in the renderer: whether an arrow
  * crosses a picture is decided before a seat is chosen, not after.
  */
-function arrowBetween(from: Rect, to: Rect, lean: number, follow: number, unitsPerPx: number) {
-  const land = aimPoint(to, { x: from.x + from.w / 2, y: from.y + from.h / 2 });
-  /*
-   * Off the note's edge and then `START_GAP_PX` further, along the line it was
-   * about to travel anyway. Pushing out along the *edge normal* was the other
-   * option and it is worse: on a note four times wider than it is tall the
-   * normal is almost always vertical, so an arrow heading sideways would be
-   * lifted straight up off the text and then have to bend back down.
-   */
-  const reach = edgePoint(from, land, 0);
+function arrowBetween(
+  from: Rect,
+  to: Rect,
+  lean: number,
+  follow: number,
+  unitsPerPx: number,
+  startCorner?: "bottom-right" | "bottom-left" | "top-right" | "top-left",
+) {
+  const cornerPoint =
+    startCorner === "bottom-right"
+      ? { x: from.x + from.w - 80, y: from.y + from.h - 40 }
+      : startCorner === "bottom-left"
+      ? { x: from.x + 80, y: from.y + from.h - 40 }
+      : undefined;
+  const land = aimPoint(to, cornerPoint ?? { x: from.x + from.w / 2, y: from.y + from.h / 2 });
+  const reach = cornerPoint ?? edgePoint(from, land, 0);
   /*
    * How much room this seat actually has: from the note's own edge to the
    * nearest point of the picture, with no air taken off either end yet.
@@ -524,7 +530,7 @@ function arrowBetween(from: Rect, to: Rect, lean: number, follow: number, unitsP
     x: land.x + land.ux * TIP_GAP_PX * unitsPerPx * share,
     y: land.y + land.uy * TIP_GAP_PX * unitsPerPx * share,
   };
-  const edge = edgePoint(from, end, 0);
+  const edge = cornerPoint ?? edgePoint(from, end, 0);
   const outward = Math.hypot(end.x - edge.x, end.y - edge.y) || 1;
   /*
    * The shaft is paid first and the gap gets what is left.
@@ -852,6 +858,7 @@ function routeArrow(
   obstacles: Rect[],
   unitsPerPx: number,
   coarse = false,
+  startCorner?: "bottom-right" | "bottom-left" | "top-right" | "top-left",
 ) {
   let best: { arrow: ReturnType<typeof arrowBetween>; score: number } | undefined;
   for (const lean of LEANS) {
@@ -859,7 +866,7 @@ function routeArrow(
     // tie is 1:1 and no longer 0.55.
     const follows = coarse ? [lean] : [lean, ...FOLLOWS];
     for (const follow of follows) {
-      const arrow = arrowBetween(box, anchor, lean, follow, unitsPerPx);
+      const arrow = arrowBetween(box, anchor, lean, follow, unitsPerPx, startCorner);
       const score = scoreArrow(arrow, obstacles, lean, follow);
       if (!best || score < best.score) best = { arrow, score };
     }
@@ -1280,15 +1287,25 @@ export function placeScribbles(
 
     // `seats` is never empty — the ring always contributes — so the fallbacks
     // that used to stand behind this are gone with the all-or-nothing filter.
-    const box = clampToFrame(seat ?? anchor);
+    const box = scribble.position
+      ? clampToFrame({ x: scribble.position.x, y: scribble.position.y, w: size.w, h: size.h })
+      : clampToFrame(seat ?? anchor);
     placed.push(box);
 
     // Anchored on the side away from the picture, so the note grows outwards
     // and the arrow leaves from the edge nearest what it points at.
-    const align: "left" | "right" = box.x + box.w / 2 > anchor.x + anchor.w / 2 ? "left" : "right";
+    const align: "left" | "right" =
+      scribble.align ?? (box.x + box.w / 2 > anchor.x + anchor.w / 2 ? "left" : "right");
     // A clamped or swept box is not the one that was routed, so that arrow is
     // re-drawn from where the note actually ended up.
-    const arrow = routeArrow(box, anchor, [...crossable, box], unitsPerPx).arrow;
+    const arrow = routeArrow(
+      box,
+      anchor,
+      [...crossable, box],
+      unitsPerPx,
+      false,
+      scribble.arrowStart,
+    ).arrow;
 
     return {
       key: scribble.text.en,

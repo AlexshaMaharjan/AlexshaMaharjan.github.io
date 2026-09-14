@@ -23,7 +23,6 @@ export default function LanguageSwitch({
   return (
     <Link
       to={to}
-      state={{ preserveScroll: true, scrollY: typeof window !== "undefined" ? window.scrollY : 0 }}
       aria-label={ariaLabel}
       className={`inline-flex items-center rounded-full border border-border px-4 py-2 text-[13px] font-semibold text-ink transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent-focus ${className}`}
     >

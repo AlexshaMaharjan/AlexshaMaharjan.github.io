@@ -487,6 +487,13 @@
     scroll-margin-top: calc(var(--header-h) + 16px - var(--anchor-pad, 0px));
   }
 
+  /*
+   * An anchor that should be vertically centered in the viewport (e.g. #contact black card).
+   */
+  [data-anchor-center] {
+    scroll-margin-top: max(calc(var(--header-h) + 16px), calc((100vh - 700px) / 2));
+  }
+
 
   /*
    * The drawer's two arrivals (`MILESTONE-013` task 4). Keyframes rather than a
@@ -748,7 +755,7 @@
    * it.
    */
   .pg-page {
-    background-color: #f0f4fc;
+    background-color: #f8fafd;
   }
 
   .pg-card {

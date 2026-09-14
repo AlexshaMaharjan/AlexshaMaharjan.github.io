@@ -162,6 +162,10 @@ export interface CollageScribble {
    * note in the wrong place or no note at all.
    */
   prefer?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  /** Optional explicit position for the note box in 16000x10000 frame units. */
+  position?: { x: number; y: number };
+  align?: "left" | "right";
+  arrowStart?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
 }
 
 export interface CollageCard {
@@ -320,12 +324,12 @@ const cards: CardFrame[] = [
         x: 7525, y: 3678, w: 2543, h: 3596, src: "/images/pg-sunset.webp",
       },
       {
-        x: 4800, y: 2500, w: 2047, h: 3038, src: "/images/pg-painting-luffy.webp",
+        x: 4800, y: 3200, w: 2047, h: 2800, src: "/images/pg-painting-luffy.webp",
         // The design pulls the crop to the picture's right edge.
         focus: "100% 50%",
       },
       {
-        x: 4443, y: 5816, w: 2629, h: 2722, src: "/images/pg-flyer.webp",
+        x: 4443, y: 6200, w: 2629, h: 2722, src: "/images/pg-flyer.webp",
       },
       {
         x: 2604, y: 5677, w: 1660, h: 1999, src: "/images/pg-packaging-crisps.webp",
@@ -334,16 +338,16 @@ const cards: CardFrame[] = [
         x: 13187, y: 4111, w: 2109, h: 2812, src: "/images/pg-painting-framed.webp",
       },
       {
-        x: 10342, y: 6013, w: 2571, h: 1820, src: "/images/pg-kalender-maerz.webp", viewer: "beside",
+        x: 10342, y: 3952, w: 2438, h: 1725, src: "/images/pg-kalender-maerz.webp", viewer: "beside",
       },
       {
         x: 7192, y: 7676, w: 2882, h: 2037, src: "/images/pg-kalender-oktober.webp", viewer: "beside",
       },
       {
-        x: 5569, y: 1403, w: 1688, h: 1194, src: "/images/pg-kalender-dezember.webp", viewer: "beside",
+        x: 4800, y: 1500, w: 2047, h: 1448, src: "/images/pg-kalender-dezember.webp", viewer: "beside",
       },
       {
-        x: 10342, y: 3952, w: 2438, h: 1725, src: "/images/pg-kalender-juni.webp", viewer: "beside",
+        x: 10400, y: 5880, w: 2438, h: 1725, src: "/images/pg-kalender-juni.webp", viewer: "beside",
       },
       {
         x: 681, y: 4348, w: 1595, h: 2128, src: "/images/pg-gift-popup.webp",
@@ -502,66 +506,67 @@ const cards: CardFrame[] = [
     accent: "#6A34B0",
     slots: [
       {
-        x: 3447, y: 1303, w: 1750, h: 1190, src: "/images/pg-double-portrait.webp",
+        x: 3392, y: 1225, w: 1796, h: 1282, src: "/images/pg-double-portrait.webp",
       },
       {
-        x: 5514, y: 1076, w: 3977, h: 1190, src: "/images/pg-vtri-banner.webp",
+        x: 5493, y: 1026, w: 4003, h: 1211, src: "/images/pg-vtri-banner.webp",
       },
       {
-        x: 10096, y: 1146, w: 2700, h: 2701, src: "/images/pg-gift-cube.webp",
+        x: 9882, y: 1225, w: 2035, h: 2920,
+        src: "/images/pg-clip-unboxing.webp", video: "/videos/pg-gift-unboxing.mp4", film: "/videos/pg-gift-unboxing-full.mp4",
       },
       {
-        x: 1104, y: 3973, w: 1475, h: 1967,
-        src: "/images/pg-clip-explosion.webp", video: "/videos/pg-gift-explosion.mp4", film: "/videos/pg-gift-explosion-full.mp4",
-        filmHd: "/videos/pg-gift-explosion-hd.mp4",
+        x: 1104, y: 4245, w: 1357, h: 2350,
+        src: "/images/pg-clip-popup.webp", video: "/videos/pg-gift-popup.mp4", film: "/videos/pg-gift-popup-full.mp4",
       },
       {
-        x: 2483, y: 2739, w: 1677, h: 2235, src: "/images/pg-frame-detail.webp",
+        x: 2740, y: 3006, w: 1556, h: 2236, src: "/images/pg-frame-detail.webp",
       },
       {
-        x: 4256, y: 2627, w: 1729, h: 2573,
+        x: 4482, y: 2806, w: 1623, h: 3105,
         src: "/images/pg-clip-riona.webp", video: "/videos/pg-gift-riona.mp4", film: "/videos/pg-gift-riona-full.mp4",
-        filmHd: "/videos/pg-gift-riona-hd.mp4",
       },
       {
-        x: 6570, y: 2493, w: 2939, h: 1907, src: "/images/pg-kalender-februar.webp", viewer: "beside",
+        x: 6570, y: 2664, w: 2926, h: 2208, src: "/images/pg-kalender-februar.webp", viewer: "beside",
       },
       {
-        x: 9776, y: 3600, w: 2288, h: 2000, src: "/images/pg-kalender-september.webp", viewer: "beside",
+        x: 9776, y: 4387, w: 2274, h: 1609, src: "/images/pg-kalender-september.webp", viewer: "beside",
       },
       {
-        x: 12422, y: 3867, w: 1564, h: 2086, src: "/images/pg-scooter.webp",
+        x: 12422, y: 4131, w: 1556, h: 2236, src: "/images/pg-scooter.webp",
       },
       {
-        x: 2700, y: 5667, w: 1400, h: 1800, src: "/images/pg-logo.webp", fit: "contain",
+        x: 2740, y: 5700, w: 1400, h: 1800, src: "/images/pg-logo.webp", fit: "contain",
         focus: "50% 34%",
       },
       {
-        x: 4401, y: 5333, w: 1836, h: 2597, src: "/images/pg-character.webp",
+        x: 4482, y: 6239, w: 1702, h: 2593, src: "/images/pg-character.webp",
       },
       {
-        x: 6628, y: 5269, w: 2863, h: 3853, src: "/images/pg-vtri-store.webp",
+        x: 6570, y: 5214, w: 2913, h: 3946, src: "/images/pg-vtri-store.webp",
       },
       {
-        x: 9809, y: 6402, w: 2227, h: 2380, src: "/images/pg-gift-popupbox.webp",
+        x: 9762, y: 6382, w: 2274, h: 2274, src: "/images/pg-gift-popupbox.webp",
       },
     ],
     scribbles: [
       {
         target: "/images/pg-frame-detail.webp",
-        text: { en: "I do crafts too", de: "Ich mache auch Handarbeit" },
-        prefer: "top-left",
+        text: { en: "I do crafts too", de: "Ich mache auch\nHandwerk" },
+        position: { x: 340, y: 1750 },
+        align: "left",
+        arrowStart: "bottom-right",
       },
       {
         target: "/images/pg-vtri-store.webp",
-        text: { en: "my design in a\nreal store", de: "Mein Design in\neinem echten Laden" },
+        text: { en: "my design in a real store", de: "Mein Design in einem echten Laden" },
         prefer: "bottom-left",
       },
       {
-        target: "/images/pg-gift-cube.webp",
-        text: { en: "I love making\ncustom gifts.", de: "Ich liebe persönliche\nGeschenke." },
+        target: "/images/pg-clip-unboxing.webp",
+        text: { en: "I love making custom gifts.", de: "Ich liebe individuelle Geschenke." },
         tone: "accent",
-        prefer: "top-right",
+        prefer: "bottom-right",
       },
     ],
   },

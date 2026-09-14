@@ -11,16 +11,10 @@
  * cannot drift again.
  */
 export const PROJECT_TAGS = {
-  afono: ["Brand Strategy", "Visual Identity", "Fashion Graphics", "UI/UX Design", "Web Design"],
-  surugami: ["Brand Identity", "Graphic Design", "Print Design", "Web Design"],
-  wikimind: ["Brand Strategy", "Visual Identity", "UI/UX Design", "Web Design"],
-  "sync-fm": ["Interaction Design", "UI/UX Design", "Human-AI Interaction", "Audio Experience"],
-  "barrier-free-kitchen": [
-    "Inclusive Design",
-    "Design Research",
-    "Spatial Design",
-    "Physical Prototyping",
-    "3D Modelling & Animation",
-  ],
-  "qis-portal": ["UX Research", "Information Architecture", "UI/UX Design", "Usability Testing"],
+  afono: ["Brand Identity", "Fashion Graphics", "UI/UX Design"],
+  surugami: ["Brand Identity", "Print Design", "Web Design"],
+  wikimind: ["Brand Identity", "UI/UX Design", "Web Design"],
+  "sync-fm": ["UI/UX Design", "Interaction Design", "Audio Experience"],
+  "barrier-free-kitchen": ["Inclusive Design", "Design Research", "Spatial Design"],
+  "qis-portal": ["UX Research", "Information Architecture", "UI/UX Design"],
 } as const satisfies Record<string, readonly string[]>;

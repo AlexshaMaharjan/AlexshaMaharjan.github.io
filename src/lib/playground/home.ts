@@ -13,7 +13,7 @@ const home: PlaygroundHomeLocaleContent = {
   en: {
     eyebrow: "Personal work collection",
     heading: "Personal work and experiments.",
-    intro: "Personal projects, crafts and experiments collected over time, from things I make for fun to ideas I use to learn something new.",
+    intro: "Projects, crafts and experiments collected over time, from things I make for fun to ideas I use to learn something new.",
     /*
      * The kinds of making that are actually on the four collages, in the
      * homepage's own tag idiom so the two first screens read as one site
@@ -27,7 +27,7 @@ const home: PlaygroundHomeLocaleContent = {
   de: {
     eyebrow: "Sammlung persönlicher Arbeiten",
     heading: "Persönliche Arbeiten und Experimente.",
-    intro: "Persönliche Projekte, Handarbeit und Experimente im Laufe der Zeit – von Dingen aus Freude bis zu Ideen, mit denen ich Neues lerne.",
+    intro: "Projekte, Handarbeit und Experimente im Laufe der Zeit, von Dingen aus Freude bis zu Ideen, mit denen ich Neues lerne.",
     tags: "Handarbeit · Digitale Kunst · Grafikdesign · Apps · Fotografie & 3D",
     pauseMotion: "Clips anhalten",
     playMotion: "Clips abspielen",

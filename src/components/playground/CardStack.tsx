@@ -185,19 +185,30 @@ export default function CardStack({
   }, []);
 
   /*
-   * Stepping wraps inside the card's own colour, because a collage is a loop
-   * and not a list: there is no first or last picture on a card, only the one
-   * you started at. Crossing to another colour is the `onSelectCard` below, and
-   * is deliberately a different gesture — running next off the end of one card
-   * and into another would make the four groupings invisible.
+   * Stepping advances across cards/categories when reaching the boundary:
+   * pressing Next at the end of a card opens the first piece of the next card,
+   * and pressing Prev at the beginning opens the last piece of the previous card.
    */
   const step = useCallback(
     (delta: number) =>
       setOpen((current) => {
         if (!current) return current;
-        const count = cards[current.card]?.slots.length ?? 0;
-        if (!count) return current;
-        return { card: current.card, slot: (current.slot + delta + count) % count };
+        const cardCount = cards.length;
+        if (!cardCount) return current;
+        const currentSlots = cards[current.card]?.slots.length ?? 0;
+        if (!currentSlots) return current;
+
+        const nextSlot = current.slot + delta;
+        if (nextSlot >= currentSlots) {
+          const nextCard = (current.card + 1) % cardCount;
+          return { card: nextCard, slot: 0 };
+        }
+        if (nextSlot < 0) {
+          const prevCard = (current.card - 1 + cardCount) % cardCount;
+          const prevSlots = cards[prevCard]?.slots.length ?? 1;
+          return { card: prevCard, slot: prevSlots - 1 };
+        }
+        return { card: current.card, slot: nextSlot };
       }),
     [cards],
   );
@@ -518,7 +529,7 @@ export default function CardStack({
   }, [cards.length]);
 
   return (
-    <div ref={rootRef} className="mx-auto max-w-[1440px] px-2.5 sm:px-5 md:px-20">
+    <div ref={rootRef} className="mx-auto max-w-[1440px] px-0 sm:px-5 md:px-20">
       {/*
         The motion control, parked at the bottom of the screen for as long as
         the deck is on it (WCAG 2.2.2). It has no height of its own, so it
@@ -542,7 +553,7 @@ export default function CardStack({
           type="button"
           onClick={onToggleMotion}
           aria-pressed={paused}
-          className="tap-target pointer-events-auto absolute bottom-0 right-0 gap-2 rounded-full border border-card-border bg-white/90 px-4 py-2 text-[13px] text-ink-secondary shadow-[0_2px_10px_rgba(20,30,60,0.10)] backdrop-blur transition-colors hover:border-accent hover:text-accent"
+          className="tap-target pointer-events-auto absolute bottom-0 right-3 sm:right-0 gap-2 rounded-full border border-card-border bg-white/90 px-4 py-2 text-[13px] text-ink-secondary shadow-[0_2px_10px_rgba(20,30,60,0.10)] backdrop-blur transition-colors hover:border-accent hover:text-accent"
         >
           <span aria-hidden="true" className="text-[10px] leading-none">
             {paused ? "▶" : "❚❚"}
@@ -555,7 +566,8 @@ export default function CardStack({
         <Fragment key={card.index}>
           <div
             data-stack-slot
-            className="sticky mx-auto"
+            id={`card-${card.index}`}
+            className="sticky mx-auto w-full"
             style={{
               maxWidth: CARD_MAX_W,
               top: `calc(var(--header-h) + ${GAP + i * PEEK}px)`,
@@ -577,13 +589,14 @@ export default function CardStack({
           >
             <article
               data-stack-card
+              id={`deck-${card.index}`}
               aria-label={card.label[locale]}
               /*
                * `container-type: size` is what `Collage`'s stage is measured
                * against — without it the collage has nothing to be contained by
                * and collapses.
                */
-              className="pg-card relative h-full w-full overflow-hidden rounded-[28px] border border-card-border shadow-[0_-6px_44px_rgba(20,30,60,0.10)] [container-type:size]"
+              className="pg-card relative h-full w-full overflow-hidden rounded-none border-y border-card-border shadow-[0_-6px_44px_rgba(20,30,60,0.10)] [container-type:size] sm:rounded-[28px] sm:border"
               /*
                * `--pg-accent` is the colour this card leaves the blue for, and
                * it is inherited rather than passed: the notes, the index and the

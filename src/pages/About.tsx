@@ -18,7 +18,7 @@ export default function About() {
     <>
       <Seo title={`${about.heading} — Alexsha Maharjan`} description={dictionary.meta.description} />
       <section className="pt-[var(--page-top)]">
-        <div className="container-page">
+        <div data-inview="text" className="container-page">
           {/*
               The back link is desktop-only, and it sits on the eyebrow's line
               rather than on one of its own (`MILESTONE-016` tasks 2 and 5).
@@ -48,43 +48,8 @@ export default function About() {
 
       <section className="pt-12 md:pt-[72px]">
         <div className="container-page">
-          {/*
-              The text column runs to the page margin (`MILESTONE-019` task 3).
-
-              It was `max-w-[640px]` inside a column that is about 936px wide at
-              1440, so the biography stopped a third of the way short of the
-              right-hand margin and the page looked like a 280px picture beside
-              a 640px slab with 300px of nothing after it. The owner's reading —
-              "why does the text always end in the middle" — is exactly what
-              that is.
-
-              The picture is deliberately left at 280 (`MILESTONE-018` task 3
-              settled that) and the balance is found on the other side instead:
-              the measure goes up with the type, 19px on 1.7 rather than 18 on
-              1.65, so a full line is about 90 characters rather than the 105 a
-              936px column of 18px would have given. Longer than a book column
-              and shorter than the wall of text the cap was there to prevent.
-            */}
           <div data-inview className="grid grid-cols-1 items-center gap-10 md:grid-cols-[320px_minmax(0,1fr)] md:gap-16 xl:gap-20">
             <div>
-              {/*
-                  The 58px is headroom for the "Nepal → Germany" note, which is
-                  `hidden md:block`. Below `md` there is no note, so the padding
-                  was 58px of nothing between the heading and the portrait
-                  (`MILESTONE-015` task 3).
-                */}
-              {/*
-                  280px, not 460 (`MILESTONE-018` task 3) — the same ~60% the
-                  homepage's about section took, so the two portraits still
-                  agree. The column is sized to the picture, and the two hand
-                  notes below are scaled with it: they were drawn against a
-                  460px picture and a 28px hand on a 280px picture is a note
-                  wider than the thing it points at.
-                */}
-              {/* The top padding is the room the "Nepal to Germany" note sits
-                  in. It was `md:` only, which is why that note could not be
-                  shown below `md` without landing on the photograph
-                  (`MILESTONE-023` task 8). */}
               <div className="relative max-w-[320px] pt-[44px] md:pt-[58px]">
                 <div className="relative z-[1] aspect-[3/4] overflow-hidden rounded-[10px] border border-card-border bg-surface">
                   <Image
@@ -97,98 +62,32 @@ export default function About() {
                 </div>
 
                 {/*
-                  Positioned as a fraction of the portrait column rather than at
-                  a fixed 150px: at the `md` layout the column is less than half
-                  its desktop width, and a fixed offset pushed this note out of
-                  the column and on top of the Biography heading between 768px
-                  and about 870px (ISSUE-029). 30% reproduces the desktop
-                  placement it had.
-
-                  The arrow is a sibling of the words with a margin between
-                  them, not a child overlapping them at `top-[18px]`
-                  (`MILESTONE-019` task 5) — see `HandArrow` for the rest.
+                  Top annotation: arrow curves up-right from the top-left of the portrait,
+                  pointing directly to the handwritten origin note ("Nepal → Germany").
+                  Matches Images/Container (How did I start designing_ — Alexsha Maharjan).png.
                 */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-[26%] top-0 z-[3] flex flex-col items-start [transform:rotate(-4deg)] md:left-[30%]"
+                  className="pointer-events-none absolute left-[16%] top-5 z-[3] flex items-start gap-1 md:left-[19%] md:top-6"
                 >
-                  <span className="pencil-ink whitespace-nowrap font-hand text-[17px] font-bold leading-none text-accent md:text-[19px]">
+                  <HandArrow direction="up-right" width={48} className="pencil-arrow shrink-0 text-accent md:w-[52px]" />
+                  <span className="pencil-ink -ml-1 mt-0.5 whitespace-nowrap font-hand text-[17px] font-bold leading-none text-accent [transform:rotate(-3deg)] md:text-[19px]">
                     {about.handNoteOrigin}
                   </span>
-                  {/* The arrow is drawn at its own floor on a phone — 48px, the
-                      size below which `HandArrow`'s head stops being an
-                      arrowhead — and at the desktop 52 from `md` up. */}
-                  <HandArrow direction="down-left" width={48} className="pencil-arrow mt-1.5 text-accent md:hidden" />
-                  <HandArrow direction="down-left" width={52} className="pencil-arrow mt-2 hidden text-accent md:block" />
                 </div>
 
                 {/*
-                  Under the portrait, in the flow (`MILESTONE-018` task 3), and
-                  now directly under it: the three tag pills that used to sit
-                  between them are gone (`MILESTONE-019` task 3).
-
-                  The tags said "UI/UX Design · Branding · Visual Design", which
-                  is word for word the first three entries of the Professional
-                  focus list further down the same page. A caption under a
-                  portrait is worth having when it says something the page does
-                  not; this one was a second copy of a list in a better place
-                  for it, wrapped onto two rows in a 280px column.
-                */}
-                {/*
-                  The arrow is mirrored (`up-right`, not `up-left`) on the
-                  owner's note that it looked wrong. It did, and the reason is
-                  where it was aimed rather than how it was drawn: it sat at the
-                  left of a 280px column and pointed up and further left, so its
-                  head left the picture it is about at the picture's own corner.
-                  The same curve flipped on its vertical axis sends the head up
-                  and to the right, into the middle of the portrait.
-
-                  **It still looked wrong, and this is the rest of it**
-                  (`MILESTONE-020` task 4). Mirroring fixed the direction and
-                  left the arrow *ending in mid-air*: the row sits `mt-5` under
-                  the portrait, so the head stopped 20px below the picture's
-                  bottom edge, pointing up at a gap. An arrow that stops short
-                  of its subject does not read as pointing at it — it reads as
-                  an ornament beside the words, which is exactly what a tester
-                  sees.
-
-                  The note above does not have this problem and never did,
-                  because its head is drawn *over* the picture. So this one is
-                  too: `-mt-11` lifts the drawing 44px, which puts the head
-                  about 11px inside the portrait's lower edge, while the words
-                  stay in the flow below it. `z-[3]` is what lets it be seen
-                  there — the picture is `z-[1]` in the same stacking context,
-                  and a later sibling at `auto` paints underneath it.
-
-                  **The words come first and the arrow second**, which is the
-                  other half of making this read like an annotation. The traced
-                  arrow runs tail to head, and under `up-right` its tail is at
-                  the bottom left of its box and its head at the top right — so
-                  with the arrow written first, the note was hanging off the
-                  *head*, 16px past the point of the thing, while the tail
-                  trailed away from it. Somebody annotating a page writes the
-                  note and draws away from it. Swapped, the tail sits beside the
-                  last word and the head is the far end, where it belongs.
-
-                  `justify-start`, for the same reason the direction was
-                  mirrored in the first place: hung from the right of a 280px
-                  column the head lands at x≈280, which is the portrait's own
-                  right corner — the exact failure this note has already had
-                  once. From the left it lands at x≈217, inside the picture.
-
-                  Both notes are the accent blue now, also by instruction. The
-                  near-black on the upper one was the last survivor of a palette
-                  the rest of the page left behind.
+                  Bottom annotation: text on left, arrow on right pointing down-left towards
+                  the text ("always making something!"), matching the user's container mockup.
                 */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none relative z-[3] mt-5 flex items-start gap-3 [transform:rotate(3deg)] md:gap-4"
+                  className="pointer-events-none relative z-[3] -mt-3 flex items-center justify-start pl-2 [transform:rotate(1deg)]"
                 >
-                  <span className="pencil-ink mt-3 whitespace-nowrap font-hand text-[15px] font-bold leading-[1.05] text-accent md:text-[17px]">
+                  <span className="pencil-ink mt-6 whitespace-nowrap font-hand text-[15px] font-bold leading-[1.05] text-accent md:text-[17px]">
                     {about.handNoteMaking}
                   </span>
-                  <HandArrow direction="down-right" width={48} className="pencil-arrow -mt-10 shrink-0 text-accent md:hidden" />
-                  <HandArrow direction="down-right" width={52} className="pencil-arrow -mt-11 hidden shrink-0 text-accent md:block" />
+                  <HandArrow direction="down-left" width={48} className="pencil-arrow shrink-0 text-accent md:w-[52px]" />
                 </div>
               </div>
             </div>
@@ -316,7 +215,7 @@ export default function About() {
           the centred one; what is new is the light-blue grid paper under it,
           which is the playground's own ruling — see `PlaygroundBand`.
         */}
-        <div data-inview className="container-page">
+        <div className="container-page">
           <PlaygroundBand
             locale={locale}
             dictionary={dictionary}

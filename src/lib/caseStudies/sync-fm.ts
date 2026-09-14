@@ -181,7 +181,7 @@ const syncFm: CaseStudyLocaleContent = {
               "During onboarding, listeners choose the news categories they care about. The Sync Dial lets them switch between these categories while the radio continues playing.",
               "Instead of searching for individual stories, listeners can redirect the stream with one simple interaction.",
             ],
-            figure: { aspect: "4/3", caption: "The Sync Dial used to switch between the selected news categories." },
+            figure: { aspect: "1322/1216", caption: "Sync Dial to switch news categories.", src: "/images/sync-fm-dial.webp", alt: "The Sync Dial interface control for switching news categories" },
           },
           {
             kind: "split",
@@ -190,7 +190,7 @@ const syncFm: CaseStudyLocaleContent = {
               "Once a category is selected, three sliders shape the stream. News tone runs from negative through neutral to positive, location from local through balanced to global, and information depth from brief through balanced to in-depth.",
               "These filters adjust which stories are prioritised and how much context the listener receives without interrupting the radio flow.",
             ],
-            figure: { aspect: "4/3", caption: "The three news filters in the expanded player." },
+            figure: { aspect: "1320/970", caption: "The three news filters in the expanded player.", src: "/images/sync-fm-slider.webp", alt: "The three sliders for tone, location and depth" },
           },
           {
             kind: "split",
@@ -198,7 +198,7 @@ const syncFm: CaseStudyLocaleContent = {
             body: [
               "The player also shows a verification-confidence value for the current story. This makes the system more transparent without turning trust into something the listener controls.",
             ],
-            figure: { aspect: "4/3", caption: "Expanded player view showing the three sliders and the verification-confidence indicator." },
+            figure: { aspect: "1302/1232", caption: "Expanded player view with verification indicator.", src: "/images/sync-fm-verification.webp", alt: "The verification indicator display in Sync FM" },
           },
         ],
       },
@@ -213,7 +213,7 @@ const syncFm: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1664", caption: "Reusable interface components used across Sync FM.", src: "/images/sync-fm-components.webp", alt: "The component library: voice pickers, model list, menu bar, dial states light and dark, sliders and speed controls" },
+              { aspect: "1760/1830", wide: true, caption: "Reusable interface components of Sync FM.", src: "/images/sync-fm-components.webp", alt: "The component library: voice pickers, model list, menu bar, dial states light and dark, sliders and speed controls" },
             ],
           },
         ],
@@ -228,8 +228,8 @@ const syncFm: CaseStudyLocaleContent = {
           "Verification appears as supporting information rather than another setting. This hierarchy keeps the controls accessible without making the experience feel like a settings dashboard.",
         ],
         images: [
-          { aspect: "3/4", wide: false, caption: "The final player and its expanded controls, in the light theme." },
-          { aspect: "3/4", wide: false, caption: "The same screens in the dark theme." },
+          { aspect: "1526/2026", wide: false, caption: "Final player in light theme.", src: "/images/sync-fm-light.webp", alt: "Sync FM player screens in light mode" },
+          { aspect: "1526/2026", wide: false, caption: "Final player in dark theme.", src: "/images/sync-fm-dark.webp", alt: "Sync FM player screens in dark mode" },
         ],
       },
       {
@@ -421,7 +421,7 @@ const syncFm: CaseStudyLocaleContent = {
               "Beim Onboarding wählen Hörer die Nachrichtenkategorien aus, die sie interessieren. Mit dem Sync Dial können sie später zwischen diesen Kategorien wechseln, während das Radio weiterläuft.",
               "Statt einzelne Beiträge suchen zu müssen, lässt sich die Richtung des Streams mit einer einfachen Interaktion verändern.",
             ],
-            figure: { aspect: "4/3", caption: "Der Sync Dial zum Wechsel zwischen den gewählten Nachrichtenkategorien." },
+            figure: { aspect: "1322/1216", caption: "Sync Dial zum Wechseln der Kategorien.", src: "/images/sync-fm-dial.webp", alt: "Der Sync Dial zum Wechseln der Nachrichtenkategorien" },
           },
           {
             kind: "split",
@@ -430,7 +430,7 @@ const syncFm: CaseStudyLocaleContent = {
               "Sobald eine Kategorie gewählt ist, passen drei Slider den Stream an. Der Nachrichtenton reicht von negativ über neutral bis positiv, der Standort von lokal über ausgewogen bis global und die Informationstiefe von kurz über ausgewogen bis vertieft.",
               "Diese Filter beeinflussen, welche Beiträge stärker priorisiert werden und wie viel Kontext die Hörer erhalten, ohne den Radiofluss zu unterbrechen.",
             ],
-            figure: { aspect: "4/3", caption: "Die drei Nachrichtenfilter in der erweiterten Player-Ansicht." },
+            figure: { aspect: "1320/970", caption: "Drei Filter im erweiterten Player.", src: "/images/sync-fm-slider.webp", alt: "Die drei Slider für Ton, Standort und Informationstiefe" },
           },
           {
             kind: "split",
@@ -438,7 +438,7 @@ const syncFm: CaseStudyLocaleContent = {
             body: [
               "Im Player wird zusätzlich ein Verifikationswert für die aktuelle Nachricht angezeigt. Dadurch wird transparenter, wie sicher das System die Informationen einschätzt, ohne Vertrauen selbst zu einer steuerbaren Einstellung zu machen.",
             ],
-            figure: { aspect: "4/3", caption: "Erweiterte Player-Ansicht mit den drei Slidern und der Verifikationsanzeige." },
+            figure: { aspect: "1302/1232", caption: "Player-Ansicht mit Verifikationsanzeige.", src: "/images/sync-fm-verification.webp", alt: "Die Verifikationsanzeige im Sync FM Interface" },
           },
         ],
       },
@@ -453,7 +453,7 @@ const syncFm: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1664", caption: "Wiederverwendbare Interface-Komponenten von Sync FM.", src: "/images/sync-fm-components.webp", alt: "Die Komponentenbibliothek: Stimmauswahl, Modell-Liste, Menüleiste, Regler-Zustände hell und dunkel, Slider und Geschwindigkeit" },
+              { aspect: "1760/1830", wide: true, caption: "Wiederverwendbare Interface-Komponenten.", src: "/images/sync-fm-components.webp", alt: "Die Komponentenbibliothek: Stimmauswahl, Modell-Liste, Menüleiste, Regler-Zustände hell und dunkel, Slider und Geschwindigkeit" },
             ],
           },
         ],
@@ -468,8 +468,8 @@ const syncFm: CaseStudyLocaleContent = {
           "Die Verifikation erscheint als unterstützende Information und nicht als weitere Einstellung. Diese Hierarchie hält die Steuerungen erreichbar, ohne das Erlebnis wie ein Einstellungs-Dashboard wirken zu lassen.",
         ],
         images: [
-          { aspect: "3/4", wide: false, caption: "Der finale Player und die erweiterten Steuerungen im hellen Theme." },
-          { aspect: "3/4", wide: false, caption: "Dieselben Screens im dunklen Theme." },
+          { aspect: "1526/2026", wide: false, caption: "Finaler Player im hellen Theme.", src: "/images/sync-fm-light.webp", alt: "Sync FM Screens im hellen Design" },
+          { aspect: "1526/2026", wide: false, caption: "Finaler Player im dunklen Theme.", src: "/images/sync-fm-dark.webp", alt: "Sync FM Screens im dunklen Design" },
         ],
       },
       {

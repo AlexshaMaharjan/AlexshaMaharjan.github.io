@@ -20,6 +20,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+# editor & local tools
+/.claude/
+
+# private internal documentation & planning notes
+/docs/
+CONTENT_GUIDE.md
+COPY_REVIEW.md
+ROADMAP.md
+
 # design source reference (raw MCP pulls, not app code)
 /design-reference/
 

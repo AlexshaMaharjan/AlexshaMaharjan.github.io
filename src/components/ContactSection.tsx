@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
@@ -7,8 +6,7 @@ export default function ContactSection({ dictionary, locale }: { dictionary: Dic
   return (
     <section
       id="contact"
-      data-anchor-pad
-      style={{ "--anchor-pad": "140px" } as CSSProperties}
+      data-anchor-center
       className="bg-near-black py-[140px]"
     >
       <div className="container-page">

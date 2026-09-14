@@ -199,13 +199,13 @@ function BodyBlock({
           */}
           <div
             aria-hidden="true"
-            className="relative z-[1] mb-0 flex flex-col items-start"
+            className="relative z-[1] mb-0 ml-[25%] flex flex-col items-start"
           >
             <span className="pencil-ink font-hand text-[18px] font-bold leading-none text-accent [transform:rotate(-3deg)] md:text-[21px]">
               {dictionary.caseStudy.prototypeNote}
             </span>
-            <HandArrow direction="down-right" width={48} className="-mb-6 mt-1 shrink-0 text-accent md:hidden" />
-            <HandArrow direction="down-right" width={56} className="-mb-7 mt-1.5 hidden shrink-0 text-accent md:block" />
+            <HandArrow direction="down-right" width={56} className="-mb-12 mt-1 shrink-0 text-accent md:hidden" />
+            <HandArrow direction="down-right" width={68} className="-mb-16 mt-1.5 hidden shrink-0 text-accent md:block" />
           </div>
 
           {/*
@@ -285,33 +285,29 @@ function BodyBlock({
 
     case "split":
       /*
-        Text and figure side by side. `items-start` rather than `items-center`
-        so the figure's top edge lines up with the first line of prose — a
-        centred short figure beside a long paragraph floats in the middle of
-        the column with nothing to relate to.
-
-        `min-w-0` on both tracks because a `1fr` grid track refuses to shrink
-        below its content otherwise, and a wide figure would push the row past
-        the reading column.
+        Text and figure side by side. When `b.heading` is present, it sits above
+        both columns so the figure's top edge starts right alongside the body text.
       */
       return (
-        <div className={`grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2 ${first ? "mt-8" : "mt-12"}`}>
-          <div className={`min-w-0 ${b.figureFirst ? "md:order-2" : ""}`}>
-            {b.heading && (
-              <h3 className="text-[22px] font-semibold leading-[1.3] tracking-[-0.015em]">{b.heading}</h3>
-            )}
-            {b.body.map((text, i) => (
-              <p
-                key={i}
-                className={`text-[19px] leading-[1.75] text-ink-body ${i === 0 && !b.heading ? "" : "mt-4"}`}
-              >
-                {text}
-              </p>
-            ))}
-          </div>
-          <div className={`min-w-0 ${b.figureFirst ? "md:order-1" : ""}`}>
-            {/* Half the column, so the candidate widths halve with it. */}
-            <Figure {...b.figure} sizes="(min-width: 768px) min(460px, 46vw), calc(100vw - 40px)" />
+        <div className={first ? "mt-8" : "mt-12"}>
+          {b.heading && (
+            <h3 className="mb-4 text-[22px] font-semibold leading-[1.3] tracking-[-0.015em]">{b.heading}</h3>
+          )}
+          <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2">
+            <div className={`min-w-0 ${b.figureFirst ? "md:order-2" : ""}`}>
+              {b.body.map((text, i) => (
+                <p
+                  key={i}
+                  className={`text-[19px] leading-[1.75] text-ink-body ${i === 0 ? "" : "mt-4"}`}
+                >
+                  {text}
+                </p>
+              ))}
+            </div>
+            <div className={`min-w-0 ${b.figureFirst ? "md:order-1" : ""}`}>
+              {/* Half the column, so the candidate widths halve with it. */}
+              <Figure {...b.figure} sizes="(min-width: 768px) min(460px, 46vw), calc(100vw - 40px)" />
+            </div>
           </div>
         </div>
       );
@@ -342,6 +338,7 @@ function BodyBlock({
     case "cards":
       return (
         <ul
+          data-inview="stagger"
           className={`grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3 ${first ? "mt-8" : "mt-10"}`}
         >
           {b.items.map((card, i) => (
@@ -457,6 +454,7 @@ export default function Section({
 
       {section.insights && (
         <div
+          data-inview="stagger"
           className={`mt-12 grid grid-cols-1 gap-5 ${
             section.insightColumns === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2"
           }`}
@@ -472,7 +470,7 @@ export default function Section({
       )}
 
       {section.testing && (
-        <ol className="mt-12 grid grid-cols-1 gap-7 sm:grid-cols-3">
+        <ol data-inview="stagger" className="mt-12 grid grid-cols-1 gap-7 sm:grid-cols-3">
           {section.testing.map((step, i) => (
             <li key={i} className="border-t-2 border-accent pt-4">
               <span className="font-mono text-[12px] uppercase tracking-[0.08em] text-accent">{step.label}</span>

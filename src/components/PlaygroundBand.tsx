@@ -61,6 +61,7 @@ export default function PlaygroundBand({
 }) {
   return (
     <div
+      data-inview="up"
       className={clsx(
         "relative overflow-hidden rounded-[20px] border border-card-border px-6 py-14 md:px-12 md:py-16",
         className,
@@ -69,7 +70,7 @@ export default function PlaygroundBand({
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={gridBackground as CSSProperties} />
 
-      <div className="relative mx-auto flex max-w-[640px] flex-col items-center text-center">
+      <div data-inview="text" className="relative mx-auto flex max-w-[640px] flex-col items-center text-center">
         <Heading className="text-subheading font-semibold tracking-[-0.02em] text-ink">{heading}</Heading>
         <p className="mt-5 text-[18px] leading-[1.65] text-ink-body">{copy}</p>
         <PlaygroundPeek locale={locale} dictionary={dictionary} align="center" />

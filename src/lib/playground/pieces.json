@@ -1380,16 +1380,16 @@
   },
   "/images/pg-clip-popup.webp": {
     "caption": {
-      "en": "Unicorn pop-up box",
-      "de": "Einhorn-Pop-up-Box"
+      "en": "Explosion gift box",
+      "de": "Explosionsbox"
     },
     "alt": {
-      "en": "A unicorn themed pop-up box being opened, its panels standing up",
-      "de": "Eine Pop-up-Box im Einhorn-Thema wird geöffnet, die Elemente stellen sich auf"
+      "en": "A unicorn themed explosion gift box being opened, its panels standing up",
+      "de": "Eine Explosionsbox im Einhorn-Thema wird geöffnet, die Elemente stellen sich auf"
     },
     "description": {
-      "en": "A unicorn pop-up box: closed it is a box, and opening it stands every panel up at once.",
-      "de": "Eine Einhorn-Pop-up-Box: geschlossen eine Schachtel, beim Öffnen stellen sich alle Elemente auf einmal auf."
+      "en": "A unicorn explosion gift box: closed it is a box, and opening it stands every panel up at once.",
+      "de": "Eine Einhorn-Explosionsbox: geschlossen eine Schachtel, beim Öffnen stellen sich alle Elemente auf einmal auf."
     },
     "made": "2016",
     "tools": {
@@ -1404,6 +1404,41 @@
         "Papier",
         "Kleber",
         "Fotos"
+      ]
+    },
+    "tags": {
+      "en": [
+        "Paper craft",
+        "Handmade"
+      ],
+      "de": [
+        "Papierkunst",
+        "Handarbeit"
+      ]
+    }
+  },
+  "/images/pg-clip-unboxing.webp": {
+    "caption": {
+      "en": "Explosion gift box",
+      "de": "Explosionsbox"
+    },
+    "alt": {
+      "en": "An unboxing video of an explosion gift box unfolding with personalized photos and messages",
+      "de": "Ein Unboxing-Video einer handgefertigten Explosionsbox, die sich mit persönlichen Fotos und Botschaften entfaltet"
+    },
+    "description": {
+      "en": "An unboxing of a handcrafted pink and black explosion gift box, revealing layers, messages, and memories.",
+      "de": "Das Unboxing einer handgefertigten rosa-schwarzen Explosionsbox, die Schicht für Schicht persönliche Botschaften und Erinnerungen offenbart."
+    },
+    "made": "2016",
+    "tools": {
+      "en": [
+        "Paper craft",
+        "Handmade"
+      ],
+      "de": [
+        "Papierkunst",
+        "Handarbeit"
       ]
     },
     "tags": {
@@ -1738,8 +1773,8 @@
   },
   "/images/pg-gift-popupbox.webp": {
     "caption": {
-      "en": "Pop Up Gift Box",
-      "de": "Pop-up-Geschenkbox"
+      "en": "Explosion gift box",
+      "de": "Explosionsbox"
     },
     "alt": {
       "en": "An explosion gift box unfolded in pink and black, showing heart layers and a birthday card in the centre",

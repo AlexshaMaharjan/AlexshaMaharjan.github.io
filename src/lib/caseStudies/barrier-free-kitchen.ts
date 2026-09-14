@@ -89,9 +89,9 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/3465", caption: "Observing reach and access to storage in a conventional kitchen.", src: "/images/kitchen-observation.webp", alt: "A seated user reaching for the upper cabinet in a conventional kitchen" },
-              { aspect: "1600/3465", caption: "Testing access to different areas of a standard refrigerator.", src: "/images/kitchen-observation-fridge.webp", alt: "The same user reaching into the upper shelves of a standard fridge" },
-              { aspect: "920/1988", caption: "Reaching the hob controls from a seated position.", src: "/images/kitchen-simulation-hob.webp", alt: "A seated user turning the hob controls in a conventional kitchen" },
+              { aspect: "1600/3465", caption: "Storage reach in a standard kitchen.", src: "/images/kitchen-observation.webp", alt: "A seated user reaching for the upper cabinet in a conventional kitchen" },
+              { aspect: "1600/3465", caption: "Access to upper refrigerator shelves.", src: "/images/kitchen-observation-fridge.webp", alt: "The same user reaching into the upper shelves of a standard fridge" },
+              { aspect: "920/1988", caption: "Reaching controls from a seated position.", src: "/images/kitchen-simulation-hob.webp", alt: "A seated user turning the hob controls in a conventional kitchen" },
             ],
           },
           { kind: "h3", text: "A note on simulation" },
@@ -136,22 +136,23 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1074", wide: false, caption: "First spatial ideas explored with wooden blocks.", src: "/images/kitchen-wooden-blocks.webp", alt: "Wooden blocks standing in for the counter, sink and storage while the layout was arranged" },
-              { aspect: "1600/991", wide: false, caption: "Control-knob ideas: a raised marker and tactile studs around the dial.", src: "/images/kitchen-reach-study.webp", alt: "Two overhead studies of a control dial, each with a raised green marker and small studs placed around the rim" },
+              { aspect: "1600/1074", wide: false, caption: "Early layout ideas with wooden blocks.", src: "/images/kitchen-wooden-blocks.webp", alt: "Wooden blocks standing in for the counter, sink and storage while the layout was arranged" },
+              { aspect: "1600/991", wide: false, caption: "Tactile markers for control knobs.", src: "/images/kitchen-reach-study.webp", alt: "Two overhead studies of a control dial, each with a raised green marker and small studs placed around the rim" },
             ],
           },
           {
             kind: "figures",
             items: [
-              { aspect: "1600/444", caption: "A more detailed exploration of the kitchen layout using Lego.", src: "/images/kitchen-lego.webp", alt: "The kitchen units rebuilt in Lego to test heights and proportions" },
-              { aspect: "1600/932", caption: "The developed layout with the main kitchen functions identified.", src: "/images/kitchen-lego-annotated.webp", alt: "The Lego model labelled with fridge, cupboard, sink, hob, worktop, containers and dining table" },
+              { aspect: "1600/444", caption: "Scale model testing with Lego.", src: "/images/kitchen-lego.webp", alt: "The kitchen units rebuilt in Lego to test heights and proportions" },
+              { aspect: "1600/932", caption: "Annotated layout of primary zones.", src: "/images/kitchen-lego-annotated.webp", alt: "The Lego model labelled with fridge, cupboard, sink, hob, worktop, containers and dining table" },
             ],
           },
           { kind: "h3", text: "Designing around the cooking process" },
+          "We mapped out the entire cooking workflow to ensure smooth transitions between storage, prep, cooking, and dining without physical strain.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/213", caption: "The cooking sequence: storage, sink, worktop, hob and dining.", src: "/images/kitchen-journey-map.webp", alt: "The cooking sequence as a flow: fridge and shelving, sink, worktop, hob and oven, dining table" },
+              { aspect: "1600/213", caption: "Sequential cooking flow from storage to dining.", src: "/images/kitchen-journey-map.webp", alt: "The cooking sequence as a flow: fridge and shelving, sink, worktop, hob and oven, dining table" },
             ],
           },
         ],
@@ -167,9 +168,9 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/535", caption: "Full-scale paper prototypes used to test the kitchen concept and its dimensions.", src: "/images/kitchen-paper-prototype.webp", alt: "Full-scale paper prototypes of the pull-out drawers and the lowered sink" },
-              { aspect: "1600/743", caption: "Prototype details: cardboard control dials and the reach arc.", src: "/images/kitchen-paper-details.webp", alt: "Prototype details: the cardboard control dials and the reach arc drawn on paper" },
-              { aspect: "1600/430", caption: "Paper prototypes of the transparent containers and the pull-down shelf.", src: "/images/kitchen-paper-containers.webp", alt: "Paper prototypes of the transparent containers and the pull-down shelf" },
+              { aspect: "1600/535", caption: "Full-scale paper prototypes for ergonomic testing.", src: "/images/kitchen-paper-prototype.webp", alt: "Full-scale paper prototypes of the pull-out drawers and the lowered sink" },
+              { aspect: "1600/743", caption: "Cardboard dials and reach arc testing.", src: "/images/kitchen-paper-details.webp", alt: "Prototype details: the cardboard control dials and the reach arc drawn on paper" },
+              { aspect: "1600/430", caption: "Full-scale transparent container prototypes.", src: "/images/kitchen-paper-containers.webp", alt: "Paper prototypes of the transparent containers and the pull-down shelf" },
             ],
           },
           { kind: "h3", text: "Refining through physical testing" },
@@ -180,24 +181,14 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
         id: "outcome",
         navLabel: "Principles & outcome",
         number: "07",
-        /*
-         * The owner's deck heads this section "Turning the research into design
-         * principles" and closes it with "Translating the concept into 3D".
-         * They are swapped here because `Section` renders `insights` **after**
-         * `body` and has no slot for prose between them: with the principles
-         * as the section's `insights` they can only come last, so the sentence
-         * that introduces them has to come last too. Both of the owner's
-         * sub-headings survive; only which of the two is the section heading
-         * changed.
-         */
         heading: "Translating the concept into 3D",
         body: [
           "After the physical prototypes, I developed the kitchen as a 3D environment in Blender. I worked on the modelling, materials and textures, and helped translate the tested spatial ideas into the digital version.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/382", caption: "The kitchen model in Blender before materials and textures were applied.", src: "/images/kitchen-3d-structure.webp", alt: "The kitchen's grey-box model in Blender, before materials" },
-              { aspect: "1024/576", caption: "The finished kitchen in Blender, with an animated wheelchair user.", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "The finished kitchen in Blender: a seated user at the lowered worktop beside the pull-down shelving" },
+              { aspect: "1600/382", caption: "Digital 3D model in Blender.", src: "/images/kitchen-3d-structure.webp", alt: "The kitchen's grey-box model in Blender, before materials" },
+              { aspect: "1024/576", caption: "Finished kitchen model with animated user.", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "The finished kitchen in Blender: a seated user at the lowered worktop beside the pull-down shelving" },
             ],
           },
           { kind: "h3", text: "Turning the research into design principles" },
@@ -346,22 +337,23 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1074", wide: false, caption: "Erste räumliche Ideen mit Holzklötzen.", src: "/images/kitchen-wooden-blocks.webp", alt: "Holzklötze als Platzhalter für Arbeitsplatte, Spüle und Stauraum beim Anordnen des Grundrisses" },
-              { aspect: "1600/991", wide: false, caption: "Ideen für die Bedienknöpfe: erhabene Markierung und taktile Punkte.", src: "/images/kitchen-reach-study.webp", alt: "Zwei Aufnahmen eines Drehknopfs von oben, jeweils mit einer erhabenen grünen Markierung und kleinen Punkten am Rand" },
+              { aspect: "1600/1074", wide: false, caption: "Erste Layout-Ideen mit Holzklötzen.", src: "/images/kitchen-wooden-blocks.webp", alt: "Holzklötze als Platzhalter für Arbeitsplatte, Spüle und Stauraum beim Anordnen des Grundrisses" },
+              { aspect: "1600/991", wide: false, caption: "Taktile Markierungen für Drehregler.", src: "/images/kitchen-reach-study.webp", alt: "Zwei Aufnahmen eines Drehknopfs von oben, jeweils mit einer erhabenen grünen Markierung und kleinen Punkten am Rand" },
             ],
           },
           {
             kind: "figures",
             items: [
-              { aspect: "1600/444", caption: "Detailliertere Untersuchung des Küchenlayouts mit Lego.", src: "/images/kitchen-lego.webp", alt: "Die Küchenmodule in Lego nachgebaut, um Höhen und Proportionen zu prüfen" },
-              { aspect: "1600/932", caption: "Das weiterentwickelte Layout mit den wichtigsten Küchenfunktionen.", src: "/images/kitchen-lego-annotated.webp", alt: "Das Lego-Modell beschriftet mit Kühlschrank, Schrank, Spüle, Herd, Arbeitsfläche, Behältern und Esstisch" },
+              { aspect: "1600/444", caption: "Maßstabsuntersuchung mit Lego.", src: "/images/kitchen-lego.webp", alt: "Die Küchenmodule in Lego nachgebaut, um Höhen und Proportionen zu prüfen" },
+              { aspect: "1600/932", caption: "Beschriftetes Layout der Funktionsbereiche.", src: "/images/kitchen-lego-annotated.webp", alt: "Das Lego-Modell beschriftet mit Kühlschrank, Schrank, Spüle, Herd, Arbeitsfläche, Behältern und Esstisch" },
             ],
           },
           { kind: "h3", text: "Den Kochablauf berücksichtigen" },
+          "Wir haben den gesamten Ablauf bei der Zubereitung kartiert, um nahtlose Übergänge zwischen Vorrat, Spüle, Arbeitsfläche und Kochfeld ohne unnötigen Kraftaufwand zu ermöglichen.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/213", caption: "Der Kochablauf: Stauraum, Spüle, Arbeitsfläche, Herd und Essbereich.", src: "/images/kitchen-journey-map.webp", alt: "Der Kochablauf als Fluss: Kühlschrank und Regal, Spüle, Arbeitsplatte, Herd und Ofen, Esstisch" },
+              { aspect: "1600/213", caption: "Schrittweiser Kochablauf von Vorrat bis Esstisch.", src: "/images/kitchen-journey-map.webp", alt: "Der Kochablauf als Fluss: Kühlschrank und Regal, Spüle, Arbeitsplatte, Herd und Ofen, Esstisch" },
             ],
           },
         ],
@@ -377,9 +369,9 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/535", caption: "Papierprototypen im Maßstab 1:1 zum Testen des Küchenkonzepts und seiner Maße.", src: "/images/kitchen-paper-prototype.webp", alt: "Papierprototypen im Maßstab 1:1 der Auszüge und der abgesenkten Spüle" },
-              { aspect: "1600/743", caption: "Prototyp-Details: Bedienknöpfe aus Karton und der Reichweitenbogen.", src: "/images/kitchen-paper-details.webp", alt: "Prototyp-Details: die Bedienknöpfe aus Karton und der auf Papier gezeichnete Reichweitenbogen" },
-              { aspect: "1600/430", caption: "Papierprototypen der transparenten Behälter und des Absenkregals.", src: "/images/kitchen-paper-containers.webp", alt: "Papierprototypen der transparenten Behälter und des Absenkregals" },
+              { aspect: "1600/535", caption: "1:1-Papierprototypen für ergonomische Tests.", src: "/images/kitchen-paper-prototype.webp", alt: "Papierprototypen im Maßstab 1:1 der Auszüge und der abgesenkten Spüle" },
+              { aspect: "1600/743", caption: "Karton-Drehknöpfe und Reichweitenbogen.", src: "/images/kitchen-paper-details.webp", alt: "Prototyp-Details: die Bedienknöpfe aus Karton und der auf Papier gezeichnete Reichweitenbogen" },
+              { aspect: "1600/430", caption: "1:1-Studie der transparenten Behälter.", src: "/images/kitchen-paper-containers.webp", alt: "Papierprototypen der transparenten Behälter und des Absenkregals" },
             ],
           },
           { kind: "h3", text: "Durch physisches Testen weiterentwickeln" },
@@ -396,8 +388,8 @@ const barrierFreeKitchen: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/382", caption: "Das Küchenmodell in Blender vor der Anwendung von Materialien und Texturen.", src: "/images/kitchen-3d-structure.webp", alt: "Das Graustufen-Modell der Küche in Blender, vor den Materialien" },
-              { aspect: "1024/576", caption: "Die fertige Küche in Blender, mit einer animierten Rollstuhlnutzerin.", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "Die fertige Küche in Blender: eine sitzende Nutzerin an der abgesenkten Arbeitsplatte neben dem Absenkregal" },
+              { aspect: "1600/382", caption: "Digitales 3D-Modell in Blender.", src: "/images/kitchen-3d-structure.webp", alt: "Das Graustufen-Modell der Küche in Blender, vor den Materialien" },
+              { aspect: "1024/576", caption: "Fertige 3D-Küche mit animiertem Nutzer.", src: "/images/kitchen-animation-poster.webp", video: "/videos/kitchen-animation.mp4", alt: "Die fertige Küche in Blender: eine sitzende Nutzerin an der abgesenkten Arbeitsplatte neben dem Absenkregal" },
             ],
           },
           { kind: "h3", text: "Die Recherche in Gestaltungsprinzipien übersetzen" },

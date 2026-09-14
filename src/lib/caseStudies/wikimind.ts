@@ -134,8 +134,8 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1153", caption: "Visual references that shaped the colour, imagery and overall direction of WikiMind.", src: "/images/wikimind-moodboard.webp", alt: "The visual reference board: blue tones, dolphin imagery, interface examples and the gradient wordmark" },
-              { aspect: "1600/515", caption: "The core colour palette and Inter type system.", src: "/images/wikimind-colour-type.webp", alt: "The five brand colours with their hex values, beside the four Inter weights" },
+              { aspect: "1400/1153", caption: "Moodboard: colors, imagery and direction.", src: "/images/wikimind-moodboard.webp", alt: "The visual reference board: blue tones, dolphin imagery, interface examples and the gradient wordmark" },
+              { aspect: "1600/515", caption: "Core color palette and Inter typography.", src: "/images/wikimind-colour-type.webp", alt: "The five brand colours with their hex values, beside the four Inter weights" },
             ],
           },
           { kind: "h3", text: "A symbol for connected and infinite knowledge" },
@@ -143,9 +143,9 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1200/1805", caption: "Early sketches exploring different ways to connect the W and M.", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
-              { aspect: "1420/516", caption: "The selected idea combining the WikiMind initials into one continuous mark.", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines", stackWithNext: true },
-              { aspect: "1600/460", caption: "Final logo versions for different colours and layouts.", src: "/images/wikimind-logo-variants.webp", alt: "The WikiMind logo in gradient, in solid black and in its horizontal lockups" },
+              { aspect: "1200/1805", caption: "Sketches combining the letters W and M.", src: "/images/wikimind-initial-sketches.webp", alt: "A page of hand-drawn explorations combining the letters W and M" },
+              { aspect: "1420/516", caption: "Selected continuous mark of the initials.", src: "/images/wikimind-logo-sketch.webp", alt: "The first hand-drawn WikiMind mark, with the W and M it combines", stackWithNext: true },
+              { aspect: "1600/460", caption: "Final logo versions and lockups.", src: "/images/wikimind-logo-variants.webp", alt: "The WikiMind logo in gradient, in solid black and in its horizontal lockups" },
             ],
           },
           {
@@ -154,7 +154,7 @@ const wikimind: CaseStudyLocaleContent = {
             body: [
               "I introduced a dolphin as WikiMind’s brand character, drawing on associations with intelligence, curiosity and social behaviour. Headphones and glasses give it an attentive, approachable presence, and a tailored suit signals a professional, tech-savvy character, while hands let it interact with the interface directly for a more human touch. I used it selectively so it could add personality without taking over the identity.",
             ],
-            figure: { aspect: "1600/1317", caption: "Development of the WikiMind dolphin mascot.", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
+            figure: { aspect: "1600/1317", caption: "WikiMind dolphin mascot development.", src: "/images/wikimind-mascot.webp", alt: "The WikiMind mascot presenting a holographic interface" },
           },
         ],
       },
@@ -343,8 +343,8 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1153", caption: "Visuelle Referenzen für Farben, Bildsprache und die grundlegende Richtung von WikiMind.", src: "/images/wikimind-moodboard.webp", alt: "Das visuelle Referenzboard: Blautöne, Delfin-Motive, Interface-Beispiele und die Wortmarke mit Farbverlauf" },
-              { aspect: "1600/515", caption: "Die zentrale Farbpalette und das Schriftsystem mit Inter.", src: "/images/wikimind-colour-type.webp", alt: "Die fünf Markenfarben mit ihren Hex-Werten, neben den vier Inter-Schnitten" },
+              { aspect: "1400/1153", caption: "Moodboard: Farben und Bildsprache.", src: "/images/wikimind-moodboard.webp", alt: "Das visuelle Referenzboard: Blautöne, Delfin-Motive, Interface-Beispiele und die Wortmarke mit Farbverlauf" },
+              { aspect: "1600/515", caption: "Farbpalette und Inter-Schriftsystem.", src: "/images/wikimind-colour-type.webp", alt: "Die fünf Markenfarben mit ihren Hex-Werten, neben den vier Inter-Schnitten" },
             ],
           },
           { kind: "h3", text: "Ein Symbol für vernetztes und unendliches Wissen" },
@@ -352,9 +352,9 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1200/1805", caption: "Erste Skizzen mit unterschiedlichen Möglichkeiten, W und M miteinander zu verbinden.", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
-              { aspect: "1420/516", caption: "Die ausgewählte Idee, bei der die WikiMind-Initialen zu einem durchgehenden Zeichen verbunden werden.", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M", stackWithNext: true },
-              { aspect: "1600/460", caption: "Finale Logo-Versionen für unterschiedliche Farben und Anwendungen.", src: "/images/wikimind-logo-variants.webp", alt: "Das WikiMind-Logo mit Farbverlauf, in Schwarz und in den horizontalen Varianten" },
+              { aspect: "1200/1805", caption: "Erste Skizzen zur W- und M-Kombination.", src: "/images/wikimind-initial-sketches.webp", alt: "Eine Seite handgezeichneter Entwürfe, die die Buchstaben W und M kombinieren" },
+              { aspect: "1420/516", caption: "Gewählter Entwurf der WikiMind-Initialen.", src: "/images/wikimind-logo-sketch.webp", alt: "Der erste handgezeichnete WikiMind-Entwurf mit dem kombinierten W und M", stackWithNext: true },
+              { aspect: "1600/460", caption: "Finale Logo-Versionen und Lockups.", src: "/images/wikimind-logo-variants.webp", alt: "Das WikiMind-Logo mit Farbverlauf, in Schwarz und in den horizontalen Varianten" },
             ],
           },
           {
@@ -363,7 +363,7 @@ const wikimind: CaseStudyLocaleContent = {
             body: [
               "Ich führte einen Delfin als Markencharakter ein, inspiriert von Assoziationen mit Intelligenz, Neugier und sozialem Verhalten. Kopfhörer und Brille geben ihm eine aufmerksame, zugängliche Ausstrahlung, ein maßgeschneiderter Anzug signalisiert einen professionellen, technikaffinen Charakter, und Hände lassen ihn direkt mit der Oberfläche interagieren, was ihm eine menschlichere Note gibt. Ich setzte ihn bewusst nur an ausgewählten Stellen ein, damit er Persönlichkeit schafft, ohne die Identität zu dominieren.",
             ],
-            figure: { aspect: "1600/1317", caption: "Entwicklung des WikiMind-Delfin-Maskottchens.", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
+            figure: { aspect: "1600/1317", caption: "WikiMind-Delfin-Maskottchen.", src: "/images/wikimind-mascot.webp", alt: "Das WikiMind-Maskottchen präsentiert eine holografische Oberfläche" },
           },
         ],
       },
@@ -377,8 +377,8 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/485", caption: "Sitemap mit den wichtigsten Leistungen und unterstützenden Seiten von WikiMind.", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
-              { aspect: "1400/1311", caption: "Wireframes zur Erkundung von Seitenstruktur und Inhaltshierarchie.", src: "/images/wikimind-wireframes.webp", alt: "Wireframes für acht Seiten: Startseite, die drei Leistungsseiten, Team, Kontakt und die Rechtsseiten" },
+              { aspect: "1600/485", caption: "Sitemap der Leistungen und Unterseiten.", src: "/images/wikimind-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über vier Bereichen und drei Unterseiten" },
+              { aspect: "1400/1311", caption: "Wireframes für Seitenstruktur und Hierarchie.", src: "/images/wikimind-wireframes.webp", alt: "Wireframes für acht Seiten: Startseite, die drei Leistungsseiten, Team, Kontakt und die Rechtsseiten" },
             ],
           },
           { kind: "h3", text: "Ein wiederverwendbares Interface-System" },
@@ -386,8 +386,8 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1369", caption: "Wiederverwendbare Komponenten für die verschiedenen Seiten der Website.", src: "/images/wikimind-components.webp", alt: "Die Komponentenbibliothek: Navigation, Buttons, Logoleiste, Teamkarten und Fußzeile" },
-              { aspect: "1600/1034", caption: "Das finale UI-Kit mit Typografie, Farben, Icons, Buttons und Markenelementen.", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Logo, Navigation, Maskottchen, Typoskala, Farben, Icons, Buttons und Fußzeile" },
+              { aspect: "1400/1369", caption: "Wiederverwendbare UI-Komponenten.", src: "/images/wikimind-components.webp", alt: "Die Komponentenbibliothek: Navigation, Buttons, Logoleiste, Teamkarten und Fußzeile" },
+              { aspect: "1600/1034", caption: "Finales UI-Kit mit Designelementen.", src: "/images/wikimind-ui-kit.webp", alt: "Der UI-Baukasten: Logo, Navigation, Maskottchen, Typoskala, Farben, Icons, Buttons und Fußzeile" },
             ],
           },
         ],
@@ -402,7 +402,7 @@ const wikimind: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/714", caption: "Finale WikiMind-Screens mit den wichtigsten Seiten der Website.", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
+              { aspect: "1600/714", caption: "Finale WikiMind-Screens der Website.", src: "/images/wikimind-final-screens.webp", alt: "Fünf Seiten der fertigen Website nebeneinander" },
             ],
           },
           "Das Projekt mündete in einen interaktiven Figma-Prototyp, der das zentrale Seitensystem, die Navigation und die visuelle Sprache zeigt.",

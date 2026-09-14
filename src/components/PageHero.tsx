@@ -1,40 +1,7 @@
-import type { Ref } from "react";
+import { useEffect, useRef, type Ref } from "react";
+import gsap from "gsap";
+import { prefersReducedMotion } from "@/lib/motion";
 
-/**
- * The first screen of the two modes, written once (`MILESTONE-011` task 3).
- *
- * Portfolio and Playground are two views of one site, and the mode switch in
- * the header invites somebody to flip between them. They were built as two
- * separate blocks of JSX and had drifted into two different first screens: the
- * homepage set its eyebrow at 14px and top-anchored the whole thing 59px under
- * the header, the playground set a 12px mono eyebrow and centred the block in
- * 70svh, and the two headings used different size tokens. Flipping modes moved
- * every line on the page.
- *
- * So this is not a tidy-up. **It is the fix**: one component, two sets of copy,
- * and the eyebrow, the heading, the subheading and the tag line land on the
- * same pixel in both modes because there is only one description of where they
- * go. Two blocks of JSX that "match" are two blocks of JSX that will stop
- * matching the next time one of them is edited.
- *
- * **70svh is the mode switch's own contract.** The homepage pins its process
- * canvas at `top: 70svh` and the playground's deck starts where this section
- * ends, so both big scrolling objects begin at the same place — and `svh`
- * rather than `vh` because the mobile toolbar must not move it (`SESSION-036`).
- *
- * **58svh below `sm`** (`MILESTONE-011` task 11). On a 844px phone, 70svh under
- * a 146px header left the next section 7px of screen: the hero was the whole
- * viewport and nothing said there was more. The contract is untouched, because
- * the only thing that depends on 70svh is the homepage's *pinned* canvas, and
- * that layout does not exist below 880px — `HeroProcess` switches to its static
- * flow there. Above `sm` both modes are 70svh and agree, as before.
- *
- * **The subheading carries a floor, not a height.** The two intros are
- * different lengths, and without it the tag line sat three lines up in one mode
- * and two in the other — the exact vertical jump this component exists to
- * remove. It is a `min-height` of three lines, so a longer intro, a narrower
- * window or the German copy all still grow it normally.
- */
 export default function PageHero({
   eyebrow,
   headingLines,
@@ -49,35 +16,33 @@ export default function PageHero({
   /** `HeroProcess` writes opacity and a transform here as the canvas rises. */
   innerRef?: Ref<HTMLElement>;
 }) {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const el = contentRef.current;
+    if (!el) return;
+    const children = Array.from(el.children);
+    gsap.fromTo(
+      children,
+      { opacity: 0, y: 16 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        ease: "power3.out",
+        stagger: 0.12,
+        clearProps: "transform,opacity",
+      },
+    );
+  }, []);
+
   return (
     <section
       ref={innerRef}
       className="flex min-h-[58svh] flex-col items-center justify-center pt-[var(--header-h)] sm:min-h-[70svh]"
     >
-      {/*
-        `w-full`, because the section is a centred flex column and a flex item
-        sizes to its content in the cross axis: without it `container-page`
-        shrink-wrapped the longest line, and the two modes measured 798px and
-        1060px for the same container.
-
-        `container-page` is also the only horizontal padding here. The section
-        carried a `px-5` of its own, which below `md` doubled the gutter to 40px
-        a side and left a 390px phone 310px to set in — eleven pixels less than
-        the German eyebrow needs, so "DEUTSCHLAND" fell to a line by itself.
-      */}
-      {/*
-        **The first screen arrives in reading order** (`MILESTONE-023` task 5):
-        eyebrow, heading, intro, tags, one after another rather than as one
-        block. `text` is the typographic stagger — 12px of travel and a breath
-        between children; see `lib/motion`.
-
-        **Only when this hero is not the pinned one.** On the homepage
-        `HeroProcess` writes `opacity` and a transform onto this section every
-        frame as the canvas rises, and a reveal that sets the same properties on
-        its children is a second author for the same pixels. `innerRef` is
-        exactly the signal — it is passed only by the pinned flow.
-      */}
-      <div className="container-page w-full text-center" data-inview={innerRef ? undefined : "text"}>
+      <div ref={contentRef} className="container-page w-full text-center">
         {/*
           Tighter below `sm`: at 12px with 0.16em of tracking the portfolio
           eyebrow is 337px wide and the phone gutter leaves it 310, so

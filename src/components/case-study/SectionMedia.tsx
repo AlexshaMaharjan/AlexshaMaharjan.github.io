@@ -116,11 +116,13 @@ export default function SectionMedia({ images }: { images: SectionImage[] }) {
         it; once it has arrived they wait for their own turn (DECISION-008).
       */}
       {rows.map((row, i) => {
+        const isExplicitWide = row.length === 1 && row[0]?.length === 1 && row[0][0]?.wide === true;
+        const rowMaxHeight = isExplicitWide ? 1400 : MAX_FIGURE_HEIGHT;
         const { widths, width } = justifyCells(
           row.map((cell) => ({ ratios: cell.map(ratioOf) })),
           COLUMN_PX,
           GAP,
-          MAX_FIGURE_HEIGHT,
+          rowMaxHeight,
         );
         return (
           <div

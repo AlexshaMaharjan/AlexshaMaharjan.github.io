@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import { branchLayout, HUB_W, HUB_Y } from "./branchData";
 import BranchGroup from "./BranchGroup";
 import PageHero from "@/components/PageHero";
@@ -86,8 +87,8 @@ const STACK_LAYOUT = [
   { justify: "justify-center", width: "w-[96%]", centre: 50 },
 ] as const;
 
-const SEQ_START = 0.42;
-const PHASES = { capA: 0.8, draw: 5.0, rest: 0.9 } as const;
+const SEQ_START = 0.18;
+const PHASES = { capA: 0.4, draw: 6.0, rest: 0.6 } as const;
 const PHASE_SUM = PHASES.capA + PHASES.draw + PHASES.rest;
 const STEPS = 5;
 
@@ -238,7 +239,8 @@ function smoothstep(p: number, a: number, b: number) {
  * The blue did not go with them. It moved onto the scroll, where it has
  * something to say (see `frame`).
  */
-export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) {
+export default function HeroProcess({ dictionary, locale }: { dictionary: Dictionary; locale?: Locale }) {
+  const activeLocale: Locale = locale || (dictionary.nav.projects === "Projekte" ? "de" : "en");
   const [staticFlow, setStaticFlow] = useState(true);
 
   const trackRef = useRef<HTMLDivElement>(null);
@@ -576,6 +578,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
                         branch={branch}
                         layout={branchLayout[i]!}
                         index={i}
+                        locale={activeLocale}
                         groupRef={(el) => {
                           groupRefs.current[i] = el;
                         }}
@@ -695,6 +698,7 @@ export default function HeroProcess({ dictionary }: { dictionary: Dictionary }) 
                 branch={branch}
                 layout={branchLayout[i]!}
                 index={i}
+                locale={activeLocale}
                 groupRef={(el) => {
                   groupRefs.current[i] = el;
                 }}

@@ -111,15 +111,14 @@ export default function Scribble({ note, locale }: { note: PlacedScribble; local
  * of why these did not look like the file they came from.
  */
 /** The pen, in CSS pixels. See the note above on why this is not `vector-effect`. */
-const PEN_PX = 4;
+const PEN_PX = 3;
 
 export function ScribbleArrow({
   note,
-  pencil,
   unitsPerPx,
 }: {
   note: PlacedScribble;
-  pencil: string;
+  pencil?: string;
   /** Design units to one CSS pixel on this card's stage, from `Collage`. */
   unitsPerPx: number;
 }) {
@@ -132,7 +131,6 @@ export function ScribbleArrow({
       strokeLinecap="round"
       strokeLinejoin="round"
       fill="none"
-      filter={`url(#${pencil})`}
     >
       <path d={note.arrow.path} />
       <path d={note.arrow.head} />

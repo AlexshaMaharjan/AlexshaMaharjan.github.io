@@ -10,7 +10,6 @@ import Image from "@/components/ui/Image";
 import { useCursorTag } from "@/lib/useCursorTag";
 import LoopVideo from "@/components/ui/LoopVideo";
 import Scribble, { ScribbleArrow } from "@/components/playground/Scribble";
-import { PencilFilter } from "@/components/PencilInk";
 import type { Locale } from "@/lib/i18n";
 import { FRAME_H, FRAME_W, type CollageScribble, type CollageSlot } from "@/lib/playground/collage";
 import { notePx, placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/playground/placeScribbles";
@@ -68,8 +67,6 @@ import { notePx, placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/
  * pictures are and which one the pointer is over.
  */
 const pct = (value: number, of: number) => `${(value / of) * 100}%`;
-
-let nextPencil = 0;
 
 /**
  * The width a slot actually renders at, for `srcset` selection. The stage is
@@ -372,12 +369,6 @@ export default function Collage({
    */
   const stageRef = useRef<HTMLDivElement>(null);
   const [unitsPerPx, setUnitsPerPx] = useState(UNITS_PER_PX_AT_1280);
-  /*
-   * The id of this card's pencil. Per card, because four cards are mounted at
-   * once and each has its own `unitsPerPx` — one shared id would give them all
-   * whichever card rendered last.
-   */
-  const [pencilId] = useState(() => `pencil-collage-${(nextPencil += 1)}`);
 
   /*
    * How many columns the phone bento has. It mirrors the container query in
@@ -565,19 +556,8 @@ export default function Collage({
             viewBox={`0 0 ${FRAME_W} ${FRAME_H}`}
             fill="none"
           >
-            {/*
-              One pencil for the card's arrows (`MILESTONE-020` task 3). It
-              lives here because `unitsPerPx` does: the filter's grain is stated
-              in CSS pixels and has to be converted into this SVG's user space,
-              which is the design frame, and only the measured stage knows the
-              ratio. Every arrow on the card shares it, so they share a grain —
-              they are notes on one sheet of paper.
-            */}
-            <defs>
-              <PencilFilter id={pencilId} unitsPerPx={unitsPerPx} />
-            </defs>
             {notes.map((note) => (
-              <ScribbleArrow key={note.key} note={note} pencil={pencilId} unitsPerPx={unitsPerPx} />
+              <ScribbleArrow key={note.key} note={note} unitsPerPx={unitsPerPx} />
             ))}
           </svg>
           {notes.map((note) => (

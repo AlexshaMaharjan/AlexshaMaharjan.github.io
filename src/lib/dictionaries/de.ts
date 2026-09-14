@@ -303,7 +303,7 @@ const de: Dictionary = {
     eyebrow: "Ende des Archivs",
     heading: "Mehr professionelle Arbeiten, hier entlang.",
     copy: "Zurück zum Portfolio für meine Fallstudien, meinen Designprozess und ausgewählte Projektarbeiten.",
-    cta: "Zurück zum Portfolio →",
+    cta: "Zurück zum Portfolio",
   },
   playgroundViewer: {
     made: "Entstanden",

@@ -62,6 +62,16 @@ function scrollTopFor(target: HTMLElement): number {
   for (let node: HTMLElement | null = target; node; node = node.offsetParent as HTMLElement | null) {
     top += node.offsetTop;
   }
+
+  // When an anchor requests vertical centering (e.g. #contact black container)
+  if (target.id === "contact" || target.hasAttribute("data-anchor-center")) {
+    const vh = window.innerHeight;
+    const h = target.offsetHeight;
+    if (vh > h) {
+      return Math.max(0, Math.round(top - (vh - h) / 2));
+    }
+  }
+
   const headerOffset = parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
   return Math.max(0, top - headerOffset);
 }
@@ -186,19 +196,6 @@ export function useScrollBehavior(): void {
         // The page can still be growing as its lazy chunk paints. Once the
         // height stops changing, this is as far as the document goes — stop,
         // rather than fighting the visitor for the rest of the budget.
-        const height = document.documentElement.scrollHeight;
-        const settled = height === lastHeight;
-        lastHeight = height;
-        return settled;
-      });
-    }
-
-    const navState = location.state as { preserveScroll?: boolean; scrollY?: number } | null;
-    if (navState?.preserveScroll && typeof navState.scrollY === "number" && !location.hash) {
-      const restoreTo = navState.scrollY;
-      let lastHeight = -1;
-      return untilReady(() => {
-        if (jumpTo(restoreTo)) return true;
         const height = document.documentElement.scrollHeight;
         const settled = height === lastHeight;
         lastHeight = height;

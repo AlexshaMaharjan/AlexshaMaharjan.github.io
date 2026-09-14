@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import HandArrow from "@/components/HandArrow";
 import Image from "@/components/ui/Image";
 import type { Dictionary } from "@/lib/dictionaries";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -116,7 +115,7 @@ export default function PlaygroundPeek({
       </Link>
 
 
-      <div className={clsx("relative mt-7", align === "center" && "flex flex-col items-center")}>
+      <div className="relative mt-7 flex w-full justify-center">
         <Link
           to={href}
           className="inline-flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-focus"
@@ -124,45 +123,32 @@ export default function PlaygroundPeek({
           {peek.cta}
         </Link>
 
-        {/*
-          The hand note, pointing back into the button.
-
-          **This used to draw its own arrow** — a 52 x 30 SVG at a 2.2px stroke,
-          inline, right here. It was the third arrow implementation on the site
-          and by some distance the faintest: about 4% of the weight of the pen
-          the owner's own annotations are drawn with, which is what "some of the
-          arrows are so small" was pointing at (`MILESTONE-020` task 3). It is
-          `HandArrow`'s `tick` now, at the site's own weight and through the
-          same pencil, so there is one arrow on this site rather than three.
-
-          A flex row rather than the old `padding-left` and an absolutely
-          positioned SVG inside the text: the arrow is a sibling of the words
-          with a gap between them, which is the arrangement `MILESTONE-019`
-          task 5 settled for the About notes and the reason a drawing can change
-          size here without anybody re-measuring an offset.
-        */}
-        {/*
-          Beside the button where there is room, under it where there is not
-          (`MILESTONE-023` task 8).
-
-          It was `md:block` — gone on a phone — and `left-full` is why: the note
-          hangs in the margin to the *right* of the button, and a phone has no
-          margin to hang it in. So below `md` it is a row in the flow under the
-          button instead, with the arrow mirrored to point back up at it. Same
-          drawing, same pen, same words; the only thing that changes is which
-          side of the button the hand was standing on.
-        */}
         <span
           aria-hidden="true"
-          className="pointer-events-none relative mt-2 block md:absolute md:left-full md:top-1/2 md:mt-0 md:-translate-y-1/2 md:pl-5"
+          className="pointer-events-none absolute left-[calc(50%+90px)] top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-4 text-accent whitespace-nowrap sm:gap-5"
         >
-          <span className="hidden items-center gap-4 whitespace-nowrap text-accent [transform:rotate(-2deg)] md:flex">
-            <HandArrow direction="down-left" shape="tick" width={56} className="shrink-0 -mb-0.5" />
-            <span className="pencil-ink font-hand text-[23px] font-bold leading-none">{peek.note}</span>
-          </span>
-          <span className="flex items-start justify-center gap-2 whitespace-nowrap text-accent [transform:rotate(-3deg)] md:hidden">
-            <HandArrow direction="up-right" shape="tick" width={60} className="shrink-0" />
-            <span className="pencil-ink mt-1 font-hand text-[19px] font-bold leading-none">{peek.note}</span>
+          <svg
+            viewBox="0 0 56 28"
+            fill="none"
+            className="h-[24px] w-[52px] shrink-0 sm:h-[26px] sm:w-[56px]"
+            aria-hidden="true"
+          >
+            <path
+              d="M52 14C38 9 20 9 6 14"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+            />
+            <path
+              d="M17 7L6 14L17 21"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span className="pencil-ink font-hand text-[21px] font-bold leading-none sm:text-[23px]">
+            {peek.note}
           </span>
         </span>
       </div>

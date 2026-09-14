@@ -186,8 +186,8 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/922", caption: "The original information architecture with 21 pages.", src: "/images/qis-structure-21.webp", alt: "The existing information architecture: 21 pages across four levels" },
-              { aspect: "1600/700", caption: "The simplified 14-page structure organised around student tasks.", src: "/images/qis-structure-14.webp", alt: "The revised architecture: 14 pages, with related functions merged" },
+              { aspect: "1658/949", caption: "Original architecture (21 pages).", src: "/images/qis-structure-21.webp", alt: "The existing information architecture: 21 pages across four levels" },
+              { aspect: "1900/828", caption: "Restructured architecture (14 pages).", src: "/images/qis-structure-14.webp", alt: "The revised architecture: 14 pages, with related functions merged" },
             ],
           },
           { kind: "h3", text: "Exploring the new structure" },
@@ -196,7 +196,7 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1197", caption: "Early prototypes used to explore the new structure and main student tasks.", src: "/images/qis-paper-prototypes.webp", alt: "The lo-fi wireframe flow: login, dashboard, semester overview, exam registration and the grade list, joined by flow arrows" },
+              { aspect: "2800/1840", caption: "Early task flow wireframes.", src: "/images/qis-paper-prototypes.webp", alt: "The lo-fi wireframe flow: login, dashboard, semester overview, exam registration and the grade list, joined by flow arrows" },
             ],
           },
         ],
@@ -218,21 +218,9 @@ const qisPortal: CaseStudyLocaleContent = {
           "Buttons and icons were designed as a consistent set so common actions looked and behaved in the same way throughout the portal. Primary actions received stronger visual emphasis, while secondary actions remained less dominant.",
           { kind: "h3", text: "Reducing information overload" },
           "Some pages contained large amounts of information at once. Accordions were introduced where content could be progressively revealed instead of showing everything immediately. Forms also followed a more consistent structure so labels, fields and actions were easier to scan.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "1600/1655", caption: "The colour system, the Inter type scale, and the components built from them.", src: "/images/qis-design-system.webp", alt: "The design system: brand, neutral and status colour tokens, a twelve-step Inter type scale, buttons, inputs, status pills, accordions, menus, notifications and dialogs" },
-            ],
-          },
           { kind: "h3", text: "Making complex information easier to scan" },
           "Tables were redesigned with clearer spacing, hierarchy and status information so content such as grades and records could be understood more quickly.",
           "Important actions also used confirmation pop-ups to reduce accidental changes during tasks such as exam registration.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "1900/1045", caption: "Exam registration state by state, with its confirmation dialog and component states.", src: "/images/qis-interaction-flow.webp", alt: "The exam registration flow across five states, from not registered through the confirmation dialog to deregistered, with the accordion, navigation and button states below it" },
-            ],
-          },
           { kind: "h3", text: "Bringing the system together" },
           "The low-fidelity structure and interface patterns were then developed into a complete high-fidelity prototype. This version brought together the new navigation, typography, colours, forms, tables and interaction patterns across the main QIS pages.",
         ],
@@ -249,7 +237,7 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/936", caption: "SUS results from the 12 usability-test participants.", src: "/images/qis-sus-chart.webp", alt: "System Usability Scale scores for twelve participants, all at or above the 68-point benchmark" },
+              { aspect: "1672/941", caption: "SUS usability test scores.", src: "/images/qis-sus-chart.webp", alt: "System Usability Scale scores for twelve participants, all at or above the 68-point benchmark" },
             ],
           },
         ],
@@ -294,7 +282,7 @@ const qisPortal: CaseStudyLocaleContent = {
           },
         ],
         images: [
-          { aspect: "6927/3918", caption: "The initial pass at that revisit, before further refinement.", src: "/images/qis-first-iteration.webp", alt: "An early version of the refined QIS dashboard, before the layout was settled" },
+          { aspect: "6927/3918", caption: "Initial visual iteration of the dashboard.", src: "/images/qis-first-iteration.webp", alt: "An early version of the refined QIS dashboard, before the layout was settled" },
         ],
       },
       {
@@ -306,11 +294,12 @@ const qisPortal: CaseStudyLocaleContent = {
           "The final concept combines the research-led information architecture and tested task flows with a cleaner visual system.",
           "The strongest change is not simply how QIS looks. The redesigned interface gives priority to the actions students need to complete instead of reflecting the internal structure of the university system.",
           {
-            kind: "figure",
-            aspect: "1900/1636",
-            caption: "The finished interface, across all sixteen screens.",
-            src: "/images/qis-final-screens.webp",
-            alt: "A board of the sixteen final QIS Portal screens, from login and dashboard through exam registration, the grade list and account settings",
+            kind: "figures",
+            items: [
+              { aspect: "1900/1636", caption: "Final interface across sixteen screens.", src: "/images/qis-final-screens.webp", alt: "A board of the sixteen final QIS Portal screens" },
+              { aspect: "12160/6252", caption: "Design system tokens and components.", src: "/images/qis-design-system.webp", alt: "The design system: colour tokens, type scale, and UI components" },
+              { aspect: "1900/1045", caption: "Exam registration state flow.", src: "/images/qis-interaction-flow.webp", alt: "The exam registration flow across five states" },
+            ],
           },
         ],
       },
@@ -492,8 +481,8 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/922", caption: "Die ursprüngliche Informationsarchitektur mit 21 Seiten.", src: "/images/qis-structure-21.webp", alt: "Die bestehende Informationsarchitektur: 21 Seiten über vier Ebenen" },
-              { aspect: "1600/700", caption: "Die vereinfachte 14-seitige Struktur rund um studentische Aufgaben.", src: "/images/qis-structure-14.webp", alt: "Die überarbeitete Architektur: 14 Seiten, verwandte Funktionen zusammengeführt" },
+              { aspect: "1658/949", caption: "Ursprüngliche Architektur (21 Seiten).", src: "/images/qis-structure-21.webp", alt: "Die bestehende Informationsarchitektur: 21 Seiten über vier Ebenen" },
+              { aspect: "1900/828", caption: "Neu strukturierte Architektur (14 Seiten).", src: "/images/qis-structure-14.webp", alt: "Die überarbeitete Architektur: 14 Seiten, verwandte Funktionen zusammengeführt" },
             ],
           },
           { kind: "h3", text: "Die neue Struktur erkunden" },
@@ -502,7 +491,7 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1197", caption: "Frühe Prototypen zur Untersuchung der neuen Struktur und zentraler studentischer Aufgaben.", src: "/images/qis-paper-prototypes.webp", alt: "Der Lo-Fi-Wireframe-Ablauf: Login, Dashboard, Semesterübersicht, Prüfungsanmeldung und Notenspiegel, durch Pfeile verbunden" },
+              { aspect: "2800/1840", caption: "Frühe Prototypen der Abläufe.", src: "/images/qis-paper-prototypes.webp", alt: "Der Lo-Fi-Wireframe-Ablauf: Login, Dashboard, Semesterübersicht, Prüfungsanmeldung und Notenspiegel, durch Pfeile verbunden" },
             ],
           },
         ],
@@ -524,21 +513,9 @@ const qisPortal: CaseStudyLocaleContent = {
           "Buttons und Icons wurden als konsistentes System gestaltet, damit häufige Aktionen im gesamten Portal ähnlich aussehen und funktionieren. Primäre Aktionen erhielten stärkere visuelle Priorität, während sekundäre Aktionen zurückhaltender gestaltet wurden.",
           { kind: "h3", text: "Informationsmenge reduzieren" },
           "Einige Seiten enthielten sehr viele Informationen gleichzeitig. Akkordeons wurden dort eingesetzt, wo Inhalte schrittweise gezeigt werden konnten, statt alles direkt sichtbar zu machen. Auch Formulare folgten einer konsistenteren Struktur, damit Labels, Felder und Aktionen leichter erfasst werden konnten.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "1600/1655", caption: "Das Farbsystem, die Inter-Typoskala und die daraus gebauten Komponenten.", src: "/images/qis-design-system.webp", alt: "Das Designsystem: Marken-, Neutral- und Status-Farbtokens, eine zwölfstufige Inter-Typoskala, Buttons, Eingaben, Status-Pills, Akkordeons, Menüs, Benachrichtigungen und Dialoge" },
-            ],
-          },
           { kind: "h3", text: "Komplexe Informationen übersichtlicher machen" },
           "Tabellen erhielten klarere Abstände, Hierarchien und Statusinformationen, damit Inhalte wie Noten und Studieninformationen schneller erfasst werden konnten.",
           "Für wichtige Aktionen wurden außerdem Bestätigungs-Pop-ups eingesetzt, um unbeabsichtigte Änderungen bei Aufgaben wie der Prüfungsanmeldung zu vermeiden.",
-          {
-            kind: "figures",
-            items: [
-              { aspect: "1900/1045", caption: "Die Prüfungsanmeldung Zustand für Zustand, mit Bestätigungsdialog und Komponentenzuständen.", src: "/images/qis-interaction-flow.webp", alt: "Der Ablauf der Prüfungsanmeldung über fünf Zustände, von nicht angemeldet über den Bestätigungsdialog bis abgemeldet, darunter die Zustände von Akkordeon, Navigation und Buttons" },
-            ],
-          },
           { kind: "h3", text: "Das System zusammenführen" },
           "Die Low-Fidelity-Struktur und die Interface-Muster wurden anschließend zu einem vollständigen High-Fidelity-Prototyp weiterentwickelt. Diese Version verband die neue Navigation, Typografie, Farben, Formulare, Tabellen und Interaktionsmuster über die wichtigsten QIS-Seiten hinweg.",
         ],
@@ -555,7 +532,7 @@ const qisPortal: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/936", caption: "SUS-Ergebnisse der 12 Test-Teilnehmenden.", src: "/images/qis-sus-chart.webp", alt: "System-Usability-Scale-Werte von zwölf Teilnehmenden, alle auf oder über dem 68-Punkte-Benchmark" },
+              { aspect: "1672/941", caption: "Ergebnisse des SUS-Usability-Tests.", src: "/images/qis-sus-chart.webp", alt: "System-Usability-Scale-Werte von zwölf Teilnehmenden, alle auf oder über dem 68-Punkte-Benchmark" },
             ],
           },
         ],
@@ -600,7 +577,7 @@ const qisPortal: CaseStudyLocaleContent = {
           },
         ],
         images: [
-          { aspect: "6927/3918", caption: "Der erste Anlauf dieser Weiterentwicklung, vor der weiteren Verfeinerung.", src: "/images/qis-first-iteration.webp", alt: "Eine frühe Version des überarbeiteten QIS-Dashboards, bevor das Layout feststand" },
+          { aspect: "6927/3918", caption: "Initiale visuelle Iteration des Dashboards.", src: "/images/qis-first-iteration.webp", alt: "Eine frühe Version des überarbeiteten QIS-Dashboards, bevor das Layout feststand" },
         ],
       },
       {
@@ -612,11 +589,12 @@ const qisPortal: CaseStudyLocaleContent = {
           "Das finale Konzept verbindet die forschungsbasierte Informationsarchitektur und die getesteten Aufgabenabläufe mit einem klareren visuellen System.",
           "Die wichtigste Veränderung liegt nicht nur darin, wie QIS aussieht. Das neu gestaltete Interface priorisiert die Aufgaben, die Studierende tatsächlich erledigen müssen, statt die interne Struktur des Hochschulsystems abzubilden.",
           {
-            kind: "figure",
-            aspect: "1900/1636",
-            caption: "Das fertige Interface, alle sechzehn Screens.",
-            src: "/images/qis-final-screens.webp",
-            alt: "Ein Board der sechzehn finalen Screens des QIS-Portals, von Login und Startseite über die Prüfungsanmeldung bis zu Notenspiegel und Kontoeinstellungen",
+            kind: "figures",
+            items: [
+              { aspect: "1900/1636", caption: "Finales Interface aller 16 Screens.", src: "/images/qis-final-screens.webp", alt: "Ein Board der sechzehn finalen Screens des QIS-Portals, von Login und Startseite über die Prüfungsanmeldung bis zu Notenspiegel und Kontoeinstellungen" },
+              { aspect: "12160/6252", caption: "Designsystem-Tokens und Komponenten.", src: "/images/qis-design-system.webp", alt: "Das Designsystem: Marken-, Neutral- und Status-Farbtokens, eine zwölfstufige Inter-Typoskala, Buttons, Eingaben, Status-Pills, Akkordeons, Menüs, Benachrichtigungen und Dialoge" },
+              { aspect: "1900/1045", caption: "Ablauf der Prüfungsanmeldung.", src: "/images/qis-interaction-flow.webp", alt: "Der Ablauf der Prüfungsanmeldung über fünf Zustände, von nicht angemeldet über den Bestätigungsdialog bis abgemeldet, darunter die Zustände von Akkordeon, Navigation und Buttons" },
+            ],
           },
         ],
       },

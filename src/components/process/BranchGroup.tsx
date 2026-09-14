@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type { ProcessBranchCopy } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 import type { BranchLayout } from "./branchData";
 import { processClusters } from "./clusters";
 
@@ -21,6 +22,7 @@ export default function BranchGroup({
   index,
   groupRef,
   stacked = false,
+  locale = "de",
 }: {
   branch: ProcessBranchCopy;
   layout: BranchLayout;
@@ -40,6 +42,7 @@ export default function BranchGroup({
    * connectors the phone says with four ticks down the middle.
    */
   stacked?: boolean;
+  locale?: Locale;
 }) {
   const Cluster = processClusters[index];
   /*
@@ -113,7 +116,7 @@ export default function BranchGroup({
           alignRight ? "origin-top-right justify-end" : "origin-top-left",
         )}
       >
-        {Cluster && <Cluster stacked={stacked} />}
+        {Cluster && <Cluster stacked={stacked} locale={locale} />}
       </div>
     </div>
   );

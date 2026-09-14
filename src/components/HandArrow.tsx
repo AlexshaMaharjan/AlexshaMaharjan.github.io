@@ -89,13 +89,13 @@ const SHAPES: Record<ArrowShape, Drawing> = {
     w: 713,
     h: 972,
     d: "M673.6 30C713.1 283 641.8 789 40.6 789M233.9 942L40.6 789L196.5 561",
-    stroke: 60,
+    stroke: 45,
   },
   tick: {
     w: 120,
     h: 54,
     d: "M112 11C86 5 40 16 12 39M12 39L37 32M12 39L24 16",
-    stroke: 7,
+    stroke: 5.25,
   },
 };
 

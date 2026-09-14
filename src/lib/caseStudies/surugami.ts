@@ -66,43 +66,44 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/760", caption: "Visual research and positioning exercises for the brand direction.", src: "/images/surugami-research-board.webp", alt: "The creation matrix and control wheel used to position the brand" },
+              { aspect: "3554/1138", caption: "Moodboard exploring visual directions, color palettes, and tactile materials.", src: "/images/surugami-moodboard.webp", alt: "Moodboards exploring visual directions, origami textures and color palettes" },
+              { aspect: "1600/760", caption: "Visual research and brand positioning.", src: "/images/surugami-research-board.webp", alt: "The creation matrix and control wheel used to position the brand" },
             ],
           },
-          "The research also helped us define the audience, brand values, tone and overall positioning.",
+          "The research also helped us map the target audience, brand values, tone of voice and position in the market.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1133", caption: "Mapping the audience, values, tone, visual direction and possible brand activities.", src: "/images/surugami-concept-map.webp", alt: "A concept map of the origami company: target audience, values, tonality, aesthetic and offerings" },
+              { aspect: "1600/1133", caption: "Concept map: audience, values and tone.", src: "/images/surugami-concept-map.webp", alt: "A concept map of the origami company: target audience, values, tonality, aesthetic and offerings" },
             ],
           },
           { kind: "h3", text: "Designing for learning" },
-          "One useful observation was that instructional content becomes easier to approach when information is broken into clear steps and supported by strong visuals.",
-          "This influenced how we later approached both the brand language and the structure of the website.",
+          "A key observation from researching tutorials was that learning becomes easier when instructions are broken into smaller steps and supported by strong visual cues.",
+          "This influenced both the brand language and the structure of the website.",
         ],
       },
       {
         id: "insights",
         navLabel: "Key insights",
         number: "04",
-        heading: "Turning research into design principles",
-        body: ["The research led to four ideas that guided the design:"],
+        heading: "Translating research into design principles",
+        body: ["Four key ideas emerged from the research and guided the design direction:"],
         insights: [
           {
             heading: "Clear entry points",
-            body: "Tutorials, workshops and navigation should make difficulty and time easy to understand.",
+            body: "Tutorials, workshops and navigation needed clear indicators for difficulty, time and materials.",
           },
           {
             heading: "Community over isolation",
-            body: "Showing events and work from others can make origami feel more social.",
+            body: "Events, sharing and community work could make origami feel more collaborative and less solitary.",
           },
           {
-            heading: "Playfulness needs structure",
-            body: "Expressive colours and shapes work best with a clear grid and hierarchy.",
+            heading: "Play needs structure",
+            body: "Playful colors and shapes work best when balanced with clear grids, typography and layouts.",
           },
           {
-            heading: "Folding as a visual language",
-            body: "Planes, creases and transformation could connect the identity across different formats.",
+            heading: "Folds as a visual language",
+            body: "Creases, facets and transformations could connect the brand across different touchpoints.",
           },
         ],
       },
@@ -110,17 +111,17 @@ const surugami: CaseStudyLocaleContent = {
         id: "direction",
         navLabel: "Concept & identity",
         number: "05",
-        heading: "Building a system from the idea of folding",
+        heading: "Building a brand from the idea of folding",
         body: [
-          "The name Surugami echoes the sound of origami, creating an immediate connection to the craft while still giving the brand its own identity.",
-          "We used folding not only as a reference to origami, but as the main visual principle of the brand. The logo uses a simplified folded-swan form, turning the idea of folded paper into a recognisable symbol that could work across print and digital applications.",
-          "Angular shapes, layered planes and directional lines extend this logic into the wider identity. Combined with coral, mint, teal and light neutral colours, they create a visual language that feels playful but still structured.",
-          "Space Grotesk supports the system with a clear and contemporary typographic character.",
-          "The strength of the identity comes from using the same folding logic in different ways rather than repeating one fixed graphic.",
+          "The name Surugami creates an immediate connection to origami while allowing the brand to establish its own identity.",
+          "We used folding not just as a reference to origami, but as the core visual idea behind the brand. The logo uses a simplified folded swan, turning the idea of paper into a memorable mark that works across print and digital media.",
+          "Angular shapes, layered planes and directional lines carry that logic through the rest of the identity. Paired with coral, mint, petrol and light neutral tones, the visual language balances a playful feel with structure.",
+          "Space Grotesk supports the system with a clear and modern typographic character.",
+          "The strength of the identity comes from using that folding logic flexibly across different layouts rather than repeating the same graphic device everywhere.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1245", caption: "The Surugami identity: logo, colour palette, typography and graphic system.", src: "/images/surugami-brand-system.webp", alt: "The Surugami identity: colour palette, Space Grotesk, and the folded-swan mark with its construction grid and colourways" },
+              { aspect: "1600/1245", caption: "Surugami identity: logo, colors and typography.", src: "/images/surugami-brand-system.webp", alt: "The Surugami identity: colour palette, Space Grotesk, and the folded-swan mark with its construction grid and colourways" },
             ],
           },
         ],
@@ -129,36 +130,36 @@ const surugami: CaseStudyLocaleContent = {
         id: "development",
         navLabel: "Print & website",
         number: "06",
-        heading: "Applying one identity across different formats",
+        heading: "Adapting the identity across formats",
         body: [
-          "For print, the fold-based system was adapted depending on what each format needed to communicate. Posters could be more expressive, while flyers and banners needed clearer information and faster recognition.",
+          "For print, the folding system was adapted to each medium. Posters allowed for bolder and more expressive compositions, while flyers and banners required clearer information and quick recognition.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1159", caption: "Poster development from early sketches to final campaign mock-ups.", src: "/images/surugami-posters.webp", alt: "The poster campaign, from first sketches to mock-ups in a stairwell, a corridor and outdoors" },
-              { aspect: "1400/1228", caption: "Paper prototypes and the final folded flyer and banner applications.", src: "/images/surugami-flyer.webp", alt: "Paper prototypes above the finished three-fold flyer, shown open and folded" },
+              { aspect: "1600/1159", caption: "Poster development from sketches to mock-ups.", src: "/images/surugami-posters.webp", alt: "The poster campaign, from first sketches to mock-ups in a stairwell, a corridor and outdoors" },
+              { aspect: "1400/1228", caption: "Paper prototypes and folded flyer.", src: "/images/surugami-flyer.webp", alt: "Paper prototypes above the finished three-fold flyer, shown open and folded" },
             ],
           },
           { kind: "h3", text: "Structuring the digital experience" },
-          "For the website, we first organised the content around tutorials, workshops, events, community work and information about Surugami.",
+          "For the website, we first organised the content around tutorials, workshops, events, community projects and company information.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/751", caption: "Sitemap defining the main content and navigation structure.", src: "/images/surugami-sitemap.webp", alt: "The site structure: a homepage over tutorials, gallery, courses, events, about and blog" },
+              { aspect: "1600/751", caption: "Sitemap defining the navigation structure.", src: "/images/surugami-sitemap.webp", alt: "The site structure: a homepage over tutorials, gallery, courses, events, about and blog" },
             ],
           },
-          "Wireframes helped us establish the page hierarchy before applying the visual identity.",
+          "Wireframes helped establish page hierarchy and layout before applying the visual identity.",
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1051", caption: "Wireframes developed from the first paper prototype into the main page layouts.", src: "/images/surugami-wireframes.webp", alt: "Wireframes for ten pages, starting from a paper prototype of the homepage" },
+              { aspect: "1400/1051", caption: "Wireframes of the main page layouts.", src: "/images/surugami-wireframes.webp", alt: "Wireframes for ten pages, starting from a paper prototype of the homepage" },
             ],
           },
-          "In the final interface, the folding language appears through cards, image shapes, section transitions and layout details without taking attention away from the content.",
+          "In the final interface, the folding logic appears in cards, image crops, transitions and layout details without distracting from the content.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/797", caption: "Final Surugami website, co-designed as part of the team.", src: "/images/surugami-website.webp", alt: "Six pages of the finished Surugami website" },
+              { aspect: "1600/797", caption: "Final Surugami website, co-designed in the team.", src: "/images/surugami-website.webp", alt: "Six pages of the finished Surugami website" },
             ],
           },
         ],
@@ -167,23 +168,30 @@ const surugami: CaseStudyLocaleContent = {
         id: "testing",
         navLabel: "Testing",
         number: "07",
-        heading: "Testing whether the structure was clear",
+        heading: "Testing how clearly the structure communicates",
         body: [
-          "Overall, participants responded positively to the visual direction and were able to move through most of the website successfully.",
-          "One issue appeared when a participant hesitated while looking for a workshop. We traced this to weak visual priority and revised the navigation label, card hierarchy and call to action to make workshops easier to find.",
-          "The testing confirmed that the overall structure worked while also showing where small changes could improve orientation.",
+          "Participants responded positively to the visual direction and were able to navigate most of the website smoothly.",
+          "One issue emerged when a participant hesitated while looking for a workshop. We traced this to weak visual priority and revised the navigation labels, card hierarchy and calls to action.",
+          "The testing confirmed that the core structure worked, while showing where smaller adjustments could make navigation clearer.",
         ],
       },
       {
         id: "outcome",
-        navLabel: "Final outcome",
+        navLabel: "Outcome",
         number: "08",
-        heading: "One visual system across print and web",
+        heading: "A visual system across print and web",
         body: [
-          "The final design uses the same folding principle across the identity, campaign material and website, while adapting it to the needs of each format.",
-          "Rather than repeating the same layout everywhere, the system keeps the brand consistent through shared shapes, colour, typography and visual rhythm.",
+          "The final design applies the same folding idea across identity, campaign materials and the website, adapting it to the needs of each medium.",
+          "Rather than repeating the same layout everywhere, consistency comes from shared shapes, colors, typography and visual rhythm.",
         ],
-        images: [{ aspect: "16/9", caption: "Final Surugami identity shown across print and digital applications." }],
+        images: [
+          {
+            aspect: "2400/927",
+            caption: "Final Surugami identity in print and digital.",
+            src: "/images/surugami-final-identity.webp",
+            alt: "The final Surugami brand system across print and digital touchpoints",
+          },
+        ],
       },
       {
         id: "prototype",
@@ -263,14 +271,15 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/760", caption: "Visuelle Recherche und Positionierungsübungen für die Markenrichtung.", src: "/images/surugami-research-board.webp", alt: "Creation Matrix und Control Wheel zur Positionierung der Marke" },
+              { aspect: "3554/1138", caption: "Moodboards zur Untersuchung visueller Richtungen, Farbwelten und Haptik.", src: "/images/surugami-moodboard.webp", alt: "Moodboards zur Untersuchung visueller Richtungen und Farbwelten" },
+              { aspect: "1600/760", caption: "Recherche und Positionierung der Marke.", src: "/images/surugami-research-board.webp", alt: "Creation Matrix und Control Wheel zur Positionierung der Marke" },
             ],
           },
           "Die Recherche half uns außerdem dabei, Zielgruppe, Markenwerte, Tonalität und Positionierung zu definieren.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1133", caption: "Mapping von Zielgruppe, Werten, Tonalität, visueller Richtung und möglichen Markenaktivitäten.", src: "/images/surugami-concept-map.webp", alt: "Eine Concept Map des Origami-Unternehmens: Zielgruppe, Werte, Tonalität, Ästhetik und Angebot" },
+              { aspect: "1600/1133", caption: "Concept-Map: Zielgruppe, Werte und Tonalität.", src: "/images/surugami-concept-map.webp", alt: "Eine Concept Map des Origami-Unternehmens: Zielgruppe, Werte, Tonalität, Ästhetik und Angebot" },
             ],
           },
           { kind: "h3", text: "Für Lernen gestalten" },
@@ -317,7 +326,7 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1245", caption: "Die Surugami-Identität: Logo, Farbpalette, Typografie und grafisches System.", src: "/images/surugami-brand-system.webp", alt: "Die Surugami-Identität: Farbpalette, Space Grotesk und die gefaltete Schwan-Marke mit Konstruktionsraster und Farbvarianten" },
+              { aspect: "1600/1245", caption: "Markenidentität: Logo, Farben und Typografie.", src: "/images/surugami-brand-system.webp", alt: "Die Surugami-Identität: Farbpalette, Space Grotesk und die gefaltete Schwan-Marke mit Konstruktionsraster und Farbvarianten" },
             ],
           },
         ],
@@ -332,8 +341,8 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1159", caption: "Posterentwicklung von ersten Skizzen bis zu finalen Kampagnen-Mock-ups.", src: "/images/surugami-posters.webp", alt: "Die Plakatkampagne, von ersten Skizzen bis zu Mock-ups im Treppenhaus, im Flur und im Außenraum" },
-              { aspect: "1400/1228", caption: "Papierprototypen sowie der finale gefaltete Flyer und Banner-Anwendungen.", src: "/images/surugami-flyer.webp", alt: "Papierprototypen über dem fertigen Wickelfalz-Flyer, offen und gefaltet" },
+              { aspect: "1600/1159", caption: "Posterentwicklung von Skizze bis Mock-up.", src: "/images/surugami-posters.webp", alt: "Die Plakatkampagne, von ersten Skizzen bis zu Mock-ups im Treppenhaus, im Flur und im Außenraum" },
+              { aspect: "1400/1228", caption: "Papierprototypen und gefalteter Flyer.", src: "/images/surugami-flyer.webp", alt: "Papierprototypen über dem fertigen Wickelfalz-Flyer, offen und gefaltet" },
             ],
           },
           { kind: "h3", text: "Das digitale Erlebnis strukturieren" },
@@ -341,21 +350,21 @@ const surugami: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/751", caption: "Sitemap zur Definition der wichtigsten Inhalte und Navigationsstruktur.", src: "/images/surugami-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über Tutorials, Galerie, Kursen, Events, Über uns und Blog" },
+              { aspect: "1600/751", caption: "Sitemap der Navigationsstruktur.", src: "/images/surugami-sitemap.webp", alt: "Die Seitenstruktur: eine Startseite über Tutorials, Galerie, Kursen, Events, Über uns und Blog" },
             ],
           },
           "Mit Wireframes entwickelten wir anschließend die Seitenhierarchie, bevor die visuelle Identität angewendet wurde.",
           {
             kind: "figures",
             items: [
-              { aspect: "1400/1051", caption: "Wireframes vom ersten Papierprototyp bis zu den wichtigsten Seitenlayouts.", src: "/images/surugami-wireframes.webp", alt: "Wireframes für zehn Seiten, ausgehend von einem Papierprototyp der Startseite" },
+              { aspect: "1400/1051", caption: "Wireframes der Hauptseiten.", src: "/images/surugami-wireframes.webp", alt: "Wireframes für zehn Seiten, ausgehend von einem Papierprototyp der Startseite" },
             ],
           },
           "Im finalen Interface zeigt sich die Faltlogik in Karten, Bildformen, Übergängen und Layoutdetails, ohne vom Inhalt abzulenken.",
           {
             kind: "figures",
             items: [
-              { aspect: "1600/797", caption: "Finale Surugami-Website, gemeinsam im Team gestaltet.", src: "/images/surugami-website.webp", alt: "Sechs Seiten der fertigen Surugami-Website" },
+              { aspect: "1600/797", caption: "Finale Website im Team-Design.", src: "/images/surugami-website.webp", alt: "Sechs Seiten der fertigen Surugami-Website" },
             ],
           },
         ],
@@ -380,7 +389,14 @@ const surugami: CaseStudyLocaleContent = {
           "Das finale Design nutzt dasselbe Faltprinzip für Identität, Kampagnenmaterial und Website und passt es gleichzeitig an die Anforderungen der jeweiligen Formate an.",
           "Statt überall dasselbe Layout zu wiederholen, entsteht Konsistenz durch gemeinsame Formen, Farben, Typografie und visuellen Rhythmus.",
         ],
-        images: [{ aspect: "16/9", caption: "Finale Surugami-Identität über Print- und digitale Anwendungen hinweg." }],
+        images: [
+          {
+            aspect: "2400/927",
+            caption: "Surugami-Identität in Print und Digital.",
+            src: "/images/surugami-final-identity.webp",
+            alt: "Das finale Surugami-Markensystem über Print- und Digital-Touchpoints hinweg",
+          },
+        ],
       },
       {
         id: "prototype",

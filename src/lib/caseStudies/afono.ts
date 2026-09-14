@@ -338,8 +338,8 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1800/1280", caption: "Vergleich nepalesischer Modereferenzen mit internationalen Streetwear-Marken.", src: "/images/afono-market-analysis.webp", alt: "Vier Referenzboards nepalesischer Streetwear-Marken: Kampagnenfotografie, Kleidungs-Mock-ups, Ladenfronten und Social-Media-Posts" },
-              { aspect: "595/842", caption: "Frühe Richtung: nepalesische Referenzen, Streetwear-Bildsprache und die rot-blaue Palette.", src: "/images/afono-moodboard.webp", alt: "Das AFONO-Moodboard: nepalesische Motive, Streetwear-Referenzen und die rot-blaue Farbrichtung" },
+              { aspect: "1800/1280", caption: "Vergleich nepalesischer und internationaler Streetwear.", src: "/images/afono-market-analysis.webp", alt: "Vier Referenzboards nepalesischer Streetwear-Marken: Kampagnenfotografie, Kleidungs-Mock-ups, Ladenfronten und Social-Media-Posts" },
+              { aspect: "595/842", caption: "Moodboard: Streetwear-Motive und Farbrichtung.", src: "/images/afono-moodboard.webp", alt: "Das AFONO-Moodboard: nepalesische Motive, Streetwear-Referenzen und die rot-blaue Farbrichtung" },
             ],
           },
         ],
@@ -382,9 +382,9 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1042/1274", caption: "Frühe Entwürfe für das AFONO-Monogramm.", src: "/images/afono-logo-sketches.webp", alt: "Frühe Logo-Exploration: Monogramm-Studien aus A und F, daneben Kleidungsskizzen" },
-              { aspect: "1140/1518", caption: "Studien auf dem Weg zum finalen AFONO-Schriftzug.", src: "/images/afono-wordmark-studies.webp", alt: "Eine Seite mit Wortmarken-Studien auf dem Weg zum AFONO-Schriftzug" },
-              { aspect: "1160/1322", caption: "Finaler Schriftzug, Monogramm und Logo-Varianten.", src: "/images/afono-logo-lockups.webp", alt: "Die AFONO-Lockups in Schwarz: Wortmarke, Monogramm und die Creative-Studio-Signatur" },
+              { aspect: "1042/1274", caption: "Entwürfe für das AFONO-Monogramm.", src: "/images/afono-logo-sketches.webp", alt: "Frühe Logo-Exploration: Monogramm-Studien aus A und F, daneben Kleidungsskizzen" },
+              { aspect: "1140/1518", caption: "Studien zum AFONO-Schriftzug.", src: "/images/afono-wordmark-studies.webp", alt: "Eine Seite mit Wortmarken-Studien auf dem Weg zum AFONO-Schriftzug" },
+              { aspect: "1160/1322", caption: "Finales Logo, Monogramm und Varianten.", src: "/images/afono-logo-lockups.webp", alt: "Die AFONO-Lockups in Schwarz: Wortmarke, Monogramm und die Creative-Studio-Signatur" },
             ],
           },
           { kind: "h3", text: "Farbe und Typografie" },
@@ -392,15 +392,15 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1228/1546", caption: "AFONO-Logo-Varianten in den wichtigsten Markenfarben.", src: "/images/afono-colour-system.webp", alt: "Dieselben Lockups in Markenrot und Markenblau" },
-              { aspect: "1190/1488", caption: "Das zentrale Farbsystem aus Rot, Blau, Schwarz und Weiß.", src: "/images/afono-colour-palette.webp", alt: "Die vier Markenfarben mit Hex-Werten und die daraus gebauten Button-Zustände" },
+              { aspect: "1228/1546", caption: "Logo-Varianten in den Markenfarben.", src: "/images/afono-colour-system.webp", alt: "Dieselben Lockups in Markenrot und Markenblau" },
+              { aspect: "1190/1488", caption: "Farbsystem: Rot, Blau, Schwarz und Weiß.", src: "/images/afono-colour-palette.webp", alt: "Die vier Markenfarben mit Hex-Werten und die daraus gebauten Button-Zustände" },
             ],
           },
           "Manrope hält das System der Website klar und zeitgemäß. Die AFONO-Schrift habe ich selbst gezeichnet, und Andrea Normal trägt die Printgestaltung.",
           {
             kind: "figures",
             items: [
-              { aspect: "1226/506", caption: "Manrope als Schrift innerhalb der AFONO-Identität.", src: "/images/afono-typography.webp", alt: "Manrope in fünf Schnitten, von ExtraBold bis Regular" },
+              { aspect: "1226/506", caption: "Typografie: Manrope-Schriftfamilie.", src: "/images/afono-typography.webp", alt: "Manrope in fünf Schnitten, von ExtraBold bis Regular" },
             ],
           },
         ],
@@ -425,14 +425,14 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1282/750", caption: "Handgezeichnete Lettering-Studien für den NEPAL-Print.", src: "/images/afono-print-sketches.webp", alt: "Handgezeichnete NEPAL-Schriftstudien" },
-              { aspect: "1164/1684", caption: "Frühe Lettering-Ideen, kulturelle Referenzen und grafische Experimente für die Kollektion.", src: "/images/afono-print-development.webp", alt: "Print-Entwicklung: handgezeichnete Studien zur Himal-Serie und zu Städten mit Newari-Maskenmotiven" },
-              { aspect: "1162/1478", caption: "Die finale NEPAL-Grafik in verschiedenen Farbvarianten.", src: "/images/afono-print-artwork.webp", alt: "Der fertige NEPAL-Druck in seinen vier Farbvarianten" },
-              { aspect: "1208/518", caption: "Die Himal-Grafik, inspiriert von Nepals Berglandschaft.", src: "/images/afono-print-himal.webp", alt: "Der HIMAL-Druck in drei Farbvarianten" },
-              { aspect: "1344/510", caption: "Eine Grafikserie, inspiriert von traditionellen Newari-Masken.", src: "/images/afono-print-mask.webp", alt: "Der Newari-Maskendruck über fünf Figuren" },
-              { aspect: "1040/658", caption: "Ein reduzierter Print mit dem AFONO-Schriftzug.", src: "/images/afono-print-wordmark.webp", alt: "Der vertikale AFONO-Schriftzugdruck in Schwarz, Rot und Blau" },
-              { aspect: "1274/1442", caption: "Die Kollektion auf Kleidungs-Mockups zur Erprobung von Platzierung, Größe und Farbkombinationen.", src: "/images/afono-tee-mockups.webp", alt: "Die Kollektion auf hellen Shirts, Vorder- und Rückseite" },
-              { aspect: "1274/1480", caption: "Dieselben Grafiken auf schwarzen Shirts, Vorder- und Rückseite.", src: "/images/afono-tee-mockups-dark.webp", alt: "Die Kollektion auf schwarzen Shirts, Vorder- und Rückseite" },
+              { aspect: "1282/750", caption: "Lettering-Studien für den NEPAL-Print.", src: "/images/afono-print-sketches.webp", alt: "Handgezeichnete NEPAL-Schriftstudien" },
+              { aspect: "1164/1684", caption: "Grafische Studien für die Kollektion.", src: "/images/afono-print-development.webp", alt: "Print-Entwicklung: handgezeichnete Studien zur Himal-Serie und zu Städten mit Newari-Maskenmotiven" },
+              { aspect: "1162/1478", caption: "NEPAL-Grafik in vier Farbvarianten.", src: "/images/afono-print-artwork.webp", alt: "Der fertige NEPAL-Druck in seinen vier Farbvarianten" },
+              { aspect: "1208/518", caption: "Himal-Grafik der Berglandschaft.", src: "/images/afono-print-himal.webp", alt: "Der HIMAL-Druck in drei Farbvarianten" },
+              { aspect: "1344/510", caption: "Grafikserie traditioneller Newari-Masken.", src: "/images/afono-print-mask.webp", alt: "Der Newari-Maskendruck über fünf Figuren" },
+              { aspect: "1040/658", caption: "Minimaler AFONO-Schriftzug-Print.", src: "/images/afono-print-wordmark.webp", alt: "Der vertikale AFONO-Schriftzugdruck in Schwarz, Rot und Blau" },
+              { aspect: "1274/1442", caption: "T-Shirt-Mockups in hellen Farben.", src: "/images/afono-tee-mockups.webp", alt: "Die Kollektion auf hellen Shirts, Vorder- und Rückseite" },
+              { aspect: "1274/1480", caption: "T-Shirt-Mockups in Schwarz.", src: "/images/afono-tee-mockups-dark.webp", alt: "Die Kollektion auf schwarzen Shirts, Vorder- und Rückseite" },
             ],
           },
           { kind: "h3", text: "Die Marke ohne physische Produkte visualisieren" },
@@ -441,7 +441,7 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "3/2", caption: "KI-generierte Kampagnenbilder zur Visualisierung der Kollektion an Models." },
+              { aspect: "3/2", caption: "KI-generierte Modelbilder zur Kampagnen-Visualisierung." },
             ],
           },
           { kind: "h3", text: "Das Einkaufserlebnis planen" },
@@ -449,7 +449,7 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1900/1168", caption: "Frühe Wireframes für die Struktur von Shop-, Kollektions- und Produktseiten.", src: "/images/afono-wireframes.webp", alt: "Wireframes für sieben Seiten des Shops, mit den Komponenten-Ebenen, aus denen sie gebaut sind" },
+              { aspect: "1900/1168", caption: "Wireframes für Shop und Produktseiten.", src: "/images/afono-wireframes.webp", alt: "Wireframes für sieben Seiten des Shops, mit den Komponenten-Ebenen, aus denen sie gebaut sind" },
             ],
           },
           { kind: "h3", text: "Shopping und Storytelling verbinden" },
@@ -458,12 +458,12 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1897", caption: "Startseite mit Einführung in Marke, Kollektionen und Produkte.", src: "/images/afono-landing-page.webp", alt: "Die Landingpage: Hero, Kategorieleiste und die ersten Produktreihen" },
-              { aspect: "1600/1938", caption: "Produktübersicht mit Kategorien und Filtern.", src: "/images/afono-prototype.webp", alt: "Die Shop-Seite: Kategoriefilter, Produktraster und der Seitenfuß" },
-              { aspect: "1600/3217", caption: "Die City Series mit Geschichte, Bildwelt und Produkten.", src: "/images/afono-city-series.webp", alt: "Die City-Series-Seite, vom Lookbook bis zum Produktraster" },
-              { aspect: "1600/2937", caption: "Produktdetails, Größenauswahl und ähnliche Artikel.", src: "/images/afono-product-page.webp", alt: "Die Produktseite: Galerie, Größenauswahl, Beschreibung und verwandte Produkte" },
-              { aspect: "1600/1702", caption: "Registrierung und Login.", src: "/images/afono-register-page.webp", alt: "Die Konto-Screens: Konto erstellen und anmelden" },
-              { aspect: "896/1676", caption: "Größenberatung mit empfohlener Passform und Try-on-Vorschau.", src: "/images/afono-size-finder.webp", alt: "Der KI-Größenfinder: die empfohlene Größe mit Anprobe-Vorschau" },
+              { aspect: "1600/1897", caption: "Startseite mit Marke und Kollektionen.", src: "/images/afono-landing-page.webp", alt: "Die Landingpage: Hero, Kategorieleiste und die ersten Produktreihen" },
+              { aspect: "1600/1938", caption: "Produktübersicht mit Filtern.", src: "/images/afono-prototype.webp", alt: "Die Shop-Seite: Kategoriefilter, Produktraster und der Seitenfuß" },
+              { aspect: "1600/3217", caption: "City Series: Lookbook und Produkte.", src: "/images/afono-city-series.webp", alt: "The City-Series-Seite, vom Lookbook bis zum Produktraster" },
+              { aspect: "1600/2937", caption: "Produktdetailseite mit Größenauswahl.", src: "/images/afono-product-page.webp", alt: "Die Produktseite: Galerie, Größenauswahl, Beschreibung und verwandte Produkte" },
+              { aspect: "1600/1702", caption: "Registrierungs- und Login-Ansicht.", src: "/images/afono-register-page.webp", alt: "Die Konto-Screens: Konto erstellen und anmelden" },
+              { aspect: "896/1676", caption: "KI-Größenberater mit Passform-Vorschau.", src: "/images/afono-size-finder.webp", alt: "Der KI-Größenfinder: die empfohlene Größe mit Anprobe-Vorschau" },
             ],
           },
           { kind: "h3", text: "Ein konsistentes Shopping-System" },
@@ -471,11 +471,11 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "768/2050", caption: "Warenkorb und Einstieg in den Checkout.", src: "/images/afono-cart.webp", alt: "Die Warenkorb-Lade: ein Artikel, Gutscheincode, Zwischensumme und die Checkout-Aktion" },
-              { aspect: "1600/1931", caption: "Wiederverwendbare Inhaltselemente wie das FAQ.", src: "/images/afono-components-content.webp", alt: "Inhalts-Komponenten: das FAQ-Akkordeon geschlossen und geöffnet" },
-              { aspect: "1600/1049", wide: false, caption: "Produktauswahl, Steuerelemente und Button-Zustände.", src: "/images/afono-components.webp", alt: "Komponenten-Zustände der Produktseite: Galerie, Auswahlfelder, Menge und Buttons" },
-              { aspect: "1600/974", wide: false, caption: "Gemeinsame Navigation und Footer-Elemente.", src: "/images/afono-components-nav.webp", alt: "Navigation, Angebotsleiste und Seitenfuß als wiederverwendbare Komponenten" },
-              { aspect: "363/142", wide: false, caption: "Interaktionszustände innerhalb des Shopping-Erlebnisses.", src: "/images/afono-buttons.webp", alt: "Der Wunschlisten-Button im Normal- und Aktivzustand" },
+              { aspect: "768/2050", caption: "Warenkorb und Checkout-Einstieg.", src: "/images/afono-cart.webp", alt: "Die Warenkorb-Lade: ein Artikel, Gutscheincode, Zwischensumme und die Checkout-Aktion" },
+              { aspect: "1600/1931", caption: "Wiederverwendbare FAQ-Komponente.", src: "/images/afono-components-content.webp", alt: "Inhalts-Komponenten: das FAQ-Akkordeon geschlossen und geöffnet" },
+              { aspect: "1600/1049", wide: false, caption: "Bedienelemente und Button-Zustände.", src: "/images/afono-components.webp", alt: "Komponenten-Zustände der Produktseite: Galerie, Auswahlfelder, Menge und Buttons" },
+              { aspect: "1600/974", wide: false, caption: "Header und Footer als Komponenten.", src: "/images/afono-components-nav.webp", alt: "Navigation, Angebotsleiste und Seitenfuß als wiederverwendbare Komponenten" },
+              { aspect: "363/142", wide: false, caption: "Interaktionszustände des Wishlist-Buttons.", src: "/images/afono-buttons.webp", alt: "Der Wunschlisten-Button im Normal- und Aktivzustand" },
             ],
           },
         ],
@@ -484,20 +484,20 @@ const afono: CaseStudyLocaleContent = {
         id: "testing",
         navLabel: "Testing",
         number: "07",
-        heading: "Den Shopping-Flow testen",
+        heading: "Abläufe und Verständlichkeit testen",
         body: [
-          "Ich testete den Prototyp mit fünf Teilnehmenden. Insgesamt wurde die Marke, die visuelle Richtung und das Einkaufserlebnis positiv aufgenommen. Gleichzeitig zeigten die Tests einige Usability-Probleme und kleinere Fehler im Prototyp.",
-          "Die wichtigsten Probleme waren:",
+          "Ich testete den Prototyp mit fünf Teilnehmenden. Die Rückmeldungen zu Marke, visueller Richtung und Einkaufserlebnis waren überwiegend positiv, zugleich zeigten sich einige Usability-Probleme.",
+          "Die wichtigsten Punkte waren:",
           {
             kind: "list",
             items: [
               "versteckte Navigation",
-              "unklare Orientierung",
-              "missverständliche Labels",
-              "fehlende oder fehlerhafte Links",
+              "unklare Seitenorientierung",
+              "missverständliche Bezeichnungen",
+              "fehlende oder unvollständige Verlinkungen",
             ],
           },
-          "Ich verbesserte daraufhin die Sichtbarkeit der Navigation, ergänzte klarere aktive Zustände und Seitenüberschriften, überarbeitete die Formulierungen und vervollständigte die wichtigsten Links und Shopping-Abläufe im Prototyp.",
+          "Ich verbesserte daraufhin die Sichtbarkeit der Navigation, ergänzte klarere aktive Zustände und Seitenüberschriften, überarbeitete die Formulierungen und vervollständigte die wichtigsten Links und Abläufe.",
         ],
       },
       {
@@ -511,9 +511,9 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "1600/1053", caption: "Der finale AFONO-Store in der Desktop-Ansicht.", src: "/images/afono-presentation.webp", alt: "Der fertige Shop auf einem Desktop-Monitor präsentiert" },
-              { aspect: "800/1342", caption: "Social-Media-Anwendungen für Restocks, Lookbooks, Giveaways und neue Releases.", src: "/images/afono-social-system.webp", alt: "Der Instagram-Feed: Restock-, Lookbook-, Giveaway- und Neuheiten-Posts" },
-              { aspect: "476/801", caption: "Das rot-blau-weiße Raster für einen konsistenten Social-Media-Auftritt.", src: "/images/afono-social-grid.webp", alt: "Das Rot-Blau-Weiß-Raster, das den Feed strukturiert" },
+              { aspect: "1600/1053", caption: "Finaler Desktop-Shopauftritt.", src: "/images/afono-presentation.webp", alt: "Der fertige Shop auf einem Desktop-Monitor präsentiert" },
+              { aspect: "800/1342", caption: "Social-Media-System für Instagram.", src: "/images/afono-social-system.webp", alt: "Der Instagram-Feed: Restock-, Lookbook-, Giveaway- und Neuheiten-Posts" },
+              { aspect: "476/801", caption: "Farb- und Layout-Raster für Social Media.", src: "/images/afono-social-grid.webp", alt: "Das Rot-Blau-Weiß-Raster, das den Feed strukturiert" },
             ],
           },
         ],
