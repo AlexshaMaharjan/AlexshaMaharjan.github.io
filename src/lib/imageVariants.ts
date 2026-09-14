@@ -6,6 +6,17 @@
 // `bg` behind a contained image so the mat matches the picture rather than
 // being a white slab (`SUGGESTION-012`, `DECISION-025`).
 export const imageVariants: Record<string, { w: number; v: number[]; bg: string }> = {
+  "/images/afono-ai-campaign.webp": {
+    "w": 1920,
+    "v": [
+      400,
+      640,
+      960,
+      1280,
+      1600
+    ],
+    "bg": "#ffffff"
+  },
   "/images/afono-buttons.webp": {
     "w": 894,
     "v": [

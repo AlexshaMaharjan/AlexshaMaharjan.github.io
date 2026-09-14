@@ -8,12 +8,8 @@ import { PROJECT_TAGS } from "./tags";
  * of the page saying that the campaign imagery was AI-generated and the design
  * was not. That fact has not gone anywhere: §06 has a sub-section of its own,
  * "Visualising the brand without physical products", which names ChatGPT and
- * says the images visualise rather than document. The owner's judgement is that
- * saying it once, where the images are, is enough.
- *
- * Its figure is the one genuinely missing asset in this study: there is no
- * campaign imagery in `Images/Afono`, so the slot stays a hatched
- * `PlaceholderImage`.
+ * says the images visualise rather than document. The campaign showcase
+ * displays eight AI-generated model mockups.
  *
  * The owner's testing section says five participants. It said three before, in
  * both locales. Their number.
@@ -176,7 +172,12 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "3/2", caption: "AI-generated campaign imagery used to visualise the collection on models." },
+              {
+                aspect: "1920/1240",
+                caption: "AI-generated campaign imagery used to visualise the collection on models.",
+                src: "/images/afono-ai-campaign.webp",
+                alt: "Eight AI-generated campaign images showing male and female models wearing the AFONO collection in Kathmandu streetscapes and studio settings",
+              },
             ],
           },
           { kind: "h3", text: "Planning the shopping experience" },
@@ -441,7 +442,12 @@ const afono: CaseStudyLocaleContent = {
           {
             kind: "figures",
             items: [
-              { aspect: "3/2", caption: "KI-generierte Modelbilder zur Kampagnen-Visualisierung." },
+              {
+                aspect: "1920/1240",
+                caption: "KI-generierte Modelbilder zur Kampagnen-Visualisierung.",
+                src: "/images/afono-ai-campaign.webp",
+                alt: "Acht KI-generierte Kampagnenbilder mit Models, die die AFONO-Kollektion in Straßenkulissen von Kathmandu und im Studio präsentieren",
+              },
             ],
           },
           { kind: "h3", text: "Das Einkaufserlebnis planen" },
