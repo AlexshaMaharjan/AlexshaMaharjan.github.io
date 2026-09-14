@@ -166,8 +166,8 @@ const en: Dictionary = {
   resume: {
     metaTitle: "Résumé · Alexsha Maharjan",
     name: "Alexsha Maharjan",
-    tagline: "UX/UI Design · Corporate Design · Frontend",
-    location: "Lübeck, Germany",
+    tagline: "UX/UI Design · Brand Identity · Frontend",
+    location: "23562 Lübeck · Germany",
     email: "alexsha.maharjan1@gmail.com",
     portfolio: "alexshamaharjan.github.io",
     portfolioHref: "https://alexshamaharjan.github.io",
@@ -176,14 +176,15 @@ const en: Dictionary = {
     backToAbout: "← Back to about",
     profileHeading: "Profile",
     profileBody:
-      "Student of Information Technology and Design (B.Sc.) at Technische Hochschule Lübeck, with a focus on human-centred design. Designing interfaces and brand identities across coursework and personal projects, alongside frontend implementation with HTML, CSS and Vue.js. German C1, English fluent.",
+      "Multidisciplinary design student focusing on UI/UX, brand identity, visual design, and frontend. From research and concept to prototyping and implementation, I work on digital and visual solutions.",
     educationHeading: "Education",
     education: [
       {
         degree: "Information Technology and Design, B.Sc.",
         period: "03/2024 – 08/2027 (expected)",
-        place: "Technische Hochschule Lübeck, Lübeck · current GPA 1.8 (German scale)",
-        detail: "Relevant modules: Typography Fundamentals, Design Methodology, Visual Representation Techniques, Web Development",
+        place: "Technische Hochschule Lübeck, Lübeck · current GPA 1.7 (German scale)",
+        detail:
+          "Relevant modules: Usability / User Experience Design · Design Research · Interaction Design · Design Methodology · Interactive Media Conception · Responsive Web Design · Web Programming",
       },
       {
         degree: "Computer Science, B.Sc. (change of major)",
@@ -195,39 +196,44 @@ const en: Dictionary = {
         period: "09/2021 – 08/2022",
         place: "Studienkolleg Coburg, Coburg · Final grade 1.5",
       },
-      {
-        degree: "Higher Secondary Education (10+2), Science",
-        period: "06/2017 – 05/2019",
-        place: "GEMS Institute of Higher Education, Kathmandu, Nepal · Instruction in English",
-      },
     ],
     projectsHeading: "Selected Projects",
     projects: [
       {
-        name: "WikiMind: Corporate Design & Website for an AI Company",
-        period: "2025",
+        name: "QIS Portal Redesign – UX Research & UI/UX Design",
+        period: "2024",
         place: "Semester project, Technische Hochschule Lübeck, Lübeck",
         bullets: [
-          "Visual identity, UI design and website concept, including a mascot for the visual language",
-          "Information architecture, wireframing and high-fidelity prototyping in Figma",
+          "Transformed a 21-page university portal into a 14-page, task-based structure based on user research.",
+          "Led the majority of UX, interface, and usability work, including information architecture, prototyping, and interface design.",
+          "Tested seven tasks with 12 participants, achieving an average SUS score of approximately 90.6.",
         ],
       },
       {
-        name: "Surugami: Brand Identity, Print & Web Design",
-        period: "2025",
+        name: "WikiMind – Brand Identity & Web Design",
+        period: "2026",
         place: "Semester project, Technische Hochschule Lübeck, Lübeck",
         bullets: [
-          "Logo, typography and colour system; print-ready layouts for flyers, posters and banners (CMYK, prepress)",
-          "Interactive Figma prototype of the brand website",
+          "Independently developed the brand identity and website concept from scratch, including logo, mascot, and visual system.",
+          "Developed information architecture, wireframes, reusable UI components, and an interactive Figma prototype.",
         ],
       },
       {
-        name: "Hibi: Productivity Web App, Design & Development",
+        name: "Hibi – Productivity Web App, Design & Development",
         period: "2025",
         place: "Personal project, Lübeck",
         bullets: [
-          "UX/UI concept for to-dos, calendar, journal and mood tracking",
-          "Frontend implementation with Vue.js and Tailwind CSS",
+          "UX/UI concept for to-dos, calendar, journal, and mood tracking",
+          "Implemented the frontend with Vue.js and Tailwind CSS as well as the backend.",
+        ],
+      },
+      {
+        name: "AFONO – Brand Identity, Fashion Graphics & E-Commerce",
+        period: "2026",
+        place: "Semester project, Technische Hochschule Lübeck, Lübeck",
+        bullets: [
+          "Developed a Nepal-inspired streetwear identity with naming, logo, visual system, and apparel graphics.",
+          "Designed the e-commerce experience from wireframes to interactive prototype and tested with five participants.",
         ],
       },
     ],
@@ -238,34 +244,48 @@ const en: Dictionary = {
         period: "07/2024 – 06/2026",
         place: "Nordischer Maschinenbau Rud. Baader GmbH & Co. KG, Lübeck",
         bullets: [
-          "Annotation and quality control of image data for AI-driven processing systems",
-          "Structured review of large datasets against defined quality standards",
-          "Documented results and collaborated with interdisciplinary teams",
+          "Processed and quality-checked image data for AI-supported processing systems.",
+          "Inspected large datasets against defined quality standards.",
         ],
       },
     ],
     furtherHeading: "Further Education & Engagement",
     further: [
       {
-        title: "AI Builders Arena",
-        place: "opencampus.sh, Kiel",
-        description: "Designer in an interdisciplinary team; UX concept and chatbot design for the Waterkant Festival",
+        title: "AI Builders Arena · opencampus.sh, Kiel",
         period: "04/2024 – 07/2024",
-      },
-      {
-        title: "“Prompt like a Pro” workshop",
-        place: "Technische Hochschule Lübeck, Lübeck",
-        description: "AI tools for text and image, project week",
-        period: "11/11/2024",
+        bullets: [
+          "Designer in an interdisciplinary team for an AI chatbot concept for the Waterkant Festival, focusing on UX, interaction, and conversational design.",
+        ],
       },
     ],
     skillsHeading: "Skills",
     skills: [
-      { label: "Design", value: "UX/UI design, human-centred design, wireframing, prototyping, corporate design, branding, editorial & print design, typography, responsive design" },
-      { label: "Software", value: "Figma, Adobe Illustrator, Photoshop, InDesign, Fresco, Blender, Microsoft 365" },
-      { label: "Print & Production", value: "Prepress, final artwork, print-ready PDFs, CMYK, packaging design" },
-      { label: "Development", value: "HTML5, CSS3, JavaScript, Vue.js, Tailwind CSS, MariaDB, Docker" },
-      { label: "Languages", value: "Nepali – native · Newari – native · German – fluent (C1) · English – fluent · Hindi – fluent" },
+      {
+        label: "Design",
+        value:
+          "UI/UX Design · Human-Centered Design · Design Research · Information Architecture · Wireframing · Prototyping · Interaction Design · Brand Identity · Visual Design · Typography · Responsive Design · User Flows · Design Systems",
+      },
+      {
+        label: "Software",
+        value: "Figma · Adobe Illustrator · Adobe Photoshop · InDesign · Fresco · Blender · After Effects",
+      },
+      {
+        label: "AI & agentic tools",
+        value: "Claude Code · Claude · Antigravity · ChatGPT · Gemini",
+      },
+      {
+        label: "Print & Production",
+        value: "Prepress, final artwork, print-ready PDFs, CMYK, packaging design",
+      },
+      {
+        label: "Web development",
+        value: "HTML · CSS · JavaScript · Vue.js · Tailwind CSS",
+      },
+      {
+        label: "Languages",
+        value: "Nepali – native · Newari – native · German – fluent (C1) · English – fluent · Hindi – fluent",
+      },
     ],
     printCta: "Print / Save as PDF",
   },

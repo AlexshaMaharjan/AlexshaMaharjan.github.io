@@ -1060,7 +1060,7 @@
  */
 @page {
   size: A4;
-  margin: 18mm 16mm;
+  margin: 16mm 16mm;
 }
 
 @media print {
@@ -1095,23 +1095,13 @@
     padding-bottom: 0;
   }
 
-  /*
-   * The section stack: 40px gaps become 17.
-   *
-   * 20 until the margins went to 18/16mm, which costs 4.5% of every page. The
-   * English document absorbed that out of the 41mm standing empty at the foot
-   * of both its pages; the **German** one did not — it is a longer language in
-   * every field, it was already using page two to its last entry, and the
-   * "Sprachen" row alone tipped it onto a third page.
-   *
-   * So the space the margins took is given back out of the gaps between
-   * sections, the padding inside an entry and the skills rows, in that order —
-   * the same principle `MILESTONE-011` task 12 settled, that on a document this
-   * dense the pages are won from *space* and never from type size. Three
-   * numbers move by two or three pixels each and both locales print on two.
-   */
+  .resume-sheet .resume-head {
+    margin-top: 0;
+    padding-bottom: 14px;
+  }
+
   .resume-sheet .resume-block {
-    margin-top: 17px;
+    margin-top: 15px;
   }
 
   /* A heading never ends a page, and an entry never straddles one. */
@@ -1124,8 +1114,8 @@
   .resume-sheet .resume-entry {
     break-inside: avoid;
     page-break-inside: avoid;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 
   .resume-sheet .resume-entry:first-child {
@@ -1133,21 +1123,22 @@
   }
 
   .resume-sheet .resume-body {
-    padding-top: 12px;
+    padding-top: 8px;
   }
 
-  .resume-sheet .resume-head {
-    margin-top: 16px;
-    padding-bottom: 16px;
+  /* Force clean page break after selected project #2 (WikiMind) matching original CV */
+  .print-break-after {
+    break-after: page !important;
+    page-break-after: always !important;
   }
 
   /* The small vertical rhythm inside an entry. */
   .resume-sheet .resume-entry > p {
-    margin-top: 4px;
+    margin-top: 3px;
   }
 
   .resume-sheet .resume-entry ul {
-    margin-top: 6px;
+    margin-top: 4px;
   }
 
   .resume-sheet .resume-entry li + li {
@@ -1155,7 +1146,7 @@
   }
 
   .resume-sheet .resume-skills {
-    row-gap: 6px;
+    row-gap: 5px;
   }
 
   /*

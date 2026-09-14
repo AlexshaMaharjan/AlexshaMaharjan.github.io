@@ -166,8 +166,8 @@ const de: Dictionary = {
   resume: {
     metaTitle: "Lebenslauf · Alexsha Maharjan",
     name: "Alexsha Maharjan",
-    tagline: "UX/UI Design · Corporate Design · Frontend",
-    location: "Lübeck, Deutschland",
+    tagline: "UX/UI Design · Brand Identity · Frontend",
+    location: "23562 Lübeck · Deutschland",
     email: "alexsha.maharjan1@gmail.com",
     portfolio: "alexshamaharjan.github.io",
     portfolioHref: "https://alexshamaharjan.github.io",
@@ -176,14 +176,15 @@ const de: Dictionary = {
     backToAbout: "← Zurück zu Über mich",
     profileHeading: "Profil",
     profileBody:
-      "Studentin im Bachelorstudiengang Information Technology and Design (B.Sc.) an der Technischen Hochschule Lübeck mit Schwerpunkt Human-Centered Design. Ich gestalte Interfaces und Markenauftritte in Semester- und eigenen Projekten und setze Frontends mit HTML, CSS und Vue.js um. Deutsch C1, Englisch fließend.",
+      "Multidisziplinäre Designstudentin mit Schwerpunkt auf UI/UX, Brand Identity, Visual Design und Frontend. Von Recherche und Konzept bis Prototyping und Umsetzung arbeite ich an digitalen und visuellen Lösungen.",
     educationHeading: "Bildungsweg",
     education: [
       {
         degree: "Informationstechnologie und Design, B.Sc.",
         period: "03/2024 – 08/2027 (vorauss.)",
-        place: "Technische Hochschule Lübeck, Lübeck · aktueller Notendurchschnitt 1,8",
-        detail: "Relevante Module: Grundlagen der Typografie, Design-Methodologie, Darstellungstechniken, Web-Entwicklung",
+        place: "Technische Hochschule Lübeck, Lübeck · aktueller Notendurchschnitt 1,7",
+        detail:
+          "Relevante Module: Usability / User Experience Design · Design Research · Interaktionsdesign · Designmethodologie · Konzeption interaktiver Medien · Responsive Webdesign · Webprogrammierung",
       },
       {
         degree: "Informatik, B.Sc. (Studienfachwechsel)",
@@ -195,39 +196,44 @@ const de: Dictionary = {
         period: "09/2021 – 08/2022",
         place: "Studienkolleg Coburg, Coburg · Abschlussnote 1,5",
       },
-      {
-        degree: "Higher Secondary Education (10+2), Naturwissenschaften",
-        period: "06/2017 – 05/2019",
-        place: "GEMS Institute of Higher Education, Kathmandu, Nepal · Unterrichtssprache Englisch",
-      },
     ],
     projectsHeading: "Ausgewählte Projekte",
     projects: [
       {
-        name: "Wikimind: Corporate Design & Website für ein KI-Unternehmen",
-        period: "2025",
+        name: "QIS Portal Redesign – UX Research & UI/UX Design",
+        period: "2024",
         place: "Semesterprojekt, Technische Hochschule Lübeck, Lübeck",
         bullets: [
-          "Visuelles Erscheinungsbild, UI-Design und Website-Konzept, inklusive Maskottchen für die Bildsprache",
-          "Informationsarchitektur, Wireframing und High-Fidelity-Prototyping in Figma",
+          "Ein 21-seitiges Hochschulportal auf Basis der Nutzerforschung in eine 14-seitige, aufgabenbasierte Struktur überführt.",
+          "Den Großteil der UX-, Interface- und Usability-Arbeit übernommen, darunter Informationsarchitektur, Prototyping und Interface-Design.",
+          "Sieben Aufgaben mit 12 Teilnehmenden getestet, mit einem durchschnittlichen SUS-Wert von etwa 90,6.",
         ],
       },
       {
-        name: "Surugami: Brand Identity, Print & Webdesign",
-        period: "2025",
+        name: "WikiMind – Brand Identity & Webdesign",
+        period: "2026",
         place: "Semesterprojekt, Technische Hochschule Lübeck, Lübeck",
         bullets: [
-          "Logo, Typografie und Farbwelt; druckfähige Layouts für Flyer, Poster und Banner (CMYK, Reinzeichnung)",
-          "Interaktiver Figma-Prototyp der Markenwebsite",
+          "Markenidentität und Website-Konzept vollständig eigenständig entwickelt, inklusive Logo, Maskottchen und visuellem System.",
+          "Informationsarchitektur, Wireframes, wiederverwendbare UI-Komponenten und einen interaktiven Figma-Prototyp entwickelt.",
         ],
       },
       {
-        name: "Hibi: Produktivitäts-Web-App, Design & Entwicklung",
+        name: "Hibi – Produktivitäts-Web-App, Design & Entwicklung",
         period: "2025",
         place: "Eigenprojekt, Lübeck",
         bullets: [
           "UX/UI-Konzept für To-do, Kalender, Journal und Mood-Tracking",
-          "Frontend-Umsetzung mit Vue.js und Tailwind CSS",
+          "Frontend mit Vue.js und Tailwind CSS sowie das Backend umgesetzt.",
+        ],
+      },
+      {
+        name: "AFONO – Brand Identity, Fashion Graphics & E-Commerce",
+        period: "2026",
+        place: "Semesterprojekt, Technische Hochschule Lübeck, Lübeck",
+        bullets: [
+          "Eine von Nepal inspirierte Streetwear-Identität mit Naming, Logo, visuellem System und Bekleidungsgrafiken entwickelt.",
+          "Das E-Commerce-Erlebnis von Wireframes bis zum interaktiven Prototyp gestaltet und mit fünf Teilnehmenden getestet.",
         ],
       },
     ],
@@ -238,34 +244,49 @@ const de: Dictionary = {
         period: "07/2024 – 06/2026",
         place: "Nordischer Maschinenbau Rud. Baader GmbH & Co. KG, Lübeck",
         bullets: [
-          "Annotation und Qualitätskontrolle von Bilddaten für KI-gestützte Verarbeitungssysteme",
-          "Strukturierte Prüfung großer Datensätze nach definierten Qualitätsstandards",
-          "Dokumentation der Ergebnisse und Zusammenarbeit mit interdisziplinären Teams",
+          "Bilddaten für KI-gestützte Verarbeitungssysteme bearbeitet und auf Qualität geprüft.",
+          "Große Datensätze nach definierten Qualitätsstandards geprüft.",
         ],
       },
     ],
     furtherHeading: "Weiterbildung & Engagement",
     further: [
       {
-        title: "AI Builders Arena",
-        place: "opencampus.sh, Kiel",
-        description: "Designerin im interdisziplinären Team; UX-Konzept und Chatbot-Design für das Waterkant Festival",
+        title: "AI Builders Arena · opencampus.sh, Kiel",
         period: "04/2024 – 07/2024",
-      },
-      {
-        title: "Workshop „Prompt like a Pro“",
-        place: "Technische Hochschule Lübeck, Lübeck",
-        description: "KI-Werkzeuge für Texte und Bilder, Projektwoche",
-        period: "11.11.2024",
+        bullets: [
+          "Designerin in einem interdisziplinären Team für ein KI-Chatbot-Konzept für das Waterkant Festival, mit Fokus auf UX, Interaktion und Conversational Design.",
+        ],
       },
     ],
     skillsHeading: "Kenntnisse",
     skills: [
-      { label: "Design", value: "UX/UI-Design, Human-Centered Design, Wireframing, Prototyping, Corporate Design, Branding, Editorial- & Printdesign, Typografie, Responsive Design" },
-      { label: "Software", value: "Figma, Adobe Illustrator, Photoshop, InDesign, Fresco, Blender, Microsoft 365" },
-      { label: "Print & Produktion", value: "Druckvorstufe, Reinzeichnung, druckfähige PDFs, CMYK, Verpackungsdesign" },
-      { label: "Entwicklung", value: "HTML5, CSS3, JavaScript, Vue.js, Tailwind CSS, MariaDB, Docker" },
-      { label: "Sprachen", value: "Nepali – Muttersprache · Newari – Muttersprache · Deutsch – fließend (C1) · Englisch – fließend · Hindi – fließend" },
+      {
+        label: "Design",
+        value:
+          "UI/UX Design · Human-Centered Design · Design Research · Informationsarchitektur · Wireframing · Prototyping · Interaction Design · Brand Identity · Visual Design · Typografie · Responsive Design · User Flows · Design Systems",
+      },
+      {
+        label: "Software",
+        value: "Figma · Adobe Illustrator · Adobe Photoshop · InDesign · Fresco · Blender · After Effects",
+      },
+      {
+        label: "KI & agentische Tools",
+        value: "Claude Code · Claude · Antigravity · ChatGPT · Gemini",
+      },
+      {
+        label: "Print & Produktion",
+        value: "Druckvorstufe, Reinzeichnung, druckfähige PDFs, CMYK, Verpackungsdesign",
+      },
+      {
+        label: "Webentwicklung",
+        value: "HTML · CSS · JavaScript · Vue.js · Tailwind CSS",
+      },
+      {
+        label: "Sprachen",
+        value:
+          "Nepali – Muttersprache · Newari – Muttersprache · Deutsch – fließend (C1) · Englisch – fließend · Hindi – fließend",
+      },
     ],
     printCta: "Drucken / Als PDF speichern",
   },

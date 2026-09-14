@@ -24,12 +24,14 @@ export default function ProjectsPeek({
   align = "center",
   cta,
   note,
+  showNote = false,
 }: {
   locale: Locale;
   dictionary: Dictionary;
   align?: "left" | "center";
   cta?: string;
   note?: string;
+  showNote?: boolean;
 }) {
   const href = localeHref(locale, "/#work");
   const ctaText = cta ?? dictionary.about.linkProjects;
@@ -68,35 +70,36 @@ export default function ProjectsPeek({
       </Link>
 
       <div className="relative mt-7 flex w-full justify-center">
-        {/* Hand-drawn note and arrow positioned to the LEFT of the button */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute right-[calc(50%+94px)] top-1/2 hidden -translate-y-1/2 items-center gap-2 text-accent whitespace-nowrap sm:flex xl:gap-3"
-        >
-          <span className="pencil-ink font-hand text-[19px] font-bold leading-none sm:text-[21px]">
-            {noteText}
-          </span>
-          <svg
-            viewBox="0 0 56 28"
-            fill="none"
-            className="h-[22px] w-[46px] shrink-0 [transform:scaleX(-1)] sm:h-[24px] sm:w-[50px]"
+        {showNote && (
+          <span
             aria-hidden="true"
+            className="pointer-events-none absolute right-[calc(50%+94px)] top-1/2 hidden -translate-y-1/2 items-center gap-2 text-accent whitespace-nowrap sm:flex xl:gap-3"
           >
-            <path
-              d="M52 14C38 9 20 9 6 14"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-            />
-            <path
-              d="M17 7L6 14L17 21"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
+            <span className="pencil-ink font-hand text-[19px] font-bold leading-none sm:text-[21px]">
+              {noteText}
+            </span>
+            <svg
+              viewBox="0 0 56 28"
+              fill="none"
+              className="h-[22px] w-[46px] shrink-0 [transform:scaleX(-1)] sm:h-[24px] sm:w-[50px]"
+              aria-hidden="true"
+            >
+              <path
+                d="M52 14C38 9 20 9 6 14"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+              />
+              <path
+                d="M17 7L6 14L17 21"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        )}
 
         <Link
           to={href}

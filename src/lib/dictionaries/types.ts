@@ -133,9 +133,10 @@ export interface ResumeExperienceEntry {
 
 export interface ResumeFurtherEntry {
   title: string;
-  place: string;
-  description: string;
+  place?: string;
+  description?: string;
   period: string;
+  bullets?: string[];
 }
 
 export interface ResumeSkillGroup {

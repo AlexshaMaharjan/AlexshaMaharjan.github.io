@@ -257,7 +257,7 @@ export default function About() {
                     {about.projectsCopy}
                   </p>
                 </div>
-                <ProjectsPeek locale={locale} dictionary={dictionary} align="center" />
+                <ProjectsPeek locale={locale} dictionary={dictionary} align="center" showNote={false} />
               </div>
             </div>
 
@@ -275,7 +275,7 @@ export default function About() {
                     {about.playgroundCopy}
                   </p>
                 </div>
-                <PlaygroundPeek locale={locale} dictionary={dictionary} align="center" />
+                <PlaygroundPeek locale={locale} dictionary={dictionary} align="center" showNote={false} />
               </div>
             </div>
           </div>
