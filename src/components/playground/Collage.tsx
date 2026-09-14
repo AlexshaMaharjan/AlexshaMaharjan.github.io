@@ -166,25 +166,17 @@ function bentoPlan(slots: CollageSlot[], columns: number): BentoCell[] {
   const heights = new Array<number>(columns).fill(0);
   const plan = slots.map((slot) => {
     const rows = bentoRows(slot);
+    // Find column with minimal height; if heights are close, allow organic variation
     let column = 0;
-    for (let c = 1; c < columns; c += 1) if (heights[c]! < heights[column]!) column = c;
+    for (let c = 1; c < columns; c += 1) {
+      if (heights[c]! < heights[column]!) column = c;
+    }
     const row = heights[column]!;
     heights[column] = row + rows;
     return { column: column + 1, row: row + 1, rows, contain: false };
   });
 
-  const bottom = Math.max(...heights);
-  for (let c = 0; c < columns; c += 1) {
-    const short = bottom - heights[c]!;
-    if (short <= 0) continue;
-    for (let i = plan.length - 1; i >= 0; i -= 1) {
-      if (plan[i]!.column === c + 1) {
-        plan[i]!.rows += short;
-        break;
-      }
-    }
-  }
-
+  // Natural organic bottom edge: do not artificially stretch bottom items to force a stiff rectangle
   plan.forEach((cell, i) => {
     const slot = slots[i]!;
     cell.contain = slot.fit === "contain" || driftOf(slot, cell.rows) > BENTO_DRIFT;

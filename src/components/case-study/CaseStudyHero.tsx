@@ -54,7 +54,7 @@ export default function CaseStudyHero({ content }: { content: CaseStudyContent }
   }, [content.slug]);
 
   return (
-    <div ref={mediaRef} className="mb-16 will-change-transform" style={{ aspectRatio: content.heroImage.aspect }}>
+    <div ref={mediaRef} className="mb-6 sm:mb-8 md:mb-10 will-change-transform" style={{ aspectRatio: content.heroImage.aspect }}>
       {content.heroImage.src ? (
         <div className="relative h-full w-full overflow-hidden rounded-[10px] border border-card-border bg-surface">
           <Image

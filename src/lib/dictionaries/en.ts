@@ -545,6 +545,7 @@ const en: Dictionary = {
     prototypeLive: "Live prototype",
     prototypeHint: "Click, scroll and explore the main flows.",
     prototypeNote: "Click to explore the prototype",
+    prototypeDesktopHint: "For the best interactive experience, desktop view is recommended.",
   },
   notFound: {
     metaTitle: "Page not found · Alexsha Maharjan",

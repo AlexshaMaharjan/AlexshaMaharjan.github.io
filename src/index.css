@@ -275,16 +275,23 @@
    */
   h1,
   h2,
-  h3 {
+  h3,
+  .text-page-title,
+  .text-section,
+  .text-feature {
+    hyphens: none;
+    word-break: normal;
     overflow-wrap: break-word;
   }
 
-  @media (max-width: 767px) {
-    :root:lang(de) h1,
-    :root:lang(de) h2,
-    :root:lang(de) h3 {
-      hyphens: auto;
-    }
+  :lang(de) h1,
+  :lang(de) h2,
+  :lang(de) h3,
+  :lang(de) .text-page-title,
+  :lang(de) .text-section,
+  :lang(de) .text-feature {
+    hyphens: auto;
+    text-wrap: balance;
   }
 
   section {

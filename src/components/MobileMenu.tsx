@@ -99,8 +99,7 @@ export default function MobileMenu({
     };
   }, [open]);
 
-  const links = [
-    { href: localeHref(locale, "/#work"), label: dictionary.nav.projects },
+  const otherLinks = [
     { href: localeHref(locale, "/about"), label: dictionary.nav.about },
     { href: localeHref(locale, "/#contact"), label: dictionary.nav.contact },
     {
@@ -162,13 +161,44 @@ export default function MobileMenu({
                 </button>
               </div>
 
-              <nav aria-label={dictionary.landmarks.menu} className="mt-8 flex flex-col items-start">
-                {links.map((link) => (
+              <nav aria-label={dictionary.landmarks.menu} className="mt-8 flex w-full flex-col items-start">
+                {/* Projects with sub-navigation list */}
+                <div className="w-full border-b border-surface-2 pb-3">
+                  <Link
+                    to={localeHref(locale, "/#work")}
+                    onClick={() => setOpen(false)}
+                    className="flex min-h-[46px] w-full items-center text-[19px] font-medium tracking-[-0.01em] text-ink transition-colors hover:text-accent"
+                  >
+                    {dictionary.nav.projects}
+                  </Link>
+                  <div className="mt-1 flex flex-col gap-0.5 border-l-2 border-surface-2 pl-3.5">
+                    {dictionary.projects.map((project) => {
+                      const isActive = pathname.includes(project.slug);
+                      return (
+                        <Link
+                          key={project.slug}
+                          to={localeHref(locale, `/work/${project.slug}`)}
+                          onClick={() => setOpen(false)}
+                          className={clsx(
+                            "flex py-1.5 text-[14px] transition-colors",
+                            isActive
+                              ? "font-semibold text-accent"
+                              : "font-medium text-ink-secondary hover:text-accent"
+                          )}
+                        >
+                          {project.name}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {otherLinks.map((link) => (
                   <Link
                     key={link.href}
                     to={link.href}
                     onClick={() => setOpen(false)}
-                    className="flex min-h-[52px] w-full items-center border-b border-surface-2 text-[19px] font-medium tracking-[-0.01em] text-ink transition-colors hover:text-accent"
+                    className="flex min-h-[50px] w-full items-center border-b border-surface-2 text-[19px] font-medium tracking-[-0.01em] text-ink transition-colors hover:text-accent"
                   >
                     {link.label}
                   </Link>

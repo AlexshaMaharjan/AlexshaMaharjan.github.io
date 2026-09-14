@@ -141,12 +141,12 @@ export default function LoveLine({ intro, words }: { intro: string; words: strin
   }, [key]);
 
   return (
-    <p className="m-0 text-center text-feature font-semibold tracking-[-0.025em]">
+    <p className="m-0 text-center text-[clamp(1.75rem,4.5vw,2.75rem)] font-semibold tracking-[-0.025em] [hyphens:none]">
       {/* The sentence, whole, for anyone not watching it. */}
       <span className="sr-only">{`${intro} ${words.join(", ")}.`}</span>
 
-      <span aria-hidden="true" className="inline-flex items-baseline justify-center whitespace-nowrap">
-        <span>{intro}</span>
+      <span aria-hidden="true" className="flex flex-col items-center justify-center sm:inline-flex sm:flex-row sm:items-baseline whitespace-nowrap px-1">
+        <span className="block text-ink">{intro}</span>
         <span
           ref={slotRef}
           /*
@@ -157,7 +157,7 @@ export default function LoveLine({ intro, words }: { intro: string; words: strin
            * descenders of `designing` and `painting`, which a box exactly one
            * line tall would cut off.
            */
-          className="relative ml-[0.28em] -mb-[0.3em] inline-block overflow-hidden pb-[0.3em] text-left align-baseline text-accent"
+          className="relative mt-1 -mb-[0.3em] inline-block overflow-hidden pb-[0.3em] text-center align-baseline text-accent sm:mt-0 sm:ml-[0.28em] sm:text-left"
           style={{
             // Before the first measurement there is no width to animate to;
             // `auto` lets the line render correctly on the very first paint and

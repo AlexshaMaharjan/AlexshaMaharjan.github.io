@@ -385,6 +385,7 @@ export interface Dictionary {
     prototypeLive: string;
     prototypeHint: string;
     prototypeNote: string;
+    prototypeDesktopHint: string;
   };
   notFound: {
     metaTitle: string;

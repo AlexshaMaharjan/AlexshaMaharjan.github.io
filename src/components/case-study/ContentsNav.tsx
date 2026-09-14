@@ -104,7 +104,7 @@ export default function ContentsNav({
       <details
         open={isOpen}
         onToggle={(e) => setIsOpen((e.currentTarget as HTMLDetailsElement).open)}
-        className="sticky top-[calc(var(--header-h)+12px)] z-[100] mb-8 rounded-lg border border-border bg-white/95 px-3.5 py-2 shadow-[0_4px_16px_rgba(20,30,60,0.08)] backdrop-blur-md transition-all xl:hidden"
+        className="sticky top-[calc(var(--header-h)+12px)] z-[100] mb-3 sm:mb-4 rounded-lg border border-border bg-white/95 px-3.5 py-2 shadow-[0_4px_16px_rgba(20,30,60,0.08)] backdrop-blur-md transition-all xl:hidden"
       >
         <summary
           onClick={(e) => {

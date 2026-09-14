@@ -87,7 +87,7 @@ export default function PlaygroundIndex() {
         </p>
         <Link
           to={localeHref(locale, "/")}
-          className="mt-9 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-accent px-7 text-[15px] font-medium text-white transition-colors hover:bg-[#1233c4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-focus"
+          className="mt-8 inline-flex h-10 items-center gap-2 rounded-full bg-accent px-6 text-[13.5px] font-medium text-white transition-colors hover:bg-[#1233c4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-focus"
         >
           {outro.cta}
           <span aria-hidden="true">→</span>

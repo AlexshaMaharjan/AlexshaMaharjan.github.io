@@ -49,15 +49,15 @@ export default function About() {
 
       <section className="pt-12 md:pt-[72px]">
         <div className="container-page">
-          <div data-inview className="grid grid-cols-1 items-center gap-10 md:grid-cols-[320px_minmax(0,1fr)] md:gap-16 xl:gap-20">
-            <div>
-              <div className="relative max-w-[320px] pt-[44px] md:pt-[58px]">
+          <div data-inview className="grid grid-cols-1 items-center gap-10 md:grid-cols-[280px_minmax(0,1fr)] md:gap-16 xl:gap-20">
+            <div className="w-full">
+              <div className="relative mx-auto max-w-[240px] pt-[44px] sm:max-w-[260px] md:max-w-[280px] md:pt-[58px]">
                 <div className="relative z-[1] aspect-[3/4] overflow-hidden rounded-[10px] border border-card-border bg-surface">
                   <Image
                     src="/images/alexsha-portrait.webp"
                     alt={about.portraitAlt}
                     fill
-                    sizes="(min-width: 768px) 320px, min(320px, calc(100vw - 40px))"
+                    sizes="(min-width: 768px) 280px, min(260px, calc(100vw - 40px))"
                     className="object-cover"
                   />
                 </div>
@@ -98,7 +98,7 @@ export default function About() {
                 {about.biographyHeading}
               </h2>
               {about.biography.map((p, i) => (
-                <p key={i} className={`text-[19px] leading-[1.7] text-ink-body ${i === 0 ? "mt-6" : "mt-4.5"}`}>
+                <p key={i} className={`text-[16px] sm:text-[17px] leading-[1.65] text-ink-body ${i === 0 ? "mt-6" : "mt-4.5"}`}>
                   {p}
                 </p>
               ))}
@@ -121,7 +121,7 @@ export default function About() {
         size has. See `LoveLine` for why the sentence no longer shifts around as
         the word changes.
       */}
-      <section className="pt-[104px]">
+      <section className="pt-12 md:pt-16">
         <div data-inview className="container-page">
           <div className="mx-auto max-w-[900px]">
             {/*
@@ -137,7 +137,7 @@ export default function About() {
       </section>
 
       {/* Professional focus & Tools I use */}
-      <section className="pt-[96px]">
+      <section className="pt-12 md:pt-16">
         <div className="container-page">
           <div data-inview className="grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2 md:gap-x-12">
             <div>
@@ -169,7 +169,7 @@ export default function About() {
                     {about.toolsDesign.map((tool) => (
                       <span
                         key={tool}
-                        className="rounded-full border border-border px-4 py-2 text-[14px] text-ink-body"
+                        className="rounded-full border border-border px-3.5 py-1.5 text-[13px] text-ink-body"
                       >
                         {tool}
                       </span>
@@ -185,7 +185,7 @@ export default function About() {
                     {about.toolsDev.map((tool) => (
                       <span
                         key={tool}
-                        className="rounded-full border border-border px-4 py-2 text-[14px] text-ink-body"
+                        className="rounded-full border border-border px-3.5 py-1.5 text-[13px] text-ink-body"
                       >
                         {tool}
                       </span>
@@ -201,7 +201,7 @@ export default function About() {
                     {about.toolsAi.map((tool) => (
                       <span
                         key={tool}
-                        className="rounded-full border border-border px-4 py-2 text-[14px] text-ink-body"
+                        className="rounded-full border border-border px-3.5 py-1.5 text-[13px] text-ink-body"
                       >
                         {tool}
                       </span>
@@ -221,16 +221,16 @@ export default function About() {
         </div>
       </section>
 
-      {/* How I use AI - Newspaper 2-column balanced layout */}
-      <section className="pt-[96px] md:pt-[116px]">
+      {/* How I use AI - Single full-width column layout */}
+      <section className="pt-[80px] md:pt-[104px]">
         <div className="container-page">
           <div data-inview className="w-full">
             <h2 className="text-subheading font-semibold tracking-[-0.02em] text-ink">
               {about.aiHeading}
             </h2>
-            <div className="mt-7 columns-1 md:columns-2 gap-8 md:gap-12 lg:gap-16 [column-fill:balance]">
+            <div className="mt-7 flex flex-col gap-4.5 w-full">
               {about.aiParagraphs.map((paragraph, i) => (
-                <p key={i} className="mb-4.5 break-inside-avoid text-[17px] leading-[1.75] text-ink-body last:mb-0">
+                <p key={i} className="text-[16px] sm:text-[17px] leading-[1.7] text-ink-body">
                   {paragraph}
                 </p>
               ))}
@@ -288,17 +288,17 @@ export default function About() {
           <h2 className="mx-auto mt-2.5 max-w-[760px] text-feature font-semibold leading-[1.05] tracking-[-0.025em] text-white">
             {about.resumeHeading}
           </h2>
-          <p className="mx-auto mt-5.5 max-w-[600px] text-[18px] leading-[1.6] text-ink-on-dark">{about.resumeCopy}</p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <p className="mx-auto mt-5 max-w-[600px] text-[16px] leading-[1.6] text-ink-on-dark">{about.resumeCopy}</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3.5">
             <Link
               to={localeHref(locale, "/resume")}
-              className="flex h-12 items-center rounded-full bg-white px-7 text-[15px] font-medium text-ink transition-colors hover:bg-accent-soft"
+              className="flex h-10 items-center rounded-full bg-white px-6 text-[13.5px] font-medium text-ink transition-colors hover:bg-accent-soft"
             >
               {about.resumeCta}
             </Link>
             <a
               href={`mailto:${dictionary.resume.email}`}
-              className="flex h-12 items-center rounded-full border border-white/35 px-7 text-[15px] font-medium text-white transition-colors hover:border-accent"
+              className="flex h-10 items-center rounded-full border border-white/35 px-6 text-[13.5px] font-medium text-white transition-colors hover:border-accent"
             >
               {about.contactCta}
             </a>

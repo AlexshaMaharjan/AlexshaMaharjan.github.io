@@ -6,9 +6,9 @@ import { localeHref, type Locale } from "@/lib/i18n";
 
 export default function AboutPreview({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   return (
-    <section id="about" className="bg-white py-[120px] pb-[160px]">
+    <section id="about" className="bg-white py-14 pb-16 sm:py-20 sm:pb-24 md:py-24 md:pb-32">
       <div className="container-page">
-        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[280px_1fr] md:gap-16">
+        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[280px_1fr] md:gap-16">
           <div data-inview="up" className="flex justify-center md:block">
             {/*
               280px, not 460 (`MILESTONE-018` task 3). The owner's note was that
@@ -30,7 +30,10 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
 
           <div data-inview="text">
             <span className="block text-[14px] text-accent">{dictionary.aboutPreview.eyebrow}</span>
-            <h2 className="mt-6 text-section font-semibold leading-[1.08] tracking-[-0.025em] text-ink">
+            <h2
+              className="mt-4 text-section font-semibold leading-[1.08] tracking-[-0.025em] text-ink [hyphens:none] sm:mt-6"
+              style={{ textWrap: "balance" }}
+            >
               {dictionary.aboutPreview.heading}
             </h2>
             <p className="mt-6 max-w-[600px] text-[18px] leading-[1.6] text-ink-secondary">

@@ -572,26 +572,61 @@ export function Cluster4({ stacked = false, locale = "de" }: ClusterProps) {
           </div>
         </div>
 
-        <div
-          className={clsx("flex flex-col gap-4", !stacked && "pb-col")}
-          style={{ width: stacked ? undefined : 88, flex: stacked ? "0 0 auto" : undefined }}
-        >
-          <div className="relative" style={{ width: 88 }}>
-            <Pin left="54%" />
-            {/*
-                The pinned cards sit straight in the bento (`MILESTONE-015`
-                task 1). A 2-degree tilt lifts an 88px card's corner by three
-                pixels and reads as paper; the same two degrees across a
-                615px phone card lift it by twenty-one and read as a mistake.
-              */}
+        {/* On mobile (stacked), Zustände sits in row 2 beside the Aa card */}
+        {!stacked && (
+          <div
+            className="pb-col flex flex-col gap-4"
+            style={{ width: 88 }}
+          >
+            <div className="relative" style={{ width: 88 }}>
+              <Pin left="54%" />
               <div
                 style={{
                   height: 76,
-                  transform: stacked ? "none" : "rotate(-2deg)",
+                  transform: "rotate(-2deg)",
                   boxShadow: "0 14px 30px rgba(0,0,0,0.5)",
                 }}
                 className="box-border flex flex-col justify-between bg-[#EDEAE3] p-[9px_10px]"
               >
+                <span className="font-mono text-[8px] text-[#696559]">{isDe ? "Abstände" : "spacing"}</span>
+                <div className="flex flex-col gap-1">
+                  <span className="block h-[3px] w-[30%] bg-[#B9B4A8]" />
+                  <span className="block h-[3px] w-[58%] bg-[#B9B4A8]" />
+                  <span className="block h-[3px] w-full bg-[#1B3FE0]" />
+                </div>
+                <span className="font-mono text-[8px] text-[#696559]">4 · 8 · 16</span>
+              </div>
+            </div>
+            <div className="relative" style={{ width: 88 }}>
+              <Pin />
+              <div
+                style={{ height: 104, transform: "rotate(1.2deg)" }}
+                className="box-border flex flex-col gap-[5px] border border-white/10 bg-[#101116] p-2"
+              >
+                <span className={monoLabel}>{isDe ? "Zustände" : "states"}</span>
+                <span className="block rounded-full bg-[#1B3FE0] py-[3px] text-center text-[8px] text-white">
+                  {isDe ? "Standard" : "Default"}
+                </span>
+                <span className="block rounded-full bg-[#2F55F0] py-[3px] text-center text-[8px] text-white">Hover</span>
+                <span className="block rounded-full border border-white/[0.18] py-[3px] text-center text-[8px] text-[#7B7E84]">
+                  {isDe ? "Inaktiv" : "Disabled"}
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {stacked && (
+          <div className="relative" style={{ width: 88 }}>
+            <Pin left="54%" />
+            <div
+              style={{
+                height: 76,
+                transform: "none",
+                boxShadow: "0 14px 30px rgba(0,0,0,0.5)",
+              }}
+              className="box-border flex flex-col justify-between bg-[#EDEAE3] p-[9px_10px]"
+            >
               <span className="font-mono text-[8px] text-[#696559]">{isDe ? "Abstände" : "spacing"}</span>
               <div className="flex flex-col gap-1">
                 <span className="block h-[3px] w-[30%] bg-[#B9B4A8]" />
@@ -601,29 +636,7 @@ export function Cluster4({ stacked = false, locale = "de" }: ClusterProps) {
               <span className="font-mono text-[8px] text-[#696559]">4 · 8 · 16</span>
             </div>
           </div>
-          <div className="relative" style={{ width: 88 }}>
-            <Pin />
-            {/*
-              On the phone card the states panel sits beside the palette and
-              icon row rather than below it, and its height is set to match
-              that combination exactly — 40px palette + 14px gap + 40px icons
-              — so the two blocks read as one aligned unit.
-            */}
-            <div
-              style={{ height: stacked ? 94 : 104, transform: stacked ? "none" : "rotate(1.2deg)" }}
-              className="box-border flex flex-col gap-[5px] border border-white/10 bg-[#101116] p-2"
-            >
-              <span className={monoLabel}>{isDe ? "Zustände" : "states"}</span>
-              <span className="block rounded-full bg-[#1B3FE0] py-[3px] text-center text-[8px] text-white">
-                {isDe ? "Standard" : "Default"}
-              </span>
-              <span className="block rounded-full bg-[#2F55F0] py-[3px] text-center text-[8px] text-white">Hover</span>
-              <span className="block rounded-full border border-white/[0.18] py-[3px] text-center text-[8px] text-[#7B7E84]">
-                {isDe ? "Inaktiv" : "Disabled"}
-              </span>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
 
       <div className={clsx("pb-row flex w-full flex-wrap items-start gap-2.5", stacked ? "justify-start" : "justify-end")}>
@@ -644,18 +657,50 @@ export function Cluster4({ stacked = false, locale = "de" }: ClusterProps) {
           </span>
         </div>
 
-        <div
-          style={{ width: 118, height: 156 }}
-          className="box-border flex flex-col justify-between rounded-lg bg-[#F1EFE9] p-3"
-        >
-          <span aria-hidden="true" className="text-[62px] font-semibold leading-none tracking-[-0.04em] text-[#17181A]">
-            Aa
-          </span>
-          <div>
-            <span className="block text-[9.5px] text-[#5C5E62]">Inter Display</span>
-            <span className="block font-mono text-[9px] text-[#6C6C6C]">{isDe ? "Mono-Labels" : "Mono labels"}</span>
+        {/* On mobile: Zustände and Aa sit side-by-side with matching width and height to save space */}
+        {stacked ? (
+          <div className="flex items-start gap-2.5">
+            <div
+              style={{ width: 88, height: 94 }}
+              className="box-border flex flex-col gap-[5px] border border-white/10 bg-[#101116] p-2 rounded-lg"
+            >
+              <span className={monoLabel}>{isDe ? "Zustände" : "states"}</span>
+              <span className="block rounded-full bg-[#1B3FE0] py-[3px] text-center text-[8px] text-white">
+                {isDe ? "Standard" : "Default"}
+              </span>
+              <span className="block rounded-full bg-[#2F55F0] py-[3px] text-center text-[8px] text-white">Hover</span>
+              <span className="block rounded-full border border-white/[0.18] py-[3px] text-center text-[8px] text-[#7B7E84]">
+                {isDe ? "Inaktiv" : "Disabled"}
+              </span>
+            </div>
+
+            <div
+              style={{ width: 88, height: 94 }}
+              className="box-border flex flex-col justify-between rounded-lg bg-[#F1EFE9] p-2.5"
+            >
+              <span aria-hidden="true" className="text-[38px] font-semibold leading-none tracking-[-0.04em] text-[#17181A]">
+                Aa
+              </span>
+              <div>
+                <span className="block text-[8px] text-[#5C5E62]">Inter Display</span>
+                <span className="block font-mono text-[8px] text-[#6C6C6C]">{isDe ? "Mono-Labels" : "Mono labels"}</span>
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div
+            style={{ width: 118, height: 156 }}
+            className="box-border flex flex-col justify-between rounded-lg bg-[#F1EFE9] p-3"
+          >
+            <span aria-hidden="true" className="text-[62px] font-semibold leading-none tracking-[-0.04em] text-[#17181A]">
+              Aa
+            </span>
+            <div>
+              <span className="block text-[9.5px] text-[#5C5E62]">Inter Display</span>
+              <span className="block font-mono text-[9px] text-[#6C6C6C]">{isDe ? "Mono-Labels" : "Mono labels"}</span>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

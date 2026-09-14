@@ -107,15 +107,15 @@ const config: Config = {
       // Fixed px sizes for UI text are left alone on purpose: 12/13/14/15px are
       // deliberate, not drift.
       fontSize: {
-        hero: "clamp(2.75rem, 5.8vw, 5.5rem)",
+        hero: "clamp(2.25rem, 4.2vw, 4.25rem)",
         // Not `page`: `text-page` would collide with the `page` colour token,
         // and the colour wins — the heading renders near-white on white.
-        "page-title": "clamp(2.5rem, 5.4vw, 5.25rem)",
-        section: "clamp(2.125rem, 4.6vw, 4.25rem)",
-        feature: "clamp(1.875rem, 3.6vw, 3.25rem)",
-        heading: "clamp(1.875rem, 3.2vw, 2.75rem)",
-        subheading: "clamp(1.625rem, 2.6vw, 2.25rem)",
-        lead: "clamp(1.375rem, 2.2vw, 1.875rem)",
+        "page-title": "clamp(2rem, 3.8vw, 3.5rem)",
+        section: "clamp(1.75rem, 3.2vw, 2.75rem)",
+        feature: "clamp(1.5rem, 2.5vw, 2.25rem)",
+        heading: "clamp(1.375rem, 2vw, 1.875rem)",
+        subheading: "clamp(1.25rem, 1.6vw, 1.5rem)",
+        lead: "clamp(1.125rem, 1.3vw, 1.375rem)",
       },
     },
   },

@@ -16,7 +16,7 @@ export default function NotFound() {
       <p className="mx-auto mt-4 max-w-md text-[16px] leading-[1.6] text-ink-secondary">{n.copy}</p>
       <Link
         to={localeHref(locale, "/")}
-        className="mt-8 flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-colors hover:bg-accent"
+        className="mt-7 flex h-10 items-center rounded-full bg-ink px-6 text-[13.5px] font-medium text-white transition-colors hover:bg-accent"
       >
         {n.backHome}
       </Link>

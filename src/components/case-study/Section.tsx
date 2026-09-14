@@ -74,7 +74,7 @@ function BodyBlock({
   switch (b.kind) {
     case "p":
       return (
-        <p className={`${MEASURE} text-[19px] leading-[1.75] text-ink-body ${first ? "mt-7" : "mt-5"}`}>
+        <p className={`${MEASURE} text-[16px] sm:text-[17px] leading-[1.65] text-ink-body ${first ? "mt-7" : "mt-5"}`}>
           {b.text}
         </p>
       );
@@ -92,7 +92,7 @@ function BodyBlock({
       const List = b.ordered ? "ol" : "ul";
       return (
         <List
-          className={`${MEASURE} flex list-outside flex-col gap-3 pl-5 text-[19px] leading-[1.7] text-ink-body marker:text-accent ${
+          className={`${MEASURE} flex list-outside flex-col gap-3 pl-5 text-[16px] sm:text-[17px] leading-[1.65] text-ink-body marker:text-accent ${
             b.ordered ? "list-decimal" : "list-disc"
           } ${first ? "mt-7" : "mt-6"}`}
         >
@@ -199,60 +199,35 @@ function BodyBlock({
           */}
           <div
             aria-hidden="true"
-            className="relative z-[1] mb-0 ml-[25%] flex flex-col items-start"
+            className="relative z-[2] -mb-11 ml-auto mr-3 flex flex-col items-end sm:mr-6 sm:-mb-13 md:mb-0 md:ml-[25%] md:mr-0 md:items-start"
           >
-            <span className="pencil-ink font-hand text-[18px] font-bold leading-none text-accent [transform:rotate(-3deg)] md:text-[21px]">
+            <span className="pencil-ink font-hand text-[13.5px] font-bold leading-none text-accent [transform:rotate(-2deg)] sm:text-[15.5px] md:text-[21px] md:[transform:rotate(-3deg)]">
               {dictionary.caseStudy.prototypeNote}
             </span>
-            <HandArrow direction="down-right" width={56} className="-mb-12 mt-1 shrink-0 text-accent md:hidden" />
+            <HandArrow direction="down-left" width={42} className="mt-1 shrink-0 text-accent md:hidden" />
             <HandArrow direction="down-right" width={68} className="-mb-16 mt-1.5 hidden shrink-0 text-accent md:block" />
           </div>
 
           {/*
-            The frame. A 2px accent border and an `accent-soft` mount, against
-            the hairline `card-border` and grey fill a `Figure` gets — the
-            difference is deliberate and it is the point. A reader who has seen
-            eight figures on this page reads "same box" as "same kind of thing",
-            so the box has to change.
+            The frame. A subtle, site-matching card with live status strip and embedded player.
           */}
-          <div className="overflow-hidden rounded-[16px] border-2 border-accent bg-accent-soft p-2 shadow-[0_10px_34px_rgba(27,63,224,0.14)]">
+          <div className="overflow-hidden rounded-[14px] border border-card-border bg-[#F8F9FB] p-2 sm:p-2.5 shadow-[0_2px_14px_rgba(0,0,0,0.03)]">
             {/*
-              The label strip. It is not a caption — it names what the thing is
-              and what to do with it — so it sits *above* the player where a
-              window's chrome would, rather than under it where this page's
-              captions live.
+              The label strip above the player: live badge on left, click hint on right.
             */}
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-2 pb-2.5 pt-1">
-              <span className="flex items-center gap-2 font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-accent">
+            <div className="flex items-center justify-between gap-x-4 px-2.5 pb-2.5 pt-1.5">
+              <span className="flex items-center gap-2 font-mono text-[11.5px] font-semibold uppercase tracking-[0.08em] text-accent">
                 <span aria-hidden="true" className="cs-live-dot" />
                 {dictionary.caseStudy.prototypeLive}
               </span>
-              <span className="text-[13px] font-medium text-accent">
+              <span className="hidden text-[12.5px] font-medium text-ink-secondary lg:inline-block">
                 {dictionary.caseStudy.prototypeHint}
               </span>
             </div>
             <div
-              className="relative w-full overflow-hidden rounded-[9px] bg-surface"
+              className="relative w-full overflow-hidden rounded-[10px] border border-card-border/60 bg-surface"
               style={{ aspectRatio: b.aspect ?? "16/10", maxHeight: "82svh" }}
             >
-            {/*
-              It loads with the page (owner, SESSION-046). It was behind a
-              "Load the prototype" button for one session — the two-click
-              pattern — and the owner asked for it to run without being asked
-              twice. `legal.privacy` says so: the Figma section is now a
-              third-party embed disclosed under Art. 6 (1) (f) rather than a
-              consent under (a).
-
-              `loading="lazy"` is the one thing that survives from that,
-              and it is not a privacy measure — it is the reason a case study
-              still weighs what it did at the top of the page. A Figma player
-              is megabytes of application, and this section sits eight
-              headings down; the browser fetches it when the reader is nearly
-              there.
-
-              `allow="fullscreen"` is not decoration either: without it the
-              prototype's own full-screen button is inert.
-            */}
               <iframe
                 title={b.label}
                 src={embedSrc(b.embed)}
@@ -262,22 +237,32 @@ function BodyBlock({
                 className="absolute inset-0 h-full w-full border-0"
               />
             </div>
+            {/*
+              Under the interactive screen: desktop view recommendation for best interaction.
+            */}
+            <div className="flex items-center justify-center px-2 pt-2.5 pb-1 sm:justify-start">
+              <span className="inline-flex items-center gap-1.5 text-[12px] text-ink-muted">
+                <svg aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
+                <span>{dictionary.caseStudy.prototypeDesktopHint}</span>
+              </span>
+            </div>
           </div>
           {/*
-            Out to Figma in its own tab. A bordered pill rather than the bare
-            link it was: next to a frame that now announces itself, an
-            underlined phrase read as the block's caption — which is exactly the
-            confusion the rest of this is undoing.
+            Out to Figma in its own tab. Sleek pill button matching the site style.
           */}
-          <p className="mt-4">
+          <p className="mt-3.5">
             <a
               href={b.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="tap-target inline-flex items-center gap-2 rounded-full border border-accent px-5 text-[14px] font-medium text-accent transition-colors hover:bg-accent hover:text-white"
+              className="tap-target inline-flex h-10 items-center gap-2 rounded-full border border-card-border bg-white px-5 text-[13.5px] font-medium text-ink-secondary shadow-xs transition-all hover:border-accent hover:text-accent hover:shadow-sm"
             >
               {b.label}
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true" className="text-[12px]">↗</span>
             </a>
           </p>
         </div>
@@ -298,7 +283,7 @@ function BodyBlock({
               {b.body.map((text, i) => (
                 <p
                   key={i}
-                  className={`text-[19px] leading-[1.75] text-ink-body ${i === 0 ? "" : "mt-4"}`}
+                  className={`text-[16px] sm:text-[17px] leading-[1.65] text-ink-body ${i === 0 ? "" : "mt-4"}`}
                 >
                   {text}
                 </p>

@@ -79,17 +79,17 @@ export default function RouteErrorBoundary() {
         <p className="mx-auto mt-4 max-w-md text-[16px] leading-[1.6] text-ink-secondary">
           {description}
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="flex h-12 cursor-pointer items-center rounded-full bg-ink px-7 text-[15px] font-medium text-white transition-colors hover:bg-accent"
+            className="flex h-10 cursor-pointer items-center rounded-full bg-ink px-6 text-[13.5px] font-medium text-white transition-colors hover:bg-accent"
           >
             {reloadButtonText}
           </button>
           <Link
             to={localeHref(locale, "/")}
-            className="flex h-12 items-center rounded-full border border-black/10 px-7 text-[15px] font-medium text-ink transition-colors hover:border-ink dark:border-white/10 dark:hover:border-white"
+            className="flex h-10 items-center rounded-full border border-black/10 px-6 text-[13.5px] font-medium text-ink transition-colors hover:border-ink dark:border-white/10 dark:hover:border-white"
           >
             {backHomeText}
           </Link>

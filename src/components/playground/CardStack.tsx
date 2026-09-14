@@ -316,7 +316,7 @@ export default function CardStack({
        * — so the two no longer fight: the card arrives and settles into its own
        * colour, and *then* its pieces go up on it.
        */
-      { threshold: 0.55 },
+      { threshold: 0.28 },
     );
     panels.forEach((panel) => observer.observe(panel));
 

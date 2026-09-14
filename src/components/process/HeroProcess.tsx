@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import { branchLayout, HUB_W, HUB_Y } from "./branchData";
@@ -235,10 +236,89 @@ function smoothstep(p: number, a: number, b: number) {
  * the `process.exploreCue` and `process.closeSelection` strings, and the
  * `<button>` that carried each step's title — which is now the `h3` it always
  * read as.
- *
- * The blue did not go with them. It moved onto the scroll, where it has
- * something to say (see `frame`).
  */
+function MobileStepItem({
+  branch,
+  layout,
+  index,
+  locale,
+  isLast,
+  here,
+  next,
+}: {
+  branch: Dictionary["process"]["branches"][number];
+  layout: (typeof branchLayout)[number];
+  index: number;
+  locale: Locale;
+  isLast: boolean;
+  here: (typeof STACK_LAYOUT)[number];
+  next?: (typeof STACK_LAYOUT)[number];
+}) {
+  const [inView, setInView] = useState(false);
+  const itemRef = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    const el = itemRef.current;
+    if (!el) return;
+    const rmq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (rmq.matches) {
+      setInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setInView(true);
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -30px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <li
+      ref={itemRef}
+      className={clsx(
+        "flex flex-col transition-all duration-700 ease-out",
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      )}
+    >
+      <div className={`flex ${here.justify}`}>
+        <div className={here.width}>
+          <BranchGroup
+            stacked
+            branch={branch}
+            layout={layout}
+            index={index}
+            locale={locale}
+          />
+        </div>
+      </div>
+      {!isLast && next && (
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 100 24"
+          preserveAspectRatio="none"
+          className="pointer-events-none block h-9 w-full shrink-0"
+        >
+          <path
+            d={`M${here.centre} 0 L${next.centre} 24`}
+            fill="none"
+            stroke={inView ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.12)"}
+            strokeWidth={1.2}
+            strokeDasharray="3 4"
+            className="transition-colors duration-500"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      )}
+    </li>
+  );
+}
+
 export default function HeroProcess({ dictionary, locale }: { dictionary: Dictionary; locale?: Locale }) {
   const activeLocale: Locale = locale || (dictionary.nav.projects === "Projekte" ? "de" : "en");
   const [staticFlow, setStaticFlow] = useState(true);
@@ -303,12 +383,12 @@ export default function HeroProcess({ dictionary, locale }: { dictionary: Dictio
       trackTopRef.current = track.getBoundingClientRect().top + window.scrollY;
       trackHRef.current = track.offsetHeight;
       /*
-       * The canvas starts where the hero ends, and `PageHero` is `min-h-70svh`
-       * — the same 70svh the playground's deck starts at, which is the whole
-       * point of the shared component. `heroBottom` is only larger than that
-       * when the copy has outgrown the box, and then it still wins.
+       * The canvas starts where the hero ends, and `PageHero` is `min-h-[75svh]`
+       * — the same 75svh the playground's deck starts at, so cards on both
+       * landing pages take about 25 percent of the screen. `heroBottom` is only
+       * larger than that when the copy has outgrown the box, and then it still wins.
        */
-      cTop0Ref.current = Math.max(0.7 * H, heroBottom);
+      cTop0Ref.current = Math.max(0.75 * H, heroBottom);
       qhRef.current = q.offsetHeight || 90;
       // One forced layout per resize, which is where `measure` already is.
       const width = q.style.width;
@@ -357,7 +437,7 @@ export default function HeroProcess({ dictionary, locale }: { dictionary: Dictio
        */
       const peek = (PEEK_SVH / 100) * H * smoothstep(raw, PEEK_FROM * (1 - hold), 1);
 
-      const top = lerp(cTop0Ref.current || 0.7 * H, 0, smoothstep(p, 0, 0.3));
+      const top = lerp(cTop0Ref.current || 0.75 * H, 0, smoothstep(p, 0, 0.3));
       canvas.style.top = top - peek + "px";
       const cw = lerp(Math.min(0.92 * W, 1320), W, smoothstep(p, 0.1, 0.32));
       canvas.style.width = cw + "px";
@@ -509,109 +589,44 @@ export default function HeroProcess({ dictionary, locale }: { dictionary: Dictio
         />
 
         {/*
-          The five steps as a column (`MILESTONE-011` task 10).
-
-          This was the 1440 x 900 map again, scaled by
-          `max(0.5, min(W/1440, H/900))` and centred in an `overflow-hidden`
-          section. **The `0.5` floor is the bug**: below a 720px window the map
-          is wider than the window, so it was clipped — on a 390px phone
-          clusters 02 and 04 were entirely off the right-hand edge and the
-          bottom of the section was 200px of empty black. Everything that
-          survived was drawn at half size, which is 9px panel labels at four and
-          a half.
-
-          Removing the floor does not help. At 390px an honest scale is 0.27,
-          and the whole canvas is then illustrations of interfaces rendered at a
-          quarter: legible to nobody. The map is a desktop idea and the phone
-          gets the same content laid out the way a phone lays things out — one
-          step under the next, at **full size**, with the panels wrapping inside
-          each step.
-
-          The connectors go with it, and that closes something that was on the
-          tracker rather than opening it: in this layout the question is a
-          heading *above* the steps, so five strokes converging on the middle of
-          the canvas converged on nothing at all.
+          Mobile Process Section:
+          Starts peeking at the bottom of the hero screen so only the question
+          and the scroll cue are visible on initial load. Swiping up brings
+          the black canvas into full view, and steps animate in sequentially on scroll.
         */}
-        <section className="relative w-full overflow-hidden bg-canvas-black py-14 sm:py-[72px]">
+        <section className="relative w-full overflow-hidden bg-canvas-black rounded-t-[32px] pb-16 pt-2 shadow-[0_-12px_44px_rgba(0,0,0,0.22)] sm:rounded-t-[44px] sm:pb-24">
           <p className="sr-only">{dictionary.process.srSummary}</p>
-          <h2 className="mx-auto max-w-[88vw] px-4 text-center text-[26px] font-semibold leading-[1.12] tracking-[-0.02em] text-white">
-            {dictionary.process.question}
-          </h2>
 
-          {/*
-            One card per step, **placed rather than stacked**
-            (`MILESTONE-023` task 7, owner: *"on smaller screens the layout
-            becomes too vertical… I do not want the mobile layout to simply
-            become a vertical timeline. Preserve the randomness / asymmetric
-            grid character of the desktop design as much as reasonably
-            possible."*).
+          {/* Peeking Question Area: takes the bottom 25% portion of the hero screen */}
+          <div className="flex min-h-[25svh] flex-col items-center justify-center px-5 pt-7 pb-6 text-center">
+            <h2
+              className="mx-auto max-w-[88vw] text-center text-[clamp(1.45rem,4.8vw,2.15rem)] font-semibold leading-[1.14] tracking-[-0.02em] text-white [hyphens:none]"
+              style={{ textWrap: "balance" }}
+            >
+              {dictionary.process.question}
+            </h2>
+            <span className="mt-5 inline-flex items-center gap-1.5 font-mono text-[12px] text-white/50">
+              <span aria-hidden="true" className="animate-bounce">↓</span>
+              <span>{dictionary.process.scrollCue}</span>
+            </span>
+          </div>
 
-            What was here was five identical cards at one width down one centre
-            line, with a straight dashed tick between each pair — which is a
-            timeline, exactly. The map it is standing in for is not: it is four
-            steps hung off the corners of a question with a fifth below it, and
-            what makes it read as a map is that **no two steps sit in the same
-            place and the strokes between them lean**.
-
-            Both of those survive a phone. The cards alternate sides and widths
-            (`STACK_LAYOUT`), so the column has a swing to it instead of an
-            edge, and each connector runs from the centre of one card to the
-            centre of the next — a diagonal, the way the map's are, rather than
-            a vertical tick. At 390px the swing is about 50px and at 768 about
-            110; below either, the cards are still full-width enough to read.
-
-            `STACK_LAYOUT` is a table rather than five `clsx` conditions because
-            it is *design*: somebody will want to re-cut where the steps sit,
-            and the place to do that should be five lines, not five branches in
-            a JSX tree.
-          */}
-          <ol className="mx-auto mt-10 flex w-full max-w-[680px] list-none flex-col px-5">
+          {/* Staggered animated steps on scroll */}
+          <ol className="mx-auto flex w-full max-w-[680px] list-none flex-col px-5">
             {branches.map((branch, i) => {
               const here = STACK_LAYOUT[i]!;
               const next = STACK_LAYOUT[i + 1];
               return (
-                <li key={branch.number} className="flex flex-col">
-                  <div className={`flex ${here.justify}`}>
-                    <div className={here.width}>
-                      <BranchGroup
-                        stacked
-                        branch={branch}
-                        layout={branchLayout[i]!}
-                        index={i}
-                        locale={activeLocale}
-                        groupRef={(el) => {
-                          groupRefs.current[i] = el;
-                        }}
-                      />
-                    </div>
-                  </div>
-                  {next && (
-                    /*
-                      The stroke between two cards, drawn in the *section's* own
-                      width rather than in the card's: it has to start under one
-                      card and end under another, and those are at different
-                      offsets. `preserveAspectRatio="none"` lets one 100 x 24
-                      viewBox stretch to whatever the column is, and
-                      `vector-effect` keeps the hairline a hairline while it
-                      does.
-                    */
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 100 24"
-                      preserveAspectRatio="none"
-                      className="pointer-events-none block h-9 w-full shrink-0"
-                    >
-                      <path
-                        d={`M${here.centre} 0 L${next.centre} 24`}
-                        fill="none"
-                        stroke="rgba(255,255,255,0.25)"
-                        strokeWidth={1}
-                        strokeDasharray="3 4"
-                        vectorEffect="non-scaling-stroke"
-                      />
-                    </svg>
-                  )}
-                </li>
+                <MobileStepItem
+                  key={branch.number}
+                  branch={branch}
+                  layout={branchLayout[i]!}
+                  index={i}
+                  locale={activeLocale}
+                  isLast={!next}
+                  here={here}
+                  next={next}
+                />
               );
             })}
           </ol>
@@ -636,7 +651,7 @@ export default function HeroProcess({ dictionary, locale }: { dictionary: Dictio
           role="region"
           aria-label={dictionary.landmarks.processCanvas}
           className="absolute left-1/2 -translate-x-1/2 overflow-hidden bg-canvas-black"
-          style={{ top: "70svh", width: "min(92vw,1320px)", height: "78svh", borderRadius: 44 }}
+          style={{ top: "75svh", width: "min(92vw,1320px)", height: "78svh", borderRadius: 44 }}
         >
           <p className="sr-only">{dictionary.process.srSummary}</p>
           <h2

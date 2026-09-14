@@ -40,16 +40,23 @@ export default function PageHero({
   return (
     <section
       ref={innerRef}
-      className="flex min-h-[58svh] flex-col items-center justify-center pt-[var(--header-h)] sm:min-h-[70svh]"
+      className="flex min-h-[75svh] flex-col items-center justify-center pt-[calc(var(--header-h)+16px)] pb-4 sm:min-h-[75svh] sm:pt-[var(--header-h)] sm:pb-0"
     >
       <div ref={contentRef} className="container-page w-full text-center">
         {/*
-          Tighter below `sm`: at 12px with 0.16em of tracking the portfolio
-          eyebrow is 337px wide and the phone gutter leaves it 310, so
-          "GERMANY" fell to a second line on its own.
+          Eyebrow: on mobile displays title in line 1 and location in line 2;
+          on sm: and above sits on one line with a centered dot.
         */}
         <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-muted sm:text-[12px] sm:tracking-[0.16em]">
-          {eyebrow}
+          {eyebrow.includes("·") ? (
+            <>
+              <span className="block sm:inline">{eyebrow.split("·")[0]?.trim()}</span>
+              <span className="hidden sm:inline"> · </span>
+              <span className="block sm:inline">{eyebrow.split("·")[1]?.trim()}</span>
+            </>
+          ) : (
+            eyebrow
+          )}
         </p>
         {/*
           Two lines tall whether or not the copy fills them. The portfolio
@@ -61,17 +68,17 @@ export default function PageHero({
           above the heading and the air below it rather than dumping all of it
           underneath.
         */}
-        <h1 className="mx-auto mt-5 flex min-h-[2.04em] max-w-[900px] flex-col justify-center text-page-title font-semibold leading-[1.02] tracking-[-0.028em] text-ink">
+        <h1 className="mx-auto mt-5 flex min-h-[2.04em] max-w-[900px] flex-col justify-center text-page-title font-semibold leading-[1.04] tracking-[-0.028em] text-ink sm:mt-6">
           {headingLines.map((line) => (
-            <span key={line} className="block">
+            <span key={line} className="block [hyphens:none]">
               {line}
             </span>
           ))}
         </h1>
-        <p className="mx-auto mt-7 min-h-[91px] max-w-[640px] text-[19px] leading-[1.6] text-ink-secondary">
+        <p className="mx-auto mt-5 max-w-[640px] text-[15.5px] leading-[1.6] text-ink-secondary sm:mt-6 sm:min-h-[84px] sm:text-[17px] sm:leading-[1.6]">
           {intro}
         </p>
-        <p className="mt-6 font-mono text-[13px] text-accent">{tags}</p>
+        <p className="mt-5 font-mono text-[12px] text-accent sm:mt-6 sm:text-[12.5px]">{tags}</p>
       </div>
     </section>
   );

@@ -80,7 +80,7 @@ const de: Dictionary = {
   },
   selectedWork: {
     eyebrow: "Ausgewählte Projekte",
-    heading: "Unterschiedliche Projekte, unterschiedliche Perspektiven",
+    heading: "Ausgewählte Arbeiten, neue Perspektiven",
     copy: "Meine Arbeit bewegt sich zwischen UI/UX, Branding, Visual Design und Experimenten. Jedes Projekt bringt eine andere Herausforderung mit sich und gibt mir die Möglichkeit, eine andere Seite von Design zu erkunden.",
   },
   projects: [
@@ -524,6 +524,7 @@ const de: Dictionary = {
     prototypeLive: "Live-Prototyp",
     prototypeHint: "Klicken, scrollen und die wichtigsten Abläufe ausprobieren.",
     prototypeNote: "Klicken und den Prototyp ausprobieren",
+    prototypeDesktopHint: "Für das beste interaktive Erlebnis wird die Desktop-Ansicht empfohlen.",
   },
   notFound: {
     metaTitle: "Seite nicht gefunden · Alexsha Maharjan",

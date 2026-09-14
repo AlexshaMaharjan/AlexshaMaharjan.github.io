@@ -43,7 +43,7 @@ export default function CaseStudyPage({
             {dictionary.caseStudy.backToProjects}
           </Link>
 
-          <div className="grid md:mt-8 grid-cols-1 gap-10 xl:grid-cols-[240px_minmax(0,1fr)]">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:mt-6 md:gap-10 xl:grid-cols-[240px_minmax(0,1fr)]">
             <ContentsNav sections={content.sections} dictionary={dictionary} />
             <div className="min-w-0 max-w-[960px]">
               <CaseStudyHero content={content} />

@@ -43,13 +43,19 @@ function StepCard({
   label: string;
   locale: Locale;
 }) {
+  const isNext = direction === "next";
+
   return (
     <Link
       to={localeHref(locale, `/work/${project.slug}`)}
-      className={`group flex items-center gap-4 ${direction === "next" ? "sm:flex-row-reverse sm:text-right" : ""}`}
+      className={`group flex w-full items-center gap-4 ${
+        isNext
+          ? "flex-col items-end text-right sm:flex-row-reverse sm:items-center sm:text-right"
+          : "flex-col items-start text-left sm:flex-row sm:items-center sm:text-left"
+      }`}
     >
       <div
-        className="relative w-[96px] shrink-0 overflow-hidden rounded-[10px] border border-card-border bg-surface transition-colors duration-[250ms] ease-out group-hover:border-accent sm:w-[120px]"
+        className="relative hidden shrink-0 overflow-hidden rounded-[10px] border border-card-border bg-surface transition-colors duration-[250ms] ease-out group-hover:border-accent sm:block sm:w-[120px]"
         style={{ aspectRatio: project.imageAspect }}
       >
         <Image
@@ -60,13 +66,17 @@ function StepCard({
           className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-[1.02]"
         />
       </div>
-      <div className="min-w-0">
-        <span className="flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-[0.08em] text-accent">
-          {direction === "next" && <span aria-hidden="true">→</span>}
-          {direction === "prev" && <span aria-hidden="true">←</span>}
-          {label}
+      <div className="min-w-0 w-full sm:w-auto">
+        <span
+          className={`flex items-center gap-1.5 font-mono text-[11.5px] uppercase tracking-[0.08em] text-accent sm:text-[12px] ${
+            isNext ? "justify-end" : "justify-start"
+          }`}
+        >
+          {!isNext && <span aria-hidden="true">←</span>}
+          <span>{label}</span>
+          {isNext && <span aria-hidden="true">→</span>}
         </span>
-        <h3 className="mt-1.5 truncate text-[17px] font-semibold leading-[1.3] tracking-[-0.01em] text-ink">
+        <h3 className="mt-1 truncate text-[14.5px] font-semibold leading-[1.3] tracking-[-0.01em] text-ink transition-colors group-hover:text-accent sm:mt-1.5 sm:text-[17px]">
           {project.name}
         </h3>
       </div>
@@ -96,7 +106,7 @@ export default function MoreProjectsNav({
     <nav aria-label={dictionary.landmarks.projectNav} className="border-t border-surface-2 py-[72px] pb-[110px]">
       <div className="container-page">
         {index !== -1 && prev && next && (
-          <div className="mb-14 grid grid-cols-1 gap-6 border-b border-surface-2 pb-14 sm:grid-cols-2">
+          <div className="mb-10 grid grid-cols-2 gap-4 border-b border-surface-2 pb-8 sm:mb-14 sm:gap-6 sm:pb-14">
             <StepCard project={prev} direction="prev" label={dictionary.caseStudy.previousProject} locale={locale} />
             <StepCard project={next} direction="next" label={dictionary.caseStudy.nextProject} locale={locale} />
           </div>
