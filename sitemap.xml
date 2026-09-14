@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://alexshamaharjan.github.io/</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/</loc></url>
   <url><loc>https://alexshamaharjan.github.io/about</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/about</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/about</loc></url>
   <url><loc>https://alexshamaharjan.github.io/resume</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/resume</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/resume</loc></url>
   <url><loc>https://alexshamaharjan.github.io/contact</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/contact</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/work/wikimind</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/work/wikimind</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/contact</loc></url>
   <url><loc>https://alexshamaharjan.github.io/work/afono</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/work/afono</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/work/sync-fm</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/work/sync-fm</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/work/barrier-free-kitchen</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/work/barrier-free-kitchen</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/work/afono</loc></url>
   <url><loc>https://alexshamaharjan.github.io/work/surugami</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/work/surugami</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/work/surugami</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/work/wikimind</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/work/wikimind</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/work/sync-fm</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/work/sync-fm</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/work/barrier-free-kitchen</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/work/barrier-free-kitchen</loc></url>
   <url><loc>https://alexshamaharjan.github.io/work/qis-portal</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/work/qis-portal</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/playground</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/playground</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/work/qis-portal</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/archive</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/archive</loc></url>
   <url><loc>https://alexshamaharjan.github.io/impressum</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/impressum</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/impressum</loc></url>
   <url><loc>https://alexshamaharjan.github.io/datenschutz</loc></url>
-  <url><loc>https://alexshamaharjan.github.io/de/datenschutz</loc></url>
+  <url><loc>https://alexshamaharjan.github.io/en/datenschutz</loc></url>
 </urlset>
