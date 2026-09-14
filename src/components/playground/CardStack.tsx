@@ -169,9 +169,7 @@ export default function CardStack({
    * request — put the reader back on the *right* card when the viewer closes.
    *
    * `openedOn` is where the reader was when they opened it: the card, and the
-   * button focus has to go back to. Closing on the same card returns focus to
-   * that button, which is the dialog contract; closing on a different one is a
-   * navigation, and `returnToCard` scrolls the deck there instead.
+   * button focus has to go back to. Closing returns focus to that button.
    */
   const [open, setOpen] = useState<{ card: number; slot: number } | null>(null);
   const openedOn = useRef<{ card: number; trigger: HTMLButtonElement | null }>({
@@ -218,67 +216,10 @@ export default function CardStack({
     [],
   );
 
-  /**
-   * Where card `card` sits when it has landed on the stack, in document pixels.
-   *
-   * Measured off the card's **runway** rather than off the card, and that is
-   * not fussiness: a card is `position: sticky`, so once it is stuck its
-   * `getBoundingClientRect()` reports where it is being *held*, not where it
-   * belongs in the flow, and a scroll computed from that walks the page to the
-   * wrong place. The runway is a plain static sibling that immediately follows
-   * its own card, so its top edge minus the card's height is the card's flow
-   * position, and it is the same number whatever the deck is doing.
-   */
-  const cardTop = useCallback((card: number) => {
-    const root = rootRef.current;
-    if (!root) return null;
-    const runway = root.querySelectorAll<HTMLElement>("[data-stack-runway]")[card];
-    const panel = root.querySelectorAll<HTMLElement>("[data-stack-slot]")[card];
-    if (!runway || !panel) return null;
-    const runwayTop = runway.getBoundingClientRect().top + window.scrollY;
-    const flowTop = runwayTop - panel.offsetHeight;
-    return Math.max(0, flowTop - (headerHeight() + GAP + card * PEEK));
-  }, []);
-
-  /** Put the reader on the card the viewer left them on, and on the piece. */
-  const returnToCard = useCallback(
-    (card: number, slot: number) => {
-      const top = cardTop(card);
-      if (top === null) return;
-      window.scrollTo({ top, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-      /*
-       * Focus follows the scroll, on the next frame and without scrolling
-       * again: a dialog that closes has to leave the keyboard somewhere real,
-       * and the piece the reader was last looking at is the honest answer. Each
-       * slot is rendered twice — the design and the masonry — so the visible
-       * one is the one with a layout box.
-       */
-      requestAnimationFrame(() => {
-        const panel = rootRef.current?.querySelectorAll<HTMLElement>("[data-stack-card]")[card];
-        const pieces = Array.from(panel?.querySelectorAll<HTMLElement>(".pg-piece") ?? []).filter(
-          (piece) => piece.offsetParent !== null,
-        );
-        pieces[slot]?.focus({ preventScroll: true });
-      });
-    },
-    [cardTop],
-  );
-
-  /*
-   * Closing is two different things, and which one it is depends on where the
-   * reader ended up. Written outside the state updater deliberately: an updater
-   * is called twice under StrictMode, and scrolling the page is not something to
-   * do twice.
-   */
   const closeViewer = useCallback(() => {
-    const current = open;
     setOpen(null);
-    if (current && current.card !== openedOn.current.card) {
-      returnToCard(current.card, current.slot);
-    } else {
-      openedOn.current.trigger?.focus();
-    }
-  }, [open, returnToCard]);
+    openedOn.current.trigger?.focus();
+  }, []);
 
   /**
    * The pin-up entrance (`MILESTONE-020` task 6).

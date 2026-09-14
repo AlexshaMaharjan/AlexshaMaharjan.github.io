@@ -2,6 +2,7 @@ import { lazy, type ReactElement } from "react";
 import { Navigate } from "react-router-dom";
 import type { RouteObject } from "react-router-dom";
 import RootLayout from "@/components/RootLayout";
+import RouteErrorBoundary from "@/components/RouteErrorBoundary";
 import PlaygroundLayout from "@/components/playground/PlaygroundLayout";
 import NotFound from "@/pages/NotFound";
 import Legal from "@/pages/Legal";
@@ -67,6 +68,7 @@ function dualArchive(): RouteObject[] {
 export const routes: RouteObject[] = [
   {
     element: <RootLayout />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       ...dual("/", <Home />),
       ...dual("/about", <About />),

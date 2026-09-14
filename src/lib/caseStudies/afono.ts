@@ -127,7 +127,7 @@ const afono: CaseStudyLocaleContent = {
               { aspect: "1190/1488", caption: "The core red, blue, black and white colour system.", src: "/images/afono-colour-palette.webp", alt: "The four brand colours with their hex values, and the button states built from them" },
             ],
           },
-          "Manrope keeps the overall system simple and contemporary on the website. I drew the AFONO typeface myself, and Andrea Normal carries the print design work.",
+          "Manrope keeps the overall system simple and contemporary on the website. I drew the AFONO typeface myself, and Area Normal carries the print design work.",
           {
             kind: "figures",
             items: [
@@ -397,7 +397,7 @@ const afono: CaseStudyLocaleContent = {
               { aspect: "1190/1488", caption: "Farbsystem: Rot, Blau, Schwarz und Weiß.", src: "/images/afono-colour-palette.webp", alt: "Die vier Markenfarben mit Hex-Werten und die daraus gebauten Button-Zustände" },
             ],
           },
-          "Manrope hält das System der Website klar und zeitgemäß. Die AFONO-Schrift habe ich selbst gezeichnet, und Andrea Normal trägt die Printgestaltung.",
+          "Manrope hält das System der Website klar und zeitgemäß. Die AFONO-Schrift habe ich selbst gezeichnet, und Area Normal trägt die Printgestaltung.",
           {
             kind: "figures",
             items: [

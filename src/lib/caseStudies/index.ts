@@ -35,6 +35,25 @@ export const caseStudySlugs = Object.keys(loaders);
 
 const promises = new Map<string, Promise<CaseStudyLocaleContent | null>>();
 
+function isChunkLoadError(err: unknown): boolean {
+  if (!err) return false;
+  const msg = (
+    err instanceof Error
+      ? err.message
+      : typeof err === "object" && "message" in err
+        ? String((err as { message: unknown }).message)
+        : String(err)
+  ).toLowerCase();
+
+  return (
+    msg.includes("failed to fetch dynamically imported module") ||
+    msg.includes("importing a module script failed") ||
+    msg.includes("error loading dynamically imported module") ||
+    msg.includes("failed to load module script") ||
+    msg.includes("loading chunk")
+  );
+}
+
 /**
  * The promise for a study's content, stable per slug.
  *
@@ -50,7 +69,22 @@ export function caseStudyPromise(slug: string): Promise<CaseStudyLocaleContent |
   // An unknown slug is answered immediately rather than after a round trip:
   // that is what renders the 404.
   const promise = loader
-    ? loader().then((module) => module.default)
+    ? loader()
+        .then((module) => module.default)
+        .catch((error) => {
+          promises.delete(slug);
+          if (typeof window !== "undefined" && isChunkLoadError(error)) {
+            const reloadKey = `chunk_reload_${slug}`;
+            const last = sessionStorage.getItem(reloadKey);
+            const now = Date.now();
+            if (!last || now - Number(last) > 10000) {
+              sessionStorage.setItem(reloadKey, String(now));
+              window.location.reload();
+              return new Promise<never>(() => {});
+            }
+          }
+          throw error;
+        })
     : Promise.resolve(null);
 
   promises.set(slug, promise);
