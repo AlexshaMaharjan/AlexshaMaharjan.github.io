@@ -589,7 +589,7 @@ export const imageVariants: Record<string, { w: number; v: number[]; bg: string 
     "v": [
       400
     ],
-    "bg": "#dadfe9"
+    "bg": "#d8dce8"
   },
   "/images/pg-clip-unboxing.webp": {
     "w": 540,

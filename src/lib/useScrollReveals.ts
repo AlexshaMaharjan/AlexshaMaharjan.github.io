@@ -98,8 +98,10 @@ export function useScrollReveals(): void {
 
     const tweens = elements.map((el) => {
       const variant = revealVariant(el.dataset.inview);
+      const delay = el.dataset.inviewDelay ? parseFloat(el.dataset.inviewDelay) : 0;
       return gsap.fromTo(subjectsOf(el, variant), atRest(variant), {
         ...revealed(variant),
+        delay,
         /*
          * A group arrives as a group: one trigger on the container, its
          * children following each other in. Text waits longer between its

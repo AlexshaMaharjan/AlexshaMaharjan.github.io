@@ -47,7 +47,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="pt-12 md:pt-[72px]">
+      <section className="pt-10 md:pt-14">
         <div className="container-page">
           <div data-inview className="grid grid-cols-1 items-center gap-10 md:grid-cols-[280px_minmax(0,1fr)] md:gap-16 xl:gap-20">
             <div className="w-full">
@@ -121,7 +121,7 @@ export default function About() {
         size has. See `LoveLine` for why the sentence no longer shifts around as
         the word changes.
       */}
-      <section className="pt-12 md:pt-16">
+      <section className="pt-10 md:pt-14">
         <div data-inview className="container-page">
           <div className="mx-auto max-w-[900px]">
             {/*
@@ -137,7 +137,7 @@ export default function About() {
       </section>
 
       {/* Professional focus & Tools I use */}
-      <section className="pt-12 md:pt-16">
+      <section className="pt-10 md:pt-14">
         <div className="container-page">
           <div data-inview className="grid grid-cols-1 gap-x-6 gap-y-16 md:grid-cols-2 md:gap-x-12">
             <div>
@@ -222,7 +222,7 @@ export default function About() {
       </section>
 
       {/* How I use AI - Single full-width column layout */}
-      <section className="pt-[80px] md:pt-[104px]">
+      <section className="pt-12 md:pt-16">
         <div className="container-page">
           <div data-inview className="w-full">
             <h2 className="text-subheading font-semibold tracking-[-0.02em] text-ink">
@@ -240,7 +240,7 @@ export default function About() {
       </section>
 
       {/* 2-Grid Destinations: Projects & The Archive */}
-      <section className="py-[110px]">
+      <section className="py-14 sm:py-16 md:py-20">
         <div className="container-page">
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
             {/* Card 1: Projects */}
@@ -282,7 +282,7 @@ export default function About() {
         </div>
       </section>
 
-      <section id="resume" className="bg-near-black py-[120px]">
+      <section id="resume" className="bg-near-black py-14 sm:py-16 md:py-20">
         <div className="container-page">
           <div data-inview="text" className="mx-auto flex flex-col items-center text-center">
           <h2 className="mx-auto mt-2.5 max-w-[760px] text-feature font-semibold leading-[1.05] tracking-[-0.025em] text-white">

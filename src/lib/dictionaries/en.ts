@@ -168,7 +168,7 @@ const en: Dictionary = {
     name: "Alexsha Maharjan",
     tagline: "UX/UI Design · Brand Identity · Frontend",
     location: "23562 Lübeck · Germany",
-    email: "alexsha.maharjan1@gmail.com",
+    email: "alexsha.contact@gmail.com",
     portfolio: "alexshamaharjan.github.io",
     portfolioHref: "https://alexshamaharjan.github.io",
     linkedin: "linkedin.com/in/alexsham",
@@ -287,7 +287,7 @@ const en: Dictionary = {
         value: "Nepali – native · Newari – native · German – fluent (C1) · English – fluent · Hindi – fluent",
       },
     ],
-    printCta: "Print / Save as PDF",
+    printCta: "Print / Download",
   },
   aboutPreview: {
     eyebrow: "About me",
@@ -318,13 +318,13 @@ const en: Dictionary = {
   },
   footer: {
     tagline: "UI/UX · Branding · Visual Design",
-    email: "alexsha.maharjan1@gmail.com",
+    email: "alexsha.contact@gmail.com",
     linkedin: "linkedin.com/in/alexsham",
     linkedinHref: "https://www.linkedin.com/in/alexsham",
     resume: "Résumé",
     availability: "Open to design opportunities",
     backToTop: "Back to top ↑",
-    copyright: "© 2026 Alexsha Maharjan",
+    copyright: "© 2026 · Designed and built by Alexsha Maharjan",
   },
   playgroundOutro: {
     eyebrow: "End of the archive",
@@ -367,7 +367,7 @@ const en: Dictionary = {
         },
         {
           heading: "Contact",
-          body: ["Email: alexsha.maharjan1@gmail.com"],
+          body: ["Email: alexsha.contact@gmail.com"],
         },
         {
           heading: "Responsible for the content under § 18 (2) MStV",
@@ -416,7 +416,7 @@ const en: Dictionary = {
         },
         {
           heading: "Controller",
-          body: ["Email: alexsha.maharjan1@gmail.com"],
+          body: ["Email: alexsha.contact@gmail.com"],
           address: true,
         },
         {

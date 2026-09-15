@@ -17,7 +17,7 @@ export const duration = {
   /** Page transitions and UI state changes. */
   base: 0.35,
   /** Entrances — long enough to read as arriving rather than appearing. */
-  slow: 0.7,
+  slow: 0.95,
 } as const;
 
 export const ease = {
@@ -35,7 +35,7 @@ export const distance = {
 } as const;
 
 /** Between items in a group, so a grid arrives as a group and not as a wave. */
-export const stagger = 0.06;
+export const stagger = 0.12;
 
 /**
  * Between the lines of a text block (`MILESTONE-023` task 5).
@@ -44,10 +44,10 @@ export const stagger = 0.06;
  * Cards in a row are one object arriving, so 60ms reads as a single gesture
  * with a little depth in it; a heading and the sentence under it are **two
  * things said in order**, and the pause between them is what makes the second
- * one read as following the first rather than as arriving with it. 110ms is
+ * one read as following the first rather than as arriving with it. 160ms is
  * about the length of a breath between clauses.
  */
-export const staggerText = 0.11;
+export const staggerText = 0.16;
 
 /**
  * The one reduced-motion guard. Every animation on the site consults this, and
@@ -101,9 +101,9 @@ export function revealed(variant: RevealVariant): Record<string, number | string
    * on the site an ease other than the two in `ease` is used, and it is here
    * because this is the only thing on the site that animates *reading*.
    */
-  if (variant === "text") return { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" };
+  if (variant === "text") return { opacity: 1, y: 0, duration: 1.05, ease: "power3.out" };
   return { ...base, opacity: 1, y: 0 };
 }
 
 /** Where a reveal fires, as a ScrollTrigger start string. */
-export const TRIGGER_START = "top 88%";
+export const TRIGGER_START = "top 80%";

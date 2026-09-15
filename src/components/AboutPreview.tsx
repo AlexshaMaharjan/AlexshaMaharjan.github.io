@@ -6,7 +6,7 @@ import { localeHref, type Locale } from "@/lib/i18n";
 
 export default function AboutPreview({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   return (
-    <section id="about" className="bg-white py-14 pb-16 sm:py-20 sm:pb-24 md:py-24 md:pb-32">
+    <section id="about" className="bg-white pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24">
       <div className="container-page">
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[280px_1fr] md:gap-16">
           <div data-inview="up" className="flex justify-center md:block">
@@ -111,7 +111,7 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
           as="h3"
           heading={dictionary.aboutPreview.playgroundHeading}
           copy={dictionary.aboutPreview.playgroundCopy}
-          className="mt-[110px]"
+          className="mt-14 sm:mt-18 md:mt-20"
         />
       </div>
     </section>

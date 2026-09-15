@@ -7,7 +7,7 @@ export default function ContactSection({ dictionary, locale }: { dictionary: Dic
     <section
       id="contact"
       data-anchor-center
-      className="bg-near-black py-14 sm:py-20 md:py-24"
+      className="bg-near-black py-14 sm:py-16 md:py-20"
     >
       <div className="container-page">
         <div data-inview="text" className="mx-auto flex flex-col items-center text-center">

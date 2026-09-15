@@ -13,6 +13,7 @@ import Scribble, { ScribbleArrow } from "@/components/playground/Scribble";
 import type { Locale } from "@/lib/i18n";
 import { FRAME_H, FRAME_W, type CollageScribble, type CollageSlot } from "@/lib/playground/collage";
 import { notePx, placeScribbles, stageUnits, UNITS_PER_PX_AT_1280 } from "@/lib/playground/placeScribbles";
+import { MOBILE_CARD_LAYOUTS } from "@/lib/playground/mobileLayout";
 
 /**
  * One card's worth of the playground collage (`SESSION-035`).
@@ -132,9 +133,13 @@ function driftOf(slot: CollageSlot, rows: number): number {
 export interface BentoCell {
   /** 1-based, both of them: CSS grid lines, not array indices. */
   column: number;
+  colSpan?: number;
   row: number;
   rows: number;
   contain: boolean;
+  fit?: "cover" | "contain";
+  focus?: string;
+  hidden?: boolean;
 }
 
 /**
@@ -209,12 +214,16 @@ function Picture({
   locale,
   paused,
   contain,
+  fit,
+  focus,
 }: {
   slot: CollageSlot;
   locale: Locale;
   paused: boolean;
   /** The bento's own verdict, which can contain a piece the design crops. */
   contain?: boolean;
+  fit?: "cover" | "contain";
+  focus?: string;
 }) {
   const alt = slot.alt[locale];
   const sizes = slotSizes(slot);
@@ -238,21 +247,23 @@ function Picture({
    */
   const clip = slot.film ?? slot.video;
   if (clip) {
-    return <LoopVideo src={clip} poster={slot.src} alt={alt} sizes={sizes} paused={paused} />;
+    return <LoopVideo src={clip} poster={slot.src} alt={alt} sizes={sizes} paused={paused} fit={fit} focus={focus} />;
   }
   /*
    * The crop is steered by a custom property rather than by a generated class:
    * `focus` is data, and Tailwind can only emit utilities it can read in the
    * source. The utility here is static; only the value moves.
    */
+  const isContain = fit ? fit === "contain" : (contain || slot.fit === "contain");
   return (
     <Image
       src={slot.src}
       alt={alt}
       sizes={sizes}
       className={`[object-position:var(--focus,50%_50%)] ${
-        contain || slot.fit === "contain" ? "object-contain" : "object-cover"
+        isContain ? "object-contain" : "object-cover"
       }`}
+      style={focus ? { objectPosition: focus } : undefined}
     />
   );
 }
@@ -271,6 +282,8 @@ function Opener({
   locale,
   paused,
   contain,
+  fit,
+  focus,
   className,
   onOpen,
   onPoint,
@@ -280,6 +293,8 @@ function Opener({
   locale: Locale;
   paused: boolean;
   contain?: boolean;
+  fit?: "cover" | "contain";
+  focus?: string;
   className: string;
   onOpen: (slot: CollageSlot, trigger: HTMLButtonElement) => void;
   onPoint: (slot: CollageSlot, event: ReactPointerEvent<HTMLButtonElement>) => void;
@@ -299,8 +314,9 @@ function Opener({
           magnifying glass, and the viewer this opens no longer zooms
           (`MILESTONE-010` tasks 14d and 14e). */
       className={`pg-piece block cursor-pointer outline-offset-4 ${className}`}
+      style={focus ? ({ "--focus": focus } as CSSProperties) : undefined}
     >
-      <Picture slot={slot} locale={locale} paused={paused} contain={contain} />
+      <Picture slot={slot} locale={locale} paused={paused} contain={contain} fit={fit} focus={focus} />
     </button>
   );
 }
@@ -388,7 +404,35 @@ export default function Collage({
     return () => observer.disconnect();
   }, []);
 
-  const plan = useMemo(() => bentoPlan(slots, columns), [slots, columns]);
+  const plan = useMemo(() => {
+    const mobilePlan = MOBILE_CARD_LAYOUTS[cardIndex];
+    if (columns === 3 && mobilePlan) {
+      return slots.map((slot) => {
+        const custom = mobilePlan[slot.src];
+        if (custom) {
+          return {
+            column: custom.col,
+            colSpan: custom.colSpan ?? 1,
+            row: custom.row,
+            rows: custom.rows,
+            contain: custom.fit ? custom.fit === "contain" : slot.fit === "contain",
+            fit: custom.fit,
+            focus: custom.focus,
+            hidden: custom.hidden,
+          };
+        }
+        return {
+          column: 1,
+          row: 1,
+          rows: 4,
+          contain: slot.fit === "contain",
+          fit: slot.fit,
+          focus: slot.focus,
+        };
+      });
+    }
+    return bentoPlan(slots, columns);
+  }, [slots, columns, cardIndex]);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -596,18 +640,22 @@ export default function Collage({
           under the last row and scrolled with it; outside, it stays on the
           card's own edge, where it says there is more below.
         */}
-        <div className="h-full overflow-y-auto px-3 pb-3 pt-[68px]">
+        <div className="px-3 pb-6 pt-[56px] sm:px-4 sm:pt-[68px] sm:pb-8">
           <div className="collage-bento">
             {slots.map((slot, i) => {
               const cell = plan[i]!;
+              if (cell.hidden) return null;
               return (
                 <div
                   key={slot.src}
                   className="pg-slot relative overflow-hidden rounded-[3px]"
                   style={{
-                    gridColumn: cell.column,
+                    gridColumn:
+                      cell.colSpan && cell.colSpan > 1
+                        ? `${cell.column} / span ${cell.colSpan}`
+                        : cell.column,
                     gridRow: `${cell.row} / span ${cell.rows}`,
-                    "--focus": slot.focus,
+                    "--focus": cell.focus ?? slot.focus,
                     ...entranceOf(i),
                   } as CSSProperties}
                 >
@@ -616,6 +664,8 @@ export default function Collage({
                     locale={locale}
                     paused={paused}
                     contain={cell.contain}
+                    fit={cell.fit}
+                    focus={cell.focus}
                     className="absolute inset-0"
                     onOpen={openSlot}
                     onPoint={onPoint}
@@ -626,10 +676,6 @@ export default function Collage({
             })}
           </div>
         </div>
-        <div
-          aria-hidden="true"
-          className="pg-fade pointer-events-none absolute inset-x-0 bottom-0 h-10"
-        />
       </div>
 
       {tag}

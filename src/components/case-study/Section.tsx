@@ -470,7 +470,7 @@ export default function Section({
   );
 
   return (
-    <section id={section.id} data-inview className={first || outro ? undefined : "mt-30"}>
+    <section id={section.id} data-inview className={first || outro ? undefined : "mt-16 sm:mt-20 md:mt-24"}>
       {outro ? (
         // The closing section runs heading beside text, so the ending reads as a
         // spread rather than as one more column of the article.

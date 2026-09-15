@@ -103,16 +103,16 @@ export default function MoreProjectsNav({
   const next = projects[(index + 1) % projects.length];
 
   return (
-    <nav aria-label={dictionary.landmarks.projectNav} className="border-t border-surface-2 py-[72px] pb-[110px]">
+    <nav aria-label={dictionary.landmarks.projectNav} className="border-t border-surface-2 py-12 pb-14 sm:py-14 sm:pb-16 md:py-16 md:pb-20">
       <div className="container-page">
         {index !== -1 && prev && next && (
-          <div className="mb-10 grid grid-cols-2 gap-4 border-b border-surface-2 pb-8 sm:mb-14 sm:gap-6 sm:pb-14">
+          <div data-inview="up" className="mb-10 grid grid-cols-2 gap-4 border-b border-surface-2 pb-8 sm:mb-14 sm:gap-6 sm:pb-14">
             <StepCard project={prev} direction="prev" label={dictionary.caseStudy.previousProject} locale={locale} />
             <StepCard project={next} direction="next" label={dictionary.caseStudy.nextProject} locale={locale} />
           </div>
         )}
 
-        <h2 className="text-subheading font-semibold tracking-[-0.02em] text-ink">
+        <h2 data-inview="up" className="text-subheading font-semibold tracking-[-0.02em] text-ink">
           {dictionary.caseStudy.moreProjects}
         </h2>
 
@@ -125,8 +125,8 @@ export default function MoreProjectsNav({
           const displayProjects = remaining.length > 0 ? remaining : others.slice(0, 3);
           return (
             <ul className="mt-8 grid list-none grid-cols-1 gap-x-6 gap-y-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
-              {displayProjects.map((project) => (
-                <li key={project.slug}>
+              {displayProjects.map((project, i) => (
+                <li key={project.slug} data-inview="up" data-inview-delay={i > 0 ? String(i * 0.12) : undefined}>
                   <Link to={localeHref(locale, `/work/${project.slug}`)} className="group block">
                     <div
                       className="relative overflow-hidden rounded-[10px] border border-card-border bg-surface transition-colors duration-[250ms] ease-out group-hover:border-accent"

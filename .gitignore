@@ -22,6 +22,7 @@ yarn-error.log*
 
 # editor & local tools
 /.claude/
+/scratch/
 
 # private internal documentation & planning notes
 /docs/

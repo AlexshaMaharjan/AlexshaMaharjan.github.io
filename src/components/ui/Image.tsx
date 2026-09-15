@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import clsx from "clsx";
 import { imageVariants } from "@/lib/imageVariants";
 
@@ -24,6 +25,7 @@ export default function Image({
   fill = true,
   sizes,
   priority = false,
+  style,
 }: {
   src: string;
   alt: string;
@@ -31,6 +33,7 @@ export default function Image({
   fill?: boolean;
   sizes?: string;
   priority?: boolean;
+  style?: CSSProperties;
 }) {
   const entry = imageVariants[src];
   const srcSet = entry
@@ -50,6 +53,7 @@ export default function Image({
       fetchPriority={priority ? "high" : undefined}
       decoding="async"
       className={clsx(fill && "absolute inset-0 h-full w-full", className)}
+      style={style}
     />
   );
 }

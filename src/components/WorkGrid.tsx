@@ -61,7 +61,6 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
         return (
           <div
             key={i}
-            data-inview="stagger"
             className="mx-auto flex w-full flex-col gap-8 md:flex-row md:gap-6"
             style={{ maxWidth: width }}
           >
@@ -69,6 +68,8 @@ export default function WorkGrid({ locale, dictionary }: { locale: Locale; dicti
               <Link
                 key={project.slug}
                 to={localeHref(locale, `/work/${project.slug}`)}
+                data-inview="up"
+                data-inview-delay={n === 1 ? "0.15" : undefined}
                 /*
                   The card does not repeat the project's name — every cover is a
                   designed title card that already carries it. The link still

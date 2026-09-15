@@ -95,8 +95,8 @@ export default function Footer({
           : "border-t border-surface-2 bg-white",
       )}
     >
-      <div className="container-page py-12">
-        <div className="flex flex-col gap-10 sm:flex-row sm:justify-between">
+      <div className="container-page py-8 sm:py-12">
+        <div className="flex flex-col gap-7 sm:flex-row sm:justify-between sm:gap-10">
           <div>
             {/* The name is the way home, which is the one destination the footer
                 had no link to at all (`ISSUE-050`). */}
@@ -112,7 +112,7 @@ export default function Footer({
                 className="mt-1 block h-[2px] w-0 rounded-full bg-accent transition-[width] duration-300 ease-out group-hover:w-full"
               />
             </Link>
-            <p className="mt-2 text-[14px] text-ink-secondary">{dictionary.footer.tagline}</p>
+            <p className="mt-1.5 text-[13.5px] text-ink-secondary sm:text-[14px]">{dictionary.footer.tagline}</p>
             {/*
               A small blue mark tying the footer to the accent the rest of the
               page uses, and the one piece of information a visitor at the
@@ -132,7 +132,7 @@ export default function Footer({
             */}
             <Link
               to={localeHref(locale, "/#contact")}
-              className="group mt-5 inline-flex items-center gap-2 text-[13px] font-medium text-accent"
+              className="group mt-3.5 inline-flex items-center gap-2 text-[13px] font-medium text-accent sm:mt-5"
             >
               <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full bg-accent" />
               <span className="border-b border-transparent transition-colors group-hover:border-accent">
@@ -150,7 +150,7 @@ export default function Footer({
           {/* Wraps rather than overflows: between 768px and 839px two columns
               plus a fixed gap were wider than the space `md:px-20` leaves them,
               and every page scrolled sideways (`ISSUE-026`). */}
-          <div className="flex flex-wrap gap-x-14 gap-y-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:gap-x-14 sm:gap-y-8">
             {/*
               Two columns, split by what the links are for
               (`MILESTONE-016` task 3, re-cut in `MILESTONE-019` task 7). One
@@ -165,10 +165,10 @@ export default function Footer({
             */}
             <nav
               aria-label={dictionary.landmarks.footerNav}
-              className="flex gap-x-12 text-[14px] text-ink"
+              className="grid grid-cols-2 gap-x-8 text-[14px] text-ink sm:flex sm:gap-x-12"
             >
               {linkColumns.map((column) => (
-                <ul key={column[0]!.label} className="flex list-none flex-col gap-y-3 p-0">
+                <ul key={column[0]!.label} className="flex list-none flex-col gap-y-2.5 p-0 sm:gap-y-3">
                   {column.map((link) => (
                     <li key={link.href}>
                       <Link
@@ -182,7 +182,7 @@ export default function Footer({
                 </ul>
               ))}
             </nav>
-            <div className="flex flex-col gap-3 font-mono text-[12px] text-ink-muted">
+            <div className="flex flex-col gap-2 border-t border-surface-2/60 pt-3.5 font-mono text-[12px] text-ink-muted sm:border-t-0 sm:pt-0 sm:gap-3">
               <a
                 href={`mailto:${dictionary.footer.email}`}
                 className="tap-target text-ink-secondary transition-colors hover:text-accent"
@@ -201,31 +201,69 @@ export default function Footer({
 
         <div
           className={clsx(
-            "mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t pt-6 text-[13px] text-ink-muted",
+            "mt-7 border-t pt-5 text-[12.5px] text-ink-muted sm:mt-10 sm:pt-6 sm:text-[13px]",
             isPlayground ? "border-[rgba(78,96,135,0.18)]" : "border-surface",
           )}
         >
-          <LanguageSwitch locale={locale} pathname={bare} dictionary={dictionary} />
-          <Link
-            to={localeHref(locale, "/impressum")}
-            className="tap-target transition-colors hover:text-accent"
-          >
-            {dictionary.legal.impressumNav}
-          </Link>
-          <Link
-            to={localeHref(locale, "/datenschutz")}
-            className="tap-target transition-colors hover:text-accent"
-          >
-            {dictionary.legal.privacyNav}
-          </Link>
-          <span>{dictionary.footer.copyright}</span>
-          <button
-            type="button"
-            onClick={scrollToTop}
-            className="ml-auto rounded py-2 transition-colors hover:text-accent"
-          >
-            {dictionary.footer.backToTop}
-          </button>
+          {/* Mobile layout: balanced two-row layout with navigation & back-to-top on top, copyright centered below */}
+          <div className="flex flex-col gap-3.5 sm:hidden">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 text-[12.5px]">
+                <LanguageSwitch locale={locale} pathname={bare} dictionary={dictionary} />
+                <span className="text-border">·</span>
+                <Link
+                  to={localeHref(locale, "/impressum")}
+                  className="tap-target transition-colors hover:text-accent"
+                >
+                  {dictionary.legal.impressumNav}
+                </Link>
+                <span className="text-border">·</span>
+                <Link
+                  to={localeHref(locale, "/datenschutz")}
+                  className="tap-target transition-colors hover:text-accent"
+                >
+                  {dictionary.legal.privacyNav}
+                </Link>
+              </div>
+              <button
+                type="button"
+                onClick={scrollToTop}
+                className="tap-target font-medium text-ink-secondary transition-colors hover:text-accent"
+              >
+                {dictionary.footer.backToTop}
+              </button>
+            </div>
+            <p className="text-center text-[12px] leading-relaxed text-ink-muted">
+              <span>© 2026 · Designed and built by</span>
+              <br />
+              <span>Alexsha Maharjan</span>
+            </p>
+          </div>
+
+          {/* Desktop layout: single unified flex row */}
+          <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
+            <LanguageSwitch locale={locale} pathname={bare} dictionary={dictionary} />
+            <Link
+              to={localeHref(locale, "/impressum")}
+              className="tap-target transition-colors hover:text-accent"
+            >
+              {dictionary.legal.impressumNav}
+            </Link>
+            <Link
+              to={localeHref(locale, "/datenschutz")}
+              className="tap-target transition-colors hover:text-accent"
+            >
+              {dictionary.legal.privacyNav}
+            </Link>
+            <span>{dictionary.footer.copyright}</span>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="ml-auto rounded py-2 transition-colors hover:text-accent"
+            >
+              {dictionary.footer.backToTop}
+            </button>
+          </div>
         </div>
       </div>
     </footer>

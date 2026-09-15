@@ -48,7 +48,7 @@ export const gridBackground = grid("rgba(43,74,191,0.045)", "rgba(43,74,191,0.01
  * antialiased rather than stepped.
  */
 export const dotBackground: CSSProperties = {
-  backgroundImage: "radial-gradient(circle at center, rgba(43,74,191,0.13) 1.2px, transparent 1.5px)",
+  backgroundImage: "radial-gradient(circle at center, rgba(43,74,191,0.055) 1.1px, transparent 1.4px)",
   backgroundSize: "24px 24px",
 };
 
@@ -64,4 +64,11 @@ export const dotBackground: CSSProperties = {
  */
 export function accentGridBackground(accent: string): CSSProperties {
   return grid(rgba(accent, 0.15), rgba(accent, 0.05));
+}
+
+export function accentDotBackground(accent: string): CSSProperties {
+  return {
+    backgroundImage: `radial-gradient(circle at center, ${rgba(accent, 0.12)} 1.1px, transparent 1.4px)`,
+    backgroundSize: "24px 24px",
+  };
 }

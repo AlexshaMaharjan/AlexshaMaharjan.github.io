@@ -168,7 +168,7 @@ const de: Dictionary = {
     name: "Alexsha Maharjan",
     tagline: "UX/UI Design · Brand Identity · Frontend",
     location: "23562 Lübeck · Deutschland",
-    email: "alexsha.maharjan1@gmail.com",
+    email: "alexsha.contact@gmail.com",
     portfolio: "alexshamaharjan.github.io",
     portfolioHref: "https://alexshamaharjan.github.io",
     linkedin: "linkedin.com/in/alexsham",
@@ -288,7 +288,7 @@ const de: Dictionary = {
           "Nepali – Muttersprache · Newari – Muttersprache · Deutsch – fließend (C1) · Englisch – fließend · Hindi – fließend",
       },
     ],
-    printCta: "Drucken / Als PDF speichern",
+    printCta: "Drucken / Herunterladen",
   },
   aboutPreview: {
     eyebrow: "Über mich",
@@ -312,13 +312,13 @@ const de: Dictionary = {
   },
   footer: {
     tagline: "UI/UX · Branding · Visual Design",
-    email: "alexsha.maharjan1@gmail.com",
+    email: "alexsha.contact@gmail.com",
     linkedin: "linkedin.com/in/alexsham",
     linkedinHref: "https://www.linkedin.com/in/alexsham",
     resume: "Lebenslauf",
     availability: "Offen für neue Möglichkeiten im Design",
     backToTop: "Nach oben ↑",
-    copyright: "© 2026 Alexsha Maharjan",
+    copyright: "© 2026 · Designed and built by Alexsha Maharjan",
   },
   playgroundOutro: {
     eyebrow: "Ende des Archivs",
@@ -360,7 +360,7 @@ const de: Dictionary = {
         },
         {
           heading: "Kontakt",
-          body: ["E-Mail: alexsha.maharjan1@gmail.com"],
+          body: ["E-Mail: alexsha.contact@gmail.com"],
         },
         {
           heading: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
@@ -409,7 +409,7 @@ const de: Dictionary = {
         },
         {
           heading: "Verantwortliche",
-          body: ["E-Mail: alexsha.maharjan1@gmail.com"],
+          body: ["E-Mail: alexsha.contact@gmail.com"],
           address: true,
         },
         {

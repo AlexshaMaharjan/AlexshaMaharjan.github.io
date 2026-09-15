@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import { prefersReducedMotion } from "@/lib/motion";
 import { FRAME_H, FRAME_W, type CollageCard } from "@/lib/playground/collage";
-import { accentGridBackground, gridBackground } from "./gridBackground";
+import { accentDotBackground, dotBackground } from "./gridBackground";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -316,7 +316,7 @@ export default function CardStack({
        * — so the two no longer fight: the card arrives and settles into its own
        * colour, and *then* its pieces go up on it.
        */
-      { threshold: 0.28 },
+      { threshold: typeof window !== "undefined" && window.innerWidth <= 768 ? 0.18 : 0.28 },
     );
     panels.forEach((panel) => observer.observe(panel));
 
@@ -371,28 +371,6 @@ export default function CardStack({
         onUpdate: write,
         scrollTrigger: {
           trigger: slots[i],
-          /*
-           * **The card's colour arrives with the card** (`MILESTONE-022` task
-           * 9, owner: *"by the time the card reaches its main/centre position,
-           * the arrow/colour transition and related UI animation should already
-           * be completed"*).
-           *
-           * This used to run over the card's **runway** — the empty scroll
-           * *after* it had landed — so the notes, the arrows and the ruling
-           * were still turning from blue to the card's own colour for most of a
-           * screen after the card had stopped moving. That is what reads as
-           * lag: the thing has arrived and is still catching up with itself.
-           *
-           * It runs over the card's *arrival* instead, from the moment its top
-           * edge is 85% of the way down the viewport to the moment it lands
-           * under the header. `--pg-full` is `--pg-reveal / 0.6`, so the colour
-           * is actually finished at 60% of that travel, comfortably before the
-           * card is home.
-           *
-           * The runway is still there and still does its job — a beat between
-           * one card landing and the next climbing over it — it simply is not
-           * carrying an animation any more.
-           */
           start: "top 85%",
           end: () => `top ${headerHeight() + GAP + i * PEEK}px`,
           scrub: true,
@@ -427,8 +405,8 @@ export default function CardStack({
 
     // Only the stacking needs two cards to have anything to say; the reveal
     // above is per-card and runs on however many there are.
-    const tweens = panels.slice(0, -1).map((panel, i) =>
-      gsap.fromTo(
+    const tweens = panels.slice(0, -1).map((panel, i) => {
+      return gsap.fromTo(
         panel,
         { scale: 1 },
         {
@@ -445,10 +423,51 @@ export default function CardStack({
             start: "top bottom",
             end: () => `top ${headerHeight() + GAP + (i + 1) * PEEK}px`,
             scrub: true,
+            invalidateOnRefresh: true,
           },
         },
-      ),
-    );
+      );
+    });
+
+    // If card i is taller than the card covering it (e.g. mobile card 1 vs card 2),
+    // clip card i's bottom overflow as the next card lands on top.
+    // This keeps card i pinned at the top with its exact 16px peek sliver, without
+    // any bottom overflow sticking out below the covering card.
+    const clipTweens = panels.slice(0, -1).map((panel, i) => {
+      const nextPanel = panels[i + 1];
+      const clipState = { bottom: 0 };
+      const writeClip = () => {
+        panel.style.clipPath =
+          clipState.bottom > 0.5 ? `inset(0px 0px ${clipState.bottom.toFixed(1)}px 0px)` : "";
+      };
+
+      const getDiff = () => {
+        if (!panel || !nextPanel) return 0;
+        const b0 = panel.offsetHeight;
+        const b1 = PEEK + nextPanel.offsetHeight;
+        return Math.max(0, b0 - b1);
+      };
+
+      return gsap.fromTo(
+        clipState,
+        { bottom: 0 },
+        {
+          bottom: () => getDiff(),
+          ease: "none",
+          onUpdate: writeClip,
+          scrollTrigger: {
+            trigger: slots[i + 1],
+            start: () => {
+              const h = headerHeight() + GAP + (i + 1) * PEEK;
+              return `top ${h + getDiff()}px`;
+            },
+            end: () => `top ${headerHeight() + GAP + (i + 1) * PEEK}px`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        },
+      );
+    });
 
     // The deck is measured in viewport units against a header that publishes
     // its real height only after paint, so re-measure once things have settled.
@@ -462,9 +481,12 @@ export default function CardStack({
     return () => {
       done = true;
       window.removeEventListener("load", refresh);
-      [...tweens, ...reveals, ...(entrance ? [entrance] : [])].forEach((tween) => {
+      [...tweens, ...clipTweens, ...reveals, ...(entrance ? [entrance] : [])].forEach((tween) => {
         tween.scrollTrigger?.kill();
         tween.kill();
+      });
+      panels.forEach((p) => {
+        p.style.clipPath = "";
       });
     };
   }, [cards.length]);
@@ -547,7 +569,7 @@ export default function CardStack({
                * one, which turned the scrubbed reveal into a queue. The pin-up
                * stagger is a fixed delay per `--pg-order`, so it needs no total.
                */
-              style={{ ...gridBackground, "--pg-accent": card.accent } as CSSProperties}
+              style={{ ...dotBackground, "--pg-accent": card.accent } as CSSProperties}
             >
               {/*
                 The ruling in this card's own colour, over the card's blue. First
@@ -557,7 +579,7 @@ export default function CardStack({
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0"
-                style={{ ...accentGridBackground(card.accent), opacity: "var(--pg-full)" }}
+                style={{ ...accentDotBackground(card.accent), opacity: "var(--pg-full)" }}
               />
               <Collage
                 slots={card.slots}
@@ -579,8 +601,15 @@ export default function CardStack({
           {/*
             The card's reveal runway: empty scroll between this card and the
             next, during which the deck is still and the colour comes back.
+            On mobile, shorter cards (cards 2 and 3) use a shorter runway
+            (.pg-runway-short) so the next card arrives promptly.
           */}
-          <div aria-hidden="true" data-stack-runway style={{ height: `${RUNWAY}svh` }} />
+          <div
+            aria-hidden="true"
+            data-stack-runway
+            className={i === 1 || i === 2 ? "pg-runway-short" : ""}
+            style={{ height: `${RUNWAY}svh` }}
+          />
         </Fragment>
       ))}
       {/* Holds the finished deck still for a beat before it scrolls away. */}

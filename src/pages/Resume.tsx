@@ -81,7 +81,7 @@ export default function Resume() {
   const r = dictionary.resume;
 
   return (
-    <section className="resume-sheet pt-[var(--page-top)] pb-[140px] print:pt-0 print:pb-0">
+    <section className="resume-sheet pt-[var(--page-top)] pb-14 sm:pb-16 md:pb-20 print:pt-0 print:pb-0">
       <Seo title={r.metaTitle} />
       <div className="mx-auto max-w-[760px] px-5 md:px-0">
         <div className="flex items-center justify-between gap-4 print:hidden">
@@ -91,7 +91,7 @@ export default function Resume() {
           >
             {r.backToAbout}
           </Link>
-          <PrintButton label={r.printCta} />
+          <PrintButton label={r.printCta} className="hidden md:flex" />
         </div>
 
         <div className="resume-head mt-8 flex items-start justify-between gap-6 border-b border-surface-2 pb-8 print:mt-0 print:border-surface-2 print:pb-4">
@@ -203,6 +203,10 @@ export default function Resume() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="mt-12 flex justify-center md:hidden print:hidden">
+          <PrintButton label={r.printCta} className="w-full justify-center text-center sm:w-auto" />
         </div>
       </div>
     </section>

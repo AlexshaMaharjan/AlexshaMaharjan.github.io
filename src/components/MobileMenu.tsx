@@ -148,7 +148,13 @@ export default function MobileMenu({
               )}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[15px] font-semibold text-ink">Alexsha Maharjan</span>
+                <Link
+                  to={localeHref(locale, "/")}
+                  onClick={() => setOpen(false)}
+                  className="tap-target text-[15px] font-semibold text-ink transition-colors hover:text-accent"
+                >
+                  Alexsha Maharjan
+                </Link>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}

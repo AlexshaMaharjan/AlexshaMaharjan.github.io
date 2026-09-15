@@ -184,7 +184,7 @@
      */
     --duration-fast: 250ms;
     --duration-base: 350ms;
-    --duration-slow: 700ms;
+    --duration-slow: 950ms;
     --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
     --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial,
       sans-serif;
@@ -602,6 +602,30 @@
     }
   }
 
+  @media (max-width: 768px) {
+    .collage-design {
+      display: none !important;
+    }
+
+    .collage-masonry {
+      display: block !important;
+      height: auto !important;
+    }
+
+    [data-stack-slot] {
+      height: auto !important;
+    }
+
+    .pg-card {
+      container-type: inline-size !important;
+      height: auto !important;
+    }
+
+    .pg-runway-short {
+      height: 12svh !important;
+    }
+  }
+
   /*
    * A note is fixed-size handwriting over a collage that is not, so it takes a
    * larger share of a smaller card. Below this size there is no room to spare
@@ -661,7 +685,7 @@
   .collage-bento {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-rows: calc((100cqw - 36px) / 6 - 3px);
+    grid-auto-rows: calc((100cqw - 36px) / 12 - 4.5px);
     gap: 6px;
   }
 

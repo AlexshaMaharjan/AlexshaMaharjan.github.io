@@ -202,8 +202,87 @@ function InterviewSketch() {
   );
 }
 
-export function Cluster1({ locale = "de" }: ClusterProps) {
+export function Cluster1({ locale = "de", stacked = false }: ClusterProps) {
   const isDe = locale === "de";
+
+  if (stacked) {
+    return (
+      <>
+        <Polaroid variant="a" rotate={-1} padding="9px 9px 12px" width={146}>
+          <div className="flex items-center justify-center bg-[#E1DCD2] px-0 py-1.5">
+            <InterviewSketch />
+          </div>
+          <p
+            style={{ fontFamily: "var(--font-hand, 'Caveat', 'Segoe Script', 'Bradley Hand', cursive)" }}
+            className="mt-[11px] text-[15px] leading-[1.15] text-[#1B1C1E]"
+          >
+            {isDe ? "„Ich will einfach etwas, das wirklich für mich funktioniert.“" : "“I just want something that actually works for me.”"}
+          </p>
+          <p className="mt-[7px] font-mono text-[8px] text-[#696559]">
+            {isDe ? "— Interviewteilnehmer" : "— Interview participant"}
+          </p>
+        </Polaroid>
+
+        {/* On mobile: Bar chart container with centered contents, flanked on the right by vertically stacked search & eye icons */}
+        <div className="flex w-full items-center gap-2.5">
+          <div
+            className="box-border flex flex-1 flex-col items-center justify-center rounded-lg border border-white/10 bg-[#101116] p-[10px_12px] text-center"
+            style={{ height: 88 }}
+          >
+            <span className={monoLabel}>{isDe ? "Frustrationsgrad" : "Frustration rating"}</span>
+            <div className="mt-2 flex h-[30px] items-end justify-center gap-[6px]">
+              {[9, 15, 22, 34, 18].map((h, i) => (
+                <span
+                  key={i}
+                  className="block w-2.5 rounded-xs"
+                  style={{ height: h, background: i === 3 ? "#1B3FE0" : "rgba(255,255,255,0.16)" }}
+                />
+              ))}
+            </div>
+            <div className="mt-1.5 flex justify-center gap-[6px] font-mono text-[8px] text-[#7B7E84]">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <span key={n} className="w-2.5 text-center">
+                  {n}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex shrink-0 flex-col gap-2">
+            <IconBadge icon={ResearchIcon} label={isDe ? "Icon: Recherche" : "Icon: research"} />
+            <IconBadge icon={EyeIcon} label={isDe ? "Icon: Beobachtung" : "Icon: observation"} active />
+          </div>
+        </div>
+
+        <div className="pb-col relative" style={{ width: 178 }}>
+          <Pin tone="blue" left="72%" />
+          <Polaroid variant="b" rotate={1} padding="14px 13px 15px" width={178}>
+            <div className="flex items-baseline justify-between gap-1.5">
+              <p className="m-0 text-xs font-semibold tracking-[-0.01em] text-[#17181A]">SWOT</p>
+              <span className="font-mono text-[8px] text-[#696559]">{isDe ? "Marktüberblick" : "market view"}</span>
+            </div>
+            <div className="mt-[9px] grid grid-cols-2 border border-[#B9B4A8]">
+              {(isDe ? ["Stärken", "Schwächen", "Chancen", "Risiken"] : ["Strengths", "Weaknesses", "Opportunities", "Threats"]).map((label, i) => (
+                <div
+                  key={label}
+                  className={clsx(
+                    "min-w-0 p-[11px_6px]",
+                    i < 2 && "border-b border-[#B9B4A8]",
+                    i % 2 === 0 && "border-r border-[#B9B4A8]",
+                  )}
+                >
+                  <span className="block overflow-wrap-anywhere text-[9.5px] font-semibold leading-[1.2] tracking-[-0.01em] text-[#1B3FE0]">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Polaroid>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Polaroid variant="a" rotate={-1.4} padding="9px 9px 12px" width={146}>
@@ -659,10 +738,10 @@ export function Cluster4({ stacked = false, locale = "de" }: ClusterProps) {
 
         {/* On mobile: Zustände and Aa sit side-by-side with matching width and height to save space */}
         {stacked ? (
-          <div className="flex items-start gap-2.5">
+          <div className="flex w-full items-start gap-2.5">
             <div
-              style={{ width: 88, height: 94 }}
-              className="box-border flex flex-col gap-[5px] border border-white/10 bg-[#101116] p-2 rounded-lg"
+              style={{ height: 94 }}
+              className="box-border flex flex-1 flex-col gap-[5px] border border-white/10 bg-[#101116] p-2 rounded-lg"
             >
               <span className={monoLabel}>{isDe ? "Zustände" : "states"}</span>
               <span className="block rounded-full bg-[#1B3FE0] py-[3px] text-center text-[8px] text-white">
@@ -675,8 +754,8 @@ export function Cluster4({ stacked = false, locale = "de" }: ClusterProps) {
             </div>
 
             <div
-              style={{ width: 88, height: 94 }}
-              className="box-border flex flex-col justify-between rounded-lg bg-[#F1EFE9] p-2.5"
+              style={{ height: 94 }}
+              className="box-border flex flex-1 flex-col justify-between rounded-lg bg-[#F1EFE9] p-2.5"
             >
               <span aria-hidden="true" className="text-[38px] font-semibold leading-none tracking-[-0.04em] text-[#17181A]">
                 Aa
@@ -726,8 +805,29 @@ function Avatar({ bg, offset }: { bg: string; offset: boolean }) {
   );
 }
 
-export function Cluster5({ locale = "de" }: ClusterProps) {
+export function Cluster5({ stacked = false, locale = "de" }: ClusterProps) {
   const isDe = locale === "de";
+
+  const validateCard = (
+    <div
+      style={stacked ? undefined : { width: 158 }}
+      className="box-border flex w-full items-center justify-between rounded-lg border border-white/[0.12] bg-[#0A0A0C] p-[10px_12px]"
+    >
+      <span className="text-[11px] text-[#DDE1E6]">{isDe ? "Validiert" : "Validated"}</span>
+      <ValidatedIcon className="h-[17px] w-[17px] text-accent-on-dark" strokeWidth={1.6} />
+    </div>
+  );
+
+  const iterateCard = (
+    <div
+      style={stacked ? undefined : { width: 158 }}
+      className="box-border flex w-full items-center justify-between rounded-lg border border-white/[0.12] bg-[#0A0A0C] p-[10px_12px]"
+    >
+      <span className="text-[11px] text-[#DDE1E6]">{isDe ? "Iterieren" : "Iterate"}</span>
+      <LoopIcon className="h-[17px] w-[17px] text-accent-on-dark" strokeWidth={1.6} />
+    </div>
+  );
+
   return (
     <>
       <div
@@ -772,34 +872,45 @@ export function Cluster5({ locale = "de" }: ClusterProps) {
         </div>
       </div>
 
-      <div style={{ width: 120 }}>
-        <Polaroid variant="b" rotate={1.6} padding="11px 11px 14px">
-          <span className="font-mono text-[9px] text-[#696559]">{isDe ? "Nutzertests" : "User testing"}</span>
-          <div className="mt-2.5 flex">
-            <Avatar bg="#DAD4C8" offset={false} />
-            <Avatar bg="#CFC9BC" offset />
-            <Avatar bg="#DAD4C8" offset />
+      {stacked ? (
+        <div className="pb-row flex w-full items-center gap-2.5">
+          <div className="pb-fixed shrink-0" style={{ width: 120 }}>
+            <Polaroid variant="b" rotate={1.6} padding="11px 11px 14px">
+              <span className="font-mono text-[9px] text-[#696559]">{isDe ? "Nutzertests" : "User testing"}</span>
+              <div className="mt-2.5 flex">
+                <Avatar bg="#DAD4C8" offset={false} />
+                <Avatar bg="#CFC9BC" offset />
+                <Avatar bg="#DAD4C8" offset />
+              </div>
+              <p className="mt-2.5 text-[11px] leading-[1.45] text-[#33342E]">
+                {isDe ? "„Das ergibt einfach Sinn.“" : "“This just makes sense.”"}
+              </p>
+            </Polaroid>
           </div>
-          <p className="mt-2.5 text-[11px] leading-[1.45] text-[#33342E]">
-            {isDe ? "„Das ergibt einfach Sinn.“" : "“This just makes sense.”"}
-          </p>
-        </Polaroid>
-      </div>
-
-      <div
-        style={{ width: 158 }}
-        className="box-border flex items-center justify-between rounded-lg border border-white/[0.12] bg-[#0A0A0C] p-[10px_12px]"
-      >
-        <span className="text-[11px] text-[#DDE1E6]">{isDe ? "Validiert" : "Validated"}</span>
-        <ValidatedIcon className="h-[17px] w-[17px] text-accent-on-dark" strokeWidth={1.6} />
-      </div>
-      <div
-        style={{ width: 158 }}
-        className="box-border flex items-center justify-between rounded-lg border border-white/[0.12] bg-[#0A0A0C] p-[10px_12px]"
-      >
-        <span className="text-[11px] text-[#DDE1E6]">{isDe ? "Iterieren" : "Iterate"}</span>
-        <LoopIcon className="h-[17px] w-[17px] text-accent-on-dark" strokeWidth={1.6} />
-      </div>
+          <div className="flex flex-1 flex-col gap-2.5">
+            {validateCard}
+            {iterateCard}
+          </div>
+        </div>
+      ) : (
+        <>
+          <div style={{ width: 120 }}>
+            <Polaroid variant="b" rotate={1.6} padding="11px 11px 14px">
+              <span className="font-mono text-[9px] text-[#696559]">{isDe ? "Nutzertests" : "User testing"}</span>
+              <div className="mt-2.5 flex">
+                <Avatar bg="#DAD4C8" offset={false} />
+                <Avatar bg="#CFC9BC" offset />
+                <Avatar bg="#DAD4C8" offset />
+              </div>
+              <p className="mt-2.5 text-[11px] leading-[1.45] text-[#33342E]">
+                {isDe ? "„Das ergibt einfach Sinn.“" : "“This just makes sense.”"}
+              </p>
+            </Polaroid>
+          </div>
+          {validateCard}
+          {iterateCard}
+        </>
+      )}
     </>
   );
 }
