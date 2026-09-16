@@ -8,7 +8,7 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
   return (
     <section id="about" className="bg-white pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24">
       <div className="container-page">
-        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[280px_1fr] md:gap-16">
+        <div className="mx-auto grid max-w-[1060px] grid-cols-1 items-center gap-8 md:grid-cols-[280px_1fr] md:items-stretch md:gap-14 lg:gap-16">
           <div data-inview="up" className="flex justify-center md:block">
             {/*
               280px, not 460 (`MILESTONE-018` task 3). The owner's note was that
@@ -28,57 +28,60 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
             </div>
           </div>
 
-          <div data-inview="text">
-            <span className="block text-[14px] text-accent">{dictionary.aboutPreview.eyebrow}</span>
-            <h2
-              className="mt-4 text-section font-semibold leading-[1.08] tracking-[-0.025em] text-ink [hyphens:none] sm:mt-6"
-              style={{ textWrap: "balance" }}
-            >
-              {dictionary.aboutPreview.heading}
-            </h2>
-            <p className="mt-6 max-w-[600px] text-[18px] leading-[1.6] text-ink-secondary">
-              {dictionary.aboutPreview.copy}
-            </p>
-            {/*
-              The biography runs on and fades out (`MILESTONE-012` task 3).
-              The pill that used to stand here has gone to the playground below.
+          <div data-inview="text" className="flex flex-col justify-between">
+            <div>
+              <span className="block text-[14px] text-accent">{dictionary.aboutPreview.eyebrow}</span>
+              <h2
+                className="mt-3 text-section font-semibold leading-[1.08] tracking-[-0.025em] text-ink [hyphens:none] sm:mt-4"
+                style={{ textWrap: "balance" }}
+              >
+                {dictionary.aboutPreview.heading}
+              </h2>
+              <p className="mt-4 max-w-[700px] text-[17.5px] leading-[1.6] text-ink-secondary sm:text-[18px]">
+                {dictionary.aboutPreview.copy}
+              </p>
+              {/*
+                The biography runs on and fades out (`MILESTONE-012` task 3).
+                The pill that used to stand here has gone to the playground below.
 
-              This paragraph used to be one line of signposting — "There is
-              more of it on the about page" — which is the page telling you
-              there is more instead of showing you. It is now the about page's
-              own second paragraph, cut off by a mask: the story keeps going,
-              the last line dissolves into the white, and the link underneath
-              is the way to finish it. Nothing is hidden from anybody who is
-              not looking at it — the whole paragraph is in the DOM and a
-              screen reader reads every word of it, because a `mask-image` is
-              paint and nothing else.
+                This paragraph used to be one line of signposting — "There is
+                more of it on the about page" — which is the page telling you
+                there is more instead of showing you. It is now the about page's
+                own second paragraph, cut off by a mask: the story keeps going,
+                the last line dissolves into the white, and the link underneath
+                is the way to finish it. Nothing is hidden from anybody who is
+                not looking at it — the whole paragraph is in the DOM and a
+                screen reader reads every word of it, because a `mask-image` is
+                paint and nothing else.
 
-              **Both paragraphs are shorter than they were**
-              (`MILESTONE-016` task 6). The preview used to run the biography's
-              whole first paragraph and then most of its second — around ninety
-              words before the fade — which is not a preview, it is the about
-              page with the end missing. The owner's note was that too much is
-              shown before it fades.
+                **Both paragraphs are shorter than they were**
+                (`MILESTONE-016` task 6). The preview used to run the biography's
+                whole first paragraph and then most of its second — around ninety
+                words before the fade — which is not a preview, it is the about
+                page with the end missing. The owner's note was that too much is
+                shown before it fades.
 
-              It is one paragraph's worth now, split at its own full stop: a
-              complete thought you finish, and then the sentence that follows
-              it dissolving. That is the shape the gesture wanted all along.
+                It is one paragraph's worth now, split at its own full stop: a
+                complete thought you finish, and then the sentence that follows
+                it dissolving. That is the shape the gesture wanted all along.
 
-              The clamp is what makes the fade land in the same place in both
-              locales. `3.3em` is two lines at this line-height, and the mask
-              reaches full transparency at exactly that point, so German's
-              third line is cut where it is already invisible rather than
-              hanging half-lit below the fade.
-            */}
-            <p
-              className="mt-4 max-h-[3.3em] max-w-[600px] overflow-hidden text-[18px] leading-[1.6] text-ink-muted"
-              style={{
-                maskImage: "linear-gradient(to bottom, #000 38%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, #000 38%, transparent 100%)",
-              }}
-            >
-              {dictionary.aboutPreview.copyDim}
-            </p>
+                The clamp is what makes the fade land in the same place in both
+                locales. `3.3em` is two lines at this line-height, and the mask
+                reaches full transparency at exactly that point, so German's
+                third line is cut where it is already invisible rather than
+                hanging half-lit below the fade.
+              */}
+              <p
+                className="mt-3 max-h-[3.3em] max-w-[700px] overflow-hidden text-[17.5px] leading-[1.6] text-ink-muted sm:text-[18px]"
+                style={{
+                  maskImage: "linear-gradient(to bottom, #000 38%, transparent 100%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, #000 38%, transparent 100%)",
+                }}
+              >
+                {dictionary.aboutPreview.copyDim}
+              </p>
+            </div>
+
             {/*
               A quiet link under the fade, where the pill was. The fade is the
               invitation and this is the door; a filled black pill under a
@@ -86,13 +89,14 @@ export default function AboutPreview({ dictionary, locale }: { dictionary: Dicti
               arguing, and the section already has its one strong control —
               the playground's, below.
             */}
-            <Link
-              to={localeHref(locale, "/about")}
-              className="tap-target mt-5 inline-block text-[15px] font-medium text-accent hover:underline"
-            >
-              {dictionary.aboutPreview.linkAbout}
-            </Link>
-
+            <div className="mt-5">
+              <Link
+                to={localeHref(locale, "/about")}
+                className="tap-target inline-block text-[15px] font-medium text-accent hover:underline"
+              >
+                {dictionary.aboutPreview.linkAbout}
+              </Link>
+            </div>
           </div>
         </div>
 
