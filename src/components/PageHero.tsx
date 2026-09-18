@@ -68,17 +68,17 @@ export default function PageHero({
           above the heading and the air below it rather than dumping all of it
           underneath.
         */}
-        <h1 className="mx-auto mt-5 flex min-h-[2.04em] max-w-[900px] flex-col justify-center text-page-title font-semibold leading-[1.04] tracking-[-0.028em] text-ink sm:mt-6">
+        <h1 className="mx-auto mt-8 flex min-h-[2.04em] max-w-[900px] flex-col justify-center text-page-title font-semibold leading-[1.04] tracking-[-0.028em] text-ink sm:mt-12">
           {headingLines.map((line) => (
             <span key={line} className="block [hyphens:none]">
               {line}
             </span>
           ))}
         </h1>
-        <p className="mx-auto mt-5 max-w-[640px] text-[15.5px] leading-[1.6] text-ink-secondary sm:mt-6 sm:min-h-[84px] sm:text-[17px] sm:leading-[1.6]">
+        <p className="mx-auto mt-8 min-h-[91px] max-w-[640px] text-[19px] leading-[1.6] text-ink-secondary sm:mt-12">
           {intro}
         </p>
-        <p className="mt-5 font-mono text-[12px] text-accent sm:mt-6 sm:text-[12.5px]">{tags}</p>
+        <p className="mt-8 font-mono text-[13px] text-accent sm:mt-12">{tags}</p>
       </div>
     </section>
   );

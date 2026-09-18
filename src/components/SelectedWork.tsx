@@ -20,7 +20,7 @@ export default function SelectedWork({ dictionary, locale }: { dictionary: Dicti
           >
             {dictionary.selectedWork.heading}
           </h2>
-          <p className="mx-auto mt-3.5 max-w-[840px] text-[15.5px] leading-[1.6] text-ink-secondary sm:mt-4 sm:text-[16.5px] sm:leading-[1.65]">
+          <p className="mx-auto mt-4 max-w-[880px] text-[18px] leading-[1.65] text-ink-secondary sm:mt-5">
             {dictionary.selectedWork.copy}
           </p>
         </div>
